@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&component=general\n"
-"POT-Creation-Date: 2009-07-25 17:47+0000\n"
+"POT-Creation-Date: 2009-11-17 07:28+0000\n"
 "PO-Revision-Date: 2009-07-26 13:44+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -286,67 +286,46 @@ msgid "Color for Transparent Areas"
 msgstr "צבע לאזורים שקופים"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Dialogs"
-msgstr "תיבות דו־שיח"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "E_xpand images to fit screen"
 msgstr "ה_רחב תמונות להתאמה למסך"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Eye of GNOME Preferences"
 msgstr "העדפות העין של GNOME"
 
-#: ../data/eog-preferences-dialog.ui.h:12
-msgid "File Open Dialog"
-msgstr "דו־שיח לפתיחת קבצים"
-
-#: ../data/eog-preferences-dialog.ui.h:13
-msgid "Image Properties Dialog"
-msgstr "דו־שיח למאפייני תמונה"
-
-#: ../data/eog-preferences-dialog.ui.h:14
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image View"
 msgstr "תצוגת תמונה"
 
-#. This means the user's XDG pictures folder (usually $HOME/Pictures).
-#: ../data/eog-preferences-dialog.ui.h:16
-msgid "Initially _display pictures folder if no image is loaded"
-msgstr "עם התחלה יש להציג _תיקיות של תמונות אם לא נטענה תמונה"
-
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "תוספים"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:13
 msgid "Slideshow"
 msgstr "מצגת"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:14
 msgid "Smooth images when zoomed-_in"
 msgstr "החלקת תמונות בזמן ה_תקרבות"
 
-#: ../data/eog-preferences-dialog.ui.h:20
+#: ../data/eog-preferences-dialog.ui.h:15
 msgid "Smooth images when zoomed-_out"
 msgstr "החלקת תמונות בזמן ה_תרחקות"
 
-#: ../data/eog-preferences-dialog.ui.h:21
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "_Automatic orientation"
 msgstr "_כיווניות אוטומטית"
 
-#: ../data/eog-preferences-dialog.ui.h:22
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "_Loop sequence"
 msgstr "_רצף לולאה"
 
-#: ../data/eog-preferences-dialog.ui.h:23
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "_Switch image after:"
 msgstr "החלף תמונה _לאחר:"
 
-#: ../data/eog-preferences-dialog.ui.h:24
-msgid "_Use layout for small screens"
-msgstr "ה_שתמש בפריסה למסכים קטנים"
-
-#: ../data/eog-preferences-dialog.ui.h:25
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "seconds"
 msgstr "שניות"
 
@@ -568,6 +547,42 @@ msgstr "Whether the scroll wheel should be used for zooming or not."
 msgid "Zoom multiplier"
 msgstr "Zoom multiplier"
 
+#: ../src/eog-close-confirmation-dialog.c:126
+#| msgid "Trash images without asking"
+msgid "Close _without Saving"
+msgstr "סגור _מבלי לשמור"
+
+#: ../src/eog-close-confirmation-dialog.c:160
+#| msgid "Position"
+msgid "Question"
+msgstr "שאלה"
+
+#: ../src/eog-close-confirmation-dialog.c:342
+msgid "If you don't save, your changes will be lost."
+msgstr "אם לא תשמור, השינויים שלך יאבדו."
+
+#: ../src/eog-close-confirmation-dialog.c:377
+#, c-format
+msgid "Save changes to image \"%s\" before closing?"
+msgstr "לשמור את השינויים לתמונה \"%s\" לפני הסגירה?"
+
+#: ../src/eog-close-confirmation-dialog.c:568
+#, c-format
+msgid "There is %d image with unsaved changes. Save changes before closing?"
+msgid_plural ""
+"There are %d images with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/eog-close-confirmation-dialog.c:585
+msgid "S_elect the images you want to save:"
+msgstr "_בחר את התמונות שברצונך לשמור:"
+
+#. Secondary label
+#: ../src/eog-close-confirmation-dialog.c:603
+msgid "If you don't save, all your changes will be lost."
+msgstr "אם לא תשמור, כל השינויים שלך יאבדו."
+
 #: ../src/eog-file-chooser.c:128
 msgid "File format is unknown or unsupported"
 msgstr "תצורת הקובץ אינה מוכרת או שאינה נתמכת"
@@ -600,7 +615,6 @@ msgstr "%s (*.%s)"
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:288 ../src/eog-properties-dialog.c:137
 #: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:379
-#: ../src/eog-window.c:768
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "פיקסל"
@@ -618,32 +632,32 @@ msgstr "שמור תמונה"
 msgid "Open Folder"
 msgstr "פתח תיקיה"
 
-#: ../src/eog-image.c:530
+#: ../src/eog-image.c:579
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "התמרה על תמונה לא טעונה."
 
-#: ../src/eog-image.c:558
+#: ../src/eog-image.c:607
 #, c-format
 msgid "Transformation failed."
 msgstr "התמרה נכשלה."
 
-#: ../src/eog-image.c:959
+#: ../src/eog-image.c:1011
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF לא נתמך עבור תצורת קובץ זה."
 
-#: ../src/eog-image.c:1081
+#: ../src/eog-image.c:1134
 #, c-format
 msgid "Image loading failed."
 msgstr "טעינת התמונה נכשלה."
 
-#: ../src/eog-image.c:1483 ../src/eog-image.c:1585
+#: ../src/eog-image.c:1539 ../src/eog-image.c:1641
 #, c-format
 msgid "No image loaded."
 msgstr "לא נטענו תמונות."
 
-#: ../src/eog-image.c:1493 ../src/eog-image.c:1597
+#: ../src/eog-image.c:1549 ../src/eog-image.c:1653
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "יצירת קובץ זמני נכשלה."
@@ -822,13 +836,13 @@ msgstr "אינצ'ים"
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: ../src/eog-properties-dialog.c:154 ../src/eog-properties-dialog.c:155
+#: ../src/eog-properties-dialog.c:154
 msgid "Unknown"
 msgstr "לא ידוע"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:233
+#: ../src/eog-properties-dialog.c:232
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (עדשה)"
@@ -836,7 +850,7 @@ msgstr "%.1f (עדשה)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:244
+#: ../src/eog-properties-dialog.c:243
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (סרט 35מ\"מ)"
@@ -844,6 +858,22 @@ msgstr "%.1f (סרט 35מ\"מ)"
 #: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
 msgstr "אותו דבר"
+
+#. Translators: This string is displayed in the statusbar.
+#. * The first token is the image number, the second is total image
+#. * count.
+#. *
+#. * Translate to "%Id" if you want to use localized digits, or
+#. * translate to "%d" otherwise.
+#. *
+#. * Note that translating this doesn't guarantee that you get localized
+#. * digits. That needs support from your system and locale definition
+#. * too.
+#: ../src/eog-statusbar.c:125
+#, c-format
+msgid "%d / %d"
+msgstr ""
+"‏%d / %d‏"
 
 #: ../src/eog-thumb-view.c:407
 msgid "Taken on"
@@ -862,12 +892,20 @@ msgstr "לא ניתן להציג עזרה עבור העין של GNOME"
 msgid " (invalid Unicode)"
 msgstr " (יוניקוד לא תקני)"
 
-#: ../src/eog-window.c:1179
+#. Translators: This is the string displayed in the statusbar
+#. * The tokens are from left to right:
+#. * - image width
+#. * - image height
+#. * - image size in bytes
+#. * - zoom in percent
+#: ../src/eog-window.c:773
 #, c-format
-msgid "Open with \"%s\""
-msgstr "פתח בעזרת \"%s\""
+msgid "%i x %i pixel  %s    %i%%"
+msgid_plural "%i x %i pixels  %s    %i%%"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/eog-window.c:1180
+#: ../src/eog-window.c:1191
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "השתמש ב-\"%s\" לפתיחת התמונה שנבחרה"
@@ -878,17 +916,17 @@ msgstr "השתמש ב-\"%s\" לפתיחת התמונה שנבחרה"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1295
+#: ../src/eog-window.c:1341
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "שומר תמונה \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1648
+#: ../src/eog-window.c:1680
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "טוען תמונה \"%s\""
 
-#: ../src/eog-window.c:2344
+#: ../src/eog-window.c:2379
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -897,15 +935,15 @@ msgstr ""
 "שגיאה בהדפסת קובץ:\n"
 "%s"
 
-#: ../src/eog-window.c:2486
+#: ../src/eog-window.c:2632
 msgid "Toolbar Editor"
 msgstr "_עורך סרגל כלים"
 
-#: ../src/eog-window.c:2489
+#: ../src/eog-window.c:2635
 msgid "_Reset to Default"
 msgstr "_החזר לברירת מחדל"
 
-#: ../src/eog-window.c:2575
+#: ../src/eog-window.c:2721
 msgid "translator-credits"
 msgstr ""
 "גיל אושר\n"
@@ -914,7 +952,7 @@ msgstr ""
 "פרוייקט תרגום GNOME לעברית:\n"
 "‏http://gnome-il.berlios.de"
 
-#: ../src/eog-window.c:2578
+#: ../src/eog-window.c:2724
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -926,7 +964,7 @@ msgstr ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
 
-#: ../src/eog-window.c:2582
+#: ../src/eog-window.c:2728
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -938,7 +976,7 @@ msgstr ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
 
-#: ../src/eog-window.c:2586
+#: ../src/eog-window.c:2732
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -948,19 +986,19 @@ msgstr ""
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2599
+#: ../src/eog-window.c:2745
 msgid "Eye of GNOME"
 msgstr "העין של GNOME"
 
-#: ../src/eog-window.c:2602
+#: ../src/eog-window.c:2748
 msgid "The GNOME image viewer."
 msgstr "מציג התמונות של GNOME"
 
-#: ../src/eog-window.c:3043
+#: ../src/eog-window.c:3204
 msgid "Saving image locally..."
 msgstr "שומר את התמונה מקומית..."
 
-#: ../src/eog-window.c:3125
+#: ../src/eog-window.c:3286
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -969,14 +1007,14 @@ msgstr ""
 "האם ברצונך להעביר\n"
 "‏\"%s\" לאשפה?"
 
-#: ../src/eog-window.c:3128
+#: ../src/eog-window.c:3289
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "לא ניתן למצוא אשפה עבור \"%s\". האם ברצונך להסיר תמונה זו לצמיתות?"
 
-#: ../src/eog-window.c:3133
+#: ../src/eog-window.c:3294
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -987,7 +1025,7 @@ msgid_plural ""
 msgstr[0] "האם ברצונך להעביר את התמונה הנבחרת לאשפה?"
 msgstr[1] "האם ברצונך להעביר את %d התמונות הנבחרות לאשפה?"
 
-#: ../src/eog-window.c:3138
+#: ../src/eog-window.c:3299
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -995,351 +1033,351 @@ msgstr ""
 "לא ניתן להעביר כמה מהקבצים הנבחרים אל האשפה והם יוסרו לצמיתות. האם אתה בטוח "
 "שברצונך להמשיך?"
 
-#: ../src/eog-window.c:3155 ../src/eog-window.c:3582 ../src/eog-window.c:3606
+#: ../src/eog-window.c:3316 ../src/eog-window.c:3743 ../src/eog-window.c:3767
 msgid "Move to _Trash"
 msgstr "הע_בר לאשפה"
 
-#: ../src/eog-window.c:3157
+#: ../src/eog-window.c:3318
 msgid "_Do not ask again during this session"
 msgstr "_אל תשאל במהלך הפעלה זו"
 
-#: ../src/eog-window.c:3202 ../src/eog-window.c:3216
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3377
 #, c-format
 msgid "Couldn't access trash."
 msgstr "לא ניתן לגשת לאשםה."
 
-#: ../src/eog-window.c:3224
+#: ../src/eog-window.c:3385
 #, c-format
 msgid "Couldn't delete file"
 msgstr "לא ניתן למחוק את הקובץ"
 
-#: ../src/eog-window.c:3295
+#: ../src/eog-window.c:3456
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "שגיאה במחיקת תמונה %s"
 
-#: ../src/eog-window.c:3502
+#: ../src/eog-window.c:3663
 msgid "_File"
 msgstr "_קובץ"
 
-#: ../src/eog-window.c:3503
+#: ../src/eog-window.c:3664
 msgid "_Edit"
 msgstr "_עריכה"
 
-#: ../src/eog-window.c:3504
+#: ../src/eog-window.c:3665
 msgid "_View"
 msgstr "_תצוגה"
 
-#: ../src/eog-window.c:3505
+#: ../src/eog-window.c:3666
 msgid "_Image"
 msgstr "_תמונה"
 
-#: ../src/eog-window.c:3506
+#: ../src/eog-window.c:3667
 msgid "_Go"
 msgstr "_לך"
 
-#: ../src/eog-window.c:3507
+#: ../src/eog-window.c:3668
 msgid "_Tools"
 msgstr "_כלים"
 
-#: ../src/eog-window.c:3508
+#: ../src/eog-window.c:3669
 msgid "_Help"
 msgstr "_עזרה"
 
-#: ../src/eog-window.c:3510
+#: ../src/eog-window.c:3671
 msgid "_Open..."
 msgstr "_פתיחה..."
 
-#: ../src/eog-window.c:3511
+#: ../src/eog-window.c:3672
 msgid "Open a file"
 msgstr "פתח קובץ"
 
-#: ../src/eog-window.c:3513
+#: ../src/eog-window.c:3674
 msgid "_Close"
 msgstr "_סגור"
 
-#: ../src/eog-window.c:3514
+#: ../src/eog-window.c:3675
 msgid "Close window"
 msgstr "סגור חלון"
 
-#: ../src/eog-window.c:3516
+#: ../src/eog-window.c:3677
 msgid "T_oolbar"
 msgstr "_סרגל כלים"
 
-#: ../src/eog-window.c:3517
+#: ../src/eog-window.c:3678
 msgid "Edit the application toolbar"
 msgstr "ערוך את סרגל הכלים"
 
-#: ../src/eog-window.c:3519
+#: ../src/eog-window.c:3680
 msgid "Prefere_nces"
 msgstr "_העדפות"
 
-#: ../src/eog-window.c:3520
+#: ../src/eog-window.c:3681
 msgid "Preferences for Eye of GNOME"
 msgstr "העדפות העין של GNOME"
 
-#: ../src/eog-window.c:3522
+#: ../src/eog-window.c:3683
 msgid "_Contents"
 msgstr "_תכנים"
 
-#: ../src/eog-window.c:3523
+#: ../src/eog-window.c:3684
 msgid "Help on this application"
 msgstr "עזרה עבור יישום זה"
 
-#: ../src/eog-window.c:3525 ../src/eog-plugin-manager.c:505
+#: ../src/eog-window.c:3686 ../src/eog-plugin-manager.c:505
 msgid "_About"
 msgstr "_אודות"
 
-#: ../src/eog-window.c:3526
+#: ../src/eog-window.c:3687
 msgid "About this application"
 msgstr "אודות יישום זה"
 
-#: ../src/eog-window.c:3531
+#: ../src/eog-window.c:3692
 msgid "_Toolbar"
 msgstr "_סרגל כלים"
 
-#: ../src/eog-window.c:3532
+#: ../src/eog-window.c:3693
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "משנה את תצוגת סרגל הכלים בחלון הנוכחי"
 
-#: ../src/eog-window.c:3534
+#: ../src/eog-window.c:3695
 msgid "_Statusbar"
 msgstr "_שורת המצב"
 
-#: ../src/eog-window.c:3535
+#: ../src/eog-window.c:3696
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "משנה את תצוגת שורת המצב בחלון הנוכחי"
 
-#: ../src/eog-window.c:3537
+#: ../src/eog-window.c:3698
 msgid "_Image Collection"
 msgstr "_אוסף תמונות"
 
-#: ../src/eog-window.c:3538
+#: ../src/eog-window.c:3699
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "שנה את תצוגת אוסף התמונות בחלון הנוכחי"
 
-#: ../src/eog-window.c:3540
+#: ../src/eog-window.c:3701
 msgid "Side _Pane"
 msgstr "סרגל _צד"
 
-#: ../src/eog-window.c:3541
+#: ../src/eog-window.c:3702
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "שנה את תצוגת סרגל הצד בחלון הנוכחי"
 
-#: ../src/eog-window.c:3546
+#: ../src/eog-window.c:3707
 msgid "_Save"
 msgstr "_שמור"
 
-#: ../src/eog-window.c:3547
+#: ../src/eog-window.c:3708
 msgid "Save changes in currently selected images"
 msgstr "שמור שינויים בתמונות שנבחרו"
 
-#: ../src/eog-window.c:3549
+#: ../src/eog-window.c:3710
 msgid "Open _with"
 msgstr "פתח _באמצעות"
 
-#: ../src/eog-window.c:3550
+#: ../src/eog-window.c:3711
 msgid "Open the selected image with a different application"
 msgstr "פתח תמונות נבחרות עם יישום אחר"
 
-#: ../src/eog-window.c:3552
+#: ../src/eog-window.c:3713
 msgid "Save _As..."
 msgstr "_שמור בשם..."
 
-#: ../src/eog-window.c:3553
+#: ../src/eog-window.c:3714
 msgid "Save the selected images with a different name"
 msgstr "שמור את התמונות שנבחרו בשם שונה"
 
-#: ../src/eog-window.c:3556
+#: ../src/eog-window.c:3717
 msgid "Setup the page properties for printing"
 msgstr "הגדר את הגדרות העמוד להדפסה"
 
-#: ../src/eog-window.c:3558
+#: ../src/eog-window.c:3719
 msgid "_Print..."
 msgstr "ה_דפס..."
 
-#: ../src/eog-window.c:3559
+#: ../src/eog-window.c:3720
 msgid "Print the selected image"
 msgstr "הדפס את התמונה הנבחרת"
 
-#: ../src/eog-window.c:3561
+#: ../src/eog-window.c:3722
 msgid "Prope_rties"
 msgstr "מא_פיינים"
 
-#: ../src/eog-window.c:3562
+#: ../src/eog-window.c:3723
 msgid "Show the properties and metadata of the selected image"
 msgstr "הצג את המאפיינים והמטה-מידע של התמונה הנבחרת"
 
-#: ../src/eog-window.c:3564
+#: ../src/eog-window.c:3725
 msgid "_Undo"
 msgstr "_בטל"
 
-#: ../src/eog-window.c:3565
+#: ../src/eog-window.c:3726
 msgid "Undo the last change in the image"
 msgstr "בטל את השינוי האחרון שבוצע לתמונה"
 
-#: ../src/eog-window.c:3567
+#: ../src/eog-window.c:3728
 msgid "Flip _Horizontal"
 msgstr "הפוך או_פקית"
 
-#: ../src/eog-window.c:3568
+#: ../src/eog-window.c:3729
 msgid "Mirror the image horizontally"
 msgstr "הפיכת התמונה אופקית"
 
-#: ../src/eog-window.c:3570
+#: ../src/eog-window.c:3731
 msgid "Flip _Vertical"
 msgstr "הפוך א_נכית"
 
-#: ../src/eog-window.c:3571
+#: ../src/eog-window.c:3732
 msgid "Mirror the image vertically"
 msgstr "הפיכת התמונה אנכית"
 
-#: ../src/eog-window.c:3573
+#: ../src/eog-window.c:3734
 msgid "_Rotate Clockwise"
 msgstr "סובב _עם כיוון השעון"
 
-#: ../src/eog-window.c:3574
+#: ../src/eog-window.c:3735
 msgid "Rotate the image 90 degrees to the right"
 msgstr "סובב את התמונה 90 מעלות ימינה"
 
-#: ../src/eog-window.c:3576
+#: ../src/eog-window.c:3737
 msgid "Rotate Counterc_lockwise"
 msgstr "סובב _נגד כיוון השעון"
 
-#: ../src/eog-window.c:3577
+#: ../src/eog-window.c:3738
 msgid "Rotate the image 90 degrees to the left"
 msgstr "סובב את התמונה 90 מעלות שמאלה"
 
-#: ../src/eog-window.c:3579
+#: ../src/eog-window.c:3740
 msgid "Set as _Desktop Background"
 msgstr "קבע כ_רקע שולחן העבודה"
 
-#: ../src/eog-window.c:3580
+#: ../src/eog-window.c:3741
 msgid "Set the selected image as the desktop background"
 msgstr "קבע את התמונה הנבחרת כרקע שולחן העבודה"
 
-#: ../src/eog-window.c:3583
+#: ../src/eog-window.c:3744
 msgid "Move the selected image to the trash folder"
 msgstr "העבר את התמונות הנבחרות לאשפה"
 
-#: ../src/eog-window.c:3585 ../src/eog-window.c:3597 ../src/eog-window.c:3600
+#: ../src/eog-window.c:3746 ../src/eog-window.c:3758 ../src/eog-window.c:3761
 msgid "_Zoom In"
 msgstr "הת_קרב"
 
-#: ../src/eog-window.c:3586 ../src/eog-window.c:3598
+#: ../src/eog-window.c:3747 ../src/eog-window.c:3759
 msgid "Enlarge the image"
 msgstr "הגדל את התמונה"
 
-#: ../src/eog-window.c:3588 ../src/eog-window.c:3603
+#: ../src/eog-window.c:3749 ../src/eog-window.c:3764
 msgid "Zoom _Out"
 msgstr "הת_רחק"
 
-#: ../src/eog-window.c:3589 ../src/eog-window.c:3601 ../src/eog-window.c:3604
+#: ../src/eog-window.c:3750 ../src/eog-window.c:3762 ../src/eog-window.c:3765
 msgid "Shrink the image"
 msgstr "הקטן את התמונה"
 
-#: ../src/eog-window.c:3591
+#: ../src/eog-window.c:3752
 msgid "_Normal Size"
 msgstr "גודל _רגיל"
 
-#: ../src/eog-window.c:3592
+#: ../src/eog-window.c:3753
 msgid "Show the image at its normal size"
 msgstr "הצג את התמונה בגודל הנורמלי שלה"
 
-#: ../src/eog-window.c:3594
+#: ../src/eog-window.c:3755
 msgid "Best _Fit"
 msgstr "_ההתאמה הטובה ביותר"
 
-#: ../src/eog-window.c:3595
+#: ../src/eog-window.c:3756
 msgid "Fit the image to the window"
 msgstr "התאמת התמונה לחלון"
 
-#: ../src/eog-window.c:3612
+#: ../src/eog-window.c:3773
 msgid "_Full Screen"
 msgstr "_מסך מלא"
 
-#: ../src/eog-window.c:3613
+#: ../src/eog-window.c:3774
 msgid "Show the current image in fullscreen mode"
 msgstr "הצג את התמונה הנוכחית במצב מסך מלא"
 
-#: ../src/eog-window.c:3618 ../src/eog-window.c:3630
+#: ../src/eog-window.c:3779 ../src/eog-window.c:3791
 msgid "_Previous Image"
 msgstr "התמונה ה_קודמת"
 
-#: ../src/eog-window.c:3619
+#: ../src/eog-window.c:3780
 msgid "Go to the previous image of the collection"
 msgstr "עבור לתמונה הקודמת באוסף"
 
-#: ../src/eog-window.c:3621
+#: ../src/eog-window.c:3782
 msgid "_Next Image"
 msgstr "התמונה ה_באה"
 
-#: ../src/eog-window.c:3622
+#: ../src/eog-window.c:3783
 msgid "Go to the next image of the collection"
 msgstr "עבור לתמונה הבאה באוסף"
 
-#: ../src/eog-window.c:3624 ../src/eog-window.c:3633
+#: ../src/eog-window.c:3785 ../src/eog-window.c:3794
 msgid "_First Image"
 msgstr "_תמונה ראשונה"
 
-#: ../src/eog-window.c:3625
+#: ../src/eog-window.c:3786
 msgid "Go to the first image of the collection"
 msgstr "עבור לתמונה הראשונה באוסף"
 
-#: ../src/eog-window.c:3627 ../src/eog-window.c:3636
+#: ../src/eog-window.c:3788 ../src/eog-window.c:3797
 msgid "_Last Image"
 msgstr "תמונה _אחרונה"
 
-#: ../src/eog-window.c:3628
+#: ../src/eog-window.c:3789
 msgid "Go to the last image of the collection"
 msgstr "עבור לתמונה האחרונה באוסף"
 
-#: ../src/eog-window.c:3642
+#: ../src/eog-window.c:3803
 msgid "_Slideshow"
 msgstr "_מצגת"
 
-#: ../src/eog-window.c:3643
+#: ../src/eog-window.c:3804
 msgid "Start a slideshow view of the images"
 msgstr "התחל מצגת של התמונות"
 
-#: ../src/eog-window.c:3709
+#: ../src/eog-window.c:3870
 msgid "Previous"
 msgstr "הקודם"
 
-#: ../src/eog-window.c:3713
+#: ../src/eog-window.c:3874
 msgid "Next"
 msgstr "הבא"
 
-#: ../src/eog-window.c:3717
+#: ../src/eog-window.c:3878
 msgid "Right"
 msgstr "ימין"
 
-#: ../src/eog-window.c:3720
+#: ../src/eog-window.c:3881
 msgid "Left"
 msgstr "שמאל"
 
-#: ../src/eog-window.c:3723
+#: ../src/eog-window.c:3884
 msgid "In"
 msgstr "הכנס"
 
-#: ../src/eog-window.c:3726
+#: ../src/eog-window.c:3887
 msgid "Out"
 msgstr "צא"
 
-#: ../src/eog-window.c:3729
+#: ../src/eog-window.c:3890
 msgid "Normal"
 msgstr "רגיל"
 
-#: ../src/eog-window.c:3732
+#: ../src/eog-window.c:3893
 msgid "Fit"
 msgstr "התאמה"
 
-#: ../src/eog-window.c:3735
+#: ../src/eog-window.c:3896
 msgid "Collection"
 msgstr "אוסף"
 
-#: ../src/eog-window.c:3738
+#: ../src/eog-window.c:3899
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "אשפה"
@@ -1409,6 +1447,24 @@ msgstr "Run '%s --help' to see a full list of available command line options."
 #: ../src/main.c:233
 msgid "Eye of GNOME Image Viewer"
 msgstr "מציג התמונות - העין של GNOME"
+
+#~ msgid "Dialogs"
+#~ msgstr "תיבות דו־שיח"
+
+#~ msgid "File Open Dialog"
+#~ msgstr "דו־שיח לפתיחת קבצים"
+
+#~ msgid "Image Properties Dialog"
+#~ msgstr "דו־שיח למאפייני תמונה"
+
+#~ msgid "Initially _display pictures folder if no image is loaded"
+#~ msgstr "עם התחלה יש להציג _תיקיות של תמונות אם לא נטענה תמונה"
+
+#~ msgid "_Use layout for small screens"
+#~ msgstr "ה_שתמש בפריסה למסכים קטנים"
+
+#~ msgid "Open with \"%s\""
+#~ msgstr "פתח בעזרת \"%s\""
 
 #~ msgid "Move to Trash"
 #~ msgstr "העבר לאשפה"
