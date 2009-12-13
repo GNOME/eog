@@ -112,7 +112,7 @@ static GdkPixbuf*
 get_nothumb_pixbuf (void)
 {
 	static GOnce nothumb_once = G_ONCE_INIT;
-	g_once (&nothumb_once, eog_close_confirmation_dialog_get_icon, "image-x-generic");
+	g_once (&nothumb_once, (GThreadFunc) eog_close_confirmation_dialog_get_icon, "image-x-generic");
 	return GDK_PIXBUF (g_object_ref (nothumb_once.retval));
 }
 
