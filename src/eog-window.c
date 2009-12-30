@@ -170,6 +170,7 @@ struct _EogWindowPrivate {
         EogJob              *load_job;
         EogJob              *transform_job;
 	EogJob              *save_job;
+	GFile               *last_save_as_folder;
 	EogJob              *copy_job;
 
         guint                image_info_message_cid;
@@ -2957,23 +2958,37 @@ eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 {
 	GtkWidget *dialog;
 	GFile *save_file = NULL;
-	GFile *image_file;
+	GFile *last_dest_folder;
 	gint response;
 
 	g_assert (image != NULL);
 
-	image_file = eog_image_get_file (image);
-
 	dialog = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
-	/* Setting the file will also navigate to its parent folder */
-	gtk_file_chooser_set_file (GTK_FILE_CHOOSER (dialog), image_file, NULL);
-	g_object_unref (image_file);
+
+	last_dest_folder = window->priv->last_save_as_folder;
+
+	if (last_dest_folder && g_file_query_exists (last_dest_folder, NULL)) {
+		gtk_file_chooser_set_current_folder_file (GTK_FILE_CHOOSER (dialog), last_dest_folder, NULL);
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog),
+						 eog_image_get_caption (image));
+	} else {
+		GFile *image_file;
+
+		image_file = eog_image_get_file (image);
+		/* Setting the file will also navigate to its parent folder */
+		gtk_file_chooser_set_file (GTK_FILE_CHOOSER (dialog),
+					   image_file, NULL);
+		g_object_unref (image_file);
+	}
 
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_hide (dialog);
 
 	if (response == GTK_RESPONSE_OK) {
 		save_file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
+		if (window->priv->last_save_as_folder)
+			g_object_unref (window->priv->last_save_as_folder);
+		window->priv->last_save_as_folder = g_file_get_parent (save_file);
 	}
 	gtk_widget_destroy (dialog);
 
@@ -4696,6 +4711,11 @@ eog_window_dispose (GObject *object)
 		priv->display_profile = NULL;
 	}
 #endif
+
+	if (priv->last_save_as_folder != NULL) {
+		g_object_unref (priv->last_save_as_folder);
+		priv->last_save_as_folder = NULL;
+	}
 
 	eog_plugin_engine_garbage_collect ();
 
