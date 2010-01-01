@@ -101,7 +101,7 @@
                             <child>
                               <object class="GtkLabel" id="label12">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">&lt;small&gt;&lt;i&gt;&lt;b&gt;%f:&lt;/b&gt; original filename&lt;/i&gt;&lt;/small&gt;</property>
+                                <property name="label" translatable="yes">&lt;b&gt;%f:&lt;/b&gt; original filename</property>
                                 <property name="use_underline">False</property>
                                 <property name="use_markup">True</property>
                                 <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -115,6 +115,10 @@
                                 <property name="width_chars">-1</property>
                                 <property name="single_line_mode">False</property>
                                 <property name="angle">0</property>
+                                <attributes>
+                                  <attribute name="style" value="PANGO_STYLE_ITALIC"/>
+                                  <attribute name="scale" value="0.8"/><!-- PANGO_SCALE_SMALL -->
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="padding">0</property>
@@ -125,7 +129,7 @@
                             <child>
                               <object class="GtkLabel" id="label17">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">&lt;small&gt;&lt;i&gt;&lt;b&gt;%n:&lt;/b&gt; counter&lt;/i&gt;&lt;/small&gt;</property>
+                                <property name="label" translatable="yes">&lt;b&gt;%n:&lt;/b&gt; counter</property>
                                 <property name="use_underline">False</property>
                                 <property name="use_markup">True</property>
                                 <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -139,6 +143,10 @@
                                 <property name="width_chars">-1</property>
                                 <property name="single_line_mode">False</property>
                                 <property name="angle">0</property>
+                                <attributes>
+                                  <attribute name="style" value="PANGO_STYLE_ITALIC"/>
+                                  <attribute name="scale" value="0.8"/><!-- PANGO_SCALE_SMALL -->
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="padding">0</property>
@@ -261,9 +269,8 @@
                 <child type="label">
                   <object class="GtkLabel" id="label1">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;File Path Specifications&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">File Path Specifications</property>
                     <property name="use_underline">False</property>
-                    <property name="use_markup">True</property>
                     <property name="justify">GTK_JUSTIFY_LEFT</property>
                     <property name="wrap">False</property>
                     <property name="selectable">False</property>
@@ -275,6 +282,9 @@
                     <property name="width_chars">-1</property>
                     <property name="single_line_mode">False</property>
                     <property name="angle">0</property>
+                    <attributes>
+                      <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -386,9 +396,8 @@
                 <child type="label">
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">Options</property>
                     <property name="use_underline">False</property>
-                    <property name="use_markup">True</property>
                     <property name="justify">GTK_JUSTIFY_LEFT</property>
                     <property name="wrap">False</property>
                     <property name="selectable">False</property>
@@ -400,6 +409,9 @@
                     <property name="width_chars">-1</property>
                     <property name="single_line_mode">False</property>
                     <property name="angle">0</property>
+                    <attributes>
+                      <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -541,9 +553,8 @@
                 <child type="label">
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;File Name Preview&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">File Name Preview</property>
                     <property name="use_underline">False</property>
-                    <property name="use_markup">True</property>
                     <property name="justify">GTK_JUSTIFY_LEFT</property>
                     <property name="wrap">False</property>
                     <property name="selectable">False</property>
@@ -555,6 +566,9 @@
                     <property name="width_chars">-1</property>
                     <property name="single_line_mode">False</property>
                     <property name="angle">0</property>
+                    <attributes>
+                      <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
