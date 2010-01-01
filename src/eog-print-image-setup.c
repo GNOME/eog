@@ -832,7 +832,7 @@ eog_print_image_setup_class_init (EogPrintImageSetupClass *class)
 	g_object_class_install_property (object_class, PROP_IMAGE,
 					 g_param_spec_object ("image",
 							      _("Image"),
-							      _("The image whose printing properties will be setup"),
+							      _("The image whose printing properties will be set up"),
 							      EOG_TYPE_IMAGE,
 							      G_PARAM_READWRITE));
 

@@ -771,8 +771,8 @@ update_status_bar (EogWindow *window)
 			 * - image height
 			 * - image size in bytes
 			 * - zoom in percent */
-			str = g_strdup_printf (ngettext("%i x %i pixel  %s    %i%%",
-							"%i x %i pixels  %s    %i%%", height),
+			str = g_strdup_printf (ngettext("%i × %i pixel  %s    %i%%",
+							"%i × %i pixels  %s    %i%%", height),
 						width,
 						height,
 						size_string,
@@ -3215,7 +3215,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 								    "copy_file_cid");
 		gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
 				    priv->copy_file_cid,
-				    _("Saving image locally..."));
+				    _("Saving image locally…"));
 
 		files = g_list_append (files, eog_image_get_file (image));
 		priv->copy_job = eog_job_copy_new (files, g_get_user_data_dir ());
@@ -3682,7 +3682,7 @@ static const GtkActionEntry action_entries_window[] = {
 	{ "Tools", NULL, N_("_Tools") },
 	{ "Help",  NULL, N_("_Help") },
 
-	{ "FileOpen", GTK_STOCK_OPEN,  N_("_Open..."), "<control>O",
+	{ "FileOpen", GTK_STOCK_OPEN,  N_("_Open…"), "<control>O",
 	  N_("Open a file"),
 	  G_CALLBACK (eog_window_cmd_file_open) },
 	{ "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
@@ -3724,13 +3724,13 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FileOpenWith", NULL, N_("Open _with"), NULL,
 	  N_("Open the selected image with a different application"),
 	  NULL},
-	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s",
+	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"), "<control><shift>s",
 	  N_("Save the selected images with a different name"),
 	  G_CALLBACK (eog_window_cmd_save_as) },
 	{ "FilePageSetup", GTK_STOCK_PAGE_SETUP, NULL, NULL,
-	  N_("Setup the page properties for printing"),
+	  N_("Set up the page properties for printing"),
 	  G_CALLBACK (eog_window_cmd_page_setup) },
-	{ "FilePrint", GTK_STOCK_PRINT, N_("_Print..."), "<control>p",
+	{ "FilePrint", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
 	  N_("Print the selected image"),
 	  G_CALLBACK (eog_window_cmd_print) },
 	{ "FileProperties", GTK_STOCK_PROPERTIES, N_("Prope_rties"), "<alt>Return",
@@ -3784,7 +3784,7 @@ static const GtkActionEntry action_entries_image[] = {
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
-	{ "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11",
+	{ "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Fullscreen"), "F11",
 	  N_("Show the current image in fullscreen mode"),
 	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
 };
