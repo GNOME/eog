@@ -42,7 +42,6 @@
 #include "eog-preferences-dialog.h"
 #include "eog-properties-dialog.h"
 #include "eog-print.h"
-#include "eog-message-area.h"
 #include "eog-error-message-area.h"
 #include "eog-application.h"
 #include "eog-thumb-nav.h"
@@ -1434,7 +1433,7 @@ eog_window_obtain_desired_size (EogImage  *image,
 }
 
 static void
-eog_window_error_message_area_response (EogMessageArea   *message_area,
+eog_window_error_message_area_response (GtkInfoBar       *message_area,
 					gint              response_id,
 					EogWindow        *window)
 {

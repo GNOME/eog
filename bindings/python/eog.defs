@@ -77,13 +77,6 @@
   (gtype-id "EOG_TYPE_LIST_STORE")
 )
 
-(define-object MessageArea
-  (in-module "Eog")
-  (parent "GtkHBox")
-  (c-name "EogMessageArea")
-  (gtype-id "EOG_TYPE_MESSAGE_AREA")
-)
-
 (define-object Plugin
   (in-module "Eog")
   (parent "GObject")
@@ -687,111 +680,6 @@
   (c-name "eog_list_store_get_initial_pos")
   (return-type "gint")
 )
-
-
-
-
-;; From eog-message-area.h
-
-(define-function eog_message_area_get_type
-  (c-name "eog_message_area_get_type")
-  (return-type "GType")
-)
-
-(define-function eog_message_area_new
-  (c-name "eog_message_area_new")
-  (is-constructor-of "EogMessageArea")
-  (return-type "GtkWidget*")
-)
-
-(define-function eog_message_area_new_with_buttons
-  (c-name "eog_message_area_new_with_buttons")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "first_button_text")
-  )
-  (varargs #t)
-)
-
-(define-method set_contents
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_set_contents")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "contents")
-  )
-)
-
-(define-method add_action_widget
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_add_action_widget")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-    '("gint" "response_id")
-  )
-)
-
-(define-method add_button
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_add_button")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "button_text")
-    '("gint" "response_id")
-  )
-)
-
-(define-method add_stock_button_with_text
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_add_stock_button_with_text")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "text")
-    '("const-gchar*" "stock_id")
-    '("gint" "response_id")
-  )
-)
-
-(define-method add_buttons
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_add_buttons")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_button_text")
-  )
-  (varargs #t)
-)
-
-(define-method set_response_sensitive
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_set_response_sensitive")
-  (return-type "none")
-  (parameters
-    '("gint" "response_id")
-    '("gboolean" "setting")
-  )
-)
-
-(define-method set_default_response
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_set_default_response")
-  (return-type "none")
-  (parameters
-    '("gint" "response_id")
-  )
-)
-
-(define-method response
-  (of-object "EogMessageArea")
-  (c-name "eog_message_area_response")
-  (return-type "none")
-  (parameters
-    '("gint" "response_id")
-  )
-)
-
-
 
 ;; From eog-plugin.h
 

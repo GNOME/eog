@@ -53,7 +53,6 @@ INST_H_FILES =				\
 	eog-sidebar.h			\
 	eog-dialog.h			\
 	eog-properties-dialog.h		\
-	eog-message-area.h		\
 	eog-error-message-area.h	\
 	eog-file-chooser.h		\
 	eog-statusbar.h			\
@@ -81,7 +80,6 @@ libeog_la_SOURCES =			\
 	eog-dialog.c			\
 	eog-preferences-dialog.c	\
 	eog-properties-dialog.c		\
-	eog-message-area.c		\
 	eog-error-message-area.c	\
 	eog-file-chooser.c		\
 	eog-statusbar.c			\

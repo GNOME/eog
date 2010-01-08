@@ -27,7 +27,6 @@
 #endif
 
 #include "eog-error-message-area.h"
-#include "eog-message-area.h"
 #include "eog-image.h"
 
 #include <glib.h>
