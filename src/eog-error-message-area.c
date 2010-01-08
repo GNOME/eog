@@ -36,10 +36,10 @@
 #include <gtk/gtk.h>
 
 static void
-set_message_area_text_and_icon (EogMessageArea   *message_area,
-				const gchar      *icon_stock_id,
-				const gchar      *primary_text,
-				const gchar      *secondary_text)
+set_message_area_text_and_icon (GtkInfoBar   *message_area,
+				const gchar  *icon_stock_id,
+				const gchar  *primary_text,
+				const gchar  *secondary_text)
 {
 	GtkWidget *hbox_content;
 	GtkWidget *image;
@@ -94,8 +94,7 @@ set_message_area_text_and_icon (EogMessageArea   *message_area,
 		gtk_misc_set_alignment (GTK_MISC (secondary_label), 0, 0.5);
 	}
 
-	eog_message_area_set_contents (EOG_MESSAGE_AREA (message_area),
-				       hbox_content);
+	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (GTK_INFO_BAR (message_area))), hbox_content, TRUE, TRUE, 0);
 }
 
 static GtkWidget *
@@ -106,13 +105,16 @@ create_error_message_area (const gchar *primary_text,
 	GtkWidget *message_area;
 
 	if (recoverable)
-		message_area = eog_message_area_new_with_buttons (
-						_("_Retry"), GTK_RESPONSE_OK,
-						NULL);
+		message_area = gtk_info_bar_new_with_buttons (_("_Retry"),
+							      GTK_RESPONSE_OK,
+							      NULL);
 	else
-		message_area = eog_message_area_new ();
+		message_area = gtk_info_bar_new ();
 
-	set_message_area_text_and_icon (EOG_MESSAGE_AREA (message_area),
+	gtk_info_bar_set_message_type (GTK_INFO_BAR (message_area),
+				       GTK_MESSAGE_ERROR);
+
+	set_message_area_text_and_icon (GTK_INFO_BAR (message_area),
 					GTK_STOCK_DIALOG_ERROR,
 					primary_text,
 					secondary_text);

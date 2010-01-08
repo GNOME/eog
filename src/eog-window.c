@@ -1505,8 +1505,8 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
 		eog_window_set_message_area (window, message_area);
 
-		eog_message_area_set_default_response (EOG_MESSAGE_AREA (message_area),
-						       GTK_RESPONSE_CANCEL);
+		gtk_info_bar_set_default_response (GTK_INFO_BAR (message_area),
+						   GTK_RESPONSE_CANCEL);
 
 		gtk_widget_show (message_area);
 
