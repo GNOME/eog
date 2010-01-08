@@ -822,7 +822,7 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 		 * It's sufficient to add only a antitaliased idle update
 		 */
 		priv->progressive_state = PROGRESSIVE_NONE;
-	else if (!eog_image_is_animation (priv->image))
+	else if (!priv->image || !eog_image_is_animation (priv->image))
 		/* do nearest neigbor before anti aliased version,
 		   except for animations to avoid a "blinking" effect. */
 		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
