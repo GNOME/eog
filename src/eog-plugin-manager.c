@@ -564,7 +564,7 @@ menu_position_under_widget (GtkMenu  *menu,
 	GtkWidget *w = GTK_WIDGET (user_data);
 	GtkRequisition requisition;
 
-	gdk_window_get_origin (w->window, x, y);
+	gdk_window_get_origin (gtk_widget_get_window (w), x, y);
 	gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
 
 	if (gtk_widget_get_direction (w) == GTK_TEXT_DIR_RTL) {
@@ -602,7 +602,8 @@ menu_position_under_tree_view (GtkMenu  *menu,
 		GtkTreePath *path;
 		GdkRectangle rect;
 
-		gdk_window_get_origin (GTK_WIDGET (tree)->window, x, y);
+		gdk_window_get_origin (gtk_widget_get_window(GTK_WIDGET (tree)),
+				       x, y);
 
 		path = gtk_tree_model_get_path (model, &iter);
 

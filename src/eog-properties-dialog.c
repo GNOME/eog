@@ -353,19 +353,19 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 			gtk_notebook_set_current_page (notebook, EOG_PROPERTIES_DIALOG_PAGE_GENERAL);
 		}
 
-		if (GTK_WIDGET_VISIBLE (priv->exif_box)) {
+		if (gtk_widget_get_visible (priv->exif_box)) {
 			gtk_widget_hide_all (priv->exif_box);
 		}
-		if (GTK_WIDGET_VISIBLE (priv->metadata_details_box)) {
+		if (gtk_widget_get_visible (priv->metadata_details_box)) {
 			gtk_widget_hide_all (priv->metadata_details_box);
 		}
 
 		return;
 	} else {
-		if (!GTK_WIDGET_VISIBLE (priv->exif_box))
+		if (!gtk_widget_get_visible (priv->exif_box))
 			gtk_widget_show_all (priv->exif_box);
 		if (priv->netbook_mode &&
-		    !GTK_WIDGET_VISIBLE (priv->metadata_details_box)) {
+		    !gtk_widget_get_visible (priv->metadata_details_box)) {
 			gtk_widget_show_all (priv->metadata_details_box);
 			gtk_widget_hide_all (priv->exif_details_expander);
 		}
@@ -534,7 +534,7 @@ eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
 		gtk_widget_reparent (priv->metadata_details_sw,
 				     priv->metadata_details_box);
 		// Only show details box if metadata is being displayed
-		if (GTK_WIDGET_VISIBLE (priv->exif_box))
+		if (gtk_widget_get_visible (priv->exif_box))
 			gtk_widget_show_all (priv->metadata_details_box);
 
 		gtk_widget_hide_all (priv->exif_details_expander);

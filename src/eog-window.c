@@ -484,7 +484,7 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 	priv->collection_position = position;
 	priv->collection_resizable = resizable;
 
-	hpaned = priv->sidebar->parent;
+	hpaned = gtk_widget_get_parent (priv->sidebar);
 
 	g_object_ref (hpaned);
 	g_object_ref (priv->nav);
@@ -1048,7 +1048,7 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 		}
 
 		g_object_unref (thumb);
-	} else if (!GTK_WIDGET_VISIBLE (window->priv->nav)) {
+	} else if (!gtk_widget_get_visible (window->priv->nav)) {
 		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
 		GtkTreePath *path = gtk_tree_path_new_from_indices (img_pos,-1);
 		GtkTreeIter iter;
@@ -1806,14 +1806,14 @@ eog_window_update_fullscreen_popup (EogWindow *window)
 
 	g_return_if_fail (popup != NULL);
 
-	if (GTK_WIDGET (window)->window == NULL) return;
+	if (gtk_widget_get_window (GTK_WIDGET (window)) == NULL) return;
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
 	gdk_screen_get_monitor_geometry (screen,
 			gdk_screen_get_monitor_at_window
                         (screen,
-                         GTK_WIDGET (window)->window),
+                         gtk_widget_get_window (GTK_WIDGET (window))),
                          &screen_rect);
 
 	gtk_widget_set_size_request (popup,
@@ -1954,7 +1954,7 @@ show_fullscreen_popup (EogWindow *window)
 {
 	eog_debug (DEBUG_WINDOW);
 
-	if (!GTK_WIDGET_VISIBLE (window->priv->fullscreen_popup)) {
+	if (!gtk_widget_get_visible (window->priv->fullscreen_popup)) {
 		gtk_widget_show_all (GTK_WIDGET (window->priv->fullscreen_popup));
 	}
 
@@ -2230,17 +2230,18 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	gtk_widget_grab_focus (priv->view);
 
 	eog_scroll_view_set_bg_color (EOG_SCROLL_VIEW (window->priv->view),
-				      &(GTK_WIDGET (window)->style->black));
+			  &(gtk_widget_get_style (GTK_WIDGET (window))->black));
 
 	{
 		GtkStyle *style;
 
-		style = gtk_style_copy (gtk_widget_get_style (priv->view->parent));
+		style = gtk_style_copy (gtk_widget_get_style (gtk_widget_get_parent (priv->view)));
 
 		style->xthickness = 0;
 		style->ythickness = 0;
 
-		gtk_widget_set_style (priv->view->parent, style);
+		gtk_widget_set_style (gtk_widget_get_parent (priv->view),
+				      style);
 
 		g_object_unref (style);
 	}
@@ -2307,7 +2308,7 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), FALSE);
 
 	eog_scroll_view_set_bg_color (EOG_SCROLL_VIEW (window->priv->view), NULL);
-	gtk_widget_set_style (window->priv->view->parent, NULL);
+	gtk_widget_set_style (gtk_widget_get_parent (window->priv->view), NULL);
 	gtk_window_unfullscreen (GTK_WINDOW (window));
 
 	if (slideshow) {
@@ -4087,7 +4088,7 @@ eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
 	GtkAction *action;
 	gboolean visible;
 
-	visible = GTK_WIDGET_VISIBLE (window->priv->sidebar);
+	visible = gtk_widget_get_visible (window->priv->sidebar);
 
 	gconf_client_set_bool (window->priv->client,
 			       EOG_CONF_UI_SIDEBAR,
@@ -4822,7 +4823,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		if (tbcontainer->focus_child != NULL)
 			break;
-		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 			if (is_rtl && event->keyval == GDK_Left) {
 				/* handle RTL fall-through,
 				 * need to behave like GDK_Down then */
@@ -4853,7 +4854,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		if (tbcontainer->focus_child != NULL)
 			break;
-		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 			if (is_rtl && event->keyval == GDK_Right) {
 				/* handle RTL fall-through,
 				 * need to behave like GDK_Up then */
@@ -4868,7 +4869,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 	case GDK_Page_Up:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 				/* If the iconview is not visible skip to the
 				 * previous image manually as it won't handle
 				 * the keypress then. */
@@ -4881,7 +4882,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	case GDK_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 				/* If the iconview is not visible skip to the
 				 * next image manually as it won't handle
 				 * the keypress then. */

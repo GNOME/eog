@@ -71,7 +71,7 @@ set_message_area_text_and_icon (GtkInfoBar   *message_area,
 	gtk_label_set_line_wrap (GTK_LABEL (primary_label), FALSE);
 	gtk_misc_set_alignment (GTK_MISC (primary_label), 0, 0.5);
 
-	GTK_WIDGET_SET_FLAGS (primary_label, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (primary_label, TRUE);
 
 	gtk_label_set_selectable (GTK_LABEL (primary_label), TRUE);
 
@@ -85,7 +85,7 @@ set_message_area_text_and_icon (GtkInfoBar   *message_area,
 
 		gtk_box_pack_start (GTK_BOX (vbox), secondary_label, TRUE, TRUE, 0);
 
-		GTK_WIDGET_SET_FLAGS (secondary_label, GTK_CAN_FOCUS);
+		gtk_widget_set_can_focus (secondary_label, TRUE);
 
 		gtk_label_set_use_markup (GTK_LABEL (secondary_label), TRUE);
 		gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);

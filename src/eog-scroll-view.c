@@ -255,13 +255,13 @@ update_scrollbar_values (EogScrollView *view)
 
 	priv = view->priv;
 
-	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->hbar)) && !GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar)))
+	if (!gtk_widget_get_visible (GTK_WIDGET (priv->hbar)) && !gtk_widget_get_visible (GTK_WIDGET (priv->vbar)))
 		return;
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 	allocation = &GTK_WIDGET (priv->display)->allocation;
 
-	if (GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->hbar))) {
+	if (gtk_widget_get_visible (GTK_WIDGET (priv->hbar))) {
 		/* Set scroll increments */
 		priv->hadj->page_size = MIN (scaled_width, allocation->width);
 		priv->hadj->page_increment = allocation->width / 2;
@@ -287,7 +287,7 @@ update_scrollbar_values (EogScrollView *view)
 		}
 	}
 
-	if (GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar))) {
+	if (gtk_widget_get_visible (GTK_WIDGET (priv->vbar))) {
 		priv->vadj->page_size = MIN (scaled_height, allocation->height);
 		priv->vadj->page_increment = allocation->height / 2;
 		priv->vadj->step_increment = SCROLL_STEP_SIZE;
@@ -342,7 +342,7 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 
 	switch (new_cursor) {
 		case EOG_SCROLL_VIEW_CURSOR_NORMAL:
-			gdk_window_set_cursor (widget->window, NULL);
+			gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
 			break;
                 case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
                         cursor = eog_scroll_view_create_invisible_cursor ();
@@ -353,7 +353,7 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 	}
 
 	if (cursor) {
-		gdk_window_set_cursor (widget->window, cursor);
+		gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
 		gdk_cursor_unref (cursor);
 		gdk_flush();
 	}
@@ -417,10 +417,10 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 			hbar_visible = TRUE;
 	}
 
-	if (hbar_visible != GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->hbar)))
+	if (hbar_visible != gtk_widget_get_visible (GTK_WIDGET (priv->hbar)))
 		g_object_set (G_OBJECT (priv->hbar), "visible", hbar_visible, NULL);
 
-	if (vbar_visible != GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar)))
+	if (vbar_visible != gtk_widget_get_visible (GTK_WIDGET (priv->vbar)))
 		g_object_set (G_OBJECT (priv->vbar), "visible", vbar_visible, NULL);
 }
 
@@ -467,7 +467,7 @@ is_image_movable (EogScrollView *view)
 
 	priv = view->priv;
 
-	return (GTK_WIDGET_VISIBLE (priv->hbar) || GTK_WIDGET_VISIBLE (priv->vbar));
+	return (gtk_widget_get_visible (priv->hbar) || gtk_widget_get_visible (priv->vbar));
 }
 
 
@@ -530,7 +530,7 @@ paint_background (EogScrollView *view, EogIRect *r, EogIRect *rect)
 
 	eog_irect_intersect (&d, r, rect);
 	if (!eog_irect_empty (&d)) {
-		gdk_window_clear_area (GTK_WIDGET (priv->display)->window,
+		gdk_window_clear_area (gtk_widget_get_window (priv->display),
 				       d.x0, d.y0,
 				       d.x1 - d.x0, d.y1 - d.y0);
 	}
@@ -553,7 +553,7 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 
 	priv = view->priv;
 
-	if (!GTK_WIDGET_DRAWABLE (priv->display))
+	if (!gtk_widget_is_drawable (priv->display))
 		return;
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
@@ -670,8 +670,8 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 			  + (d.y0 - yofs) * rowstride
 			  + 3 * (d.x0 - xofs));
 
-		gdk_draw_rgb_image_dithalign (GTK_WIDGET (priv->display)->window,
-					      GTK_WIDGET (priv->display)->style->black_gc,
+		gdk_draw_rgb_image_dithalign (gtk_widget_get_window (GTK_WIDGET (priv->display)),
+					      gtk_widget_get_style (GTK_WIDGET (priv->display))->black_gc,
 					      d.x0, d.y0,
 					      d.x1 - d.x0, d.y1 - d.y0,
 					      GDK_RGB_DITHER_MAX,
@@ -694,7 +694,7 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	/* Compute transparency parameters */
 	switch (priv->transp_style) {
 	case EOG_TRANSP_BACKGROUND: {
-		GdkColor color = GTK_WIDGET (priv->display)->style->bg[GTK_STATE_NORMAL];
+		GdkColor color = gtk_widget_get_style (GTK_WIDGET (priv->display))->bg[GTK_STATE_NORMAL];
 
 		check_1 = check_2 = (((color.red & 0xff00) << 8)
 				     | (color.green & 0xff00)
@@ -729,8 +729,8 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 				    check_size,
 				    check_1, check_2);
 
-	gdk_draw_rgb_image_dithalign (GTK_WIDGET (priv->display)->window,
-				      GTK_WIDGET (priv->display)->style->black_gc,
+	gdk_draw_rgb_image_dithalign (gtk_widget_get_window (priv->display),
+				      gtk_widget_get_style (priv->display)->black_gc,
 				      d.x0, d.y0,
 				      d.x1 - d.x0, d.y1 - d.y0,
 				      GDK_RGB_DITHER_MAX,
@@ -795,7 +795,7 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 	eog_debug_message (DEBUG_WINDOW, "x: %i, y: %i, width: %i, height: %i\n",
 			   area->x, area->y, area->width, area->height);
 
-	if (!GTK_WIDGET_DRAWABLE (priv->display))
+	if (!gtk_widget_is_drawable (priv->display))
 		return;
 
 	r.x0 = MAX (0, area->x);
@@ -861,13 +861,13 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	priv = view->priv;
 
 	/* Check bounds & Compute offsets */
-	if (GTK_WIDGET_VISIBLE (priv->hbar)) {
+	if (gtk_widget_get_visible (priv->hbar)) {
 		x = CLAMP (x, 0, priv->hadj->upper - priv->hadj->page_size);
 		xofs = x - priv->xofs;
 	} else
 		xofs = 0;
 
-	if (GTK_WIDGET_VISIBLE (priv->vbar)) {
+	if (gtk_widget_get_visible (priv->vbar)) {
 		y = CLAMP (y, 0, priv->vadj->upper - priv->vadj->page_size);
 		yofs = y - priv->yofs;
 	} else
@@ -879,7 +879,7 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	priv->xofs = x;
 	priv->yofs = y;
 
-	if (!GTK_WIDGET_DRAWABLE (priv->display))
+	if (!gtk_widget_is_drawable (priv->display))
 		goto out;
 
 	width = GTK_WIDGET (priv->display)->allocation.width;
@@ -890,7 +890,7 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 		goto out;
 	}
 
-	window = GTK_WIDGET (priv->display)->window;
+	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
 
 	/* Ensure that the uta has the full size */
 
@@ -1229,7 +1229,8 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	if (do_zoom) {
 		gint x, y;
 
-		gdk_window_get_pointer (widget->window, &x, &y, NULL);
+		gdk_window_get_pointer (gtk_widget_get_window (widget),
+					&x, &y, NULL);
 		set_zoom (view, zoom, TRUE, x, y);
 	}
 
@@ -1250,7 +1251,7 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	if (!GTK_WIDGET_HAS_FOCUS (priv->display))
+	if (!gtk_widget_has_focus (priv->display))
 		gtk_widget_grab_focus (GTK_WIDGET (priv->display));
 
 	if (priv->dragging)
@@ -1412,7 +1413,7 @@ eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer
 		return FALSE;
 
 	if (event->is_hint)
-		gdk_window_get_pointer (GTK_WIDGET (priv->display)->window, &x, &y, &mods);
+		gdk_window_get_pointer (gtk_widget_get_window (GTK_WIDGET (priv->display)), &x, &y, &mods);
 	else {
 		x = event->x;
 		y = event->y;
@@ -1931,8 +1932,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 	if (priv->image != NULL) {
 		free_image_resources (view);
-		if (GTK_WIDGET_DRAWABLE (priv->display) && image == NULL) {
-			gdk_window_clear (GTK_WIDGET (priv->display)->window);
+		if (gtk_widget_is_drawable (priv->display) && image == NULL) {
+			gdk_window_clear (gtk_widget_get_window (priv->display));
 		}
 	}
 	g_assert (priv->image == NULL);
@@ -1973,8 +1974,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 gboolean
 eog_scroll_view_scrollbars_visible (EogScrollView *view)
 {
-	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->hbar)) &&
-	    !GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->vbar)))
+	if (!gtk_widget_get_visible (GTK_WIDGET (view->priv->hbar)) &&
+	    !gtk_widget_get_visible (GTK_WIDGET (view->priv->vbar)))
 		return FALSE;
 
 	return TRUE;

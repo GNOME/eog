@@ -559,7 +559,7 @@ expose_event_cb (GtkDrawingArea *drawing_area,
 
 	update_relative_sizes (EOG_PRINT_PREVIEW (user_data));
 
-	cr = gdk_cairo_create (widget->window);
+	cr = gdk_cairo_create (gtk_widget_get_window (widget));
 
 	eog_print_preview_draw (EOG_PRINT_PREVIEW (user_data), cr);
 
@@ -570,7 +570,7 @@ expose_event_cb (GtkDrawingArea *drawing_area,
 
 	cairo_destroy (cr);
 
-	gdk_window_get_pointer (widget->window, NULL, NULL, NULL);
+	gdk_window_get_pointer (gtk_widget_get_window (widget), NULL, NULL, NULL);
 }
 
 /**
@@ -954,10 +954,12 @@ motion_notify_event_cb (GtkWidget      *widget,
 		  	GdkCursor *cursor;
 			cursor = gdk_cursor_new_for_display (gtk_widget_get_display (widget),
 							     GDK_FLEUR);
-			gdk_window_set_cursor (widget->window, cursor);
+			gdk_window_set_cursor (gtk_widget_get_window (widget),
+					       cursor);
 			gdk_cursor_unref (cursor);
 		} else {
-			gdk_window_set_cursor (widget->window, NULL);
+			gdk_window_set_cursor (gtk_widget_get_window (widget),
+					       NULL);
 		}
 	}
 	return FALSE;
@@ -996,9 +998,9 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 	priv = preview->priv;
 	area = priv->area;
 
-	has_focus = GTK_WIDGET_HAS_FOCUS (area);
+	has_focus = gtk_widget_has_focus (area);
 
-	style = area->style;
+	style = gtk_widget_get_style (area);
 
 	w_width = area->allocation.width;
 	w_height = area->allocation.height;
@@ -1051,8 +1053,8 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 	}
 
 	if (has_focus) {
-		gtk_paint_focus (style, area->window, GTK_STATE_NORMAL,
-				 NULL, NULL, NULL,
+		gtk_paint_focus (style, gtk_widget_get_window (area),
+				 GTK_STATE_NORMAL, NULL, NULL, NULL,
 				 0, 0, w_width, w_height);
 	}
 }
