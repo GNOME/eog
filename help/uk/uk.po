@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2008-03-07 16:10+0000\n"
-"PO-Revision-Date: 2007-02-19 17:59+0300\n"
+"POT-Creation-Date: 2010-01-09 23:33+0000\n"
+"PO-Revision-Date: 2010-01-09 17:59+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@softprom.kiev.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,14 +26,14 @@ msgstr ""
 #: C/eog.xml:612(None)
 msgid ""
 "@@image: 'figures/eog_save_as_window.png'; "
-"md5=5e3193e5a432997b699a6f7bc2d888bb"
+"md5=fdebb65611d88ced4201754b0f417783"
 msgstr ""
 "@@image: 'figures/eog_save_as_window.png'; "
-"md5=5e3193e5a432997b699a6f7bc2d888bb"
+"md5=fdebb65611d88ced4201754b0f417783"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/eog.xml:702(None)
+#: C/eog.xml:700(None)
 msgid ""
 "@@image: 'figures/eog_toolbar_editor_window.png'; "
 "md5=b5555dbf7beaf036227fc6e32e974b83"
@@ -551,11 +551,11 @@ msgstr ""
 "<application>Програма перегляду зображень</application> має спеціальну "
 "підтримку цифрових фотоапаратів та відображає метадані EXIF, що записані у "
 "зображенні. Для підтримки цієї функції у системі має бути встановлена "
-"бібліотека <systemitem class=\"library\">libexif</systemitem>.Усі зміни "
-"у зображеннях типу JPEG виконуються без втрати "
-"якості. Тобто при збереженні повернутих та дзеркальних зображень типу JPEG "
-"не буде виконуватись повторне стискання. При цьому усі метадані (такі як "
-"EXIF) будуть збережені та відповідним чином оновлені."
+"бібліотека <systemitem class=\"library\">libexif</systemitem>.Усі зміни у "
+"зображеннях типу JPEG виконуються без втрати якості. Тобто при збереженні "
+"повернутих та дзеркальних зображень типу JPEG не буде виконуватись повторне "
+"стискання. При цьому усі метадані (такі як EXIF) будуть збережені та "
+"відповідним чином оновлені."
 
 #: C/eog.xml:335(title)
 msgid "Getting Started"
@@ -872,11 +872,11 @@ msgstr "Збільшити та зменшити масштаб зображен
 
 #: C/eog.xml:474(para)
 msgid ""
-"Use the <keycombo><keycap>Ctrl</keycap><keycap>scroll wheel</keycap></"
-"keycombo> on a mouse. Scrolling down zooms out; scrolling up zooms in."
+"Use the <mousebutton>scroll wheel</mousebutton> on your mouse. Scrolling "
+"down zooms out; scrolling up zooms in."
 msgstr ""
-"Використовуйте <keycombo><keycap>Ctrl</keycap><keycap>колесо миші</keycap></"
-"keycombo>. Прокручування вниз зменшує зображення, прокручування вгору - збільшує."
+"Використовуйте <mousebutton>колесо</mousebutton> миші. Прокручування вниз зменшує зображення, прокручування вгору - "
+"збільшує."
 
 #: C/eog.xml:475(para)
 msgid ""
@@ -900,8 +900,7 @@ msgstr ""
 msgid ""
 "Use the zoom buttons in the toolbar. <guilabel>Normal</guilabel> will "
 "restore the picture to its original unscaled size. <guilabel>Fit</guilabel> "
-"will resize the image so it will fit in the window and adapt the size on "
-"window resizing."
+"will resize the image so it will fit in the window if it is too large."
 msgstr ""
 "Використовуйте кнопку зміни масштабу на панелі інструментів. Кнопка "
 "<guilabel>Нормальний</guilabel> відновлює оригінальний розмір зображення. "
@@ -1233,13 +1232,13 @@ msgstr ""
 
 #: C/eog.xml:620(para)
 msgid ""
-"The folder in which the images will be saved is specified by "
-"<guilabel>Destination Folder</guilabel>. Initially the folder is set to to "
-"the current folder. The <guilabel>Browse</guilabel> button opens a standard "
-"open folder dialog for browsing the filesystem. The resulting filename for "
-"each image is specified by <guilabel>Filename Format</guilabel>. The "
-"filename schema is constructed by simple characters and special tags. The "
-"following special tags are available:"
+"The folder in which the images will be saved is specified by the "
+"<guilabel>Destination folder</guilabel> drop-down box. Initially the folder "
+"is set to the current folder. Select <guilabel>Other...</guilabel> from the "
+"drop-down list to open a standard open folder dialog for browsing the "
+"filesystem. The resulting filename for each image is specified by "
+"<guilabel>Filename format</guilabel>. The filename schema is constructed by "
+"simple characters and special tags. The following special tags are available:"
 msgstr ""
 "Тека, у якій зберігаються зображення, вказується у полі <guilabel>Тека "
 "призначення</guilabel>. Спочатку у полі встановлено початкову теку. При "
@@ -1249,7 +1248,7 @@ msgstr ""
 "назв файлів складається зі звичайних символів та спеціальних тегів. Можливі "
 "наступні теги:"
 
-#: C/eog.xml:625(para)
+#: C/eog.xml:623(para)
 msgid ""
 "<guilabel>Filename (%f)</guilabel> - Original filename without the "
 "fileformat suffix."
@@ -1257,7 +1256,7 @@ msgstr ""
 "<guilabel>Назва-файлу (%f)</guilabel> - Початкова назва файлу без суфіксу "
 "формату файла."
 
-#: C/eog.xml:627(para)
+#: C/eog.xml:625(para)
 msgid ""
 "<guilabel>Counter (%n)</guilabel> - Auto-incremented number (starts at "
 "specified counter start)."
@@ -1265,28 +1264,28 @@ msgstr ""
 "<guilabel>Лічильник (%n)</guilabel> - числа, що автоматично збільшуються "
 "(відлік починається з вказаного лічильника)."
 
-#: C/eog.xml:630(para)
+#: C/eog.xml:628(para)
 msgid "Everything but these special tags are considered normal text."
 msgstr "Усі окрім цих спеціальних тегів розглядається як звичайний текст."
 
-#: C/eog.xml:631(para)
+#: C/eog.xml:629(para)
 msgid ""
 "The image format is determined by the drop-down box after the schema "
 "definition. Select a specific image format or use the <guilabel>as is</"
-"guilabel> option to state the the same format as the original file should be "
-"used."
+"guilabel> option to state that the same format as the original file should "
+"be used."
 msgstr ""
 "Формат зображення визначається у розкривному списку після визначення схеми "
 "іменування. Вкажіть певний формат зображення чи виберіть параметр "
 "<guilabel>як є</guilabel>, щоб залишати початковий формат файлів."
 
-#: C/eog.xml:634(para)
+#: C/eog.xml:632(para)
 msgid ""
 "The <guilabel>Options</guilabel> section allows to remove all space "
 "characters by underscores in the resulting filename if <guilabel>Replace "
-"spaces by underscore</guilabel> is checked. The <guilabel>Start counter at</"
-"guilabel> spin box determines at which number the counter starts if you use "
-"the %n tag for the file format specification."
+"spaces with underscores</guilabel> is checked. The <guilabel>Start counter "
+"at</guilabel> spin box determines at which number the counter starts if you "
+"use the %n tag for the file format specification."
 msgstr ""
 "У розділі <guilabel>Параметри</guilabel> відмічений параметр "
 "<guilabel>Замінювати пробіли на підкреслення</guilabel> дозволяє замінити "
@@ -1294,7 +1293,7 @@ msgstr ""
 "guilabel> визначає з якого числа починається відлік при використанні тегу %n "
 "у специфікації формату тегу."
 
-#: C/eog.xml:635(para)
+#: C/eog.xml:633(para)
 msgid ""
 "The <guilabel>File Name Preview</guilabel> section of the dialog shows the "
 "resulting file name according to the above settings for an example filename "
@@ -1304,15 +1303,15 @@ msgstr ""
 "файлів, відповідно до вказаних вище параметрів на прикладі назви одного "
 "файлу з групи виділених файлів."
 
-#: C/eog.xml:644(title)
+#: C/eog.xml:642(title)
 msgid "Printing Images"
 msgstr "Друк зображень"
 
-#: C/eog.xml:646(title)
+#: C/eog.xml:644(title)
 msgid "Setting your Page Settings"
 msgstr "Встановлення параметрів сторінки"
 
-#: C/eog.xml:647(para)
+#: C/eog.xml:645(para)
 msgid ""
 "Before printing you need to set the page settings you would like to use. To "
 "do that choose <menuchoice><guimenu>File</guimenu><guimenuitem>Page Setup</"
@@ -1322,7 +1321,7 @@ msgstr ""
 "виберіть <menuchoice><guimenu>Файл</guimenu><guimenuitem>Параметри сторінки</"
 "guimenuitem></menuchoice>."
 
-#: C/eog.xml:648(para)
+#: C/eog.xml:646(para)
 msgid ""
 "In the <guilabel>Page Setup</guilabel> dialog you can now choose paper size "
 "and orientation. If possible also select your printer to have the page "
@@ -1332,15 +1331,15 @@ msgstr ""
 "розмір та орієнтацію паперу. Якщо можливо, також виберіть ваш принтер для "
 "коректного друку країв сторінки."
 
-#: C/eog.xml:652(title)
+#: C/eog.xml:650(title)
 msgid "Printing an Image"
 msgstr "Друк зображення"
 
-#: C/eog.xml:653(para)
+#: C/eog.xml:651(para)
 msgid "To print an image, perform the following steps:"
 msgstr "Щоб надрукувати зображення, виконайте наступні кроки:"
 
-#: C/eog.xml:656(para)
+#: C/eog.xml:654(para)
 msgid ""
 "Select <menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></"
 "menuchoice>"
@@ -1348,14 +1347,14 @@ msgstr ""
 "Виберіть <menuchoice><guimenu>Файл</guimenu><guimenuitem>Друк</guimenuitem></"
 "menuchoice>."
 
-#: C/eog.xml:659(para)
+#: C/eog.xml:657(para)
 msgid ""
 "In the <guilabel>Print</guilabel> dialog, select the printer you want to use "
 "from the list."
 msgstr ""
 "У діалоговому вікні <guilabel>Друк</guilabel>, виберіть бажаний принтер."
 
-#: C/eog.xml:662(para)
+#: C/eog.xml:660(para)
 msgid ""
 "Click <guilabel>Print</guilabel>. <application>Image Viewer</application> "
 "starts printing now."
@@ -1363,7 +1362,7 @@ msgstr ""
 "Натисніть <guibutton>Відкрити</guibutton>. <application>переглядач "
 "зображень</application> покаже назву зображення у заголовку вікна."
 
-#: C/eog.xml:665(para)
+#: C/eog.xml:663(para)
 msgid ""
 "Images that are too large for the page are automatically scaled down to fit "
 "the page. Images that are smaller than the page are centered on it."
@@ -1372,7 +1371,7 @@ msgstr ""
 "умістилось на сторінці. Зображення, менші за розмір сторінки центруються на "
 "сторінці."
 
-#: C/eog.xml:667(para)
+#: C/eog.xml:665(para)
 msgid ""
 "Please note that <application>Image Viewer</application> is currently "
 "lacking progress reporting while printing. During that time the user "
@@ -1382,11 +1381,11 @@ msgstr ""
 "бракує відображення поступу друку. Протягом друку інтерфейс користувача може "
 "певний час не реагувати на команди."
 
-#: C/eog.xml:672(title)
+#: C/eog.xml:670(title)
 msgid "Arranging an Image on the Page"
 msgstr "Вирівнювання зображення на сторінці"
 
-#: C/eog.xml:673(para)
+#: C/eog.xml:671(para)
 msgid ""
 "Maybe you don't want your image centered or want it scaled down even "
 "further. To do that you need to open the <guilabel>Print</guilabel> dialog "
@@ -1399,7 +1398,7 @@ msgstr ""
 "guilabel> (see <xref linkend=\"eog-print-image\"/>) та вибрати вкладку "
 "<guilabel>Параметри зображення</guilabel>, у якій доступні такі параметри:"
 
-#: C/eog.xml:676(para)
+#: C/eog.xml:674(para)
 msgid ""
 "The options in the <guilabel>Position</guilabel> section allow you to change "
 "the images position on the page."
@@ -1407,7 +1406,7 @@ msgstr ""
 "Параметри у розділі <guilabel>Положення</guilabel> дозволяють змінити "
 "положення зображення на сторінці."
 
-#: C/eog.xml:679(para)
+#: C/eog.xml:677(para)
 msgid ""
 "It is also possible to position the image on the page by dragging it around "
 "in the <guilabel>Preview</guilabel> field."
@@ -1415,7 +1414,7 @@ msgstr ""
 "Також можливо змінити розташування зображення на сторінці перетягуванням "
 "його у полі <guilabel>Попередній перегляд</guilabel>."
 
-#: C/eog.xml:682(para)
+#: C/eog.xml:680(para)
 msgid ""
 "The options in the <guilabel>Size</guilabel> section allow you to scale your "
 "image to your liking. Scaling is limited by either the image size or by the "
@@ -1425,7 +1424,7 @@ msgstr ""
 "бажаний розмір зображення. Зміна розміру обмежена або розміром зображення, "
 "або розміром сторінки, залежно від того яке обмеження наступить першим."
 
-#: C/eog.xml:685(para)
+#: C/eog.xml:683(para)
 msgid ""
 "The <guilabel>Unit</guilabel> option allows you to change the metric unit "
 "which is used by the options on the <guilabel>Image Settings</guilabel> tab. "
@@ -1436,113 +1435,118 @@ msgstr ""
 "використовуються у вкладці <guilabel>Параметри зображення</guilabel>. При "
 "зміні одиниць виміру, також відповідно змінюються значення інших полів."
 
-#: C/eog.xml:692(title)
+#: C/eog.xml:690(title)
 msgid "Personalizing The Toolbar"
 msgstr "Персональне налаштування панелі інструментів"
 
-#: C/eog.xml:693(para)
+#: C/eog.xml:691(para)
 msgid ""
 "Image Viewer's default toolbar contains only a basic set of items to keep it "
 "simple. But you can modify the toolbar if you prefer a different set."
 msgstr ""
-"Початково панель інструментів програми перегляду зображень містить лише основні операції. "
-"Але ви можете змінити склад об'єктів панелі інструментів."
+"Початково панель інструментів програми перегляду зображень містить лише "
+"основні операції. Але ви можете змінити склад об'єктів панелі інструментів."
 
-#: C/eog.xml:695(title)
+#: C/eog.xml:693(title)
 msgid "Modifying the Toolbar"
 msgstr "Редагування панелі інструментів"
 
-#: C/eog.xml:696(para)
+#: C/eog.xml:694(para)
 msgid ""
 "If you want to modify the toolbar you need to open the toolbar editor by "
 "going to <menuchoice><guimenu>Edit</guimenu><guimenuitem>Toolbar</"
 "guimenuitem></menuchoice>. The following window will pop up:"
 msgstr ""
-"Якщо ви хочете змінити панель інструментів треба відкрити редактор панелі інструментів "
-"у меню <menuchoice><guimenu>Правка</guimenu><guimenuitem>Панель інструментів</"
-"guimenuitem></menuchoice>. Відкриється наступне вікно:"
+"Якщо ви хочете змінити панель інструментів треба відкрити редактор панелі "
+"інструментів у меню <menuchoice><guimenu>Правка</guimenu><guimenuitem>Панель "
+"інструментів</guimenuitem></menuchoice>. Відкриється наступне вікно:"
 
-#: C/eog.xml:698(title)
+#: C/eog.xml:696(title)
 msgid "The toolbar editor window"
 msgstr "Вікно редактора панелі інструментів"
 
-#: C/eog.xml:705(phrase)
+#: C/eog.xml:703(phrase)
 msgid "Shows Eye of GNOME toolbar editor window."
 msgstr "Показано вікно редактора панелі інструментів програми Око GNOME."
 
-#: C/eog.xml:710(para)
+#: C/eog.xml:708(para)
 msgid ""
 "It contains the items that are not in the toolbar and the separator item. "
 "You can now edit the toolbar:"
 msgstr ""
-"Воно містить об'єкти які не містяться у панелі інструментів та об'єкт Розділювач. "
-"Редагування панелі інструментів виконується наступним чином:"
+"Воно містить об'єкти які не містяться у панелі інструментів та об'єкт "
+"Розділювач. Редагування панелі інструментів виконується наступним чином:"
 
-#: C/eog.xml:713(para)
+#: C/eog.xml:711(para)
 msgid ""
 "To add new items to the toolbar, drag them from the toolbar editor to the "
 "toolbar."
 msgstr ""
-"Щоб додати новий об'єкт до панелі інструментів, перетягніть його на панель інструментів."
+"Щоб додати новий об'єкт до панелі інструментів, перетягніть його на панель "
+"інструментів."
 
-#: C/eog.xml:716(para)
+#: C/eog.xml:714(para)
 msgid ""
 "To remove items from the toolbar, drag them from the toolbar to the toolbar "
 "editor."
 msgstr ""
-"Щоб видалити об'єкт з панелі інструментів, перетягніть його  панелі інструментів до вікна редактора."
+"Щоб видалити об'єкт з панелі інструментів, перетягніть його  панелі "
+"інструментів до вікна редактора."
 
-#: C/eog.xml:719(para)
+#: C/eog.xml:717(para)
 msgid ""
 "To rearrange items on the toolbar, drag them to their new position on the "
 "toolbar."
 msgstr ""
-"Щоб змінити порядок об'єктів у панелі інструментів, перетягніть об'єкт у панелі у нове місце."
+"Щоб змінити порядок об'єктів у панелі інструментів, перетягніть об'єкт у "
+"панелі у нове місце."
 
-#: C/eog.xml:722(para)
+#: C/eog.xml:720(para)
 msgid ""
 "When you have finished editing the toolbar, click the <guibutton>Close</"
 "guibutton> button in the toolbar editor window. This will close the toolbar "
 "editor and make your modified toolbar active."
 msgstr ""
-"При закінченні редагування, у вікні редактора панелі натисніть на кнопку <guibutton>Закрити</"
-"guibutton>. Редактор панелі інструментів буде закрито та активуються усі зроблені вами зміни."
+"При закінченні редагування, у вікні редактора панелі натисніть на кнопку "
+"<guibutton>Закрити</guibutton>. Редактор панелі інструментів буде закрито та "
+"активуються усі зроблені вами зміни."
 
-#: C/eog.xml:725(title)
+#: C/eog.xml:723(title)
 msgid "Resetting the Toolbar"
 msgstr "Повернення початкового вигляду"
 
-#: C/eog.xml:726(para)
+#: C/eog.xml:724(para)
 msgid ""
 "To revert your changes to the toolbar and return to the default layout, "
 "perform the following steps:"
 msgstr ""
-"Щоб анулювати усі зміни у панелі інструментів та повернути початковий вигляд, "
-"виконайте наступні дії:"
+"Щоб анулювати усі зміни у панелі інструментів та повернути початковий "
+"вигляд, виконайте наступні дії:"
 
-#: C/eog.xml:729(para)
+#: C/eog.xml:727(para)
 msgid ""
 "Open the toolbar editor (see <xref linkend=\"eog-toolbareditor-use\"/>)."
 msgstr ""
-"Відкрийте редактор панелі інструментів (див. <xref linkend=\"eog-toolbareditor-use\"/>)."
+"Відкрийте редактор панелі інструментів (див. <xref linkend=\"eog-"
+"toolbareditor-use\"/>)."
 
-#: C/eog.xml:732(para)
+#: C/eog.xml:730(para)
 msgid "Click the <guibutton>Reset to Default</guibutton> button."
 msgstr "Натисніть кнопку <guibutton>Типове розташування</guibutton>."
 
-#: C/eog.xml:735(para)
+#: C/eog.xml:733(para)
 msgid ""
 "Click the <guibutton>Close</guibutton> button to close the toolbar editor. "
 "The toolbar has been reset to the default layout now."
 msgstr ""
-"Щоб закрити редактор панелі інструментів натисніть на кнопку <guibutton>Закрити</guibutton>. "
-"Панель набере первинного вигляду."
+"Щоб закрити редактор панелі інструментів натисніть на кнопку "
+"<guibutton>Закрити</guibutton>. Панель набере первинного вигляду."
 
-#: C/eog.xml:741(title)
+#: C/eog.xml:739(title)
 msgid "Preferences"
 msgstr "Параметри"
 
-#: C/eog.xml:742(para)
+#: C/eog.xml:740(para)
 msgid ""
 "Preferences can be changed by going to <menuchoice><guimenu>Edit</"
 "guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>. You will be "
@@ -1554,15 +1558,15 @@ msgstr ""
 "змінити параметри перегляду зображення та режиму показу слайдів. Зміни "
 "негайно застосовуються до усіх відкритих вікон."
 
-#: C/eog.xml:746(title)
+#: C/eog.xml:744(title)
 msgid "Image View"
 msgstr "Перегляд зображення"
 
-#: C/eog.xml:749(guilabel)
+#: C/eog.xml:747(guilabel)
 msgid "Image Enhancements"
 msgstr "Покращення зображення"
 
-#: C/eog.xml:751(para)
+#: C/eog.xml:749(para)
 msgid ""
 "Select the <guilabel>Smooth images when zoomed</guilabel> option to enable "
 "image smoothing when you change the image's zoom factor. If you select this "
@@ -1575,7 +1579,7 @@ msgstr ""
 "якості відображення при перегляді у <application>Програмі перегляду "
 "зображень</application>."
 
-#: C/eog.xml:752(para)
+#: C/eog.xml:750(para)
 msgid ""
 "If you select the <guilabel>Automatic orientation</guilabel> option, your "
 "images will be rotated on loading according to their metadata. For example "
@@ -1592,11 +1596,11 @@ msgstr ""
 "Орієнтація не зберігається, доки ви не збережете обернене зображення "
 "(дивіться <xref linkend=\"eog-save-rename\"/>)."
 
-#: C/eog.xml:757(guilabel)
+#: C/eog.xml:755(guilabel)
 msgid "Transparent Parts"
 msgstr "Прозорі частини"
 
-#: C/eog.xml:759(para)
+#: C/eog.xml:757(para)
 msgid ""
 "Select one of the following options to determine how <application>Image "
 "Viewer</application> displays transparent parts of an image:"
@@ -1604,19 +1608,19 @@ msgstr ""
 "Відмітьте один з наступних параметрів для визначення типу відображення "
 "прозорих частин зображення:"
 
-#: C/eog.xml:761(guilabel)
+#: C/eog.xml:759(guilabel)
 msgid "As check pattern"
 msgstr "Шахівниця"
 
-#: C/eog.xml:762(para)
+#: C/eog.xml:760(para)
 msgid "Displays any transparent parts of the image in a check pattern."
 msgstr "Відображає прозорі частини зображення у вигляді шахового візерунку."
 
-#: C/eog.xml:764(guilabel)
+#: C/eog.xml:762(guilabel)
 msgid "As custom color"
 msgstr "Інший колір"
 
-#: C/eog.xml:765(para)
+#: C/eog.xml:763(para)
 msgid ""
 "Displays any transparent parts of the image in a solid color that you "
 "specify. Click on the color selector button to select a color."
@@ -1624,11 +1628,11 @@ msgstr ""
 "Відображає прозорі частини зображення у вигляді вказаного вами кольору. Для "
 "вибору кольору натисніть кнопку вибору кольору."
 
-#: C/eog.xml:767(guimenuitem)
+#: C/eog.xml:765(guimenuitem)
 msgid "As background"
 msgstr "Колір тла"
 
-#: C/eog.xml:768(para)
+#: C/eog.xml:766(para)
 msgid ""
 "Displays any transparent parts of the image in the background color of the "
 "<application>Image Viewer</application> application."
@@ -1636,15 +1640,15 @@ msgstr ""
 "Відображає прозорі частини зображення у вигляді кольору тла програми "
 "<application>програми перегляду зображень</application>."
 
-#: C/eog.xml:778(title)
+#: C/eog.xml:776(title)
 msgid "Slideshow"
 msgstr "Показ слайдів"
 
-#: C/eog.xml:781(guilabel)
+#: C/eog.xml:779(guilabel)
 msgid "Image Zoom"
 msgstr "Масштаб зображення"
 
-#: C/eog.xml:783(para)
+#: C/eog.xml:781(para)
 msgid ""
 "Select the <guilabel>Expand images to fit screen</guilabel> option to "
 "enlarge images to fit the screen during the slide show. If you do not select "
@@ -1656,11 +1660,11 @@ msgstr ""
 "слайдів. Якщо ви не відмітили цей параметр, зображення менші за екран не "
 "будуть змінювати розмір, щоб зайняти весь екран."
 
-#: C/eog.xml:787(guilabel)
+#: C/eog.xml:785(guilabel)
 msgid "Sequence"
 msgstr "Послідовність"
 
-#: C/eog.xml:789(para)
+#: C/eog.xml:787(para)
 msgid ""
 "Select the <guilabel>Loop sequence</guilabel> option to cycle endlessly "
 "through the list of images during the slide show. If you do not select this "
@@ -1672,7 +1676,7 @@ msgstr ""
 "Якщо ви не відмітите цей параметр, після показу останнього зображення "
 "відбудеться вихід з режиму показу слайдів."
 
-#: C/eog.xml:791(para)
+#: C/eog.xml:789(para)
 msgid ""
 "Use the <guilabel>Switch image after ... seconds</guilabel> spin box to "
 "specify how long each image is displayed during the slide show. If you set "
@@ -1685,7 +1689,7 @@ msgstr ""
 "вимкнена та буде доступна лише ручна навігація (дивіться <xref linkend=\"eog-"
 "fullscreen\"/>)"
 
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/eog.xml:0(None)
 msgid "translator-credits"
 msgstr "Максим Дзюманенко <dziumanenko@gmail.com>"
