@@ -1,14 +1,14 @@
 # Norwegian translation of eog (bokmål dialect).
 # Copyright (C) 1999-2004, 2005 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2009.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2010.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.29.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 15:47+0100\n"
-"PO-Revision-Date: 2010-01-05 16:09+0100\n"
+"POT-Creation-Date: 2010-01-13 18:54+0100\n"
+"PO-Revision-Date: 2010-01-13 19:10+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,8 @@ msgid "Image Viewer"
 msgstr "Bildevisning"
 
 #: ../data/eog-image-properties-dialog.ui.h:1
-#, fuzzy
 msgid "Aperture Value:"
-msgstr "<b>Blenderåpning:</b>"
+msgstr "Blenderåpning:"
 
 #: ../data/eog-image-properties-dialog.ui.h:2
 msgid "Author:"
@@ -429,27 +428,22 @@ msgid "Scroll wheel zoom"
 msgstr "Zoom med mushjul"
 
 #: ../data/eog.schemas.in.h:19
-#, fuzzy
 msgid "Show/Hide the image collection pane scroll buttons."
 msgstr "Vis/skjul rulleknapper for bildesamlingsområdet."
 
 #: ../data/eog.schemas.in.h:20
-#, fuzzy
 msgid "Show/Hide the image collection pane."
 msgstr "Vis/skjul bildesamlingsområdet."
 
 #: ../data/eog.schemas.in.h:21
-#, fuzzy
 msgid "Show/Hide the window side pane."
 msgstr "Vis/skjul vinduets sidelinje."
 
 #: ../data/eog.schemas.in.h:22
-#, fuzzy
 msgid "Show/Hide the window statusbar."
 msgstr "Vis/skjul vinduets statuslinje."
 
 #: ../data/eog.schemas.in.h:23
-#, fuzzy
 msgid "Show/Hide the window toolbar."
 msgstr "Vis/skjul vinduets verktøylinje."
 
@@ -484,7 +478,6 @@ msgid ""
 msgstr ""
 
 #: ../data/eog.schemas.in.h:30
-#, fuzzy
 msgid "Whether the image collection pane should be resizable."
 msgstr "Om bildesamlingsområdet skal kunne endre størrelse eller ikke."
 
@@ -502,9 +495,7 @@ msgstr ""
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
 "quality but is somewhat slower than non interpolated images."
-msgstr ""
-"Om bildet skal interpoleres ved zoom eller ikke. Dette gir bedre kvalitet, "
-"men er noe tregere enn ikke-interpolerte bilder."
+msgstr "Om bildet skal interpoleres ved zoom ut. Dette gir bedre kvalitet, men er noe tregere enn ikke-interpolerte bilder."
 
 #: ../data/eog.schemas.in.h:33
 msgid ""
@@ -517,14 +508,12 @@ msgid ""
 msgstr ""
 
 #: ../data/eog.schemas.in.h:35
-#, fuzzy
 msgid "Whether the scroll wheel should be used for zooming."
 msgstr "Om hjulet på musen skal brukes til å zoome eller ikke."
 
 #: ../data/eog.schemas.in.h:36
-#, fuzzy
 msgid "Whether the sequence of images should be shown in an endless loop."
-msgstr "Om bildesekvensen skal vises kontinuerlig."
+msgstr "Om bildesekvensen skal vises i en uendelig løkke."
 
 #: ../data/eog.schemas.in.h:37
 msgid "Zoom multiplier"
@@ -712,21 +701,21 @@ msgstr "%a, %d %B %Y  %X"
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: ../src/eog-error-message-area.c:110
+#: ../src/eog-error-message-area.c:107
 msgid "_Retry"
 msgstr "P_røv igjen"
 
-#: ../src/eog-error-message-area.c:140
+#: ../src/eog-error-message-area.c:141
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "Kunne ikke laste bilde «%s»."
 
-#: ../src/eog-error-message-area.c:174
+#: ../src/eog-error-message-area.c:175
 #, c-format
 msgid "No images found in '%s'."
 msgstr "Ingen bilder funnet i «%s»."
 
-#: ../src/eog-error-message-area.c:181
+#: ../src/eog-error-message-area.c:182
 msgid "The given locations contain no images."
 msgstr "Oppgitte plasseringer inneholder ingen bilder."
 
@@ -739,7 +728,6 @@ msgid "Image"
 msgstr "Bilde"
 
 #: ../src/eog-print-image-setup.c:835
-#, fuzzy
 msgid "The image whose printing properties will be set up"
 msgstr "Bilde som skal brukes til egenskaper for utskrift"
 
@@ -884,14 +872,14 @@ msgstr " (ugyldig Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:774
+#: ../src/eog-window.c:773
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/eog-window.c:1192
+#: ../src/eog-window.c:1191
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Bruk «%s» til å åpne valgt bilde"
@@ -901,12 +889,12 @@ msgstr "Bruk «%s» til å åpne valgt bilde"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1342
+#: ../src/eog-window.c:1341
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Lagrer bilde «%s» (%u/%u)"
 
-#: ../src/eog-window.c:1681
+#: ../src/eog-window.c:1680
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Laster bilde «%s»"
@@ -1391,15 +1379,15 @@ msgstr "Ak_tiver alle"
 msgid "_Deactivate All"
 msgstr "_Deaktiver alle"
 
-#: ../src/eog-plugin-manager.c:831
+#: ../src/eog-plugin-manager.c:832
 msgid "Active _Plugins:"
 msgstr "Aktive _tillegg:"
 
-#: ../src/eog-plugin-manager.c:860
+#: ../src/eog-plugin-manager.c:861
 msgid "_About Plugin"
 msgstr "_Om tillegg"
 
-#: ../src/eog-plugin-manager.c:867
+#: ../src/eog-plugin-manager.c:868
 msgid "C_onfigure Plugin"
 msgstr "K_onfigurer tillegg"
 
