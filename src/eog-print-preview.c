@@ -587,14 +587,13 @@ get_current_image_coordinates (EogPrintPreview *preview,
 			       gint *x0, gint *y0)
 {
 	EogPrintPreviewPrivate *priv;
-	gint p_width, p_height;
+	GtkAllocation allocation;
 
 	priv = preview->priv;
-	p_width = priv->area->allocation.width;
-	p_height = priv->area->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->area), &allocation);
 
-	*x0 = (gint)((1 - priv->image_x_align)*priv->l_rmargin +  priv->image_x_align*(p_width - priv->r_rmargin - priv->r_width));
-	*y0 = (gint)((1 - priv->image_y_align)*priv->t_rmargin +  priv->image_y_align*(p_height - priv->b_rmargin - priv->r_height));
+	*x0 = (gint)((1 - priv->image_x_align)*priv->l_rmargin +  priv->image_x_align*(allocation.width - priv->r_rmargin - priv->r_width));
+	*y0 = (gint)((1 - priv->image_y_align)*priv->t_rmargin +  priv->image_y_align*(allocation.height - priv->b_rmargin - priv->r_height));
 }
 
 /**
@@ -632,17 +631,18 @@ create_image_scaled (EogPrintPreview *preview)
 	EogPrintPreviewPrivate *priv = preview->priv;
 
 	if (!priv->image_scaled) {
-		gint a_width, a_height, i_width, i_height;
+		gint i_width, i_height;
+		GtkAllocation allocation;
 
-		GtkWidget *area = priv->area;
-		a_width = area->allocation.width;
-		a_height = area->allocation.height;
+		gtk_widget_get_allocation (priv->area, &allocation);
 		i_width = gdk_pixbuf_get_width (priv->image);
 		i_height = gdk_pixbuf_get_height (priv->image);
 
-                if ((i_width > a_width) || (i_height > a_height)) {
+                if ((i_width > allocation.width) ||
+		    (i_height > allocation.height)) {
 			gdouble scale;
-			scale = MIN ((gdouble) a_width/i_width, (gdouble)a_height/i_height);
+			scale = MIN ((gdouble) allocation.width/i_width,
+				     (gdouble) allocation.height/i_height);
 			priv->image_scaled = gdk_pixbuf_scale_simple (priv->image,
 								      i_width*scale,
 								      i_height*scale,
@@ -911,18 +911,17 @@ motion_notify_event_cb (GtkWidget      *widget,
 {
 	EogPrintPreviewPrivate *priv = EOG_PRINT_PREVIEW (user_data)->priv;
 	gdouble dx, dy;
-	gint p_width, p_height;
+	GtkAllocation allocation;
 
 	if (priv->grabbed) {
 		dx = event->x - priv->cursorx;
 		dy = event->y - priv->cursory;
 
-		p_width  = widget->allocation.width;
-		p_height = widget->allocation.height;
+		gtk_widget_get_allocation (widget, &allocation);
 
 		/* Make sure the image stays inside the margins */
 
-		priv->image_x_align += (dx + priv->r_dx)/(p_width  - priv->r_width - priv->l_rmargin - priv->r_rmargin);
+		priv->image_x_align += (dx + priv->r_dx)/(allocation.width  - priv->r_width - priv->l_rmargin - priv->r_rmargin);
 		if (priv->image_x_align < 0. || priv->image_x_align > 1.) {
 			priv->image_x_align = CLAMP (priv->image_x_align, 0., 1.);
 			priv->r_dx += dx;
@@ -930,7 +929,7 @@ motion_notify_event_cb (GtkWidget      *widget,
 		else
 			priv->r_dx = 0;
 
-		priv->image_y_align += (dy + priv->r_dy)/(p_height - priv->r_height - priv->t_rmargin - priv->b_rmargin);
+		priv->image_y_align += (dy + priv->r_dy)/(allocation.height - priv->r_height - priv->t_rmargin - priv->b_rmargin);
 		if (priv->image_y_align < 0. || priv->image_y_align > 1.) {
 			priv->image_y_align = CLAMP (priv->image_y_align, 0., 1.);
 			priv->r_dy += dy;
@@ -988,9 +987,9 @@ size_allocate_cb (GtkWidget *widget,
 static void
 eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 {
-	gint w_width, w_height;
 	EogPrintPreviewPrivate *priv;
 	GtkWidget *area;
+	GtkAllocation allocation;
 	gint x0, y0;
 	GtkStyle *style;
 	gboolean has_focus;
@@ -1002,12 +1001,11 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 
 	style = gtk_widget_get_style (area);
 
-	w_width = area->allocation.width;
-	w_height = area->allocation.height;
+	gtk_widget_get_allocation (area, &allocation);
 
 	/* draw the page */
  	gdk_cairo_set_source_color (cr, &style->white);
- 	cairo_rectangle (cr, 0, 0, w_width, w_height);
+ 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
  	cairo_fill (cr);
 
 	/* draw the page margins */
@@ -1015,8 +1013,8 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 	cairo_set_line_width (cr, 0.1);
 	cairo_rectangle (cr,
 			 priv->l_rmargin, priv->t_rmargin,
-			 w_width - priv->l_rmargin - priv->r_rmargin,
-			 w_height - priv->t_rmargin - priv->b_rmargin);
+			 allocation.width - priv->l_rmargin - priv->r_rmargin,
+			 allocation.height - priv->t_rmargin - priv->b_rmargin);
 	cairo_stroke (cr);
 
 	get_current_image_coordinates (preview, &x0, &y0);
@@ -1055,7 +1053,7 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 	if (has_focus) {
 		gtk_paint_focus (style, gtk_widget_get_window (area),
 				 GTK_STATE_NORMAL, NULL, NULL, NULL,
-				 0, 0, w_width, w_height);
+				 0, 0, allocation.width, allocation.height);
 	}
 }
 
@@ -1063,7 +1061,7 @@ static void
 update_relative_sizes (EogPrintPreview *preview)
 {
 	EogPrintPreviewPrivate *priv;
-	gint p_width;
+	GtkAllocation allocation;
 	gint i_width, i_height;
 
 	priv = preview->priv;
@@ -1075,9 +1073,9 @@ update_relative_sizes (EogPrintPreview *preview)
 		i_width = i_height = 0;
 	}
 
-	p_width = priv->area->allocation.width;
+	gtk_widget_get_allocation (priv->area, &allocation);
 
-	priv->p_scale = (gfloat)p_width / (priv->p_width * 72.0);
+	priv->p_scale = (gfloat) allocation.width / (priv->p_width * 72.0);
 
 	priv->r_width  = (gint) i_width  * priv->i_scale * priv->p_scale;
 	priv->r_height = (gint) i_height * priv->i_scale * priv->p_scale;
