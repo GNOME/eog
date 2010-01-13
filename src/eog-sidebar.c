@@ -232,16 +232,18 @@ eog_sidebar_menu_position_under (GtkMenu  *menu,
 				 gpointer  user_data)
 {
 	GtkWidget *widget;
+	GtkAllocation allocation;
 
 	g_return_if_fail (GTK_IS_BUTTON (user_data));
 	g_return_if_fail (!gtk_widget_get_has_window (user_data));
 
 	widget = GTK_WIDGET (user_data);
+	gtk_widget_get_allocation (widget, &allocation);
 
 	gdk_window_get_origin (gtk_widget_get_window (widget), x, y);
 
-	*x += widget->allocation.x;
-	*y += widget->allocation.y + widget->allocation.height;
+	*x += allocation.x;
+	*y += allocation.y + allocation.height;
 
 	*push_in = FALSE;
 }
@@ -255,14 +257,15 @@ eog_sidebar_select_button_press_cb (GtkWidget      *widget,
 
 	if (event->button == 1) {
 		GtkRequisition requisition;
-		gint width;
+		GtkAllocation allocation;
 
-		width = widget->allocation.width;
+		gtk_widget_get_allocation (widget, &allocation);
 
 		gtk_widget_set_size_request (eog_sidebar->priv->menu, -1, -1);
 		gtk_widget_size_request (eog_sidebar->priv->menu, &requisition);
 		gtk_widget_set_size_request (eog_sidebar->priv->menu,
-					     MAX (width, requisition.width), -1);
+					     MAX (allocation.width,
+						  requisition.width), -1);
 
 		gtk_widget_grab_focus (widget);
 
