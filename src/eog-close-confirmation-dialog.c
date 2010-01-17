@@ -178,7 +178,7 @@ eog_close_confirmation_dialog_init (EogCloseConfirmationDialog *dlg)
 	dlg->priv = EOG_CLOSE_CONFIRMATION_DIALOG_GET_PRIVATE (dlg);
 
 	gtk_container_set_border_width (GTK_CONTAINER (dlg), 5);		
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dlg)->vbox), 14);
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), 14);
 	gtk_window_set_resizable (GTK_WINDOW (dlg), FALSE);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dlg), FALSE);
 	gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dlg), TRUE);
@@ -333,15 +333,14 @@ eog_close_confirmation_dialog_new (GtkWindow *parent,
 
 	if (parent != NULL)
 	{
-		wg = parent->group;
+		wg = gtk_window_get_group (parent);
 
-		if (wg == NULL) {
-			wg = gtk_window_group_new ();
-			gtk_window_group_add_window (wg, parent);
-		}
-
-		gtk_window_group_add_window (wg,
-					     GTK_WINDOW (dlg));
+		/* gtk_window_get_group returns a default group when the given
+		 * window doesn't have a group. Explicitly add the window to
+		 * the group here to make sure it's actually in the returned
+		 * group. It makes no difference if it is already. */
+		gtk_window_group_add_window (wg, parent);
+		gtk_window_group_add_window (wg, GTK_WINDOW (dlg));
 		
 		gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);					     
 	}
@@ -437,7 +436,7 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 		      
 	gtk_box_pack_start (GTK_BOX (vbox), secondary_label, FALSE, FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), 
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), 
 			    hbox, 
 	                    FALSE, 
 			    FALSE, 
@@ -582,7 +581,7 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-  	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), 
+  	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), 
 			    hbox, TRUE, TRUE, 0);
 
 	/* Image */
