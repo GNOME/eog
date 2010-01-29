@@ -1366,6 +1366,7 @@ eog_window_obtain_desired_size (EogImage  *image,
 {
 	GdkScreen *screen;
 	GdkRectangle monitor;
+	GtkAllocation allocation;
 	gint final_width, final_height;
 	gint screen_width, screen_height;
 	gint window_width, window_height;
@@ -1382,21 +1383,23 @@ eog_window_obtain_desired_size (EogImage  *image,
 		gtk_widget_realize (window->priv->view);
 	}
 
-	view_width  = window->priv->view->allocation.width;
-	view_height = window->priv->view->allocation.height;
+	gtk_widget_get_allocation (window->priv->view, &allocation);
+	view_width  = allocation.width;
+	view_height = allocation.height;
 
 	if (!GTK_WIDGET_REALIZED (GTK_WIDGET (window))) {
 		gtk_widget_realize (GTK_WIDGET (window));
 	}
 
-	window_width  = GTK_WIDGET (window)->allocation.width;
-	window_height = GTK_WIDGET (window)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (window), &allocation);
+	window_width  = allocation.width;
+	window_height = allocation.height;
 
 	screen = gtk_window_get_screen (GTK_WINDOW (window));
 
 	gdk_screen_get_monitor_geometry (screen,
 			gdk_screen_get_monitor_at_window (screen,
-				GTK_WIDGET (window)->window),
+				gtk_widget_get_window (GTK_WIDGET (window))),
 			&monitor);
 
 	screen_width  = monitor.width;
@@ -2645,7 +2648,7 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
 
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
@@ -2658,7 +2661,7 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 
 	gtk_box_set_spacing (GTK_BOX (EGG_TOOLBAR_EDITOR (editor)), 5);
 
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), editor);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), editor);
 
 	egg_editable_toolbar_set_edit_mode
 		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
@@ -4059,14 +4062,17 @@ eog_window_drag_data_received (GtkWidget *widget,
 {
         GSList *file_list;
         EogWindow *window;
+	GdkAtom target;
 
-        if (!gtk_targets_include_uri (&selection_data->target, 1))
+	target = gtk_selection_data_get_target (selection_data);
+
+        if (!gtk_targets_include_uri (&target, 1))
                 return;
 
         if (context->suggested_action == GDK_ACTION_COPY) {
                 window = EOG_WINDOW (widget);
 
-                file_list = eog_util_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
+                file_list = eog_util_parse_uri_string_list_to_file_list ((const gchar *) gtk_selection_data_get_data (selection_data));
 
 		eog_window_open_file_list (window, file_list);
         }
@@ -4778,7 +4784,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			break;
 		}
 	case GDK_Return:
-		if (tbcontainer->focus_child == NULL) {
+		if (gtk_container_get_focus_child (tbcontainer) == NULL) {
 			/* Image properties dialog case */
 			if (event->state & GDK_MOD1_MASK) {
 				result = FALSE;
@@ -4821,7 +4827,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			/* break to let scrollview handle the key */
 			break;
 		}
-		if (tbcontainer->focus_child != NULL)
+		if (gtk_container_get_focus_child (tbcontainer) != NULL)
 			break;
 		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 			if (is_rtl && event->keyval == GDK_Left) {
@@ -4852,7 +4858,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			/* break to let scrollview handle the key */
 			break;
 		}
-		if (tbcontainer->focus_child != NULL)
+		if (gtk_container_get_focus_child (tbcontainer) != NULL)
 			break;
 		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 			if (is_rtl && event->keyval == GDK_Right) {
@@ -4909,7 +4915,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 
 	/* If the focus is not in the toolbar and we still haven't handled the
 	   event, give the scrollview a chance to do it.  */
-	if (tbcontainer->focus_child == NULL && result == FALSE &&
+	if (!gtk_container_get_focus_child (tbcontainer) && result == FALSE &&
 		GTK_WIDGET_REALIZED(GTK_WIDGET (EOG_WINDOW (widget)->priv->view))) {
 			result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->view),
 						   (GdkEvent *) event);
