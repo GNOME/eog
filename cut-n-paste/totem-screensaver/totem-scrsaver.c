@@ -14,8 +14,8 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301  USA.
 
    Author: Bastien Nocera <hadess@hadess.net>
  */
@@ -24,14 +24,20 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
+
+#include <gdk/gdk.h>
+
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#include <X11/keysym.h>
 
 #ifdef HAVE_XTEST
 #include <X11/extensions/XTest.h>
 #endif /* HAVE_XTEST */
-#include <X11/keysym.h>
+#endif /* GDK_WINDOWING_X11 */
 
 #ifdef HAVE_DBUS
+#include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 
 #define GS_SERVICE   "org.gnome.ScreenSaver"
@@ -44,8 +50,6 @@
 #define XSCREENSAVER_MIN_TIMEOUT 60
 
 static GObjectClass *parent_class = NULL;
-static void totem_scrsaver_class_init (TotemScrsaverClass *class);
-static void totem_scrsaver_init       (TotemScrsaver      *parser);
 static void totem_scrsaver_finalize   (GObject *object);
 
 
@@ -68,7 +72,7 @@ struct TotemScrsaverPrivate {
 	/* For use with XTest */
 	int keycode1, keycode2;
 	int *keycode;
-	Bool have_xtest;
+	gboolean have_xtest;
 };
 
 G_DEFINE_TYPE(TotemScrsaver, totem_scrsaver, G_TYPE_OBJECT)
@@ -126,10 +130,12 @@ screensaver_inhibit_dbus (TotemScrsaver *scr,
 			/* try the old API */
 			res = dbus_g_proxy_call (scr->priv->gs_proxy,
 						 "InhibitActivation",
-						 &error,
+						 NULL,
 						 G_TYPE_STRING, reason,
 						 G_TYPE_INVALID,
 						 G_TYPE_INVALID);
+			if (res)
+				g_error_free (error);
 		}
 
 		g_free (reason);
@@ -149,9 +155,11 @@ screensaver_inhibit_dbus (TotemScrsaver *scr,
 			/* try the old API */
 			res = dbus_g_proxy_call (scr->priv->gs_proxy,
 						 "AllowActivation",
-						 &error,
+						 NULL,
 						 G_TYPE_INVALID,
 						 G_TYPE_INVALID);
+			if (res)
+				g_error_free (error);
 		}
 	}
 
@@ -234,12 +242,13 @@ screensaver_finalize_dbus (TotemScrsaver *scr)
 #endif /* HAVE_DBUS */
 }
 
+#ifdef GDK_WINDOWING_X11
 static void
 screensaver_enable_x11 (TotemScrsaver *scr)
 {
 
 #ifdef HAVE_XTEST
-	if (scr->priv->have_xtest == True)
+	if (scr->priv->have_xtest != FALSE)
 	{
 		g_source_remove_by_user_data (scr);
 		return;
@@ -283,7 +292,7 @@ screensaver_disable_x11 (TotemScrsaver *scr)
 {
 
 #ifdef HAVE_XTEST
-	if (scr->priv->have_xtest == True)
+	if (scr->priv->have_xtest != FALSE)
 	{
 		XLockDisplay (GDK_DISPLAY());
 		XGetScreenSaver(GDK_DISPLAY(), &scr->priv->timeout,
@@ -292,23 +301,12 @@ screensaver_disable_x11 (TotemScrsaver *scr)
 				&scr->priv->allow_exposures);
 		XUnlockDisplay (GDK_DISPLAY());
 
-		if (scr->priv->timeout != 0)
-		{
-#if GLIB_CHECK_VERSION (2, 13, 0)
+		if (scr->priv->timeout != 0) {
 			g_timeout_add_seconds (scr->priv->timeout / 2,
 					       (GSourceFunc) fake_event, scr);
-#else
-			g_timeout_add (scr->priv->timeout / 2 * 1000,
-				       (GSourceFunc) fake_event, scr);
-#endif
 		} else {
-#if GLIB_CHECK_VERSION (2, 13, 0)
 			g_timeout_add_seconds (XSCREENSAVER_MIN_TIMEOUT / 2,
-					(GSourceFunc) fake_event, scr);
-#else
-			g_timeout_add (XSCREENSAVER_MIN_TIMEOUT / 2 * 1000,
-				       (GSourceFunc) fake_event, scr);
-#endif
+					       (GSourceFunc) fake_event, scr);
 		}
 
 		return;
@@ -332,8 +330,8 @@ screensaver_init_x11 (TotemScrsaver *scr)
 	int a, b, c, d;
 
 	XLockDisplay (GDK_DISPLAY());
-	scr->priv->have_xtest = XTestQueryExtension (GDK_DISPLAY(), &a, &b, &c, &d);
-	if(scr->priv->have_xtest == True)
+	scr->priv->have_xtest = (XTestQueryExtension (GDK_DISPLAY(), &a, &b, &c, &d) == True);
+	if (scr->priv->have_xtest != FALSE)
 	{
 		scr->priv->keycode1 = XKeysymToKeycode (GDK_DISPLAY(), XK_Alt_L);
 		if (scr->priv->keycode1 == 0) {
@@ -357,6 +355,7 @@ screensaver_finalize_x11 (TotemScrsaver *scr)
 {
 	g_source_remove_by_user_data (scr);
 }
+#endif
 
 static void
 totem_scrsaver_class_init (TotemScrsaverClass *klass)
@@ -376,7 +375,6 @@ totem_scrsaver_new	(DBusGConnection *connection)
 	scr = TOTEM_SCRSAVER (g_object_new (TOTEM_TYPE_SCRSAVER, NULL));
 
 	screensaver_init_dbus (scr, connection);
-	screensaver_init_x11 (scr);
 	
 	return scr;
 }
@@ -386,8 +384,6 @@ totem_scrsaver_new()
 {
 	TotemScrsaver * scr;
 	scr = TOTEM_SCRSAVER (g_object_new (TOTEM_TYPE_SCRSAVER, NULL));
-
-	screensaver_init_x11 (scr);
 	
 	return scr;
 }
@@ -397,11 +393,19 @@ static void
 totem_scrsaver_init (TotemScrsaver *scr)
 {
 	scr->priv = g_new0 (TotemScrsaverPrivate, 1);
+
+#ifdef GDK_WINDOWING_X11
+	screensaver_init_x11 (scr);
+#else
+#warning Unimplemented
+#endif
 }
 
 void
 totem_scrsaver_disable (TotemScrsaver *scr)
 {
+	g_return_if_fail (TOTEM_SCRSAVER (scr));
+
 	if (scr->priv->disabled != FALSE)
 		return;
 
@@ -410,12 +414,19 @@ totem_scrsaver_disable (TotemScrsaver *scr)
 	if (screensaver_is_running_dbus (scr) != FALSE)
 		screensaver_disable_dbus (scr);
 	else 
+#ifdef GDK_WINDOWING_X11
 		screensaver_disable_x11 (scr);
+#else
+#warning Unimplemented
+	{}
+#endif
 }
 
 void
 totem_scrsaver_enable (TotemScrsaver *scr)
 {
+	g_return_if_fail (TOTEM_SCRSAVER (scr));
+
 	if (scr->priv->disabled == FALSE)
 		return;
 
@@ -424,7 +435,26 @@ totem_scrsaver_enable (TotemScrsaver *scr)
 	if (screensaver_is_running_dbus (scr) != FALSE)
 		screensaver_enable_dbus (scr);
 	else 
+#ifdef GDK_WINDOWING_X11
 		screensaver_enable_x11 (scr);
+#else
+#warning Unimplemented
+	{}
+#endif
+}
+
+void
+totem_scrsaver_set_state (TotemScrsaver *scr, gboolean enable)
+{
+	g_return_if_fail (TOTEM_SCRSAVER (scr));
+
+	if (scr->priv->disabled == !enable)
+		return;
+
+	if (enable == FALSE)
+		totem_scrsaver_disable (scr);
+	else
+		totem_scrsaver_enable (scr);
 }
 
 static void
@@ -433,7 +463,12 @@ totem_scrsaver_finalize (GObject *object)
 	TotemScrsaver *scr = TOTEM_SCRSAVER (object);
 
 	screensaver_finalize_dbus (scr);
+#ifdef GDK_WINDOWING_X11
 	screensaver_finalize_x11 (scr);
+#else
+#warning Unimplemented
+	{}
+#endif
 
 	g_free (scr->priv);
 

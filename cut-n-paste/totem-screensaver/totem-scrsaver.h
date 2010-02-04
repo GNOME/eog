@@ -13,8 +13,8 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301  USA.
 
    Author: Bastien Nocera <hadess@hadess.net>
  */
@@ -57,5 +57,7 @@ TotemScrsaver *totem_scrsaver_new	();
 #endif
 void totem_scrsaver_enable		(TotemScrsaver *scr);
 void totem_scrsaver_disable		(TotemScrsaver *scr);
+void totem_scrsaver_set_state		(TotemScrsaver *scr,
+					 gboolean enable);
 
 #endif /* __TOTEM_SCRSAVER_H__ */
