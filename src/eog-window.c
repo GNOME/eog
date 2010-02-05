@@ -2825,23 +2825,79 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 	}
 }
 
+static void
+wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
+{
+	if (response == GTK_RESPONSE_YES) {
+		GdkScreen *screen;
+
+		screen = gtk_widget_get_screen (GTK_WIDGET (window));
+		gdk_spawn_command_line_on_screen (screen,
+						  "gnome-appearance-properties"
+						  " --show-page=background",
+						  NULL);
+	}
+
+	/* Close message area on every response */
+	eog_window_set_message_area (window, NULL);
+}
 
 static void
 eog_window_set_wallpaper (EogWindow *window, const gchar *filename)
 {
 	EogWindowPrivate *priv = EOG_WINDOW_GET_PRIVATE (window);
-	GdkScreen *screen;
+	GtkWidget *info_bar;
+	GtkWidget *image;
+	GtkWidget *label;
+	GtkWidget *hbox;
+	gchar *markup;
+	gchar *text;
+	gchar *basename;
+
 
 	gconf_client_set_string (priv->client,
 				 EOG_CONF_DESKTOP_WALLPAPER,
 				 filename,
 				 NULL);
 
-	screen = gtk_widget_get_screen (GTK_WIDGET (window));
-	gdk_spawn_command_line_on_screen (screen,
-					  "gnome-appearance-properties"
-					  " --show-page=background",
-					  NULL);
+	info_bar = gtk_info_bar_new_with_buttons (GTK_STOCK_YES,
+						  GTK_RESPONSE_YES,
+						  GTK_STOCK_NO,
+						  GTK_RESPONSE_NO, NULL);
+	gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar),
+				       GTK_MESSAGE_QUESTION);
+
+	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_QUESTION,
+					  GTK_ICON_SIZE_DIALOG);
+	label = gtk_label_new (NULL);
+
+	basename = g_path_get_basename (filename);
+	/* The newline character is currently necessary due to a problem
+	 * with the automatic line break. */
+	text = g_strdup_printf (_("The image \"%s\" has been set as Desktop Background."
+				  "\nWould you like to modify its appearance?"),
+				basename);
+	markup = g_markup_printf_escaped ("<b>%s</b>", text);
+	gtk_label_set_markup (GTK_LABEL (label), markup);
+	g_free (markup);
+	g_free (text);
+	g_free (basename);
+
+	hbox = gtk_hbox_new (FALSE, 8);
+	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar))), hbox, TRUE, TRUE, 0);
+	gtk_widget_show_all (hbox);
+	gtk_widget_show (info_bar);
+
+
+	eog_window_set_message_area (window, info_bar);
+	gtk_info_bar_set_default_response (GTK_INFO_BAR (info_bar),
+					   GTK_RESPONSE_YES);
+	g_signal_connect (info_bar, "response",
+			  G_CALLBACK (wallpaper_info_bar_response), window);
 }
 
 static void
