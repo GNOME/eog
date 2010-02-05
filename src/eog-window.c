@@ -3876,8 +3876,8 @@ static const GtkActionEntry action_entries_collection[] = {
 	{ "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<Alt>End",
 	  N_("Go to the last image of the collection"),
 	  G_CALLBACK (eog_window_cmd_go_last) },
-	{ "GoRandom", GTK_STOCK_JUMP_TO, N_("Random Image"), "<control>M",
-	  N_("Go to the a random image in the collection"),
+	{ "GoRandom", NULL, N_("_Random Image"), "<control>M",
+	  N_("Go to a random image of the collection"),
 	  G_CALLBACK (eog_window_cmd_go_random) },
 	{ "BackSpace", NULL, N_("_Previous Image"), "BackSpace",
 	  NULL,
@@ -3964,9 +3964,6 @@ set_action_properties (GtkActionGroup *window_group,
         action = gtk_action_group_get_action (collection_group, "GoNext");
         g_object_set (action, "short_label", _("Next"), NULL);
         g_object_set (action, "is-important", TRUE, NULL);
-
-	action = gtk_action_group_get_action (collection_group, "GoRandom");
-	g_object_set (action, "short_label", _("Random image"), NULL);
 
         action = gtk_action_group_get_action (image_group, "EditRotate90");
         g_object_set (action, "short_label", _("Right"), NULL);
