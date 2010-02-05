@@ -3732,6 +3732,21 @@ eog_window_cmd_go_last (GtkAction *action, gpointer user_data)
 				      EOG_THUMB_VIEW_SELECT_LAST);
 }
 
+static void
+eog_window_cmd_go_random (GtkAction *action, gpointer user_data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+				      EOG_THUMB_VIEW_SELECT_RANDOM);
+}
+
 static const GtkActionEntry action_entries_window[] = {
 	{ "File",  NULL, N_("_File") },
 	{ "Edit",  NULL, N_("_Edit") },
@@ -3861,6 +3876,9 @@ static const GtkActionEntry action_entries_collection[] = {
 	{ "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<Alt>End",
 	  N_("Go to the last image of the collection"),
 	  G_CALLBACK (eog_window_cmd_go_last) },
+	{ "GoRandom", GTK_STOCK_JUMP_TO, N_("Random Image"), "<control>M",
+	  N_("Go to the a random image in the collection"),
+	  G_CALLBACK (eog_window_cmd_go_random) },
 	{ "BackSpace", NULL, N_("_Previous Image"), "BackSpace",
 	  NULL,
 	  G_CALLBACK (eog_window_cmd_go_prev) },
@@ -3946,6 +3964,9 @@ set_action_properties (GtkActionGroup *window_group,
         action = gtk_action_group_get_action (collection_group, "GoNext");
         g_object_set (action, "short_label", _("Next"), NULL);
         g_object_set (action, "is-important", TRUE, NULL);
+
+	action = gtk_action_group_get_action (collection_group, "GoRandom");
+	g_object_set (action, "short_label", _("Random image"), NULL);
 
         action = gtk_action_group_get_action (image_group, "EditRotate90");
         g_object_set (action, "short_label", _("Right"), NULL);

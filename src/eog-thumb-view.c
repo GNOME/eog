@@ -816,6 +816,10 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 		case EOG_THUMB_VIEW_SELECT_LEFT:
 		case EOG_THUMB_VIEW_SELECT_LAST:
 			path = gtk_tree_path_new_from_indices (n_items - 1, -1);
+			break;
+		case EOG_THUMB_VIEW_SELECT_RANDOM:
+			path = gtk_tree_path_new_from_indices ((int)(((float)(n_items - 1) * rand()) / (float)(RAND_MAX + 1.f)), -1);
+			break;
 		}
 	} else {
 		list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (thumbview));
@@ -849,6 +853,11 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 		case EOG_THUMB_VIEW_SELECT_LAST:
 			gtk_tree_path_free (path);
 			path = gtk_tree_path_new_from_indices (n_items - 1, -1);
+			break;
+		case EOG_THUMB_VIEW_SELECT_RANDOM:
+			gtk_tree_path_free (path);
+			path = gtk_tree_path_new_from_indices ((int)(((float)(n_items - 1) * rand()) / (float)(RAND_MAX + 1.f)), -1);
+			break;
 		}
 	}
 
