@@ -158,6 +158,14 @@ libeog_la_CFLAGS =						\
 libeog_la_LIBADD = \
 	$(EOG_LIBS)
 
+if HAVE_LCMS
+libeog_la_CFLAGS += 	\
+	$(X11_CFLAGS)
+
+libeog_la_LIBADD += \
+	$(X11_LIBS)
+endif
+
 if ENABLE_PYTHON
 libeog_la_CFLAGS += 			\
 	$(NO_STRICT_ALIASING_CFLAGS)	\
@@ -183,7 +191,6 @@ eog_CFLAGS = 							\
 eog_LDADD = 				\
 	libeog.la			\
 	$(EOG_LIBS)			\
-	$(X_LIBS)			\
 	$(LIBJPEG)			\
 	$(toolbar_LIB)			\
 	$(screensaver_LIB)		\

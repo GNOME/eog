@@ -154,6 +154,7 @@ if test "x$have_lcms" = "xyes"; then
   EOG_MODULES="$EOG_MODULES lcms"
 fi
 
+AM_CONDITIONAL([HAVE_LCMS], [test "x$have_lcms" = "xyes"])
 
 # *********************
 # Exempi (optional)
@@ -264,6 +265,29 @@ PKG_CHECK_MODULES(LIBXML2, [libxml-2.0 >= $LIBXML2_REQUIRED])
 PKG_CHECK_MODULES(EOG, $EOG_MODULES)
 AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
+
+# *******************************************************
+# libX11 (required for TotemScrSaver and Color Profiling)
+# *******************************************************
+
+# Check GDK rendering target
+gdk_target=`$PKG_CONFIG --variable=target gdk-2.0`
+
+if test "x$have_lcms" = "xyes" || test "$gdk_target" = "x11"; then
+	PKG_CHECK_MODULES(X11, [x11], have_x11=yes, have_x11=no)
+
+	if test "x$have_x11" != "xyes"; then
+		# Fallback for X11 releases without .pc-files
+		AC_PATH_XTRA
+		if test x$no_x = xyes ; then
+			AC_MSG_ERROR([X development libraries (libX11) not found])
+		else
+			X11_LIBS="$X_PRE_LIBS $X_LIBS -lX11 $X_EXTRA_LIBS"
+			AC_SUBST(X11_LIBS)
+			have_x11=yes
+		fi
+	fi
+fi
 
 # *****
 # GConf
