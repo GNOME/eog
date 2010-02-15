@@ -62,6 +62,7 @@
 #define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"disable-trash-confirmation"
 #define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser-xdg-fallback"
 #define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"propsdialog-netbook-mode"
+#define EOG_CONF_UI_EXTERNAL_EDITOR		"external-editor"
 
 #define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active-plugins"
 

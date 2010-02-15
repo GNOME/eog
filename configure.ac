@@ -97,6 +97,7 @@ EXEMPI_REQUIRED=1.99.5
 EOG_MODULES="gtk+-3.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
+             gio-unix-2.0 >= $GLIB_REQUIRED \
              gthread-2.0 >= $GLIB_REQUIRED \
              gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
