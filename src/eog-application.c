@@ -457,9 +457,9 @@ eog_application_get_windows (EogApplication *application)
  * eog_application_get_toolbars_model:
  * @application: An #EogApplication.
  *
- * Retrieves the #EogTolbarsModel for the toolbar in #EogApplication.
+ * Retrieves the #EggToolbarsModel for the toolbar in #EogApplication.
  *
- * Returns: An #EogToolbarsModel.
+ * Returns: An #EggToolbarsModel.
  **/
 EggToolbarsModel *
 eog_application_get_toolbars_model (EogApplication *application)

@@ -870,7 +870,7 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 
 /**
  * eog_thumb_view_set_thumbnail_popup:
- * @thumbview: A #GtkThumbView.
+ * @thumbview: An #EogThumbView.
  * @menu: A #GtkMenu.
  *
  * Set the contextual menu to be used with the thumbnails in the

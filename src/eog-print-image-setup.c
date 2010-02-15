@@ -980,7 +980,7 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
  * the image will be print
  *
  * Creates a new #EogPrintImageSetup widget, to be used as a custom
- * widget in a #GtkPrinUnixDialog. This widgets allows to set
+ * widget in a #GtkPrintUnixDialog. This widgets allows to set
  * the image position and scale in a page.
  *
  * Returns: a new #EogPrintImageSetup
