@@ -35,6 +35,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define EOG_THUMB_VIEW_SPACING 0

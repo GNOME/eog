@@ -2,6 +2,7 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
 #include <math.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdkkeysyms.h>
