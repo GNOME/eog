@@ -56,16 +56,23 @@ struct _EogCloseConfirmationDialogClass
 	GtkDialogClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType 		 eog_close_confirmation_dialog_get_type		(void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget	*eog_close_confirmation_dialog_new			(GtkWindow     *parent,
 									 GList         *unsaved_documents);
+G_GNUC_INTERNAL
 GtkWidget 	*eog_close_confirmation_dialog_new_single 		(GtkWindow     *parent, 
 									 EogImage      *image);
 
+G_GNUC_INTERNAL
 const GList	*eog_close_confirmation_dialog_get_unsaved_images	(EogCloseConfirmationDialog *dlg);
 
+G_GNUC_INTERNAL
 GList		*eog_close_confirmation_dialog_get_selected_images	(EogCloseConfirmationDialog *dlg);
+
+G_GNUC_INTERNAL
 void		 eog_close_confirmation_dialog_set_sensitive		(EogCloseConfirmationDialog *dlg, gboolean value);
 
 #endif /* __EOG_CLOSE_CONFIRMATION_DIALOG_H__ */
