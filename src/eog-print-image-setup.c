@@ -1041,3 +1041,34 @@ eog_print_image_setup_get_options (EogPrintImageSetup *setup,
 	*scale = gtk_range_get_value (GTK_RANGE (priv->scaling));
 	*unit = priv->current_unit;
 }
+
+void
+eog_print_image_setup_update (GtkPrintOperation *operation,
+			      GtkWidget         *custom_widget,
+			      GtkPageSetup      *page_setup,
+			      GtkPrintSettings  *print_settings,
+			      gpointer           user_data)
+{
+	GtkWidget *preview;
+	gdouble    pos_x;
+	gdouble    pos_y;
+	EogPrintImageSetup *setup;
+
+	setup = EOG_PRINT_IMAGE_SETUP (custom_widget);
+
+	setup->priv->page_setup = gtk_page_setup_copy (page_setup);
+
+	set_initial_values (EOG_PRINT_IMAGE_SETUP (setup));
+
+	preview = EOG_PRINT_IMAGE_SETUP (setup)->priv->preview;
+	eog_print_preview_set_from_page_setup (EOG_PRINT_PREVIEW (preview),
+					       setup->priv->page_setup);
+
+	pos_x = gtk_spin_button_get_value (GTK_SPIN_BUTTON (setup->priv->left));
+	pos_y = gtk_spin_button_get_value (GTK_SPIN_BUTTON (setup->priv->top));
+	if (setup->priv->current_unit == GTK_UNIT_MM) {
+		pos_x *= FACTOR_MM_TO_INCH;
+		pos_y *= FACTOR_MM_TO_INCH;
+	}
+	eog_print_preview_set_image_position (EOG_PRINT_PREVIEW (setup->priv->preview), pos_x, pos_y);
+}
