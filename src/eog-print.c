@@ -113,7 +113,8 @@ eog_print_create_custom_widget (GtkPrintOperation *operation,
 
 	page_setup = gtk_print_operation_get_default_page_setup (operation);
 
-	g_assert (page_setup != NULL);
+	if (page_setup == NULL)
+		page_setup = gtk_page_setup_new ();
 
 	return G_OBJECT (eog_print_image_setup_new (data->image, page_setup));
 }
@@ -180,6 +181,7 @@ eog_print_operation_new (EogImage *image,
 	gtk_print_operation_set_n_pages (print, 1);
 	gtk_print_operation_set_job_name (print,
 					  eog_image_get_caption (image));
+	gtk_print_operation_set_embed_page_setup (print, TRUE);
 
 	g_signal_connect (print, "draw_page",
 			  G_CALLBACK (eog_print_draw_page),
@@ -192,6 +194,9 @@ eog_print_operation_new (EogImage *image,
 			  data);
 	g_signal_connect (print, "end-print",
 			  G_CALLBACK (eog_print_end_print),
+			  data);
+	g_signal_connect (print, "update-custom-widget",
+			  G_CALLBACK (eog_print_image_setup_update),
 			  data);
 
 	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));

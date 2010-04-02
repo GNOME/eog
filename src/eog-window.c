@@ -825,7 +825,6 @@ update_action_groups_state (EogWindow *window)
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 	GtkAction *action_print;
-	GtkAction *action_page_setup;
 	gboolean print_disabled = FALSE;
 	gboolean page_setup_disabled = FALSE;
 	gboolean show_image_collection = FALSE;
@@ -857,16 +856,11 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_group_get_action (priv->actions_image,
 					     "FilePrint");
 
-	action_page_setup =
-		gtk_action_group_get_action (priv->actions_image,
-					     "FilePageSetup");
-
 	g_assert (action_collection != NULL);
 	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
 	g_assert (action_print != NULL);
-	g_assert (action_page_setup != NULL);
 
 	if (priv->store != NULL) {
 		n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
@@ -945,10 +939,6 @@ update_action_groups_state (EogWindow *window)
 	page_setup_disabled = gconf_client_get_bool (priv->client,
 						     EOG_CONF_DESKTOP_CAN_SETUP_PAGE,
 						     NULL);
-
-	if (page_setup_disabled) {
-		gtk_action_set_sensitive (action_page_setup, FALSE);
-	}
 
 	if (eog_sidebar_is_empty (EOG_SIDEBAR (priv->sidebar))) {
 		gtk_action_set_sensitive (action_sidebar, FALSE);
@@ -2328,28 +2318,6 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 }
 
 static void
-eog_window_page_setup (EogWindow *window)
-{
-	GtkPageSetup *new_page_setup;
-	GtkPageSetup *page_setup;
-	GtkPrintSettings *print_settings;
-
-	eog_debug (DEBUG_PRINTING);
-
-	print_settings = eog_print_get_print_settings ();
-	page_setup = eog_print_get_page_setup ();
-
-	new_page_setup = gtk_print_run_page_setup_dialog (GTK_WINDOW (window),
-							  page_setup,
-							  print_settings);
-	eog_print_set_page_setup (new_page_setup);
-
-	g_object_unref (page_setup);
-	g_object_unref (new_page_setup);
-	g_object_unref (print_settings);
-}
-
-static void
 eog_window_print (EogWindow *window)
 {
 	GtkWidget *dialog;
@@ -2388,6 +2356,7 @@ eog_window_print (EogWindow *window)
 		g_error_free (error);
 	} else if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
 		eog_print_set_print_settings (gtk_print_operation_get_print_settings (print));
+		eog_print_set_page_setup (gtk_print_operation_get_default_page_setup (print));
 	}
 
 	g_object_unref (page_setup);
@@ -3137,14 +3106,6 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 }
 
 static void
-eog_window_cmd_page_setup (GtkAction *action, gpointer user_data)
-{
-	EogWindow *window = EOG_WINDOW (user_data);
-
-	eog_window_page_setup (window);
-}
-
-static void
 eog_window_cmd_print (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
@@ -3801,9 +3762,6 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"), "<control><shift>s",
 	  N_("Save the selected images with a different name"),
 	  G_CALLBACK (eog_window_cmd_save_as) },
-	{ "FilePageSetup", GTK_STOCK_PAGE_SETUP, NULL, NULL,
-	  N_("Set up the page properties for printing"),
-	  G_CALLBACK (eog_window_cmd_page_setup) },
 	{ "FilePrint", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
 	  N_("Print the selected image"),
 	  G_CALLBACK (eog_window_cmd_print) },
