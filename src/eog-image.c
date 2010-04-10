@@ -953,8 +953,12 @@ eog_image_real_load (EogImage *img,
 		}
 
 		if (!strcmp (mime_type, "image/svg+xml")) {
+			gchar *file_path;
 			/* Keep the object for rendering */
 			priv->svg = rsvg_handle_new ();
+			file_path = g_file_get_path (priv->file);
+			rsvg_handle_set_base_uri (priv->svg, file_path);
+			g_free (file_path);
 		}
 #endif
 		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
