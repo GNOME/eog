@@ -45,7 +45,7 @@
 
 #include <stdio.h>
 #include <jpeglib.h>
-#include "transupp.h"		/* My own external interface */
+#include "transupp-6b.h"		/* My own external interface */
 
 #ifndef MAX
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))

@@ -189,6 +189,7 @@ AC_SUBST([EOG_DOC_EXIF_STOP])
 
 AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG support]))
   have_jpeg=no
+  have_libjpeg_80=no
   if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
     AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
       have_jpeg=yes,
@@ -212,6 +213,22 @@ AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG s
         AC_CHECK_LIB(jpeg, jpeg_simple_progression,
           AC_DEFINE(HAVE_PROGRESSIVE_JPEG, 1, [Jpeg Progressive Saving Support.]),
           AC_MSG_WARN(JPEG library does not support progressive saving.))
+	AC_MSG_CHECKING([[libjpeg version is 8 or greater]])
+	AC_PREPROC_IFELSE([ AC_LANG_SOURCE(
+			  [[
+#include <stdio.h>
+#include <jpeglib.h>
+#if JPEG_LIB_VERSION < 80
+#error "wrong version"
+#endif
+int main(int c, char**v) { return 0; }
+			  ]]) ],
+			  [AC_MSG_RESULT(yes)
+			   have_libjpeg_80=yes],
+		          [AC_MSG_RESULT(no)
+		           have_libjpeg_80=no])
+        AM_CONDITIONAL(HAVE_LIBJPEG_80, test "x$have_libjpeg_80" = xyes)
+
       else
           AC_MSG_WARN(*** JPEG loader will not be built (JPEG header file not found) ***)
       fi

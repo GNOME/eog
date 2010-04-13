@@ -45,7 +45,7 @@
 #include <setjmp.h>
 #include <jpeglib.h>
 #include <jerror.h>
-#include <transupp.h>
+#include "transupp.h"
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib/gi18n.h>
@@ -158,6 +158,9 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 
 	info->transform = trans_code;
 	info->trim      = FALSE;
+#if JPEG_LIB_VERSION >= 80
+	info->crop = FALSE;
+#endif
 	info->force_grayscale = FALSE;
 
 	g_object_unref (composition);
