@@ -4050,6 +4050,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 			tip = g_uri_unescape_string (gtk_recent_info_get_uri (info), NULL);
 
 		action = gtk_action_new (action_name, label, tip, NULL);
+		gtk_action_set_always_show_image (action, TRUE);
 
 		g_object_set_data_full (G_OBJECT (action), "gtk-recent-info",
 					gtk_recent_info_ref (info),
