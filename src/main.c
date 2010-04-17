@@ -57,6 +57,17 @@ static gboolean force_new_instance = FALSE;
 #endif
 static gchar **startup_files = NULL;
 
+static gboolean
+_print_version_and_exit (const gchar *option_name,
+			 const gchar *value,
+			 gpointer data,
+			 GError **error)
+{
+	g_print("%s %s\n", _("Eye of GNOME Image Viewer"), VERSION);
+	exit (EXIT_SUCCESS);
+	return TRUE;
+}
+
 static const GOptionEntry goption_options[] =
 {
 	{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, &fullscreen, N_("Open in fullscreen mode"), NULL  },
@@ -65,6 +76,8 @@ static const GOptionEntry goption_options[] =
 #if HAVE_DBUS
 	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
 #endif
+	{ "version", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
+	  _print_version_and_exit, N_("Show the application's version"), NULL},
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE…]") },
 	{ NULL }
 };
