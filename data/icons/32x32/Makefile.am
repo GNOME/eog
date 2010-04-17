@@ -10,7 +10,6 @@ dist_actionicons_DATA = \
 	actions/slideshow-play.png
 
 noinst_DATA = \
-	apps/eog.svg  \
 	actions/eog-image-collection.svg  \
 	actions/eog-plugin.svg  \
 	actions/slideshow-play.svg

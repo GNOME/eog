@@ -9,4 +9,9 @@ dist_actionicons_DATA = \
 	actions/eog-image-collection.svg  \
 	actions/slideshow-play.svg
 
+noinst_DATA = \
+	apps/eog-onecanvas.svg
+
+EXTRA_DIST = $(noinst_DATA)
+
 -include $(top_srcdir)/git.mk
