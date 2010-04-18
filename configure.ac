@@ -275,6 +275,24 @@ AM_CONDITIONAL([HAVE_DBUS], [test "x$have_dbus" = "xyes"])
 LIBXML2_REQUIRED=2.0
 PKG_CHECK_MODULES(LIBXML2, [libxml-2.0 >= $LIBXML2_REQUIRED])
 
+# ***************
+# RSVG (optional for scaling svg image)
+# ***************
+
+LIBRSVG_REQUIRED=2.26.0
+
+AC_ARG_WITH([librsvg], AC_HELP_STRING([--without-librsvg], [disable RSVG support]))
+have_rsvg=no
+if test x$with_librsvg != xno; then
+    PKG_CHECK_MODULES(RSVG, librsvg-2.0 >= $LIBRSVG_REQUIRED, have_rsvg=yes, have_rsvg=no)
+fi
+if test "x$have_rsvg" = "xyes"; then
+  AC_DEFINE(HAVE_RSVG, 1, [RSVG Support.])
+  EOG_MODULES="$EOG_MODULES librsvg-2.0 >= $LIBRSVG_REQUIRED"
+fi
+
+AM_CONDITIONAL([HAVE_RSVG], [test "x$have_rsvg" = "xyes"])
+
 # ****************
 # CFLAGS/LIBS init
 # ****************

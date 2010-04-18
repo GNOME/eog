@@ -111,6 +111,13 @@ eog_image_free_mem_private (EogImage *image)
 			priv->image = NULL;
 		}
 
+#ifdef HAVE_RSVG
+		if (priv->svg != NULL) {
+			g_object_unref (priv->svg);
+			priv->svg = NULL;
+		}
+#endif
+
 #ifdef HAVE_EXIF
 		if (priv->exif != NULL) {
 			exif_data_unref (priv->exif);
@@ -294,6 +301,9 @@ eog_image_init (EogImage *img)
 #endif
 #ifdef HAVE_LCMS
 	img->priv->profile = NULL;
+#endif
+#ifdef HAVE_RSVG
+	img->priv->svg = NULL;
 #endif
 }
 
@@ -936,6 +946,17 @@ eog_image_real_load (EogImage *img,
 	if (read_image_data || read_only_dimension) {
 		gboolean checked_threadsafety = FALSE;
 
+#ifdef HAVE_RSVG
+		if (priv->svg != NULL) {
+			g_object_unref (priv->svg);
+			priv->svg = NULL;
+		}
+
+		if (!strcmp (mime_type, "image/svg+xml")) {
+			/* Keep the object for rendering */
+			priv->svg = rsvg_handle_new ();
+		}
+#endif
 		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
 
 		if (error && *error) {
@@ -987,10 +1008,18 @@ eog_image_real_load (EogImage *img,
 			break;
 		}
 
-		if ((read_image_data || read_only_dimension) &&
-		    !gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
-			failed = TRUE;
-			break;
+		if ((read_image_data || read_only_dimension)) {
+			if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
+				failed = TRUE;
+				break;
+			}
+#ifdef HAVE_RSVG
+			if (eog_image_is_svg (img) &&
+			    !rsvg_handle_write (priv->svg, buffer, bytes_read, error)) {
+				failed = TRUE;
+				break;
+			}
+#endif
 		}
 
 		bytes_read_total += bytes_read;
@@ -1060,6 +1089,10 @@ eog_image_real_load (EogImage *img,
 				g_clear_error (error);
 			}
 	        }
+#ifdef HAVE_RSVG
+		if (eog_image_is_svg (img))
+			rsvg_handle_close (priv->svg, error);
+#endif
         }
 
 	g_free (buffer);
@@ -2148,3 +2181,30 @@ eog_image_start_animation (EogImage *img)
 
 	return TRUE;
 }
+
+#ifdef HAVE_RSVG
+gboolean
+eog_image_is_svg (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	return (img->priv->svg != NULL);
+}
+
+RsvgHandle *
+eog_image_get_svg (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	return img->priv->svg;
+}
+
+EogTransform *
+eog_image_get_transform (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	return img->priv->trans;
+}
+
+#endif
