@@ -6,6 +6,10 @@
 #include <math.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdkkeysyms.h>
+#ifdef HAVE_RSVG
+#include <librsvg/rsvg.h>
+#include <librsvg/rsvg-cairo.h>
+#endif
 
 #include "eog-marshal.h"
 #include "eog-scroll-view.h"
@@ -133,6 +137,8 @@ struct _EogScrollViewPrivate {
 
 	/* the type of the cursor we are currently showing */
 	EogScrollViewCursor cursor;
+
+	cairo_surface_t *background_surface;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -537,6 +543,190 @@ paint_background (EogScrollView *view, EogIRect *r, EogIRect *rect)
 	}
 }
 
+static void
+get_transparency_params (EogScrollView *view, int *size, guint32 *color1, guint32 *color2)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+
+	/* Compute transparency parameters */
+	switch (priv->transp_style) {
+	case EOG_TRANSP_BACKGROUND: {
+		GdkColor color = gtk_widget_get_style (GTK_WIDGET (priv->display))->bg[GTK_STATE_NORMAL];
+
+		*color1 = *color2 = (((color.red & 0xff00) << 8)
+				       | (color.green & 0xff00)
+				       | ((color.blue & 0xff00) >> 8));
+		break; }
+
+	case EOG_TRANSP_CHECKED:
+		*color1 = CHECK_GRAY;
+		*color2 = CHECK_LIGHT;
+		break;
+
+	case EOG_TRANSP_COLOR:
+		*color1 = *color2 = priv->transp_color;
+		break;
+
+	default:
+		g_assert_not_reached ();
+	};
+
+	*size = CHECK_MEDIUM;
+}
+
+#ifdef HAVE_RSVG
+static cairo_surface_t *
+create_background_surface (EogScrollView *view)
+{
+	int check_size;
+	guint32 check_1 = 0;
+	guint32 check_2 = 0;
+	cairo_surface_t *surface;
+	cairo_t *check_cr;
+
+	get_transparency_params (view, &check_size, &check_1, &check_2);
+
+	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, check_size * 2, check_size * 2);
+	check_cr = cairo_create (surface);
+	cairo_set_source_rgba (check_cr,
+			       ((check_1 & 0xff0000) >> 16) / 255.,
+			       ((check_1 & 0x00ff00) >> 8)  / 255.,
+			        (check_1 & 0x0000ff)        / 255.,
+				1.);
+	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
+	cairo_fill (check_cr);
+	cairo_translate (check_cr, check_size, check_size);
+	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
+	cairo_fill (check_cr);
+
+	cairo_set_source_rgba (check_cr,
+			       ((check_2 & 0xff0000) >> 16) / 255.,
+			       ((check_2 & 0x00ff00) >> 8)  / 255.,
+			        (check_2 & 0x0000ff)        / 255.,
+				1.);
+	cairo_translate (check_cr, -check_size, 0);
+	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
+	cairo_fill (check_cr);
+	cairo_translate (check_cr, check_size, -check_size);
+	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
+	cairo_fill (check_cr);
+	cairo_destroy (check_cr);
+
+	return surface;
+}
+
+static void
+draw_svg_background (EogScrollView *view, cairo_t *cr, EogIRect *render_rect, EogIRect *image_rect)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+
+	if (priv->background_surface == NULL)
+		priv->background_surface = create_background_surface (view);
+
+	cairo_set_source_surface (cr, priv->background_surface,
+				  - (render_rect->x0 - image_rect->x0) % (CHECK_MEDIUM * 2),
+				  - (render_rect->y0 - image_rect->y0) % (CHECK_MEDIUM * 2));
+	cairo_pattern_set_extend (cairo_get_source (cr), CAIRO_EXTEND_REPEAT);
+	cairo_rectangle (cr,
+			 0,
+			 0,
+			 render_rect->x1 - render_rect->x0,
+			 render_rect->y1 - render_rect->y0);
+	cairo_fill (cr);
+}
+
+static cairo_surface_t *
+draw_svg_on_image_surface (EogScrollView *view, EogIRect *render_rect, EogIRect *image_rect)
+{
+	EogScrollViewPrivate *priv;
+	cairo_t *cr;
+	cairo_surface_t *surface;
+	cairo_matrix_t matrix, translate, scale;
+	EogTransform *transform;
+
+	priv = view->priv;
+
+	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+					      render_rect->x1 - render_rect->x0,
+					      render_rect->y1 - render_rect->y0);
+	cr = cairo_create (surface);
+
+	cairo_save (cr);
+	draw_svg_background (view, cr, render_rect, image_rect);
+	cairo_restore (cr);
+
+	cairo_matrix_init_identity (&matrix);
+	transform = eog_image_get_transform (priv->image);
+	if (transform) {
+		cairo_matrix_t affine;
+		double image_offset_x = 0., image_offset_y = 0.;
+
+		eog_transform_get_affine (transform, &affine);
+		cairo_matrix_multiply (&matrix, &affine, &matrix);
+
+		switch (eog_transform_get_transform_type (transform)) {
+		case EOG_TRANSFORM_ROT_90:
+		case EOG_TRANSFORM_FLIP_HORIZONTAL:
+			image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
+			break;
+		case EOG_TRANSFORM_ROT_270:
+		case EOG_TRANSFORM_FLIP_VERTICAL:
+			image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
+			break;
+		case EOG_TRANSFORM_ROT_180:
+		case EOG_TRANSFORM_TRANSPOSE:
+		case EOG_TRANSFORM_TRANSVERSE:
+			image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
+			image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
+			break;
+		case EOG_TRANSFORM_NONE:
+		default:
+			break;
+		}
+
+		cairo_matrix_init_translate (&translate, image_offset_x, image_offset_y);
+		cairo_matrix_multiply (&matrix, &matrix, &translate);
+	}
+
+	cairo_matrix_init_scale (&scale, priv->zoom, priv->zoom);
+	cairo_matrix_multiply (&matrix, &matrix, &scale);
+	cairo_matrix_init_translate (&translate, image_rect->x0, image_rect->y0);
+	cairo_matrix_multiply (&matrix, &matrix, &translate);
+	cairo_matrix_init_translate (&translate, -render_rect->x0, -render_rect->y0);
+	cairo_matrix_multiply (&matrix, &matrix, &translate);
+
+	cairo_set_matrix (cr, &matrix);
+
+	rsvg_handle_render_cairo (eog_image_get_svg (priv->image), cr);
+	cairo_destroy (cr);
+
+	return surface;
+}
+
+static void
+draw_svg (EogScrollView *view, EogIRect *render_rect, EogIRect *image_rect)
+{
+	EogScrollViewPrivate *priv;
+	cairo_t *cr;
+	cairo_surface_t *surface;
+	GdkWindow *window;
+
+	priv = view->priv;
+
+	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
+	surface = draw_svg_on_image_surface (view, render_rect, image_rect);
+
+	cr = gdk_cairo_create (window);
+	cairo_set_source_surface (cr, surface, render_rect->x0, render_rect->y0);
+	cairo_paint (cr);
+	cairo_destroy (cr);
+}
+#endif
+
 /* Paints a rectangle of the dirty region */
 static void
 paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
@@ -656,6 +846,12 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	eog_debug_message (DEBUG_WINDOW, "%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n",
 			   str, d.x0, d.y0, d.x1, d.y1);
 
+#ifdef HAVE_RSVG
+	if (eog_image_is_svg (view->priv->image) && interp_type != GDK_INTERP_NEAREST) {
+		draw_svg (view, &d, &r);
+		return;
+	}
+#endif
 	/* Short-circuit the fast case to avoid a memcpy() */
 
 	if (is_unity_zoom (view)
@@ -693,29 +889,7 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	}
 
 	/* Compute transparency parameters */
-	switch (priv->transp_style) {
-	case EOG_TRANSP_BACKGROUND: {
-		GdkColor color = gtk_widget_get_style (GTK_WIDGET (priv->display))->bg[GTK_STATE_NORMAL];
-
-		check_1 = check_2 = (((color.red & 0xff00) << 8)
-				     | (color.green & 0xff00)
-				     | ((color.blue & 0xff00) >> 8));
-		break; }
-
-	case EOG_TRANSP_CHECKED:
-		check_1 = CHECK_GRAY;
-		check_2 = CHECK_LIGHT;
-		break;
-
-	case EOG_TRANSP_COLOR:
-		check_1 = check_2 = priv->transp_color;
-		break;
-
-	default:
-		g_assert_not_reached ();
-	};
-
-	check_size = CHECK_MEDIUM;
+	get_transparency_params (view, &check_size, &check_1, &check_2);
 
 	/* Draw! */
 	gdk_pixbuf_composite_color (priv->pixbuf,
@@ -2010,6 +2184,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->transp_color = 0;
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 	priv->menu = NULL;
+	priv->background_surface = NULL;
 }
 
 static void
@@ -2031,6 +2206,11 @@ eog_scroll_view_dispose (GObject *object)
 	if (priv->idle_id != 0) {
 		g_source_remove (priv->idle_id);
 		priv->idle_id = 0;
+	}
+
+	if (priv->background_surface != NULL) {
+		cairo_surface_destroy (priv->background_surface);
+		priv->background_surface = NULL;
 	}
 
 	free_image_resources (view);

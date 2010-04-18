@@ -405,3 +405,14 @@ eog_transform_get_transform_type (EogTransform *trans)
 
 	return EOG_TRANSFORM_NONE;
 }
+
+gboolean
+eog_transform_get_affine (EogTransform *trans, cairo_matrix_t *affine)
+{
+	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), FALSE);
+
+	_eog_cairo_matrix_copy (&trans->priv->affine, affine);
+
+	return TRUE;
+}
+

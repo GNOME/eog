@@ -44,6 +44,10 @@
 #include <exempi/xmp.h>
 #endif
 
+#ifdef HAVE_RSVG
+#include <librsvg/rsvg.h>
+#endif
+
 G_BEGIN_DECLS
 
 #ifndef __EOG_IMAGE_DECLR__
@@ -198,6 +202,12 @@ gboolean          eog_image_is_supported_mime_type   (const char *mime_type);
 gboolean          eog_image_is_animation             (EogImage *img);
 
 gboolean          eog_image_start_animation          (EogImage *img);
+
+#ifdef HAVE_RSVG
+gboolean          eog_image_is_svg                   (EogImage *img);
+RsvgHandle       *eog_image_get_svg                  (EogImage *img);
+EogTransform     *eog_image_get_transform            (EogImage *img);
+#endif
 
 G_END_DECLS
 

@@ -66,6 +66,8 @@ EogTransform* eog_transform_new (EogTransformType trans);
 
 EogTransformType eog_transform_get_transform_type (EogTransform *trans);
 
+gboolean         eog_transform_get_affine (EogTransform *trans, cairo_matrix_t *affine);
+
 G_END_DECLS
 
 #endif /* _EOG_TRANSFORM_H_ */

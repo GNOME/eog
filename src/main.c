@@ -231,6 +231,9 @@ main (int argc, char **argv)
 #ifdef HAVE_EXEMPI
  	xmp_init();
 #endif
+#ifdef HAVE_RSVG
+	rsvg_init();
+#endif
 	eog_debug_init ();
 	eog_job_queue_init ();
 	gdk_threads_init ();
@@ -257,6 +260,9 @@ main (int argc, char **argv)
 
 	eog_plugin_engine_shutdown ();
 
+#ifdef HAVE_RSVG
+	rsvg_term();
+#endif
 #ifdef HAVE_EXEMPI
 	xmp_terminate();
 #endif

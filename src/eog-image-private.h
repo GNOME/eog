@@ -23,6 +23,9 @@
 #define __EOG_IMAGE_PRIVATE_H__
 
 #include "eog-image.h"
+#ifdef HAVE_RSVG
+#include <librsvg/rsvg.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -39,6 +42,9 @@ struct _EogImagePrivate {
 	GdkPixbufAnimationIter *anim_iter;
 	gboolean          is_playing;
 	GdkPixbuf        *thumbnail;
+#ifdef HAVE_RSVG
+	RsvgHandle       *svg;
+#endif
 
 	gint              width;
 	gint              height;
