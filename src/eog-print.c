@@ -19,12 +19,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include "eog-image.h"
 #include "eog-print.h"
 #include "eog-print-image-setup.h"
 #include "eog-util.h"
 #include "eog-debug.h"
+
+#ifdef HAVE_RSVG
+#include <librsvg/rsvg-cairo.h>
+#endif
 
 #define EOG_PRINT_SETTINGS_FILE "eog-print-settings.ini"
 #define EOG_PAGE_SETUP_GROUP "Page Setup"
@@ -50,7 +57,6 @@ eog_print_draw_page (GtkPrintOperation *operation,
 	gdouble scale_factor;
 	gdouble p_width, p_height;
 	gint width, height;
-	GdkPixbuf *pixbuf;
 	EogPrintData *data;
 	GtkPageSetup *page_setup;
 
@@ -59,7 +65,6 @@ eog_print_draw_page (GtkPrintOperation *operation,
 	data = (EogPrintData *) user_data;
 
 	scale_factor = data->scale_factor/100;
-	pixbuf = eog_image_get_pixbuf (data->image);
 
 	dpi_x = gtk_print_context_get_dpi_x (context);
 	dpi_y = gtk_print_context_get_dpi_y (context);
@@ -85,8 +90,7 @@ eog_print_draw_page (GtkPrintOperation *operation,
 	p_width =  gtk_page_setup_get_page_width (page_setup, GTK_UNIT_POINTS);
 	p_height = gtk_page_setup_get_page_height (page_setup, GTK_UNIT_POINTS);
 
-	width  = gdk_pixbuf_get_width (pixbuf);
-	height = gdk_pixbuf_get_height (pixbuf);
+	eog_image_get_size (data->image, &width, &height);
 
 	/* this is both a workaround for a bug in cairo's PDF backend, and
 	   a way to ensure we are not printing outside the page margins */
@@ -94,10 +98,23 @@ eog_print_draw_page (GtkPrintOperation *operation,
 	cairo_clip (cr);
 
 	cairo_scale (cr, scale_factor, scale_factor);
-	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
- 	cairo_paint (cr);
 
-	g_object_unref (pixbuf);
+#ifdef HAVE_RSVG
+	if (eog_image_is_svg (data->image))
+	{
+		RsvgHandle *svg = eog_image_get_svg (data->image);
+
+		rsvg_handle_render_cairo (svg, cr);
+	} else
+#endif
+	{
+		GdkPixbuf *pixbuf;
+
+		pixbuf = eog_image_get_pixbuf (data->image);
+		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+ 		cairo_paint (cr);
+		g_object_unref (pixbuf);
+	}
 }
 
 static GObject *
