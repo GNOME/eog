@@ -1670,7 +1670,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	str_image = eog_image_get_uri_for_display (image);
 
-	status_message = g_strdup_printf (_("Loading image \"%s\""),
+	status_message = g_strdup_printf (_("Opening image \"%s\""),
 				          str_image);
 
 	g_free (str_image);

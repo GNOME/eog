@@ -434,7 +434,7 @@ eog_file_chooser_new (GtkFileChooserAction action)
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
 					NULL);
-		title = _("Load Image");
+		title = _("Open Image");
 		break;
 
 	case GTK_FILE_CHOOSER_ACTION_SAVE:
