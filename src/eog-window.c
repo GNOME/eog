@@ -589,9 +589,9 @@ eog_window_can_save_changed_cb (GConfClient *client,
 	priv->save_disabled = save_disabled;
 
 	action_save =
-		gtk_action_group_get_action (priv->actions_image, "FileSave");
+		gtk_action_group_get_action (priv->actions_image, "ImageSave");
 	action_save_as =
-		gtk_action_group_get_action (priv->actions_image, "FileSaveAs");
+		gtk_action_group_get_action (priv->actions_image, "ImageSaveAs");
 
 	if (priv->save_disabled) {
 		gtk_action_set_sensitive (action_save, FALSE);
@@ -854,7 +854,7 @@ update_action_groups_state (EogWindow *window)
 
 	action_print =
 		gtk_action_group_get_action (priv->actions_image,
-					     "FilePrint");
+					     "ImagePrint");
 
 	g_assert (action_collection != NULL);
 	g_assert (action_sidebar != NULL);
@@ -959,7 +959,7 @@ update_selection_ui_visibility (EogWindow *window)
 
 	wallpaper_action =
 		gtk_action_group_get_action (priv->actions_image,
-					     "SetAsWallpaper");
+					     "ImageSetAsWallpaper");
 
 	if (n_selected == 1) {
 		gtk_action_set_sensitive (wallpaper_action, TRUE);
@@ -1205,7 +1205,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/MainMenu/File/FileOpenWith/Applications Placeholder",
+                                "/MainMenu/Image/ImageOpenWith/Applications Placeholder",
                                 name,
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
@@ -1213,20 +1213,20 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/ThumbnailPopup/FileOpenWith/Applications Placeholder",
+                                "/ThumbnailPopup/ImageOpenWith/Applications Placeholder",
                                 name,
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/ViewPopup/FileOpenWith/Applications Placeholder",
+                                "/ViewPopup/ImageOpenWith/Applications Placeholder",
                                 name,
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
 
-                path = g_strdup_printf ("/MainMenu/File/FileOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/MainMenu/Image/ImageOpenWith/Applications Placeholder/%s", name);	
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1235,7 +1235,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_free (path);
 
-                path = g_strdup_printf ("/ThumbnailPopup/FileOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/ThumbnailPopup/ImageOpenWith/Applications Placeholder/%s", name);	
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1244,7 +1244,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_free (path);
 
-                path = g_strdup_printf ("/ViewPopup/FileOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/ViewPopup/ImageOpenWith/Applications Placeholder/%s", name);	
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1526,7 +1526,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 			 window);
 	}
 
-	action_save = gtk_action_group_get_action (priv->actions_image, "FileSave");
+	action_save = gtk_action_group_get_action (priv->actions_image, "ImageSave");
 	action_undo = gtk_action_group_get_action (priv->actions_image, "EditUndo");
 
 	/* Set Save and Undo sensitive according to image state.
@@ -1570,7 +1570,7 @@ eog_job_transform_cb (EogJobTransform *job, gpointer data)
 	action_undo =
 		gtk_action_group_get_action (window->priv->actions_image, "EditUndo");
 	action_save =
-		gtk_action_group_get_action (window->priv->actions_image, "FileSave");
+		gtk_action_group_get_action (window->priv->actions_image, "ImageSave");
 
 	image = eog_window_get_image (window);
 
@@ -2888,7 +2888,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 
 	update_status_bar (window);
 	action_save = gtk_action_group_get_action (window->priv->actions_image,
-						   "FileSave");
+						   "ImageSave");
 	gtk_action_set_sensitive (action_save, FALSE);
 }
 
@@ -2924,7 +2924,7 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
 			   window->priv->copy_file_cid);
 	action = gtk_action_group_get_action (window->priv->actions_image,
-					      "SetAsWallpaper");
+					      "ImageSetAsWallpaper");
 	gtk_action_set_sensitive (action, TRUE);
 
 	window->priv->copy_job = NULL;
@@ -3228,7 +3228,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 		GtkAction *action;
 
 		action = gtk_action_group_get_action (window->priv->actions_image,
-						      "SetAsWallpaper");
+						      "ImageSetAsWallpaper");
 		gtk_action_set_sensitive (action, FALSE);
 
 		priv->copy_file_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
@@ -3709,18 +3709,17 @@ eog_window_cmd_go_random (GtkAction *action, gpointer user_data)
 }
 
 static const GtkActionEntry action_entries_window[] = {
-	{ "File",  NULL, N_("_File") },
+	{ "Image", NULL, N_("_Image") },
 	{ "Edit",  NULL, N_("_Edit") },
 	{ "View",  NULL, N_("_View") },
-	{ "Image", NULL, N_("_Image") },
 	{ "Go",    NULL, N_("_Go") },
 	{ "Tools", NULL, N_("_Tools") },
 	{ "Help",  NULL, N_("_Help") },
 
-	{ "FileOpen", GTK_STOCK_OPEN,  N_("_Open…"), "<control>O",
+	{ "ImageOpen", GTK_STOCK_OPEN,  N_("_Open…"), "<control>O",
 	  N_("Open a file"),
 	  G_CALLBACK (eog_window_cmd_file_open) },
-	{ "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
+	{ "ImageClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
 	  N_("Close window"),
 	  G_CALLBACK (eog_window_cmd_close_window) },
 	{ "EditToolbar", NULL, N_("T_oolbar"), NULL,
@@ -3753,19 +3752,19 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 };
 
 static const GtkActionEntry action_entries_image[] = {
-	{ "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
+	{ "ImageSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
 	  N_("Save changes in currently selected images"),
 	  G_CALLBACK (eog_window_cmd_save) },
-	{ "FileOpenWith", NULL, N_("Open _with"), NULL,
+	{ "ImageOpenWith", NULL, N_("Open _with"), NULL,
 	  N_("Open the selected image with a different application"),
 	  NULL},
-	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"), "<control><shift>s",
+	{ "ImageSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"), "<control><shift>s",
 	  N_("Save the selected images with a different name"),
 	  G_CALLBACK (eog_window_cmd_save_as) },
-	{ "FilePrint", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
+	{ "ImagePrint", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
 	  N_("Print the selected image"),
 	  G_CALLBACK (eog_window_cmd_print) },
-	{ "FileProperties", GTK_STOCK_PROPERTIES, N_("Prope_rties"), "<alt>Return",
+	{ "ImageProperties", GTK_STOCK_PROPERTIES, N_("Prope_rties"), "<alt>Return",
 	  N_("Show the properties and metadata of the selected image"),
 	  G_CALLBACK (eog_window_cmd_properties) },
 	{ "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z",
@@ -3783,7 +3782,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), "<ctrl><shift>r",
 	  N_("Rotate the image 90 degrees to the left"),
 	  G_CALLBACK (eog_window_cmd_rotate_270) },
-	{ "SetAsWallpaper", NULL, N_("Set as _Desktop Background"),
+	{ "ImageSetAsWallpaper", NULL, N_("Set as _Desktop Background"),
 	  "<control>F8", N_("Set the selected image as the desktop background"),
 	  G_CALLBACK (eog_window_cmd_wallpaper) },
 	{ "EditMoveToTrash", "user-trash", N_("Move to _Trash"), NULL,
@@ -4067,7 +4066,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		g_object_unref (action);
 
 		gtk_ui_manager_add_ui (priv->ui_mgr, priv->recent_menu_id,
-				       "/MainMenu/File/RecentDocuments",
+				       "/MainMenu/Image/RecentDocuments",
 				       action_name, action_name,
 				       GTK_UI_MANAGER_AUTO, FALSE);
 
@@ -4291,22 +4290,22 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (menubar);
 
 	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Image/EditFlipHorizontal");
+			"/MainMenu/Edit/EditFlipHorizontal");
 	gtk_image_menu_item_set_always_show_image (
 			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
 	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Image/EditFlipVertical");
+			"/MainMenu/Edit/EditFlipVertical");
 	gtk_image_menu_item_set_always_show_image (
 			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
 	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Image/EditRotate90");
+			"/MainMenu/Edit/EditRotate90");
 	gtk_image_menu_item_set_always_show_image (
 			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
 	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Image/EditRotate270");
+			"/MainMenu/Edit/EditRotate270");
 	gtk_image_menu_item_set_always_show_image (
 			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
