@@ -1,24 +1,32 @@
 <ui>
   <menubar name="MainMenu">
-    <menu action="File">
-      <menuitem action="FileOpen"/>
-      <menu action='FileOpenWith'>
+    <menu action="Image">
+      <menuitem action="ImageOpen"/>
+      <menu action='ImageOpenWith'>
          <placeholder name="Applications Placeholder"/>
       </menu>
       <separator/>
-      <menuitem action="FileSave"/>
-      <menuitem action="FileSaveAs"/>
+      <menuitem action="ImageSave"/>
+      <menuitem action="ImageSaveAs"/>
       <separator/>
-      <menuitem action="FilePrint"/>
+      <menuitem action="ImagePrint"/>
       <separator/>
-      <menuitem action="FileProperties"/>
+      <menuitem action="ImageSetAsWallpaper"/>
+      <separator/>
+      <menuitem action="ImageProperties"/>
       <separator/>
       <placeholder name="RecentDocuments"/>
       <separator/>
-      <menuitem action="FileClose"/>
+      <menuitem action="ImageClose"/>
     </menu>
     <menu action="Edit">
       <menuitem action="EditUndo"/>
+      <separator/>
+      <menuitem action="EditFlipHorizontal"/>
+      <menuitem action="EditFlipVertical"/>
+      <separator/>
+      <menuitem action="EditRotate90"/>
+      <menuitem action="EditRotate270"/>
       <separator/>
       <menuitem action="EditMoveToTrash"/>
       <separator/>
@@ -38,15 +46,6 @@
       <menuitem action="ViewZoomOut"/>
       <menuitem action="ViewZoomNormal"/>
       <menuitem action="ViewZoomFit"/>
-    </menu>
-    <menu action="Image">
-      <menuitem action="EditFlipHorizontal"/>
-      <menuitem action="EditFlipVertical"/>
-      <separator/>
-      <menuitem action="EditRotate90"/>
-      <menuitem action="EditRotate270"/>
-      <separator/>
-      <menuitem action="SetAsWallpaper"/>
     </menu>
     <menu action="Go">
       <menuitem name="GoPrevious" action="GoPrevious"/>
@@ -103,35 +102,35 @@
   </toolbar>
 
   <popup name="ThumbnailPopup">
-    <menu action='FileOpenWith'>
+    <menu action='ImageOpenWith'>
        <placeholder name="Applications Placeholder"/>
     </menu>
     <separator/>
-    <menuitem action="FileSave"/>
-    <menuitem action="FileSaveAs"/>
+    <menuitem action="ImageSave"/>
+    <menuitem action="ImageSaveAs"/>
     <separator/>
-    <menuitem action="FilePrint"/>
+    <menuitem action="ImagePrint"/>
     <separator/>
     <menuitem action="EditMoveToTrash"/>
     <separator/>
-    <menuitem action="FileProperties"/>
-    <menuitem action="SetAsWallpaper"/>
+    <menuitem action="ImageProperties"/>
+    <menuitem action="ImageSetAsWallpaper"/>
   </popup>
 
   <popup name="ViewPopup">
-    <menu action='FileOpenWith'>
+    <menu action='ImageOpenWith'>
        <placeholder name="Applications Placeholder"/>
     </menu>
     <separator/>
-    <menuitem action="FileSave"/>
-    <menuitem action="FileSaveAs"/>
+    <menuitem action="ImageSave"/>
+    <menuitem action="ImageSaveAs"/>
     <separator/>
-    <menuitem action="FilePrint"/>
+    <menuitem action="ImagePrint"/>
     <separator/>
     <menuitem action="EditMoveToTrash"/>
     <separator/>
-    <menuitem action="FileProperties"/>
-    <menuitem action="SetAsWallpaper"/>
+    <menuitem action="ImageProperties"/>
+    <menuitem action="ImageSetAsWallpaper"/>
   </popup>
 
   <accelerator name="ControlEqualAccel" action="ControlEqual"/>
