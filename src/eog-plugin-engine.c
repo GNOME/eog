@@ -818,9 +818,12 @@ eog_plugin_engine_configure_plugin (EogPluginInfo *info,
 	gtk_window_set_transient_for (GTK_WINDOW (conf_dlg),
 				      parent);
 
-	wg = parent->group;
+	// Will return a default group if no group is set
+	wg = gtk_window_get_group (parent);
 
-	if (wg == NULL) {
+	// For now assign a dedicated window group if it is 
+	// the default one until we know if this is really needed
+	if (wg == gtk_window_get_group (NULL)) {
 		wg = gtk_window_group_new ();
 		gtk_window_group_add_window (wg, parent);
 	}
