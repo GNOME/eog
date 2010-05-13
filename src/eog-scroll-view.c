@@ -387,8 +387,11 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 		width = alloc->width;
 		height = alloc->height;
 	} else {
-		width = GTK_WIDGET (view)->allocation.width;
-		height = GTK_WIDGET (view)->allocation.height;
+		GtkAllocation allocation;
+
+		gtk_widget_get_allocation (GTK_WIDGET (view), &allocation);
+		width = allocation.width;
+		height = allocation.height;
 	}
 
 	compute_scaled_size (view, priv->zoom, &img_width, &img_height);
@@ -732,13 +735,13 @@ static void
 paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 {
 	EogScrollViewPrivate *priv;
+	GdkPixbuf *tmp;
+	char *str;
+	GtkAllocation allocation;
 	int scaled_width, scaled_height;
-	int width, height;
 	int xofs, yofs;
 	EogIRect r, d;
-	GdkPixbuf *tmp;
 	int check_size;
-	char *str;
 	guint32 check_1 = 0;
 	guint32 check_2 = 0;
 
@@ -749,28 +752,27 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
-	width = GTK_WIDGET (priv->display)->allocation.width;
-	height = GTK_WIDGET (priv->display)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
 	if (scaled_width < 1 || scaled_height < 1)
 	{
 		r.x0 = 0;
 		r.y0 = 0;
-		r.x1 = width;
-		r.y1 = height;
+		r.x1 = allocation.width;
+		r.y1 = allocation.height;
 		paint_background (view, &r, rect);
 		return;
 	}
 
 	/* Compute image offsets with respect to the window */
 
-	if (scaled_width <= width)
-		xofs = (width - scaled_width) / 2;
+	if (scaled_width <= allocation.width)
+		xofs = (allocation.width - scaled_width) / 2;
 	else
 		xofs = -priv->xofs;
 
-	if (scaled_height <= height)
-		yofs = (height - scaled_height) / 2;
+	if (scaled_height <= allocation.height)
+		yofs = (allocation.height - scaled_height) / 2;
 	else
 		yofs = -priv->yofs;
 
@@ -783,7 +785,7 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	if (yofs > 0) {
 		r.x0 = 0;
 		r.y0 = 0;
-		r.x1 = width;
+		r.x1 = allocation.width;
 		r.y1 = yofs;
 		paint_background (view, &r, rect);
 	}
@@ -801,7 +803,7 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	if (xofs >= 0) {
 		r.x0 = xofs + scaled_width;
 		r.y0 = yofs;
-		r.x1 = width;
+		r.x1 = allocation.width;
 		r.y1 = yofs + scaled_height;
 		if (r.x0 < r.x1)
 			paint_background (view, &r, rect);
@@ -811,8 +813,8 @@ paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 	if (yofs >= 0) {
 		r.x0 = 0;
 		r.y0 = yofs + scaled_height;
-		r.x1 = width;
-		r.y1 = height;
+		r.x1 = allocation.width;
+		r.y1 = allocation.height;
 		if (r.y0 < r.y1)
 			paint_background (view, &r, rect);
 	}
@@ -964,6 +966,7 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 {
 	EogScrollViewPrivate *priv;
 	EogIRect r;
+	GtkAllocation allocation;
 
 	priv = view->priv;
 
@@ -973,10 +976,11 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 	if (!gtk_widget_is_drawable (priv->display))
 		return;
 
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 	r.x0 = MAX (0, area->x);
 	r.y0 = MAX (0, area->y);
-	r.x1 = MIN (GTK_WIDGET (priv->display)->allocation.width, area->x + area->width);
-	r.y1 = MIN (GTK_WIDGET (priv->display)->allocation.height, area->y + area->height);
+	r.x1 = MIN (allocation.width, area->x + area->width);
+	r.y1 = MIN (allocation.height, area->y + area->height);
 
 	eog_debug_message (DEBUG_WINDOW, "r: %i, %i, %i, %i\n", r.x0, r.y0, r.x1, r.y1);
 
@@ -1026,9 +1030,9 @@ static void
 scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 {
 	EogScrollViewPrivate *priv;
+	GtkAllocation allocation;
 	int xofs, yofs;
 	GdkWindow *window;
-	int width, height;
 	int src_x, src_y;
 	int dest_x, dest_y;
 	int twidth, theight;
@@ -1057,10 +1061,9 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	if (!gtk_widget_is_drawable (priv->display))
 		goto out;
 
-	width = GTK_WIDGET (priv->display)->allocation.width;
-	height = GTK_WIDGET (priv->display)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
-	if (abs (xofs) >= width || abs (yofs) >= height) {
+	if (abs (xofs) >= allocation.width || abs (yofs) >= allocation.height) {
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 		goto out;
 	}
@@ -1069,8 +1072,8 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 
 	/* Ensure that the uta has the full size */
 
-	twidth = (width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
-	theight = (height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	twidth = (allocation.width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	theight = (allocation.height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
 	if (priv->uta)
 		g_assert (priv->idle_id != 0);
@@ -1090,7 +1093,8 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	uta_copy_area (priv->uta,
 		       src_x, src_y,
 		       dest_x, dest_y,
-		       width - abs (xofs), height - abs (yofs));
+		       allocation.width - abs (xofs),
+		       allocation.height - abs (yofs));
 
 	/* Scroll the window area and process exposure synchronously. */
 
@@ -1146,7 +1150,8 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	scroll_to (view, priv->hadj->value, priv->vadj->value, FALSE);
+	scroll_to (view, gtk_adjustment_get_value (priv->hadj),
+		   gtk_adjustment_get_value (priv->vadj), FALSE);
 }
 
 
@@ -1199,8 +1204,8 @@ set_zoom (EogScrollView *view, double zoom,
 	  gboolean have_anchor, int anchorx, int anchory)
 {
 	EogScrollViewPrivate *priv;
+	GtkAllocation allocation;
 	int xofs, yofs;
-	int disp_width, disp_height;
 	double x_rel, y_rel;
 
 	g_assert (zoom > 0.0);
@@ -1222,20 +1227,19 @@ set_zoom (EogScrollView *view, double zoom,
 
 	priv->zoom_mode = ZOOM_MODE_FREE;
 
-	disp_width = GTK_WIDGET (priv->display)->allocation.width;
-	disp_height = GTK_WIDGET (priv->display)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
 	/* compute new xofs/yofs values */
 	if (have_anchor) {
-		x_rel = (double) anchorx / disp_width;
-		y_rel = (double) anchory / disp_height;
+		x_rel = (double) anchorx / allocation.width;
+		y_rel = (double) anchory / allocation.height;
 	} else {
 		x_rel = 0.5;
 		y_rel = 0.5;
 	}
 
 	compute_center_zoom_offsets (view, priv->zoom, zoom,
-				     disp_width, disp_height,
+				     allocation.width, allocation.height,
 				     x_rel, y_rel,
 				     &xofs, &yofs);
 
@@ -1265,23 +1269,22 @@ static void
 set_zoom_fit (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
+	GtkAllocation allocation;
 	double new_zoom;
-	int width, height;
 
 	priv = view->priv;
 
 	priv->zoom_mode = ZOOM_MODE_FIT;
 
-	if (!GTK_WIDGET_MAPPED (GTK_WIDGET (view)))
+	if (!gtk_widget_get_mapped (GTK_WIDGET (view)))
 		return;
 
 	if (priv->pixbuf == NULL)
 		return;
 
-	width = GTK_WIDGET (priv->display)->allocation.width;
-	height = GTK_WIDGET (priv->display)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET(priv->display), &allocation);
 
-	new_zoom = zoom_fit_scale (width, height,
+	new_zoom = zoom_fit_scale (allocation.width, allocation.height,
 				   gdk_pixbuf_get_width (priv->pixbuf),
 				   gdk_pixbuf_get_height (priv->pixbuf),
 				   priv->upscale);
@@ -1310,11 +1313,11 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
+	GtkAllocation allocation;
 	gboolean do_zoom;
 	double zoom;
 	gboolean do_scroll;
 	int xofs, yofs;
-	int width, height;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -1324,8 +1327,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	xofs = yofs = 0;
 	zoom = 1.0;
 
-	width = GTK_WIDGET (priv->display)->allocation.width;
-	height = GTK_WIDGET (priv->display)->allocation.height;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
 	/* EogScrollView doesn't handle/have any Alt+Key combos */
 	if (event->state & GDK_MOD1_MASK) {
@@ -1342,11 +1344,11 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_Page_Up:
 		do_scroll = TRUE;
 		if (event->state & GDK_CONTROL_MASK) {
-			xofs = -(width * 3) / 4;
+			xofs = -(allocation.width * 3) / 4;
 			yofs = 0;
 		} else {
 			xofs = 0;
-			yofs = -(height * 3) / 4;
+			yofs = -(allocation.height * 3) / 4;
 		}
 		break;
 
@@ -1359,11 +1361,11 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_Page_Down:
 		do_scroll = TRUE;
 		if (event->state & GDK_CONTROL_MASK) {
-			xofs = (width * 3) / 4;
+			xofs = (allocation.width * 3) / 4;
 			yofs = 0;
 		} else {
 			xofs = 0;
-			yofs = (height * 3) / 4;
+			yofs = (allocation.height * 3) / 4;
 		}
 		break;
 
@@ -1517,9 +1519,9 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 	priv = view->priv;
 
 	/* Compute zoom factor and scrolling offsets; we'll only use either of them */
-
-	xofs = priv->hadj->page_increment / 2; /* same as in gtkscrolledwindow.c */
-	yofs = priv->vadj->page_increment / 2;
+	/* same as in gtkscrolledwindow.c */
+	xofs = gtk_adjustment_get_page_increment (priv->hadj) / 2;
+	yofs = gtk_adjustment_get_page_increment (priv->vadj) / 2;
 
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
