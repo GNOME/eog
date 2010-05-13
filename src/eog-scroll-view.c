@@ -258,35 +258,40 @@ update_scrollbar_values (EogScrollView *view)
 	EogScrollViewPrivate *priv;
 	int scaled_width, scaled_height;
 	int xofs, yofs;
-	GtkAllocation *allocation;
+	gdouble page_size,page_increment,step_increment;
+	gdouble lower, upper, value;
+	GtkAllocation allocation;
 
 	priv = view->priv;
 
-	if (!gtk_widget_get_visible (GTK_WIDGET (priv->hbar)) && !gtk_widget_get_visible (GTK_WIDGET (priv->vbar)))
+	if (!gtk_widget_get_visible (GTK_WIDGET (priv->hbar))
+	    && !gtk_widget_get_visible (GTK_WIDGET (priv->vbar)))
 		return;
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-	allocation = &GTK_WIDGET (priv->display)->allocation;
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
 	if (gtk_widget_get_visible (GTK_WIDGET (priv->hbar))) {
 		/* Set scroll increments */
-		priv->hadj->page_size = MIN (scaled_width, allocation->width);
-		priv->hadj->page_increment = allocation->width / 2;
-		priv->hadj->step_increment = SCROLL_STEP_SIZE;
+		page_size = MIN (scaled_width, allocation.width);
+		page_increment = allocation.width / 2;
+		step_increment = SCROLL_STEP_SIZE;
 
 		/* Set scroll bounds and new offsets */
-		priv->hadj->lower = 0;
-		priv->hadj->upper = scaled_width;
-		xofs = CLAMP (priv->xofs, 0, priv->hadj->upper - priv->hadj->page_size);
-		if (priv->hadj->value != xofs) {
-			priv->hadj->value = xofs;
+		lower = 0;
+		upper = scaled_width;
+		xofs = CLAMP (priv->xofs, 0, upper - page_size);
+		if (gtk_adjustment_get_value (priv->hadj) != xofs) {
+			value = xofs;
 			priv->xofs = xofs;
 
 			g_signal_handlers_block_matched (
 				priv->hadj, G_SIGNAL_MATCH_DATA,
 				0, 0, NULL, NULL, view);
 
-			gtk_adjustment_changed (priv->hadj);
+			gtk_adjustment_configure (priv->hadj, value, lower,
+						  upper, step_increment,
+						  page_increment, page_size);
 
 			g_signal_handlers_unblock_matched (
 				priv->hadj, G_SIGNAL_MATCH_DATA,
@@ -295,23 +300,25 @@ update_scrollbar_values (EogScrollView *view)
 	}
 
 	if (gtk_widget_get_visible (GTK_WIDGET (priv->vbar))) {
-		priv->vadj->page_size = MIN (scaled_height, allocation->height);
-		priv->vadj->page_increment = allocation->height / 2;
-		priv->vadj->step_increment = SCROLL_STEP_SIZE;
+		page_size = MIN (scaled_height, allocation.height);
+		page_increment = allocation.height / 2;
+		step_increment = SCROLL_STEP_SIZE;
 
-		priv->vadj->lower = 0;
-		priv->vadj->upper = scaled_height;
-		yofs = CLAMP (priv->yofs, 0, priv->vadj->upper - priv->vadj->page_size);
+		lower = 0;
+		upper = scaled_height;
+		yofs = CLAMP (priv->yofs, 0, upper - page_size);
 
-		if (priv->vadj->value != yofs) {
-			priv->vadj->value = yofs;
+		if (gtk_adjustment_get_value (priv->vadj) != yofs) {
+			value = yofs;
 			priv->yofs = yofs;
 
 			g_signal_handlers_block_matched (
 				priv->vadj, G_SIGNAL_MATCH_DATA,
 				0, 0, NULL, NULL, view);
 
-			gtk_adjustment_changed (priv->vadj);
+			gtk_adjustment_configure (priv->vadj, value, lower,
+						  upper, step_increment,
+						  page_increment, page_size);
 
 			g_signal_handlers_unblock_matched (
 				priv->vadj, G_SIGNAL_MATCH_DATA,
@@ -1041,13 +1048,15 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 
 	/* Check bounds & Compute offsets */
 	if (gtk_widget_get_visible (priv->hbar)) {
-		x = CLAMP (x, 0, priv->hadj->upper - priv->hadj->page_size);
+		x = CLAMP (x, 0, gtk_adjustment_get_upper (priv->hadj)
+				 - gtk_adjustment_get_page_size (priv->hadj));
 		xofs = x - priv->xofs;
 	} else
 		xofs = 0;
 
 	if (gtk_widget_get_visible (priv->vbar)) {
-		y = CLAMP (y, 0, priv->vadj->upper - priv->vadj->page_size);
+		y = CLAMP (y, 0, gtk_adjustment_get_upper (priv->vadj)
+				 - gtk_adjustment_get_page_size (priv->vadj));
 		yofs = y - priv->yofs;
 	} else
 		yofs = 0;
@@ -1112,11 +1121,8 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 		priv->vadj, G_SIGNAL_MATCH_DATA,
 		0, 0, NULL, NULL, view);
 
-	priv->hadj->value = x;
-	priv->vadj->value = y;
-
-	gtk_adjustment_value_changed (priv->hadj);
-	gtk_adjustment_value_changed (priv->vadj);
+	gtk_adjustment_set_value (priv->hadj, x);
+	gtk_adjustment_set_value (priv->vadj, y);
 
 	g_signal_handlers_unblock_matched (
 		priv->hadj, G_SIGNAL_MATCH_DATA,
