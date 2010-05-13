@@ -756,7 +756,7 @@ eog_image_set_orientation (EogImage *img)
 static void
 eog_image_real_autorotate (EogImage *img)
 {
-	static EogTransformType lookup[8] = {EOG_TRANSFORM_NONE,
+	static const EogTransformType lookup[8] = {EOG_TRANSFORM_NONE,
 					     EOG_TRANSFORM_FLIP_HORIZONTAL,
 					     EOG_TRANSFORM_ROT_180,
 					     EOG_TRANSFORM_FLIP_VERTICAL,
