@@ -2553,8 +2553,7 @@ eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 
 	window = EOG_WINDOW (user_data);
 
-	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window),
-							window->priv->client);
+	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window));
 
 	eog_dialog_show (EOG_DIALOG (pref_dlg));
 }

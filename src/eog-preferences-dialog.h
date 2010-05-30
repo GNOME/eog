@@ -29,7 +29,6 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 G_BEGIN_DECLS
 
@@ -58,8 +57,7 @@ G_GNUC_INTERNAL
 GType	    eog_preferences_dialog_get_type	  (void) G_GNUC_CONST;
 
 G_GNUC_INTERNAL
-GObject    *eog_preferences_dialog_get_instance	  (GtkWindow   *parent,
-					 	   GConfClient *client);
+GObject    *eog_preferences_dialog_get_instance	  (GtkWindow   *parent);
 
 G_END_DECLS
 
