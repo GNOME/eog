@@ -42,7 +42,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
-#include <gconf/gconf-client.h>
 
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
