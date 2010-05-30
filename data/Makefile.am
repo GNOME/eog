@@ -10,9 +10,14 @@ desktop_DATA = $(DESKTOP_FILES)
 
 @INTLTOOL_SCHEMAS_RULE@
 
-schemas_in_files = eog.schemas.in
-schemasdir = $(GCONF_SCHEMA_FILE_DIR)
-schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+gsettings_SCHEMAS = org.gnome.eog.gschema.xml
+
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
+
+#schemas_in_files = eog.schemas.in
+#schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+#schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
 gladedir = $(pkgdatadir)
 glade_DATA = eog-image-properties-dialog.ui \
@@ -50,6 +55,6 @@ EXTRA_DIST =			\
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
-        $(schemas_DATA)
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

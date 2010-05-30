@@ -330,6 +330,7 @@ fi
 # *****
 
 AM_GCONF_SOURCE_2
+GLIB_GSETTINGS
 
 AC_PATH_PROG([GCONFTOOL], [gconftool-2], [no])
 
