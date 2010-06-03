@@ -2558,11 +2558,18 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 
 	selected = (priv->override_bg_color) ? priv->override_bg_color
 					     : priv->background_color;
+
+	if (priv->transp_style == EOG_TRANSP_BACKGROUND
+	    && priv->background_surface != NULL) {
+		/* Delete the SVG background to have it recreated with
+		 * the correct color during the next SVG redraw */
+		cairo_surface_destroy (priv->background_surface);
+		priv->background_surface = NULL;
+	}
+
 	gtk_widget_modify_bg (GTK_WIDGET (view),
 			      GTK_STATE_NORMAL,
 			      selected);
-
-	
 }
 
 void
