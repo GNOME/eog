@@ -2520,13 +2520,39 @@ eog_scroll_view_set_popup (EogScrollView *view,
 			  G_CALLBACK (view_on_button_press_event_cb), NULL);
 }
 
+static gboolean
+_eog_gdk_color_equal0 (const GdkColor *a, const GdkColor *b)
+{
+	if (a == NULL || b == NULL)
+		return (a == b);
+
+	return gdk_color_equal (a, b);
+}
+
+static gboolean
+_eog_replace_gdk_color (GdkColor **dest, const GdkColor *new)
+{
+	GdkColor *old = *dest;
+
+	if (_eog_gdk_color_equal0 (old, new))
+		return FALSE;
+
+	if (old != NULL)
+		gdk_color_free (old);
+
+	*dest = (new) ? gdk_color_copy (new) : NULL;
+
+	return TRUE;
+}
+
 static void
 _eog_scroll_view_update_bg_color (EogScrollView *view)
 {
 	const GdkColor *selected;
+	EogScrollViewPrivate *priv = view->priv;
 
-	selected = (view->priv->override_bg_color) ? view->priv->override_bg_color
-						: view->priv->background_color;
+	selected = (priv->override_bg_color) ? priv->override_bg_color
+					     : priv->background_color;
 	gtk_widget_modify_bg (GTK_WIDGET (view),
 			      GTK_STATE_NORMAL,
 			      selected);
@@ -2538,53 +2564,20 @@ void
 eog_scroll_view_set_background_color (EogScrollView *view,
 				      const GdkColor *color)
 {
-	EogScrollViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	priv = view->priv;
-
-	if (color != NULL) {
-		if (priv->background_color != NULL) {
-			if (gdk_color_equal (color, priv->background_color ))
-				return;
-			gdk_color_free (priv->background_color);
-		}
-		priv->background_color = gdk_color_copy (color);
-	} else {
-		/* color == NULL */
-		if (priv->background_color == NULL)
-			return;
-
-		gdk_color_free (priv->background_color);
-		priv->background_color = NULL;
-	}
-
-	_eog_scroll_view_update_bg_color (view);
+	if (_eog_replace_gdk_color (&view->priv->background_color, color))
+		_eog_scroll_view_update_bg_color (view);
 }
 
 void
 eog_scroll_view_override_bg_color (EogScrollView *view,
 				   const GdkColor *color)
 {
-	EogScrollViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	priv = view->priv;
-
-	if (priv->override_bg_color) {
-		if (color && gdk_color_equal (color, priv->override_bg_color))
-			return;
-		gdk_color_free (priv->override_bg_color);
-		priv->override_bg_color = (color) ? gdk_color_copy (color) : NULL;
-	} else {
-		if (color == NULL)
-			return;
-		priv->override_bg_color = gdk_color_copy (color);
-	}
-
-	_eog_scroll_view_update_bg_color (view);
+	if (_eog_replace_gdk_color (&view->priv->override_bg_color, color))
+		_eog_scroll_view_update_bg_color (view);
 }
 
 void
