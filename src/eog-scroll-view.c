@@ -2307,7 +2307,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
         gobject_class->get_property = eog_scroll_view_get_property;
 
 	/**
-	 * EogScrollView:default-bg-color:
+	 * EogScrollView:background-color:
 	 *
 	 * This is the default background color used for painting the background
 	 * of the image view. If set to %NULL the color is determined by the
