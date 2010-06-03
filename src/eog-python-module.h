@@ -25,7 +25,6 @@
 #ifndef __EOG_PYTHON_MODULE_H__
 #define __EOG_PYTHON_MODULE_H__
 
-#include <Python.h>
 #include <glib-object.h>
 
 G_BEGIN_DECLS

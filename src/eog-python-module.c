@@ -24,6 +24,10 @@
 #include <config.h>
 #endif
 
+/* This needs to be included before any standard header
+ * see http://docs.python.org/c-api/intro.html#include-files */
+#include <Python.h>
+
 #include <pygobject.h>
 #include <pygtk/pygtk.h>
 
