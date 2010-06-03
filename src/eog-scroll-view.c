@@ -72,6 +72,11 @@ static GtkTargetEntry target_table[] = {
 	{ "text/uri-list", 0, 0},
 };
 
+enum {
+	PROP_0,
+	PROP_BACKGROUND_COLOR
+};
+
 /* Private part of the EogScrollView structure */
 struct _EogScrollViewPrivate {
 	/* some widgets we rely on */
@@ -137,6 +142,9 @@ struct _EogScrollViewPrivate {
 
 	/* the type of the cursor we are currently showing */
 	EogScrollViewCursor cursor;
+
+	GdkColor *background_color;
+	GdkColor *override_bg_color;
 
 	cairo_surface_t *background_surface;
 };
@@ -2192,6 +2200,8 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->transp_color = 0;
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 	priv->menu = NULL;
+	priv->background_color = NULL;
+	priv->override_bg_color = NULL;
 	priv->background_surface = NULL;
 }
 
@@ -2216,6 +2226,16 @@ eog_scroll_view_dispose (GObject *object)
 		priv->idle_id = 0;
 	}
 
+	if (priv->background_color != NULL) {
+		gdk_color_free (priv->background_color);
+		priv->background_color = NULL;
+	}
+
+	if (priv->override_bg_color != NULL) {
+		gdk_color_free (priv->override_bg_color);
+		priv->override_bg_color = NULL;
+	}
+
 	if (priv->background_surface != NULL) {
 		cairo_surface_destroy (priv->background_surface);
 		priv->background_surface = NULL;
@@ -2227,6 +2247,53 @@ eog_scroll_view_dispose (GObject *object)
 }
 
 static void
+eog_scroll_view_get_property (GObject *object, guint property_id,
+			      GValue *value, GParamSpec *pspec)
+{
+	EogScrollView *view;
+	EogScrollViewPrivate *priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (object));
+
+	view = EOG_SCROLL_VIEW (object);
+	priv = view->priv;
+
+	switch (property_id) {
+	case PROP_BACKGROUND_COLOR:
+		//FIXME: This doesn't really handle the NULL color.
+		g_value_set_boxed (value, priv->background_color);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+	}
+}
+
+static void
+eog_scroll_view_set_property (GObject *object, guint property_id,
+			      const GValue *value, GParamSpec *pspec)
+{
+	EogScrollView *view;
+	EogScrollViewPrivate *priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (object));
+
+	view = EOG_SCROLL_VIEW (object);
+	priv = view->priv;
+
+	switch (property_id) {
+	case PROP_BACKGROUND_COLOR:
+	{
+		const GdkColor *color = g_value_get_boxed (value);
+		eog_scroll_view_set_background_color (view, color);
+		break;
+	}
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+	}
+}
+
+
+static void
 eog_scroll_view_class_init (EogScrollViewClass *klass)
 {
 	GObjectClass *gobject_class;
@@ -2236,6 +2303,21 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	widget_class = (GtkWidgetClass*) klass;
 
 	gobject_class->dispose = eog_scroll_view_dispose;
+        gobject_class->set_property = eog_scroll_view_set_property;
+        gobject_class->get_property = eog_scroll_view_get_property;
+
+	/**
+	 * EogScrollView:default-bg-color:
+	 *
+	 * This is the default background color used for painting the background
+	 * of the image view. If set to %NULL the color is determined by the
+	 * active GTK theme.
+	 */
+	g_object_class_install_property (
+		gobject_class, PROP_BACKGROUND_COLOR,
+		g_param_spec_boxed ("background-color", NULL, NULL,
+				    GDK_TYPE_COLOR,
+				    G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",
@@ -2438,13 +2520,71 @@ eog_scroll_view_set_popup (EogScrollView *view,
 			  G_CALLBACK (view_on_button_press_event_cb), NULL);
 }
 
-void
-eog_scroll_view_set_bg_color (EogScrollView *view,
-			      GdkColor *color)
+static void
+_eog_scroll_view_update_bg_color (EogScrollView *view)
 {
+	const GdkColor *selected;
+
+	selected = (view->priv->override_bg_color) ? view->priv->override_bg_color
+						: view->priv->background_color;
+	gtk_widget_modify_bg (GTK_WIDGET (view),
+			      GTK_STATE_NORMAL,
+			      selected);
+
+	
+}
+
+void
+eog_scroll_view_set_background_color (EogScrollView *view,
+				      const GdkColor *color)
+{
+	EogScrollViewPrivate *priv;
+
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	gtk_widget_modify_bg (GTK_WIDGET (view), GTK_STATE_NORMAL, color);
+	priv = view->priv;
+
+	if (color != NULL) {
+		if (priv->background_color != NULL) {
+			if (gdk_color_equal (color, priv->background_color ))
+				return;
+			gdk_color_free (priv->background_color);
+		}
+		priv->background_color = gdk_color_copy (color);
+	} else {
+		/* color == NULL */
+		if (priv->background_color == NULL)
+			return;
+
+		gdk_color_free (priv->background_color);
+		priv->background_color = NULL;
+	}
+
+	_eog_scroll_view_update_bg_color (view);
+}
+
+void
+eog_scroll_view_override_bg_color (EogScrollView *view,
+				   const GdkColor *color)
+{
+	EogScrollViewPrivate *priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->override_bg_color) {
+		if (color && gdk_color_equal (color, priv->override_bg_color))
+			return;
+		gdk_color_free (priv->override_bg_color);
+		priv->override_bg_color = (color) ? gdk_color_copy (color) : NULL;
+	} else {
+		if (color == NULL)
+			return;
+		priv->override_bg_color = gdk_color_copy (color);
+	}
+
+	_eog_scroll_view_update_bg_color (view);
 }
 
 void
