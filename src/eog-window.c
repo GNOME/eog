@@ -2230,7 +2230,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 
 	gtk_widget_grab_focus (priv->view);
 
-	eog_scroll_view_set_bg_color (EOG_SCROLL_VIEW (window->priv->view),
+	eog_scroll_view_override_bg_color (EOG_SCROLL_VIEW (window->priv->view),
 			  &(gtk_widget_get_style (GTK_WIDGET (window))->black));
 
 	{
@@ -2308,7 +2308,8 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), FALSE);
 
-	eog_scroll_view_set_bg_color (EOG_SCROLL_VIEW (window->priv->view), NULL);
+	eog_scroll_view_override_bg_color (EOG_SCROLL_VIEW (window->priv->view),
+					   NULL);
 	gtk_widget_set_style (gtk_widget_get_parent (window->priv->view), NULL);
 	gtk_window_unfullscreen (GTK_WINDOW (window));
 
