@@ -1958,6 +1958,11 @@ eog_scroll_view_set_transparency (EogScrollView *view, EogTransparencyStyle styl
 	}
 
 	if (changed && priv->pixbuf != NULL && gdk_pixbuf_get_has_alpha (priv->pixbuf)) {
+		if (priv->background_surface) {
+			cairo_surface_destroy (priv->background_surface);
+			/* Will be recreated if needed during redraw */
+			priv->background_surface = NULL;
+		}
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	}
 }
