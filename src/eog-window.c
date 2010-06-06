@@ -4456,9 +4456,6 @@ eog_window_init (EogWindow *window)
 
 	priv->client = gconf_client_get_default ();
 
-	gconf_client_add_dir (window->priv->client, EOG_CONF_DIR,
-			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_EXTRAPOLATE,
 			  (GCallback) eog_window_interp_in_type_changed_cb,
@@ -4637,7 +4634,6 @@ eog_window_dispose (GObject *object)
 			gconf_client_notify_remove (priv->client,
 						 priv->client_notifications[i]);
 		}
-		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
 		g_object_unref (priv->client);
 		priv->client = NULL;
 	}

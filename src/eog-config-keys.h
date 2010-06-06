@@ -26,7 +26,6 @@
 #ifndef __EOG_CONFIG_KEYS_H__
 #define __EOG_CONFIG_KEYS_H__
 
-#define EOG_CONF_DIR				"/apps/eog"
 #define EOG_CONF_DOMAIN				"org.gnome.eog"
 #define EOG_CONF_FULLSCREEN			EOG_CONF_DOMAIN".full_screen"
 #define EOG_CONF_PLUGINS			EOG_CONF_DOMAIN".plugins"
