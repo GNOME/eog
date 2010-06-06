@@ -4384,7 +4384,7 @@ eog_window_construct_ui (EogWindow *window)
 	priv->nav = eog_thumb_nav_new (priv->thumbview,
 				       EOG_THUMB_NAV_MODE_ONE_ROW,
 				       g_settings_get_boolean (priv->ui_settings
-				       			   , EOG_CONF_UI_SCROLL_BUTTONS));
+				       	, EOG_CONF_UI_SCROLL_BUTTONS));
 
 	thumb_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview),

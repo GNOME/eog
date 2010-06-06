@@ -698,7 +698,7 @@ eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 						        (GCompareFunc)strcmp);
 
 		_eog_settings_set_list (eog_plugin_engine_settings,
-		    			EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
+					EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
 					active_plugins);
 
 		return TRUE;
