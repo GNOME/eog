@@ -332,7 +332,8 @@ eog_window_transparency_changed_cb (GSettings *settings,
 		GdkColor color;
 		gchar *color_str;
 
-		color_str = g_settings_get_string (settings, "trans_color");
+		color_str = g_settings_get_string (settings,
+						   EOG_CONF_VIEW_TRANS_COLOR);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
 							  EOG_TRANSP_COLOR, &color);
@@ -367,7 +368,7 @@ eog_window_trans_color_changed_cb (GSettings *settings,
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
 
-	value = g_settings_get_string (settings, "transparency");
+	value = g_settings_get_string (settings, EOG_CONF_VIEW_TRANSPARENCY);
 
 	if (!value || g_ascii_strcasecmp (value, "COLOR") != 0) {
 		g_free (value);
@@ -834,13 +835,14 @@ update_action_groups_state (EogWindow *window)
 	} else {
 		if (priv->flags & EOG_STARTUP_DISABLE_COLLECTION) {
 			g_settings_set_boolean (priv->ui_settings,
-						"image_collection", FALSE);
+						EOG_CONF_UI_IMAGE_COLLECTION,
+						FALSE);
 
 			show_image_collection = FALSE;
 		} else {
 			show_image_collection =
 				g_settings_get_boolean (priv->ui_settings,
-							"image_collection");
+						EOG_CONF_UI_IMAGE_COLLECTION);
 		}
 
 		show_image_collection = show_image_collection &&
@@ -2043,14 +2045,16 @@ update_ui_visibility (EogWindow *window)
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
 	g_assert (GTK_IS_WIDGET (menubar));
 
-	visible = g_settings_get_boolean (priv->ui_settings, "toolbar");
+	visible = g_settings_get_boolean (priv->ui_settings,
+					  EOG_CONF_UI_TOOLBAR);
 	visible = visible && !fullscreen_mode;
 	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ToolbarToggle");
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 
-	visible = g_settings_get_boolean (priv->ui_settings, "statusbar");
+	visible = g_settings_get_boolean (priv->ui_settings,
+					  EOG_CONF_UI_STATUSBAR);
 	visible = visible && !fullscreen_mode;
 	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/StatusbarToggle");
 	g_assert (action != NULL);
@@ -2059,7 +2063,7 @@ update_ui_visibility (EogWindow *window)
 
 	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = g_settings_get_boolean (priv->ui_settings,
-						  "image_collection");
+						  EOG_CONF_UI_IMAGE_COLLECTION);
 		visible = visible && priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
 		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
 		g_assert (action != NULL);
@@ -2071,7 +2075,8 @@ update_ui_visibility (EogWindow *window)
 		}
 	}
 
-	visible = g_settings_get_boolean (priv->ui_settings, "sidebar");
+	visible = g_settings_get_boolean (priv->ui_settings,
+					  EOG_CONF_UI_SIDEBAR);
 	visible = visible && !fullscreen_mode;
 	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/SidebarToggle");
 	g_assert (action != NULL);
@@ -2147,16 +2152,17 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	if (slideshow) {
 		priv->slideshow_loop =
 			g_settings_get_boolean (priv->fullscreen_settings,
-						"loop");
+						EOG_CONF_FULLSCREEN_LOOP);
 
 		priv->slideshow_switch_timeout =
 			g_settings_get_int (priv->fullscreen_settings,
-					    "seconds");
+					    EOG_CONF_FULLSCREEN_SECONDS);
 
 		slideshow_set_timeout (window);
 	}
 
-	upscale = g_settings_get_boolean (priv->fullscreen_settings, "upscale");
+	upscale = g_settings_get_boolean (priv->fullscreen_settings,
+					  EOG_CONF_FULLSCREEN_UPSCALE);
 
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view),
 					  upscale);
@@ -2342,7 +2348,7 @@ eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 		gboolean use_fallback;
 
 		use_fallback = g_settings_get_boolean (priv->ui_settings,
-						    "filechooser_xdg_fallback");
+					EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK);
 		pics_dir = g_get_user_special_dir (G_USER_DIRECTORY_PICTURES);
 		if (use_fallback && pics_dir) {
 			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg),
@@ -2691,15 +2697,15 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 		g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
-			g_settings_set_boolean (priv->ui_settings, "toolbar",
-						visible);
+			g_settings_set_boolean (priv->ui_settings,
+						EOG_CONF_UI_TOOLBAR, visible);
 
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
 			g_settings_set_boolean (priv->ui_settings,
-						"statusbar", visible);
+						EOG_CONF_UI_STATUSBAR, visible);
 
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible) {
@@ -2736,8 +2742,8 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 #endif
 				gtk_widget_grab_focus (priv->view);
 		}
-		g_settings_set_boolean (priv->ui_settings, "image_collection",
-					visible);
+		g_settings_set_boolean (priv->ui_settings,
+					EOG_CONF_UI_IMAGE_COLLECTION, visible);
 
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewSidebar") == 0) {
 		if (visible) {
@@ -2745,7 +2751,8 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 		} else {
 			gtk_widget_hide (priv->sidebar);
 		}
-		g_settings_set_boolean (priv->ui_settings, "sidebar", visible);
+		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR,
+					visible);
 	}
 }
 
@@ -3098,7 +3105,7 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 					      priv->image);
 		netbook_mode =
 			g_settings_get_boolean (priv->ui_settings,
-						"propsdialog_netbook_mode");
+						EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE);
 		eog_properties_dialog_set_netbook_mode (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
 							netbook_mode);
 	}
@@ -3257,7 +3264,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 
 	/* Check if the user never wants to be bugged. */
 	neverask = g_settings_get_boolean (window->priv->ui_settings,
-					   "disable_trash_confirmation");
+					   EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION);
 
 	/* Assume agreement, if the user doesn't want to be
 	 * asked and the trash is available */
@@ -4080,7 +4087,8 @@ eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
 
 	visible = gtk_widget_get_visible (window->priv->sidebar);
 
-	g_settings_set_boolean (window->priv->ui_settings, "sidebar", visible);
+	g_settings_set_boolean (window->priv->ui_settings, EOG_CONF_UI_SIDEBAR,
+				visible);
 
 	action = gtk_action_group_get_action (window->priv->actions_window,
 					      "ViewSidebar");
@@ -4376,7 +4384,7 @@ eog_window_construct_ui (EogWindow *window)
 	priv->nav = eog_thumb_nav_new (priv->thumbview,
 				       EOG_THUMB_NAV_MODE_ONE_ROW,
 				       g_settings_get_boolean (priv->ui_settings
-				       			   , "scroll_buttons"));
+				       			   , EOG_CONF_UI_SCROLL_BUTTONS));
 
 	thumb_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview),
@@ -4387,19 +4395,23 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
 
 	eog_window_interp_in_type_changed_cb (priv->view_settings,
-					      "extrapolate", window);
+					      EOG_CONF_VIEW_EXTRAPOLATE,
+					      window);
 	eog_window_interp_out_type_changed_cb (priv->view_settings,
-					       "interpolate",  window);
+					       EOG_CONF_VIEW_INTERPOLATE,
+					       window);
 	eog_window_scroll_wheel_zoom_changed_cb (priv->view_settings,
-						 "scroll_wheel_zoom", window);
+						 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM
+						 , window);
 	eog_window_zoom_multiplier_changed_cb (priv->view_settings,
-					       "zoom_multiplier", window);
+					       EOG_CONF_VIEW_ZOOM_MULTIPLIER,
+					       window);
 	eog_window_transparency_changed_cb (priv->view_settings,
-					    "transparency", window);
+					    EOG_CONF_VIEW_TRANSPARENCY, window);
 	eog_window_trans_color_changed_cb (priv->view_settings,
-					   "trans_color", window);
+					   EOG_CONF_VIEW_TRANS_COLOR, window);
 	eog_window_collection_mode_changed_cb (priv->ui_settings,
-					       "image_collection_position",
+					  EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
 					       window);
 
 	entry = gconf_client_get_entry (priv->client,
@@ -4438,55 +4450,62 @@ eog_window_init (EogWindow *window)
 
 	priv = window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
-	priv->fullscreen_settings = g_settings_new ("org.gnome.eog.full_screen");
-	priv->ui_settings = g_settings_new ("org.gnome.eog.ui");
-	priv->view_settings = g_settings_new ("org.gnome.eog.view");
+	priv->fullscreen_settings = g_settings_new (EOG_CONF_FULLSCREEN);
+	priv->ui_settings = g_settings_new (EOG_CONF_UI);
+	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (window->priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
-	g_signal_connect (priv->view_settings, "changed::extrapolate",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_EXTRAPOLATE,
 			  (GCallback) eog_window_interp_in_type_changed_cb,
 			  window);
 
-	g_signal_connect (priv->view_settings, "changed::interpolate",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
 			  (GCallback) eog_window_interp_out_type_changed_cb,
 			  window);
 
-	g_signal_connect (priv->view_settings, "changed::scroll_wheel_zoom",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
 			  (GCallback) eog_window_scroll_wheel_zoom_changed_cb,
 			   window);
 
-	g_signal_connect (priv->view_settings, "changed::zoom_multiplier",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_ZOOM_MULTIPLIER,
 			  (GCallback) eog_window_zoom_multiplier_changed_cb,
 			  window);
 
-	g_signal_connect (priv->view_settings, "changed::transparency",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_TRANSPARENCY,
 			  (GCallback) eog_window_transparency_changed_cb,
 			  window);
 
-	g_signal_connect (priv->view_settings, "changed::trans_color",
+	g_signal_connect (priv->view_settings,
+			  "changed::" EOG_CONF_VIEW_TRANS_COLOR,
 			  (GCallback) eog_window_trans_color_changed_cb,
 			  window);
 
-	g_signal_connect (priv->ui_settings, "changed::scroll_buttons",
+	g_signal_connect (priv->ui_settings,
+			  "changed::" EOG_CONF_UI_SCROLL_BUTTONS,
 			  (GCallback) eog_window_scroll_buttons_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
-			  "changed::image_collection_position",
+			  "changed::" EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
 			  (GCallback) eog_window_collection_mode_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
-			  "changed::image_collection_resizable",
+			  "changed::" EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
 			  (GCallback) eog_window_collection_mode_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
-			  "changed::propsdialog_netbook_mode",
+			  "changed::" EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE,
 			  (GCallback) eog_window_pd_nbmode_changed_cb,
 			  window);
 
@@ -5182,7 +5201,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 
 #ifdef HAVE_EXIF
-	if (g_settings_get_boolean (priv->view_settings, "autorotate")) {
+	if (g_settings_get_boolean (priv->view_settings, EOG_CONF_VIEW_AUTOROTATE)) {
 		for (i = 0; i < n_images; i++) {
 			image = eog_list_store_get_image_by_pos (priv->store, i);
 			eog_image_autorotate (image);

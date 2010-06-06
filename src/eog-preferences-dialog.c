@@ -150,8 +150,8 @@ eog_preferences_dialog_constructor (GType type,
 
 	priv = EOG_PREFERENCES_DIALOG (object)->priv;
 
-	priv->view_settings = g_settings_new ("org.gnome.eog.view");
-	priv->fullscreen_settings = g_settings_new ("org.gnome.eog.full_screen");
+	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
+	priv->fullscreen_settings = g_settings_new (EOG_CONF_FULLSCREEN);
 
 	eog_dialog_construct (EOG_DIALOG (object),
 			      "eog-preferences-dialog.ui",
@@ -177,18 +177,16 @@ eog_preferences_dialog_constructor (GType type,
 			  G_CALLBACK (eog_preferences_response_cb),
 			  dlg);
 
-	g_settings_bind (priv->view_settings, "interpolate", interpolate_check,
-			 "active", G_SETTINGS_BIND_DEFAULT);
-	g_settings_bind (priv->view_settings, "extrapolate", extrapolate_check,
-			 "active", G_SETTINGS_BIND_DEFAULT);
-
-	g_settings_bind (priv->view_settings, "autorotate", autorotate_check,
-			 "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_INTERPOLATE,
+			 interpolate_check, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_EXTRAPOLATE,
+			 extrapolate_check, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_AUTOROTATE,
+			 autorotate_check, "active", G_SETTINGS_BIND_DEFAULT);
 
 	g_object_set_data (G_OBJECT (color_radio),
 			   GCONF_OBJECT_KEY,
-			   //EOG_CONF_VIEW_TRANSPARENCY);
-			   "transparency");
+			   EOG_CONF_VIEW_TRANSPARENCY);
 
 	g_object_set_data (G_OBJECT (color_radio),
 			   GCONF_OBJECT_VALUE,
@@ -201,8 +199,7 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_object_set_data (G_OBJECT (checkpattern_radio),
 			   GCONF_OBJECT_KEY,
-			   //EOG_CONF_VIEW_TRANSPARENCY);
-			   "transparency");
+			   EOG_CONF_VIEW_TRANSPARENCY);
 
 	g_object_set_data (G_OBJECT (checkpattern_radio),
 			   GCONF_OBJECT_VALUE,
@@ -215,8 +212,7 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_object_set_data (G_OBJECT (background_radio),
 			   GCONF_OBJECT_KEY,
-			   //EOG_CONF_VIEW_TRANSPARENCY);
-			   "transparency");
+			   EOG_CONF_VIEW_TRANSPARENCY);
 
 	g_object_set_data (G_OBJECT (background_radio),
 			   GCONF_OBJECT_VALUE,
@@ -228,7 +224,7 @@ eog_preferences_dialog_constructor (GType type,
 			  priv->view_settings);
 
 	value = g_settings_get_string (priv->view_settings,
-				       "transparency");
+				       EOG_CONF_VIEW_TRANSPARENCY);
 
 	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (color_radio), TRUE);
@@ -242,21 +238,22 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_free (value);
 
-	g_settings_bind_with_mapping (priv->view_settings, "trans_color",
+	g_settings_bind_with_mapping (priv->view_settings,
+				      EOG_CONF_VIEW_TRANS_COLOR,
 				      color_button, "color",
 				      G_SETTINGS_BIND_DEFAULT,
 				      pd_string_to_color_mapping,
 				      pd_color_to_string_mapping,
 				      NULL, NULL);
 
-	g_settings_bind (priv->fullscreen_settings, "upscale", upscale_check,
-			 "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_UPSCALE,
+			 upscale_check, "active", G_SETTINGS_BIND_DEFAULT);
 
-	g_settings_bind (priv->fullscreen_settings, "loop", loop_check,
-			 "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_LOOP,
+			 loop_check, "active", G_SETTINGS_BIND_DEFAULT);
 
-	g_settings_bind (priv->fullscreen_settings, "seconds", seconds_spin,
-			 "value", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_SECONDS,
+			 seconds_spin, "value", G_SETTINGS_BIND_DEFAULT);
 
         plugin_manager = eog_plugin_manager_new ();
 
