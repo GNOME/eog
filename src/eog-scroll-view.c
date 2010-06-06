@@ -74,6 +74,7 @@ static GtkTargetEntry target_table[] = {
 
 enum {
 	PROP_0,
+	PROP_USE_BG_COLOR,
 	PROP_BACKGROUND_COLOR
 };
 
@@ -143,6 +144,7 @@ struct _EogScrollViewPrivate {
 	/* the type of the cursor we are currently showing */
 	EogScrollViewCursor cursor;
 
+	gboolean  use_bg_color;
 	GdkColor *background_color;
 	GdkColor *override_bg_color;
 
@@ -2181,7 +2183,6 @@ eog_scroll_view_scrollbars_visible (EogScrollView *view)
     object creation/freeing
   ---------------------------------*/
 
-
 static void
 eog_scroll_view_init (EogScrollView *view)
 {
@@ -2264,6 +2265,9 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 	priv = view->priv;
 
 	switch (property_id) {
+	case PROP_USE_BG_COLOR:
+		g_value_set_boolean (value, priv->use_bg_color);
+		break;
 	case PROP_BACKGROUND_COLOR:
 		//FIXME: This doesn't really handle the NULL color.
 		g_value_set_boxed (value, priv->background_color);
@@ -2286,6 +2290,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 	priv = view->priv;
 
 	switch (property_id) {
+	case PROP_USE_BG_COLOR:
+		eog_scroll_view_set_use_bg_color (view, g_value_get_boolean (value));
+		break;
 	case PROP_BACKGROUND_COLOR:
 	{
 		const GdkColor *color = g_value_get_boxed (value);
@@ -2323,6 +2330,11 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 		g_param_spec_boxed ("background-color", NULL, NULL,
 				    GDK_TYPE_COLOR,
 				    G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+	g_object_class_install_property (
+		gobject_class, PROP_USE_BG_COLOR,
+		g_param_spec_boolean ("use-background-color", NULL, NULL, FALSE,
+				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",
@@ -2556,8 +2568,12 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 	const GdkColor *selected;
 	EogScrollViewPrivate *priv = view->priv;
 
-	selected = (priv->override_bg_color) ? priv->override_bg_color
-					     : priv->background_color;
+	if (!priv->use_bg_color)
+		selected = NULL;
+	else if (priv->override_bg_color)
+		selected = priv->override_bg_color;
+	else
+		selected = priv->background_color;
 
 	if (priv->transp_style == EOG_TRANSP_BACKGROUND
 	    && priv->background_surface != NULL) {
@@ -2590,6 +2606,24 @@ eog_scroll_view_override_bg_color (EogScrollView *view,
 
 	if (_eog_replace_gdk_color (&view->priv->override_bg_color, color))
 		_eog_scroll_view_update_bg_color (view);
+}
+
+void
+eog_scroll_view_set_use_bg_color (EogScrollView *view, gboolean use)
+{
+	EogScrollViewPrivate *priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	priv = view->priv;
+
+	if (use != priv->use_bg_color) {
+		priv->use_bg_color = use;
+
+		_eog_scroll_view_update_bg_color (view);
+
+		g_object_notify (G_OBJECT (view), "use-background-color");
+	}
 }
 
 void

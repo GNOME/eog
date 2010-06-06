@@ -122,6 +122,8 @@ enum {
 	EOG_WINDOW_NOTIFY_EXTRAPOLATE,
 	EOG_WINDOW_NOTIFY_SCROLLWHEEL_ZOOM,
 	EOG_WINDOW_NOTIFY_ZOOM_MULTIPLIER,
+	EOG_WINDOW_NOTIFY_BACKGROUND_COLOR,
+	EOG_WINDOW_NOTIFY_USE_BG_COLOR,
 	EOG_WINDOW_NOTIFY_TRANSPARENCY,
 	EOG_WINDOW_NOTIFY_TRANS_COLOR,
 	EOG_WINDOW_NOTIFY_SCROLL_BUTTONS,
@@ -372,6 +374,59 @@ eog_window_transparency_changed_cb (GConfClient *client,
 						  EOG_TRANSP_BACKGROUND, NULL);
 	}
 }
+
+static void
+eog_window_bg_color_changed_cb (GConfClient *client,
+				guint       cnxn_id,
+				GConfEntry  *entry,
+				gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	GdkColor color;
+	const char *color_str;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
+		color_str = gconf_value_get_string (entry->value);
+
+		if (gdk_color_parse (color_str, &color)) {
+			eog_scroll_view_set_background_color (EOG_SCROLL_VIEW (priv->view), &color);
+		}
+	}
+}
+
+static void
+eog_window_use_bg_color_changed_cb (GConfClient *client,
+				      guint       cnxn_id,
+				      GConfEntry  *entry,
+				      gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	gboolean use_bg_color = TRUE;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		use_bg_color = gconf_value_get_bool (entry->value);
+	}
+
+	eog_scroll_view_set_use_bg_color (EOG_SCROLL_VIEW (priv->view),
+					  use_bg_color);
+}
+
 
 static void
 eog_window_trans_color_changed_cb (GConfClient *client,
@@ -4528,6 +4583,24 @@ eog_window_construct_ui (EogWindow *window)
 	}
 
 	entry = gconf_client_get_entry (priv->client,
+					EOG_CONF_VIEW_BACKGROUND_COLOR,
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_bg_color_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client,
+					EOG_CONF_VIEW_USE_BG_COLOR,
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_use_bg_color_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client,
 					EOG_CONF_VIEW_TRANSPARENCY,
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
@@ -4617,6 +4690,18 @@ eog_window_init (EogWindow *window)
 		gconf_client_notify_add (window->priv->client,
 					 EOG_CONF_VIEW_ZOOM_MULTIPLIER,
 					 eog_window_zoom_multiplier_changed_cb,
+					 window, NULL, NULL);
+
+	priv->client_notifications[EOG_WINDOW_NOTIFY_BACKGROUND_COLOR] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_BACKGROUND_COLOR,
+					 eog_window_bg_color_changed_cb,
+					 window, NULL, NULL);
+
+	priv->client_notifications[EOG_WINDOW_NOTIFY_USE_BG_COLOR] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_USE_BG_COLOR,
+					 eog_window_use_bg_color_changed_cb,
 					 window, NULL, NULL);
 
 	priv->client_notifications[EOG_WINDOW_NOTIFY_TRANSPARENCY] =

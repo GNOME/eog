@@ -33,6 +33,7 @@
 #define EOG_CONF_DESKTOP_CAN_PRINT      	"/desktop/gnome/lockdown/disable_printing"
 #define EOG_CONF_DESKTOP_CAN_SETUP_PAGE 	"/desktop/gnome/lockdown/disable_print_setup"
 
+#define EOG_CONF_VIEW_BACKGROUND_COLOR		"/apps/eog/view/background-color"
 #define EOG_CONF_VIEW_INTERPOLATE		"/apps/eog/view/interpolate"
 #define EOG_CONF_VIEW_EXTRAPOLATE		"/apps/eog/view/extrapolate"
 #define EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM		"/apps/eog/view/scroll_wheel_zoom"
@@ -40,6 +41,7 @@
 #define EOG_CONF_VIEW_AUTOROTATE                "/apps/eog/view/autorotate"
 #define EOG_CONF_VIEW_TRANSPARENCY		"/apps/eog/view/transparency"
 #define EOG_CONF_VIEW_TRANS_COLOR		"/apps/eog/view/trans_color"
+#define EOG_CONF_VIEW_USE_BG_COLOR		"/apps/eog/view/use-background-color"
 
 #define EOG_CONF_FULLSCREEN_LOOP		"/apps/eog/full_screen/loop"
 #define EOG_CONF_FULLSCREEN_UPSCALE		"/apps/eog/full_screen/upscale"

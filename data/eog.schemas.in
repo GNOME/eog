@@ -14,6 +14,30 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/eog/view/background-color</key>
+      <applyto>/apps/eog/view/background-color</applyto>
+      <owner>eog</owner>
+      <type>string</type>
+      <default>#000000</default>
+      <locale name="C">
+	<short>Background Color</short>
+	<long>The color that is used to fill the area behind the image when the use-background-color key is set.</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/eog/view/use-background-color</key>
+      <applyto>/apps/eog/view/use-background-color</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+	<short>Use a custom background color</short>
+	<long>If this is active the color set by the background-color key will be used to fill the area behind the image. If it is not set the current GTK theme will determine the fill color.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/interpolate</key>
       <applyto>/apps/eog/view/interpolate</applyto>
       <owner>eog</owner>

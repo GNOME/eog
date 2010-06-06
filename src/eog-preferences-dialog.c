@@ -193,6 +193,8 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *interpolate_check;
 	GtkWidget *extrapolate_check;
 	GtkWidget *autorotate_check;
+	GtkWidget *bg_color_check;
+	GtkWidget *bg_color_button;
 	GtkWidget *color_radio;
 	GtkWidget *checkpattern_radio;
 	GtkWidget *background_radio;
@@ -220,6 +222,8 @@ eog_preferences_dialog_constructor (GType type,
 			         "interpolate_check", &interpolate_check,
 			         "extrapolate_check", &extrapolate_check,
 			         "autorotate_check", &autorotate_check,
+				 "bg_color_check", &bg_color_check,
+				 "bg_color_button", &bg_color_button,
 			         "color_radio", &color_radio,
 			         "checkpattern_radio", &checkpattern_radio,
 			         "background_radio", &background_radio,
@@ -276,6 +280,36 @@ eog_preferences_dialog_constructor (GType type,
 			  "toggled",
 			  G_CALLBACK (pd_check_toggle_cb),
 			  priv->client);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (bg_color_check),
+				      gconf_client_get_bool (priv->client,
+				      			     EOG_CONF_VIEW_USE_BG_COLOR, NULL));
+	g_object_set_data (G_OBJECT (bg_color_check),
+			   GCONF_OBJECT_KEY,
+			   EOG_CONF_VIEW_USE_BG_COLOR);
+	g_signal_connect (G_OBJECT (bg_color_check),
+			  "toggled", G_CALLBACK (pd_check_toggle_cb),
+			  priv->client);
+
+	value = gconf_client_get_string (priv->client,
+					 EOG_CONF_VIEW_BACKGROUND_COLOR,
+					 NULL);
+	if (gdk_color_parse (value, &color)){
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (bg_color_button),
+					    &color);
+	}
+	g_free (value);
+
+	g_object_set_data (G_OBJECT (bg_color_button),
+			   GCONF_OBJECT_KEY,
+			   EOG_CONF_VIEW_BACKGROUND_COLOR);
+
+	g_signal_connect (G_OBJECT (bg_color_button),
+			  "color-set",
+			  G_CALLBACK (pd_color_change_cb),
+			  priv->client);
+
+	
 
 	g_object_set_data (G_OBJECT (color_radio),
 			   GCONF_OBJECT_KEY,
