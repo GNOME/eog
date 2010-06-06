@@ -54,7 +54,7 @@ void	 eog_scroll_view_set_background_color (EogScrollView *view,
 					       const GdkColor *color);
 void	 eog_scroll_view_override_bg_color (EogScrollView *view,
 					    const GdkColor *color);
-
+void     eog_scroll_view_set_use_bg_color (EogScrollView *view, gboolean use);
 /* zoom api */
 void     eog_scroll_view_zoom_in          (EogScrollView *view, gboolean smooth);
 void     eog_scroll_view_zoom_out         (EogScrollView *view, gboolean smooth);

@@ -133,6 +133,8 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *interpolate_check;
 	GtkWidget *extrapolate_check;
 	GtkWidget *autorotate_check;
+	GtkWidget *bg_color_check;
+	GtkWidget *bg_color_button;
 	GtkWidget *color_radio;
 	GtkWidget *checkpattern_radio;
 	GtkWidget *background_radio;
@@ -162,6 +164,8 @@ eog_preferences_dialog_constructor (GType type,
 			         "interpolate_check", &interpolate_check,
 			         "extrapolate_check", &extrapolate_check,
 			         "autorotate_check", &autorotate_check,
+				 "bg_color_check", &bg_color_check,
+				 "bg_color_button", &bg_color_button,
 			         "color_radio", &color_radio,
 			         "checkpattern_radio", &checkpattern_radio,
 			         "background_radio", &background_radio,
@@ -183,7 +187,16 @@ eog_preferences_dialog_constructor (GType type,
 			 extrapolate_check, "active", G_SETTINGS_BIND_DEFAULT);
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_AUTOROTATE,
 			 autorotate_check, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_USE_BG_COLOR,
+			 bg_color_check, "active", G_SETTINGS_BIND_DEFAULT);
 
+	g_settings_bind_with_mapping (priv->view_settings,
+				      EOG_CONF_VIEW_BACKGROUND_COLOR,
+				      bg_color_button, "color",
+				      G_SETTINGS_BIND_DEFAULT,
+				      pd_string_to_color_mapping,
+				      pd_color_to_string_mapping,
+				      NULL, NULL);
 	g_object_set_data (G_OBJECT (color_radio),
 			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_TRANSPARENCY);
