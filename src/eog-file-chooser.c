@@ -20,7 +20,6 @@
 #endif
 
 #include "eog-file-chooser.h"
-#include "eog-config-keys.h"
 #include "eog-pixbuf-util.h"
 
 #include <stdlib.h>
@@ -29,7 +28,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 /* We must define GNOME_DESKTOP_USE_UNSTABLE_API to be able
    to use GnomeDesktopThumbnail */
