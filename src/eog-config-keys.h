@@ -61,6 +61,6 @@
 #define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser_xdg_fallback"
 #define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"propsdialog_netbook_mode"
 
-#define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "/apps/eog/plugins/active_plugins"
+#define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active_plugins"
 
 #endif /* __EOG_CONFIG_KEYS_H__ */

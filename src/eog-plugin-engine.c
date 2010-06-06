@@ -38,7 +38,7 @@
 
 #include <glib/gi18n.h>
 #include <glib.h>
-#include <gconf/gconf-client.h>
+#include <gio/gio.h>
 
 #ifdef ENABLE_PYTHON
 #include "eog-python-module.h"
@@ -80,14 +80,13 @@ struct _EogPluginInfo
 	gint               available : 1;
 };
 
-static void	eog_plugin_engine_active_plugins_changed (GConfClient *client,
-							  guint cnxn_id,
-							  GConfEntry *entry,
-							  gpointer user_data);
+static void	eog_plugin_engine_active_plugins_changed (GSettings *settings,
+							  gchar     *key,
+							  gpointer   user_data);
 
 static GList *eog_plugins_list = NULL;
 
-static GConfClient *eog_plugin_engine_gconf_client = NULL;
+static GSettings *eog_plugin_engine_settings = NULL;
 
 static GSList *active_plugins = NULL;
 
@@ -296,7 +295,7 @@ eog_plugin_engine_load_dir (const gchar *dir)
 		return;
 	}
 
-	g_return_if_fail (eog_plugin_engine_gconf_client != NULL);
+	g_return_if_fail (eog_plugin_engine_settings != NULL);
 
 	eog_debug_message (DEBUG_PLUGINS, "DIR: %s", dir);
 
@@ -369,6 +368,70 @@ eog_plugin_engine_load_all (void)
 	eog_plugin_engine_load_dir (EOG_PLUGIN_DIR "/");
 }
 
+/*
+ * GSettings List Helpers taken from gedit (gedit/gedit-settings.c)
+ * by Ignacio Casal Quinteiro <icq@gnome.org>
+ */
+static GSList *
+_eog_settings_get_list (GSettings   *settings,
+			const gchar *key)
+{
+	GSList *list = NULL;
+	gchar **values;
+	gsize len, i;
+
+	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
+	g_return_val_if_fail (key != NULL, NULL);
+
+// Workaround until glib-2.25.8 is officially out
+#if (GLIB_CHECK_VERSION (2, 25, 8))
+	values = g_settings_get_strv (settings, key);
+	len = g_strv_length (values);
+#else
+	values = g_settings_get_strv (settings, key, &len);
+#endif
+	i = 0;
+
+	while (i < len)
+	{
+		list = g_slist_prepend (list, values[i]);
+		i++;
+	}
+
+	g_free (values);
+
+	return g_slist_reverse (list);
+}
+
+static void
+_eog_settings_set_list (GSettings    *settings,
+			const gchar  *key,
+			const GSList *list)
+{
+	gchar **values;
+	const GSList *l;
+	gint i, len;
+
+	g_return_if_fail (G_IS_SETTINGS (settings));
+	g_return_if_fail (key != NULL);
+
+	len = g_slist_length ((GSList *)list);
+	values = g_new0 (gchar *, len+1);
+
+	for (l = list, i = 0; l != NULL; l = g_slist_next (l), i++)
+	{
+		values[i] = l->data;
+	}
+
+// Workaround until glib-2.25.8 is officially out
+#if (GLIB_CHECK_VERSION (2, 25, 8))
+	g_settings_set_strv (settings, key, (const gchar * const *)values);
+#else
+	g_settings_set_strv (settings, key, (const gchar * const *)values, len);
+#endif
+	g_free (values);
+}
+
 gboolean
 eog_plugin_engine_init (void)
 {
@@ -382,24 +445,18 @@ eog_plugin_engine_init (void)
 		return FALSE;
 	}
 
-	eog_plugin_engine_gconf_client = gconf_client_get_default ();
+	eog_plugin_engine_settings = g_settings_new (EOG_CONF_PLUGINS);
 
-	g_return_val_if_fail (eog_plugin_engine_gconf_client != NULL, FALSE);
+	g_return_val_if_fail (eog_plugin_engine_settings != NULL, FALSE);
 
-	gconf_client_add_dir (eog_plugin_engine_gconf_client,
-			      EOG_PLUGINS_ENGINE_BASE_KEY,
-			      GCONF_CLIENT_PRELOAD_ONELEVEL,
-			      NULL);
 
-	gconf_client_notify_add (eog_plugin_engine_gconf_client,
-				 EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
-				 eog_plugin_engine_active_plugins_changed,
-				 NULL, NULL, NULL);
+	g_signal_connect (eog_plugin_engine_settings,
+			  "changed::" EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
+			  (GCallback) eog_plugin_engine_active_plugins_changed,
+			  NULL);
 
-	active_plugins = gconf_client_get_list (eog_plugin_engine_gconf_client,
-						EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
-						GCONF_VALUE_STRING,
-						NULL);
+	active_plugins = _eog_settings_get_list (eog_plugin_engine_settings,
+					       EOG_CONF_PLUGINS_ACTIVE_PLUGINS);
 
 	eog_plugin_engine_load_all ();
 
@@ -431,7 +488,7 @@ eog_plugin_engine_shutdown (void)
 	eog_python_shutdown ();
 #endif
 
-	g_return_if_fail (eog_plugin_engine_gconf_client != NULL);
+	g_return_if_fail (eog_plugin_engine_settings != NULL);
 
 	for (pl = eog_plugins_list; pl; pl = pl->next) {
 		EogPluginInfo *info = (EogPluginInfo*) pl->data;
@@ -447,8 +504,8 @@ eog_plugin_engine_shutdown (void)
 	g_list_free (eog_plugins_list);
 	eog_plugins_list = NULL;
 
-	g_object_unref (eog_plugin_engine_gconf_client);
-	eog_plugin_engine_gconf_client = NULL;
+	g_object_unref (eog_plugin_engine_settings);
+	eog_plugin_engine_settings = NULL;
 }
 
 const GList *
@@ -619,7 +676,6 @@ eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 		return TRUE;
 
 	if (eog_plugin_engine_activate_plugin_real (info)) {
-		gboolean res;
 		GSList *list;
 
 		/* Update plugin state */
@@ -641,14 +697,9 @@ eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 						        g_strdup (info->location),
 						        (GCompareFunc)strcmp);
 
-		res = gconf_client_set_list (eog_plugin_engine_gconf_client,
-		    			     EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
-					     GCONF_VALUE_STRING,
-					     active_plugins,
-					     NULL);
-
-		if (!res)
-			g_warning ("Error saving the list of active plugins.");
+		_eog_settings_set_list (eog_plugin_engine_settings,
+		    			EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
+					active_plugins);
 
 		return TRUE;
 	}
@@ -707,14 +758,9 @@ eog_plugin_engine_deactivate_plugin (EogPluginInfo *info)
 		return TRUE;
 	}
 
-	res = gconf_client_set_list (eog_plugin_engine_gconf_client,
-	    			     EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
-				     GCONF_VALUE_STRING,
-				     active_plugins,
-				     NULL);
-
-	if (!res)
-		g_warning ("Error saving the list of active plugins.");
+	_eog_settings_set_list (eog_plugin_engine_settings,
+	    			EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
+				active_plugins);
 
 	return TRUE;
 }
@@ -837,29 +883,17 @@ eog_plugin_engine_configure_plugin (EogPluginInfo *info,
 }
 
 static void
-eog_plugin_engine_active_plugins_changed (GConfClient *client,
-					  guint cnxn_id,
-					  GConfEntry *entry,
-					  gpointer user_data)
+eog_plugin_engine_active_plugins_changed (GSettings *settings,
+					  gchar     *key,
+					  gpointer   user_data)
 {
 	GList *pl;
 	gboolean to_activate;
 
 	eog_debug (DEBUG_PLUGINS);
 
-	g_return_if_fail (entry->key != NULL);
-	g_return_if_fail (entry->value != NULL);
-
-	if (!((entry->value->type == GCONF_VALUE_LIST) &&
-	      (gconf_value_get_list_type (entry->value) == GCONF_VALUE_STRING))) {
-		g_warning ("The gconf key '%s' may be corrupted.", EOG_CONF_PLUGINS_ACTIVE_PLUGINS);
-		return;
-	}
-
-	active_plugins = gconf_client_get_list (eog_plugin_engine_gconf_client,
-						EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
-						GCONF_VALUE_STRING,
-						NULL);
+	active_plugins = _eog_settings_get_list (eog_plugin_engine_settings,
+					       EOG_CONF_PLUGINS_ACTIVE_PLUGINS);
 
 	for (pl = eog_plugins_list; pl; pl = pl->next) {
 		EogPluginInfo *info = (EogPluginInfo*)pl->data;
