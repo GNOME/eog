@@ -16,9 +16,9 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 @GSETTINGS_RULES@
 # Allow key names to not follow the new naming scheme until we fixed them
 GLIB_COMPILE_SCHEMAS +=  --allow-any-name
-#schemas_in_files = eog.schemas.in
-#schemasdir = $(GCONF_SCHEMA_FILE_DIR)
-#schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+schemas_in_files = eog.schemas.in
+schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
 gladedir = $(pkgdatadir)
 glade_DATA = eog-image-properties-dialog.ui \
@@ -56,6 +56,7 @@ EXTRA_DIST =			\
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
+	$(schemas_DATA)		\
         $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
