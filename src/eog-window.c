@@ -4061,7 +4061,12 @@ eog_window_drag_data_received (GtkWidget *widget,
         if (!gtk_targets_include_uri (&target, 1))
                 return;
 
+#if GTK_CHECK_VERSION(2, 21, 1)
+        if (gdk_drag_context_get_suggested_action (context) == GDK_ACTION_COPY) 
+        {
+#else
         if (context->suggested_action == GDK_ACTION_COPY) {
+#endif
                 window = EOG_WINDOW (widget);
 
                 file_list = eog_util_parse_uri_string_list_to_file_list ((const gchar *) gtk_selection_data_get_data (selection_data));
