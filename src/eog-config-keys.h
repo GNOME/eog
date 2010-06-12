@@ -27,7 +27,7 @@
 #define __EOG_CONFIG_KEYS_H__
 
 #define EOG_CONF_DOMAIN				"org.gnome.eog"
-#define EOG_CONF_FULLSCREEN			EOG_CONF_DOMAIN".full_screen"
+#define EOG_CONF_FULLSCREEN			EOG_CONF_DOMAIN".fullscreen"
 #define EOG_CONF_PLUGINS			EOG_CONF_DOMAIN".plugins"
 #define EOG_CONF_UI				EOG_CONF_DOMAIN".ui"
 #define EOG_CONF_VIEW				EOG_CONF_DOMAIN".view"
@@ -40,11 +40,11 @@
 #define EOG_CONF_VIEW_BACKGROUND_COLOR		"background-color"
 #define EOG_CONF_VIEW_INTERPOLATE		"interpolate"
 #define EOG_CONF_VIEW_EXTRAPOLATE		"extrapolate"
-#define EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM		"scroll_wheel_zoom"
-#define EOG_CONF_VIEW_ZOOM_MULTIPLIER		"zoom_multiplier"
+#define EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM		"scroll-wheel-zoom"
+#define EOG_CONF_VIEW_ZOOM_MULTIPLIER		"zoom-multiplier"
 #define EOG_CONF_VIEW_AUTOROTATE                "autorotate"
 #define EOG_CONF_VIEW_TRANSPARENCY		"transparency"
-#define EOG_CONF_VIEW_TRANS_COLOR		"trans_color"
+#define EOG_CONF_VIEW_TRANS_COLOR		"trans-color"
 #define EOG_CONF_VIEW_USE_BG_COLOR		"use-background-color"
 
 #define EOG_CONF_FULLSCREEN_LOOP		"loop"
@@ -53,15 +53,15 @@
 
 #define EOG_CONF_UI_TOOLBAR			"toolbar"
 #define EOG_CONF_UI_STATUSBAR			"statusbar"
-#define EOG_CONF_UI_IMAGE_COLLECTION		"image_collection"
-#define EOG_CONF_UI_IMAGE_COLLECTION_POSITION	"image_collection_position"
-#define EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE	"image_collection_resizable"
+#define EOG_CONF_UI_IMAGE_COLLECTION		"image-collection"
+#define EOG_CONF_UI_IMAGE_COLLECTION_POSITION	"image-collection-position"
+#define EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE	"image-collection-resizable"
 #define EOG_CONF_UI_SIDEBAR			"sidebar"
-#define EOG_CONF_UI_SCROLL_BUTTONS		"scroll_buttons"
-#define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"disable_trash_confirmation"
-#define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser_xdg_fallback"
-#define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"propsdialog_netbook_mode"
+#define EOG_CONF_UI_SCROLL_BUTTONS		"scroll-buttons"
+#define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"disable-trash-confirmation"
+#define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser-xdg-fallback"
+#define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"propsdialog-netbook-mode"
 
-#define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active_plugins"
+#define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active-plugins"
 
 #endif /* __EOG_CONFIG_KEYS_H__ */

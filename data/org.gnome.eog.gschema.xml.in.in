@@ -1,7 +1,7 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog" path="/apps/eog/">
     <child name="view" schema="org.gnome.eog.view"/>
-    <child name="full_screen" schema="org.gnome.eog.full_screen"/>
+    <child name="fullscreen" schema="org.gnome.eog.fullscreen"/>
     <child name="ui" schema="org.gnome.eog.ui"/>
     <child name="plugins" schema="org.gnome.eog.plugins"/>
   </schema>
@@ -31,17 +31,17 @@
       <_summary>Transparency indicator</_summary>
       <_description>Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value.</_description>
     </key>
-    <key name="scroll_wheel_zoom" type="b">
+    <key name="scroll-wheel-zoom" type="b">
       <default>true</default>
       <_summary>Scroll wheel zoom</_summary>
       <_description>Whether the scroll wheel should be used for zooming.</_description>
     </key>
-    <key name="zoom_multiplier" type="d">
+    <key name="zoom-multiplier" type="d">
       <default>0.05</default>
       <_summary>Zoom multiplier</_summary>
       <_description>The multiplier to be applied when using the mouse scroll wheel  for zooming. This value defines the zooming step used for each scroll  event. For example, 0.05 results in a 5% zoom increment for each  scroll event and 1.00 result in a 100% zoom increment.</_description>
     </key>
-    <key name="trans_color" type="s">
+    <key name="trans-color" type="s">
       <default>'#000000'</default>
       <_summary>Transparency color</_summary>
       <_description>If the transparency key has the value COLOR, then this  key determines the color which is used for indicating transparency.</_description>
@@ -52,7 +52,7 @@
 	<_description>If this is active the color set by the background-color key will be used to fill the area behind the image. If it is not set the current GTK theme will determine the fill color.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.full_screen" path="/apps/eog/full_screen/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.fullscreen" path="/apps/eog/full_screen/">
     <key name="loop" type="b">
       <default>true</default>
       <_summary>Loop through the image sequence</_summary>
@@ -78,15 +78,15 @@
       <default>true</default>
       <_summary>Show/Hide the window statusbar.</_summary>
     </key>
-    <key name="image_collection" type="b">
+    <key name="image-collection" type="b">
       <default>false</default>
       <_summary>Show/Hide the image collection pane.</_summary>
     </key>
-    <key name="image_collection_position" type="i">
+    <key name="image-collection-position" type="i">
       <default>0</default>
       <_summary>Image collection pane position. Set to 0 for bottom;  1 for left; 2 for top; 3 for right.</_summary>
     </key>
-    <key name="image_collection_resizable" type="b">
+    <key name="image-collection-resizable" type="b">
       <default>false</default>
       <_summary>Whether the image collection pane should be resizable.</_summary>
     </key>
@@ -94,28 +94,28 @@
       <default>true</default>
       <_summary>Show/Hide the window side pane.</_summary>
     </key>
-    <key name="scroll_buttons" type="b">
+    <key name="scroll-buttons" type="b">
       <default>true</default>
       <_summary>Show/Hide the image collection pane scroll buttons.</_summary>
     </key>
-    <key name="disable_trash_confirmation" type="b">
+    <key name="disable-trash-confirmation" type="b">
       <default>false</default>
       <_summary>Trash images without asking</_summary>
       <_description>If activated Eye of GNOME wont ask for confirmation when moving images to the trash. It will still ask if any of the files cannot be moved to the trash and would be deleted instead.</_description>
     </key>
-    <key name="filechooser_xdg_fallback" type="b">
+    <key name="filechooser-xdg-fallback" type="b">
       <default>true</default>
       <_summary>Whether the file chooser should show the user's pictures folder if no images are loaded.</_summary>
       <_description>If activated and no image is loaded in the active window, the file chooser will display the user's pictures folder using the XDG special user directories. If deactivated or the pictures folder has not been set up it will show the current working directory.</_description>
     </key>
-    <key name="propsdialog_netbook_mode" type="b">
+    <key name="propsdialog-netbook-mode" type="b">
       <default>true</default>
       <_summary>Whether the metadata list in the properties dialog should have its own page.</_summary>
       <_description>If activated the detailed metadata list in the properties dialog will be moved to its own page in the dialog. This should make the dialog more usable on smaller screens, e.g. as used by netbooks. If disabled the widget will be embedded on the "Metadata" page.</_description>
     </key>
   </schema>
   <schema id="org.gnome.eog.plugins" path="/apps/eog/plugins/">
-    <key name="active_plugins" type="as">
+    <key name="active-plugins" type="as">
       <default>[]</default>
       <_summary>Active plugins</_summary>
       <_description>List of active plugins. It doesn't contain the "Location" of the active plugins.  See the .eog-plugin file for obtaining the "Location" of a given plugin.</_description>

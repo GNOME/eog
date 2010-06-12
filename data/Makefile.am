@@ -14,8 +14,7 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
-# Allow key names to not follow the new naming scheme until we fixed them
-GLIB_COMPILE_SCHEMAS +=  --allow-any-name
+
 schemas_in_files = eog.schemas.in
 schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
