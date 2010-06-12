@@ -424,10 +424,11 @@ eog_window_collection_mode_changed_cb (GSettings *settings,
 
 	priv = EOG_WINDOW (user_data)->priv;
 
-	position = g_settings_get_int (settings, "image_collection_position");
+	position = g_settings_get_int (settings,
+				       EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
 
 	resizable = g_settings_get_boolean (settings,
-					    "image_collection_resizable");
+					    EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE);
 
 	if (priv->collection_position == position &&
 	    priv->collection_resizable == resizable)
