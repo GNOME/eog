@@ -53,9 +53,9 @@
 
 #define EOG_CONF_UI_TOOLBAR			"toolbar"
 #define EOG_CONF_UI_STATUSBAR			"statusbar"
-#define EOG_CONF_UI_IMAGE_COLLECTION		"image-collection"
-#define EOG_CONF_UI_IMAGE_COLLECTION_POSITION	"image-collection-position"
-#define EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE	"image-collection-resizable"
+#define EOG_CONF_UI_IMAGE_GALLERY		"image-gallery"
+#define EOG_CONF_UI_IMAGE_GALLERY_POSITION	"image-gallery-position"
+#define EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE	"image-gallery-resizable"
 #define EOG_CONF_UI_SIDEBAR			"sidebar"
 #define EOG_CONF_UI_SCROLL_BUTTONS		"scroll-buttons"
 #define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"disable-trash-confirmation"

@@ -71,7 +71,7 @@ typedef enum {
 typedef enum {
 	EOG_STARTUP_FULLSCREEN         = 1 << 0,
 	EOG_STARTUP_SLIDE_SHOW         = 1 << 1,
-	EOG_STARTUP_DISABLE_COLLECTION = 1 << 2
+	EOG_STARTUP_DISABLE_GALLERY    = 1 << 2
 } EogStartupFlags;
 
 struct _EogWindow {

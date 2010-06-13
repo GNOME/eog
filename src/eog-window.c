@@ -147,7 +147,7 @@ struct _EogWindowPrivate {
 
         GtkActionGroup      *actions_window;
         GtkActionGroup      *actions_image;
-        GtkActionGroup      *actions_collection;
+        GtkActionGroup      *actions_gallery;
         GtkActionGroup      *actions_recent;
 
 	GtkWidget           *fullscreen_popup;
@@ -172,8 +172,8 @@ struct _EogWindowPrivate {
         EogStartupFlags      flags;
 	GSList              *file_list;
 
-	gint                 collection_position;
-	gboolean             collection_resizable;
+	gint                 gallery_position;
+	gboolean             gallery_resizable;
 
         GtkActionGroup      *actions_open_with;
 	guint                open_with_menu_id;
@@ -408,9 +408,9 @@ eog_window_scroll_buttons_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_collection_mode_changed_cb (GSettings *settings,
-				       gchar     *key,
-				       gpointer   user_data)
+eog_window_gallery_mode_changed_cb (GSettings *settings,
+				    gchar     *key,
+				    gpointer   user_data)
 {
 	EogWindowPrivate *priv;
 	GtkWidget *hpaned;
@@ -425,17 +425,17 @@ eog_window_collection_mode_changed_cb (GSettings *settings,
 	priv = EOG_WINDOW (user_data)->priv;
 
 	position = g_settings_get_int (settings,
-				       EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
+				       EOG_CONF_UI_IMAGE_GALLERY_POSITION);
 
 	resizable = g_settings_get_boolean (settings,
-					    EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE);
+					    EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE);
 
-	if (priv->collection_position == position &&
-	    priv->collection_resizable == resizable)
+	if (priv->gallery_position == position &&
+	    priv->gallery_resizable == resizable)
 		return;
 
-	priv->collection_position = position;
-	priv->collection_resizable = resizable;
+	priv->gallery_position = position;
+	priv->gallery_resizable = resizable;
 
 	hpaned = gtk_widget_get_parent (priv->sidebar);
 
@@ -772,14 +772,14 @@ static void
 update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	GtkAction *action_collection;
+	GtkAction *action_gallery;
 	GtkAction *action_sidebar;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 	GtkAction *action_print;
 	gboolean print_disabled = FALSE;
 	gboolean page_setup_disabled = FALSE;
-	gboolean show_image_collection = FALSE;
+	gboolean show_image_gallery = FALSE;
 	gint n_images = 0;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -788,9 +788,9 @@ update_action_groups_state (EogWindow *window)
 
 	priv = window->priv;
 
-	action_collection =
+	action_gallery =
 		gtk_action_group_get_action (priv->actions_window,
-					     "ViewImageCollection");
+					     "ViewImageGallery");
 
 	action_sidebar =
 		gtk_action_group_get_action (priv->actions_window,
@@ -801,14 +801,14 @@ update_action_groups_state (EogWindow *window)
 					     "ViewFullscreen");
 
 	action_sshow =
-		gtk_action_group_get_action (priv->actions_collection,
+		gtk_action_group_get_action (priv->actions_gallery,
 					     "ViewSlideshow");
 
 	action_print =
 		gtk_action_group_get_action (priv->actions_image,
 					     "ImagePrint");
 
-	g_assert (action_collection != NULL);
+	g_assert (action_gallery != NULL);
 	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
@@ -823,7 +823,7 @@ update_action_groups_state (EogWindow *window)
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+		gtk_action_group_set_sensitive (priv->actions_gallery,  FALSE);
 
 		gtk_action_set_sensitive (action_fscreen, FALSE);
 		gtk_action_set_sensitive (action_sshow,   FALSE);
@@ -834,29 +834,29 @@ update_action_groups_state (EogWindow *window)
 			priv->status = EOG_WINDOW_STATUS_NORMAL;
 		}
 	} else {
-		if (priv->flags & EOG_STARTUP_DISABLE_COLLECTION) {
+		if (priv->flags & EOG_STARTUP_DISABLE_GALLERY) {
 			g_settings_set_boolean (priv->ui_settings,
-						EOG_CONF_UI_IMAGE_COLLECTION,
+						EOG_CONF_UI_IMAGE_GALLERY,
 						FALSE);
 
-			show_image_collection = FALSE;
+			show_image_gallery = FALSE;
 		} else {
-			show_image_collection =
+			show_image_gallery =
 				g_settings_get_boolean (priv->ui_settings,
-						EOG_CONF_UI_IMAGE_COLLECTION);
+						EOG_CONF_UI_IMAGE_GALLERY);
 		}
 
-		show_image_collection = show_image_collection &&
-					n_images > 1 &&
-					priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
+		show_image_gallery = show_image_gallery &&
+				     n_images > 1 &&
+				     priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
 
 		gtk_widget_show (priv->layout);
 
-		if (show_image_collection)
+		if (show_image_gallery)
 			gtk_widget_show (priv->nav);
 
-		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_collection),
-					      show_image_collection);
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_gallery),
+					      show_image_gallery);
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
@@ -864,15 +864,17 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_set_sensitive (action_fscreen, TRUE);
 
 		if (n_images == 1) {
-			gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-			gtk_action_set_sensitive (action_collection, FALSE);
+			gtk_action_group_set_sensitive (priv->actions_gallery,
+							FALSE);
+			gtk_action_set_sensitive (action_gallery, FALSE);
 			gtk_action_set_sensitive (action_sshow, FALSE);
 		} else {
-			gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
+			gtk_action_group_set_sensitive (priv->actions_gallery,
+							TRUE);
 			gtk_action_set_sensitive (action_sshow, TRUE);
 		}
 
-		if (show_image_collection)
+		if (show_image_gallery)
 			gtk_widget_grab_focus (priv->thumbview);
 		else
 			gtk_widget_grab_focus (priv->view);
@@ -1735,7 +1737,7 @@ eog_window_update_slideshow_action (EogWindow *window)
 {
 	GtkAction *action;
 
-	action = gtk_action_group_get_action (window->priv->actions_collection,
+	action = gtk_action_group_get_action (window->priv->actions_gallery,
 					      "ViewSlideshow");
 
 	g_signal_handlers_block_by_func
@@ -1952,7 +1954,7 @@ exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 	eog_debug (DEBUG_WINDOW);
 
 	if (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
-		action = gtk_action_group_get_action (window->priv->actions_collection,
+		action = gtk_action_group_get_action (window->priv->actions_gallery,
 						      "ViewSlideshow");
 	} else {
 		action = gtk_action_group_get_action (window->priv->actions_image,
@@ -2064,9 +2066,9 @@ update_ui_visibility (EogWindow *window)
 
 	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = g_settings_get_boolean (priv->ui_settings,
-						  EOG_CONF_UI_IMAGE_COLLECTION);
+						  EOG_CONF_UI_IMAGE_GALLERY);
 		visible = visible && priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
-		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
+		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageGalleryToggle");
 		g_assert (action != NULL);
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 		if (visible) {
@@ -2708,7 +2710,7 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 			g_settings_set_boolean (priv->ui_settings,
 						EOG_CONF_UI_STATUSBAR, visible);
 
-	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
+	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageGallery") == 0) {
 		if (visible) {
 			/* Make sure the focus widget is realized to
 			 * avoid warnings on keypress events */
@@ -2744,7 +2746,7 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 				gtk_widget_grab_focus (priv->view);
 		}
 		g_settings_set_boolean (priv->ui_settings,
-					EOG_CONF_UI_IMAGE_COLLECTION, visible);
+					EOG_CONF_UI_IMAGE_GALLERY, visible);
 
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewSidebar") == 0) {
 		if (visible) {
@@ -3086,11 +3088,11 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 	priv = window->priv;
 
 	next_image_action =
-		gtk_action_group_get_action (priv->actions_collection,
+		gtk_action_group_get_action (priv->actions_gallery,
 					     "GoNext");
 
 	previous_image_action =
-		gtk_action_group_get_action (priv->actions_collection,
+		gtk_action_group_get_action (priv->actions_gallery,
 					     "GoPrevious");
 
 	if (window->priv->properties_dlg == NULL) {
@@ -3703,8 +3705,8 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 	{ "ViewStatusbar", NULL, N_("_Statusbar"), NULL,
 	  N_("Changes the visibility of the statusbar in the current window"),
 	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
-	{ "ViewImageCollection", "eog-image-collection", N_("_Image Collection"), "F9",
-	  N_("Changes the visibility of the image collection pane in the current window"),
+	{ "ViewImageGallery", "eog-image-gallery", N_("_Image Gallery"), "F9",
+	  N_("Changes the visibility of the image gallery pane in the current window"),
 	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
 	{ "ViewSidebar", NULL, N_("Side _Pane"), "<control>F9",
 	  N_("Changes the visibility of the side pane in the current window"),
@@ -3780,21 +3782,21 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
 };
 
-static const GtkActionEntry action_entries_collection[] = {
+static const GtkActionEntry action_entries_gallery[] = {
 	{ "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left",
-	  N_("Go to the previous image of the collection"),
+	  N_("Go to the previous image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_prev) },
 	{ "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<Alt>Right",
-	  N_("Go to the next image of the collection"),
+	  N_("Go to the next image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_next) },
 	{ "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<Alt>Home",
-	  N_("Go to the first image of the collection"),
+	  N_("Go to the first image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_first) },
 	{ "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<Alt>End",
-	  N_("Go to the last image of the collection"),
+	  N_("Go to the last image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_last) },
 	{ "GoRandom", NULL, N_("_Random Image"), "<control>M",
-	  N_("Go to a random image of the collection"),
+	  N_("Go to a random image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_random) },
 	{ "BackSpace", NULL, N_("_Previous Image"), "BackSpace",
 	  NULL,
@@ -3807,7 +3809,7 @@ static const GtkActionEntry action_entries_collection[] = {
 	  G_CALLBACK (eog_window_cmd_go_last) },
 };
 
-static const GtkToggleActionEntry toggle_entries_collection[] = {
+static const GtkToggleActionEntry toggle_entries_gallery[] = {
 	{ "ViewSlideshow", "slideshow-play", N_("_Slideshow"), "F5",
 	  N_("Start a slideshow view of the images"),
 	  G_CALLBACK (eog_window_cmd_slideshow), FALSE },
@@ -3870,15 +3872,15 @@ disconnect_proxy_cb (GtkUIManager *manager,
 static void
 set_action_properties (GtkActionGroup *window_group,
 		       GtkActionGroup *image_group,
-		       GtkActionGroup *collection_group)
+		       GtkActionGroup *gallery_group)
 {
         GtkAction *action;
 
-        action = gtk_action_group_get_action (collection_group, "GoPrevious");
+        action = gtk_action_group_get_action (gallery_group, "GoPrevious");
         g_object_set (action, "short_label", _("Previous"), NULL);
         g_object_set (action, "is-important", TRUE, NULL);
 
-        action = gtk_action_group_get_action (collection_group, "GoNext");
+        action = gtk_action_group_get_action (gallery_group, "GoNext");
         g_object_set (action, "short_label", _("Next"), NULL);
         g_object_set (action, "is-important", TRUE, NULL);
 
@@ -3900,8 +3902,8 @@ set_action_properties (GtkActionGroup *window_group,
         action = gtk_action_group_get_action (image_group, "ViewZoomFit");
         g_object_set (action, "short_label", _("Fit"), NULL);
 
-        action = gtk_action_group_get_action (window_group, "ViewImageCollection");
-        g_object_set (action, "short_label", _("Collection"), NULL);
+        action = gtk_action_group_get_action (window_group, "ViewImageGallery");
+        g_object_set (action, "short_label", _("Gallery"), NULL);
 
         action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
         g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
@@ -4214,25 +4216,25 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
-	priv->actions_collection = gtk_action_group_new ("MenuActionsCollection");
-	gtk_action_group_set_translation_domain (priv->actions_collection,
+	priv->actions_gallery = gtk_action_group_new ("MenuActionsGallery");
+	gtk_action_group_set_translation_domain (priv->actions_gallery,
 						 GETTEXT_PACKAGE);
 
-	gtk_action_group_add_actions (priv->actions_collection,
-				      action_entries_collection,
-				      G_N_ELEMENTS (action_entries_collection),
+	gtk_action_group_add_actions (priv->actions_gallery,
+				      action_entries_gallery,
+				      G_N_ELEMENTS (action_entries_gallery),
 				      window);
 
-	gtk_action_group_add_toggle_actions (priv->actions_collection,
-					     toggle_entries_collection,
-					     G_N_ELEMENTS (toggle_entries_collection),
+	gtk_action_group_add_toggle_actions (priv->actions_gallery,
+					     toggle_entries_gallery,
+					     G_N_ELEMENTS (toggle_entries_gallery),
 					     window);
 
 	set_action_properties (priv->actions_window,
 			       priv->actions_image,
-			       priv->actions_collection);
+			       priv->actions_gallery);
 
-	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_collection, 0);
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_gallery, 0);
 
 	if (!gtk_ui_manager_add_ui_from_file (priv->ui_mgr,
 					      EOG_DATA_DIR"/eog-ui.xml",
@@ -4416,9 +4418,9 @@ eog_window_construct_ui (EogWindow *window)
 					    EOG_CONF_VIEW_TRANSPARENCY, window);
 	eog_window_trans_color_changed_cb (priv->view_settings,
 					   EOG_CONF_VIEW_TRANS_COLOR, window);
-	eog_window_collection_mode_changed_cb (priv->ui_settings,
-					  EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
-					       window);
+	eog_window_gallery_mode_changed_cb (priv->ui_settings,
+					    EOG_CONF_UI_IMAGE_GALLERY_POSITION,
+					    window);
 
 	entry = gconf_client_get_entry (priv->client,
 					EOG_CONF_DESKTOP_CAN_SAVE,
@@ -4498,13 +4500,13 @@ eog_window_init (EogWindow *window)
 			  window);
 
 	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
-			  (GCallback) eog_window_collection_mode_changed_cb,
+			  "changed::" EOG_CONF_UI_IMAGE_GALLERY_POSITION,
+			  (GCallback) eog_window_gallery_mode_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
-			  (GCallback) eog_window_collection_mode_changed_cb,
+			  "changed::" EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
+			  (GCallback) eog_window_gallery_mode_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
@@ -4548,8 +4550,8 @@ eog_window_init (EogWindow *window)
 
 	window->priv->recent_menu_id = 0;
 
-	window->priv->collection_position = 0;
-	window->priv->collection_resizable = FALSE;
+	window->priv->gallery_position = 0;
+	window->priv->gallery_resizable = FALSE;
 
 	window->priv->save_disabled = FALSE;
 }
@@ -4599,9 +4601,9 @@ eog_window_dispose (GObject *object)
 		priv->actions_image = NULL;
 	}
 
-	if (priv->actions_collection != NULL) {
-		g_object_unref (priv->actions_collection);
-		priv->actions_collection = NULL;
+	if (priv->actions_gallery != NULL) {
+		g_object_unref (priv->actions_gallery);
+		priv->actions_gallery = NULL;
 	}
 
 	if (priv->actions_recent != NULL) {
@@ -5132,7 +5134,7 @@ eog_window_class_init (EogWindowClass *class)
  *
  * Creates a new and empty #EogWindow. Use @flags to indicate
  * if the window should be initialized fullscreen, in slideshow mode,
- * and/or without the thumbnails collection visible. See #EogStartupFlags.
+ * and/or without the thumbnails gallery visible. See #EogStartupFlags.
  *
  * Returns: a newly created #EogWindow.
  **/
@@ -5256,7 +5258,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
  * @window: An #EogWindow.
  * @file_list: A %NULL-terminated list of #GFile's.
  *
- * Opens a list of files, adding them to the collection in @window.
+ * Opens a list of files, adding them to the gallery in @window.
  * Files will be checked to be readable and later filtered according
  * with eog_list_store_add_files().
  **/
@@ -5351,7 +5353,7 @@ eog_window_set_mode (EogWindow *window, EogWindowMode mode)
  * eog_window_get_store:
  * @window: An #EogWindow.
  *
- * Gets the #EogListStore that contains the images in the collection
+ * Gets the #EogListStore that contains the images in the gallery
  * of @window.
  *
  * Returns: an #EogListStore.

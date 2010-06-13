@@ -51,7 +51,7 @@ static EogStartupFlags flags;
 
 static gboolean fullscreen = FALSE;
 static gboolean slide_show = FALSE;
-static gboolean disable_collection = FALSE;
+static gboolean disable_gallery = FALSE;
 #if HAVE_DBUS
 static gboolean force_new_instance = FALSE;
 #endif
@@ -71,7 +71,7 @@ _print_version_and_exit (const gchar *option_name,
 static const GOptionEntry goption_options[] =
 {
 	{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, &fullscreen, N_("Open in fullscreen mode"), NULL  },
-	{ "disable-image-collection", 'c', 0, G_OPTION_ARG_NONE, &disable_collection, N_("Disable image collection"), NULL  },
+	{ "disable-gallery", 'g', 0, G_OPTION_ARG_NONE, &disable_gallery, N_("Disable image gallery"), NULL  },
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slideshow mode"), NULL  },
 #if HAVE_DBUS
 	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
@@ -88,8 +88,8 @@ set_startup_flags (void)
   if (fullscreen)
     flags |= EOG_STARTUP_FULLSCREEN;
 
-  if (disable_collection)
-    flags |= EOG_STARTUP_DISABLE_COLLECTION;
+  if (disable_gallery)
+    flags |= EOG_STARTUP_DISABLE_GALLERY;
 
   if (slide_show)
     flags |= EOG_STARTUP_SLIDE_SHOW;
