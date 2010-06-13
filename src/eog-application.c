@@ -118,7 +118,10 @@ eog_application_register_service (EogApplication *application)
 					     "/org/gnome/eog/Eog",
                                              G_OBJECT (application));
 
-        application->scr_saver = totem_scrsaver_new (connection);
+        application->scr_saver = totem_scrsaver_new ();
+        g_object_set (application->scr_saver,
+		      "reason", _("Running in fullscreen mode"),
+		      NULL);
 
 	return TRUE;
 }
