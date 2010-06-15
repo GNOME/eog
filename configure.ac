@@ -228,7 +228,6 @@ int main(int c, char**v) { return 0; }
 			   have_libjpeg_80=yes],
 		          [AC_MSG_RESULT(no)
 		           have_libjpeg_80=no])
-        AM_CONDITIONAL(HAVE_LIBJPEG_80, test "x$have_libjpeg_80" = xyes)
 
       else
           AC_MSG_WARN(*** JPEG loader will not be built (JPEG header file not found) ***)
@@ -244,6 +243,7 @@ int main(int c, char**v) { return 0; }
   fi
 AC_SUBST(LIBJPEG)
 AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
+AM_CONDITIONAL(HAVE_LIBJPEG_80, test "x$have_libjpeg_80" = xyes)
 
 # ****************
 # D-Bus activation
