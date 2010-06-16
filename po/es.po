@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&component=general\n"
 "POT-Creation-Date: 2010-06-15 15:49+0000\n"
-"PO-Revision-Date: 2010-06-16 05:57+0200\n"
+"PO-Revision-Date: 2010-06-16 06:21+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -479,13 +479,13 @@ msgstr "Ampliación de la rueda del ratón"
 #| msgid "Show/Hide the image collection pane scroll buttons."
 msgid "Show/Hide the image gallery pane scroll buttons."
 msgstr ""
-"Mostrar/ocultar los botones de desplazamiento del panel de colección de "
-"imágenes."
+"Mostrar/ocultar los botones de desplazamiento del panel de colección de "
+"imágenes."
 
 #: ../data/eog.schemas.in.h:20 ../data/org.gnome.eog.gschema.xml.in.in.h:22
 #| msgid "Show/Hide the image collection pane."
 msgid "Show/Hide the image gallery pane."
-msgstr "Mostrar/ocultar el panel de colección de imágenes."
+msgstr "Mostrar/ocultar el panel de colección de imágenes."
 
 #: ../data/eog.schemas.in.h:21 ../data/org.gnome.eog.gschema.xml.in.in.h:23
 msgid "Show/Hide the window side pane."
@@ -536,7 +536,7 @@ msgstr ""
 #| msgid "Whether the image collection pane should be resizable."
 msgid "Whether the image gallery pane should be resizable."
 msgstr ""
-"Indica si el panel de colección de imágenes debería ser redimensionable."
+"Indica si el panel de colección de imágenes debería ser redimensionable."
 
 #: ../data/eog.schemas.in.h:31 ../data/org.gnome.eog.gschema.xml.in.in.h:35
 msgid ""
@@ -1221,14 +1221,14 @@ msgstr "Cambia la visibilidad de la barra de estado en la ventana actual"
 #: ../src/eog-window.c:3708
 #| msgid "_Image Collection"
 msgid "_Image Gallery"
-msgstr "Colección de _imágenes"
+msgstr "Colección de _imágenes"
 
 #: ../src/eog-window.c:3709
 #| msgid ""
 #| "Changes the visibility of the image collection pane in the current window"
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr ""
-"Cambia la visibilidad de la colección de imágenes del panel en la ventana "
+"Cambia la visibilidad de la colección de imágenes del panel en la ventana "
 "actual"
 
 #: ../src/eog-window.c:3711
@@ -1378,7 +1378,7 @@ msgstr "Imagen _anterior"
 #: ../src/eog-window.c:3787
 #| msgid "Go to the previous image of the collection"
 msgid "Go to the previous image of the gallery"
-msgstr "Ir a la imagen anterior de la colección"
+msgstr "Ir a la imagen anterior de la colección"
 
 #: ../src/eog-window.c:3789
 msgid "_Next Image"
@@ -1387,7 +1387,7 @@ msgstr "Siguiente _imagen"
 #: ../src/eog-window.c:3790
 #| msgid "Go to the next image of the collection"
 msgid "Go to the next image of the gallery"
-msgstr "Ir a la siguiente imagen de la colección"
+msgstr "Ir a la siguiente imagen de la colección"
 
 #: ../src/eog-window.c:3792 ../src/eog-window.c:3804
 msgid "_First Image"
@@ -1396,7 +1396,7 @@ msgstr "_Primera imagen"
 #: ../src/eog-window.c:3793
 #| msgid "Go to the first image of the collection"
 msgid "Go to the first image of the gallery"
-msgstr "Ir a la primera imagen de la colección"
+msgstr "Ir a la primera imagen de la colección"
 
 #: ../src/eog-window.c:3795 ../src/eog-window.c:3807
 msgid "_Last Image"
@@ -1405,7 +1405,7 @@ msgstr "Ú_ltima imagen"
 #: ../src/eog-window.c:3796
 #| msgid "Go to the last image of the collection"
 msgid "Go to the last image of the gallery"
-msgstr "Ir a la última imagen de la colección"
+msgstr "Ir a la última imagen de la colección"
 
 #: ../src/eog-window.c:3798
 msgid "_Random Image"
@@ -1414,7 +1414,7 @@ msgstr "Imagen al_eatoria"
 #: ../src/eog-window.c:3799
 #| msgid "Go to a random image of the collection"
 msgid "Go to a random image of the gallery"
-msgstr "Ir a una imagen aleatoria de la colección"
+msgstr "Ir a una imagen aleatoria de la colección"
 
 # Slide es diapositiva en este contexto
 #: ../src/eog-window.c:3813
@@ -1459,7 +1459,7 @@ msgstr "Ajustar"
 
 #: ../src/eog-window.c:3906
 msgid "Gallery"
-msgstr "Colección"
+msgstr "Colección"
 
 #: ../src/eog-window.c:3909
 msgctxt "action (to trash)"
@@ -1513,11 +1513,97 @@ msgstr "Abrir en modo pantalla completa"
 #: ../src/main.c:74
 #| msgid "Disable image collection"
 msgid "Disable image gallery"
-msgstr "Desactivar la colección de imágenes"
+msgstr "Desactivar la colección de imágenes"
 
 #: ../src/main.c:75
 msgid "Open in slideshow mode"
 msgstr "Abrir en modo diapositivas"
 
 #: ../src/main.c:77
-msgid "Start a new instance inst
+msgid "Start a new instance instead of reusing an existing one"
+msgstr "Iniciar una nueva instancia en lugar de reusar la ya existente"
+
+#: ../src/main.c:80
+msgid "Show the application's version"
+msgstr "Mostrar la versión de la aplicación"
+
+#: ../src/main.c:81
+msgid "[FILE…]"
+msgstr "[ARCHIVO…]"
+
+#. I18N: The '%s' is replaced with eog's command name.
+#: ../src/main.c:209
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr ""
+"Ejecute «%s --help» para ver una lista completa de las opciones comandos de "
+"línea disponibles."
+
+#~ msgid "Collection"
+#~ msgstr "Colección"
+
+#~ msgid "Load Image"
+#~ msgstr "Cargar imagen"
+
+#~ msgid "_File"
+#~ msgstr "_Archivo"
+
+#~ msgid "Set up the page properties for printing"
+#~ msgstr "Establecer las propiedades de la página para imprimir"
+
+#~ msgid "<b>Details</b>"
+#~ msgstr "<b>Detalles</b>"
+
+#~ msgid "<b>Height:</b>"
+#~ msgstr "<b>Altura:</b>"
+
+#~ msgid "<b>Name:</b>"
+#~ msgstr "<b>Nombre:</b>"
+
+#~ msgid "<b>Type:</b>"
+#~ msgstr "<b>Tipo:</b>"
+
+#~ msgid "<b>Width:</b>"
+#~ msgstr "<b>Anchura:</b>"
+
+#~ msgid "Save _As..."
+#~ msgstr "Guardar _como…"
+
+#~ msgid "Dialogs"
+#~ msgstr "Diálogos"
+
+#~ msgid "File Open Dialog"
+#~ msgstr "Diálogo de apertura de archivos"
+
+#~| msgid "Image Properties"
+#~ msgid "Image Properties Dialog"
+#~ msgstr "Diálogo de propiedades de la imagen"
+
+#~ msgid "Initially _display pictures folder if no image is loaded"
+#~ msgstr ""
+#~ "_Mostrar inicialmente la carpeta de imágenes si no hay ninguna imagen "
+#~ "cargada"
+
+#~ msgid "_Use layout for small screens"
+#~ msgstr "_Usar distribución para pantallas pequeñas"
+
+#~ msgid "Open with \"%s\""
+#~ msgstr "Abrir con «%s»"
+
+#~ msgid "Move to Trash"
+#~ msgstr "Mover a la papelera"
+
+#~ msgid "Page Set_up..."
+#~ msgstr "_Configuración de página…"
+
+#~ msgid "Set As _Wallpaper"
+#~ msgstr "Establecer como _fondo"
+
+#~ msgid "Only local images can be used as wallpapers"
+#~ msgstr "Solamente se pueden usar las imágenes locales como fondos"
+
+#~ msgid ""
+#~ "To be able to set this image as your wallpaper, please save it locally in "
+#~ "your computer"
+#~ msgstr ""
+#~ "Para poder usar esta imagen como fondo guárdela localmente en su equipo"
