@@ -383,13 +383,8 @@ _eog_settings_get_list (GSettings   *settings,
 	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 
-// Workaround until glib-2.25.8 is officially out
-#if (GLIB_CHECK_VERSION (2, 25, 8))
 	values = g_settings_get_strv (settings, key);
 	len = g_strv_length (values);
-#else
-	values = g_settings_get_strv (settings, key, &len);
-#endif
 	i = 0;
 
 	while (i < len)
@@ -423,12 +418,7 @@ _eog_settings_set_list (GSettings    *settings,
 		values[i] = l->data;
 	}
 
-// Workaround until glib-2.25.8 is officially out
-#if (GLIB_CHECK_VERSION (2, 25, 8))
 	g_settings_set_strv (settings, key, (const gchar * const *)values);
-#else
-	g_settings_set_strv (settings, key, (const gchar * const *)values, len);
-#endif
 	g_free (values);
 }
 
