@@ -378,19 +378,16 @@ _eog_settings_get_list (GSettings   *settings,
 {
 	GSList *list = NULL;
 	gchar **values;
-	gsize len, i;
+	gsize i;
 
 	g_return_val_if_fail (G_IS_SETTINGS (settings), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 
 	values = g_settings_get_strv (settings, key);
-	len = g_strv_length (values);
-	i = 0;
 
-	while (i < len)
+	for (i = 0; values[i] != NULL; i++)
 	{
 		list = g_slist_prepend (list, values[i]);
-		i++;
 	}
 
 	g_free (values);
