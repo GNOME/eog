@@ -286,28 +286,6 @@ eog_window_scroll_wheel_zoom_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_zoom_multiplier_changed_cb (GSettings *settings,
-				       gchar     *key,
-				       gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gdouble multiplier = 0.05;
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	multiplier = g_settings_get_double (settings, key);
-
-	eog_scroll_view_set_zoom_multiplier (EOG_SCROLL_VIEW (priv->view),
-					     multiplier);
-}
-
-static void
 eog_window_transparency_changed_cb (GSettings *settings,
 				    gchar     *key,
 				    gpointer   user_data)
@@ -4333,6 +4311,8 @@ eog_window_construct_ui (EogWindow *window)
 			  "zoom_changed",
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_ZOOM_MULTIPLIER,
+			 priv->view, "zoom-multiplier", G_SETTINGS_BIND_GET);
 
 	view_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ViewPopup");
 	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
@@ -4393,9 +4373,6 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_scroll_wheel_zoom_changed_cb (priv->view_settings,
 						 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM
 						 , window);
-	eog_window_zoom_multiplier_changed_cb (priv->view_settings,
-					       EOG_CONF_VIEW_ZOOM_MULTIPLIER,
-					       window);
 	eog_window_transparency_changed_cb (priv->view_settings,
 					    EOG_CONF_VIEW_TRANSPARENCY, window);
 	eog_window_trans_color_changed_cb (priv->view_settings,
@@ -4460,11 +4437,6 @@ eog_window_init (EogWindow *window)
 			  "changed::" EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
 			  (GCallback) eog_window_scroll_wheel_zoom_changed_cb,
 			   window);
-
-	g_signal_connect (priv->view_settings,
-			  "changed::" EOG_CONF_VIEW_ZOOM_MULTIPLIER,
-			  (GCallback) eog_window_zoom_multiplier_changed_cb,
-			  window);
 
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_TRANSPARENCY,
