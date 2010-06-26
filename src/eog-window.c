@@ -264,28 +264,6 @@ eog_window_interp_out_type_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_scroll_wheel_zoom_changed_cb (GSettings *settings,
-				         gchar     *key,
-				         gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gboolean scroll_wheel_zoom = FALSE;
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	scroll_wheel_zoom = g_settings_get_boolean (settings, key);
-
-	eog_scroll_view_set_scroll_wheel_zoom (EOG_SCROLL_VIEW (priv->view),
-					       scroll_wheel_zoom);
-}
-
-static void
 eog_window_transparency_changed_cb (GSettings *settings,
 				    gchar     *key,
 				    gpointer   user_data)
@@ -4311,6 +4289,8 @@ eog_window_construct_ui (EogWindow *window)
 			  "zoom_changed",
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
+	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
+			 priv->view, "scrollwheel-zoom", G_SETTINGS_BIND_GET);
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_ZOOM_MULTIPLIER,
 			 priv->view, "zoom-multiplier", G_SETTINGS_BIND_GET);
 
@@ -4370,9 +4350,6 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_interp_out_type_changed_cb (priv->view_settings,
 					       EOG_CONF_VIEW_INTERPOLATE,
 					       window);
-	eog_window_scroll_wheel_zoom_changed_cb (priv->view_settings,
-						 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM
-						 , window);
 	eog_window_transparency_changed_cb (priv->view_settings,
 					    EOG_CONF_VIEW_TRANSPARENCY, window);
 	eog_window_trans_color_changed_cb (priv->view_settings,
@@ -4432,11 +4409,6 @@ eog_window_init (EogWindow *window)
 			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
 			  (GCallback) eog_window_interp_out_type_changed_cb,
 			  window);
-
-	g_signal_connect (priv->view_settings,
-			  "changed::" EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
-			  (GCallback) eog_window_scroll_wheel_zoom_changed_cb,
-			   window);
 
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_TRANSPARENCY,

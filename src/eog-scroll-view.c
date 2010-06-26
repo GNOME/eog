@@ -75,8 +75,9 @@ static GtkTargetEntry target_table[] = {
 
 enum {
 	PROP_0,
-	PROP_USE_BG_COLOR,
 	PROP_BACKGROUND_COLOR,
+	PROP_SCROLLWHEEL_ZOOM,
+	PROP_USE_BG_COLOR,
 	PROP_ZOOM_MULTIPLIER
 };
 
@@ -2326,6 +2327,9 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 		//FIXME: This doesn't really handle the NULL color.
 		g_value_set_boxed (value, priv->background_color);
 		break;
+	case PROP_SCROLLWHEEL_ZOOM:
+		g_value_set_boolean (value, priv->scroll_wheel_zoom);
+		break;
 	case PROP_ZOOM_MULTIPLIER:
 		g_value_set_double (value, priv->zoom_multiplier);
 		break;
@@ -2356,6 +2360,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 		eog_scroll_view_set_background_color (view, color);
 		break;
 	}
+	case PROP_SCROLLWHEEL_ZOOM:
+		eog_scroll_view_set_scroll_wheel_zoom (view, g_value_get_boolean (value));
+		break;
 	case PROP_ZOOM_MULTIPLIER:
 		eog_scroll_view_set_zoom_multiplier (view, g_value_get_double (value));
 		break;
@@ -2401,6 +2408,11 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 		g_param_spec_double ("zoom-multiplier", NULL, NULL,
 				     -G_MAXDOUBLE, G_MAXDOUBLE, 0.05,
 				     G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+	g_object_class_install_property (
+		gobject_class, PROP_SCROLLWHEEL_ZOOM,
+		g_param_spec_boolean ("scrollwheel-zoom", NULL, NULL, TRUE,
+				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",
@@ -2698,7 +2710,10 @@ eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view,
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-        view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
+	if (view->priv->scroll_wheel_zoom != scroll_wheel_zoom) {
+	        view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
+		g_object_notify (G_OBJECT (view), "scrollwheel-zoom");
+	}
 }
 
 void
