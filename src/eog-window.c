@@ -386,28 +386,6 @@ eog_window_trans_color_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_scroll_buttons_changed_cb (GSettings *settings,
-				      gchar     *key,
-				      gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gboolean show_buttons = TRUE;
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	show_buttons = g_settings_get_boolean (settings, key);
-
-	eog_thumb_nav_set_show_buttons (EOG_THUMB_NAV (priv->nav),
-					show_buttons);
-}
-
-static void
 eog_window_gallery_mode_changed_cb (GSettings *settings,
 				    gchar     *key,
 				    gpointer   user_data)
@@ -4394,6 +4372,10 @@ eog_window_construct_ui (EogWindow *window)
 				       g_settings_get_boolean (priv->ui_settings
 				       	, EOG_CONF_UI_SCROLL_BUTTONS));
 
+	// Bind the scroll buttons to their GSettings key
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SCROLL_BUTTONS,
+			 priv->nav, "show-buttons", G_SETTINGS_BIND_GET);
+
 	thumb_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview),
 					    GTK_MENU (thumb_popup));
@@ -4492,11 +4474,6 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_TRANS_COLOR,
 			  (GCallback) eog_window_trans_color_changed_cb,
-			  window);
-
-	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_SCROLL_BUTTONS,
-			  (GCallback) eog_window_scroll_buttons_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
