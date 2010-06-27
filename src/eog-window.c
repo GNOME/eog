@@ -495,24 +495,6 @@ eog_window_can_save_changed_cb (GConfClient *client,
 	}
 }
 
-static void
-eog_window_pd_nbmode_changed_cb (GSettings *settings,
-				 gchar     *key,
-				 gpointer   user_data)
-{
-	EogWindow *window = EOG_WINDOW (user_data);
-
-	if (window->priv->properties_dlg != NULL) {
-		gboolean netbook_mode;
-		EogPropertiesDialog *dlg;
-
-		netbook_mode = g_settings_get_boolean (settings, key);
-		dlg = EOG_PROPERTIES_DIALOG (window->priv->properties_dlg);
-
-		eog_properties_dialog_set_netbook_mode (dlg, netbook_mode);
-	}
-}
-
 #ifdef HAVE_LCMS
 static cmsHPROFILE *
 eog_window_get_display_profile (GdkScreen *screen)
@@ -3030,8 +3012,6 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 					     "GoPrevious");
 
 	if (window->priv->properties_dlg == NULL) {
-		gboolean netbook_mode;
-
 		window->priv->properties_dlg =
 			eog_properties_dialog_new (GTK_WINDOW (window),
 						   EOG_THUMB_VIEW (priv->thumbview),
@@ -3040,11 +3020,10 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 
 		eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
 					      priv->image);
-		netbook_mode =
-			g_settings_get_boolean (priv->ui_settings,
-						EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE);
-		eog_properties_dialog_set_netbook_mode (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
-							netbook_mode);
+		g_settings_bind (priv->ui_settings,
+				 EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE,
+				 priv->properties_dlg, "netbook-mode",
+				 G_SETTINGS_BIND_GET);
 	}
 
 	eog_dialog_show (EOG_DIALOG (window->priv->properties_dlg));
@@ -4428,11 +4407,6 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->ui_settings,
 			  "changed::" EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
 			  (GCallback) eog_window_gallery_mode_changed_cb,
-			  window);
-
-	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE,
-			  (GCallback) eog_window_pd_nbmode_changed_cb,
 			  window);
 
 	priv->client_notifications[EOG_WINDOW_NOTIFY_CAN_SAVE] =
