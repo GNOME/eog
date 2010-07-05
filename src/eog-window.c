@@ -4895,6 +4895,15 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 		}
 		break;
+	case GDK_p:
+	case GDK_P:
+		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN || EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
+			gboolean slideshow;
+
+			slideshow = EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+			eog_window_run_fullscreen (EOG_WINDOW (widget), !slideshow);
+		}
+		break;
 	case GDK_Q:
 	case GDK_q:
 	case GDK_Escape:
