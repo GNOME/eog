@@ -188,6 +188,7 @@ struct _EogWindowPrivate {
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_window_cmd_slideshow (GtkAction *action, gpointer user_data);
+static void eog_window_cmd_pause_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_job_load_cb (EogJobLoad *job, gpointer data);
 static void eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer data);
@@ -1667,6 +1668,24 @@ eog_window_update_slideshow_action (EogWindow *window)
 }
 
 static void
+eog_window_update_pause_slideshow_action (EogWindow *window)
+{
+	GtkAction *action;
+
+	action = gtk_action_group_get_action (window->priv->actions_image,
+					      "PauseSlideshow");
+
+	g_signal_handlers_block_by_func
+		(action, G_CALLBACK (eog_window_cmd_pause_slideshow), window);
+
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      window->priv->mode != EOG_WINDOW_MODE_SLIDESHOW);
+
+	g_signal_handlers_unblock_by_func
+		(action, G_CALLBACK (eog_window_cmd_pause_slideshow), window);
+}
+
+static void
 eog_window_update_fullscreen_popup (EogWindow *window)
 {
 	GtkWidget *popup = window->priv->fullscreen_popup;
@@ -2115,6 +2134,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	/* Update both actions as we could've already been in one those modes */
 	eog_window_update_slideshow_action (window);
 	eog_window_update_fullscreen_action (window);
+	eog_window_update_pause_slideshow_action (window);
 }
 
 static void
@@ -3445,6 +3465,26 @@ eog_window_cmd_slideshow (GtkAction *action, gpointer user_data)
 }
 
 static void
+eog_window_cmd_pause_slideshow (GtkAction *action, gpointer user_data)
+{
+	EogWindow *window;
+	gboolean slideshow;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	window = EOG_WINDOW (user_data);
+
+	slideshow = window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+
+	if (!slideshow && window->priv->mode != EOG_WINDOW_MODE_FULLSCREEN)
+		return;
+
+	eog_window_run_fullscreen (window, !slideshow);
+}
+
+static void
 eog_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
@@ -3693,6 +3733,9 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 	{ "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Fullscreen"), "F11",
 	  N_("Show the current image in fullscreen mode"),
 	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
+	{ "PauseSlideshow", "media-playback-pause", N_("Pause Slideshow"),
+	  NULL, N_("Pause or resume the slidehow"),
+	  G_CALLBACK (eog_window_cmd_pause_slideshow), FALSE },
 };
 
 static const GtkActionEntry action_entries_gallery[] = {
