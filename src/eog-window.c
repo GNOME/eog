@@ -4267,7 +4267,6 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *menubar;
 	GtkWidget *thumb_popup;
 	GtkWidget *view_popup;
-	GtkWidget *frame;
 	GtkWidget *hpaned;
 	GtkWidget *menuitem;
 
@@ -4460,19 +4459,13 @@ eog_window_construct_ui (EogWindow *window)
 	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
 				   GTK_MENU (view_popup));
 
-	frame = gtk_widget_new (GTK_TYPE_FRAME,
-				"shadow-type", GTK_SHADOW_IN,
-				NULL);
-
-	gtk_container_add (GTK_CONTAINER (frame), priv->view);
-
 	gtk_paned_pack1 (GTK_PANED (hpaned),
 			 priv->sidebar,
 			 FALSE,
 			 FALSE);
 
 	gtk_paned_pack2 (GTK_PANED (hpaned),
-			 frame,
+			 priv->view,
 			 TRUE,
 			 FALSE);
 
