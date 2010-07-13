@@ -1723,7 +1723,7 @@ static gboolean
 display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
 	EogScrollView *view;
-	GdkRectangle *rects;
+	GdkRectangle rect;
 	gint n_rects;
 	int i;
 
@@ -1733,13 +1733,12 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 
 	view = EOG_SCROLL_VIEW (data);
 
-	gdk_region_get_rectangles (event->region, &rects, &n_rects);
+	n_rects = cairo_region_num_rectangles (event->region);
 
 	for (i = 0; i < n_rects; i++) {
-		request_paint_area (view, rects + i);
+		cairo_region_get_rectangle (event->region, i, &rect);
+		request_paint_area (view, &rect);
 	}
-
-	g_free (rects);
 
 	return TRUE;
 }
