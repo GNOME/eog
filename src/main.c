@@ -184,6 +184,7 @@ main (int argc, char **argv)
 {
 	GError *error = NULL;
 	GOptionContext *ctx;
+	GtkSettings *settings;
 
 	g_setenv ("GSETTINGS_BACKEND", "gconf", FALSE);
 
@@ -248,6 +249,11 @@ main (int argc, char **argv)
 
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
+
+	settings = gtk_settings_get_default ();
+	g_object_set (G_OBJECT (settings),
+	              "gtk-application-prefer-dark-theme", TRUE,
+	              NULL);
 
 	load_files ();
 
