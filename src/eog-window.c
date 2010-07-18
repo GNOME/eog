@@ -53,6 +53,8 @@
 #include "eog-plugin-engine.h"
 #include "eog-close-confirmation-dialog.h"
 
+#include "eog-enum-types.h"
+
 #include "egg-toolbar-editor.h"
 #include "egg-editable-toolbar.h"
 #include "egg-toolbars-model.h"
@@ -5162,7 +5164,7 @@ eog_window_set_property (GObject      *object,
 
         switch (property_id) {
 	case PROP_STARTUP_FLAGS:
-		priv->flags = (gint8) g_value_get_uchar (value);
+		priv->flags = g_value_get_flags (value);
 		break;
 
         default:
@@ -5186,7 +5188,7 @@ eog_window_get_property (GObject    *object,
 
         switch (property_id) {
 	case PROP_STARTUP_FLAGS:
-		g_value_set_uchar (value, priv->flags);
+		g_value_set_flags (value, priv->flags);
 		break;
 
         default:
@@ -5241,11 +5243,10 @@ eog_window_class_init (EogWindowClass *class)
  */
 	g_object_class_install_property (g_object_class,
 					 PROP_STARTUP_FLAGS,
-					 g_param_spec_uchar ("startup-flags",
+					 g_param_spec_flags ("startup-flags",
 							     NULL,
 							     NULL,
-							     0,
-					 		     G_MAXUINT8,
+							     EOG_TYPE_STARTUP_FLAGS,
 					 		     0,
 					 		     G_PARAM_READWRITE |
 							     G_PARAM_CONSTRUCT_ONLY));
