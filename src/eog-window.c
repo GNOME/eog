@@ -4866,7 +4866,7 @@ eog_window_set_property (GObject      *object,
 		break;
 
         default:
-                g_assert_not_reached ();
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
         }
 }
 
@@ -4896,7 +4896,7 @@ eog_window_get_property (GObject    *object,
 		break;
 
         default:
-                g_assert_not_reached ();
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 	}
 }
 
