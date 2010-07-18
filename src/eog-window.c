@@ -104,6 +104,8 @@ typedef enum {
 
 enum {
 	PROP_0,
+	PROP_GALLERY_POS,
+	PROP_GALLERY_RESIZABLE,
 	PROP_STARTUP_FLAGS
 };
 
@@ -172,7 +174,7 @@ struct _EogWindowPrivate {
         EogStartupFlags      flags;
 	GSList              *file_list;
 
-	gint                 gallery_position;
+	EogWindowGalleryPos  gallery_position;
 	gboolean             gallery_resizable;
 
         GtkActionGroup      *actions_open_with;
@@ -265,27 +267,19 @@ eog_window_interp_out_type_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_gallery_mode_changed_cb (GSettings *settings,
-				    gchar     *key,
-				    gpointer   user_data)
+eog_window_set_gallery_mode (EogWindow           *window,
+			     EogWindowGalleryPos  position,
+			     gboolean             resizable)
 {
 	EogWindowPrivate *priv;
 	GtkWidget *hpaned;
 	EogThumbNavMode mode = EOG_THUMB_NAV_MODE_ONE_ROW;
-	gint position = 0;
-	gboolean resizable = FALSE;
 
 	eog_debug (DEBUG_PREFERENCES);
 
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
-	priv = EOG_WINDOW (user_data)->priv;
-
-	position = g_settings_get_int (settings,
-				       EOG_CONF_UI_IMAGE_GALLERY_POSITION);
-
-	resizable = g_settings_get_boolean (settings,
-					    EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE);
+	priv = window->priv;
 
 	if (priv->gallery_position == position &&
 	    priv->gallery_resizable == resizable)
@@ -305,14 +299,14 @@ eog_window_gallery_mode_changed_cb (GSettings *settings,
 	gtk_widget_destroy (priv->layout);
 
 	switch (position) {
-	case 0:
-	case 2:
+	case EOG_WINDOW_GALLERY_POS_BOTTOM:
+	case EOG_WINDOW_GALLERY_POS_TOP:
 		if (resizable) {
 			mode = EOG_THUMB_NAV_MODE_MULTIPLE_ROWS;
 
 			priv->layout = gtk_vpaned_new ();
 
-			if (position == 0) {
+			if (position == EOG_WINDOW_GALLERY_POS_BOTTOM) {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 				gtk_paned_pack2 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
 			} else {
@@ -324,7 +318,7 @@ eog_window_gallery_mode_changed_cb (GSettings *settings,
 
 			priv->layout = gtk_vbox_new (FALSE, 2);
 
-			if (position == 0) {
+			if (position == EOG_WINDOW_GALLERY_POS_BOTTOM) {
 				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 			} else {
@@ -334,14 +328,14 @@ eog_window_gallery_mode_changed_cb (GSettings *settings,
 		}
 		break;
 
-	case 1:
-	case 3:
+	case EOG_WINDOW_GALLERY_POS_LEFT:
+	case EOG_WINDOW_GALLERY_POS_RIGHT:
 		if (resizable) {
 			mode = EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS;
 
 			priv->layout = gtk_hpaned_new ();
 
-			if (position == 1) {
+			if (position == EOG_WINDOW_GALLERY_POS_LEFT) {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
 				gtk_paned_pack2 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 			} else {
@@ -353,7 +347,7 @@ eog_window_gallery_mode_changed_cb (GSettings *settings,
 
 			priv->layout = gtk_hbox_new (FALSE, 2);
 
-			if (position == 1) {
+			if (position == EOG_WINDOW_GALLERY_POS_LEFT) {
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 			} else {
@@ -370,7 +364,7 @@ eog_window_gallery_mode_changed_cb (GSettings *settings,
 	eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav), mode);
 
 	if (priv->mode != EOG_WINDOW_STATUS_UNKNOWN) {
-		update_action_groups_state (EOG_WINDOW (user_data));
+		update_action_groups_state (window);
 	}
 }
 
@@ -4287,9 +4281,11 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_interp_out_type_changed_cb (priv->view_settings,
 					       EOG_CONF_VIEW_INTERPOLATE,
 					       window);
-	eog_window_gallery_mode_changed_cb (priv->ui_settings,
-					    EOG_CONF_UI_IMAGE_GALLERY_POSITION,
-					    window);
+
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_POSITION,
+			 window, "gallery-position", G_SETTINGS_BIND_GET);
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
+			 window, "gallery-resizable", G_SETTINGS_BIND_GET);
 
 	entry = gconf_client_get_entry (priv->client,
 					EOG_CONF_DESKTOP_CAN_SAVE,
@@ -4341,16 +4337,6 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
 			  (GCallback) eog_window_interp_out_type_changed_cb,
-			  window);
-
-	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_IMAGE_GALLERY_POSITION,
-			  (GCallback) eog_window_gallery_mode_changed_cb,
-			  window);
-
-	g_signal_connect (priv->ui_settings,
-			  "changed::" EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
-			  (GCallback) eog_window_gallery_mode_changed_cb,
 			  window);
 
 	priv->client_notifications[EOG_WINDOW_NOTIFY_CAN_SAVE] =
@@ -4867,6 +4853,14 @@ eog_window_set_property (GObject      *object,
 	priv = window->priv;
 
         switch (property_id) {
+	case PROP_GALLERY_POS:
+		eog_window_set_gallery_mode (window, g_value_get_int (value),
+					     priv->gallery_resizable);
+		break;
+	case PROP_GALLERY_RESIZABLE:
+		eog_window_set_gallery_mode (window, priv->gallery_position,
+					     g_value_get_boolean (value));
+		break;
 	case PROP_STARTUP_FLAGS:
 		priv->flags = (gint8) g_value_get_uchar (value);
 		break;
@@ -4891,6 +4885,12 @@ eog_window_get_property (GObject    *object,
 	priv = window->priv;
 
         switch (property_id) {
+	case PROP_GALLERY_POS:
+		g_value_set_int (value, priv->gallery_position);
+		break;
+	case PROP_GALLERY_RESIZABLE:
+		g_value_set_boolean (value, priv->gallery_resizable);
+		break;
 	case PROP_STARTUP_FLAGS:
 		g_value_set_uchar (value, priv->flags);
 		break;
@@ -4938,6 +4938,28 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->unrealize = eog_window_unrealize;
 	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
+
+/**
+ * EogWindow:gallery-position:
+ *
+ * Determines the position of the image gallery in the window
+ * relative to the image.
+ */
+	g_object_class_install_property (
+		g_object_class, PROP_GALLERY_POS,
+		g_param_spec_int ("gallery-position", NULL, NULL, 0, 3, 0,
+				  G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+/**
+ * EogWindow:gallery-resizable:
+ *
+ * If %TRUE the gallery will be resizable by the user otherwise it will be
+ * in single column/row mode.
+ */
+	g_object_class_install_property (
+		g_object_class, PROP_GALLERY_RESIZABLE,
+		g_param_spec_boolean ("gallery-resizable", NULL, NULL, FALSE,
+				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 /**
  * EogWindow:startup-flags:
