@@ -12,6 +12,7 @@
 #endif
 
 #include "eog-config-keys.h"
+#include "eog-enum-types.h"
 #include "eog-marshal.h"
 #include "eog-scroll-view.h"
 #include "eog-debug.h"
@@ -78,6 +79,7 @@ enum {
 	PROP_BACKGROUND_COLOR,
 	PROP_SCROLLWHEEL_ZOOM,
 	PROP_TRANSP_COLOR,
+	PROP_TRANSPARENCY_STYLE,
 	PROP_USE_BG_COLOR,
 	PROP_ZOOM_MULTIPLIER
 };
@@ -1990,6 +1992,7 @@ eog_scroll_view_set_transparency (EogScrollView        *view,
 	if (priv->transp_style != style) {
 		priv->transp_style = style;
 		_transp_background_changed (view);
+		g_object_notify (G_OBJECT (view), "transparency-style");
 	}
 }
 
@@ -2247,6 +2250,33 @@ sv_color_to_string_mapping (const GValue       *value,
 	return variant;
 }
 
+static gboolean
+sv_string_to_transp_mapping (GValue   *value,
+			     GVariant *variant,
+			     gpointer  user_data)
+{
+	const gchar *str;
+
+	g_return_val_if_fail (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING), FALSE);
+
+	str = g_variant_get_string (variant, NULL);
+
+	if (!str)
+		return FALSE;
+
+	if (g_ascii_strcasecmp (str, "COLOR") == 0)
+		g_value_set_enum (value, EOG_TRANSP_COLOR);
+	else if (g_ascii_strcasecmp (str, "CHECK_PATTERN") == 0)
+		g_value_set_enum (value, EOG_TRANSP_CHECKED);
+	else if (g_ascii_strcasecmp (str, "NONE") == 0)
+		g_value_set_enum (value, EOG_TRANSP_BACKGROUND);
+	else
+		return FALSE;
+
+	return TRUE;
+}
+
+
 
 static void
 eog_scroll_view_init (EogScrollView *view)
@@ -2286,6 +2316,12 @@ eog_scroll_view_init (EogScrollView *view)
 				      G_SETTINGS_BIND_GET,
 				      sv_string_to_color_mapping,
 				      sv_color_to_string_mapping, NULL, NULL);
+	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_TRANSPARENCY,
+				      view, "transparency-style",
+				      G_SETTINGS_BIND_GET,
+				      sv_string_to_transp_mapping,
+				      NULL, NULL, NULL);
+
 	g_object_unref (settings);
 
 	priv->override_bg_color = NULL;
@@ -2356,6 +2392,9 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 	case PROP_SCROLLWHEEL_ZOOM:
 		g_value_set_boolean (value, priv->scroll_wheel_zoom);
 		break;
+	case PROP_TRANSPARENCY_STYLE:
+		g_value_set_enum (value, priv->transp_style);
+		break;
 	case PROP_ZOOM_MULTIPLIER:
 		g_value_set_double (value, priv->zoom_multiplier);
 		break;
@@ -2391,6 +2430,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 		break;
 	case PROP_TRANSP_COLOR:
 		eog_scroll_view_set_transparency_color (view, g_value_get_boxed (value));
+		break;
+	case PROP_TRANSPARENCY_STYLE:
+		eog_scroll_view_set_transparency (view, g_value_get_enum (value));
 		break;
 	case PROP_ZOOM_MULTIPLIER:
 		eog_scroll_view_set_zoom_multiplier (view, g_value_get_double (value));
@@ -2460,6 +2502,13 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 		g_param_spec_boxed ("transparency-color", NULL, NULL,
 				    GDK_TYPE_COLOR,
 				    G_PARAM_WRITABLE | G_PARAM_STATIC_NAME));
+	
+	g_object_class_install_property (
+		gobject_class, PROP_TRANSPARENCY_STYLE,
+		g_param_spec_enum ("transparency-style", NULL, NULL,
+				   EOG_TYPE_TRANSPARENCY_STYLE,
+				   EOG_TRANSP_CHECKED,
+				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",

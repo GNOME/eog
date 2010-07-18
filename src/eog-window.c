@@ -265,41 +265,6 @@ eog_window_interp_out_type_changed_cb (GSettings *settings,
 }
 
 static void
-eog_window_transparency_changed_cb (GSettings *settings,
-				    gchar     *key,
-				    gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gchar *value = NULL;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	value = g_settings_get_string (settings, key);
-
-
-	if (G_UNLIKELY (value == NULL)) {
-		return;
-	} else if (g_ascii_strcasecmp (value, "COLOR") == 0) {
-		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-							  EOG_TRANSP_COLOR);
-	} else if (g_ascii_strcasecmp (value, "CHECK_PATTERN") == 0) {
-		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  EOG_TRANSP_CHECKED);
-	} else {
-		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  EOG_TRANSP_BACKGROUND);
-	}
-
-	g_free (value);
-}
-
-static void
 eog_window_gallery_mode_changed_cb (GSettings *settings,
 				    gchar     *key,
 				    gpointer   user_data)
@@ -4322,8 +4287,6 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_interp_out_type_changed_cb (priv->view_settings,
 					       EOG_CONF_VIEW_INTERPOLATE,
 					       window);
-	eog_window_transparency_changed_cb (priv->view_settings,
-					    EOG_CONF_VIEW_TRANSPARENCY, window);
 	eog_window_gallery_mode_changed_cb (priv->ui_settings,
 					    EOG_CONF_UI_IMAGE_GALLERY_POSITION,
 					    window);
@@ -4378,11 +4341,6 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
 			  (GCallback) eog_window_interp_out_type_changed_cb,
-			  window);
-
-	g_signal_connect (priv->view_settings,
-			  "changed::" EOG_CONF_VIEW_TRANSPARENCY,
-			  (GCallback) eog_window_transparency_changed_cb,
 			  window);
 
 	g_signal_connect (priv->ui_settings,
