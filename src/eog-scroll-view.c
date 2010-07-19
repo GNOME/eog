@@ -161,6 +161,12 @@ static void scroll_by (EogScrollView *view, int xofs, int yofs);
 static void set_zoom_fit (EogScrollView *view);
 static void request_paint_area (EogScrollView *view, GdkRectangle *area);
 static void set_minimum_zoom_factor (EogScrollView *view);
+static void view_on_drag_begin_cb (GtkWidget *widget, GdkDragContext *context,
+				   gpointer user_data);
+static void view_on_drag_data_get_cb (GtkWidget *widget,
+				      GdkDragContext*drag_context,
+				      GtkSelectionData *data, guint info,
+				      guint time, gpointer user_data);
 
 #define EOG_SCROLL_VIEW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SCROLL_VIEW, EogScrollViewPrivate))
@@ -2303,6 +2309,81 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->transp_color = 0;
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 	priv->menu = NULL;
+	priv->override_bg_color = NULL;
+	priv->background_surface = NULL;
+
+	priv->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
+	g_signal_connect (priv->hadj, "value_changed",
+			  G_CALLBACK (adjustment_changed_cb),
+			  view);
+
+	priv->hbar = gtk_hscrollbar_new (priv->hadj);
+	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
+	g_signal_connect (priv->vadj, "value_changed",
+			  G_CALLBACK (adjustment_changed_cb),
+			  view);
+
+	priv->vbar = gtk_vscrollbar_new (priv->vadj);
+	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
+				      "can-focus", TRUE,
+				      NULL);
+	/* We don't want to be double-buffered as we are SuperSmart(tm) */
+	gtk_widget_set_double_buffered (GTK_WIDGET (priv->display), FALSE);
+
+	gtk_widget_add_events (GTK_WIDGET (priv->display),
+			       GDK_EXPOSURE_MASK
+			       | GDK_BUTTON_PRESS_MASK
+			       | GDK_BUTTON_RELEASE_MASK
+			       | GDK_POINTER_MOTION_MASK
+			       | GDK_POINTER_MOTION_HINT_MASK
+			       | GDK_SCROLL_MASK
+			       | GDK_KEY_PRESS_MASK);
+	g_signal_connect (G_OBJECT (priv->display), "configure_event",
+			  G_CALLBACK (display_size_change), view);
+	g_signal_connect (G_OBJECT (priv->display), "expose_event",
+			  G_CALLBACK (display_expose_event), view);
+	g_signal_connect (G_OBJECT (priv->display), "map_event",
+			  G_CALLBACK (display_map_event), view);
+	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
+			  G_CALLBACK (eog_scroll_view_button_press_event),
+			  view);
+	g_signal_connect (G_OBJECT (priv->display), "motion_notify_event",
+			  G_CALLBACK (eog_scroll_view_motion_event), view);
+	g_signal_connect (G_OBJECT (priv->display), "button_release_event",
+			  G_CALLBACK (eog_scroll_view_button_release_event),
+			  view);
+	g_signal_connect (G_OBJECT (priv->display), "scroll_event",
+			  G_CALLBACK (eog_scroll_view_scroll_event), view);
+	g_signal_connect (G_OBJECT (priv->display), "focus_in_event",
+			  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
+	g_signal_connect (G_OBJECT (priv->display), "focus_out_event",
+			  G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
+
+	g_signal_connect (G_OBJECT (view), "key_press_event",
+			  G_CALLBACK (display_key_press_event), view);
+
+	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
+			     target_table, G_N_ELEMENTS (target_table),
+			     GDK_ACTION_COPY);
+	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
+			  G_CALLBACK (view_on_drag_data_get_cb), view);
+	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
+			  G_CALLBACK (view_on_drag_begin_cb), view);
+
+	gtk_table_attach (GTK_TABLE (view), priv->display,
+			  0, 1, 0, 1,
+			  GTK_EXPAND | GTK_FILL,
+			  GTK_EXPAND | GTK_FILL,
+			  0,0);
+	gtk_table_attach (GTK_TABLE (view), priv->hbar,
+			  0, 1, 1, 2,
+			  GTK_FILL,
+			  GTK_FILL,
+			  0, 0);
+	gtk_table_attach (GTK_TABLE (view), priv->vbar,
+			  1, 2, 0, 1,
+			  GTK_FILL, GTK_FILL,
+			  0, 0);
 	
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
 			 "use-background-color", G_SETTINGS_BIND_DEFAULT);
@@ -2323,9 +2404,6 @@ eog_scroll_view_init (EogScrollView *view)
 				      NULL, NULL, NULL);
 
 	g_object_unref (settings);
-
-	priv->override_bg_color = NULL;
-	priv->background_surface = NULL;
 }
 
 static void
@@ -2591,9 +2669,6 @@ GtkWidget*
 eog_scroll_view_new (void)
 {
 	GtkWidget *widget;
-	GtkTable *table;
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
 			       "can-focus", TRUE,
@@ -2601,71 +2676,6 @@ eog_scroll_view_new (void)
 			       "n_columns", 2,
 			       "homogeneous", FALSE,
 			       NULL);
-
-	table = GTK_TABLE (widget);
-	view = EOG_SCROLL_VIEW (widget);
-	priv = view->priv;
-
-	priv->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
-	g_signal_connect (priv->hadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
-	priv->hbar = gtk_hscrollbar_new (priv->hadj);
-	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
-	g_signal_connect (priv->vadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
-	priv->vbar = gtk_vscrollbar_new (priv->vadj);
-	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
-				      "can-focus", TRUE,
-				      NULL);
-	/* We don't want to be double-buffered as we are SuperSmart(tm) */
-	gtk_widget_set_double_buffered (GTK_WIDGET (priv->display), FALSE);
-
-	gtk_widget_add_events (GTK_WIDGET (priv->display),
-			       GDK_EXPOSURE_MASK
-			       | GDK_BUTTON_PRESS_MASK
-			       | GDK_BUTTON_RELEASE_MASK
-			       | GDK_POINTER_MOTION_MASK
-			       | GDK_POINTER_MOTION_HINT_MASK
-			       | GDK_SCROLL_MASK
-			       | GDK_KEY_PRESS_MASK);
-	g_signal_connect (G_OBJECT (priv->display), "configure_event", G_CALLBACK (display_size_change), view);
-	g_signal_connect (G_OBJECT (priv->display), "expose_event", G_CALLBACK (display_expose_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "map_event", G_CALLBACK (display_map_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "button_press_event", G_CALLBACK (eog_scroll_view_button_press_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "motion_notify_event", G_CALLBACK (eog_scroll_view_motion_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "button_release_event", G_CALLBACK (eog_scroll_view_button_release_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "scroll_event", G_CALLBACK (eog_scroll_view_scroll_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "focus_in_event", G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
-	g_signal_connect (G_OBJECT (priv->display), "focus_out_event", G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
-
-	g_signal_connect (G_OBJECT (widget), "key_press_event", G_CALLBACK (display_key_press_event), view);
-
-	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
-			     target_table, G_N_ELEMENTS (target_table),
-			     GDK_ACTION_COPY);
-	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
-			  G_CALLBACK (view_on_drag_data_get_cb), widget);
-	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
-			  G_CALLBACK (view_on_drag_begin_cb), widget);
-
-	gtk_table_attach (table, priv->display,
-			  0, 1, 0, 1,
-			  GTK_EXPAND | GTK_FILL,
-			  GTK_EXPAND | GTK_FILL,
-			  0,0);
-	gtk_table_attach (table, priv->hbar,
-			  0, 1, 1, 2,
-			  GTK_FILL,
-			  GTK_FILL,
-			  0, 0);
-	gtk_table_attach (table, priv->vbar,
-			  1, 2, 0, 1,
-			  GTK_FILL, GTK_FILL,
-			  0, 0);
-
-	gtk_widget_show_all (widget);
 
 	return widget;
 }
