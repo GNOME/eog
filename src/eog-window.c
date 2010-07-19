@@ -226,27 +226,6 @@ eog_window_error_quark (void)
 }
 
 static void
-eog_window_interp_in_type_changed_cb (GSettings *settings,
-				      gchar     *key,
-				      gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gboolean interpolate_in = TRUE;
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	interpolate_in = g_settings_get_boolean (settings, key);
-	eog_scroll_view_set_antialiasing_in (EOG_SCROLL_VIEW (priv->view),
-					  interpolate_in);
-}
-
-static void
 eog_window_interp_out_type_changed_cb (GSettings *settings,
 				       gchar     *key,
 				       gpointer   user_data)
@@ -4277,9 +4256,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
 
-	eog_window_interp_in_type_changed_cb (priv->view_settings,
-					      EOG_CONF_VIEW_EXTRAPOLATE,
-					      window);
 	eog_window_interp_out_type_changed_cb (priv->view_settings,
 					       EOG_CONF_VIEW_INTERPOLATE,
 					       window);
@@ -4330,11 +4306,6 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 
 	priv->client = gconf_client_get_default ();
-
-	g_signal_connect (priv->view_settings,
-			  "changed::" EOG_CONF_VIEW_EXTRAPOLATE,
-			  (GCallback) eog_window_interp_in_type_changed_cb,
-			  window);
 
 	g_signal_connect (priv->view_settings,
 			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
