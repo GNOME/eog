@@ -2560,11 +2560,22 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
         gobject_class->set_property = eog_scroll_view_set_property;
         gobject_class->get_property = eog_scroll_view_get_property;
 
+	/**
+	 * EogScrollView:antialiasing-in:
+	 *
+	 * If %TRUE the displayed image will be filtered in a second pass
+	 * while being zoomed in.
+	 */
 	g_object_class_install_property (
 		gobject_class, PROP_ANTIALIAS_IN,
 		g_param_spec_boolean ("antialiasing-in", NULL, NULL, TRUE,
 				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
-
+	/**
+	 * EogScrollView:antialiasing-out:
+	 *
+	 * If %TRUE the displayed image will be filtered in a second pass
+	 * while being zoomed out.
+	 */
 	g_object_class_install_property (
 		gobject_class, PROP_ANTIALIAS_OUT,
 		g_param_spec_boolean ("antialiasing-out", NULL, NULL, TRUE,
