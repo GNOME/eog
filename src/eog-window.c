@@ -226,28 +226,6 @@ eog_window_error_quark (void)
 }
 
 static void
-eog_window_interp_out_type_changed_cb (GSettings *settings,
-				       gchar     *key,
-				       gpointer   user_data)
-{
-	EogWindowPrivate *priv;
-	gboolean interpolate_out = TRUE;
-
-	eog_debug (DEBUG_PREFERENCES);
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
-
-	interpolate_out = g_settings_get_boolean (settings, key);
-
-	eog_scroll_view_set_antialiasing_out (EOG_SCROLL_VIEW (priv->view),
-					      interpolate_out);
-}
-
-static void
 eog_window_set_gallery_mode (EogWindow           *window,
 			     EogWindowGalleryPos  position,
 			     gboolean             resizable)
@@ -4256,10 +4234,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
 
-	eog_window_interp_out_type_changed_cb (priv->view_settings,
-					       EOG_CONF_VIEW_INTERPOLATE,
-					       window);
-
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_POSITION,
 			 window, "gallery-position", G_SETTINGS_BIND_GET);
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
@@ -4306,11 +4280,6 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 
 	priv->client = gconf_client_get_default ();
-
-	g_signal_connect (priv->view_settings,
-			  "changed::" EOG_CONF_VIEW_INTERPOLATE,
-			  (GCallback) eog_window_interp_out_type_changed_cb,
-			  window);
 
 	priv->client_notifications[EOG_WINDOW_NOTIFY_CAN_SAVE] =
 		gconf_client_notify_add (window->priv->client,

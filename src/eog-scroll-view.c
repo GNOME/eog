@@ -77,6 +77,7 @@ static GtkTargetEntry target_table[] = {
 enum {
 	PROP_0,
 	PROP_ANTIALIAS_IN,
+	PROP_ANTIALIAS_OUT,
 	PROP_BACKGROUND_COLOR,
 	PROP_SCROLLWHEEL_ZOOM,
 	PROP_TRANSP_COLOR,
@@ -1941,6 +1942,7 @@ eog_scroll_view_set_antialiasing_out (EogScrollView *view, gboolean state)
 	if (priv->interp_type_out != new_interp_type) {
 		priv->interp_type_out = new_interp_type;
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+		g_object_notify (G_OBJECT (view), "antialiasing-out");
 	}
 }
 
@@ -2406,6 +2408,8 @@ eog_scroll_view_init (EogScrollView *view)
 				      NULL, NULL, NULL);
 	g_settings_bind (settings, EOG_CONF_VIEW_EXTRAPOLATE, view,
 			 "antialiasing-in", G_SETTINGS_BIND_GET);
+	g_settings_bind (settings, EOG_CONF_VIEW_INTERPOLATE, view,
+			 "antialiasing-out", G_SETTINGS_BIND_GET);
 
 	g_object_unref (settings);
 }
@@ -2470,6 +2474,12 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 		g_value_set_boolean (value, filter);
 		break;
 	}
+	case PROP_ANTIALIAS_OUT:
+	{
+		gboolean filter = (priv->interp_type_out != GDK_INTERP_NEAREST);
+		g_value_set_boolean (value, filter);
+		break;
+	}
 	case PROP_USE_BG_COLOR:
 		g_value_set_boolean (value, priv->use_bg_color);
 		break;
@@ -2506,6 +2516,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 	switch (property_id) {
 	case PROP_ANTIALIAS_IN:
 		eog_scroll_view_set_antialiasing_in (view, g_value_get_boolean (value));
+		break;
+	case PROP_ANTIALIAS_OUT:
+		eog_scroll_view_set_antialiasing_out (view, g_value_get_boolean (value));
 		break;
 	case PROP_USE_BG_COLOR:
 		eog_scroll_view_set_use_bg_color (view, g_value_get_boolean (value));
@@ -2550,6 +2563,11 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	g_object_class_install_property (
 		gobject_class, PROP_ANTIALIAS_IN,
 		g_param_spec_boolean ("antialiasing-in", NULL, NULL, TRUE,
+				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+	g_object_class_install_property (
+		gobject_class, PROP_ANTIALIAS_OUT,
+		g_param_spec_boolean ("antialiasing-out", NULL, NULL, TRUE,
 				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
