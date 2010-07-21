@@ -355,6 +355,9 @@ AC_ARG_ENABLE([python],
 	[enable_python=$enableval have_python=$enableval],
 	[enable_python=autodetect have_python=yes])
 
+# Disable Python plugins as they don't work with GTK+-3 yet
+have_python=no
+
 AC_MSG_RESULT([$enable_python])
 
 if test "x$have_python" != "xno"; then
