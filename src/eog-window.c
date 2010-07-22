@@ -2202,10 +2202,6 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	g_assert (GTK_IS_WIDGET (menubar));
 	gtk_widget_hide (menubar);
 
-	g_object_set (G_OBJECT (gtk_widget_get_parent (priv->view)),
-		      "shadow-type", GTK_SHADOW_NONE,
-		      NULL);
-
 	g_signal_connect (priv->view,
 			  "motion-notify-event",
 			  G_CALLBACK (fullscreen_motion_notify_cb),
@@ -2301,10 +2297,6 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	if (slideshow) {
 		slideshow_clear_timeout (window);
 	}
-
-	g_object_set (G_OBJECT (gtk_widget_get_parent (priv->view)),
-		      "shadow-type", GTK_SHADOW_IN,
-		      NULL);
 
 	g_signal_handlers_disconnect_by_func (priv->view,
 					      (gpointer) fullscreen_motion_notify_cb,
