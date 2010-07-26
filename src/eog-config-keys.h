@@ -58,6 +58,7 @@
 #define EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE	"image-gallery-resizable"
 #define EOG_CONF_UI_SIDEBAR			"sidebar"
 #define EOG_CONF_UI_SCROLL_BUTTONS		"scroll-buttons"
+#define EOG_CONF_UI_DISABLE_CLOSE_CONFIRMATION  "disable-close-confirmation"
 #define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"disable-trash-confirmation"
 #define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser-xdg-fallback"
 #define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"propsdialog-netbook-mode"

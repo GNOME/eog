@@ -2216,6 +2216,7 @@ static gboolean
 eog_window_unsaved_images_confirm (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+	gboolean disabled;
 	GtkWidget *dialog;
 	GList *list;
 	EogImage *image;
@@ -2223,7 +2224,11 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 
 	priv = window->priv;
 
-	if (window->priv->save_disabled) {
+	disabled = g_settings_get_boolean(priv->ui_settings,
+					EOG_CONF_UI_DISABLE_CLOSE_CONFIRMATION);
+	disabled |= window->priv->save_disabled;
+
+	if (disabled) {
 		return FALSE;
 	}
 
