@@ -15,6 +15,9 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
 
+gsettingsconvertdir = $(datadir)/GConf/gsettings
+gsettingsconvert_DATA = eog.convert
+
 schemas_in_files = eog.schemas.in
 schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
@@ -51,6 +54,7 @@ EXTRA_DIST =			\
         $(glade_DATA)		\
         $(DESKTOP_IN_FILES)	\
         $(schemas_in_files)	\
+	eog.convert		\
 	$(UI_FILES)
 
 DISTCLEANFILES = 		\
