@@ -4765,7 +4765,7 @@ eog_window_set_property (GObject      *object,
 
         switch (property_id) {
 	case PROP_GALLERY_POS:
-		eog_window_set_gallery_mode (window, g_value_get_int (value),
+		eog_window_set_gallery_mode (window, g_value_get_enum (value),
 					     priv->gallery_resizable);
 		break;
 	case PROP_GALLERY_RESIZABLE:
@@ -4797,7 +4797,7 @@ eog_window_get_property (GObject    *object,
 
         switch (property_id) {
 	case PROP_GALLERY_POS:
-		g_value_set_int (value, priv->gallery_position);
+		g_value_set_enum (value, priv->gallery_position);
 		break;
 	case PROP_GALLERY_RESIZABLE:
 		g_value_set_boolean (value, priv->gallery_resizable);
@@ -4858,8 +4858,10 @@ eog_window_class_init (EogWindowClass *class)
  */
 	g_object_class_install_property (
 		g_object_class, PROP_GALLERY_POS,
-		g_param_spec_int ("gallery-position", NULL, NULL, 0, 3, 0,
-				  G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+		g_param_spec_enum ("gallery-position", NULL, NULL,
+				   EOG_TYPE_WINDOW_GALLERY_POS,
+				   EOG_WINDOW_GALLERY_POS_BOTTOM,
+				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 /**
  * EogWindow:gallery-resizable:
