@@ -186,8 +186,6 @@ main (int argc, char **argv)
 	GOptionContext *ctx;
 	GtkSettings *settings;
 
-	g_setenv ("GSETTINGS_BACKEND", "gconf", FALSE);
-
 	if (!g_thread_supported ())
 		g_thread_init (NULL);
 
