@@ -325,18 +325,11 @@ if test "x$have_lcms" = "xyes" || test "$gdk_target" = "x11"; then
 	fi
 fi
 
-# *****
-# GConf
-# *****
+# *********
+# GSettings
+# *********
 
-AM_GCONF_SOURCE_2
 GLIB_GSETTINGS
-
-AC_PATH_PROG([GCONFTOOL], [gconftool-2], [no])
-
-if test "$GCONFTOOL" = "no"; then
-        AC_MSG_ERROR([gconftool-2 not found])
-fi
 
 # ************
 # Sun Keyboard

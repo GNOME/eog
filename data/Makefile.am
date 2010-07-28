@@ -8,8 +8,6 @@ DESKTOP_FILES= $(DESKTOP_IN_FILES:.desktop.in.in=.desktop)
 desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
 
-@INTLTOOL_SCHEMAS_RULE@
-
 gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 
 @INTLTOOL_XML_NOMERGE_RULE@
@@ -17,10 +15,6 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 
 gsettingsconvertdir = $(datadir)/GConf/gsettings
 gsettingsconvert_DATA = eog.convert
-
-schemas_in_files = eog.schemas.in
-schemasdir = $(GCONF_SCHEMA_FILE_DIR)
-schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
 gladedir = $(pkgdatadir)
 glade_DATA = eog-image-properties-dialog.ui \
@@ -40,26 +34,15 @@ pkgconfig_DATA = eog.pc
 gtkrcdir = $(pkgdatadir)
 gtkrc_DATA = gtkrc
 
-install-data-local:
-if GCONF_SCHEMAS_INSTALL
-	if test -z "$(DESTDIR)" ; then \
-	for p in $(schemas_DATA) ; do \
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/data/$$p >&1 > /dev/null; \
-	done \
-	fi
-endif
-
 EXTRA_DIST =			\
         $(gtkrc_DATA)		\
         $(glade_DATA)		\
         $(DESKTOP_IN_FILES)	\
-        $(schemas_in_files)	\
 	eog.convert		\
 	$(UI_FILES)
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
-	$(schemas_DATA)		\
         $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
