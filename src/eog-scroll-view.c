@@ -2259,34 +2259,6 @@ sv_color_to_string_mapping (const GValue       *value,
 	return variant;
 }
 
-static gboolean
-sv_string_to_transp_mapping (GValue   *value,
-			     GVariant *variant,
-			     gpointer  user_data)
-{
-	const gchar *str;
-
-	g_return_val_if_fail (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING), FALSE);
-
-	str = g_variant_get_string (variant, NULL);
-
-	if (!str)
-		return FALSE;
-
-	if (g_ascii_strcasecmp (str, "COLOR") == 0)
-		g_value_set_enum (value, EOG_TRANSP_COLOR);
-	else if (g_ascii_strcasecmp (str, "CHECK_PATTERN") == 0)
-		g_value_set_enum (value, EOG_TRANSP_CHECKED);
-	else if (g_ascii_strcasecmp (str, "NONE") == 0)
-		g_value_set_enum (value, EOG_TRANSP_BACKGROUND);
-	else
-		return FALSE;
-
-	return TRUE;
-}
-
-
-
 static void
 eog_scroll_view_init (EogScrollView *view)
 {
@@ -2400,11 +2372,8 @@ eog_scroll_view_init (EogScrollView *view)
 				      G_SETTINGS_BIND_GET,
 				      sv_string_to_color_mapping,
 				      sv_color_to_string_mapping, NULL, NULL);
-	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_TRANSPARENCY,
-				      view, "transparency-style",
-				      G_SETTINGS_BIND_GET,
-				      sv_string_to_transp_mapping,
-				      NULL, NULL, NULL);
+	g_settings_bind (settings, EOG_CONF_VIEW_TRANSPARENCY, view,
+			 "transparency-style", G_SETTINGS_BIND_GET);
 	g_settings_bind (settings, EOG_CONF_VIEW_EXTRAPOLATE, view,
 			 "antialiasing-in", G_SETTINGS_BIND_GET);
 	g_settings_bind (settings, EOG_CONF_VIEW_INTERPOLATE, view,
