@@ -8,6 +8,9 @@ DESKTOP_FILES= $(DESKTOP_IN_FILES:.desktop.in.in=.desktop)
 desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
 
+gsettings_ENUM_NAMESPACE = org.gnome.eog
+gsettings_ENUM_FILES = $(top_srcdir)/src/eog-scroll-view.h	\
+                       $(top_srcdir)/src/eog-window.h
 gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 
 @INTLTOOL_XML_NOMERGE_RULE@
