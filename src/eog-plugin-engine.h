@@ -25,65 +25,36 @@
 #ifndef __EOG_PLUGIN_ENGINE_H__
 #define __EOG_PLUGIN_ENGINE_H__
 
-#include "eog-window.h"
-
+#include <libpeas/peas-engine.h>
 #include <glib.h>
+#include <glib-object.h>
 
-typedef struct _EogPluginInfo EogPluginInfo;
+G_BEGIN_DECLS
 
-G_GNUC_INTERNAL
-gboolean	 eog_plugin_engine_init 		(void);
+typedef struct _EogPluginEngine EogPluginEngine;
+typedef struct _EogPluginEngineClass EogPluginEngineClass;
+typedef struct _EogPluginEnginePrivate EogPluginEnginePrivate;
 
-G_GNUC_INTERNAL
-void		 eog_plugin_engine_shutdown 		(void);
+#define EOG_TYPE_PLUGIN_ENGINE            eog_plugin_engine_get_type()
+#define EOG_PLUGIN_ENGINE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_PLUGIN_ENGINE, EogPluginEngine))
+#define EOG_PLUGIN_ENGINE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_PLUGIN_ENGINE, EogPluginEngineClass))
+#define EOG_IS_PLUGIN_ENGINE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_PLUGIN_ENGINE))
+#define EOG_IS_PLUGIN_ENGINE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_PLUGIN_ENGINE))
+#define EOG_PLUGIN_ENGINE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), EOG_TYPE_PLUGIN_ENGINE, EogPluginEngineClass))
 
-G_GNUC_INTERNAL
-void		 eog_plugin_engine_garbage_collect	(void);
+struct _EogPluginEngine {
+  PeasEngine parent;
+  EogPluginEnginePrivate *priv;
+};
 
-G_GNUC_INTERNAL
-const GList	*eog_plugin_engine_get_plugins_list 	(void);
+struct _EogPluginEngineClass {
+  PeasEngineClass parent_class;
+};
 
-G_GNUC_INTERNAL
-gboolean 	 eog_plugin_engine_activate_plugin 	(EogPluginInfo *info);
+GType eog_plugin_engine_get_type (void) G_GNUC_CONST;
 
-G_GNUC_INTERNAL
-gboolean 	 eog_plugin_engine_deactivate_plugin	(EogPluginInfo *info);
+EogPluginEngine* eog_plugin_engine_new (void);
 
-G_GNUC_INTERNAL
-gboolean 	 eog_plugin_engine_plugin_is_active 	(EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-gboolean 	 eog_plugin_engine_plugin_is_available	(EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-gboolean	 eog_plugin_engine_plugin_is_configurable
-			       				(EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-void	 	 eog_plugin_engine_configure_plugin	(EogPluginInfo *info,
-			       			 	 GtkWindow     *parent);
-
-G_GNUC_INTERNAL
-void		 eog_plugin_engine_update_plugins_ui	(EogWindow     *window,
-			       			 	 gboolean       new_window);
-
-G_GNUC_INTERNAL
-const gchar	*eog_plugin_engine_get_plugin_name	(EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-const gchar	*eog_plugin_engine_get_plugin_description
-			       				(EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-const gchar	*eog_plugin_engine_get_plugin_icon_name (EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-const gchar    **eog_plugin_engine_get_plugin_authors   (EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-const gchar	*eog_plugin_engine_get_plugin_website   (EogPluginInfo *info);
-
-G_GNUC_INTERNAL
-const gchar	*eog_plugin_engine_get_plugin_copyright (EogPluginInfo *info);
+G_END_DECLS
 
 #endif  /* __EOG_PLUGIN_ENGINE_H__ */

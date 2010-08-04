@@ -68,6 +68,9 @@
 #include <gio/gdesktopappinfo.h>
 #include <gtk/gtk.h>
 
+#include <libpeas/peas-extension-set.h>
+#include <libpeas/peas-activatable.h>
+
 #if HAVE_LCMS
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -4590,7 +4593,7 @@ eog_window_dispose (GObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
-	eog_plugin_engine_garbage_collect ();
+	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
 
 	if (priv->store != NULL) {
 		g_signal_handlers_disconnect_by_func (priv->store,
@@ -4701,7 +4704,7 @@ eog_window_dispose (GObject *object)
 		priv->page_setup = NULL;
 	}
 
-	eog_plugin_engine_garbage_collect ();
+	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
 }
@@ -5051,19 +5054,56 @@ eog_window_get_property (GObject    *object,
 	}
 }
 
+static void
+on_extension_added (PeasExtensionSet *set,
+		    PeasPluginInfo   *info,
+		    PeasExtension    *exten,
+		    GtkWindow        *window)
+{
+	peas_extension_call (exten, "activate", window);
+}
+
+static void
+on_extension_removed (PeasExtensionSet *set,
+		      PeasPluginInfo   *info,
+		      PeasExtension    *exten,
+		      GtkWindow        *window)
+{
+	peas_extension_call (exten, "deactivate", window);
+}
+
+static
+gboolean on_window_delete (GtkWidget *widget,
+			   GdkEvent *event,
+			   PeasExtensionSet *set)
+{
+	peas_extension_set_call (set, "deactivate");
+	return FALSE;
+}
+
 static GObject *
 eog_window_constructor (GType type,
 			guint n_construct_properties,
 			GObjectConstructParam *construct_params)
 {
 	GObject *object;
+	PeasExtensionSet *set;
 
 	object = G_OBJECT_CLASS (eog_window_parent_class)->constructor
 			(type, n_construct_properties, construct_params);
 
 	eog_window_construct_ui (EOG_WINDOW (object));
 
-	eog_plugin_engine_update_plugins_ui (EOG_WINDOW (object), TRUE);
+	set = peas_extension_set_new (PEAS_ENGINE (EOG_APP->plugin_engine),
+				      PEAS_TYPE_ACTIVATABLE,
+				      "object", object, NULL);
+	peas_extension_set_call (set, "activate");
+	g_signal_connect (set, "extension-added",
+			  G_CALLBACK (on_extension_added), object);
+	g_signal_connect (set, "extension-removed",
+			  G_CALLBACK (on_extension_removed), object);
+	g_signal_connect (object, "delete-event",
+			  G_CALLBACK (on_window_delete), set);
 
 	return object;
 }

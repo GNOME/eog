@@ -239,7 +239,6 @@ main (int argc, char **argv)
 	eog_job_queue_init ();
 	gdk_threads_init ();
 	eog_thumbnail_init ();
-	eog_plugin_engine_init ();
 
 	/* Add application specific icons to search path */
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
@@ -263,8 +262,6 @@ main (int argc, char **argv)
 
   	if (startup_files)
 		g_strfreev (startup_files);
-
-	eog_plugin_engine_shutdown ();
 
 #ifdef HAVE_RSVG
 	rsvg_term();

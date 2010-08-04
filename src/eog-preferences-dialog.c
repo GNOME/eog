@@ -27,15 +27,16 @@
 #endif
 
 #include "eog-preferences-dialog.h"
-#include "eog-plugin-manager.h"
 #include "eog-scroll-view.h"
 #include "eog-util.h"
 #include "eog-config-keys.h"
+#include "eog-application.h"
 
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <libpeasui/peas-ui-plugin-manager.h>
 
 #define EOG_PREFERENCES_DIALOG_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_PREFERENCES_DIALOG, EogPreferencesDialogPrivate))
@@ -255,7 +256,7 @@ eog_preferences_dialog_constructor (GType type,
 	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_SECONDS,
 			 seconds_spin, "value", G_SETTINGS_BIND_DEFAULT);
 
-        plugin_manager = eog_plugin_manager_new ();
+        plugin_manager = peas_ui_plugin_manager_new (PEAS_ENGINE (EOG_APP->plugin_engine));
 
         g_assert (plugin_manager != NULL);
 

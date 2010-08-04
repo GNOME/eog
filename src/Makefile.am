@@ -33,8 +33,6 @@ NOINST_H_FILES =			\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
 	eog-print.h			\
-	eog-module.h             	\
-	eog-plugin-manager.h            \
 	eog-plugin-engine.h             \
 	uta.h				\
 	eog-close-confirmation-dialog.h	\
@@ -67,8 +65,7 @@ INST_H_FILES =				\
 	eog-list-store.h		\
 	eog-thumbnail.h			\
 	eog-job-queue.h			\
-	eog-jobs.h			\
-	eog-plugin.h
+	eog-jobs.h
 
 libeog_la_SOURCES =			\
 	eog-application.c		\
@@ -103,10 +100,7 @@ libeog_la_SOURCES =			\
 	eog-print-image-setup.c         \
 	eog-print-preview.c           	\
 	eog-print.c			\
-	eog-module.c            	\
 	eog-close-confirmation-dialog.c \
-	eog-plugin.c            	\
-	eog-plugin-manager.c            \
 	eog-plugin-engine.c            	\
 	eog-clipboard-handler.c		\
 	uta.c				\

@@ -141,6 +141,7 @@ eog_application_init (EogApplication *eog_application)
 	eog_session_init (eog_application);
 
 	eog_application->toolbars_model = egg_toolbars_model_new ();
+	eog_application->plugin_engine = eog_plugin_engine_new ();
 
 	egg_toolbars_model_load_names (eog_application->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
@@ -416,6 +417,10 @@ eog_application_shutdown (EogApplication *application)
 
 		g_free (application->toolbars_file);
 		application->toolbars_file = NULL;
+	}
+	if (application->plugin_engine) {
+		g_object_unref (application->plugin_engine);
+		application->plugin_engine = NULL;
 	}
 
 	eog_application_save_accelerators ();

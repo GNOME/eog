@@ -27,6 +27,7 @@
 
 #include "eog-window.h"
 #include "egg-toolbars-model.h"
+#include "eog-plugin-engine.h"
 
 #ifdef HAVE_DBUS
 #include "totem-scrsaver.h"
@@ -55,6 +56,7 @@ struct _EogApplication {
 
 	EggToolbarsModel *toolbars_model;
 	gchar            *toolbars_file;
+	EogPluginEngine  *plugin_engine;
 #ifdef HAVE_DBUS
 	TotemScrsaver    *scr_saver;
 #endif
