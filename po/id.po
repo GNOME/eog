@@ -1,153 +1,353 @@
+# translation of eog.master.po to Indonesian
 # Indonesia translation of eog.
 # Copyright (C) 2004 THE eog's COPYRIGHT HOLDER
 # This file is distributed under the same license as the eog package.
-# Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>, 2004
+#
+#
+# Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>, 2004.
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2004.
-# 
-# 
+# Dirgita <dirgitadevina@gmail.com>, 2010.
+# Dirgita <dirgitadevina@yahoo.co.id>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: eog HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-12 12:53+0700\n"
-"PO-Revision-Date: 2006-08-12 13:02+0700\n"
-"Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
-"Language-Team: Indonesia <kontak@id.gnome.org>\n"
+"Project-Id-Version: eog.master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=eog&component=general\n"
+"POT-Creation-Date: 2010-07-28 20:15+0000\n"
+"PO-Revision-Date: 2010-07-21 13:46+0700\n"
+"Last-Translator: Dirgita <dirgitadevina@yahoo.co.id>\n"
+"Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: ../eog.desktop.in.in.h:1
+#. Translaters: This string is for a toggle to display a toolbar.
+#. * The name of the toolbar is automatically computed from the widgets
+#. * on the toolbar, and is placed at the %s. Note the _ before the %s
+#. * which is used to add mnemonics. We know that this is likely to
+#. * produce duplicates, but don't worry about it. If your language
+#. * normally has a mnemonic at the start, please use the _. If not,
+#. * please remove.
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:948
+#, c-format
+msgid "Show “_%s”"
+msgstr "Menampilkan “_%s”"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1411
+msgid "_Move on Toolbar"
+msgstr "Pin_dahkan Bilah Alat"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1412
+msgid "Move the selected item on the toolbar"
+msgstr "Memindahkan item yang dipilih pada bilah alat"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1413
+msgid "_Remove from Toolbar"
+msgstr "Hapus da_ri Bilah Alat"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1414
+msgid "Remove the selected item from the toolbar"
+msgstr "Membuang item yang dipilih dari bilah alat"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1415
+msgid "_Delete Toolbar"
+msgstr "_Hapus Bilah Alat"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1416
+msgid "Remove the selected toolbar"
+msgstr "Menghapus bilah alat yang dipilih"
+
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:485
+msgid "Separator"
+msgstr "Pemisah"
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:1
+msgid "Activate fullscreen mode with double-click"
+msgstr "Mengaktifkan mode layar penuh dengan klik ganda"
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:2
+msgid "Fullscreen with double-click"
+msgstr "Layar penuh dengan klik ganda"
+
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
+#: ../plugins/reload/eog-reload-plugin.c:45
+msgid "Reload Image"
+msgstr "Muat Ulang Gambar"
+
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:2
+#: ../plugins/reload/eog-reload-plugin.c:47
+msgid "Reload current image"
+msgstr "Memuat ulang gambar yang sedang dibuka"
+
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:1
+msgid "Date in statusbar"
+msgstr "Tanggal di baris status"
+
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:2
+msgid "Shows the image date in the window statusbar"
+msgstr "Menampilkan tanggal milik gambar pada baris status"
+
+#: ../data/eog.desktop.in.in.h:1
+msgid "Browse and rotate images"
+msgstr "Menampilkan dan memutar gambar"
+
+#: ../data/eog.desktop.in.in.h:2
 msgid "Image Viewer"
-msgstr "Pembuka Gambar"
+msgstr "Penampil Gambar"
 
-#: ../eog.desktop.in.in.h:2
-msgid "View different types of images"
-msgstr "Tampilkan berbagai jenis gambar"
+#: ../data/eog-image-properties-dialog.ui.h:1
+msgid "Aperture Value:"
+msgstr "Nilai Bukaan Lensa:"
 
-#: ../eog.glade.h:1
-msgid "    "
-msgstr "    "
+#: ../data/eog-image-properties-dialog.ui.h:2
+msgid "Author:"
+msgstr "Penulis:"
 
-#: ../eog.glade.h:2
-msgid "."
-msgstr "."
+#: ../data/eog-image-properties-dialog.ui.h:3
+msgid "Bytes:"
+msgstr "Bita:"
 
-#: ../eog.glade.h:3
-msgid "<b>File Name Preview</b>"
-msgstr "<b>Pratinjau Nama File</b>"
+#: ../data/eog-image-properties-dialog.ui.h:4
+msgid "Camera Model:"
+msgstr "Model Kamera:"
 
-#: ../eog.glade.h:4
-msgid "<b>File Path Specifications</b>"
-msgstr "<b>Spesifikasi Path File</b>"
+#: ../data/eog-image-properties-dialog.ui.h:5
+msgid "Copyright:"
+msgstr "Hak Cipta:"
 
-#: ../eog.glade.h:5
-msgid "<b>Image Interpolation</b>"
-msgstr "<b>Interpolasi Gambar</b>"
+#: ../data/eog-image-properties-dialog.ui.h:6
+msgid "Date/Time:"
+msgstr "Tanggal/Waktu:"
 
-#: ../eog.glade.h:6
-msgid "<b>Image Zoom</b>"
-msgstr "<b>Zoom gambar</b>"
+#: ../data/eog-image-properties-dialog.ui.h:7
+msgid "Description:"
+msgstr "Deskripsi:"
 
-#: ../eog.glade.h:7
-msgid "<b>Options</b>"
-msgstr "<b>Pilihan</b>"
+#: ../data/eog-image-properties-dialog.ui.h:8
+msgid "Details"
+msgstr "Detail"
 
-#: ../eog.glade.h:8
-msgid "<b>Sequence</b>"
-msgstr "<b>Runutan</b>"
+#: ../data/eog-image-properties-dialog.ui.h:9
+msgid "Exposure Time:"
+msgstr "Waktu Pencahayaan:"
 
-#: ../eog.glade.h:9
-msgid "<b>Transparent Parts</b>"
-msgstr "<b>Bagian Transparan</b>"
+#: ../data/eog-image-properties-dialog.ui.h:10
+msgid "Flash:"
+msgstr "Lampu Kilat:"
 
-#: ../eog.glade.h:11
+#: ../data/eog-image-properties-dialog.ui.h:11
+msgid "Focal Length:"
+msgstr "Panjang Fokus:"
+
+#: ../data/eog-image-properties-dialog.ui.h:12
+msgid "General"
+msgstr "Umum"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
+msgid "Height:"
+msgstr "Tinggi:"
+
+#: ../data/eog-image-properties-dialog.ui.h:14
+msgid "ISO Speed Rating:"
+msgstr "Rating Kecepatan ISO:"
+
+#: ../data/eog-image-properties-dialog.ui.h:15
+msgid "Image Properties"
+msgstr "Properti Gambar"
+
+#: ../data/eog-image-properties-dialog.ui.h:16
+msgid "Keywords:"
+msgstr "Kata Kunci:"
+
+#: ../data/eog-image-properties-dialog.ui.h:17
+msgid "Location:"
+msgstr "Lokasi:"
+
+#: ../data/eog-image-properties-dialog.ui.h:18
+msgid "Metadata"
+msgstr "Metadata"
+
+#: ../data/eog-image-properties-dialog.ui.h:19
+msgid "Metering Mode:"
+msgstr "Mode Pengukuran:"
+
+#: ../data/eog-image-properties-dialog.ui.h:20
+msgid "Name:"
+msgstr "Nama:"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
+msgid "Type:"
+msgstr "Jenis:"
+
+#: ../data/eog-image-properties-dialog.ui.h:22
+msgid "Width:"
+msgstr "Lebar:"
+
+#: ../data/eog-image-properties-dialog.ui.h:23
+msgid "_Next"
+msgstr "Sela_njutnya"
+
+#: ../data/eog-image-properties-dialog.ui.h:24
+msgid "_Previous"
+msgstr "_Sebelumnya"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:2
 #, no-c-format
-msgid "Allow _zoom greater than 100% initially"
-msgstr "Perbolehkan tingkatan _zoom awal lebih dari 100%"
+msgid "<b>%f:</b> original filename"
+msgstr "<b>%f:</b> nama berkas asli"
 
-#: ../eog.glade.h:12
-msgid "As _background"
-msgstr "Sebagai latar"
+#: ../data/eog-multiple-save-as-dialog.ui.h:4
+#, no-c-format
+msgid "<b>%n:</b> counter"
+msgstr "<b>%n:</b> penghitung"
 
-#: ../eog.glade.h:13
-msgid "As check _pattern"
-msgstr "Berdasarkan _pola kotak-kotak"
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
+msgid "Choose a folder"
+msgstr "Pilih folder"
 
-#: ../eog.glade.h:14
-msgid "As custom c_olor:"
-msgstr "Sebagai _warna bebas:"
+#: ../data/eog-multiple-save-as-dialog.ui.h:6
+msgid "Destination folder:"
+msgstr "Folder tujuan:"
 
-#: ../eog.glade.h:15
-msgid "Color for Transparent Areas"
-msgstr "Warna untuk area transparan"
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
+msgid "File Name Preview"
+msgstr "Pratinjau Nama Berkas"
 
-#: ../eog.glade.h:16
-msgid "Destination Folder:"
-msgstr "Folder Tujuan:"
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
+msgid "File Path Specifications"
+msgstr "Spesifikasi Lokasi Berkas"
 
-#: ../eog.glade.h:17
-msgid "Eye of GNOME Preferences"
-msgstr "Pengaturan Eye of Gnome"
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
+msgid "Filename format:"
+msgstr "Format nama berkas:"
 
-#: ../eog.glade.h:18
-msgid "Filename Format:"
-msgstr "Jenis File:"
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
+msgid "Options"
+msgstr "Opsi"
 
-#: ../eog.glade.h:19
-msgid "Image View"
-msgstr "Tampilan Gambar"
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
+msgid "Rename from:"
+msgstr "Ubah nama dari:"
 
-#: ../eog.glade.h:20
-msgid "Interpolate image on _zoom"
-msgstr "Interpolasikan gambar saat _zoom"
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
+msgid "Replace spaces with underscores"
+msgstr "Ganti spasi dengan garis bawah"
 
-#: ../eog.glade.h:21
-msgid "Rename From:"
-msgstr "Ganti Nama Dari:"
-
-#: ../eog.glade.h:22
-msgid "Replace spaces by underscore"
-msgstr "Ganti spasi menjadi underskor"
-
-#: ../eog.glade.h:23 ../shell/eog-window.c:3458
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
 msgid "Save As"
-msgstr "Simp_an sebagai"
+msgstr "Simpan Sebagai"
 
-#: ../eog.glade.h:24
-msgid "Saving Image"
-msgstr "Simpan Gambar"
-
-#: ../eog.glade.h:25
-msgid "Slide Show"
-msgstr "Deretan Gambar"
-
-#: ../eog.glade.h:26
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
 msgid "Start counter at:"
 msgstr "Mulai penghitung dari:"
 
-#: ../eog.glade.h:27
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
 msgid "To:"
 msgstr "Sampai:"
 
-#: ../eog.glade.h:28
-msgid "_Browse"
-msgstr "_Cari"
+# Salah satu opsi untuk menangani bagian transparan gambar yang dibuka.
+# Dengan memilih opsi ini, maka bagian transparan gambar akan diisi oleh warna yang sama dengan jendela aplikasi, seolah-olah gambar menyatu dengan aplikasi.
+#: ../data/eog-preferences-dialog.ui.h:1
+msgid "As _background"
+msgstr "Latar _belakang aplikasi"
 
-#: ../eog.glade.h:29
+#: ../data/eog-preferences-dialog.ui.h:2
+msgid "As check _pattern"
+msgstr "Sebagai _pola kotak-kotak"
+
+# Opsi yang muncul pada dialog Preferensi EOG.
+# Di samping kanan opsi ini, ada kotak untuk memilih warna.
+#: ../data/eog-preferences-dialog.ui.h:3
+msgid "As custom c_olor:"
+msgstr "Pilih _warna:"
+
+# Opsi yang muncul pada dialog Preferensi EOG.
+# Di samping kanan opsi ini, ada kotak untuk memilih warna.
+#: ../data/eog-preferences-dialog.ui.h:4
+msgid "As custom color:"
+msgstr "Pilih warna:"
+
+# Salah satu opsi untuk menangani bagian transparan gambar yang dibuka.
+# Dengan memilih opsi ini, maka bagian transparan gambar akan diisi oleh warna yang sama dengan jendela aplikasi, seolah-olah gambar menyatu dengan aplikasi.
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "Background"
+msgstr "Latar belakang aplikasi"
+
+# Salah satu opsi untuk menangani bagian transparan gambar yang dibuka.
+# Dengan memilih opsi ini, maka bagian transparan gambar akan diisi oleh warna yang sama dengan jendela aplikasi, seolah-olah gambar menyatu dengan aplikasi.
+#: ../data/eog-preferences-dialog.ui.h:6
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
+msgid "Background Color"
+msgstr "Warna Latar Belakang"
+
+#: ../data/eog-preferences-dialog.ui.h:7
+msgid "Color for Transparent Areas"
+msgstr "Warna untuk Wilayah Transparan"
+
+#: ../data/eog-preferences-dialog.ui.h:8
+msgid "E_xpand images to fit screen"
+msgstr "_Perbesar gambar hingga sesuai dengan layar"
+
+#: ../data/eog-preferences-dialog.ui.h:9
+msgid "Eye of GNOME Preferences"
+msgstr "Preferensi Eye of Gnome"
+
+# Diterjemahkan sebagai "Peningkatan Gambar" sepertinya tidak cocok. Karena tidak ada yang ditingkatkan di sini kecuali bagaimana menangani situasi tertentu saat membuka gambar. Jadi, dipilihkan "Penanganan Gambar" sebagai kandidat terbaik saat ini.
+#: ../data/eog-preferences-dialog.ui.h:10
+msgid "Image Enhancements"
+msgstr "Penanganan Gambar"
+
+#: ../data/eog-preferences-dialog.ui.h:11
+msgid "Image View"
+msgstr "Tampilan Gambar"
+
+#: ../data/eog-preferences-dialog.ui.h:12
+msgid "Image Zoom"
+msgstr "Perbesaran Gambar"
+
+#: ../data/eog-preferences-dialog.ui.h:13
+msgid "Plugins"
+msgstr "Pengaya"
+
+#: ../data/eog-preferences-dialog.ui.h:14
+msgid "Sequence"
+msgstr "Sekuens"
+
+#: ../data/eog-preferences-dialog.ui.h:15
+msgid "Slideshow"
+msgstr "Deretan Gambar"
+
+#: ../data/eog-preferences-dialog.ui.h:16
+msgid "Smooth images when zoomed-_in"
+msgstr "Memperbesar tamp_ilan gambar dengan halus"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Smooth images when zoomed-_out"
+msgstr "_Memperkecil tampilan gambar dengan halus"
+
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Transparent Parts"
+msgstr "Bagian Transparan"
+
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "_Automatic orientation"
+msgstr "Orient_asi otomatis"
+
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Loop sequence"
-msgstr "Urutan _putaran"
+msgstr "U_langi sekuens"
 
-#: ../eog.glade.h:30
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Switch image after:"
-msgstr "_Tukar gambar setelah:"
+msgstr "_Berganti gambar setelah:"
 
-#: ../eog.glade.h:31
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "seconds"
 msgstr "detik"
 
-#: ../eog.schemas.in.h:1
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
 "A value greater than 0 determines the seconds an image stays on screen until "
 "the next one is shown automatically. Zero disables the automatic browsing."
@@ -156,803 +356,1167 @@ msgstr ""
 "hingga gambar berikutnya ditampilkan secara otomatis. Angka 0 akan mematikan "
 "fasilitas pembukaan otomatis."
 
-#: ../eog.schemas.in.h:3
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
+msgid "Active plugins"
+msgstr "Pengaya yang aktif"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr "Perbolehkan tingkatan zoom awal lebih dari 100%"
+msgstr "Memperbolehkan tingkat perbesaran awal lebih dari 100%"
 
-#: ../eog.schemas.in.h:4
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
+msgid "Automatic orientation"
+msgstr "Orientasi otomatis"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
+msgid "Close main window without asking to save changes."
+msgstr ""
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
 msgid "Delay in seconds until showing the next image"
-msgstr "Jeda waktu hingga gambar berikutnya ditampilkan"
+msgstr "Jeda waktu hingga gambar berikutnya ditampilkan (dalam detik)"
 
-#: ../eog.schemas.in.h:5
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans-color key "
 "determines the used color value."
 msgstr ""
-"Menentukan bagaimana transparansi ditandai. Nilai yang diterima adalah "
-"POLA_KOTAK_KOTAK, WARNA dan TAK ADA. Bila WARNA yang dipilih, maka key "
-"trans_color akan digunakan untuk menandai adanya transparansi."
+"Menentukan cara menampilkan wilayah transparan. Nilai yang mungkin adalah "
+"CHECK_PATTERN, COLOR, dan NONE. Apabila COLOR yang dipilih, maka kunci trans-"
+"color akan dipakai untuk menandai adanya wilayah yang transparan."
 
-#: ../eog.schemas.in.h:6
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
+msgid "Extrapolate Image"
+msgstr "Ekstrapolasi Gambar"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
+msgid ""
+"If activated Eye of GNOME wont ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"Apabila diaktifkan, Eye of GNOME tidak akan mengkonfirmasi saat memindahkan "
+"gambar ke tempat sampah. Tetapi, akan tetap memberi tahu apabila ada berkas "
+"yang tidak bisa dipindahkan ke tempat sampah dan perlu dihapus."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up it "
+"will show the current working directory."
+msgstr ""
+"Apabila diaktifkan dan tidak ada gambar yang dimuat pada jendela yang aktif, "
+"pemilih berkas akan menampilkan folder gambar milik pengguna melalui "
+"direktori khusus pengguna XDG. Apabila dinonaktifkan atau folder tersebut "
+"belum ditentukan, maka yang akan ditampilkan adalah direktori kerja (yang "
+"aktif saat itu)."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
+msgid ""
+"If activated the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
+"embedded on the \"Metadata\" page."
+msgstr ""
+"Apabila diaktifkan, maka daftar metadata yang lebih rinci pada dialig "
+"properti akan ditampilkan terpisah pada halaman tersendiri. Dengan begitu, "
+"akan lebih sesuai untuk layar komputer yang kecil, seperti pada netbook. "
+"Apabila dinonaktifkan, maka widget tersebut akan ditampilkan pada halaman "
+"\"Metadata\"."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-"Bila key transparnsi adalah WARNA, maka key ini menentukan warna apa yang "
-"digunakan untuk menandai adanya transparansi"
+"Apabila kunci transparancy memiliki nilai COLOR, maka nilai ini menentukan "
+"warna yang dipakai untuk menandai adanya wilayah yang transparan."
 
-#: ../eog.schemas.in.h:7
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
+msgid ""
+"If this is active the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set the current GTK theme will "
+"determine the fill color."
+msgstr ""
+"Apabila ini diaktifkan, maka warna yang ditentukan dengan kunci background-"
+"color akan dipakai untuk mengisi wilayah di belakang gambar. Apabila tidak "
+"diaktifkan, maka tema GTK yang mengisinya."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Bila diset ke FALSE maka gambar-gambar yang berukuran kecil pada awalnya "
-"tidak akan diperbesar hingga ke meliputi seluruh layar."
+"Apabila diberikan nilai FALSE, maka gambar berukuran kecil tidak akan diubah "
+"ukurannya atau direnggangkan sehingga sesuai dengan ukuran jendela."
 
-#: ../eog.schemas.in.h:8
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"Posisi panel galeri gambar. Nilai 0 untuk di bawah; 1 untuk di kiri; 2 untuk "
+"di atas; 3 untuk di kanan."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
 msgid "Interpolate Image"
 msgstr "Interpolasi Gambar"
 
-#: ../eog.schemas.in.h:9
-msgid "Last collection window geometry"
-msgstr "Geometr jendela koleksi terakhir"
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"Daftar pengaya yang aktif. Kunci ini tidak berisikan \"Lokasi\" dari pengaya "
+"yang aktif tersebut. Lihatlah berkas .eog-plugin untuk mendapatkan \"Lokasi"
+"\" pengaya yang diberikan."
 
-#: ../eog.schemas.in.h:10
-msgid "Last singleton window geometry"
-msgstr "Geometri jendela mandiri terakhir"
-
-#: ../eog.schemas.in.h:11
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
 msgid "Loop through the image sequence"
-msgstr "Lakukan pada semua urutan gambar"
+msgstr "Mengulang urutan gambar"
 
-#: ../eog.schemas.in.h:12
-msgid "Open images in a new window"
-msgstr "Buka gambar pada window baru"
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
+msgid "Scroll wheel zoom"
+msgstr "Tombol gulung untuk zum"
 
-#: ../eog.schemas.in.h:13
-msgid "Show/hide image information for collection."
-msgstr "Tampilkan/sembunyikan informasi pada koleksi gambar."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr "Menampilkan/menyembunyikan tombol gulung untuk panel galeri gambar."
 
-#: ../eog.schemas.in.h:14
-msgid "Show/hide image information for single image."
-msgstr "Tampilkan/sembunyikan informasi tiap-tiap gambar."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
+msgid "Show/Hide the image gallery pane."
+msgstr "Menampilkan/menyembunyikan panel galeri gambar."
 
-#: ../eog.schemas.in.h:15
-msgid "Show/hide the image collection pane."
-msgstr "Tampi/sembunyi jendela koleksi gambar."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
+msgid "Show/Hide the window side pane."
+msgstr "Menampilkan/menyembunyikan panel samping."
 
-#: ../eog.schemas.in.h:16
-msgid "Show/hide the window statusbar."
-msgstr "Tampilkan/sembunyikan batang tombol jendela."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
+msgid "Show/Hide the window statusbar."
+msgstr "Menampilkan/menyembunyikan baris status."
 
-#: ../eog.schemas.in.h:17
-msgid "Show/hide the window toolbar."
-msgstr "Tampilkan/sembunyikan batang status jendela."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
+msgid "Show/Hide the window toolbar."
+msgstr "Menampilkan/menyembunyikan bilah alat."
 
-#: ../eog.schemas.in.h:18
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set the color is determined by the active GTK "
+"theme instead."
+msgstr ""
+"Warna yang dipakai untuk mengisi wilayah di belakang gambar. Apabila kunci "
+"background-color tidak ditentukan, maka tema GTK yang sedang aktif yang akan "
+"menentukan warnanya."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
+#, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"Faktor pengali yang akan diterapkan saat memakai tombol penggulung pada "
+"tetikus untuk memperbesar atau memperkecil gambar. Nilai tersebut menentukan "
+"langkah penzuman untuk tiap kali gulung. Sebagai contoh, 0.05 menghasilkan "
+"5% perbesaran, sementara 1.00 menghasilkan 100% perbesaran."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:30
 msgid "Transparency color"
 msgstr "Warna transparansi"
 
-#: ../eog.schemas.in.h:19
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
 msgid "Transparency indicator"
 msgstr "Indikator transparansi"
 
-#: ../eog.schemas.in.h:20
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
+msgid "Trash images without asking"
+msgstr "Membuang gambar ke tempat sampah tanpa konfirmasi"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
+msgid "Use a custom background color"
+msgstr "Menggunakan warna latar belakang ubahan (yang dipilih sendiri)"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
 msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
 msgstr ""
-"Menentukan apakah program akan membuat jendela baru pada saat membuka gambar "
-"atau tidak."
+"Menentukan pemilih berkas untuk menampilkan folder gambar pengguna apabila "
+"tidak ada gambar yang dimuat."
 
-#: ../eog.schemas.in.h:21
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
-msgstr "Menentukan apakah urutan gambar akan ditampilkan terus menerus."
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
+msgid "Whether the image gallery pane should be resizable."
+msgstr "Apakah panel galeri gambar bisa diubah atau tidak."
 
-#: ../eog.schemas.in.h:22
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
 msgid ""
-"Whether the image should be interpolated on zoom or not. This leads to "
-"better quality but is somewhat slower than non interpolated images."
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
 msgstr ""
-"Menentukan apakah gambar perlu diinterpolasi pada saat zoom atau tidak. Ini "
-"akan berpengaruh pada kualitas tapi agak lebih lambat dari pada gambar yang "
-"tidak diinterpolasi."
+"Menentukan interpolasi gambar saat tampilannya diperbesar. Ini akan "
+"mempengaruhi kualitas tampilan gambar dan agak lebih lambat dibandingkan "
+"tanpa interpolasi."
 
-#: ../libeog/eog-image-jpeg.c:344
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non interpolated images."
+msgstr ""
+"Menentukan interpolasi pada saat tampilan gambar diperkecil. Ini akan "
+"mempengaruhi tampilan gambar, tetapi agak lebih lambat dibandingkan tanpa "
+"interpolasi."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr ""
+"Gambar diputar secara otomatis berdasarkan orientasi EXIF-nya atau tidak."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
+msgid ""
+"Whether the metadata list in the properties dialog should have its own page."
+msgstr ""
+"Menentukan daftar metadata pada dialog properti ditampilkan pada halamannya "
+"sendiri."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
+msgid "Whether the scroll wheel should be used for zooming."
+msgstr ""
+"Menentukan tombol gulung tetikus untuk memperbesar/memperkecil tampilan "
+"gambar."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
+msgid "Whether the sequence of images should be shown in an endless loop."
+msgstr "Menentukan urutan gambar yang ditampilkan terus-menerus."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
+msgid "Zoom multiplier"
+msgstr "Faktor pengali perbesaran gambar"
+
+#: ../src/eog-application.c:123
+msgid "Running in fullscreen mode"
+msgstr "Berjalan dalam mode layar penuh"
+
+#: ../src/eog-close-confirmation-dialog.c:159
+msgid "Close _without Saving"
+msgstr "Tutup _tanpa Menyimpan"
+
+#: ../src/eog-close-confirmation-dialog.c:193
+msgid "Question"
+msgstr "Pertanyaan"
+
+#: ../src/eog-close-confirmation-dialog.c:374
+msgid "If you don't save, your changes will be lost."
+msgstr "Jika tidak disimpan, maka perubahan yang telah dibuat akan hilang."
+
+#: ../src/eog-close-confirmation-dialog.c:409
 #, c-format
-msgid "Couldn't create temporary file for saving: %s"
-msgstr "Tidak dapat membuat file sementara untuk menyimpan: %s"
+msgid "Save changes to image \"%s\" before closing?"
+msgstr "Simpan perubahan pada gambar \"%s\" sebelum ditutup?"
 
-#: ../libeog/eog-image-jpeg.c:363
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Tidak dapat mengalokasikan memori untuk membuka file JPEG"
+#: ../src/eog-close-confirmation-dialog.c:604
+#, c-format
+msgid "There is %d image with unsaved changes. Save changes before closing?"
+msgid_plural ""
+"There are %d images with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"Terdapat %d gambar dengan perubahan yang belum disimpan. Simpan sebelum "
+"ditutup?"
 
-#: ../libeog/eog-image.c:442
-msgid "Transformation on unloaded image."
-msgstr "Transformasi gambar yang belum dibuka"
+#: ../src/eog-close-confirmation-dialog.c:621
+msgid "S_elect the images you want to save:"
+msgstr "Pilih gambar yang h_endak disimpan:"
 
-#: ../libeog/eog-image.c:554
-msgid "EXIF not supported for this file format."
-msgstr "EXIF tidak dapat digunakan pada format ini."
+#. Secondary label
+#: ../src/eog-close-confirmation-dialog.c:639
+msgid "If you don't save, all your changes will be lost."
+msgstr ""
+"Jika tidak disimpan, maka semua perubahan yang telah dibuat akan hilang."
 
-#: ../libeog/eog-image.c:1214 ../libeog/eog-image.c:1427
-msgid "File exists"
-msgstr "File sudah ada"
+#: ../src/eog-file-chooser.c:126
+msgid "File format is unknown or unsupported"
+msgstr "Format berkas tidak dikenal atau tidak didukung"
 
-#: ../libeog/eog-image.c:1367 ../libeog/eog-image.c:1495
-msgid "No image loaded."
-msgstr "Tidak ada gambar yang dibuka"
+#: ../src/eog-file-chooser.c:131
+msgid ""
+"Eye of GNOME could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"Eye of GNOME tidak dapat menentukan format yang didukung dari nama berkasnya."
 
-#: ../libeog/eog-image.c:1376 ../libeog/eog-image.c:1504
-msgid "Temporary file creation failed."
-msgstr "File sementara tidak dapat dibuat."
+#: ../src/eog-file-chooser.c:132
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Silakan coba ekstensi berkas yang lain, seperti .png atau .jpg."
 
-#: ../libeog/eog-info-view-exif.c:30
-msgid "Camera"
-msgstr "Kamera"
-
-#: ../libeog/eog-info-view-exif.c:31
-msgid "Image Data"
-msgstr "Data Gambar"
-
-#: ../libeog/eog-info-view-exif.c:32
-msgid "Image Taking Conditions"
-msgstr "Kondisi Pengambilan Gambar"
-
-#: ../libeog/eog-info-view-exif.c:33
-msgid "Maker Note"
-msgstr "Catatan Pembuat"
-
-#: ../libeog/eog-info-view-exif.c:34
-msgid "Other"
-msgstr "Lainnya"
-
-#: ../libeog/eog-info-view-exif.c:212
-msgid "Tag"
-msgstr "Tag"
-
-#: ../libeog/eog-info-view-exif.c:220 ../libeog/eog-info-view-file.c:97
-msgid "Value"
-msgstr "Nilai"
-
-#. only used for internal purpose
-#: ../libeog/eog-info-view-file.c:29 ../shell/eog-save-as-dialog-helper.c:31
-msgid "Filename"
-msgstr "Nama file"
-
-#: ../libeog/eog-info-view-file.c:30
-msgid "Width"
-msgstr "Lebar"
-
-#: ../libeog/eog-info-view-file.c:31
-msgid "Height"
-msgstr "Tinggi:"
-
-#: ../libeog/eog-info-view-file.c:32
-msgid "Filesize"
-msgstr "Ukuran file"
-
-#: ../libeog/eog-info-view-file.c:89
-msgid "Attribute"
-msgstr "Atribut"
-
-#: ../libeog/eog-info-view.c:81
-msgid "File"
-msgstr "File"
-
-#: ../libeog/eog-info-view.c:93
-msgid "EXIF"
-msgstr "EXIF"
-
-#: ../libeog/eog-info-view.c:100
-msgid "IPTC"
-msgstr "IPTC"
-
-#: ../libeog/eog-uri-converter.c:1024
-msgid "At least two file names are equal."
-msgstr "Ada dua nama berkas yang sama"
-
-#: ../libeog/eog-util.c:44
-msgid " (invalid Unicode)"
-msgstr " (Unicode yang salah)"
-
-#: ../shell/eog-file-chooser.c:129
+#: ../src/eog-file-chooser.c:164
 msgid "All Files"
-msgstr "Semua File"
+msgstr "Semua Berkas"
 
-#: ../shell/eog-file-chooser.c:134
+#: ../src/eog-file-chooser.c:169
 msgid "All Images"
 msgstr "Semua Gambar"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../shell/eog-file-chooser.c:155
+#: ../src/eog-file-chooser.c:190
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../shell/eog-file-chooser.c:251
-#, c-format
-msgid "%s x %s pixels"
-msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s piksel"
+#: ../src/eog-file-chooser.c:286 ../src/eog-properties-dialog.c:137
+#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:380
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] "piksel"
 
-#: ../shell/eog-file-chooser.c:397
-msgid "Open in new window"
-msgstr "Buka pada jendela baru"
-
-#: ../shell/eog-file-chooser.c:425
-msgid "Load Image"
+#: ../src/eog-file-chooser.c:435
+msgid "Open Image"
 msgstr "Buka Gambar"
 
-#: ../shell/eog-file-chooser.c:433
+#: ../src/eog-file-chooser.c:443
 msgid "Save Image"
 msgstr "Simpan Gambar"
 
-#: ../shell/eog-file-chooser.c:441
+#: ../src/eog-file-chooser.c:451
 msgid "Open Folder"
 msgstr "Buka Folder"
 
-#: ../shell/eog-preferences.c:110
-msgid "Could not display help for Eye of GNOME"
-msgstr "Tidak dapat menampilkan layar bantuan untuk Mata GNOME"
+#: ../src/eog-image.c:589
+#, c-format
+msgid "Transformation on unloaded image."
+msgstr "Transformasi pada gambar yang belum dimuat."
 
-#: ../shell/eog-save-as-dialog-helper.c:32
-msgid "Counter"
-msgstr "Penghitung"
+#: ../src/eog-image.c:617
+#, c-format
+msgid "Transformation failed."
+msgstr "Transformasi gagal."
 
-#: ../shell/eog-save-as-dialog-helper.c:33
-msgid "Comment"
-msgstr "Keterangan"
+#: ../src/eog-image.c:1044
+#, c-format
+msgid "EXIF not supported for this file format."
+msgstr "EXIF tidak didukung pada format berkas ini."
 
-#: ../shell/eog-save-as-dialog-helper.c:34
-msgid "Date"
-msgstr "Tanggal"
+#: ../src/eog-image.c:1171
+#, c-format
+msgid "Image loading failed."
+msgstr "Gagal memuat gambar."
 
-#: ../shell/eog-save-as-dialog-helper.c:35
-msgid "Time"
-msgstr "Waktu"
+#: ../src/eog-image.c:1576 ../src/eog-image.c:1678
+#, c-format
+msgid "No image loaded."
+msgstr "Tidak ada gambar yang dimuat."
 
-#: ../shell/eog-save-as-dialog-helper.c:36
-msgid "Day"
-msgstr "Hari"
+#: ../src/eog-image.c:1586 ../src/eog-image.c:1690
+#, c-format
+msgid "Temporary file creation failed."
+msgstr "Gagal membuat berkas temporer."
 
-#: ../shell/eog-save-as-dialog-helper.c:37
-msgid "Month"
-msgstr "Bulan"
+#: ../src/eog-image-jpeg.c:364
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Tidak dapat membuat berkas temporer untuk menyimpan: %s"
 
-#: ../shell/eog-save-as-dialog-helper.c:38
-msgid "Year"
-msgstr "Tahun"
+#: ../src/eog-image-jpeg.c:383
+#, c-format
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Tidak dapat mengalokasikan memori untuk memuat berkas JPEG"
 
-#: ../shell/eog-save-as-dialog-helper.c:39
-msgid "Hour"
-msgstr "Jam"
+#: ../src/eog-exif-details.c:68
+msgid "Camera"
+msgstr "Kamera"
 
-#: ../shell/eog-save-as-dialog-helper.c:40
-msgid "Minute"
-msgstr "Menit"
+#: ../src/eog-exif-details.c:69
+msgid "Image Data"
+msgstr "Data Gambar"
 
-#: ../shell/eog-save-as-dialog-helper.c:41
-msgid "Second"
-msgstr "Detik"
+#: ../src/eog-exif-details.c:70
+msgid "Image Taking Conditions"
+msgstr "Kondisi Pengambilan Gambar"
 
-#: ../shell/eog-save-as-dialog-helper.c:159
-msgid "Option not available."
-msgstr "Pilihan tidak tersedia."
+#: ../src/eog-exif-details.c:71
+msgid "Maker Note"
+msgstr "Catatan Pembuat"
 
-#: ../shell/eog-save-as-dialog-helper.c:161
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"Untuk menggunakan fungsi ini Anda harus memasang pustaka program libexif. "
-"Silakan pasang dulu libexif dari http://libexif.sf.net dan lakukan kompilasi "
-"ulang program Eye of Gnome ini."
+#: ../src/eog-exif-details.c:72
+msgid "Other"
+msgstr "Lainnya"
 
-#: ../shell/eog-save-as-dialog-helper.c:235
+#: ../src/eog-exif-details.c:74
+msgid "XMP Exif"
+msgstr "Exif XMP"
+
+#: ../src/eog-exif-details.c:75
+msgid "XMP IPTC"
+msgstr "XMP IPTC"
+
+#: ../src/eog-exif-details.c:76
+msgid "XMP Rights Management"
+msgstr "Manajemen Hak XMP"
+
+#: ../src/eog-exif-details.c:77
+msgid "XMP Other"
+msgstr "XMP Lainnya"
+
+#: ../src/eog-exif-details.c:251
+msgid "Tag"
+msgstr "Tag"
+
+#: ../src/eog-exif-details.c:258
+msgid "Value"
+msgstr "Nilai"
+
+#. A strftime-formatted string, to display the date the image was taken.
+#: ../src/eog-exif-util.c:113 ../src/eog-exif-util.c:153
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %d %B %Y  %X"
+
+#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
+#: ../src/eog-exif-util.c:147
+msgid "%a, %d %B %Y"
+msgstr "%a, %d %B %Y"
+
+#: ../src/eog-error-message-area.c:107
+msgid "_Retry"
+msgstr "_Ulangi"
+
+#: ../src/eog-error-message-area.c:141
+#, c-format
+msgid "Could not load image '%s'."
+msgstr "Tidak dapat membuat gambar '%s'."
+
+#: ../src/eog-error-message-area.c:175
+#, c-format
+msgid "No images found in '%s'."
+msgstr "Tidak menemukan gambar di '%s'."
+
+#: ../src/eog-error-message-area.c:182
+msgid "The given locations contain no images."
+msgstr "Lokasi yang diberikan tidak memiliki berkas gambar."
+
+#: ../src/eog-print.c:219
+msgid "Image Settings"
+msgstr "Pengaturan Gambar"
+
+#: ../src/eog-print-image-setup.c:834
+msgid "Image"
+msgstr "Gambar"
+
+#: ../src/eog-print-image-setup.c:835
+msgid "The image whose printing properties will be set up"
+msgstr "Gambar dengan properti pencetakan yang akan disetel"
+
+#: ../src/eog-print-image-setup.c:841
+msgid "Page Setup"
+msgstr "Atur Halaman"
+
+#: ../src/eog-print-image-setup.c:842
+msgid "The information for the page where the image will be printed"
+msgstr "Informasi halaman tempat gambar akan dicetak"
+
+#: ../src/eog-print-image-setup.c:870
+msgid "Position"
+msgstr "Posisi"
+
+#: ../src/eog-print-image-setup.c:875
+msgid "_Left:"
+msgstr "K_iri:"
+
+#: ../src/eog-print-image-setup.c:876
+msgid "_Right:"
+msgstr "_Kanan:"
+
+#: ../src/eog-print-image-setup.c:877
+msgid "_Top:"
+msgstr "A_tas:"
+
+#: ../src/eog-print-image-setup.c:878
+msgid "_Bottom:"
+msgstr "_Bawah:"
+
+#: ../src/eog-print-image-setup.c:880
+msgid "C_enter:"
+msgstr "T_engah:"
+
+#: ../src/eog-print-image-setup.c:885
+msgid "None"
+msgstr "Nihil"
+
+#: ../src/eog-print-image-setup.c:887
+msgid "Horizontal"
+msgstr "_Horisontal"
+
+#: ../src/eog-print-image-setup.c:889
+msgid "Vertical"
+msgstr "_Vertikal"
+
+#: ../src/eog-print-image-setup.c:891
+msgid "Both"
+msgstr "Keduanya"
+
+#: ../src/eog-print-image-setup.c:907
+msgid "Size"
+msgstr "Ukuran"
+
+#: ../src/eog-print-image-setup.c:912
+msgid "_Width:"
+msgstr "_Lebar:"
+
+#: ../src/eog-print-image-setup.c:914
+msgid "_Height:"
+msgstr "_Tinggi:"
+
+# Ada "slider" skala di samping kanannya.
+#: ../src/eog-print-image-setup.c:917
+msgid "_Scaling:"
+msgstr "_Skala:"
+
+#: ../src/eog-print-image-setup.c:930
+msgid "_Unit:"
+msgstr "Sat_uan:"
+
+#: ../src/eog-print-image-setup.c:935
+msgid "Millimeters"
+msgstr "Milimeter"
+
+#: ../src/eog-print-image-setup.c:937
+msgid "Inches"
+msgstr "Inci"
+
+#: ../src/eog-print-image-setup.c:967
+msgid "Preview"
+msgstr "Pratinjau"
+
+# Tidak diketahui jenis mimenya.
+#: ../src/eog-properties-dialog.c:154
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+#. TRANSLATORS: This is the actual focal length used when
+#. the image was taken.
+#: ../src/eog-properties-dialog.c:232
+#, c-format
+msgid "%.1f (lens)"
+msgstr "%.1f (lensa)"
+
+#. Print as float to get a similar look as above.
+#. TRANSLATORS: This is the equivalent focal length assuming
+#. a 35mm film camera.
+#: ../src/eog-properties-dialog.c:243
+#, c-format
+msgid "%.1f (35mm film)"
+msgstr "%.1f (film 35mm)"
+
+#: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
 msgstr "apa adanya"
 
-#: ../shell/eog-save-dialog-helper.c:197
+#. Translators: This string is displayed in the statusbar.
+#. * The first token is the image number, the second is total image
+#. * count.
+#. *
+#. * Translate to "%Id" if you want to use localized digits, or
+#. * translate to "%d" otherwise.
+#. *
+#. * Note that translating this doesn't guarantee that you get localized
+#. * digits. That needs support from your system and locale definition
+#. * too.
+#: ../src/eog-statusbar.c:125
 #, c-format
-msgid "Saving image %s."
-msgstr "Simpan gambar %s"
+msgid "%d / %d"
+msgstr "%d / %d"
 
-#: ../shell/eog-save-dialog-helper.c:243
-msgid "Cancel saving ..."
-msgstr "Batalkan penyimpanan..."
+#: ../src/eog-thumb-view.c:408
+msgid "Taken on"
+msgstr "Diambil pada"
 
-#. Translators should localize the following string
-#. * which will give them credit in the About box.
-#. * E.g. "Fulano de Tal <fulano@detal.com>"
-#.
-#: ../shell/eog-window.c:503
+#: ../src/eog-uri-converter.c:984
+#, c-format
+msgid "At least two file names are equal."
+msgstr "Ada dua nama berkas yang sama"
+
+#: ../src/eog-util.c:68
+msgid "Could not display help for Eye of GNOME"
+msgstr "Tidak dapat menampilkan layar bantuan untuk Mata GNOME"
+
+#: ../src/eog-util.c:116
+msgid " (invalid Unicode)"
+msgstr " (Unikode tidak sah)"
+
+#. Translators: This is the string displayed in the statusbar
+#. * The tokens are from left to right:
+#. * - image width
+#. * - image height
+#. * - image size in bytes
+#. * - zoom in percent
+#: ../src/eog-window.c:517
+#, c-format
+msgid "%i × %i pixel  %s    %i%%"
+msgid_plural "%i × %i pixels  %s    %i%%"
+msgstr[0] "%i × %i piksel  %s    %i%%"
+
+#: ../src/eog-window.c:925
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "Menggunakan \"%s\" untuk membuka gambar yang dipilih"
+
+#. Translators: This string is displayed in the statusbar
+#. * while saving images. The tokens are from left to right:
+#. * - the original filename
+#. * - the current image's position in the queue
+#. * - the total number of images queued for saving
+#: ../src/eog-window.c:1075
+#, c-format
+msgid "Saving image \"%s\" (%u/%u)"
+msgstr "Menyimpan gambar \"%s\" (%u/%u)"
+
+#: ../src/eog-window.c:1417
+#, c-format
+msgid "Opening image \"%s\""
+msgstr "Membuka gambar \"%s\""
+
+#: ../src/eog-window.c:2097
+#, c-format
+msgid ""
+"Error printing file:\n"
+"%s"
+msgstr ""
+"Galat mencetak berkas:\n"
+"%s"
+
+#: ../src/eog-window.c:2353
+msgid "Toolbar Editor"
+msgstr "Penyunting Bilah Alat"
+
+#: ../src/eog-window.c:2356
+msgid "_Reset to Default"
+msgstr "_Kembali ke Awal"
+
+#: ../src/eog-window.c:2442
 msgid "translator-credits"
-msgstr "Ahmad Riza H Nst  <rizahnst@gnome.org>/n"
-"Mohammad DAMT <mdamt@bisnisweb.com>/n"
-"http://id.gnome.org/"
+msgstr ""
+"Ahmad Riza H Nst  <rizahnst@gnome.org>, 2004.\n"
+"Mohammad DAMT <mdamt@bisnisweb.com>, 2004.\n"
+"Dirgita <dirgitadevina@yahoo.co.id>, 2010."
 
-#: ../shell/eog-window.c:506
+#: ../src/eog-window.c:2445
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
 msgstr ""
-"Program ini adalah perangkat lunak bebas; anda dapat menyebarkan ulang dan/atau "
-"merubahnya di bawah persyaratan Lisensi Publik Umum GNU seperti yang diterbitkan "
-"oleh Free Software Foundation, apakah versi 2 atau versi yang lebih baru (terserah).\n"
+"Program ini adalah perangkat lunak bebas; Anda dapat menyebarluaskannya dan/"
+"atau mengubahnya di bawah syarat GNU General Public License sebagaimana "
+"dipublikasikan oleh Free Software Foundation; baik versi 2 dari Lisensi, "
+"atau (terserah pilihan Anda) versi setelahnya.\n"
 
-#: ../shell/eog-window.c:510
+#: ../src/eog-window.c:2449
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
 msgstr ""
-"Program ini disebarkan dengan harapan akan berguna, tetapi TANPA ADANYA JAMINAN, "
-"bahkan tanpa adanya jaminan DAYA JUAL atau KELAYAKAN UNTUK PENGGUNAAN TERTENTU.  "
-"Lihat Lisensi Publik Umum GNU untuk lebih jelasnya lagi.\n"
+"Program ini didistribusikan dengan harapan dapat berguna, tetapi TANPA "
+"ADANYA JAMINAN; termasuk tanpa jaminan DAYA JUAL atau KELAIKAN UNTUK TUJUAN "
+"TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut.\n"
 
-#: ../shell/eog-window.c:514
+#: ../src/eog-window.c:2453
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 51 "
-"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place - Suite 330, Boston, MA 02111-1307, USA."
 msgstr ""
-"Anda harusnya menerima salinan Lisensi Publik Umum GNU bersamaan dengan "
-"program ini, jika tidak, tulis ke Free Software Foundation, Inc., 51 Franklin Street, "
-"Fifth Floor, Boston, MA 02110-1301, USA"
+"Anda seharusnya menerima salinan dari GNU General Public License bersama "
+"dengan program ini; jika tidak, kirimkan surat Anda ke Free Software "
+"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../shell/eog-window.c:527 ../shell/eog-window.c:3122
-#: ../shell/eog-window.c:3817 ../shell/main.c:609
+#: ../src/eog-window.c:2466
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:530
-msgid "The GNOME image viewing and cataloging program."
-msgstr "Program GNOME untuk menampilkan gambar dan katalog."
+#: ../src/eog-window.c:2469
+msgid "The GNOME image viewer."
+msgstr "Penampil gambar GNOME."
 
-#: ../shell/eog-window.c:561
+#. The newline character is currently necessary due to a problem
+#. * with the automatic line break.
+#: ../src/eog-window.c:2599
 #, c-format
 msgid ""
-"Could not display help for Eye of GNOME.\n"
-"%s"
+"The image \"%s\" has been set as Desktop Background.\n"
+"Would you like to modify its appearance?"
 msgstr ""
-"Tidak dapat menampilkan layar bantuan untuk Eye of Gnome\n"
-"%s"
+"Gambar \"%s\" sudah dijadikan Latar Belakang Desktop.\n"
+"Ubah  penampilannya?"
 
-#: ../shell/eog-window.c:996
-#, c-format
-msgid "Overwrite file %s?"
-msgstr "Timpa file %s?"
+#: ../src/eog-window.c:2987
+msgid "Saving image locally…"
+msgstr "Menyimpan gambar lokal..."
 
-#: ../shell/eog-window.c:997
-msgid "File exists. Do you want to overwrite it?"
-msgstr "File sudah ada. Ingin ditimpa saja?"
-
-#: ../shell/eog-window.c:1008 ../shell/eog-window.c:1024
-msgid "Skip"
-msgstr "Lewatkan"
-
-#: ../shell/eog-window.c:1009
-msgid "Overwrite"
-msgstr "Timpa"
-
-#: ../shell/eog-window.c:1014
-#, c-format
-msgid "Error on saving %s."
-msgstr "Error saat menyimpan %s."
-
-#: ../shell/eog-window.c:1025 ../shell/eog-window.c:1591
-msgid "Retry"
-msgstr "Ulangi"
-
-#: ../shell/eog-window.c:1455
-msgid "Couldn't determine destination uri."
-msgstr "Uri tujuan tidak diketahui"
-
-#: ../shell/eog-window.c:1577
-#, c-format
-msgid "Couldn't determine file format of %s"
-msgstr "Jenis file %s tidak diketahui"
-
-#: ../shell/eog-window.c:1578
-msgid "Please use an appropriate filename suffix or select a file format."
-msgstr "Silakan gunakan akhiran nama file yang benar atau pilih jenis filenya."
-
-#: ../shell/eog-window.c:1716
-msgid "Error on saving images."
-msgstr "Error saat menyimpan gambar."
-
-#: ../shell/eog-window.c:1800
-msgid "Print"
-msgstr "Cetak"
-
-#: ../shell/eog-window.c:1834
-msgid "Print Preview"
-msgstr "Tampilan Cetak"
-
-#: ../shell/eog-window.c:2038
+#: ../src/eog-window.c:3067
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
-msgstr ""
-"Apakah benar ingin memindahkan\n"
-"\"%s\" ke tong sampah?"
+msgstr "Pindahkan \"%s\" ke tempat sampah?"
 
-#: ../shell/eog-window.c:2041
+#: ../src/eog-window.c:3070
+#, c-format
+msgid ""
+"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"permanently?"
+msgstr ""
+"Tempat sampah untuk \"%s\" tidak ditemukan. Hapus gambar secara permanen?"
+
+#: ../src/eog-window.c:3075
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "the selected image to the trash?"
+msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
+msgstr[0] ""
+"Pindahkan %d gambar yang dipilih\n"
+"ke tempat sampah?"
+
+#: ../src/eog-window.c:3080
+msgid ""
+"Some of the selected images can't be moved to the trash and will be removed "
+"permanently. Are you sure you want to proceed?"
 msgstr ""
-"Apakah benar ingin memindahkan\n"
-"gambar terpilih ke tong sampah?"
-"Apakah benar ingin memindahkan\n"
-"%d gambar terpilih ke tong sampah?"
+"Beberapa gambar tidak dapat dipindahkan ke tempat sampah dan harus dihapus "
+"permanen. Laksanakan?"
 
-#: ../shell/eog-window.c:2056 ../shell/eog-window.c:3413
-msgid "Move to Trash"
-msgstr "Pindahkan ke Tong Sampah"
+#: ../src/eog-window.c:3097 ../src/eog-window.c:3555 ../src/eog-window.c:3579
+msgid "Move to _Trash"
+msgstr "Buang ke _Tempat Sampah"
 
-#: ../shell/eog-window.c:2087
+#: ../src/eog-window.c:3099
+msgid "_Do not ask again during this session"
+msgstr "_Jangan tanya lagi selama sesi ini"
+
+#: ../src/eog-window.c:3144 ../src/eog-window.c:3158
+#, c-format
 msgid "Couldn't access trash."
-msgstr "Tong sampah tidak dapat diakses."
+msgstr "Tidak dapat mengakses tempat sampah."
 
-#: ../shell/eog-window.c:2163
+#: ../src/eog-window.c:3166
+#, c-format
+msgid "Couldn't delete file"
+msgstr "Tidak dapat menghapus berkas"
+
+#: ../src/eog-window.c:3237
 #, c-format
 msgid "Error on deleting image %s"
-msgstr "Error saat menghapus gambar %s"
+msgstr "Galat menghapus berkas %s"
 
-#. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2983
-#, c-format
-msgid "%i x %i pixels  %s    %i%%"
-msgid_plural "%i x %i pixels  %s    %i%%"
-msgstr[0] "%i x %i piksel  %s    %i%%"
-
-#: ../shell/eog-window.c:3039
-#, c-format
-msgid "Reason: %s"
-msgstr "Alasan: %s"
-
-#: ../shell/eog-window.c:3209
-#, c-format
-msgid "Image loading failed for %s"
-msgstr "Pembukaan gambar %s gagal"
-
-#: ../shell/eog-window.c:3378
-msgid "_File"
-msgstr "_Berkas"
-
-#: ../shell/eog-window.c:3379
-msgid "_Edit"
-msgstr "_Ubah"
-
-#: ../shell/eog-window.c:3380
-msgid "_View"
-msgstr "_Lihat"
-
-#: ../shell/eog-window.c:3381
+#: ../src/eog-window.c:3479
 msgid "_Image"
 msgstr "_Gambar"
 
-#: ../shell/eog-window.c:3382
-msgid "_Go"
-msgstr "_Ayo"
+#: ../src/eog-window.c:3480
+msgid "_Edit"
+msgstr "_Sunting"
 
-#: ../shell/eog-window.c:3383
+#: ../src/eog-window.c:3481
+msgid "_View"
+msgstr "_Tampilan"
+
+#: ../src/eog-window.c:3482
+msgid "_Go"
+msgstr "_Ke"
+
+#: ../src/eog-window.c:3483
+msgid "_Tools"
+msgstr "_Perkakas"
+
+#: ../src/eog-window.c:3484
 msgid "_Help"
 msgstr "Ba_ntuan"
 
-#: ../shell/eog-window.c:3384
-msgid "_Open..."
-msgstr "_Buka..."
+#: ../src/eog-window.c:3486
+msgid "_Open…"
+msgstr "_Buka…"
 
-#: ../shell/eog-window.c:3384
+#: ../src/eog-window.c:3487
 msgid "Open a file"
-msgstr "Buka file"
+msgstr "Membuka berkas"
 
-#: ../shell/eog-window.c:3385
+#: ../src/eog-window.c:3489
 msgid "_Close"
 msgstr "_Tutup"
 
-#: ../shell/eog-window.c:3385
+#: ../src/eog-window.c:3490
 msgid "Close window"
-msgstr "Tutup window"
+msgstr "Menutup jendela"
 
-#: ../shell/eog-window.c:3386
+#: ../src/eog-window.c:3492
+msgid "T_oolbar"
+msgstr "_Bilah Alat"
+
+#: ../src/eog-window.c:3493
+msgid "Edit the application toolbar"
+msgstr "Menyunting bilah alat aplikasi"
+
+#: ../src/eog-window.c:3495
 msgid "Prefere_nces"
-msgstr "Setti_ng"
+msgstr "Prefere_nsi"
 
-#: ../shell/eog-window.c:3386
+#: ../src/eog-window.c:3496
 msgid "Preferences for Eye of GNOME"
-msgstr "Pengaturan Eye of Gnome"
+msgstr "Preferensi Eye of Gnome"
 
-#: ../shell/eog-window.c:3387
+#: ../src/eog-window.c:3498
 msgid "_Contents"
-msgstr "_Isi"
+msgstr "Bantua_n"
 
-#: ../shell/eog-window.c:3387
-msgid "Help On this application"
+#: ../src/eog-window.c:3499
+msgid "Help on this application"
 msgstr "Bantuan untuk aplikasi ini"
 
-#: ../shell/eog-window.c:3388
+#: ../src/eog-window.c:3501 ../src/eog-plugin-manager.c:505
 msgid "_About"
-msgstr "_Keterangan Program"
+msgstr "Tent_ang"
 
-#: ../shell/eog-window.c:3388
+#: ../src/eog-window.c:3502
 msgid "About this application"
-msgstr "Keterangan mengenai aplikasi ini"
+msgstr "Tentang aplikasi ini"
 
-#: ../shell/eog-window.c:3393
+#: ../src/eog-window.c:3507
 msgid "_Toolbar"
-msgstr "Batang _tombol"
+msgstr "Bilah Ala_t"
 
-#: ../shell/eog-window.c:3393
+#: ../src/eog-window.c:3508
 msgid "Changes the visibility of the toolbar in the current window"
-msgstr "Ubah penampakan batang alat pada jendela aktif"
+msgstr "Mengubah kenampakan bilah alat pada jendela yang aktif"
 
-#: ../shell/eog-window.c:3394
+#: ../src/eog-window.c:3510
 msgid "_Statusbar"
-msgstr "Batang _status"
+msgstr "Baris _Status"
 
-#: ../shell/eog-window.c:3394
+#: ../src/eog-window.c:3511
 msgid "Changes the visibility of the statusbar in the current window"
-msgstr "Ubah penampakan batang status pada jendela aktif"
+msgstr "Mengubah kenampakan baris status pada jendela yang aktif"
 
-#: ../shell/eog-window.c:3395
-msgid "_Image Collection"
-msgstr "Koleksi _Gambar"
+#: ../src/eog-window.c:3513
+msgid "_Image Gallery"
+msgstr "Galer_i Gambar"
 
-#: ../shell/eog-window.c:3395
-msgid ""
-"Changes the visibility of the image collection pane in the current window"
-msgstr ""
-"Rubah penampakan jendela koleksi gambar pada jendela ini"
+#: ../src/eog-window.c:3514
+msgid "Changes the visibility of the image gallery pane in the current window"
+msgstr "Mengubah kenampakan panel galeri gambar pada jendela yang aktif"
 
-#: ../shell/eog-window.c:3399
+#: ../src/eog-window.c:3516
+msgid "Side _Pane"
+msgstr "_Panel Samping"
+
+#: ../src/eog-window.c:3517
+msgid "Changes the visibility of the side pane in the current window"
+msgstr "Mengubah kenampakan panel samping pada jendela yang aktif"
+
+#: ../src/eog-window.c:3522
 msgid "_Save"
 msgstr "_Simpan"
 
-#: ../shell/eog-window.c:3400
-msgid "Save _As..."
-msgstr "Simp_an Jadi..."
+#: ../src/eog-window.c:3523
+msgid "Save changes in currently selected images"
+msgstr "Menyimpan perubahan pada gambar yang dipilih"
 
-#: ../shell/eog-window.c:3401
-msgid "Print..."
-msgstr "Cetak..."
+#: ../src/eog-window.c:3525
+msgid "Open _with"
+msgstr "Buka _dengan"
 
-#: ../shell/eog-window.c:3403
+#: ../src/eog-window.c:3526
+msgid "Open the selected image with a different application"
+msgstr "Membuka gambar yang dipilih dengan aplikasi yang berbeda"
+
+#: ../src/eog-window.c:3528
+msgid "Save _As…"
+msgstr "Simp_an Sebagai..."
+
+#: ../src/eog-window.c:3529
+msgid "Save the selected images with a different name"
+msgstr "Menyimpan gambar yang dipilih dengan nama berbeda"
+
+#: ../src/eog-window.c:3531
+msgid "_Print…"
+msgstr "_Cetak…"
+
+#: ../src/eog-window.c:3532
+msgid "Print the selected image"
+msgstr "Mencetak gambar yang dipilih"
+
+#: ../src/eog-window.c:3534
+msgid "Prope_rties"
+msgstr "Prope_rti"
+
+#: ../src/eog-window.c:3535
+msgid "Show the properties and metadata of the selected image"
+msgstr "Menampilkan properti dan metadata dari gambar yang dipilih"
+
+#: ../src/eog-window.c:3537
 msgid "_Undo"
-msgstr "_Batalkan"
+msgstr "_Tak Jadi"
 
-#: ../shell/eog-window.c:3405
+#: ../src/eog-window.c:3538
+msgid "Undo the last change in the image"
+msgstr "Membatalkan perubahan terakhir pada gambar"
+
+#: ../src/eog-window.c:3540
 msgid "Flip _Horizontal"
-msgstr "Balik arah _horisontal"
+msgstr "Lipat _Horisontal"
 
-#: ../shell/eog-window.c:3406
+#: ../src/eog-window.c:3541
+msgid "Mirror the image horizontally"
+msgstr "Membalikkan gambar secara horisontal"
+
+#: ../src/eog-window.c:3543
 msgid "Flip _Vertical"
-msgstr "Balik arah _vertikal"
+msgstr "Lipat _Vertikal"
 
-#: ../shell/eog-window.c:3408
+#: ../src/eog-window.c:3544
+msgid "Mirror the image vertically"
+msgstr "Membalikkan gambar secara vertikal"
+
+#: ../src/eog-window.c:3546
 msgid "_Rotate Clockwise"
 msgstr "Puta_r Searah Jarum Jam"
 
-#: ../shell/eog-window.c:3409
+#: ../src/eog-window.c:3547
+msgid "Rotate the image 90 degrees to the right"
+msgstr "Memutar gambar 90 derajat ke kanan"
+
+#: ../src/eog-window.c:3549
 msgid "Rotate Counterc_lockwise"
 msgstr "Putar Ber_lawanan Jarum Jam"
 
-#: ../shell/eog-window.c:3410
-msgid "Rotat_e 180°"
-msgstr "Puta_r 180°"
+#: ../src/eog-window.c:3550
+msgid "Rotate the image 90 degrees to the left"
+msgstr "Memutar gambar 90 derajat ke kiri"
 
-#: ../shell/eog-window.c:3411
-msgid "Set As _Wallpaper"
-msgstr "Jadikan _Wallpaper"
+#: ../src/eog-window.c:3552
+msgid "Set as _Desktop Background"
+msgstr "Jadikan Latar Belakang _Desktop"
 
-#: ../shell/eog-window.c:3415
-msgid "_Full Screen"
-msgstr "Layar _penuh"
+#: ../src/eog-window.c:3553
+msgid "Set the selected image as the desktop background"
+msgstr "Menjadikan gambar yang dipilih sebagai latar belakang desktop"
 
-#: ../shell/eog-window.c:3416
-msgid "_Slideshow"
-msgstr "_Deretan Gambar"
+#: ../src/eog-window.c:3556
+msgid "Move the selected image to the trash folder"
+msgstr "Memindahkan gambar yang dipilih ke folder tempat sampah"
 
-#. accelerators
-#: ../shell/eog-window.c:3417 ../shell/eog-window.c:3423
-#: ../shell/eog-window.c:3424
+#: ../src/eog-window.c:3558 ../src/eog-window.c:3570 ../src/eog-window.c:3573
 msgid "_Zoom In"
-msgstr "_Zoom perbesar"
+msgstr "_Perbesar"
 
-#: ../shell/eog-window.c:3418 ../shell/eog-window.c:3425
+#: ../src/eog-window.c:3559 ../src/eog-window.c:3571
+msgid "Enlarge the image"
+msgstr "Memperbesar tampilan gambar"
+
+#: ../src/eog-window.c:3561 ../src/eog-window.c:3576
 msgid "Zoom _Out"
-msgstr "Z_oom perkecil"
+msgstr "P_erkecil"
 
-#: ../shell/eog-window.c:3419
+#: ../src/eog-window.c:3562 ../src/eog-window.c:3574 ../src/eog-window.c:3577
+msgid "Shrink the image"
+msgstr "Memperkecil tampilan gambar"
+
+#: ../src/eog-window.c:3564
 msgid "_Normal Size"
-msgstr "Ukuran normal"
+msgstr "Ukuran _Normal"
 
-#: ../shell/eog-window.c:3420
+#: ../src/eog-window.c:3565
+msgid "Show the image at its normal size"
+msgstr "Menampilkan gambar dalam ukuran normal"
+
+#: ../src/eog-window.c:3567
 msgid "Best _Fit"
-msgstr "Pas Sempurna"
+msgstr "Sesuai Jende_la"
 
-#: ../shell/eog-window.c:3426 ../shell/eog-window.c:3428
-#: ../shell/eog-window.c:3442
-msgid "_Next Image"
-msgstr "Gambar _Selanjutnya"
+#: ../src/eog-window.c:3568
+msgid "Fit the image to the window"
+msgstr "Menyesuaikan gambar dengan jendela aplikasi"
 
-#: ../shell/eog-window.c:3427 ../shell/eog-window.c:3429
-#: ../shell/eog-window.c:3430 ../shell/eog-window.c:3441
+#: ../src/eog-window.c:3585
+msgid "_Fullscreen"
+msgstr "Layar _Penuh"
+
+#: ../src/eog-window.c:3586
+msgid "Show the current image in fullscreen mode"
+msgstr "Menampilkan gambar dalam modus layar penuh"
+
+#: ../src/eog-window.c:3588
+msgid "Pause Slideshow"
+msgstr "Tahan Deretan Gambar"
+
+#: ../src/eog-window.c:3589
+msgid "Pause or resume the slidehow"
+msgstr "Menahan atau melanjutkan deretan gambar"
+
+#: ../src/eog-window.c:3594 ../src/eog-window.c:3609
 msgid "_Previous Image"
-msgstr "Gambar _Terdahulu"
+msgstr "Gambar _Sebelumnya"
 
-#: ../shell/eog-window.c:3431
-msgid "Move to _Trash"
-msgstr "Pindahkan ke _Tong Sampah"
+#: ../src/eog-window.c:3595
+msgid "Go to the previous image of the gallery"
+msgstr "Menuju gambar sebelumnya dalam galeri"
 
-#: ../shell/eog-window.c:3432 ../shell/eog-window.c:3443
+#: ../src/eog-window.c:3597
+msgid "_Next Image"
+msgstr "Gambar Sela_njutnya"
+
+#: ../src/eog-window.c:3598
+msgid "Go to the next image of the gallery"
+msgstr "Menuju gambar selanjutnya dalam galeri"
+
+#: ../src/eog-window.c:3600 ../src/eog-window.c:3612
 msgid "_First Image"
 msgstr "Gambar _Pertama"
 
-#: ../shell/eog-window.c:3433 ../shell/eog-window.c:3444
+#: ../src/eog-window.c:3601
+msgid "Go to the first image of the gallery"
+msgstr "Menuju gambar pertama dalam galeri"
+
+#: ../src/eog-window.c:3603 ../src/eog-window.c:3615
 msgid "_Last Image"
 msgstr "Gambar _Terakhir"
 
-#: ../shell/eog-window.c:3437
-msgid "Image _Information"
-msgstr "_Informasi Gambar"
+#: ../src/eog-window.c:3604
+msgid "Go to the last image of the gallery"
+msgstr "Menuju gambar terakhir dalam galeri"
 
-#: ../shell/eog-window.c:3437
-msgid "Changes the visibility of the information pane in the current window"
-msgstr "Ubah penampakan panel informasi pada jendela aktif"
+#: ../src/eog-window.c:3606
+msgid "_Random Image"
+msgstr "Gamba_r Acak"
 
-#: ../shell/eog-window.c:3455
-msgid "Open"
-msgstr "Buka"
+#: ../src/eog-window.c:3607
+msgid "Go to a random image of the gallery"
+msgstr "Menuju gambar yang dipilih acak dari galeri"
 
-#: ../shell/eog-window.c:3456
-msgid "Close"
-msgstr "Tutup"
+#: ../src/eog-window.c:3621
+msgid "_Slideshow"
+msgstr "_Deretan Gambar"
 
-#: ../shell/eog-window.c:3457
-msgid "Save"
-msgstr "Simpan"
+#: ../src/eog-window.c:3622
+msgid "Start a slideshow view of the images"
+msgstr "Memulai deretan gambar"
 
-#: ../shell/eog-window.c:3459
-msgid "Undo"
-msgstr "Batalkan"
+#: ../src/eog-window.c:3688
+msgid "Previous"
+msgstr "Sebelumnya"
 
-#: ../shell/eog-window.c:3462
+#: ../src/eog-window.c:3692
+msgid "Next"
+msgstr "Selanjutnya"
+
+#: ../src/eog-window.c:3696
 msgid "Right"
 msgstr "Kanan"
 
-#: ../shell/eog-window.c:3463
+#: ../src/eog-window.c:3699
 msgid "Left"
 msgstr "Kiri"
 
-#: ../shell/eog-window.c:3466
+#: ../src/eog-window.c:3702
 msgid "In"
 msgstr "Perbesar"
 
-#: ../shell/eog-window.c:3467
+#: ../src/eog-window.c:3705
 msgid "Out"
 msgstr "Perkecil"
 
-#: ../shell/eog-window.c:3468
+#: ../src/eog-window.c:3708
 msgid "Normal"
 msgstr "Normal"
 
-#: ../shell/eog-window.c:3469
+#: ../src/eog-window.c:3711
 msgid "Fit"
 msgstr "Pas"
 
-#: ../shell/eog-window.c:3470
-msgid "Next"
-msgstr "Lanjut"
+#: ../src/eog-window.c:3714
+msgid "Gallery"
+msgstr "Galeri"
 
-#: ../shell/eog-window.c:3471
-msgid "Previous"
-msgstr "Balik"
+#: ../src/eog-window.c:3717
+msgctxt "action (to trash)"
+msgid "Trash"
+msgstr "Tempat Sampah"
 
-#: ../shell/eog-window.c:3636
-msgid "User interface description not found."
-msgstr "Deskripsi antarmuka grafis tidak ditemukan"
+#: ../src/eog-plugin-manager.c:51
+msgid "Plugin"
+msgstr "Pengaya"
 
-#: ../shell/main.c:23
-msgid "[FILE...]"
-msgstr "[BERKAS...]"
+#: ../src/eog-plugin-manager.c:52
+msgid "Enabled"
+msgstr "Diaktifkan"
 
-#: ../shell/main.c:174
-msgid "Unable to create Eye of GNOME user interface"
-msgstr "Antarmuka Eye of GNOME tidak dapat dibuat"
+#: ../src/eog-plugin-manager.c:513
+msgid "C_onfigure"
+msgstr "K_onfigurasi"
 
-#: ../shell/main.c:365
-msgid "File not found."
-msgid_plural "Files not found."
-msgstr[0] "File tidak ada."
+#: ../src/eog-plugin-manager.c:523
+msgid "A_ctivate"
+msgstr "A_ktifkan"
 
-#: ../shell/util.c:52
+#: ../src/eog-plugin-manager.c:535
+msgid "Ac_tivate All"
+msgstr "Ak_tifkan Semua"
+
+#: ../src/eog-plugin-manager.c:540
+msgid "_Deactivate All"
+msgstr "_Nonaktifkan Semua"
+
+#: ../src/eog-plugin-manager.c:834
+msgid "Active _Plugins:"
+msgstr "Aktifkan _Pengaya:"
+
+#: ../src/eog-plugin-manager.c:863
+msgid "_About Plugin"
+msgstr "Tent_ang Pengaya"
+
+#: ../src/eog-plugin-manager.c:870
+msgid "C_onfigure Plugin"
+msgstr "K_onfigurasi Pengaya"
+
+#: ../src/main.c:66 ../src/main.c:249
+msgid "Eye of GNOME Image Viewer"
+msgstr "Penampil Gambar Eye of GNOME"
+
+#: ../src/main.c:73
+msgid "Open in fullscreen mode"
+msgstr "Dibuka dalam mode layar penuh"
+
+#: ../src/main.c:74
+msgid "Disable image gallery"
+msgstr "Tanpa galeri gambar"
+
+#: ../src/main.c:75
+msgid "Open in slideshow mode"
+msgstr "Dibuka dalam mode deretan gambar"
+
+#: ../src/main.c:77
+msgid "Start a new instance instead of reusing an existing one"
+msgstr "Memulai sesi baru ketimbang menggunakan yang sudah ada"
+
+#: ../src/main.c:80
+msgid "Show the application's version"
+msgstr "Menampilkan versi aplikasi"
+
+#: ../src/main.c:81
+msgid "[FILE…]"
+msgstr "[BERKAS…]"
+
+#. I18N: The '%s' is replaced with eog's command name.
+#: ../src/main.c:208
 #, c-format
-msgid "Could not open `%s'"
-msgstr "Tidak dapat membuka '%s'"
-
-#: ../shell/recent-files/egg-recent-view-gtk.c:346
-#, c-format
-msgid "Open '%s'"
-msgstr "Buka '%s'"
-
-#: ../shell/recent-files/egg-recent-view-gtk.c:444
-msgid "Empty"
-msgstr "Kosong"
-
-#~ msgid ""
-#~ "Are you sure you want to move\n"
-#~ "the %d selected image to the trash?Are you sure you want to move\n"
-#~ "the %d selected images to the trash?"
-#~ msgstr ""
-#~ "Apakah benar ingin meindahkan\n"
-#~ "%d gambar terpilih ke tong sampah?Apakah benar ingin meindahkan\n"
-#~ "%d gambar-gambar terpilih ke tong sampah?"
-
-#~ msgid "Show next image _automatically"
-#~ msgstr "Tampilkan g_ambar berikutnya otomatis"
-
-#~ msgid ""
-#~ "If this is set to TRUE images will be switched after number of seconds "
-#~ "determined by the 'full_screen/seconds' key."
-#~ msgstr ""
-#~ "Bila diset, maka gambar akan ditukar setelah waktu tunggu yang ditentukan "
-#~ "pada kunci 'full_screen/seconds'"
-
-#~ msgid "Show next image automatically in fullscreen mode."
-#~ msgstr "Tampilkan gambar berikutnya dalam moda layar penuh."
-
-#~ msgid "_New Window"
-#~ msgstr "Jendela _Baru"
-
-#~ msgid "Open a new window"
-#~ msgstr "Buka jendela baru"
-
-#~ msgid "Open _Folder..."
-#~ msgstr "Buka _Folder..."
-
-#~ msgid "Open a folder"
-#~ msgstr "Buka Folder"
-
-#~ msgid "Delete"
-#~ msgstr "Hapus"
-
-#~ msgid "New"
-#~ msgstr "Baru"
-
-#~ msgid "Open multiple single windows?"
-#~ msgstr "Buka banyak jendela mandiri?"
-
-#~ msgid ""
-#~ "You are about to open %i windows simultaneously. Do you want to open them "
-#~ "in a collection instead?You are about to open %i windows simultaneously. "
-#~ "Do you want to open them in a collection instead?"
-#~ msgstr ""
-#~ "%i jendela akan dibuka secara bersamaan. Tampilkan dalam koleksi saja?%i "
-#~ "jendela akan dibuka secara bersamaan. Tampilkan dalam koleksi saja?"
-
-#~ msgid "Single Windows"
-#~ msgstr "Jendela Mandiri"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "empty file"
-#~ msgstr "file kosong"
-
-#~ msgid "Filenames are not disjunct."
-#~ msgstr "Nama file tidak terpisah."
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Jalankan '%s --help' untuk daftar lengkap opsi yang tersedia."
