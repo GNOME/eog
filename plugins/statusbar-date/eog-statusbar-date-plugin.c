@@ -1,6 +1,6 @@
 /* Statusbar Date -- Shows the EXIF date in EOG's statusbar
  *
- * Copyright (C) 2008 The Free Software Foundation
+ * Copyright (C) 2008-2010 The Free Software Foundation
  *
  * Author: Claudio Saavedra  <csaavedra@gnome.org>
  *
@@ -28,32 +28,28 @@
 #include <gmodule.h>
 #include <glib/gi18n-lib.h>
 
+#include <libpeas/peas.h>
+#include <libpeasui/peas-ui.h>
+
 #include <eog-debug.h>
 #include <eog-scroll-view.h>
 #include <eog-image.h>
 #include <eog-thumb-view.h>
 #include <eog-exif-util.h>
 
+static void peas_activatable_iface_init (PeasActivatableInterface *iface);
 
-#define WINDOW_DATA_KEY "EogStatusbarDateWindowData"
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (EogStatusbarDatePlugin,
+                                eog_statusbar_date_plugin,
+                                PEAS_TYPE_EXTENSION_BASE,
+                                0,
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (PEAS_TYPE_ACTIVATABLE,
+                                                               peas_activatable_iface_init))
 
-EOG_PLUGIN_REGISTER_TYPE(EogStatusbarDatePlugin, eog_statusbar_date_plugin)
-
-typedef struct
-{
-	GtkWidget *statusbar_date;
-	gulong signal_id;
-} WindowData;
-
-static void
-free_window_data (WindowData *data)
-{
-	g_return_if_fail (data != NULL);
-
-	eog_debug (DEBUG_PLUGINS);
-
-	g_free (data);
-}
+enum {
+  PROP_0,
+  PROP_OBJECT
+};
 
 static void
 statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
@@ -93,10 +89,51 @@ statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 }
 
 static void
-selection_changed_cb (EogThumbView *view, WindowData *data)
+selection_changed_cb (EogThumbView *view, EogStatusbarDatePlugin *plugin)
 {
-	statusbar_set_date (GTK_STATUSBAR (data->statusbar_date), view);
+	statusbar_set_date (GTK_STATUSBAR (plugin->statusbar_date), view);
 }
+
+static void
+eog_statusbar_date_plugin_set_property (GObject      *object,
+				guint         prop_id,
+				const GValue *value,
+				GParamSpec   *pspec)
+{
+	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (object);
+
+	switch (prop_id)
+	{
+	case PROP_OBJECT:
+		plugin->window = GTK_WIDGET (g_value_dup_object (value));
+		break;
+
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+eog_statusbar_date_plugin_get_property (GObject    *object,
+				guint       prop_id,
+				GValue     *value,
+				GParamSpec *pspec)
+{
+	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (object);
+
+	switch (prop_id)
+	{
+	case PROP_OBJECT:
+		g_value_set_object (value, plugin->window);
+		break;
+
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
 static void
 eog_statusbar_date_plugin_init (EogStatusbarDatePlugin *plugin)
 {
@@ -112,69 +149,72 @@ eog_statusbar_date_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (EogPlugin *plugin,
-	       EogWindow *window)
+eog_statusbar_date_plugin_activate (PeasActivatable *activatable)
 {
+	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
+	EogWindow *window = EOG_WINDOW (plugin->window);
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
 	GtkWidget *thumbview = eog_window_get_thumb_view (window);
-	WindowData *data;
 
 	eog_debug (DEBUG_PLUGINS);
 
-	data = g_new (WindowData, 1);
-	data->statusbar_date = gtk_statusbar_new ();
-	gtk_widget_set_size_request (data->statusbar_date, 200, 10);
+	plugin->statusbar_date = gtk_statusbar_new ();
+	gtk_widget_set_size_request (plugin->statusbar_date, 200, 10);
 	gtk_box_pack_end (GTK_BOX (statusbar),
-			  data->statusbar_date,
+			  plugin->statusbar_date,
 			  FALSE, FALSE, 0);
 
-	data->signal_id = g_signal_connect_after (G_OBJECT (thumbview), "selection_changed",
-						  G_CALLBACK (selection_changed_cb), data);
+	plugin->signal_id = g_signal_connect_after (G_OBJECT (thumbview),
+						    "selection_changed",
+						    G_CALLBACK (selection_changed_cb), plugin);
 
-	statusbar_set_date (GTK_STATUSBAR (data->statusbar_date),
+	statusbar_set_date (GTK_STATUSBAR (plugin->statusbar_date),
 			    EOG_THUMB_VIEW (eog_window_get_thumb_view (window)));
-
-	g_object_set_data_full (G_OBJECT (window),
-				WINDOW_DATA_KEY,
-				data,
-				(GDestroyNotify) free_window_data);
 }
 
 static void
-impl_deactivate	(EogPlugin *plugin,
-		 EogWindow *window)
+eog_statusbar_date_plugin_deactivate (PeasActivatable *activatable)
 {
+	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
+	EogWindow *window = EOG_WINDOW (plugin->window);
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
 	GtkWidget *view = eog_window_get_thumb_view (window);
-	WindowData *data;
 
-	data = (WindowData *) g_object_get_data (G_OBJECT (window),
-						 WINDOW_DATA_KEY);
+	g_signal_handler_disconnect (view, plugin->signal_id);
 
-	g_signal_handler_disconnect (view, data->signal_id);
-
-	gtk_container_remove (GTK_CONTAINER (statusbar), data->statusbar_date);
-
-	g_object_set_data (G_OBJECT (window),
-			   WINDOW_DATA_KEY,
-			   NULL);
-}
-
-static void
-impl_update_ui (EogPlugin *plugin,
-		EogWindow *window)
-{
+	gtk_container_remove (GTK_CONTAINER (statusbar),
+			      plugin->statusbar_date);
 }
 
 static void
 eog_statusbar_date_plugin_class_init (EogStatusbarDatePluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	EogPluginClass *plugin_class = EOG_PLUGIN_CLASS (klass);
 
 	object_class->finalize = eog_statusbar_date_plugin_finalize;
+	object_class->set_property = eog_statusbar_date_plugin_set_property;
+	object_class->get_property = eog_statusbar_date_plugin_get_property;
+	
+	g_object_class_override_property (object_class, PROP_OBJECT, "object");
+ }
 
-	plugin_class->activate = impl_activate;
-	plugin_class->deactivate = impl_deactivate;
-	plugin_class->update_ui = impl_update_ui;
+static void
+eog_statusbar_date_plugin_class_finalize (EogStatusbarDatePluginClass *klass)
+{
+}
+
+static void
+peas_activatable_iface_init (PeasActivatableInterface *iface)
+{
+	iface->activate = eog_statusbar_date_plugin_activate;
+	iface->deactivate = eog_statusbar_date_plugin_deactivate;
+}
+
+G_MODULE_EXPORT void
+peas_register_types (PeasObjectModule *module)
+{
+	eog_statusbar_date_plugin_register_type (G_TYPE_MODULE (module));
+	peas_object_module_register_extension_type (module,
+						    PEAS_TYPE_ACTIVATABLE,
+						    EOG_TYPE_STATUSBAR_DATE_PLUGIN);
 }

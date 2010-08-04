@@ -7,20 +7,27 @@
 #include <gmodule.h>
 #include <glib/gi18n-lib.h>
 
+#include <libpeas/peas.h>
+#include <libpeasui/peas-ui.h>
+
 #include <eog-debug.h>
 #include <eog-scroll-view.h>
 #include <eog-thumb-view.h>
 #include <eog-image.h>
 
-#define WINDOW_DATA_KEY "EogReloadWindowData"
+static void peas_activatable_iface_init (PeasActivatableInterface *iface);
 
-EOG_PLUGIN_REGISTER_TYPE(EogReloadPlugin, eog_reload_plugin)
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (EogReloadPlugin,
+                                eog_reload_plugin,
+                                PEAS_TYPE_EXTENSION_BASE,
+                                0,
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (PEAS_TYPE_ACTIVATABLE,
+                                                               peas_activatable_iface_init))
 
-typedef struct
-{
-	GtkActionGroup *ui_action_group;
-	guint ui_id;
-} WindowData;
+enum {
+  PROP_0,
+  PROP_OBJECT
+};
 
 static void
 reload_cb (GtkAction	*action,
@@ -49,15 +56,43 @@ static const GtkActionEntry action_entries[] =
 };
 
 static void
-free_window_data (WindowData *data)
+eog_reload_plugin_set_property (GObject      *object,
+				guint         prop_id,
+				const GValue *value,
+				GParamSpec   *pspec)
 {
-	g_return_if_fail (data != NULL);
+	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (object);
 
-	eog_debug (DEBUG_PLUGINS);
+	switch (prop_id)
+	{
+	case PROP_OBJECT:
+		plugin->window = GTK_WIDGET (g_value_dup_object (value));
+		break;
 
-	g_object_unref (data->ui_action_group);
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
 
-	g_free (data);
+static void
+eog_reload_plugin_get_property (GObject    *object,
+				guint       prop_id,
+				GValue     *value,
+				GParamSpec *pspec)
+{
+	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (object);
+
+	switch (prop_id)
+	{
+	case PROP_OBJECT:
+		g_value_set_object (value, plugin->window);
+		break;
+
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
 }
 
 static void
@@ -75,77 +110,82 @@ eog_reload_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (EogPlugin *plugin,
-	       EogWindow *window)
+eog_reload_plugin_activate (PeasActivatable *activatable)
 {
 	GtkUIManager *manager;
-	WindowData *data;
+	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (activatable);
 
 	eog_debug (DEBUG_PLUGINS);
 
-	data = g_new (WindowData, 1);
+	manager = eog_window_get_ui_manager (EOG_WINDOW (plugin->window));
 
-	manager = eog_window_get_ui_manager (window);
+	plugin->ui_action_group = gtk_action_group_new ("EogReloadPluginActions");
 
-	data->ui_action_group = gtk_action_group_new ("EogReloadPluginActions");
-
-	gtk_action_group_set_translation_domain (data->ui_action_group,
+	gtk_action_group_set_translation_domain (plugin->ui_action_group,
 						 GETTEXT_PACKAGE);
 
-	gtk_action_group_add_actions (data->ui_action_group,
+	gtk_action_group_add_actions (plugin->ui_action_group,
 				      action_entries,
 				      G_N_ELEMENTS (action_entries),
-				      window);
+				      plugin->window);
 
 	gtk_ui_manager_insert_action_group (manager,
-					    data->ui_action_group,
+					    plugin->ui_action_group,
 					    -1);
 
-	g_object_set_data_full (G_OBJECT (window),
-				WINDOW_DATA_KEY,
-				data,
-				(GDestroyNotify) free_window_data);
-
-	data->ui_id = gtk_ui_manager_add_ui_from_string (manager,
-							 ui_definition,
-							 -1, NULL);
-	g_warn_if_fail (data->ui_id != 0);
+	plugin->ui_id = gtk_ui_manager_add_ui_from_string (manager,
+							   ui_definition,
+							   -1, NULL);
+	g_warn_if_fail (plugin->ui_id != 0);
+	g_print ("activate\n");
 }
 
 static void
-impl_deactivate	(EogPlugin *plugin,
-		 EogWindow *window)
+eog_reload_plugin_deactivate	(PeasActivatable *activatable)
 {
 	GtkUIManager *manager;
-	WindowData *data;
+	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (activatable);
 
 	eog_debug (DEBUG_PLUGINS);
 
-	manager = eog_window_get_ui_manager (window);
-
-	data = (WindowData *) g_object_get_data (G_OBJECT (window),
-						 WINDOW_DATA_KEY);
-	g_return_if_fail (data != NULL);
+	manager = eog_window_get_ui_manager (EOG_WINDOW (plugin->window));
 
 	gtk_ui_manager_remove_ui (manager,
-				  data->ui_id);
+				  plugin->ui_id);
 
 	gtk_ui_manager_remove_action_group (manager,
-					    data->ui_action_group);
-
-	g_object_set_data (G_OBJECT (window),
-			   WINDOW_DATA_KEY,
-			   NULL);
+					    plugin->ui_action_group);
 }
 
 static void
 eog_reload_plugin_class_init (EogReloadPluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	EogPluginClass *plugin_class = EOG_PLUGIN_CLASS (klass);
 
 	object_class->finalize = eog_reload_plugin_finalize;
+	object_class->set_property = eog_reload_plugin_set_property;
+	object_class->get_property = eog_reload_plugin_get_property;
 
-	plugin_class->activate = impl_activate;
-	plugin_class->deactivate = impl_deactivate;
+	g_object_class_override_property (object_class, PROP_OBJECT, "object");
+}
+
+static void
+eog_reload_plugin_class_finalize (EogReloadPluginClass *klass)
+{
+}
+
+static void
+peas_activatable_iface_init (PeasActivatableInterface *iface)
+{
+	iface->activate = eog_reload_plugin_activate;
+	iface->deactivate = eog_reload_plugin_deactivate;
+}
+
+G_MODULE_EXPORT void
+peas_register_types (PeasObjectModule *module)
+{
+	eog_reload_plugin_register_type (G_TYPE_MODULE (module));
+	peas_object_module_register_extension_type (module,
+						    PEAS_TYPE_ACTIVATABLE,
+						    EOG_TYPE_RELOAD_PLUGIN);
 }

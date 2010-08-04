@@ -3,7 +3,9 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <eog-plugin.h>
+#include <gtk/gtk.h>
+#include <libpeas/peas-extension-base.h>
+#include <libpeas/peas-object-module.h>
 
 G_BEGIN_DECLS
 
@@ -27,7 +29,9 @@ typedef struct _EogFullscreenPlugin		EogFullscreenPlugin;
 
 struct _EogFullscreenPlugin
 {
-	EogPlugin parent_instance;
+	PeasExtensionBase parent_instance;
+	GtkWidget *window;
+	gulong signal_id;
 };
 
 /*
@@ -37,7 +41,7 @@ typedef struct _EogFullscreenPluginClass	EogFullscreenPluginClass;
 
 struct _EogFullscreenPluginClass
 {
-	EogPluginClass parent_class;
+	PeasExtensionBaseClass parent_class;
 };
 
 /*
@@ -46,7 +50,7 @@ struct _EogFullscreenPluginClass
 GType	eog_fullscreen_plugin_get_type		(void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_eog_plugin (GTypeModule *module);
+G_MODULE_EXPORT void peas_register_types (PeasObjectModule *module);
 
 G_END_DECLS
 
