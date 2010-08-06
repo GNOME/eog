@@ -2568,12 +2568,12 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 	const GdkColor *selected;
 	EogScrollViewPrivate *priv = view->priv;
 
-	if (!priv->use_bg_color)
-		selected = NULL;
-	else if (priv->override_bg_color)
+	if (priv->override_bg_color)
 		selected = priv->override_bg_color;
-	else
+	else if (priv->use_bg_color)
 		selected = priv->background_color;
+	else
+		selected = NULL;
 
 	if (priv->transp_style == EOG_TRANSP_BACKGROUND
 	    && priv->background_surface != NULL) {
