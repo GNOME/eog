@@ -5220,7 +5220,7 @@ eog_window_get_thumb_nav (EogWindow *window)
  *
  * Gets the statusbar in @window.
  *
- * Returns: a #EogStatusBar.
+ * Returns: a #EogStatusbar.
  **/
 GtkWidget *
 eog_window_get_statusbar (EogWindow *window)
