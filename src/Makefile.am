@@ -152,7 +152,8 @@ libeog_la_CPPFLAGS =						\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"		\
 	-DEOG_PIXMAPS_DIR=\""$(datadir)/pixmaps/eog"\"		\
-	-DEOG_PLUGIN_DIR=\""$(libdir)/eog/plugins"\"
+	-DEOG_PLUGIN_DIR=\""$(libdir)/eog/plugins"\"		\
+	-DLIBDIR=\""$(libdir)"\"
 
 libeog_la_CFLAGS =						\
 	$(EOG_CFLAGS)						\
