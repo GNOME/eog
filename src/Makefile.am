@@ -67,7 +67,7 @@ INST_H_FILES =				\
 	eog-job-queue.h			\
 	eog-jobs.h
 
-libeog_la_SOURCES =			\
+libeog_c_files = 			\
 	eog-application.c		\
 	eog-session.c			\
 	eog-debug.c			\
@@ -104,7 +104,10 @@ libeog_la_SOURCES =			\
 	eog-plugin-engine.c            	\
 	eog-clipboard-handler.c		\
 	uta.c				\
-	zoom.c				\
+	zoom.c
+
+libeog_la_SOURCES =			\
+	$(libeog_c_files)		\
 	$(BUILT_SOURCES)		\
 	$(NOINST_H_FILES)		\
 	$(INST_H_FILES)
@@ -113,7 +116,7 @@ if HAVE_EXIF
 INST_H_FILES +=				\
 	eog-exif-util.h			\
 	eog-exif-details.h
-libeog_la_SOURCES +=			\
+libeog_c_files +=			\
 	eog-exif-util.c			\
 	eog-exif-details.c
 endif
@@ -138,18 +141,20 @@ libeog_la_SOURCES +=			\
 	eog-exif-details.c
 endif HAVE_EXEMPI
 
-libeog_la_CFLAGS =						\
+libeog_la_CPPFLAGS =						\
 	-I$(top_srcdir)/jpegutils				\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
-	$(EOG_CFLAGS)						\
-	$(WARN_CFLAGS)						\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"		\
 	-DEOG_PIXMAPS_DIR=\""$(datadir)/pixmaps/eog"\"		\
 	-DEOG_PLUGIN_DIR=\""$(libdir)/eog/plugins"\"
+
+libeog_la_CFLAGS =						\
+	$(EOG_CFLAGS)						\
+	$(WARN_CFLAGS)
 
 libeog_la_LIBADD = \
 	$(EOG_LIBS)
@@ -182,7 +187,8 @@ eog_CFLAGS = 							\
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	$(EOG_CFLAGS)						\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
-	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"
+	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"                \
+	$(INTROSPECTION_CFLAGS)
 
 eog_LDADD = 				\
 	libeog.la			\
@@ -190,7 +196,8 @@ eog_LDADD = 				\
 	$(LIBJPEG)			\
 	$(toolbar_LIB)			\
 	$(screensaver_LIB)		\
-	$(jpeg_LIB)
+	$(jpeg_LIB)			\
+	$(INTROSPECTION_LIBS)
 
 eog_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 
@@ -228,6 +235,27 @@ eog-application-service.h: eog-application-service.xml
 endif
 
 CLEANFILES = $(BUILT_SOURCES)
+
+if HAVE_INTROSPECTION
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS = Eog-3.0.gir
+INTROSPECTION_SCANNER_ARGS = -I$(top_srcdir) --warn-all $(libeog_la_CPPFLAGS)
+
+Eog-3.0.gir: eog
+Eog_3_0_gir_INCLUDES = Gtk-3.0
+Eog_3_0_gir_FILES = $(INST_H_FILES) $(libeog_c_files) $(BUILT_SOURCES)
+Eog_3_0_gir_VERSION = 3.0
+Eog_3_0_gir_PROGRAM = $(builddir)/eog
+Eog_3_0_gir_NAMESPACE = Eog
+Eog_3_0_gir_CFLAGS = $(EOG_CFLAGS)
+girdir = $(datadir)/eog/gir-1.0
+gir_DATA = $(INTROSPECTION_GIRS)
+
+typelibdir = $(libdir)/eog/girepository-1.0
+typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+
+CLEANFILES += $(gir_DATA) $(typelib_DATA)
+endif
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)

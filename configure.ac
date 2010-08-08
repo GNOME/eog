@@ -107,6 +107,16 @@ EOG_MODULES="gtk+-3.0 >= $GTK_REQUIRED \
              libpeas-1.0 >= 0.7.0 \
              libpeas-gtk-1.0 >= 0.7.0"
 
+# Introspection
+GOBJECT_INTROSPECTION_CHECK([0.9.3])
+
+if test "$found_introspection" = "yes"; then
+	have_introspection=yes
+	AC_DEFINE([HAVE_INTROSPECTION], [1], [Define to enable GObject Introspection])
+else
+	have_introspection=no
+fi
+
 # ***************
 # ZLIB (required)
 # ***************
@@ -499,4 +509,5 @@ Configure summary:
 	JPEG support ...............:  ${have_jpeg}
 	Colour management support ..:  ${have_lcms}
 	D-Bus activation............:  ${have_dbus}
+	GObject Introspection.......:  ${have_introspection}
 "
