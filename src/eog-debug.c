@@ -40,7 +40,7 @@ static GTimer *timer = NULL;
 static gdouble last = 0.0;
 #endif
 
-static EogDebugSection debug = EOG_NO_DEBUG;
+static EogDebug debug = EOG_DEBUG_NO_DEBUG;
 
 void
 eog_debug_init (void)
@@ -48,7 +48,7 @@ eog_debug_init (void)
 	if (g_getenv ("EOG_DEBUG") != NULL)
 	{
 		/* Enable all debugging */
-		debug = ~EOG_NO_DEBUG;
+		debug = ~EOG_DEBUG_NO_DEBUG;
 		goto out;
 	}
 
@@ -91,14 +91,14 @@ eog_debug_init (void)
 out:
 
 #ifdef ENABLE_PROFILING
-	if (debug != EOG_NO_DEBUG)
+	if (debug != EOG_DEBUG_NO_DEBUG)
 		timer = g_timer_new ();
 #endif
 	return;
 }
 
 void
-eog_debug_message (EogDebugSection   section,
+eog_debug_message (EogDebug   section,
 		   const gchar      *file,
 		   gint              line,
 		   const gchar      *function,
@@ -136,7 +136,7 @@ eog_debug_message (EogDebugSection   section,
 	}
 }
 
-void eog_debug (EogDebugSection  section,
+void eog_debug (EogDebug  section,
 		  const gchar       *file,
 		  gint               line,
 		  const gchar       *function)
