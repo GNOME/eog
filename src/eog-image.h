@@ -27,6 +27,7 @@
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
 #include "eog-enums.h"
+#include "eog-exif-util.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -168,7 +169,7 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
-gpointer          eog_image_get_exif_info            (EogImage   *img);
+EogExifData*      eog_image_get_exif_info            (EogImage   *img);
 
 gpointer          eog_image_get_xmp_info             (EogImage   *img);
 

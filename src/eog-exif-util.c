@@ -199,7 +199,7 @@ eog_exif_util_format_date (const gchar *date)
  * Returns: a pointer to @buffer.
  */
 const gchar *
-eog_exif_util_get_value (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
+eog_exif_data_get_value (EogExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
 {
 	ExifEntry *exif_entry;
 	const gchar *exif_value;
@@ -211,4 +211,30 @@ eog_exif_util_get_value (ExifData *exif_data, gint tag_id, gchar *buffer, guint 
 	exif_value = exif_entry_get_value (exif_entry, buffer, buf_size);
 
 	return exif_value;
+}
+
+EogExifData *
+eog_exif_data_copy (EogExifData *data)
+{
+	exif_data_ref (data);
+
+	return data;
+}
+
+void
+eog_exif_data_free (EogExifData *data)
+{
+	exif_data_unref (data);
+}
+
+GType
+eog_exif_data_get_type (void)
+{
+	static GType our_type = 0;
+
+	if (our_type == 0)
+		our_type = g_boxed_type_register_static ("EogExifData",
+							 (GBoxedCopyFunc) eog_exif_data_copy,
+							 (GBoxedFreeFunc) eog_exif_data_free);
+	return our_type;
 }

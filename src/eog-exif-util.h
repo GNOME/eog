@@ -28,13 +28,21 @@
 #define __EOG_EXIF_UTIL_H__
 
 #include <glib.h>
+#include <glib-object.h>
 #include <libexif/exif-data.h>
 
 G_BEGIN_DECLS
 
+typedef ExifData EogExifData;
+
 gchar*       eog_exif_util_format_date           (const gchar *date);
 
-const gchar *eog_exif_util_get_value             (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size);
+const gchar *eog_exif_data_get_value             (EogExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size);
+
+GType                 eog_exif_data_get_type           (void) G_GNUC_CONST;
+
+EogExifData * eog_exif_data_copy (EogExifData *data);
+void          eog_exif_data_free (EogExifData *data);
 
 G_END_DECLS
 

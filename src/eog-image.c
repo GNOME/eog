@@ -1887,11 +1887,11 @@ eog_image_cancel_load (EogImage *img)
 	g_mutex_unlock (priv->status_mutex);
 }
 
-gpointer
+EogExifData *
 eog_image_get_exif_info (EogImage *img)
 {
 	EogImagePrivate *priv;
-	gpointer data = NULL;
+	EogExifData *data = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 

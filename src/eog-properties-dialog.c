@@ -178,14 +178,14 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 #if HAVE_EXIF
 static void
-eog_exif_set_label (GtkWidget *w, ExifData *exif_data, gint tag_id)
+eog_exif_set_label (GtkWidget *w, EogExifData *exif_data, gint tag_id)
 {
 	gchar exif_buffer[512];
 	const gchar *buf_ptr;
 	gchar *label_text = NULL;
 
 	if (exif_data) {
-		buf_ptr = eog_exif_util_get_value (exif_data, tag_id,
+		buf_ptr = eog_exif_data_get_value (exif_data, tag_id,
 						   exif_buffer, 512);
 
 		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
