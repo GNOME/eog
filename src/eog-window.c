@@ -2919,9 +2919,11 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename)
 				 filename,
 				 NULL);
 
-	info_bar = gtk_info_bar_new_with_buttons (GTK_STOCK_YES,
+	/* I18N: When setting mnemonics for these strings, watch out to not
+	   clash with mnemonics from eog's menubar */
+	info_bar = gtk_info_bar_new_with_buttons (_("_Open Background Preferences"),
 						  GTK_RESPONSE_YES,
-						  GTK_STOCK_NO,
+						  C_("MessageArea","Hi_de"),
 						  GTK_RESPONSE_NO, NULL);
 	gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar),
 				       GTK_MESSAGE_QUESTION);
