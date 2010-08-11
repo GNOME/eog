@@ -2794,7 +2794,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 	gtk_show_about_dialog (GTK_WINDOW (window),
 			       "program-name", _("Eye of GNOME"),
 			       "version", VERSION,
-			       "copyright", "Copyright \xc2\xa9 2000-2006 Free Software Foundation, Inc.",
+			       "copyright", "Copyright \xc2\xa9 2000-2010 Free Software Foundation, Inc.",
 			       "comments",_("The GNOME image viewer."),
 			       "authors", authors,
 			       "documenters", documenters,
