@@ -2441,25 +2441,6 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 
 	translators = _("translator-credits");
 
-	const char *license[] = {
-		N_("This program is free software; you can redistribute it and/or modify "
-		   "it under the terms of the GNU General Public License as published by "
-		   "the Free Software Foundation; either version 2 of the License, or "
-		   "(at your option) any later version.\n"),
-		N_("This program is distributed in the hope that it will be useful, "
-		   "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-		   "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-		   "GNU General Public License for more details.\n"),
-		N_("You should have received a copy of the GNU General Public License "
-		   "along with this program; if not, write to the Free Software "
-		   "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.")
-	};
-
-	char *license_trans;
-
-	license_trans = g_strconcat (_(license[0]), "\n", _(license[1]), "\n",
-				     _(license[2]), "\n", NULL);
-
 	window = EOG_WINDOW (user_data);
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
@@ -2473,10 +2454,8 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 			       "website", "http://projects.gnome.org/eog/",
 			       "logo-icon-name", "eog",
 			       "wrap-license", TRUE,
-			       "license", license_trans,
+			       "license-type", GTK_LICENSE_GPL_2_0,
 			       NULL);
-
-	g_free (license_trans);
 }
 
 static void
