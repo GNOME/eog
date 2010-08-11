@@ -337,18 +337,6 @@ update_scrollbar_values (EogScrollView *view)
 	}
 }
 
-static GdkCursor *
-eog_scroll_view_create_invisible_cursor (void)
-{
-       GdkBitmap *empty;
-       GdkColor black = { 0, 0, 0, 0 };
-       static char bits[] = { 0x00 };
-
-       empty = gdk_bitmap_create_from_data (NULL, bits, 1, 1);
-
-       return gdk_cursor_new_from_pixmap (empty, empty, &black, &black, 0, 0);
-}
-
 static void
 eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 {
@@ -369,7 +357,7 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 			gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
 			break;
                 case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
-                        cursor = eog_scroll_view_create_invisible_cursor ();
+                        cursor = gdk_cursor_new (GDK_BLANK_CURSOR);
                         break;
 		case EOG_SCROLL_VIEW_CURSOR_DRAG:
 			cursor = gdk_cursor_new_for_display (display, GDK_FLEUR);
