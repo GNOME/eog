@@ -4713,24 +4713,6 @@ eog_window_unrealize (GtkWidget *widget)
 	GTK_WIDGET_CLASS (eog_window_parent_class)->unrealize (widget);
 }
 
-static gboolean
-eog_window_focus_in_event (GtkWidget *widget, GdkEventFocus *event)
-{
-	EogWindow *window = EOG_WINDOW (widget);
-	EogWindowPrivate *priv = window->priv;
-	gboolean fullscreen;
-
-	eog_debug (DEBUG_WINDOW);
-
-	fullscreen = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
-		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
-
-	if (fullscreen) {
-		show_fullscreen_popup (window);
-	}
-
-	return GTK_WIDGET_CLASS (eog_window_parent_class)->focus_in_event (widget, event);
-}
 
 static gboolean
 eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
@@ -4849,7 +4831,6 @@ eog_window_class_init (EogWindowClass *class)
         widget_class->configure_event = eog_window_configure_event;
         widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
-	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 
 /**
