@@ -101,6 +101,7 @@ struct _EogScrollViewPrivate {
 	guint image_changed_id;
 	guint frame_changed_id;
 	GdkPixbuf *pixbuf;
+	cairo_surface_t *surface;
 
 	/* zoom mode, either ZOOM_MODE_FIT or ZOOM_MODE_FREE */
 	ZoomMode zoom_mode;
@@ -181,6 +182,29 @@ G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
         util functions
   ---------------------------------*/
 
+static cairo_surface_t *
+create_surface_from_pixbuf (GdkPixbuf *pixbuf)
+{
+	cairo_surface_t *surface;
+	cairo_t *cr;
+	cairo_format_t format;
+
+	if (gdk_pixbuf_get_has_alpha (pixbuf))
+		format = CAIRO_FORMAT_ARGB32;
+	else
+		format = CAIRO_FORMAT_RGB24;
+
+	surface = cairo_image_surface_create (format,
+					      gdk_pixbuf_get_width (pixbuf),
+					      gdk_pixbuf_get_height (pixbuf));
+	cr = cairo_create (surface);
+	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+	cairo_paint (cr);
+	cairo_destroy (cr);
+
+	return surface;
+}
+
 /* Disconnects from the EogImage and removes references to it */
 static void
 free_image_resources (EogScrollView *view)
@@ -207,6 +231,11 @@ free_image_resources (EogScrollView *view)
 	if (priv->pixbuf != NULL) {
 		g_object_unref (priv->pixbuf);
 		priv->pixbuf = NULL;
+	}
+
+	if (priv->surface != NULL) {
+		cairo_surface_destroy (priv->surface);
+		priv->surface = NULL;
 	}
 }
 
@@ -1856,6 +1885,10 @@ update_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 
 	priv->pixbuf = pixbuf;
 
+	if (priv->surface) {
+		cairo_surface_destroy (priv->surface);
+	}
+	priv->surface = create_surface_from_pixbuf (priv->pixbuf);
 }
 
 static void
@@ -2277,6 +2310,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->zoom_multiplier = IMAGE_VIEW_ZOOM_MULTIPLIER;
 	priv->image = NULL;
 	priv->pixbuf = NULL;
+	priv->surface = NULL;
 	priv->progressive_state = PROGRESSIVE_NONE;
 	priv->transp_style = EOG_TRANSP_BACKGROUND;
 	priv->transp_color = 0;
