@@ -183,20 +183,24 @@ G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
   ---------------------------------*/
 
 static cairo_surface_t *
-create_surface_from_pixbuf (GdkPixbuf *pixbuf)
+create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 {
 	cairo_surface_t *surface;
 	cairo_t *cr;
 	cairo_format_t format;
+	cairo_content_t content;
 
-	if (gdk_pixbuf_get_has_alpha (pixbuf))
+	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
 		format = CAIRO_FORMAT_ARGB32;
-	else
+		content = CAIRO_CONTENT_COLOR | CAIRO_CONTENT_ALPHA;
+	} else {
 		format = CAIRO_FORMAT_RGB24;
-
-	surface = cairo_image_surface_create (format,
-					      gdk_pixbuf_get_width (pixbuf),
-					      gdk_pixbuf_get_height (pixbuf));
+		content = CAIRO_CONTENT_COLOR;
+	}
+	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
+						     content,
+						     gdk_pixbuf_get_width (pixbuf),
+						     gdk_pixbuf_get_height (pixbuf));
 	cr = cairo_create (surface);
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 	cairo_paint (cr);
@@ -1888,7 +1892,7 @@ update_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 	if (priv->surface) {
 		cairo_surface_destroy (priv->surface);
 	}
-	priv->surface = create_surface_from_pixbuf (priv->pixbuf);
+	priv->surface = create_surface_from_pixbuf (view, priv->pixbuf);
 }
 
 static void
