@@ -1839,9 +1839,57 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 		cairo_fill (cr);
 	}
 
-	cairo_scale (cr, priv->zoom, priv->zoom);
-	cairo_set_source_surface (cr, priv->surface, xofs/priv->zoom, yofs/priv->zoom);
-	cairo_paint (cr);
+#ifdef HAVE_RSVG
+	if (eog_image_is_svg (view->priv->image)) {
+		cairo_matrix_t matrix, translate, scale;
+		EogTransform *transform = eog_image_get_transform (priv->image);
+		cairo_matrix_init_identity (&matrix);
+		if (transform) {
+			cairo_matrix_t affine;
+			double image_offset_x = 0., image_offset_y = 0.;
+
+			eog_transform_get_affine (transform, &affine);
+			cairo_matrix_multiply (&matrix, &affine, &matrix);
+
+			switch (eog_transform_get_transform_type (transform)) {
+			case EOG_TRANSFORM_ROT_90:
+			case EOG_TRANSFORM_FLIP_HORIZONTAL:
+				image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
+				break;
+			case EOG_TRANSFORM_ROT_270:
+			case EOG_TRANSFORM_FLIP_VERTICAL:
+				image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
+				break;
+			case EOG_TRANSFORM_ROT_180:
+			case EOG_TRANSFORM_TRANSPOSE:
+			case EOG_TRANSFORM_TRANSVERSE:
+				image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
+				image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
+				break;
+			case EOG_TRANSFORM_NONE:
+			default:
+				break;
+			}
+			cairo_matrix_init_translate (&translate, image_offset_x, image_offset_y);
+			cairo_matrix_multiply (&matrix, &matrix, &translate);
+		}
+		cairo_matrix_init_scale (&scale, priv->zoom, priv->zoom);
+		cairo_matrix_multiply (&matrix, &matrix, &scale);
+		cairo_matrix_init_translate (&translate, xofs, yofs);
+		cairo_matrix_multiply (&matrix, &matrix, &translate);
+
+		cairo_set_matrix (cr, &matrix);
+
+		rsvg_handle_render_cairo (eog_image_get_svg (priv->image), cr);
+
+	} else
+#endif /* HAVE_RSVG */
+	{
+		cairo_scale (cr, priv->zoom, priv->zoom);
+		cairo_set_source_surface (cr, priv->surface, xofs/priv->zoom, yofs/priv->zoom);
+		cairo_paint (cr);
+	}
+
 	cairo_destroy (cr);
 	return TRUE;
 }
