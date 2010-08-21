@@ -543,11 +543,9 @@ eog_application_screensaver_disable (EogApplication *application)
 static void
 eog_application_load_accelerators (void)
 {
-	gchar *accelfile = g_build_filename (g_get_home_dir (),
-					     ".gnome2",
-					     "accels",
+	gchar *accelfile = g_build_filename (g_get_user_cache_dir (),
+                        "eog",
 					     "eog", NULL);
-
 	/* gtk_accel_map_load does nothing if the file does not exist */
 	gtk_accel_map_load (accelfile);
 	g_free (accelfile);
@@ -556,11 +554,11 @@ eog_application_load_accelerators (void)
 static void
 eog_application_save_accelerators (void)
 {
-	gchar *accelfile = g_build_filename (g_get_home_dir (),
-					     ".gnome2",
-					     "accels",
+	gchar *path = g_build_filename(g_get_user_cache_dir (), "eog");
+    if(!g_file_test(path, G_FILE_TEST_IS_DIR))
+ 	   g_mkdir(path, 0700);
+    gchar *accelfile = g_build_filename (path,
 					     "eog", NULL);
-
 	gtk_accel_map_save (accelfile);
 	g_free (accelfile);
 }
