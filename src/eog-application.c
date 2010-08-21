@@ -39,6 +39,7 @@
 #include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
@@ -543,22 +544,38 @@ eog_application_screensaver_disable (EogApplication *application)
 static void
 eog_application_load_accelerators (void)
 {
-	gchar *accelfile = g_build_filename (g_get_user_cache_dir (),
-                        "eog",
-					     "eog", NULL);
+	// compat with the previous version
+	gchar *old_filename = g_build_filename (g_get_home_dir (), ".gnome",
+						"accel", "eog", NULL);
+	gchar *path = g_build_filename (g_get_user_config_dir (), "eog", NULL);
+	gchar *accelfile = g_build_filename (path, "accels", NULL);
+
+	if (g_file_test (old_filename, G_FILE_TEST_IS_REGULAR)) {
+		if(!g_file_test (path, G_FILE_TEST_IS_DIR)) {
+			g_mkdir (path, 0700);
+		}
+		/* move file to ~/.config/eog/accels if its not already there */
+		if(!g_file_test (accelfile, G_FILE_TEST_EXISTS))
+			g_rename (old_filename, accelfile);
+	}
 	/* gtk_accel_map_load does nothing if the file does not exist */
 	gtk_accel_map_load (accelfile);
+
+	g_free(old_filename);
+	g_free(path);
 	g_free (accelfile);
 }
 
 static void
 eog_application_save_accelerators (void)
 {
-	gchar *path = g_build_filename(g_get_user_cache_dir (), "eog");
-    if(!g_file_test(path, G_FILE_TEST_IS_DIR))
- 	   g_mkdir(path, 0700);
-    gchar *accelfile = g_build_filename (path,
-					     "eog", NULL);
+	gchar *path = g_build_filename(g_get_user_config_dir (), "eog", NULL);
+
+	if(!g_file_test(path, G_FILE_TEST_IS_DIR))
+		g_mkdir(path, 0700);
+
+	/* save to XDG_CONFIG_HOME/eog/accels */
+	gchar *accelfile = g_build_filename (path, "accels", NULL);
 	gtk_accel_map_save (accelfile);
 	g_free (accelfile);
 }

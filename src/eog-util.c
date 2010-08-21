@@ -255,11 +255,35 @@ eog_util_dot_dir (void)
 		gboolean exists;
 
 		dot_dir = g_build_filename (g_get_user_config_dir (),
-					    "eog",
-					    NULL);
+					    "eog", NULL);
+		gchar* old_dir = g_build_filename (g_get_home_dir (), ".gnome2",
+						   "eog", NULL);
 
+		if(g_file_test (old_dir, G_FILE_TEST_IS_DIR)) {
+			/* new config directory does not exist yet */
+			if(!g_file_test (dot_dir, G_FILE_TEST_IS_DIR)) {
+			g_rename(old_dir, dot_dir);
+			} else {
+				//it exists we need to move files one by one
+				GDir* dir = g_dir_open (old_dir, 0, NULL);
+				if (dir != NULL) {
+					gchar* filename; //dont free this
+					while (filename = (gchar*) g_dir_read_name (dir))
+					{
+						gchar* old_filename = g_build_filename(old_dir, filename, NULL);
+						gchar* new_filename = g_build_filename(dot_dir, filename, NULL);
+						if(!g_file_test (new_filename, G_FILE_TEST_EXISTS))
+							g_rename (old_filename, new_filename);
+						else {} // maybe inform the user that there are duplicated files, show a dialog?
+						g_free (old_filename);
+						g_free (new_filename);
+					}
+					g_dir_close(dir);
+				}
+			}
+		}
+		g_free(old_dir);
 		exists = ensure_dir_exists (dot_dir);
-
 		if (G_UNLIKELY (!exists)) {
 			static gboolean printed_warning = FALSE;
 
