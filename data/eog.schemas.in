@@ -21,7 +21,9 @@
       <default>#000000</default>
       <locale name="C">
 	<short>Background Color</short>
-	<long>The color that is used to fill the area behind the image when the use-background-color key is set.</long>
+	<long>The color that is used to fill the area behind the image.
+        If the use-background-color key is not set, the color is determined
+        by the active GTK+ theme instead.</long>
       </locale>
     </schema>
 
@@ -33,7 +35,7 @@
       <default>1</default>
       <locale name="C">
 	<short>Use a custom background color</short>
-	<long>If this is active the color set by the background-color key will be used to fill the area behind the image. If it is not set the current GTK theme will determine the fill color.</long>
+	<long>If this is active, the color set by the background-color key will be used to fill the area behind the image. If it is not set, the current GTK+ theme will determine the fill color.</long>
       </locale>
     </schema>
 
@@ -46,8 +48,8 @@
       <locale name="C">
 	<short>Interpolate Image</short>
 	<long>Whether the image should be interpolated on zoom-out.
-	This leads to better quality but is somewhat slower than non 
-        interpolated images.</long>
+	This leads to better quality but is somewhat slower than
+        non-interpolated images.</long>
       </locale>
     </schema>
 
@@ -74,8 +76,8 @@
       <locale name="C">
 	<short>Transparency indicator</short>
 	<long>Determines how transparency should be indicated. Valid values
-        are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then
-        the trans_color key determines the used color value.
+        are CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then
+        the trans-color key determines the color value used.
         </long>
       </locale>
     </schema>
@@ -247,7 +249,7 @@
       <default>0</default>
       <locale name="C">
         <short>Trash images without asking</short>
-	<long>If activated Eye of GNOME wont ask for confirmation when
+	<long>If activated, Eye of GNOME won't ask for confirmation when
 	moving images to the trash. It will still ask if any of the files
 	cannot be moved to the trash and would be deleted instead.</long>
       </locale>
@@ -261,7 +263,7 @@
       <default>1</default>
       <locale name="C">
         <short>Whether the file chooser should show the user's pictures folder if no images are loaded.</short>
-        <long>If activated and no image is loaded in the active window, the file chooser will display the user's pictures folder using the XDG special user directories. If deactivated or the pictures folder has not been set up it will show the current working directory.</long>
+        <long>If activated and no image is loaded in the active window, the file chooser will display the user's pictures folder using the XDG special user directories. If deactivated or the pictures folder has not been set up, it will show the current working directory.</long>
       </locale>
     </schema>
 
@@ -273,9 +275,9 @@
       <default>1</default>
       <locale name="C">
         <short>Whether the metadata list in the properties dialog should have its own page.</short>
-        <long>If activated the detailed metadata list in the properties dialog
+        <long>If activated, the detailed metadata list in the properties dialog
 	will be moved to its own page in the dialog. This should make the dialog
-	more usable on smaller screens, e.g. as used by netbooks. If disabled
+	more usable on smaller screens, e.g. as used by netbooks. If disabled,
 	the widget will be embedded on the "Metadata" page.</long>
       </locale>
     </schema>

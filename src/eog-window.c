@@ -3931,7 +3931,7 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 	  N_("Show the current image in fullscreen mode"),
 	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
 	{ "PauseSlideshow", "media-playback-pause", N_("Pause Slideshow"),
-	  NULL, N_("Pause or resume the slidehow"),
+	  NULL, N_("Pause or resume the slideshow"),
 	  G_CALLBACK (eog_window_cmd_pause_slideshow), FALSE },
 };
 
