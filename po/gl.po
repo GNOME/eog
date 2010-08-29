@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog-master-po-gl-66757\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-09 00:56+0200\n"
-"PO-Revision-Date: 2010-08-09 01:00+0200\n"
+"POT-Creation-Date: 2010-08-29 04:20+0200\n"
+"PO-Revision-Date: 2010-08-29 14:15+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -373,12 +373,12 @@ msgstr "Segundos de espera ata mostrar a seguinte imaxe"
 #: ../data/eog.schemas.in.h:8
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
 msgstr ""
-"Determina como se indica a transparencia dunha imaxe. Os valores válidos son "
-"CHECK_PATTERN (patrón de xadrez), COLOR (cor) e NONE (nada). Se a opción é "
-"COLOR, entón a chave trans_color indica o valor da cor usada."
+"Determina cómo debe indicarse a transparencia dunha imaxe. Os valores "
+"válidos son CHECK_PATTERN (patrón de xadrez), COLOR (cor) e NONE (nada). Se "
+"a opción é COLOR, entón a chave trans-color indica o valor da cor usada."
 
 #: ../data/eog.schemas.in.h:9
 msgid "Extrapolate Image"
@@ -386,7 +386,19 @@ msgstr "Extrapolar a imaxe"
 
 #: ../data/eog.schemas.in.h:10
 msgid ""
-"If activated Eye of GNOME wont ask for confirmation when moving images to "
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
+msgstr ""
+"Se está activado e non se carga ningunha imaxe na xanela activa, o selector "
+"de ficheiros mostrará o cartafol de imaxes de usuario usando cartafoles "
+"especiais XDG do usuario. Se está desactivado ou o cartafol de imaxes non "
+"foi configurado, mostrará o cartafol de traballo actual."
+
+#: ../data/eog.schemas.in.h:11
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
@@ -394,29 +406,17 @@ msgstr ""
 "ao lixo. Aínda así preguntaralle por se calquera dos ficheiros non fora "
 "posíbel mover ao lixo e tivesen que ser eliminados."
 
-#: ../data/eog.schemas.in.h:11
-msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
-"will show the current working directory."
-msgstr ""
-"Se está activado e non se carga ningunha imaxe na xanela activa, o selector "
-"de ficheiros mostrará o cartafol de imaxes de usuario usando cartafoles "
-"especiais do usuario XDG. Se está desactivado ou o cartafol de imaxes non "
-"foi configurado, mostrará o cartafol de traballo actual."
-
 #: ../data/eog.schemas.in.h:12
 msgid ""
-"If activated the detailed metadata list in the properties dialog will be "
+"If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
-"embedded on the \"Metadata\" page."
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
 msgstr ""
-"Se está activada a lista de metadatos detallados na caixa de diálogo, "
-"moverase á súa propia páxina na caixa de diálogo. Isto debería facer o "
-"diálogo máis usábel en pantallas pequenas, i.e. as usadas nos notebooks. Se "
-"está desactivada o widget incorporarase na páxina \"Metadata\"."
+"Se está activada a lista de metadatos detallados no diálogo de propiedades "
+"moverase á súa propia páxina no diálogo. Isto debería facer o diálogo máis "
+"usábel en pantallas pequenas, i.e. as usadas nos notebooks. Se está "
+"desactivada o widget incorporarase na páxina «Metadata»."
 
 #: ../data/eog.schemas.in.h:13
 msgid ""
@@ -428,13 +428,13 @@ msgstr ""
 
 #: ../data/eog.schemas.in.h:14
 msgid ""
-"If this is active the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set the current GTK theme will "
-"determine the fill color."
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
 msgstr ""
-"Se isto está activado usarase o conxunto de cor pola chave background-color "
-"para rechear o área detrás da imaxe. Se non está o tema GTK actual "
-"determinará a cor de recheo."
+"Se isto está activado usarase a cor definida pola chave background-color "
+"para rechear a área detrás da imaxe. Se non está definida, o tema de GTK+ "
+"actual determinará a cor de recheo."
 
 #: ../data/eog.schemas.in.h:15
 msgid ""
@@ -498,11 +498,13 @@ msgstr "Mostrar ou ocultar a barra de ferramentas da xanela."
 
 #: ../data/eog.schemas.in.h:26
 msgid ""
-"The color that is used to fill the area behind the image when the use-"
-"background-color key is set."
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
 msgstr ""
-"A cor que se usa para rechear o área detrás da imaxe cando a chave use-"
-"background-color está estabelecida."
+"A cor que se usa para rechear o área detrás da imaxe. Se a chave use-"
+"background-color non está estabelecida, a cor é determinada polo tema de GTK"
+"+ activo."
 
 #: ../data/eog.schemas.in.h:28
 #, no-c-format
@@ -557,10 +559,10 @@ msgstr ""
 #: ../data/eog.schemas.in.h:36
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
-"Indica se a imaxe se ten que interpolar ao ampliala ou non. Isto ofrece "
-"maior calidade só que é algo máis lento que as imaxes sen interpolar."
+"Indica se a imaxe tense que interpolar ao reducila ou non. Isto ofrece maior "
+"calidade aínda que é algo máis lento que as imaxes sen interpolar."
 
 #: ../data/eog.schemas.in.h:37
 msgid ""
@@ -1371,7 +1373,7 @@ msgid "Pause Slideshow"
 msgstr "Presentación de diapositivas"
 
 #: ../src/eog-window.c:3934
-msgid "Pause or resume the slidehow"
+msgid "Pause or resume the slideshow"
 msgstr "Pausar ou reiniciar a presentación"
 
 #: ../src/eog-window.c:3939 ../src/eog-window.c:3954
