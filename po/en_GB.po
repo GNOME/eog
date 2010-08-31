@@ -5,21 +5,21 @@
 # David Lodge <dave@cirt.net>, 2004.
 # Alan Horkan <horkana tcd ie>, 2005.
 # Philip Withnall <philip@tecnocode.co.uk>, 2009, 2010.
-# Bruce Cowan <bcowan@fastmail.co.uk>, 2010.
+# Bruce Cowan <bruce@bcowan.me.uk>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-27 18:10+0100\n"
-"PO-Revision-Date: 2010-02-24 14:04+0100\n"
-"Last-Translator: Philip Withnall <philip@tecnocode.co.uk>\n"
+"POT-Creation-Date: 2010-08-31 18:14+0100\n"
+"PO-Revision-Date: 2010-08-31 18:16+0100\n"
+"Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: British English <en@li.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
@@ -361,11 +361,11 @@ msgstr "Delay in seconds until showing the next image"
 #: ../data/eog.schemas.in.h:8
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
 msgstr ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans_color key "
 "determines the used colour value."
 
 #: ../data/eog.schemas.in.h:9
@@ -374,36 +374,36 @@ msgstr "Extrapolate Image"
 
 #: ../data/eog.schemas.in.h:10
 msgid ""
-"If activated Eye of GNOME wont ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
 msgstr ""
-"If activated Eye of GNOME won't ask for confirmation when moving images to "
-"the wastebasket. It will still ask if any of the files cannot be moved to "
-"the wastebasket and would be deleted instead."
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
 
 #: ../data/eog.schemas.in.h:11
 msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
-"will show the current working directory."
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
 msgstr ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
-"will show the current working directory."
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the wastebasket. It will still ask if any of the files cannot be moved to "
+"the wastebasket and would be deleted instead."
 
 #: ../data/eog.schemas.in.h:12
 msgid ""
-"If activated the detailed metadata list in the properties dialog will be "
+"If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
-"embedded on the \"Metadata\" page."
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
 msgstr ""
 "If activated, the detailed metadata list in the properties dialogue will be "
 "moved to its own page in the dialogue. This should make the dialogue more "
-"usable on smaller screens, e.g. as used by netbooks. If disabled the widget "
+"usable on smaller screens, e.g. as used by netbooks. If disabled, the widget "
 "will be embedded on the \"Metadata\" page."
 
 #: ../data/eog.schemas.in.h:13
@@ -416,13 +416,13 @@ msgstr ""
 
 #: ../data/eog.schemas.in.h:14
 msgid ""
-"If this is active the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set the current GTK theme will "
-"determine the fill color."
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
 msgstr ""
-"If this is active, the colour set by the background-color key will be used to "
-"fill the area behind the image. If it is not set, the current GTK+ theme will "
-"determine the fill colour."
+"If this is active, the colour set by the background-color key will be used "
+"to fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill colour."
 
 #: ../data/eog.schemas.in.h:15
 msgid ""
@@ -484,11 +484,13 @@ msgstr "Show/Hide the window toolbar."
 
 #: ../data/eog.schemas.in.h:26
 msgid ""
-"The color that is used to fill the area behind the image when the use-"
-"background-color key is set."
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
 msgstr ""
-"The colour that is used to fill the area behind the image when the use-"
-"background-color key is set."
+"The colour that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the colour is determined by the active GTK+ "
+"theme instead."
 
 #: ../data/eog.schemas.in.h:28
 #, no-c-format
@@ -542,7 +544,7 @@ msgstr ""
 #: ../data/eog.schemas.in.h:36
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
 "quality but is somewhat slower than non-interpolated images."
@@ -978,7 +980,7 @@ msgstr ""
 "Alan Horkan <horkana tcd ie>\n"
 "David Lodge <dave@cirt.net>\n"
 "Philip Withnall <philip@tecnocode.co.uk>\n"
-"Bruce Cowan <bcowan@fastmail.co.uk>"
+"Bruce Cowan <bruce@bcowan.me.uk>"
 
 #: ../src/eog-window.c:2774
 msgid ""
@@ -1355,7 +1357,7 @@ msgid "Pause Slideshow"
 msgstr "Pause Slideshow"
 
 #: ../src/eog-window.c:3934
-msgid "Pause or resume the slidehow"
+msgid "Pause or resume the slideshow"
 msgstr "Pause or resume the slideshow"
 
 #: ../src/eog-window.c:3939 ../src/eog-window.c:3954
