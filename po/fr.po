@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&component=general\n"
-"POT-Creation-Date: 2010-08-12 20:57+0000\n"
-"PO-Revision-Date: 2010-08-15 21:29+0200\n"
+"POT-Creation-Date: 2010-09-02 10:31+0000\n"
+"PO-Revision-Date: 2010-09-03 23:47+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -373,12 +373,12 @@ msgstr "Délai en secondes avant d'afficher l'image suivante"
 #: ../data/eog.schemas.in.h:8
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
 msgstr ""
 "Détermine la manière dont la transparence doit être indiquée. Les valeurs "
 "valides sont CHECK_PATTERN, COLOR et NONE. Si COLOR est choisi, alors la clé "
-"trans_color détermine la valeur de la couleur utilisée."
+"trans-color détermine la valeur de la couleur utilisée."
 
 #: ../data/eog.schemas.in.h:9
 msgid "Extrapolate Image"
@@ -386,19 +386,9 @@ msgstr "Extrapoler l'image"
 
 #: ../data/eog.schemas.in.h:10
 msgid ""
-"If activated Eye of GNOME wont ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"Si activé, Eye of GNOME ne demande pas de confirmation lorsque les images "
-"sont mises à la corbeille. Il demande toujours si un fichier ne peut être "
-"mis à la corbeille et devrait donc être directement supprimé."
-
-#: ../data/eog.schemas.in.h:11
-msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
 "will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
+"directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
 "Si activé et qu'il n'y a pas d'image chargée dans la fenêtre principale, le "
@@ -407,12 +397,22 @@ msgstr ""
 "désactivé ou si le répertoire des images n'est pas configuré, il affiche le "
 "répertoire de travail actuel."
 
+#: ../data/eog.schemas.in.h:11
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"Si activé, Eye of GNOME ne demande pas de confirmation lorsque les images "
+"sont mises à la corbeille. Il demande toujours si un fichier ne peut être "
+"mis à la corbeille et devrait donc être directement supprimé."
+
 #: ../data/eog.schemas.in.h:12
 msgid ""
-"If activated the detailed metadata list in the properties dialog will be "
+"If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
-"embedded on the \"Metadata\" page."
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
 msgstr ""
 "Si activé, la liste détaillée des métadonnées dans la boîte de dialogue des "
 "propriétés est déplacée dans un onglet séparé de la boîte de dialogue. Cela "
@@ -430,12 +430,12 @@ msgstr ""
 
 #: ../data/eog.schemas.in.h:14
 msgid ""
-"If this is active the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set the current GTK theme will "
-"determine the fill color."
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
 msgstr ""
 "Si c'est activé, la couleur définie par la clé background-color est utilisée "
-"pour remplir la zone derrière l'image. Sinon, c'est le thème GTK actuel qui "
+"pour remplir la zone derrière l'image. Sinon, c'est le thème GTK+ actuel qui "
 "détermine la couleur de remplissage."
 
 #: ../data/eog.schemas.in.h:15
@@ -500,11 +500,13 @@ msgstr "Afficher/masquer la barre d'outils de la fenêtre."
 
 #: ../data/eog.schemas.in.h:26
 msgid ""
-"The color that is used to fill the area behind the image when the use-"
-"background-color key is set."
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
 msgstr ""
-"La couleur utilisée pour remplir la zone derrière l'image lorsque la clé "
-"use-background-color est définie."
+"La couleur utilisée pour remplir la zone derrière l'image. Si la clé use-"
+"background-color n'est pas définie, la couleur est déterminée par le thème "
+"GTK+ actif."
 
 #: ../data/eog.schemas.in.h:28
 #, no-c-format
@@ -559,7 +561,7 @@ msgstr ""
 #: ../data/eog.schemas.in.h:36
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
 "Indique si l'image doit être interpolée lors du zoom arrière. Cela donne une "
 "meilleure qualité de rendu mais est plus lent que les images non interpolées."
@@ -1387,7 +1389,7 @@ msgid "Pause Slideshow"
 msgstr "Diaporama en pause"
 
 #: ../src/eog-window.c:3934
-msgid "Pause or resume the slidehow"
+msgid "Pause or resume the slideshow"
 msgstr "Met en pause ou reprend le diaporama"
 
 #: ../src/eog-window.c:3939 ../src/eog-window.c:3954
