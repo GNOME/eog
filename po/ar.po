@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 18:55+0200\n"
-"PO-Revision-Date: 2010-08-19 18:35+0300\n"
+"POT-Creation-Date: 2010-09-05 16:50+0200\n"
+"PO-Revision-Date: 2010-09-05 16:39+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Virtaal 0.7.0-beta1\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
@@ -366,11 +366,10 @@ msgid "Delay in seconds until showing the next image"
 msgstr "التّأخير بالثّواني حتّى عرض الصّورة التّالية"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:9
-#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans-color key "
-"determines the used color value."
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
 msgstr ""
 "يحدد كيفيّة الإشارة للشّفافيّة. القيم الممكنة هي CHECK_PATTERN و COLOR و NONE. "
 "إن اختيرت القيمة COLOR فسيحدد مفتاح trans_color قيمة اللّون المستخدم."
@@ -381,30 +380,30 @@ msgstr "استوفي الصورة"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:11
 msgid ""
-"If activated Eye of GNOME wont ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"إذا فُعّل فلن تسأل «عين جنوم» تأكيد نقل الصور إلى المهملات. لكن ستظل تسأل إذا "
-"تعذّر نقل أي ملف إلى المهملات وكان سيُحذف بدلا من هذا."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
-msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
 "will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
+"directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
 "إذا فُعّل ولم تُحمّل أي صورة في النافذة النشطة فسيعرض مخير الملفات مجلد صور "
 "المستخدم باستخدام مجلدات XDG الخاصة. إذا عُطّل أو لم يكن مجلد الصور موجودا "
 "فسيستخدم المجلد الحالي."
 
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"إذا فُعّل فلن تسأل «عين جنوم» تأكيد نقل الصور إلى المهملات. لكن ستظل تسأل إذا "
+"تعذّر نقل أي ملف إلى المهملات وكان سيُحذف بدلا من هذا."
+
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:13
 msgid ""
-"If activated the detailed metadata list in the properties dialog will be "
+"If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
-"embedded on the \"Metadata\" page."
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
 msgstr ""
 "إذا فُعّل ستُنقل قائمة البيانات الفوقية المفصّلة في حوار الخصائص إلى صفحة "
 "مستقلة. سيجعل هذا الحوار مناسبا أكثر للشاشات الصغيرة مثل حواسيب النت. إذا "
@@ -420,9 +419,9 @@ msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:15
 msgid ""
-"If this is active the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set the current GTK theme will "
-"determine the fill color."
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
 msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:16
@@ -487,7 +486,7 @@ msgstr "أظهر\\أخفِ شريط أدوات النّافذة."
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:27
 msgid ""
 "The color that is used to fill the area behind the image. If the use-"
-"background-color key is not set the color is determined by the active GTK "
+"background-color key is not set, the color is determined by the active GTK+ "
 "theme instead."
 msgstr ""
 
@@ -515,9 +514,8 @@ msgid "Trash images without asking"
 msgstr "أرسل الصور إلى المهملات دون سؤال"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:33
-#, fuzzy
 msgid "Use a custom background color"
-msgstr "اضبط كخلفية _سطح المكتب"
+msgstr "استخدم لون خلفية مخصص"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:34
 msgid ""
@@ -541,7 +539,7 @@ msgstr ""
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:37
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
 "فيما إذا يفترض استيفاء الصّورة عند تبعيدها أم لا. يؤدي هذا لجودة أفضل لكنه "
 "أبطأ من الصّور غير المستوفاة."
@@ -1321,8 +1319,8 @@ msgid "Pause Slideshow"
 msgstr "ألبث شرائح"
 
 #: ../src/eog-window.c:3570
-msgid "Pause or resume the slidehow"
-msgstr "ألبث أم استأنف عرض الشرائح"
+msgid "Pause or resume the slideshow"
+msgstr "ألبث أو استأنف عرض الشرائح"
 
 #: ../src/eog-window.c:3575 ../src/eog-window.c:3590
 msgid "_Previous Image"
@@ -1476,7 +1474,6 @@ msgid "Start a new instance instead of reusing an existing one"
 msgstr "ابدأ سيرورة جديدا بدلا من استخدام الموجودة"
 
 #: ../src/main.c:80
-#, fuzzy
 msgid "Show the application's version"
 msgstr "أظهر نسخة التطبيق"
 
