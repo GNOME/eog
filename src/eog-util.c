@@ -318,3 +318,31 @@ eog_util_filename_get_extension (const char * filename)
 
 	return g_strdup (begin);
 }
+
+
+/**
+ * eog_util_file_is_persistent:
+ * @file: a #GFile
+ *
+ * Checks whether @file is a non-removable local mount.
+ *
+ * Returns: %TRUE if @file is in a non-removable mount,
+ * %FALSE otherwise or when it is remote.
+ **/
+gboolean
+eog_util_file_is_persistent (GFile *file)
+{
+	GMount *mount;
+
+	if (!g_file_is_native (file))
+		return FALSE;
+
+	mount = g_file_find_enclosing_mount (file, NULL, NULL);
+	if (mount) {
+		if (g_mount_can_unmount (mount)) {
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
