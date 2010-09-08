@@ -3004,6 +3004,8 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	filename = g_strdup_printf  ("%s.%s", EOG_WALLPAPER_FILENAME, extension);
 	filepath = g_build_filename (job->dest, filename, NULL);
 	dest_file = g_file_new_for_path (filepath);
+	g_free (filename);
+	g_free (extension);
 
 	/* Move the file */
 	g_file_move (source_file, dest_file, G_FILE_COPY_OVERWRITE,
