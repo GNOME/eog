@@ -210,7 +210,7 @@ static void eog_window_list_store_image_added (GtkTreeModel *tree_model,
 static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
                  				 GtkTreePath  *path,
 						 gpointer      user_data);
-static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename);
+static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
 static void eog_window_finish_saving (EogWindow *window);
 
@@ -2544,7 +2544,7 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 }
 
 static void
-eog_window_set_wallpaper (EogWindow *window, const gchar *filename)
+eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename)
 {
 	EogWindowPrivate *priv = EOG_WINDOW_GET_PRIVATE (window);
 	GtkWidget *info_bar;
@@ -2574,17 +2574,20 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename)
 					  GTK_ICON_SIZE_DIALOG);
 	label = gtk_label_new (NULL);
 
-	basename = g_path_get_basename (filename);
+	if (!visible_filename)
+		basename = g_path_get_basename (filename);
+
 	/* The newline character is currently necessary due to a problem
 	 * with the automatic line break. */
 	text = g_strdup_printf (_("The image \"%s\" has been set as Desktop Background."
 				  "\nWould you like to modify its appearance?"),
-				basename);
+				visible_filename ? visible_filename : basename);
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 	g_free (markup);
 	g_free (text);
-	g_free (basename);
+	if (!visible_filename)
+		g_free (basename);
 
 	hbox = gtk_hbox_new (FALSE, 8);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
@@ -2630,19 +2633,18 @@ static void
 eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	gchar *filepath, *filename, *extension;
+	gchar *filepath, *basename, *filename, *extension;
 	GtkAction *action;
 	GFile *source_file, *dest_file;
 
 	/* Create source GFile */
-	filename = g_file_get_basename (job->images->data);
-	filepath = g_build_filename (job->dest, filename, NULL);
+	basename = g_file_get_basename (job->images->data);
+	filepath = g_build_filename (job->dest, basename, NULL);
 	source_file = g_file_new_for_path (filepath);
 	g_free (filepath);
 
 	/* Create destination GFile */
-	extension = eog_util_filename_get_extension (filename);
-	g_free (filename);
+	extension = eog_util_filename_get_extension (basename);
 	filename = g_strdup_printf  ("%s.%s", EOG_WALLPAPER_FILENAME, extension);
 	filepath = g_build_filename (job->dest, filename, NULL);
 	dest_file = g_file_new_for_path (filepath);
@@ -2654,7 +2656,8 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 		     NULL, NULL, NULL, NULL);
 
 	/* Set the wallpaper */
-	eog_window_set_wallpaper (window, filepath);
+	eog_window_set_wallpaper (window, filepath, basename);
+	g_free (basename);
 	g_free (filepath);
 
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
@@ -2989,7 +2992,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 
 	g_object_unref (file);
 
-	eog_window_set_wallpaper (window, filename);
+	eog_window_set_wallpaper (window, filename, NULL);
 
 	g_free (filename);
 }
