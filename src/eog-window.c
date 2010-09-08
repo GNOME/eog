@@ -3315,7 +3315,8 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	filename = g_file_get_path (file);
 
 	/* Currently only local files can be set as wallpaper */
-	if (filename == NULL || !g_file_is_native (file)) {
+	if (filename == NULL || !eog_util_file_is_persistent (file))
+	{
 		GList *files = NULL;
 		GtkAction *action;
 
