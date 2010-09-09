@@ -4483,6 +4483,10 @@ eog_window_construct_ui (EogWindow *window)
 	hpaned = gtk_hpaned_new ();
 
 	priv->sidebar = eog_sidebar_new ();
+	/* The sidebar shouldn't be shown automatically on show_all(),
+	   but only when the user actually wants it. */
+	gtk_widget_set_no_show_all (priv->sidebar, TRUE);
+
 	gtk_widget_set_size_request (priv->sidebar, 210, -1);
 
 	g_signal_connect_after (priv->sidebar,
