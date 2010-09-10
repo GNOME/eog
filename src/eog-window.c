@@ -2368,8 +2368,6 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 
 	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
 
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
-
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 500, 400);
 
 	editor = egg_toolbar_editor_new (window->priv->ui_mgr,
