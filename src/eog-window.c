@@ -183,6 +183,7 @@ struct _EogWindowPrivate {
 	guint                open_with_menu_id;
 
 	gboolean	     save_disabled;
+	gboolean             needs_reload_confirmation;
 
 #ifdef HAVE_LCMS
         cmsHPROFILE         *display_profile;
@@ -794,6 +795,66 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 }
 
 static void
+file_changed_info_bar_response (GtkInfoBar *info_bar,
+				gint response,
+				EogWindow *window)
+{
+	if (response == GTK_RESPONSE_YES) {
+		eog_window_reload_image (window);
+	}
+
+	window->priv->needs_reload_confirmation = TRUE;
+
+	eog_window_set_message_area (window, NULL);
+}
+static void
+image_file_changed_cb (EogImage *img, EogWindow *window)
+{
+	GtkWidget *info_bar;
+	gchar *text, *markup;
+	GtkWidget *image;
+	GtkWidget *label;
+	GtkWidget *hbox;
+
+	if (window->priv->needs_reload_confirmation == FALSE)
+		return;
+
+	window->priv->needs_reload_confirmation = FALSE;
+
+	info_bar = gtk_info_bar_new_with_buttons (_("_Reload"),
+						  GTK_RESPONSE_YES,
+						  C_("MessageArea", "Hi_de"),
+						  GTK_RESPONSE_NO, NULL);
+	gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar),
+				       GTK_MESSAGE_QUESTION);
+	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_QUESTION,
+					  GTK_ICON_SIZE_DIALOG);
+	label = gtk_label_new (NULL);
+
+	/* The newline character is currently necessary due to a problem
+	 * with the automatic line break. */
+	text = g_strdup_printf (_("The image \"%s\" has been modified by an external application."
+				  "\nWould you like to reload it?"), eog_image_get_caption (img));
+	markup = g_markup_printf_escaped ("<b>%s</b>", text);
+	gtk_label_set_markup (GTK_LABEL (label), markup);
+	g_free (text);
+	g_free (markup);
+
+	hbox = gtk_hbox_new (FALSE, 8);
+	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar))), hbox, TRUE, TRUE, 0);
+	gtk_widget_show_all (hbox);
+	gtk_widget_show (info_bar);
+
+	eog_window_set_message_area (window, info_bar);
+	g_signal_connect (info_bar, "response",
+			  G_CALLBACK (file_changed_info_bar_response), window);
+}
+
+static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
@@ -813,9 +874,14 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 				  "thumbnail_changed",
 				  G_CALLBACK (image_thumb_changed_cb),
 				  window);
+		g_signal_connect (image, "file-changed",
+				  G_CALLBACK (image_file_changed_cb),
+				  window);
 
 		image_thumb_changed_cb (image, window);
 	}
+
+	priv->needs_reload_confirmation = TRUE;
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
 
@@ -1207,6 +1273,9 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	if (priv->image != NULL) {
 		g_signal_handlers_disconnect_by_func (priv->image,
 						      image_thumb_changed_cb,
+						      window);
+		g_signal_handlers_disconnect_by_func (priv->image,
+						      image_file_changed_cb,
 						      window);
 
 		g_object_unref (priv->image);
@@ -4315,6 +4384,9 @@ eog_window_dispose (GObject *object)
 	if (priv->image != NULL) {
 	  	g_signal_handlers_disconnect_by_func (priv->image,
 						      image_thumb_changed_cb,
+						      window);
+		g_signal_handlers_disconnect_by_func (priv->image,
+						      image_file_changed_cb,
 						      window);
 		g_object_unref (priv->image);
 		priv->image = NULL;
