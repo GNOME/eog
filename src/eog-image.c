@@ -75,6 +75,7 @@ enum {
 	SIGNAL_THUMBNAIL_CHANGED,
 	SIGNAL_SAVE_PROGRESS,
 	SIGNAL_NEXT_FRAME,
+	SIGNAL_FILE_CHANGED,
 	SIGNAL_LAST
 };
 
@@ -265,6 +266,14 @@ eog_image_class_init (EogImageClass *klass)
 			      g_cclosure_marshal_VOID__INT,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
+
+	signals[SIGNAL_FILE_CHANGED] = g_signal_new ("file-changed",
+						     EOG_TYPE_IMAGE,
+						     G_SIGNAL_RUN_LAST,
+						     G_STRUCT_OFFSET (EogImageClass, file_changed),
+						     NULL, NULL,
+						     g_cclosure_marshal_VOID__VOID,
+						     G_TYPE_NONE, 0);
 
 	g_type_class_add_private (object_class, sizeof (EogImagePrivate));
 }
@@ -2212,3 +2221,17 @@ eog_image_get_transform (EogImage *img)
 }
 
 #endif
+
+/**
+ * eog_image_file_changed:
+ * @img: a #EogImage
+ *
+ * Emits EogImage::file-changed signal
+ **/
+void
+eog_image_file_changed (EogImage *img)
+{
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	g_signal_emit (img, signals[SIGNAL_FILE_CHANGED], 0);
+}

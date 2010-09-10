@@ -112,6 +112,8 @@ struct _EogImageClass {
 
 	void (* next_frame)        (EogImage *img,
 				    gint delay);
+
+	void (* file_changed)      (EogImage *img);
 };
 
 GType	          eog_image_get_type	             (void) G_GNUC_CONST;
@@ -208,6 +210,8 @@ gboolean          eog_image_is_svg                   (EogImage *img);
 RsvgHandle       *eog_image_get_svg                  (EogImage *img);
 EogTransform     *eog_image_get_transform            (EogImage *img);
 #endif
+
+void              eog_image_file_changed             (EogImage *img);
 
 G_END_DECLS
 
