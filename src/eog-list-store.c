@@ -389,6 +389,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	const char *mimetype;
 	GFileInfo *file_info;
 	GtkTreeIter iter;
+	EogImage *image;
 
 	switch (event) {
 	case G_FILE_MONITOR_EVENT_CHANGED:
@@ -402,6 +403,11 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
+				gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+						    EOG_LIST_STORE_EOG_IMAGE, &image,
+						    -1);
+				eog_image_file_changed (image);
+				g_object_unref (image);
 				eog_list_store_thumbnail_refresh (store, &iter);
 			} else {
 				eog_list_store_remove (store, &iter);
