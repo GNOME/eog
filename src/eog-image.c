@@ -260,7 +260,7 @@ eog_image_class_init (EogImageClass *klass)
 		g_signal_new ("next-frame",
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, save_progress),
+			      G_STRUCT_OFFSET (EogImageClass, next_frame),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__INT,
 			      G_TYPE_NONE, 1,
