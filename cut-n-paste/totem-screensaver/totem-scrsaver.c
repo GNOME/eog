@@ -282,6 +282,7 @@ static void
 screensaver_enable_x11 (TotemScrsaver *scr)
 {
 
+	Display *display;
 #ifdef HAVE_XTEST
 	if (scr->priv->have_xtest != FALSE)
 	{
@@ -290,13 +291,14 @@ screensaver_enable_x11 (TotemScrsaver *scr)
 	}
 #endif /* HAVE_XTEST */
 
-	XLockDisplay (GDK_DISPLAY());
-	XSetScreenSaver (GDK_DISPLAY(),
+	display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default());
+	XLockDisplay (display);
+	XSetScreenSaver (display,
 			scr->priv->timeout,
 			scr->priv->interval,
 			scr->priv->prefer_blanking,
 			scr->priv->allow_exposures);
-	XUnlockDisplay (GDK_DISPLAY());
+	XUnlockDisplay (display);
 }
 
 #ifdef HAVE_XTEST
@@ -305,12 +307,15 @@ fake_event (TotemScrsaver *scr)
 {
 	if (scr->priv->disabled)
 	{
-		XLockDisplay (GDK_DISPLAY());
-		XTestFakeKeyEvent (GDK_DISPLAY(), *scr->priv->keycode,
+		Display *display;
+
+		display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default());
+		XLockDisplay (display);
+		XTestFakeKeyEvent (display, *scr->priv->keycode,
 				True, CurrentTime);
-		XTestFakeKeyEvent (GDK_DISPLAY(), *scr->priv->keycode,
+		XTestFakeKeyEvent (display, *scr->priv->keycode,
 				False, CurrentTime);
-		XUnlockDisplay (GDK_DISPLAY());
+		XUnlockDisplay (display);
 		/* Swap the keycode */
 		if (scr->priv->keycode == &scr->priv->keycode1)
 			scr->priv->keycode = &scr->priv->keycode2;
@@ -325,16 +330,19 @@ fake_event (TotemScrsaver *scr)
 static void
 screensaver_disable_x11 (TotemScrsaver *scr)
 {
+	Display *display;
+
+	display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default());
 
 #ifdef HAVE_XTEST
 	if (scr->priv->have_xtest != FALSE)
 	{
-		XLockDisplay (GDK_DISPLAY());
-		XGetScreenSaver(GDK_DISPLAY(), &scr->priv->timeout,
+		XLockDisplay (display);
+		XGetScreenSaver(display, &scr->priv->timeout,
 				&scr->priv->interval,
 				&scr->priv->prefer_blanking,
 				&scr->priv->allow_exposures);
-		XUnlockDisplay (GDK_DISPLAY());
+		XUnlockDisplay (display);
 
 		if (scr->priv->timeout != 0) {
 			g_timeout_add_seconds (scr->priv->timeout / 2,
@@ -348,14 +356,14 @@ screensaver_disable_x11 (TotemScrsaver *scr)
 	}
 #endif /* HAVE_XTEST */
 
-	XLockDisplay (GDK_DISPLAY());
-	XGetScreenSaver(GDK_DISPLAY(), &scr->priv->timeout,
+	XLockDisplay (display);
+	XGetScreenSaver(display, &scr->priv->timeout,
 			&scr->priv->interval,
 			&scr->priv->prefer_blanking,
 			&scr->priv->allow_exposures);
-	XSetScreenSaver(GDK_DISPLAY(), 0, 0,
+	XSetScreenSaver(display, 0, 0,
 			DontPreferBlanking, DontAllowExposures);
-	XUnlockDisplay (GDK_DISPLAY());
+	XUnlockDisplay (display);
 }
 
 static void
@@ -363,25 +371,28 @@ screensaver_init_x11 (TotemScrsaver *scr)
 {
 #ifdef HAVE_XTEST
 	int a, b, c, d;
+	Display *display;
 
-	XLockDisplay (GDK_DISPLAY());
-	scr->priv->have_xtest = (XTestQueryExtension (GDK_DISPLAY(), &a, &b, &c, &d) == True);
+	display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default());
+
+	XLockDisplay (display);
+	scr->priv->have_xtest = (XTestQueryExtension (display, &a, &b, &c, &d) == True);
 	if (scr->priv->have_xtest != FALSE)
 	{
-		scr->priv->keycode1 = XKeysymToKeycode (GDK_DISPLAY(), XK_Alt_L);
+		scr->priv->keycode1 = XKeysymToKeycode (display, XK_Alt_L);
 		if (scr->priv->keycode1 == 0) {
 			g_warning ("scr->priv->keycode1 not existant");
 		}
-		scr->priv->keycode2 = XKeysymToKeycode (GDK_DISPLAY(), XK_Alt_R);
+		scr->priv->keycode2 = XKeysymToKeycode (display, XK_Alt_R);
 		if (scr->priv->keycode2 == 0) {
-			scr->priv->keycode2 = XKeysymToKeycode (GDK_DISPLAY(), XK_Alt_L);
+			scr->priv->keycode2 = XKeysymToKeycode (display, XK_Alt_L);
 			if (scr->priv->keycode2 == 0) {
 				g_warning ("scr->priv->keycode2 not existant");
 			}
 		}
 		scr->priv->keycode = &scr->priv->keycode1;
 	}
-	XUnlockDisplay (GDK_DISPLAY());
+	XUnlockDisplay (display);
 #endif /* HAVE_XTEST */
 }
 
