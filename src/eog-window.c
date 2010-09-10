@@ -4465,12 +4465,12 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	gboolean handle_selection = FALSE;
 
 	switch (event->keyval) {
-	case GDK_space:
+	case GDK_KEY_space:
 		if (event->state & GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
 			break;
 		}
-	case GDK_Return:
+	case GDK_KEY_Return:
 		if (gtk_container_get_focus_child (tbcontainer) == NULL) {
 			/* Image properties dialog case */
 			if (event->state & GDK_MOD1_MASK) {
@@ -4486,8 +4486,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 		}
 		break;
-	case GDK_p:
-	case GDK_P:
+	case GDK_KEY_p:
+	case GDK_KEY_P:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN || EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 			gboolean slideshow;
 
@@ -4495,9 +4495,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_run_fullscreen (EOG_WINDOW (widget), !slideshow);
 		}
 		break;
-	case GDK_Q:
-	case GDK_q:
-	case GDK_Escape:
+	case GDK_KEY_Q:
+	case GDK_KEY_q:
+	case GDK_KEY_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
 		} else if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
@@ -4507,7 +4507,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			return TRUE;
 		}
 		break;
-	case GDK_Left:
+	case GDK_KEY_Left:
 		if (event->state & GDK_MOD1_MASK) {
 			/* Alt+Left moves to previous image */
 			if (is_rtl) { /* move to next in RTL mode */
@@ -4518,7 +4518,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 			break;
 		} /* else fall-trough is intended */
-	case GDK_Up:
+	case GDK_KEY_Up:
 		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			/* break to let scrollview handle the key */
 			break;
@@ -4526,7 +4526,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if (gtk_container_get_focus_child (tbcontainer) != NULL)
 			break;
 		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-			if (is_rtl && event->keyval == GDK_Left) {
+			if (is_rtl && event->keyval == GDK_KEY_Left) {
 				/* handle RTL fall-through,
 				 * need to behave like GDK_Down then */
 				eog_window_cmd_go_next (NULL,
@@ -4538,7 +4538,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 			break;
 		}
-	case GDK_Right:
+	case GDK_KEY_Right:
 		if (event->state & GDK_MOD1_MASK) {
 			/* Alt+Right moves to next image */
 			if (is_rtl) { /* move to previous in RTL mode */
@@ -4549,7 +4549,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 			break;
 		} /* else fall-trough is intended */
-	case GDK_Down:
+	case GDK_KEY_Down:
 		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			/* break to let scrollview handle the key */
 			break;
@@ -4557,7 +4557,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if (gtk_container_get_focus_child (tbcontainer) != NULL)
 			break;
 		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-			if (is_rtl && event->keyval == GDK_Right) {
+			if (is_rtl && event->keyval == GDK_KEY_Right) {
 				/* handle RTL fall-through,
 				 * need to behave like GDK_Up then */
 				eog_window_cmd_go_prev (NULL,
@@ -4569,7 +4569,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 			break;
 		}
-	case GDK_Page_Up:
+	case GDK_KEY_Page_Up:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 				/* If the iconview is not visible skip to the
@@ -4582,7 +4582,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 				handle_selection = TRUE;
 		}
 		break;
-	case GDK_Page_Down:
+	case GDK_KEY_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 				/* If the iconview is not visible skip to the
