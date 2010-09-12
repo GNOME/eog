@@ -78,7 +78,7 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
-#include <lcms.h>
+#include <lcms2.h>
 #endif
 
 #define EOG_WINDOW_GET_PRIVATE(object) \
@@ -399,7 +399,6 @@ eog_window_get_display_profile (GdkScreen *screen)
 	int result;
 	cmsHPROFILE *profile;
 	char *atom_name;
-	int lcms_error_action;
 
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
@@ -446,16 +445,7 @@ eog_window_get_display_profile (GdkScreen *screen)
 				return NULL;
 		}
 
-		/* Make lcms errors non-fatal here, as it is possible
-		 * to load invalid profiles with XICC.
-		 * We don't want lcms to abort EOG in that case.
-		 */
-		lcms_error_action = cmsErrorAction (LCMS_ERROR_IGNORE);
-
 		profile = cmsOpenProfileFromMem (str, length);
-
-		// Restore the previous error setting
-		cmsErrorAction (lcms_error_action);
 
 		if (G_UNLIKELY (profile == NULL)) {
 			eog_debug_message (DEBUG_LCMS,

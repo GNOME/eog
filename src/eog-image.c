@@ -59,7 +59,7 @@
 #endif
 
 #ifdef HAVE_LCMS
-#include <lcms.h>
+#include <lcms2.h>
 #ifndef EXIF_TAG_GAMMA
 #define EXIF_TAG_GAMMA 0xa500
 #endif
@@ -683,8 +683,8 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 	if (screen == NULL || priv->profile == NULL) return;
 
 	/* TODO: support other colorspaces than RGB */
-	if (cmsGetColorSpace (priv->profile) != icSigRgbData ||
-	    cmsGetColorSpace (screen) != icSigRgbData) {
+	if (cmsGetColorSpace (priv->profile) != cmsSigRgbData ||
+	    cmsGetColorSpace (screen) != cmsSigRgbData) {
 		eog_debug_message (DEBUG_LCMS, "One or both ICC profiles not in RGB colorspace; not correcting");
 		return;
 	}

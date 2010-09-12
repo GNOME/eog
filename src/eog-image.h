@@ -38,7 +38,7 @@
 #endif
 
 #ifdef HAVE_LCMS
-#include <lcms.h>
+#include <lcms2.h>
 #endif
 
 #ifdef HAVE_EXEMPI
