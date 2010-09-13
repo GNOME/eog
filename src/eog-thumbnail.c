@@ -440,7 +440,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	GdkPixbuf *thumb = NULL;
 	GFile *file;
 	EogThumbData *data;
-	GdkPixbuf *pixbuf;
+	GdkPixbuf *pixbuf = NULL;
 
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
@@ -465,7 +465,9 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	if (thumb != NULL) {
 		eog_debug_message (DEBUG_THUMBNAIL, "%s: loaded from cache",data->uri_str);
 	} else if (gnome_desktop_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) {
-		pixbuf = eog_image_get_pixbuf (image);
+		/* Only use the image pixbuf when it is up to date. */
+		if (!eog_image_is_file_changed (image))
+			pixbuf = eog_image_get_pixbuf (image);
 
 		if (pixbuf != NULL) {
 			/* generate a thumbnail from the in-memory image,
