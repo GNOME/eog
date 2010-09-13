@@ -213,6 +213,8 @@ EogTransform     *eog_image_get_transform            (EogImage *img);
 
 void              eog_image_file_changed             (EogImage *img);
 
+gboolean          eog_image_is_file_changed          (EogImage *img);
+
 G_END_DECLS
 
 #endif /* __EOG_IMAGE_H__ */

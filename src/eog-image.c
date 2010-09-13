@@ -2240,3 +2240,11 @@ eog_image_file_changed (EogImage *img)
 	img->priv->file_is_changed = TRUE;
 	g_signal_emit (img, signals[SIGNAL_FILE_CHANGED], 0);
 }
+
+gboolean
+eog_image_is_file_changed (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), TRUE);
+
+	return img->priv->file_is_changed;
+}
