@@ -62,6 +62,7 @@ struct _EogImagePrivate {
 	guint             iptc_chunk_len;
 
 	gboolean          modified;
+	gboolean          file_is_changed;
 
 #ifdef HAVE_EXIF
 	gboolean          autorotate;
