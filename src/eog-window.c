@@ -2320,7 +2320,7 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 		list = g_list_reverse (list);
 		dialog = eog_close_confirmation_dialog_new (GTK_WINDOW (window),
 							    list);
-	
+		g_list_free (list);
 		g_signal_connect (dialog,
 				  "response",
 				  G_CALLBACK (close_confirmation_dialog_response_handler),
