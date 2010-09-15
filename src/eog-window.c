@@ -2311,12 +2311,13 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 				continue;
 
 			if (eog_image_is_modified (image)) {
-				list = g_list_append (list, image);
+				list = g_list_prepend (list, image);
 			}
 		} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter));
 	}		
 
 	if (list) {	
+		list = g_list_reverse (list);
 		dialog = eog_close_confirmation_dialog_new (GTK_WINDOW (window),
 							    list);
 	
