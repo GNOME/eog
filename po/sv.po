@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-03 01:29+0200\n"
-"PO-Revision-Date: 2010-09-03 01:33+0100\n"
+"POT-Creation-Date: 2010-09-16 18:26+0200\n"
+"PO-Revision-Date: 2010-09-16 18:26+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -574,34 +575,34 @@ msgstr "Spara bild"
 msgid "Open Folder"
 msgstr "Öppna mapp"
 
-#: ../src/eog-image.c:589
+#: ../src/eog-image.c:598
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformering på oinläst bild."
 
-#: ../src/eog-image.c:617
+#: ../src/eog-image.c:626
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformering misslyckades."
 
-#: ../src/eog-image.c:1044
+#: ../src/eog-image.c:1053
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF stöds inte för detta filformat."
 
-#: ../src/eog-image.c:1171
+#: ../src/eog-image.c:1180
 #, c-format
 msgid "Image loading failed."
 msgstr "Bildinläsning misslyckades."
 
-#: ../src/eog-image.c:1576
-#: ../src/eog-image.c:1678
+#: ../src/eog-image.c:1585
+#: ../src/eog-image.c:1687
 #, c-format
 msgid "No image loaded."
 msgstr "Ingen bild inläst."
 
-#: ../src/eog-image.c:1586
-#: ../src/eog-image.c:1690
+#: ../src/eog-image.c:1595
+#: ../src/eog-image.c:1699
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Skapandet av temporär fil misslyckades."
@@ -843,14 +844,35 @@ msgstr " (ogiltig Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:831
+#: ../src/eog-window.c:832
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i bildpunkt  %s    %i%%"
 msgstr[1] "%i × %i bildpunkter  %s    %i%%"
 
-#: ../src/eog-window.c:1239
+#: ../src/eog-window.c:1138
+msgid "_Reload"
+msgstr "_Läs in igen"
+
+#: ../src/eog-window.c:1140
+#: ../src/eog-window.c:2995
+msgctxt "MessageArea"
+msgid "Hi_de"
+msgstr "Dö_lj"
+
+#. The newline character is currently necessary due to a problem
+#. * with the automatic line break.
+#: ../src/eog-window.c:1150
+#, c-format
+msgid ""
+"The image \"%s\" has been modified by an external application.\n"
+"Would you like to reload it?"
+msgstr ""
+"Bilden \"%s\" har ändrats av ett externt program.\n"
+"Vill du läsa in den igen?"
+
+#: ../src/eog-window.c:1305
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Använd \"%s\" för att öppna den markerade bilden"
@@ -860,17 +882,17 @@ msgstr "Använd \"%s\" för att öppna den markerade bilden"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1389
+#: ../src/eog-window.c:1455
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Sparar bilden \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1739
+#: ../src/eog-window.c:1808
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Öppnar bilden \"%s\""
 
-#: ../src/eog-window.c:2429
+#: ../src/eog-window.c:2498
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -879,15 +901,15 @@ msgstr ""
 "Fel vid utskrift av fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2682
+#: ../src/eog-window.c:2751
 msgid "Toolbar Editor"
 msgstr "Redigerare för verktygsrad"
 
-#: ../src/eog-window.c:2685
+#: ../src/eog-window.c:2754
 msgid "_Reset to Default"
 msgstr "_Återställ till standard"
 
-#: ../src/eog-window.c:2771
+#: ../src/eog-window.c:2840
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -899,40 +921,35 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: ../src/eog-window.c:2774
+#: ../src/eog-window.c:2843
 msgid "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
 msgstr "Detta program är fri programvara. Du kan distribuera det och/eller modifiera det under villkoren i GNU General Public License, publicerad av Free Software Foundation, antingen version 2 eller (om du så vill) någon senare version.\n"
 
-#: ../src/eog-window.c:2778
+#: ../src/eog-window.c:2847
 msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 msgstr "Detta program distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för ytterligare information.\n"
 
-#: ../src/eog-window.c:2782
+#: ../src/eog-window.c:2851
 msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 msgstr "Du bör ha fått en kopia av GNU General Public License tillsammans med detta program. Om inte, skriv till Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2795
+#: ../src/eog-window.c:2864
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2798
+#: ../src/eog-window.c:2867
 msgid "The GNOME image viewer."
 msgstr "GNOME-bildvisaren."
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2924
+#: ../src/eog-window.c:2993
 msgid "_Open Background Preferences"
 msgstr "_Öppna bakgrundsinställningar"
 
-#: ../src/eog-window.c:2926
-msgctxt "MessageArea"
-msgid "Hi_de"
-msgstr "Dö_lj"
-
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2938
+#: ../src/eog-window.c:3009
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -941,11 +958,11 @@ msgstr ""
 "Bilden \"%s\" har ställts in som skrivbordsbakgrund.\n"
 "Vill du ändra dess utseende?"
 
-#: ../src/eog-window.c:3330
+#: ../src/eog-window.c:3405
 msgid "Saving image locally…"
 msgstr "Sparar bilden lokalt..."
 
-#: ../src/eog-window.c:3412
+#: ../src/eog-window.c:3487
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -954,12 +971,12 @@ msgstr ""
 "Är du säker att du vill flytta\n"
 "\"%s\" till papperskorgen?"
 
-#: ../src/eog-window.c:3415
+#: ../src/eog-window.c:3490
 #, c-format
 msgid "A trash for \"%s\" couldn't be found. Do you want to remove this image permanently?"
 msgstr "En papperskorg för \"%s\" kunde inte hittas. Vill du ta bort denna bild permanent?"
 
-#: ../src/eog-window.c:3420
+#: ../src/eog-window.c:3495
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -974,375 +991,375 @@ msgstr[1] ""
 "Är du säker att du vill flytta de\n"
 "%d markerade bilderna till papperskorgen?"
 
-#: ../src/eog-window.c:3425
+#: ../src/eog-window.c:3500
 msgid "Some of the selected images can't be moved to the trash and will be removed permanently. Are you sure you want to proceed?"
 msgstr "Några av de markerade bilderna kan inte flyttas till papperskorgen och kommer att tas bort permanent. Är du säker på att du vill fortsätta?"
 
-#: ../src/eog-window.c:3442
-#: ../src/eog-window.c:3900
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3517
+#: ../src/eog-window.c:3975
+#: ../src/eog-window.c:3999
 msgid "Move to _Trash"
 msgstr "Flytta till _papperskorgen"
 
-#: ../src/eog-window.c:3444
+#: ../src/eog-window.c:3519
 msgid "_Do not ask again during this session"
 msgstr "Fråga _inte igen under denna session"
 
-#: ../src/eog-window.c:3489
-#: ../src/eog-window.c:3503
+#: ../src/eog-window.c:3564
+#: ../src/eog-window.c:3578
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kunde inte komma åt papperskorgen."
 
-#: ../src/eog-window.c:3511
+#: ../src/eog-window.c:3586
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Kunde inte ta bort filen"
 
-#: ../src/eog-window.c:3582
+#: ../src/eog-window.c:3657
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fel vid borttagning av bilden %s"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3899
 msgid "_Image"
 msgstr "_Bild"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3900
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../src/eog-window.c:3826
+#: ../src/eog-window.c:3901
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3902
 msgid "_Go"
 msgstr "_Gå"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3903
 msgid "_Tools"
 msgstr "Ver_ktyg"
 
-#: ../src/eog-window.c:3829
+#: ../src/eog-window.c:3904
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/eog-window.c:3831
+#: ../src/eog-window.c:3906
 msgid "_Open…"
 msgstr "_Öppna..."
 
-#: ../src/eog-window.c:3832
+#: ../src/eog-window.c:3907
 msgid "Open a file"
 msgstr "Öppna en fil"
 
-#: ../src/eog-window.c:3834
+#: ../src/eog-window.c:3909
 msgid "_Close"
 msgstr "S_täng"
 
-#: ../src/eog-window.c:3835
+#: ../src/eog-window.c:3910
 msgid "Close window"
 msgstr "Stäng fönster"
 
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3912
 msgid "T_oolbar"
 msgstr "Ve_rktygsrad"
 
-#: ../src/eog-window.c:3838
+#: ../src/eog-window.c:3913
 msgid "Edit the application toolbar"
 msgstr "Redigera programmets verktygsrad"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3915
 msgid "Prefere_nces"
 msgstr "_Inställningar"
 
-#: ../src/eog-window.c:3841
+#: ../src/eog-window.c:3916
 msgid "Preferences for Eye of GNOME"
 msgstr "Inställningar för Eye of GNOME"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3918
 msgid "_Contents"
 msgstr "_Innehåll"
 
-#: ../src/eog-window.c:3844
+#: ../src/eog-window.c:3919
 msgid "Help on this application"
 msgstr "Hjälp för det här programmet"
 
-#: ../src/eog-window.c:3846
+#: ../src/eog-window.c:3921
 #: ../src/eog-plugin-manager.c:505
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/eog-window.c:3847
+#: ../src/eog-window.c:3922
 msgid "About this application"
 msgstr "Om det här programmet"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3927
 msgid "_Toolbar"
 msgstr "_Verktygsrad"
 
-#: ../src/eog-window.c:3853
+#: ../src/eog-window.c:3928
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Ändrar synligheten för verktygsraden i det aktuella fönstret"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3930
 msgid "_Statusbar"
 msgstr "_Statusrad"
 
-#: ../src/eog-window.c:3856
+#: ../src/eog-window.c:3931
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Ändrar synligheten för statusraden i det aktuella fönstret"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3933
 msgid "_Image Collection"
 msgstr "Bildsa_mling"
 
-#: ../src/eog-window.c:3859
+#: ../src/eog-window.c:3934
 msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "Ändrar synligheten för bildsamlingspanelen i det aktuella fönstret"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3936
 msgid "Side _Pane"
 msgstr "Sido_panel"
 
-#: ../src/eog-window.c:3862
+#: ../src/eog-window.c:3937
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Ändrar synligheten för sidopanelen i det aktuella fönstret"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3942
 msgid "_Save"
 msgstr "_Spara"
 
-#: ../src/eog-window.c:3868
+#: ../src/eog-window.c:3943
 msgid "Save changes in currently selected images"
 msgstr "Spara ändringar i markerade bilder"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3945
 msgid "Open _with"
 msgstr "Öppna _med"
 
-#: ../src/eog-window.c:3871
+#: ../src/eog-window.c:3946
 msgid "Open the selected image with a different application"
 msgstr "Öppna markerad bild med ett annat program"
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3948
 msgid "Save _As…"
 msgstr "Spara so_m..."
 
-#: ../src/eog-window.c:3874
+#: ../src/eog-window.c:3949
 msgid "Save the selected images with a different name"
 msgstr "Spara markerade bilder med ett annat namn"
 
-#: ../src/eog-window.c:3876
+#: ../src/eog-window.c:3951
 msgid "_Print…"
 msgstr "Skriv _ut..."
 
-#: ../src/eog-window.c:3877
+#: ../src/eog-window.c:3952
 msgid "Print the selected image"
 msgstr "Skriv ut markerad bild"
 
-#: ../src/eog-window.c:3879
+#: ../src/eog-window.c:3954
 msgid "Prope_rties"
 msgstr "Ege_nskaper"
 
-#: ../src/eog-window.c:3880
+#: ../src/eog-window.c:3955
 msgid "Show the properties and metadata of the selected image"
 msgstr "Visa egenskaperna och metadata för markerad bild"
 
-#: ../src/eog-window.c:3882
+#: ../src/eog-window.c:3957
 msgid "_Undo"
 msgstr "_Ångra"
 
-#: ../src/eog-window.c:3883
+#: ../src/eog-window.c:3958
 msgid "Undo the last change in the image"
 msgstr "Ångra senaste ändringen i bilden"
 
-#: ../src/eog-window.c:3885
+#: ../src/eog-window.c:3960
 msgid "Flip _Horizontal"
 msgstr "Vänd _vågrätt"
 
-#: ../src/eog-window.c:3886
+#: ../src/eog-window.c:3961
 msgid "Mirror the image horizontally"
 msgstr "Spegla bilden horisontellt"
 
-#: ../src/eog-window.c:3888
+#: ../src/eog-window.c:3963
 msgid "Flip _Vertical"
 msgstr "Vänd _lodrätt"
 
-#: ../src/eog-window.c:3889
+#: ../src/eog-window.c:3964
 msgid "Mirror the image vertically"
 msgstr "Spegla bilden vertikalt"
 
-#: ../src/eog-window.c:3891
+#: ../src/eog-window.c:3966
 msgid "_Rotate Clockwise"
 msgstr "_Rotera medurs"
 
-#: ../src/eog-window.c:3892
+#: ../src/eog-window.c:3967
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotera bilden 90 grader åt höger"
 
-#: ../src/eog-window.c:3894
+#: ../src/eog-window.c:3969
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotera _moturs"
 
-#: ../src/eog-window.c:3895
+#: ../src/eog-window.c:3970
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotera bilden 90 grader till vänster"
 
-#: ../src/eog-window.c:3897
+#: ../src/eog-window.c:3972
 msgid "Set as _Desktop Background"
 msgstr "Ange som skrivbords_bakgrund"
 
-#: ../src/eog-window.c:3898
+#: ../src/eog-window.c:3973
 msgid "Set the selected image as the desktop background"
 msgstr "Ange markerad bild som skrivbordsbakgrund"
 
-#: ../src/eog-window.c:3901
+#: ../src/eog-window.c:3976
 msgid "Move the selected image to the trash folder"
 msgstr "Flytta markerat bild till papperskorgen"
 
-#: ../src/eog-window.c:3903
-#: ../src/eog-window.c:3915
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3978
+#: ../src/eog-window.c:3990
+#: ../src/eog-window.c:3993
 msgid "_Zoom In"
 msgstr "_Zooma in"
 
-#: ../src/eog-window.c:3904
-#: ../src/eog-window.c:3916
+#: ../src/eog-window.c:3979
+#: ../src/eog-window.c:3991
 msgid "Enlarge the image"
 msgstr "Förstora bilden"
 
-#: ../src/eog-window.c:3906
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3981
+#: ../src/eog-window.c:3996
 msgid "Zoom _Out"
 msgstr "Zooma _ut"
 
-#: ../src/eog-window.c:3907
-#: ../src/eog-window.c:3919
-#: ../src/eog-window.c:3922
+#: ../src/eog-window.c:3982
+#: ../src/eog-window.c:3994
+#: ../src/eog-window.c:3997
 msgid "Shrink the image"
 msgstr "Förminska bilden"
 
-#: ../src/eog-window.c:3909
+#: ../src/eog-window.c:3984
 msgid "_Normal Size"
 msgstr "_Normal storlek"
 
-#: ../src/eog-window.c:3910
+#: ../src/eog-window.c:3985
 msgid "Show the image at its normal size"
 msgstr "Visa bilden i sin normala storlek"
 
-#: ../src/eog-window.c:3912
+#: ../src/eog-window.c:3987
 msgid "Best _Fit"
 msgstr "Bästa _anpassning"
 
-#: ../src/eog-window.c:3913
+#: ../src/eog-window.c:3988
 msgid "Fit the image to the window"
 msgstr "Anpassa bilden till fönstret"
 
-#: ../src/eog-window.c:3930
+#: ../src/eog-window.c:4005
 msgid "_Fullscreen"
 msgstr "_Helskärm"
 
-#: ../src/eog-window.c:3931
+#: ../src/eog-window.c:4006
 msgid "Show the current image in fullscreen mode"
 msgstr "Visa aktuell bild i helskärmsläge"
 
-#: ../src/eog-window.c:3933
+#: ../src/eog-window.c:4008
 msgid "Pause Slideshow"
 msgstr "Pausa bildspel"
 
-#: ../src/eog-window.c:3934
+#: ../src/eog-window.c:4009
 msgid "Pause or resume the slideshow"
 msgstr "Pausa eller återuppta bildspelet"
 
-#: ../src/eog-window.c:3939
-#: ../src/eog-window.c:3954
+#: ../src/eog-window.c:4014
+#: ../src/eog-window.c:4029
 msgid "_Previous Image"
 msgstr "_Föregående bild"
 
-#: ../src/eog-window.c:3940
+#: ../src/eog-window.c:4015
 msgid "Go to the previous image of the collection"
 msgstr "Gå till föregående bild i samlingen"
 
-#: ../src/eog-window.c:3942
+#: ../src/eog-window.c:4017
 msgid "_Next Image"
 msgstr "_Nästa bild"
 
-#: ../src/eog-window.c:3943
+#: ../src/eog-window.c:4018
 msgid "Go to the next image of the collection"
 msgstr "Gå till nästa bild i samlingen"
 
-#: ../src/eog-window.c:3945
-#: ../src/eog-window.c:3957
+#: ../src/eog-window.c:4020
+#: ../src/eog-window.c:4032
 msgid "_First Image"
 msgstr "_Första bilden"
 
-#: ../src/eog-window.c:3946
+#: ../src/eog-window.c:4021
 msgid "Go to the first image of the collection"
 msgstr "Gå till första bilden i samlingen"
 
-#: ../src/eog-window.c:3948
-#: ../src/eog-window.c:3960
+#: ../src/eog-window.c:4023
+#: ../src/eog-window.c:4035
 msgid "_Last Image"
 msgstr "_Sista bilden"
 
-#: ../src/eog-window.c:3949
+#: ../src/eog-window.c:4024
 msgid "Go to the last image of the collection"
 msgstr "Gå till sista bilden i samlingen"
 
-#: ../src/eog-window.c:3951
+#: ../src/eog-window.c:4026
 msgid "_Random Image"
 msgstr "S_lumpmässig bild"
 
-#: ../src/eog-window.c:3952
+#: ../src/eog-window.c:4027
 msgid "Go to a random image of the collection"
 msgstr "Gå till en slumpmässig bild i samlingen"
 
-#: ../src/eog-window.c:3966
+#: ../src/eog-window.c:4041
 msgid "_Slideshow"
 msgstr "_Bildspel"
 
-#: ../src/eog-window.c:3967
+#: ../src/eog-window.c:4042
 msgid "Start a slideshow view of the images"
 msgstr "Starta ett bildspel av bilderna"
 
-#: ../src/eog-window.c:4033
+#: ../src/eog-window.c:4108
 msgid "Previous"
 msgstr "Föregående"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4112
 msgid "Next"
 msgstr "Nästa"
 
-#: ../src/eog-window.c:4041
+#: ../src/eog-window.c:4116
 msgid "Right"
 msgstr "Höger"
 
-#: ../src/eog-window.c:4044
+#: ../src/eog-window.c:4119
 msgid "Left"
 msgstr "Vänster"
 
-#: ../src/eog-window.c:4047
+#: ../src/eog-window.c:4122
 msgid "In"
 msgstr "In"
 
-#: ../src/eog-window.c:4050
+#: ../src/eog-window.c:4125
 msgid "Out"
 msgstr "Ut"
 
-#: ../src/eog-window.c:4053
+#: ../src/eog-window.c:4128
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/eog-window.c:4056
+#: ../src/eog-window.c:4131
 msgid "Fit"
 msgstr "Anpassa"
 
-#: ../src/eog-window.c:4059
+#: ../src/eog-window.c:4134
 msgid "Collection"
 msgstr "Bildsamling"
 
-#: ../src/eog-window.c:4062
+#: ../src/eog-window.c:4137
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Papperskorg"
