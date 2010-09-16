@@ -1,5 +1,5 @@
 # eog ja.po.
-# Copyright (C) 1999-2009 Free Software Foundation, Inc.
+# Copyright (C) 1999-2010 Free Software Foundation, Inc.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 1999-2002, 2010.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2002-2009.
 # KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>, 2003.
@@ -9,18 +9,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog trunk\n"
+"Project-Id-Version: eog gnome-2-32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&component=general\n"
-"POT-Creation-Date: 2010-02-27 13:43+0000\n"
-"PO-Revision-Date: 2010-02-28 21:48+0900\n"
-"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"POT-Creation-Date: 2010-09-14 12:44+0000\n"
+"PO-Revision-Date: 2010-09-15 01:45+0900\n"
+"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
+# (pofilter) accelerators: accelerator _ is missing from translation
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
 #. * on the toolbar, and is placed at the %s. Note the _ before the %s
@@ -60,10 +61,6 @@ msgstr "選択したツールバーを削除します"
 #: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:485
 msgid "Separator"
 msgstr "セパレータ"
-
-#: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:115
-msgid "Running in fullscreen mode"
-msgstr "フルスクリーン・モードで動作中です"
 
 #: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:1
 msgid "Activate fullscreen mode with double-click"
@@ -239,7 +236,7 @@ msgstr "空白をアンダースコアで置き換える"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:13
 msgid "Save As"
-msgstr "別名で保存(_A)"
+msgstr "別名で保存"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:14
 msgid "Start counter at:"
@@ -262,66 +259,78 @@ msgid "As custom c_olor:"
 msgstr "その他(_O):"
 
 #: ../data/eog-preferences-dialog.ui.h:4
+msgid "As custom color:"
+msgstr "カスタム色:"
+
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "Background"
+msgstr "背景"
+
+#: ../data/eog-preferences-dialog.ui.h:6 ../data/eog.schemas.in.h:6
+msgid "Background Color"
+msgstr "背景色"
+
+#: ../data/eog-preferences-dialog.ui.h:7
 msgid "Color for Transparent Areas"
 msgstr "透過な部分の色"
 
-#: ../data/eog-preferences-dialog.ui.h:5
+#: ../data/eog-preferences-dialog.ui.h:8
 msgid "E_xpand images to fit screen"
 msgstr "画面一杯に広げる(_X)"
 
-#: ../data/eog-preferences-dialog.ui.h:6
+#: ../data/eog-preferences-dialog.ui.h:9
 msgid "Eye of GNOME Preferences"
 msgstr "Eye of GNOME の設定"
 
-#: ../data/eog-preferences-dialog.ui.h:7
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "画像の強調"
 
-#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image View"
 msgstr "画像の表示"
 
-#: ../data/eog-preferences-dialog.ui.h:9
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Image Zoom"
 msgstr "画像の拡大/縮小"
 
-#: ../data/eog-preferences-dialog.ui.h:10
+#: ../data/eog-preferences-dialog.ui.h:13
 msgid "Plugins"
 msgstr "プラグイン"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:14
 msgid "Sequence"
 msgstr "順番"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:15
 msgid "Slideshow"
 msgstr "スライドショー"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "Smooth images when zoomed-_in"
 msgstr "縮小する際に画像を補正する(_I)"
 
-#: ../data/eog-preferences-dialog.ui.h:14
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "Smooth images when zoomed-_out"
 msgstr "拡大する際に画像を補正する(_O)"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "Transparent Parts"
 msgstr "透過な部分"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "_Automatic orientation"
 msgstr "自動的に向きを調整する(_A)"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Loop sequence"
 msgstr "繰り返す(_L)"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Switch image after:"
 msgstr "画像を切り替える時間(_S):"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "seconds"
 msgstr "秒間隔"
 
@@ -346,40 +355,31 @@ msgstr "初期表示で 100% より大きい倍率を許可する"
 msgid "Automatic orientation"
 msgstr "向きの自動調整"
 
-#: ../data/eog.schemas.in.h:6
+#: ../data/eog.schemas.in.h:7
 msgid "Delay in seconds until showing the next image"
 msgstr "次の画像が表示されるまでの間隔 (秒)"
 
-#: ../data/eog.schemas.in.h:7
+#: ../data/eog.schemas.in.h:8
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
 msgstr ""
 "画像を透過する部分をどのように表示させるかを指定します。指定可能な値は "
 "CHECK_PATTERN、COLOR と NONE です。COLOR を選択した場合、キー trans_color に"
 "は使用する色の値を指定します。"
 
-# FIXME: 以前は"Interpolate Image"だが、同じ意味では？
-#: ../data/eog.schemas.in.h:8
+# FIXME: 以前は"Interpolate Image"だが、同じ意味では?
+#: ../data/eog.schemas.in.h:9
 msgid "Extrapolate Image"
 msgstr "画像の補正"
-
-#: ../data/eog.schemas.in.h:9
-msgid ""
-"If activated Eye of GNOME wont ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"この項目が有効な場合、Eye of GNOME は画像をごみ箱に移動する際に確認をしませ"
-"ん。ファイルがごみ箱に移動出来ない、あるいは削除できない場合には表示します。"
 
 # filechooser -> ファイルの選択画面 とした
 #: ../data/eog.schemas.in.h:10
 msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
 "will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up it "
+"directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
 "この項目が有効でアクティブなウィンドウで画像が読み込まれていない場合は、XDG "
@@ -389,17 +389,26 @@ msgstr ""
 
 #: ../data/eog.schemas.in.h:11
 msgid ""
-"If activated the detailed metadata list in the properties dialog will be "
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"この項目が有効な場合、Eye of GNOME は画像をごみ箱に移動する際に確認をしませ"
+"ん。ファイルがごみ箱に移動出来ない、あるいは削除できない場合には表示します。"
+
+#: ../data/eog.schemas.in.h:12
+msgid ""
+"If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
-"embedded on the \"Metadata\" page."
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
 msgstr ""
 "この項目が有効だと、プロパティダイアログ中の詳細なメタデータ一覧が、個別のダ"
 "イアログで表示されるようになります。これにより、ネットブックなどで使われてい"
 "るような小さなスクリーンで、ダイアログがより使いやすくなります。無効になって"
 "いる場合は、ウィジェットは \"メタデータ\" ページに埋め込まれます。"
 
-#: ../data/eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:13
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -407,13 +416,23 @@ msgstr ""
 "キー transparency が COLOR の場合、このキーは透過する部分に使用する色を表しま"
 "す。"
 
-#: ../data/eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:14
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"これがアクティブならば、background-color キーで設定された色が画像の後ろのエリ"
+"アを満たすのに使われます。設定されてない場合、現在の GTK+ のテーマが色を決定"
+"します。"
+
+#: ../data/eog.schemas.in.h:15
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr "FALSE に設定すると、小さい画像が画面に合うよう拡大されなくなります。"
 
-#: ../data/eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:16
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
@@ -421,11 +440,11 @@ msgstr ""
 "画像コレクションのペインの位置です。指定可能な値: 0 (下側)、1 (左側)、2 (上"
 "側)、3 (右側)"
 
-#: ../data/eog.schemas.in.h:15
+#: ../data/eog.schemas.in.h:17
 msgid "Interpolate Image"
 msgstr "画像の補正"
 
-#: ../data/eog.schemas.in.h:16
+#: ../data/eog.schemas.in.h:18
 msgid ""
 "List of active plugins. It doesn't contain the \"Location\" of the active "
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
@@ -433,38 +452,47 @@ msgid ""
 msgstr ""
 "利用可能なプラグイン名の並びです。これらの文字列にはプラグインを格納したフォ"
 "ルダ名は含まれません。詳細は、指定したプラグインの \"フォルダ\" の中にある ."
-"eog-plugin ファイルを参照してみて下さい。"
+"eog-plugin ファイルを参照してみてください。"
 
-#: ../data/eog.schemas.in.h:17
+#: ../data/eog.schemas.in.h:19
 msgid "Loop through the image sequence"
 msgstr "一連の画像をループ"
 
-#: ../data/eog.schemas.in.h:18
+#: ../data/eog.schemas.in.h:20
 msgid "Scroll wheel zoom"
 msgstr "スクロール・ホィールでズームする"
 
-#: ../data/eog.schemas.in.h:19
+#: ../data/eog.schemas.in.h:21
 msgid "Show/Hide the image collection pane scroll buttons."
 msgstr ""
 "画像コレクションのペインにスクロール・ボタンを表示するかどうかを指定します。"
 
-#: ../data/eog.schemas.in.h:20
+#: ../data/eog.schemas.in.h:22
 msgid "Show/Hide the image collection pane."
 msgstr "画像コレクションのペインを表示するかどうか。"
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:23
 msgid "Show/Hide the window side pane."
 msgstr "ウィンドウにサイド・ペインを表示するかどうか。"
 
-#: ../data/eog.schemas.in.h:22
+#: ../data/eog.schemas.in.h:24
 msgid "Show/Hide the window statusbar."
 msgstr "ウィンドウにステータスバーを表示するかどうか。"
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:25
 msgid "Show/Hide the window toolbar."
 msgstr "ウィンドウにツールバーを表示するかどうか。"
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:26
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
+msgstr ""
+"画像の後ろの領域を塗りつぶすのに使われる色です。use-background-color キーが設"
+"定されていなければ、代わりにアクティブな GTK+ のテーマによって決定されます。"
+
+#: ../data/eog.schemas.in.h:28
 #, no-c-format
 msgid ""
 "The multiplier to be applied when using the mouse scroll wheel for zooming. "
@@ -477,20 +505,24 @@ msgstr ""
 "0.05 にするとスクロール・イベントが発生する度に 5% 単位で拡大し、1.00 にする"
 "と 100% 単位で拡大することになります。"
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:29
 msgid "Transparency color"
 msgstr "透過する部分の色"
 
-#: ../data/eog.schemas.in.h:27
+#: ../data/eog.schemas.in.h:30
 msgid "Transparency indicator"
 msgstr "透過する部分の表示方法"
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:31
 msgid "Trash images without asking"
 msgstr "確認無しで画像を削除する"
 
+#: ../data/eog.schemas.in.h:32
+msgid "Use a custom background color"
+msgstr "背景にカスタム色を使用する"
+
 # filechooser -> ファイルの選択画面 とした
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:33
 msgid ""
 "Whether the file chooser should show the user's pictures folder if no images "
 "are loaded."
@@ -498,11 +530,11 @@ msgstr ""
 "画像が読み込まれていない場合、ファイルの選択画面でユーザの画像フォルダを表示"
 "するかどうか指定します。"
 
-#: ../data/eog.schemas.in.h:30
+#: ../data/eog.schemas.in.h:34
 msgid "Whether the image collection pane should be resizable."
 msgstr "画像コレクションのペインの大きさを変更できるようにするかを指定します。"
 
-#: ../data/eog.schemas.in.h:31
+#: ../data/eog.schemas.in.h:35
 msgid ""
 "Whether the image should be extrapolated on zoom-in. This leads to blurry "
 "quality and is somewhat slower than non-extrapolated images."
@@ -510,36 +542,40 @@ msgstr ""
 "画像を拡大する際に補正するかどうかを指定します。これは画像がぼやけた状態にな"
 "り、補正しない場合と比較して描画が多少遅くなります。"
 
-#: ../data/eog.schemas.in.h:32
+#: ../data/eog.schemas.in.h:36
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
-"画像を縮小する際に補正するかどうかを指定します。これは画像がはっきりした状態"
-"になり、補正しない場合と比較して描画が多少遅くなります。"
+"画像を拡大する際に補間するかどうかを指定します。これによって画像がより良い品"
+"質になりますが、補間しない場合と比較して描画が多少遅くなります。"
 
-#: ../data/eog.schemas.in.h:33
+#: ../data/eog.schemas.in.h:37
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "EXIF の向きに応じて自動的に画像の向きを調整します。"
 
-#: ../data/eog.schemas.in.h:34
+#: ../data/eog.schemas.in.h:38
 msgid ""
 "Whether the metadata list in the properties dialog should have its own page."
 msgstr ""
 "プロパティダイアログ中のメタデータ一覧を個別に表示するかどうかを指定します。"
 
-#: ../data/eog.schemas.in.h:35
+#: ../data/eog.schemas.in.h:39
 msgid "Whether the scroll wheel should be used for zooming."
 msgstr "画像の拡大/縮小でマウスのホィールを使用できるかどうかを指定します。"
 
-#: ../data/eog.schemas.in.h:36
+#: ../data/eog.schemas.in.h:40
 msgid "Whether the sequence of images should be shown in an endless loop."
 msgstr "一連の画像を無限ループで表示するかどうか指定します。"
 
-#: ../data/eog.schemas.in.h:37
+#: ../data/eog.schemas.in.h:41
 msgid "Zoom multiplier"
 msgstr "拡大率"
+
+#: ../src/eog-application.c:123
+msgid "Running in fullscreen mode"
+msgstr "フルスクリーン・モードで動作中です"
 
 #: ../src/eog-close-confirmation-dialog.c:159
 msgid "Close _without Saving"
@@ -566,9 +602,6 @@ msgid_plural ""
 msgstr[0] ""
 "まだ保存していない変更をされた画像が %d 枚あります。閉じる前に変更を保存しま"
 "すか?"
-msgstr[1] ""
-"まだ保存していない変更をされた画像が %d 枚あります。閉じる前に変更を保存しま"
-"すか?"
 
 #: ../src/eog-close-confirmation-dialog.c:621
 msgid "S_elect the images you want to save:"
@@ -577,7 +610,7 @@ msgstr "保存したい画像を選んでください(_E):"
 #. Secondary label
 #: ../src/eog-close-confirmation-dialog.c:639
 msgid "If you don't save, all your changes will be lost."
-msgstr "保存をしないと変更は全て失われます。"
+msgstr "保存をしないと変更はすべて失われます。"
 
 #: ../src/eog-file-chooser.c:128
 msgid "File format is unknown or unsupported"
@@ -593,15 +626,15 @@ msgstr ""
 
 #: ../src/eog-file-chooser.c:134
 msgid "Please try a different file extension like .png or .jpg."
-msgstr ".png や .jpg のような別の拡張子を試してみて下さい。"
+msgstr ".png や .jpg のような別の拡張子を試してみてください。"
 
 #: ../src/eog-file-chooser.c:166
 msgid "All Files"
-msgstr "全てのファイル"
+msgstr "すべてのファイル"
 
 #: ../src/eog-file-chooser.c:171
 msgid "All Images"
-msgstr "全ての画像"
+msgstr "すべての画像"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #: ../src/eog-file-chooser.c:192
@@ -615,11 +648,10 @@ msgstr "%s (*.%s)"
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "ピクセル"
-msgstr[1] "ピクセル"
 
 #: ../src/eog-file-chooser.c:437
-msgid "Load Image"
-msgstr "画像の読み込み"
+msgid "Open Image"
+msgstr "画像を開く"
 
 #: ../src/eog-file-chooser.c:445
 msgid "Save Image"
@@ -629,42 +661,42 @@ msgstr "画像の保存"
 msgid "Open Folder"
 msgstr "フォルダの選択"
 
-#: ../src/eog-image.c:579
+#: ../src/eog-image.c:598
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "読み込んでいない画像で変換します。"
 
-#: ../src/eog-image.c:607
+#: ../src/eog-image.c:626
 #, c-format
 msgid "Transformation failed."
 msgstr "変換に失敗しました。"
 
-#: ../src/eog-image.c:1011
+#: ../src/eog-image.c:1053
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "このファイル形式では EXIF をサポートしていません。"
 
-#: ../src/eog-image.c:1134
+#: ../src/eog-image.c:1180
 #, c-format
 msgid "Image loading failed."
 msgstr "画像の読み込みに失敗しました。"
 
-#: ../src/eog-image.c:1539 ../src/eog-image.c:1641
+#: ../src/eog-image.c:1585 ../src/eog-image.c:1687
 #, c-format
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: ../src/eog-image.c:1549 ../src/eog-image.c:1653
+#: ../src/eog-image.c:1595 ../src/eog-image.c:1699
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "作業用ファイルの生成に失敗しました。"
 
-#: ../src/eog-image-jpeg.c:361
+#: ../src/eog-image-jpeg.c:364
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "保存するための作業ファイルを生成できませんでした: %s"
 
-#: ../src/eog-image-jpeg.c:380
+#: ../src/eog-image-jpeg.c:383
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ファイルを読み込むためのメモリを確保できませんでした"
@@ -745,7 +777,7 @@ msgstr "'%s' という画像が見つかりませんでした"
 msgid "The given locations contain no images."
 msgstr "指定した場所に画像がありませんでした"
 
-#: ../src/eog-print.c:197
+#: ../src/eog-print.c:219
 msgid "Image Settings"
 msgstr "画像の設定"
 
@@ -898,14 +930,33 @@ msgstr " (Unicode が不正です)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:773
+#: ../src/eog-window.c:832
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i ピクセル %s    %i%%"
-msgstr[1] "%i x %i ピクセル %s    %i%%"
 
-#: ../src/eog-window.c:1191
+#: ../src/eog-window.c:1138
+msgid "_Reload"
+msgstr "再読み込み(_R)"
+
+#: ../src/eog-window.c:1140 ../src/eog-window.c:2995
+msgctxt "MessageArea"
+msgid "Hi_de"
+msgstr "隠す(_D)"
+
+#. The newline character is currently necessary due to a problem
+#. * with the automatic line break.
+#: ../src/eog-window.c:1150
+#, c-format
+msgid ""
+"The image \"%s\" has been modified by an external application.\n"
+"Would you like to reload it?"
+msgstr ""
+"画像 \"%s\" が別のアプリケーションによって変更されました。\n"
+"再読み込みしますか?"
+
+#: ../src/eog-window.c:1305
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "選択した画像を \"%s\" で開きます"
@@ -915,17 +966,17 @@ msgstr "選択した画像を \"%s\" で開きます"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1341
+#: ../src/eog-window.c:1455
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "画像 \"%s\" を保存しています (%u/%u)"
 
-#: ../src/eog-window.c:1683
+#: ../src/eog-window.c:1808
 #, c-format
-msgid "Loading image \"%s\""
-msgstr "画像 \"%s\" を読み込んでいます"
+msgid "Opening image \"%s\""
+msgstr "画像 \"%s\" を開いています"
 
-#: ../src/eog-window.c:2383
+#: ../src/eog-window.c:2498
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -934,15 +985,15 @@ msgstr ""
 "ファイルを印刷する際にエラー:\n"
 "%s"
 
-#: ../src/eog-window.c:2635
+#: ../src/eog-window.c:2751
 msgid "Toolbar Editor"
 msgstr "ツールバー・エディタ"
 
-#: ../src/eog-window.c:2638
+#: ../src/eog-window.c:2754
 msgid "_Reset to Default"
 msgstr "デフォルトに戻す(_R)"
 
-#: ../src/eog-window.c:2724
+#: ../src/eog-window.c:2840
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
@@ -953,7 +1004,7 @@ msgstr ""
 "SUGITA Toshinori <sugita@d-pad.co.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp/"
 
-#: ../src/eog-window.c:2727
+#: ../src/eog-window.c:2843
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -964,7 +1015,7 @@ msgstr ""
 "一般公衆利用許諾契約書の第二版、あるいはそれ以降の版が定める条項の下で本プロ"
 "グラムを再頒布または変更することができます。\n"
 
-#: ../src/eog-window.c:2731
+#: ../src/eog-window.c:2847
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -973,9 +1024,9 @@ msgid ""
 msgstr ""
 "このプログラムは有用とは思いますが、その頒布にあたっては市場性及び特定の目"
 "的、その適合性についての暗黙の保証を含めて、いかなる保証も行ないません。詳細"
-"については GNU  一般公衆利用許諾契約書をご覧下さい。\n"
+"については GNU  一般公衆利用許諾契約書をご覧ください。\n"
 
-#: ../src/eog-window.c:2735
+#: ../src/eog-window.c:2851
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -983,19 +1034,25 @@ msgid ""
 msgstr ""
 "あなたは、本プログラムと一緒に GNU 一般公衆利用許諾契約書の写しを受け取ってい"
 "るはずです。そうでない場合は、Free Software Foundation, Inc., 59 Temple "
-"Place  Suite 330, Boston, MA 02111-1307, USA まで手紙を書いて下さい。"
+"Place  Suite 330, Boston, MA 02111-1307, USA まで手紙を書いてください。"
 
-#: ../src/eog-window.c:2748
+#: ../src/eog-window.c:2864
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2751
+#: ../src/eog-window.c:2867
 msgid "The GNOME image viewer."
 msgstr "GNOME の画像ビューアです。"
 
+#. I18N: When setting mnemonics for these strings, watch out to not
+#. clash with mnemonics from eog's menubar
+#: ../src/eog-window.c:2993
+msgid "_Open Background Preferences"
+msgstr "背景の設定を開く(_O)"
+
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2877
+#: ../src/eog-window.c:3009
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1004,27 +1061,27 @@ msgstr ""
 "画像 \"%s\" がデスクトップの背景に設定されました。\n"
 "見た目を変更しますか?"
 
-#: ../src/eog-window.c:3277
+#: ../src/eog-window.c:3405
 msgid "Saving image locally…"
 msgstr "画像をローカルに保存中…"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3487
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
 msgstr ""
 "本当に \"%s\" を\n"
-"ゴミ箱へ移動しますか？"
+"ゴミ箱へ移動しますか?"
 
-#: ../src/eog-window.c:3362
+#: ../src/eog-window.c:3490
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
-msgstr "\"%s\" をゴミ箱へ移動できません。この画像を直接削除しますか？"
+msgstr "\"%s\" をゴミ箱へ移動できません。この画像を直接削除しますか?"
 
-#: ../src/eog-window.c:3367
+#: ../src/eog-window.c:3495
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1033,373 +1090,370 @@ msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
 msgstr[0] ""
-"本当に、選択した画像を\n"
-"ゴミ箱へ移動しますか？"
-msgstr[1] ""
 "本当に、選択した %d個の\n"
-"画像をゴミ箱へ移動しますか？"
+"画像をゴミ箱へ移動しますか?"
 
-#: ../src/eog-window.c:3372
+#: ../src/eog-window.c:3500
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
 "選択した画像のいくつかはゴミ箱へ移動できません。直接削除しますが、続行しても"
-"よろしいですか？"
+"よろしいですか?"
 
-#: ../src/eog-window.c:3389 ../src/eog-window.c:3831 ../src/eog-window.c:3855
+#: ../src/eog-window.c:3517 ../src/eog-window.c:3975 ../src/eog-window.c:3999
 msgid "Move to _Trash"
 msgstr "ゴミ箱へ移動する(_T)"
 
-#: ../src/eog-window.c:3391
+#: ../src/eog-window.c:3519
 msgid "_Do not ask again during this session"
 msgstr "このセッション中に二度と確認しない(_D)"
 
-#: ../src/eog-window.c:3436 ../src/eog-window.c:3450
+#: ../src/eog-window.c:3564 ../src/eog-window.c:3578
 #, c-format
 msgid "Couldn't access trash."
 msgstr "ゴミ箱にアクセスできませんでした。"
 
-#: ../src/eog-window.c:3458
+#: ../src/eog-window.c:3586
 #, c-format
 msgid "Couldn't delete file"
 msgstr "ファイルを削除できませんでした"
 
-#: ../src/eog-window.c:3529
+#: ../src/eog-window.c:3657
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "画像 %s を削除する際にエラー"
 
-#: ../src/eog-window.c:3751
-msgid "_File"
-msgstr "ファイル(_F)"
-
-#: ../src/eog-window.c:3752
-msgid "_Edit"
-msgstr "編集(_E)"
-
-#: ../src/eog-window.c:3753
-msgid "_View"
-msgstr "表示(_V)"
-
-#: ../src/eog-window.c:3754
+#: ../src/eog-window.c:3899
 msgid "_Image"
 msgstr "画像(_I)"
 
-#: ../src/eog-window.c:3755
+#: ../src/eog-window.c:3900
+msgid "_Edit"
+msgstr "編集(_E)"
+
+#: ../src/eog-window.c:3901
+msgid "_View"
+msgstr "表示(_V)"
+
+#: ../src/eog-window.c:3902
 msgid "_Go"
 msgstr "ジャンプ(_G)"
 
-#: ../src/eog-window.c:3756
+#: ../src/eog-window.c:3903
 msgid "_Tools"
 msgstr "ツール(_T)"
 
-#: ../src/eog-window.c:3757
+#: ../src/eog-window.c:3904
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../src/eog-window.c:3759
+#: ../src/eog-window.c:3906
 msgid "_Open…"
 msgstr "開く(_O)…"
 
-#: ../src/eog-window.c:3760
+#: ../src/eog-window.c:3907
 msgid "Open a file"
 msgstr "ファイルを開きます"
 
-#: ../src/eog-window.c:3762
+#: ../src/eog-window.c:3909
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../src/eog-window.c:3763
+#: ../src/eog-window.c:3910
 msgid "Close window"
 msgstr "このウインドウを閉じます"
 
-#: ../src/eog-window.c:3765
+#: ../src/eog-window.c:3912
 msgid "T_oolbar"
 msgstr "ツールバー(_O)"
 
-#: ../src/eog-window.c:3766
+#: ../src/eog-window.c:3913
 msgid "Edit the application toolbar"
 msgstr "ツールバーのアイテムを編集します"
 
-#: ../src/eog-window.c:3768
+#: ../src/eog-window.c:3915
 msgid "Prefere_nces"
 msgstr "設定(_N)"
 
-#: ../src/eog-window.c:3769
+#: ../src/eog-window.c:3916
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of GNOME の設定を変更します"
 
-#: ../src/eog-window.c:3771
+#: ../src/eog-window.c:3918
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: ../src/eog-window.c:3772
+#: ../src/eog-window.c:3919
 msgid "Help on this application"
 msgstr "このアプリケーションのヘルプです"
 
-#: ../src/eog-window.c:3774 ../src/eog-plugin-manager.c:505
+#: ../src/eog-window.c:3921 ../src/eog-plugin-manager.c:505
 msgid "_About"
 msgstr "情報(_A)"
 
-#: ../src/eog-window.c:3775
+#: ../src/eog-window.c:3922
 msgid "About this application"
 msgstr "このアプリケーションについて"
 
-#: ../src/eog-window.c:3780
+#: ../src/eog-window.c:3927
 msgid "_Toolbar"
 msgstr "ツールバー(_T)"
 
-#: ../src/eog-window.c:3781
+#: ../src/eog-window.c:3928
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "ツールバーの表示を切り替えます"
 
-#: ../src/eog-window.c:3783
+#: ../src/eog-window.c:3930
 msgid "_Statusbar"
 msgstr "ステータスバー(_S)"
 
-#: ../src/eog-window.c:3784
+#: ../src/eog-window.c:3931
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "ステータスバーの表示を切り替えます"
 
-#: ../src/eog-window.c:3786
+#: ../src/eog-window.c:3933
 msgid "_Image Collection"
 msgstr "画像のコレクション(_I)"
 
-#: ../src/eog-window.c:3787
+#: ../src/eog-window.c:3934
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "画像コレクションの表示を切り替えます"
 
-#: ../src/eog-window.c:3789
+#: ../src/eog-window.c:3936
 msgid "Side _Pane"
 msgstr "サイド・ペイン(_P)"
 
-#: ../src/eog-window.c:3790
+#: ../src/eog-window.c:3937
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "サイド・ペインの表示/非表示を切り替えます"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3942
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../src/eog-window.c:3796
+#: ../src/eog-window.c:3943
 msgid "Save changes in currently selected images"
 msgstr "選択した画像の変更点を保存します"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3945
 msgid "Open _with"
 msgstr "次で開く(_W)"
 
-#: ../src/eog-window.c:3799
+#: ../src/eog-window.c:3946
 msgid "Open the selected image with a different application"
 msgstr "選択した画像を別のアプリケーションで開きます"
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3948
 msgid "Save _As…"
 msgstr "別名で保存(_A)…"
 
-#: ../src/eog-window.c:3802
+#: ../src/eog-window.c:3949
 msgid "Save the selected images with a different name"
 msgstr "選択した画像に名前を付けて保存します"
 
-#: ../src/eog-window.c:3805
-msgid "Set up the page properties for printing"
-msgstr "印刷用にページのプロパティを設定します"
-
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3951
 msgid "_Print…"
 msgstr "印刷(_P)…"
 
-#: ../src/eog-window.c:3808
+#: ../src/eog-window.c:3952
 msgid "Print the selected image"
 msgstr "選択した画像を印刷します"
 
-#: ../src/eog-window.c:3810
+#: ../src/eog-window.c:3954
 msgid "Prope_rties"
 msgstr "プロパティ(_R)"
 
-#: ../src/eog-window.c:3811
+#: ../src/eog-window.c:3955
 msgid "Show the properties and metadata of the selected image"
 msgstr "選択した画像のプロパティとメタデータを表示します"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3957
 msgid "_Undo"
 msgstr "やり直す(_U)"
 
-#: ../src/eog-window.c:3814
+#: ../src/eog-window.c:3958
 msgid "Undo the last change in the image"
 msgstr "最後に適用した変更点を戻します"
 
-#: ../src/eog-window.c:3816
+#: ../src/eog-window.c:3960
 msgid "Flip _Horizontal"
 msgstr "水平方向にひっくり返す(_H)"
 
-#: ../src/eog-window.c:3817
+#: ../src/eog-window.c:3961
 msgid "Mirror the image horizontally"
 msgstr "画像を水平方向にひっくり返します"
 
-#: ../src/eog-window.c:3819
+#: ../src/eog-window.c:3963
 msgid "Flip _Vertical"
 msgstr "垂直方向にひっくり返す(_V)"
 
-#: ../src/eog-window.c:3820
+#: ../src/eog-window.c:3964
 msgid "Mirror the image vertically"
 msgstr "画像を垂直方向にひっくり返します"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3966
 msgid "_Rotate Clockwise"
 msgstr "時計回りに回転する(_R)"
 
-#: ../src/eog-window.c:3823
+#: ../src/eog-window.c:3967
 msgid "Rotate the image 90 degrees to the right"
-msgstr "画像を右回りで９０°回転させます"
+msgstr "画像を右回りで90°回転させます"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3969
 msgid "Rotate Counterc_lockwise"
 msgstr "反時計回りに回転する(_L)"
 
-#: ../src/eog-window.c:3826
+#: ../src/eog-window.c:3970
 msgid "Rotate the image 90 degrees to the left"
-msgstr "画像を左回りで９０°回転させます"
+msgstr "画像を左回りで90°回転させます"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3972
 msgid "Set as _Desktop Background"
 msgstr "背景にする(_D)"
 
-#: ../src/eog-window.c:3829
+#: ../src/eog-window.c:3973
 msgid "Set the selected image as the desktop background"
 msgstr "選択した画像をデスクトップの背景にします"
 
-#: ../src/eog-window.c:3832
+#: ../src/eog-window.c:3976
 msgid "Move the selected image to the trash folder"
 msgstr "選択した画像をゴミ箱のフォルダへ移動します"
 
-#: ../src/eog-window.c:3834 ../src/eog-window.c:3846 ../src/eog-window.c:3849
+#: ../src/eog-window.c:3978 ../src/eog-window.c:3990 ../src/eog-window.c:3993
 msgid "_Zoom In"
 msgstr "拡大(_I)"
 
-#: ../src/eog-window.c:3835 ../src/eog-window.c:3847
+#: ../src/eog-window.c:3979 ../src/eog-window.c:3991
 msgid "Enlarge the image"
 msgstr "画像を拡大します"
 
-#: ../src/eog-window.c:3837 ../src/eog-window.c:3852
+#: ../src/eog-window.c:3981 ../src/eog-window.c:3996
 msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
-#: ../src/eog-window.c:3838 ../src/eog-window.c:3850 ../src/eog-window.c:3853
+#: ../src/eog-window.c:3982 ../src/eog-window.c:3994 ../src/eog-window.c:3997
 msgid "Shrink the image"
 msgstr "画像を縮小します"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3984
 msgid "_Normal Size"
 msgstr "オリジナル(_N)"
 
-#: ../src/eog-window.c:3841
+#: ../src/eog-window.c:3985
 msgid "Show the image at its normal size"
 msgstr "通常の大きさで画像を表示します"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3987
 msgid "Best _Fit"
 msgstr "ウィンドウに合わせる(_F)"
 
-#: ../src/eog-window.c:3844
+#: ../src/eog-window.c:3988
 msgid "Fit the image to the window"
 msgstr "画像をウィンドウに合わせた大きさにします"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:4005
 msgid "_Fullscreen"
 msgstr "フル・スクリーン(_F)"
 
-#: ../src/eog-window.c:3862
+#: ../src/eog-window.c:4006
 msgid "Show the current image in fullscreen mode"
 msgstr "画像をフルスクリーン・モードで表示します"
 
-#: ../src/eog-window.c:3867 ../src/eog-window.c:3882
+#: ../src/eog-window.c:4008
+msgid "Pause Slideshow"
+msgstr "スライドショー停止"
+
+#: ../src/eog-window.c:4009
+msgid "Pause or resume the slideshow"
+msgstr "スライドショーを停止したり再開したりします"
+
+#: ../src/eog-window.c:4014 ../src/eog-window.c:4029
 msgid "_Previous Image"
 msgstr "前の画像へ(_P)"
 
-#: ../src/eog-window.c:3868
+#: ../src/eog-window.c:4015
 msgid "Go to the previous image of the collection"
 msgstr "コレクションで前の画像を表示します"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:4017
 msgid "_Next Image"
 msgstr "次の画像へ(_N)"
 
-#: ../src/eog-window.c:3871
+#: ../src/eog-window.c:4018
 msgid "Go to the next image of the collection"
 msgstr "コレクションで次の画像を表示します"
 
-#: ../src/eog-window.c:3873 ../src/eog-window.c:3885
+#: ../src/eog-window.c:4020 ../src/eog-window.c:4032
 msgid "_First Image"
 msgstr "先頭へ(_F)"
 
-#: ../src/eog-window.c:3874
+#: ../src/eog-window.c:4021
 msgid "Go to the first image of the collection"
 msgstr "コレクションの一番最初の画像を表示します"
 
-#: ../src/eog-window.c:3876 ../src/eog-window.c:3888
+#: ../src/eog-window.c:4023 ../src/eog-window.c:4035
 msgid "_Last Image"
 msgstr "最後へ(_L)"
 
-#: ../src/eog-window.c:3877
+#: ../src/eog-window.c:4024
 msgid "Go to the last image of the collection"
 msgstr "コレクションの一番最後の画像を表示します"
 
-#: ../src/eog-window.c:3879
+#: ../src/eog-window.c:4026
 msgid "_Random Image"
 msgstr "ランダムな画像(_R)"
 
-#: ../src/eog-window.c:3880
+#: ../src/eog-window.c:4027
 msgid "Go to a random image of the collection"
 msgstr "コレクションでランダムに画像を表示します"
 
-#: ../src/eog-window.c:3894
+#: ../src/eog-window.c:4041
 msgid "_Slideshow"
 msgstr "スライドショー(_S)"
 
-#: ../src/eog-window.c:3895
+#: ../src/eog-window.c:4042
 msgid "Start a slideshow view of the images"
 msgstr "複数の画像をスライドショーで表示します"
 
-#: ../src/eog-window.c:3961
+#: ../src/eog-window.c:4108
 msgid "Previous"
 msgstr "前へ"
 
-#: ../src/eog-window.c:3965
+#: ../src/eog-window.c:4112
 msgid "Next"
 msgstr "次へ"
 
-#: ../src/eog-window.c:3969
+#: ../src/eog-window.c:4116
 msgid "Right"
 msgstr "右側"
 
-#: ../src/eog-window.c:3972
+#: ../src/eog-window.c:4119
 msgid "Left"
 msgstr "左側"
 
-#: ../src/eog-window.c:3975
+#: ../src/eog-window.c:4122
 msgid "In"
 msgstr "拡大"
 
-#: ../src/eog-window.c:3978
+#: ../src/eog-window.c:4125
 msgid "Out"
 msgstr "縮小"
 
-#: ../src/eog-window.c:3981
+#: ../src/eog-window.c:4128
 msgid "Normal"
 msgstr "標準"
 
-#: ../src/eog-window.c:3984
+#: ../src/eog-window.c:4131
 msgid "Fit"
 msgstr "合わせる"
 
-#: ../src/eog-window.c:3987
+#: ../src/eog-window.c:4134
 msgid "Collection"
 msgstr "コレクション"
 
-#: ../src/eog-window.c:3990
+#: ../src/eog-window.c:4137
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "ゴミ箱"
@@ -1422,11 +1476,11 @@ msgstr "有効にする(_C)"
 
 #: ../src/eog-plugin-manager.c:535
 msgid "Ac_tivate All"
-msgstr "全て有効にする(_T)"
+msgstr "すべて有効にする(_T)"
 
 #: ../src/eog-plugin-manager.c:540
 msgid "_Deactivate All"
-msgstr "全て無効にする(_D)"
+msgstr "すべて無効にする(_D)"
 
 #: ../src/eog-plugin-manager.c:834
 msgid "Active _Plugins:"
@@ -1440,37 +1494,50 @@ msgstr "プラグインの情報(_A)"
 msgid "C_onfigure Plugin"
 msgstr "プラグインの設定(_O)"
 
-#: ../src/main.c:63
+#: ../src/main.c:66 ../src/main.c:248
+msgid "Eye of GNOME Image Viewer"
+msgstr "Eye of GNOME 画像ビューア"
+
+#: ../src/main.c:73
 msgid "Open in fullscreen mode"
 msgstr "フルスクリーン・モードで開く"
 
-#: ../src/main.c:64
+#: ../src/main.c:74
 msgid "Disable image collection"
 msgstr "画像のコレクションを無効にする"
 
-#: ../src/main.c:65
+#: ../src/main.c:75
 msgid "Open in slideshow mode"
 msgstr "スライド・ショー・モードで開く"
 
-#: ../src/main.c:67
+#: ../src/main.c:77
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "既存のウィンドウを再利用せずに新しいインスタンスを起動する"
 
-#: ../src/main.c:69
+#: ../src/main.c:80
+msgid "Show the application's version"
+msgstr "アプリケーションのバージョンを表示します"
+
+#: ../src/main.c:81
 msgid "[FILE…]"
 msgstr "[ファイル…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:195
+#: ../src/main.c:207
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
-"'%s --help' を実行すると利用可能な全てのコマンドライン・オプションの一覧が表"
-"示されます"
+"'%s --help' を実行すると利用可能なすべてのコマンドライン・オプションの一覧が"
+"表示されます"
 
-#: ../src/main.c:233
-msgid "Eye of GNOME Image Viewer"
-msgstr "Eye of GNOME 画像ビューア"
+#~ msgid "Load Image"
+#~ msgstr "画像の読み込み"
+
+#~ msgid "_File"
+#~ msgstr "ファイル(_F)"
+
+#~ msgid "Set up the page properties for printing"
+#~ msgstr "印刷用にページのプロパティを設定します"
 
 #~ msgid "<b>Details</b>"
 #~ msgstr "<b>詳細</b>"
