@@ -71,23 +71,23 @@ eog_thumb_view_finalize (GObject *object)
 }
 
 static void
-eog_thumb_view_destroy (GtkObject *object)
+eog_thumb_view_destroy (GtkWidget *object)
 {
 	EogThumbView *thumbview;
 	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
 	thumbview = EOG_THUMB_VIEW (object);
 
-	GTK_OBJECT_CLASS (eog_thumb_view_parent_class)->destroy (object);
+	GTK_WIDGET_CLASS (eog_thumb_view_parent_class)->destroy (object);
 }
 
 static void
 eog_thumb_view_class_init (EogThumbViewClass *class)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (class);
-	GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
 	gobject_class->finalize = eog_thumb_view_finalize;
-	object_class->destroy = eog_thumb_view_destroy;
+	widget_class->destroy = eog_thumb_view_destroy;
 
 	g_type_class_add_private (class, sizeof (EogThumbViewPrivate));
 }
@@ -225,7 +225,7 @@ thumbview_on_adjustment_changed_cb (EogThumbView *thumbview,
 
 static void
 thumbview_on_parent_set_cb (GtkWidget *widget,
-			    GtkObject *old_parent,
+			    GtkWidget *old_parent,
 			    gpointer   user_data)
 {
 	EogThumbView *thumbview = EOG_THUMB_VIEW (widget);

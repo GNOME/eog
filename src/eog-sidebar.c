@@ -70,7 +70,7 @@ G_DEFINE_TYPE (EogSidebar, eog_sidebar, GTK_TYPE_VBOX)
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SIDEBAR, EogSidebarPrivate))
 
 static void
-eog_sidebar_destroy (GtkObject *object)
+eog_sidebar_destroy (GtkWidget *object)
 {
 	EogSidebar *eog_sidebar = EOG_SIDEBAR (object);
 
@@ -84,7 +84,7 @@ eog_sidebar_destroy (GtkObject *object)
 		eog_sidebar->priv->page_model = NULL;
 	}
 
-	(* GTK_OBJECT_CLASS (eog_sidebar_parent_class)->destroy) (object);
+	(* GTK_WIDGET_CLASS (eog_sidebar_parent_class)->destroy) (object);
 }
 
 static void
@@ -181,15 +181,13 @@ eog_sidebar_class_init (EogSidebarClass *eog_sidebar_class)
 {
 	GObjectClass *g_object_class;
 	GtkWidgetClass *widget_class;
-	GtkObjectClass *gtk_object_klass;
 
 	g_object_class = G_OBJECT_CLASS (eog_sidebar_class);
 	widget_class = GTK_WIDGET_CLASS (eog_sidebar_class);
-	gtk_object_klass = GTK_OBJECT_CLASS (eog_sidebar_class);
 
 	g_type_class_add_private (g_object_class, sizeof (EogSidebarPrivate));
 
-	gtk_object_klass->destroy = eog_sidebar_destroy;
+	widget_class->destroy = eog_sidebar_destroy;
 	g_object_class->get_property = eog_sidebar_get_property;
 	g_object_class->set_property = eog_sidebar_set_property;
 
