@@ -2328,9 +2328,6 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 	if (priv->image != NULL) {
 		free_image_resources (view);
-		if (gtk_widget_is_drawable (priv->display) && image == NULL) {
-			gdk_window_clear (gtk_widget_get_window (priv->display));
-		}
 	}
 	g_assert (priv->image == NULL);
 	g_assert (priv->pixbuf == NULL);
