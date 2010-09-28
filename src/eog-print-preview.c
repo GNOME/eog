@@ -1053,8 +1053,8 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 	}
 
 	if (has_focus) {
-		gtk_paint_focus (style, gtk_widget_get_window (area),
-				 GTK_STATE_NORMAL, NULL, NULL, NULL,
+		gtk_paint_focus (style, cr,
+				 GTK_STATE_NORMAL, NULL, NULL,
 				 0, 0, allocation.width, allocation.height);
 	}
 }
