@@ -1776,17 +1776,15 @@ eog_scroll_view_focus_out_event (GtkWidget     *widget,
 }
 
 static gboolean
-display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
+display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
-	cairo_t *cr;
 	GtkAllocation allocation;
 	int scaled_width, scaled_height;
 	int xofs, yofs;
 
 	g_return_val_if_fail (GTK_IS_DRAWING_AREA (widget), FALSE);
-	g_return_val_if_fail (event != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (data), FALSE);
 
 	view = EOG_SCROLL_VIEW (data);
@@ -1814,10 +1812,6 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 
 	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n",
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
-
-	cr = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (GTK_WIDGET (view->priv->display))));
-	gdk_cairo_region (cr, event->region);
-	cairo_clip (cr);
 
 	/* Paint the background */
 	cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
@@ -1894,7 +1888,6 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 		cairo_paint (cr);
 	}
 
-	cairo_destroy (cr);
 	return TRUE;
 }
 
@@ -2485,8 +2478,8 @@ eog_scroll_view_init (EogScrollView *view)
 			       | GDK_KEY_PRESS_MASK);
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
 			  G_CALLBACK (display_size_change), view);
-	g_signal_connect (G_OBJECT (priv->display), "expose_event",
-			  G_CALLBACK (display_expose_event), view);
+	g_signal_connect (G_OBJECT (priv->display), "draw",
+			  G_CALLBACK (display_draw), view);
 	g_signal_connect (G_OBJECT (priv->display), "map_event",
 			  G_CALLBACK (display_map_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
