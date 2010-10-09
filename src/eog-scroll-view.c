@@ -267,9 +267,8 @@ update_scrollbar_values (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
 	int scaled_width, scaled_height;
-	int xofs, yofs;
 	gdouble page_size,page_increment,step_increment;
-	gdouble lower, upper, value;
+	gdouble lower, upper;
 	GtkAllocation allocation;
 
 	priv = view->priv;
@@ -290,23 +289,19 @@ update_scrollbar_values (EogScrollView *view)
 		/* Set scroll bounds and new offsets */
 		lower = 0;
 		upper = scaled_width;
-		xofs = CLAMP (priv->xofs, 0, upper - page_size);
-		if (gtk_adjustment_get_value (priv->hadj) != xofs) {
-			value = xofs;
-			priv->xofs = xofs;
+		priv->xofs = CLAMP (priv->xofs, 0, upper - page_size);
 
-			g_signal_handlers_block_matched (
-				priv->hadj, G_SIGNAL_MATCH_DATA,
-				0, 0, NULL, NULL, view);
+		g_signal_handlers_block_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 
-			gtk_adjustment_configure (priv->hadj, value, lower,
-						  upper, step_increment,
-						  page_increment, page_size);
+		gtk_adjustment_configure (priv->hadj, priv->xofs, lower,
+					  upper, step_increment,
+					  page_increment, page_size);
 
-			g_signal_handlers_unblock_matched (
-				priv->hadj, G_SIGNAL_MATCH_DATA,
-				0, 0, NULL, NULL, view);
-		}
+		g_signal_handlers_unblock_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 	}
 
 	if (gtk_widget_get_visible (GTK_WIDGET (priv->vbar))) {
@@ -316,24 +311,19 @@ update_scrollbar_values (EogScrollView *view)
 
 		lower = 0;
 		upper = scaled_height;
-		yofs = CLAMP (priv->yofs, 0, upper - page_size);
+		priv->yofs = CLAMP (priv->yofs, 0, upper - page_size);
 
-		if (gtk_adjustment_get_value (priv->vadj) != yofs) {
-			value = yofs;
-			priv->yofs = yofs;
+		g_signal_handlers_block_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 
-			g_signal_handlers_block_matched (
-				priv->vadj, G_SIGNAL_MATCH_DATA,
-				0, 0, NULL, NULL, view);
+		gtk_adjustment_configure (priv->vadj, priv->yofs, lower,
+					  upper, step_increment,
+					  page_increment, page_size);
 
-			gtk_adjustment_configure (priv->vadj, value, lower,
-						  upper, step_increment,
-						  page_increment, page_size);
-
-			g_signal_handlers_unblock_matched (
-				priv->vadj, G_SIGNAL_MATCH_DATA,
-				0, 0, NULL, NULL, view);
-		}
+		g_signal_handlers_unblock_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 	}
 }
 
