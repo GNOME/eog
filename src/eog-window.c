@@ -4858,30 +4858,6 @@ eog_window_configure_event (GtkWidget *widget, GdkEventConfigure *event)
 	return FALSE;
 }
 
-static gboolean
-eog_window_window_state_event (GtkWidget *widget,
-			       GdkEventWindowState *event)
-{
-	EogWindow *window;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (widget), TRUE);
-
-	window = EOG_WINDOW (widget);
-
-	if (event->changed_mask &
-	    (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN))	{
-		gboolean show;
-
-		show = !(event->new_window_state &
-		         (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
-
-		eog_statusbar_set_has_resize_grip (EOG_STATUSBAR (window->priv->statusbar),
-						   show);
-	}
-
-	return FALSE;
-}
-
 static void
 eog_window_unrealize (GtkWidget *widget)
 {
@@ -5010,7 +4986,6 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->button_press_event = eog_window_button_press;
 	widget_class->drag_data_received = eog_window_drag_data_received;
         widget_class->configure_event = eog_window_configure_event;
-        widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 

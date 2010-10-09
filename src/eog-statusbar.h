@@ -63,9 +63,6 @@ void		 eog_statusbar_set_image_number		(EogStatusbar   *statusbar,
 void		 eog_statusbar_set_progress		(EogStatusbar   *statusbar,
 							 gdouble        progress);
 
-void		 eog_statusbar_set_has_resize_grip	(EogStatusbar   *statusbar,
-							 gboolean        has_resize_grip);
-
 G_END_DECLS
 
 #endif /* __EOG_STATUSBAR_H__ */
