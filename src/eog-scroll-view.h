@@ -35,6 +35,11 @@ typedef enum {
 	EOG_TRANSP_COLOR
 } EogTransparencyStyle;
 
+typedef enum {
+	EOG_ZOOM_MODE_FREE,
+	EOG_ZOOM_MODE_SHRINK_TO_FIT
+} EogZoomMode;
+
 GType    eog_scroll_view_get_type         (void) G_GNUC_CONST;
 GtkWidget* eog_scroll_view_new            (void);
 
@@ -45,6 +50,8 @@ void     eog_scroll_view_set_image        (EogScrollView *view, EogImage *image)
 void     eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, gboolean scroll_wheel_zoom);
 void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale);
 void     eog_scroll_view_set_zoom_multiplier (EogScrollView *view, gdouble multiplier);
+void	eog_scroll_view_set_zoom_mode (EogScrollView *view, EogZoomMode mode);
+EogZoomMode	eog_scroll_view_get_zoom_mode (EogScrollView *view);
 void     eog_scroll_view_set_antialiasing_in (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_antialiasing_out (EogScrollView *view, gboolean state);
 void	eog_scroll_view_set_transparency_color (EogScrollView *view, GdkColor *color);
@@ -59,7 +66,6 @@ void     eog_scroll_view_set_use_bg_color (EogScrollView *view, gboolean use);
 /* zoom api */
 void     eog_scroll_view_zoom_in          (EogScrollView *view, gboolean smooth);
 void     eog_scroll_view_zoom_out         (EogScrollView *view, gboolean smooth);
-void     eog_scroll_view_zoom_fit         (EogScrollView *view);
 void     eog_scroll_view_set_zoom         (EogScrollView *view, double zoom);
 double   eog_scroll_view_get_zoom         (EogScrollView *view);
 gboolean eog_scroll_view_get_zoom_is_min  (EogScrollView *view);

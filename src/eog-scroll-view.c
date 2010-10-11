@@ -43,12 +43,6 @@
  */
 #define IMAGE_VIEW_ZOOM_MULTIPLIER 1.05
 
-/* States for automatically adjusting the zoom factor */
-typedef enum {
-	ZOOM_MODE_FIT,		/* Image is fitted to scroll view even if the latter changes size */
-	ZOOM_MODE_FREE		/* The image remains at its current zoom factor even if the scrollview changes size  */
-} ZoomMode;
-
 #if 0
 /* Progressive loading state */
 typedef enum {
@@ -85,6 +79,7 @@ enum {
 	PROP_TRANSP_COLOR,
 	PROP_TRANSPARENCY_STYLE,
 	PROP_USE_BG_COLOR,
+	PROP_ZOOM_MODE,
 	PROP_ZOOM_MULTIPLIER
 };
 
@@ -106,7 +101,7 @@ struct _EogScrollViewPrivate {
 	cairo_surface_t *surface;
 
 	/* zoom mode, either ZOOM_MODE_FIT or ZOOM_MODE_FREE */
-	ZoomMode zoom_mode;
+	EogZoomMode zoom_mode;
 
 	/* whether to allow zoom > 1.0 on zoom fit */
 	gboolean upscale;
@@ -174,6 +169,7 @@ static void view_on_drag_data_get_cb (GtkWidget *widget,
 				      GdkDragContext*drag_context,
 				      GtkSelectionData *data, guint info,
 				      guint time, gpointer user_data);
+static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
 
 #define EOG_SCROLL_VIEW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SCROLL_VIEW, EogScrollViewPrivate))
@@ -443,7 +439,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 			   width, height, bar_width, bar_height);
 
 	hbar_visible = vbar_visible = FALSE;
-	if (priv->zoom_mode == ZOOM_MODE_FIT)
+	if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT)
 		hbar_visible = vbar_visible = FALSE;
 	else if (img_width <= width && img_height <= height)
 		hbar_visible = vbar_visible = FALSE;
@@ -1306,7 +1302,7 @@ set_zoom (EogScrollView *view, double zoom,
 	if (DOUBLE_EQUAL (priv->zoom, priv->min_zoom) && zoom < priv->zoom)
 		return;
 
-	priv->zoom_mode = ZOOM_MODE_FREE;
+	eog_scroll_view_set_zoom_mode (view, EOG_ZOOM_MODE_FREE);
 
 	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
@@ -1355,7 +1351,7 @@ set_zoom_fit (EogScrollView *view)
 
 	priv = view->priv;
 
-	priv->zoom_mode = ZOOM_MODE_FIT;
+	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 
 	if (!gtk_widget_get_mapped (GTK_WIDGET (view)))
 		return;
@@ -1718,7 +1714,7 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	if (priv->zoom_mode == ZOOM_MODE_FIT) {
+	if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT) {
 		GtkAllocation alloc;
 
 		alloc.width = event->width;
@@ -2021,10 +2017,8 @@ image_changed_cb (EogImage *img, gpointer data)
 
 	update_pixbuf (EOG_SCROLL_VIEW (data), eog_image_get_pixbuf (img));
 
-	set_zoom_fit (EOG_SCROLL_VIEW (data));
-	check_scrollbar_visibility (EOG_SCROLL_VIEW (data), NULL);
-
-	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+	_set_zoom_mode_internal (EOG_SCROLL_VIEW (data),
+				 EOG_ZOOM_MODE_SHRINK_TO_FIT);
 }
 
 /*===================================
@@ -2056,7 +2050,7 @@ eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale)
 	if (priv->upscale != upscale) {
 		priv->upscale = upscale;
 
-		if (priv->zoom_mode == ZOOM_MODE_FIT) {
+		if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT) {
 			set_zoom_fit (view);
 			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 		}
@@ -2241,7 +2235,7 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 	set_zoom (view, zoom, FALSE, 0, 0);
 }
 
-void
+static void
 eog_scroll_view_zoom_fit (EogScrollView *view)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
@@ -2329,9 +2323,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		if (priv->pixbuf == NULL) {
 			update_pixbuf (view, eog_image_get_pixbuf (image));
 			/* priv->progressive_state = PROGRESSIVE_NONE; */
-			set_zoom_fit (view);
-			check_scrollbar_visibility (view, NULL);
-			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+			_set_zoom_mode_internal (view,
+						 EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
 		}
 #if 0
@@ -2421,7 +2414,7 @@ eog_scroll_view_init (EogScrollView *view)
 
 	priv->zoom = 1.0;
 	priv->min_zoom = MIN_ZOOM_FACTOR;
-	priv->zoom_mode = ZOOM_MODE_FIT;
+	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
 	priv->uta = NULL;
 	priv->interp_type_in = CAIRO_FILTER_BILINEAR;
@@ -2611,6 +2604,9 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 	case PROP_TRANSPARENCY_STYLE:
 		g_value_set_enum (value, priv->transp_style);
 		break;
+	case PROP_ZOOM_MODE:
+		g_value_set_enum (value, priv->zoom_mode);
+		break;
 	case PROP_ZOOM_MULTIPLIER:
 		g_value_set_double (value, priv->zoom_multiplier);
 		break;
@@ -2655,6 +2651,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 		break;
 	case PROP_TRANSPARENCY_STYLE:
 		eog_scroll_view_set_transparency (view, g_value_get_enum (value));
+		break;
+	case PROP_ZOOM_MODE:
+		eog_scroll_view_set_zoom_mode (view, g_value_get_enum (value));
 		break;
 	case PROP_ZOOM_MULTIPLIER:
 		eog_scroll_view_set_zoom_multiplier (view, g_value_get_double (value));
@@ -2762,6 +2761,13 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 		g_param_spec_enum ("transparency-style", NULL, NULL,
 				   EOG_TYPE_TRANSPARENCY_STYLE,
 				   EOG_TRANSP_CHECKED,
+				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+	g_object_class_install_property (
+		gobject_class, PROP_ZOOM_MODE,
+		g_param_spec_enum ("zoom-mode", NULL, NULL,
+				   EOG_TYPE_ZOOM_MODE,
+				   EOG_ZOOM_MODE_SHRINK_TO_FIT,
 				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
@@ -3007,4 +3013,41 @@ eog_scroll_view_set_zoom_multiplier (EogScrollView *view,
         view->priv->zoom_multiplier = 1.0 + zoom_multiplier;
 
 	g_object_notify (G_OBJECT (view), "zoom-multiplier");
+}
+
+/* Helper to cause a redraw even if the zoom mode is unchanged */
+static void
+_set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode)
+{
+	gboolean notify = (mode != view->priv->zoom_mode);
+
+
+	if (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT)
+		eog_scroll_view_zoom_fit (view);
+	else
+		view->priv->zoom_mode = mode;
+	
+	if (notify)
+		g_object_notify (G_OBJECT (view), "zoom-mode");
+}
+
+
+void
+eog_scroll_view_set_zoom_mode (EogScrollView *view, EogZoomMode mode)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	if (view->priv->zoom_mode == mode)
+		return;
+
+	_set_zoom_mode_internal (view, mode);
+}
+
+EogZoomMode
+eog_scroll_view_get_zoom_mode (EogScrollView *view)
+{
+	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view),
+			      EOG_ZOOM_MODE_SHRINK_TO_FIT);
+
+	return view->priv->zoom_mode;
 }

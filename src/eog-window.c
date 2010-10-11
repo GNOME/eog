@@ -3468,7 +3468,8 @@ eog_window_cmd_zoom_fit (GtkAction *action, gpointer user_data)
 	priv = EOG_WINDOW (user_data)->priv;
 
 	if (priv->view) {
-		eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (priv->view));
+		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
+					       EOG_ZOOM_MODE_SHRINK_TO_FIT);
 	}
 }
 
