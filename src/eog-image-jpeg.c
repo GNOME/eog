@@ -150,7 +150,16 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 		case EOG_TRANSFORM_FLIP_VERTICAL:
 			trans_code = JXFORM_FLIP_V;
 			break;
+		case EOG_TRANSFORM_TRANSPOSE:
+			trans_code = JXFORM_TRANSPOSE;
+			break;
+		case EOG_TRANSFORM_TRANSVERSE:
+			trans_code = JXFORM_TRANSVERSE;
+			break;
 		default:
+			g_warning("EogTransformType not supported!");
+			/* Fallthrough intended here. */
+		case EOG_TRANSFORM_NONE:
 			trans_code = JXFORM_NONE;
 			break;
 		}
