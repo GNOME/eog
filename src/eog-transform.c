@@ -357,7 +357,7 @@ eog_transform_new (EogTransformType type)
 EogTransformType
 eog_transform_get_transform_type (EogTransform *trans)
 {
-	cairo_matrix_t affine;
+	cairo_matrix_t affine, a1, a2;
 	EogTransformPrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), EOG_TRANSFORM_NONE);
@@ -391,15 +391,19 @@ eog_transform_get_transform_type (EogTransform *trans)
 		return EOG_TRANSFORM_FLIP_VERTICAL;
 	}
 
-	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(90));
-	_eog_cairo_matrix_flip (&affine, &affine, TRUE, FALSE);
+	cairo_matrix_init_rotate (&a1, EOG_DEG_TO_RAD(90));
+	cairo_matrix_init_identity (&a2);
+	_eog_cairo_matrix_flip (&a2, &a2, TRUE, FALSE);
+	cairo_matrix_multiply(&affine, &a1, &a2);
 	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_TRANSPOSE;
 	}
 
-	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(90));
-	_eog_cairo_matrix_flip (&affine, &affine, FALSE, TRUE);
-	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
+	/* A transversion is a 180° rotation followed by a transposition */
+	/* Reuse the transposition from the previous step for this. */
+	cairo_matrix_init_rotate (&a1, EOG_DEG_TO_RAD(180));
+	cairo_matrix_multiply(&a2, &a1, &affine);
+	if (_eog_cairo_matrix_equal (&a2, &priv->affine)) {
 		return EOG_TRANSFORM_TRANSVERSE;
 	}
 
