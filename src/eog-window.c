@@ -228,6 +228,19 @@ eog_window_error_quark (void)
 	return q;
 }
 
+static gboolean
+_eog_zoom_shrink_to_boolean (GBinding *binding, const GValue *source,
+			     GValue *target, gpointer user_data)
+{
+	EogZoomMode mode = g_value_get_enum (source);
+	gboolean is_fit;
+
+	is_fit = (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	g_value_set_boolean (target, is_fit);
+
+	return TRUE;	
+}
+
 static void
 eog_window_set_gallery_mode (EogWindow           *window,
 			     EogWindowGalleryPos  position,
@@ -3460,6 +3473,7 @@ static void
 eog_window_cmd_zoom_fit (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
+	EogZoomMode mode;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3467,9 +3481,12 @@ eog_window_cmd_zoom_fit (GtkAction *action, gpointer user_data)
 
 	priv = EOG_WINDOW (user_data)->priv;
 
+	mode = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))
+	       ? EOG_ZOOM_MODE_SHRINK_TO_FIT : EOG_ZOOM_MODE_FREE;
+
 	if (priv->view) {
 		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
-					       EOG_ZOOM_MODE_SHRINK_TO_FIT);
+					       mode);
 	}
 }
 
@@ -3637,9 +3654,6 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>0",
 	  N_("Show the image at its normal size"),
 	  G_CALLBACK (eog_window_cmd_zoom_normal) },
-	{ "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), "F",
-	  N_("Fit the image to the window"),
-	  G_CALLBACK (eog_window_cmd_zoom_fit) },
 	{ "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal",
 	  N_("Enlarge the image"),
 	  G_CALLBACK (eog_window_cmd_zoom_in) },
@@ -3661,6 +3675,9 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 	{ "PauseSlideshow", "media-playback-pause", N_("Pause Slideshow"),
 	  NULL, N_("Pause or resume the slideshow"),
 	  G_CALLBACK (eog_window_cmd_pause_slideshow), FALSE },
+	{ "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), "F",
+	  N_("Fit the image to the window"),
+	  G_CALLBACK (eog_window_cmd_zoom_fit) },
 };
 
 static const GtkActionEntry action_entries_gallery[] = {
@@ -4149,6 +4166,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *view_popup;
 	GtkWidget *hpaned;
 	GtkWidget *menuitem;
+	GtkAction *action = NULL;
 
 	GConfEntry *entry;
 
@@ -4339,6 +4357,16 @@ eog_window_construct_ui (EogWindow *window)
 			  "zoom_changed",
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
+	action = gtk_action_group_get_action (priv->actions_image,
+					      "ViewZoomFit");
+	if (action != NULL) {
+		/* Binding will be destroyed when the objects finalize */
+		g_object_bind_property_full (priv->view, "zoom-mode",
+					     action, "active",
+					     G_BINDING_SYNC_CREATE,
+					     _eog_zoom_shrink_to_boolean,
+					     NULL, NULL, NULL);
+	}
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
 			 priv->view, "scrollwheel-zoom", G_SETTINGS_BIND_GET);
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_ZOOM_MULTIPLIER,
