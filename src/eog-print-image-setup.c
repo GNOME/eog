@@ -880,15 +880,15 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	label = gtk_label_new_with_mnemonic (_("C_enter:"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 
-	combobox = gtk_combo_box_new_text ();
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox),
-				   CENTER_NONE, _("None"));
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox),
-				   CENTER_HORIZONTAL, _("Horizontal"));
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox),
-				   CENTER_VERTICAL, _("Vertical"));
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox),
-				   CENTER_BOTH, _("Both"));
+	combobox = gtk_combo_box_text_new ();
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
+				        CENTER_NONE, _("None"));
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
+				        CENTER_HORIZONTAL, _("Horizontal"));
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
+				        CENTER_VERTICAL, _("Vertical"));
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
+				        CENTER_BOTH, _("Both"));
 	gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), CENTER_NONE);
 	gtk_table_attach (GTK_TABLE (table), label,
 			  0, 1, 2, 3, GTK_FILL, GTK_FILL,
