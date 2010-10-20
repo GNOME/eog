@@ -464,7 +464,7 @@ static gboolean button_release_event_cb (GtkWidget *widget, GdkEventButton *bev,
 static gboolean motion_notify_event_cb  (GtkWidget *widget, GdkEventMotion *mev, gpointer user_data);
 static gboolean key_press_event_cb      (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
-static void expose_event_cb (GtkDrawingArea *drawing_area, GdkEventExpose *eev, gpointer  user_data);
+static gboolean draw_cb (GtkDrawingArea *drawing_area, cairo_t *cr, gpointer  user_data);
 static void size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data);
 
 /**
@@ -524,8 +524,8 @@ eog_print_preview_new (void)
 
 /* 	update_relative_sizes (preview); */
 
-	g_signal_connect (G_OBJECT (area), "expose-event",
-			  G_CALLBACK (expose_event_cb), preview);
+	g_signal_connect (G_OBJECT (area), "draw",
+			  G_CALLBACK (draw_cb), preview);
 
 	g_signal_connect (G_OBJECT (area), "motion-notify-event",
 			  G_CALLBACK (motion_notify_event_cb), preview);
@@ -545,21 +545,18 @@ eog_print_preview_new (void)
 	return GTK_WIDGET (preview);
 }
 
-static void
-expose_event_cb (GtkDrawingArea *drawing_area,
-		 GdkEventExpose *eev,
+static gboolean
+draw_cb (GtkDrawingArea *drawing_area,
+		 cairo_t *cr,
 		 gpointer  user_data)
 {
 	GtkWidget *widget;
 	EogPrintPreviewPrivate *priv;
-	cairo_t *cr;
 
 	widget = GTK_WIDGET (drawing_area);
 	priv = EOG_PRINT_PREVIEW (user_data)->priv;
 
 	update_relative_sizes (EOG_PRINT_PREVIEW (user_data));
-
-	cr = gdk_cairo_create (gtk_widget_get_window (widget));
 
 	eog_print_preview_draw (EOG_PRINT_PREVIEW (user_data), cr);
 
@@ -568,9 +565,8 @@ expose_event_cb (GtkDrawingArea *drawing_area,
 			 cairo_status_to_string (cairo_status (cr)));
 	}
 
-	cairo_destroy (cr);
-
 	gdk_window_get_pointer (gtk_widget_get_window (widget), NULL, NULL, NULL);
+	return TRUE;
 }
 
 /**
