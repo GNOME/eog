@@ -354,10 +354,10 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		}
 
 		if (gtk_widget_get_visible (priv->exif_box)) {
-			gtk_widget_hide_all (priv->exif_box);
+			gtk_widget_hide (priv->exif_box);
 		}
 		if (gtk_widget_get_visible (priv->metadata_details_box)) {
-			gtk_widget_hide_all (priv->metadata_details_box);
+			gtk_widget_hide (priv->metadata_details_box);
 		}
 
 		return;
@@ -367,7 +367,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		if (priv->netbook_mode &&
 		    !gtk_widget_get_visible (priv->metadata_details_box)) {
 			gtk_widget_show_all (priv->metadata_details_box);
-			gtk_widget_hide_all (priv->exif_details_expander);
+			gtk_widget_hide (priv->exif_details_expander);
 		}
 	}
 
@@ -541,7 +541,7 @@ eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
 		if (gtk_widget_get_visible (priv->exif_box))
 			gtk_widget_show_all (priv->metadata_details_box);
 
-		gtk_widget_hide_all (priv->exif_details_expander);
+		gtk_widget_hide (priv->exif_details_expander);
 	} else {
 		gtk_widget_reparent (priv->metadata_details_sw,
 				     priv->exif_details_expander);
@@ -549,7 +549,7 @@ eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
 
 		if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) == EOG_PROPERTIES_DIALOG_PAGE_DETAILS)
 			gtk_notebook_prev_page (GTK_NOTEBOOK (priv->notebook));
-		gtk_widget_hide_all (priv->metadata_details_box);
+		gtk_widget_hide (priv->metadata_details_box);
 	}
 #endif
 }
@@ -753,7 +753,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	priv->metadata_details_sw = sw;
 
 	if (priv->netbook_mode) {
-		gtk_widget_hide_all (priv->exif_details_expander);
+		gtk_widget_hide (priv->exif_details_expander);
 		gtk_box_pack_start (GTK_BOX (priv->metadata_details_box),
 				    sw, TRUE, TRUE, 6);
 	} else {
@@ -767,8 +767,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			  	dlg);
 
 #ifndef HAVE_EXEMPI
-	gtk_widget_hide_all (xmp_box);
-	gtk_widget_hide_all (xmp_box_label);
+	gtk_widget_hide (xmp_box);
+	gtk_widget_hide (xmp_box_label);
 #endif
 
 #else

@@ -1696,7 +1696,7 @@ fullscreen_timeout_cb (gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 
-	gtk_widget_hide_all (window->priv->fullscreen_popup);
+	gtk_widget_hide (window->priv->fullscreen_popup);
 
 	eog_scroll_view_hide_cursor (EOG_SCROLL_VIEW (window->priv->view));
 
@@ -1992,7 +1992,7 @@ update_ui_visibility (EogWindow *window)
 	}
 
 	if (priv->fullscreen_popup != NULL) {
-		gtk_widget_hide_all (priv->fullscreen_popup);
+		gtk_widget_hide (priv->fullscreen_popup);
 	}
 }
 
@@ -4913,7 +4913,7 @@ eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
 
 	if (fullscreen) {
-		gtk_widget_hide_all (priv->fullscreen_popup);
+		gtk_widget_hide (priv->fullscreen_popup);
 	}
 
 	return GTK_WIDGET_CLASS (eog_window_parent_class)->focus_out_event (widget, event);

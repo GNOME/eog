@@ -483,8 +483,8 @@ eog_thumb_nav_set_show_buttons (EogThumbNav *nav, gboolean show_buttons)
 		gtk_widget_show_all (nav->priv->button_left);
 		gtk_widget_show_all (nav->priv->button_right);
 	} else {
-		gtk_widget_hide_all (nav->priv->button_left);
-		gtk_widget_hide_all (nav->priv->button_right);
+		gtk_widget_hide (nav->priv->button_left);
+		gtk_widget_hide (nav->priv->button_right);
 	}
 }
 
@@ -551,8 +551,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 						GTK_POLICY_NEVER,
 						GTK_POLICY_AUTOMATIC);
 
-		gtk_widget_hide_all (priv->button_left);
-		gtk_widget_hide_all (priv->button_right);
+		gtk_widget_hide (priv->button_left);
+		gtk_widget_hide (priv->button_right);
 
 		break;
 
@@ -567,8 +567,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 						GTK_POLICY_NEVER,
 						GTK_POLICY_AUTOMATIC);
 
-		gtk_widget_hide_all (priv->button_left);
-		gtk_widget_hide_all (priv->button_right);
+		gtk_widget_hide (priv->button_left);
+		gtk_widget_hide (priv->button_right);
 
 		break;
 
@@ -583,8 +583,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 						GTK_POLICY_NEVER,
 						GTK_POLICY_AUTOMATIC);
 
-		gtk_widget_hide_all (priv->button_left);
-		gtk_widget_hide_all (priv->button_right);
+		gtk_widget_hide (priv->button_left);
+		gtk_widget_hide (priv->button_right);
 
 		break;
 	}
