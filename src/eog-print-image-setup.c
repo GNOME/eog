@@ -930,11 +930,11 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	label = gtk_label_new_with_mnemonic (_("_Unit:"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 
-	combobox = gtk_combo_box_new_text ();
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox), UNIT_MM,
-				   _("Millimeters"));
-	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox), UNIT_INCH,
-				   _("Inches"));
+	combobox = gtk_combo_box_text_new ();
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox), UNIT_MM,
+					_("Millimeters"));
+	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
+					UNIT_INCH, _("Inches"));
 
 #ifdef HAVE__NL_MEASUREMENT_MEASUREMENT
 	locale_scale = nl_langinfo (_NL_MEASUREMENT_MEASUREMENT);
