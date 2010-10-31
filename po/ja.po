@@ -12,13 +12,14 @@ msgstr ""
 "Project-Id-Version: eog gnome-2-32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&component=general\n"
-"POT-Creation-Date: 2010-09-19 17:08+0000\n"
-"PO-Revision-Date: 2010-09-15 01:45+0900\n"
+"POT-Creation-Date: 2010-10-25 19:17+0000\n"
+"PO-Revision-Date: 2010-10-28 00:55+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 # (pofilter) accelerators: accelerator _ is missing from translation
@@ -68,7 +69,7 @@ msgstr "ダブルクリックでフルスクリーンモードに切り替えま
 
 #: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:2
 msgid "Fullscreen with double-click"
-msgstr "ダブルクリックでフルスクリーンモードにする"
+msgstr "ダブルクリックでフルスクリーンにする"
 
 #: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
 #: ../plugins/reload/eog-reload-plugin.c:45
@@ -359,6 +360,8 @@ msgstr "向きの自動調整"
 msgid "Delay in seconds until showing the next image"
 msgstr "次の画像が表示されるまでの間隔 (秒)"
 
+# 原文は trans-color だが、data/eog.schemas.in では trans_color なので、原文の
+# ミス
 #: ../data/eog.schemas.in.h:8
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
@@ -649,15 +652,15 @@ msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "ピクセル"
 
-#: ../src/eog-file-chooser.c:437
+#: ../src/eog-file-chooser.c:439
 msgid "Open Image"
 msgstr "画像を開く"
 
-#: ../src/eog-file-chooser.c:445
+#: ../src/eog-file-chooser.c:447
 msgid "Save Image"
 msgstr "画像の保存"
 
-#: ../src/eog-file-chooser.c:453
+#: ../src/eog-file-chooser.c:455
 msgid "Open Folder"
 msgstr "フォルダの選択"
 
@@ -691,12 +694,12 @@ msgstr "画像が読み込まれていません。"
 msgid "Temporary file creation failed."
 msgstr "作業用ファイルの生成に失敗しました。"
 
-#: ../src/eog-image-jpeg.c:364
+#: ../src/eog-image-jpeg.c:373
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "保存するための作業ファイルを生成できませんでした: %s"
 
-#: ../src/eog-image-jpeg.c:383
+#: ../src/eog-image-jpeg.c:392
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ファイルを読み込むためのメモリを確保できませんでした"
@@ -1355,7 +1358,7 @@ msgstr "画像をウィンドウに合わせた大きさにします"
 
 #: ../src/eog-window.c:4005
 msgid "_Fullscreen"
-msgstr "フル・スクリーン(_F)"
+msgstr "フルスクリーン(_F)"
 
 #: ../src/eog-window.c:4006
 msgid "Show the current image in fullscreen mode"
