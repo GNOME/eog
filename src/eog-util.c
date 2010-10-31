@@ -34,12 +34,12 @@
 #include <time.h>
 
 #include "eog-util.h"
+#include "eog-debug.h"
 
 #include <errno.h>
 #include <string.h>
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -231,6 +231,7 @@ eog_util_string_array_make_absolute (gchar **files)
 }
 
 static gchar *dot_dir = NULL;
+static void migrate_config_folder (const gchar* new_folder);
 
 static gboolean
 ensure_dir_exists (const char *dir)
@@ -238,8 +239,11 @@ ensure_dir_exists (const char *dir)
 	if (g_file_test (dir, G_FILE_TEST_IS_DIR))
 		return TRUE;
 
-	if (g_mkdir_with_parents (dir, 0700) == 0)
+	if (g_mkdir_with_parents (dir, 0700) == 0) {
+		/* If the folder is created try migrating from the old folder */
+		migrate_config_folder (dir);
 		return TRUE;
+	}
 
 	if (errno == EEXIST)
 		return g_file_test (dir, G_FILE_TEST_IS_DIR);
@@ -256,33 +260,7 @@ eog_util_dot_dir (void)
 
 		dot_dir = g_build_filename (g_get_user_config_dir (),
 					    "eog", NULL);
-		gchar* old_dir = g_build_filename (g_get_home_dir (), ".gnome2",
-						   "eog", NULL);
 
-		if(g_file_test (old_dir, G_FILE_TEST_IS_DIR)) {
-			/* new config directory does not exist yet */
-			if(!g_file_test (dot_dir, G_FILE_TEST_IS_DIR)) {
-			g_rename(old_dir, dot_dir);
-			} else {
-				//it exists we need to move files one by one
-				GDir* dir = g_dir_open (old_dir, 0, NULL);
-				if (dir != NULL) {
-					gchar* filename; //dont free this
-					while (filename = (gchar*) g_dir_read_name (dir))
-					{
-						gchar* old_filename = g_build_filename(old_dir, filename, NULL);
-						gchar* new_filename = g_build_filename(dot_dir, filename, NULL);
-						if(!g_file_test (new_filename, G_FILE_TEST_EXISTS))
-							g_rename (old_filename, new_filename);
-						else {} // maybe inform the user that there are duplicated files, show a dialog?
-						g_free (old_filename);
-						g_free (new_filename);
-					}
-					g_dir_close(dir);
-				}
-			}
-		}
-		g_free(old_dir);
 		exists = ensure_dir_exists (dot_dir);
 		if (G_UNLIKELY (!exists)) {
 			static gboolean printed_warning = FALSE;
@@ -291,12 +269,85 @@ eog_util_dot_dir (void)
 				g_warning ("EOG could not save some of your preferences in its settings directory due to a file with the same name (%s) blocking its creation. Please remove that file, or move it away.", dot_dir);
 				printed_warning = TRUE;
 			}
+			g_free (dot_dir);
 			dot_dir = NULL;
 			return NULL;
 		}
 	}
 
 	return dot_dir;
+}
+
+static void migrate_config_file (const gchar *old_filename, const gchar* new_filename)
+{
+	GFile *old_file, *new_file;
+	GError *error = NULL;
+
+	if (!g_file_test (old_filename, G_FILE_TEST_IS_REGULAR))
+		return;
+
+	old_file = g_file_new_for_path (old_filename);
+	new_file = g_file_new_for_path (new_filename);
+
+	if (!g_file_move (old_file, new_file, G_FILE_COPY_NONE, NULL, NULL, NULL, &error)) {
+		g_warning ("Could not migrate config file %s: %s\n", old_filename, error->message);
+		g_error_free (error);
+	}
+	g_object_unref (new_file);
+	g_object_unref (old_file);
+}
+
+static void migrate_config_folder (const gchar* new_dir)
+{
+	gchar* old_dir = g_build_filename (g_get_home_dir (), ".gnome2",
+					   "eog", NULL);
+	gchar* old_filename = NULL;
+	gchar* new_filename = NULL;
+	GError *error = NULL;
+	GFile *dir_file = NULL;
+	gsize i;
+	static const gchar *old_files[] = { "eog-print-settings.ini",
+					    "eog_toolbar.xml",
+					    NULL };
+
+	if(!g_file_test (old_dir, G_FILE_TEST_IS_DIR)) {
+		/* Nothing to migrate */
+		g_free (old_dir);
+		return;
+	}
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	for (i = 0; old_files[i] != NULL; i++) {
+		old_filename = g_build_filename (old_dir,
+						old_files[i], NULL);
+		new_filename = g_build_filename (new_dir,
+						old_files[i], NULL);
+
+		migrate_config_file (old_filename, new_filename);
+
+		g_free (new_filename);
+		g_free (old_filename);
+	}
+
+	/* Migrate accels file */
+	old_filename = g_build_filename (g_get_home_dir (), ".gnome2",
+					 "accels", "eog", NULL);
+	/* move file to ~/.config/eog/accels if its not already there */
+	new_filename = g_build_filename (new_dir, "accels", NULL);
+
+	migrate_config_file (old_filename, new_filename);
+
+	g_free (new_filename);
+	g_free (old_filename);
+
+	dir_file = g_file_new_for_path (old_dir);
+	if (!g_file_delete (dir_file, NULL, &error)) {
+		g_warning ("An error occured while deleting the old config folder %s: %s\n", old_dir, error->message);
+		g_error_free (error);
+	}
+	g_object_unref (dir_file);
+	g_free(old_dir);
 }
 
 /* Based on eel_filename_strip_extension() */
