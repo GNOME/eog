@@ -819,7 +819,7 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 			path = gtk_tree_path_new_from_indices (n_items - 1, -1);
 			break;
 		case EOG_THUMB_VIEW_SELECT_RANDOM:
-			path = gtk_tree_path_new_from_indices ((int)(((float)(n_items - 1) * rand()) / (float)(RAND_MAX + 1.f)), -1);
+			path = gtk_tree_path_new_from_indices (g_random_int_range (0, n_items), -1);
 			break;
 		}
 	} else {
@@ -857,7 +857,7 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 			break;
 		case EOG_THUMB_VIEW_SELECT_RANDOM:
 			gtk_tree_path_free (path);
-			path = gtk_tree_path_new_from_indices ((int)(((float)(n_items - 1) * rand()) / (float)(RAND_MAX + 1.f)), -1);
+			path = gtk_tree_path_new_from_indices (g_random_int_range (0, n_items), -1);
 			break;
 		}
 	}
