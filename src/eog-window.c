@@ -279,7 +279,7 @@ eog_window_set_gallery_mode (EogWindow           *window,
 		if (resizable) {
 			mode = EOG_THUMB_NAV_MODE_MULTIPLE_ROWS;
 
-			priv->layout = gtk_vpaned_new ();
+			priv->layout = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
 
 			if (position == EOG_WINDOW_GALLERY_POS_BOTTOM) {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
@@ -308,7 +308,7 @@ eog_window_set_gallery_mode (EogWindow           *window,
 		if (resizable) {
 			mode = EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS;
 
-			priv->layout = gtk_hpaned_new ();
+			priv->layout = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 
 			if (position == EOG_WINDOW_GALLERY_POS_LEFT) {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
@@ -4330,7 +4330,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	priv->layout = gtk_vbox_new (FALSE, 2);
 
-	hpaned = gtk_hpaned_new ();
+	hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 
 	priv->sidebar = eog_sidebar_new ();
 	/* The sidebar shouldn't be shown automatically on show_all(),
