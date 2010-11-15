@@ -34,7 +34,7 @@
 #ifndef GNOME_DESKTOP_USE_UNSTABLE_API
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #endif
-#include <libgnomeui/gnome-desktop-thumbnail.h>
+#include <libgnome-desktop/gnome-desktop-thumbnail.h>
 
 static char *last_dir[] = { NULL, NULL, NULL, NULL };
 
