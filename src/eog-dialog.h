@@ -49,7 +49,7 @@ struct _EogDialogClass {
 	GObjectClass parent_class;
 
 	void    (* construct)   (EogDialog   *dialog,
-				 const gchar *glade_file,
+				 const gchar *ui_file,
 				 const gchar *dlg_node);
 
 	void    (* show)        (EogDialog   *dialog);
@@ -60,7 +60,7 @@ struct _EogDialogClass {
 GType   eog_dialog_get_type      (void) G_GNUC_CONST;
 
 void    eog_dialog_construct     (EogDialog   *dialog,
-				  const gchar *glade_file,
+				  const gchar *ui_file,
 				  const gchar *dlg_node);
 
 void    eog_dialog_show	         (EogDialog *dialog);
