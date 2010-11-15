@@ -47,7 +47,7 @@ struct _EogDialogPrivate {
 
 static void
 eog_dialog_construct_impl (EogDialog   *dialog,
-			   const gchar *ui_file,
+			   const gchar *glade_file,
 			   const gchar *dlg_node)
 {
 	EogDialogPrivate *priv;
@@ -58,7 +58,7 @@ eog_dialog_construct_impl (EogDialog   *dialog,
 
 	priv = dialog->priv;
 
-	filename = g_build_filename (EOG_DATA_DIR, ui_file, NULL);
+	filename = g_build_filename (EOG_DATA_DIR, glade_file, NULL);
 
 	priv->xml = gtk_builder_new ();
 	gtk_builder_set_translation_domain (priv->xml, GETTEXT_PACKAGE);
@@ -187,11 +187,11 @@ eog_dialog_init (EogDialog *dialog)
 
 void
 eog_dialog_construct (EogDialog   *dialog,
-		      const gchar *ui_file,
+		      const gchar *glade_file,
 		      const gchar *dlg_node)
 {
 	EogDialogClass *klass = EOG_DIALOG_GET_CLASS (dialog);
-	klass->construct (dialog, ui_file, dlg_node);
+	klass->construct (dialog, glade_file, dlg_node);
 }
 
 void
