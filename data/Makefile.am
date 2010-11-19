@@ -19,8 +19,8 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 gsettingsconvertdir = $(datadir)/GConf/gsettings
 gsettingsconvert_DATA = eog.convert
 
-gladedir = $(pkgdatadir)
-glade_DATA = eog-image-properties-dialog.ui \
+uidir = $(pkgdatadir)
+ui_DATA = eog-image-properties-dialog.ui \
 	     eog-multiple-save-as-dialog.ui \
 	     eog-preferences-dialog.ui
 
@@ -39,7 +39,7 @@ gtkrc_DATA = gtkrc
 
 EXTRA_DIST =			\
         $(gtkrc_DATA)		\
-        $(glade_DATA)		\
+        $(ui_DATA)		\
         $(DESKTOP_IN_FILES)	\
 	eog.convert		\
 	$(UI_FILES)
