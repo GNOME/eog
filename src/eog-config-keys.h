@@ -32,7 +32,8 @@
 #define EOG_CONF_UI				EOG_CONF_DOMAIN".ui"
 #define EOG_CONF_VIEW				EOG_CONF_DOMAIN".view"
 
-#define EOG_CONF_DESKTOP_WALLPAPER		"/desktop/gnome/background/picture_filename"
+#define EOG_CONF_DESKTOP_WALLPAPER_SCHEMA	"org.gnome.desktop.background"
+#define EOG_CONF_DESKTOP_WALLPAPER		"picture-filename"
 #define EOG_CONF_DESKTOP_CAN_SAVE		"/desktop/gnome/lockdown/disable_save_to_disk"
 #define EOG_CONF_DESKTOP_CAN_PRINT      	"/desktop/gnome/lockdown/disable_printing"
 #define EOG_CONF_DESKTOP_CAN_SETUP_PAGE 	"/desktop/gnome/lockdown/disable_print_setup"

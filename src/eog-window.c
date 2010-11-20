@@ -2652,7 +2652,7 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 static void
 eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename)
 {
-	EogWindowPrivate *priv = EOG_WINDOW_GET_PRIVATE (window);
+	GSettings *settings;
 	GtkWidget *info_bar;
 	GtkWidget *image;
 	GtkWidget *label;
@@ -2661,11 +2661,9 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	gchar *text;
 	gchar *basename;
 
-
-	gconf_client_set_string (priv->client,
-				 EOG_CONF_DESKTOP_WALLPAPER,
-				 filename,
-				 NULL);
+	settings = g_settings_new (EOG_CONF_DESKTOP_WALLPAPER_SCHEMA);
+	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER, filename);
+	g_object_unref (settings);
 
 	/* I18N: When setting mnemonics for these strings, watch out to not
 	   clash with mnemonics from eog's menubar */
