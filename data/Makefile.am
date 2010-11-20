@@ -21,15 +21,10 @@ gsettingsconvert_DATA = eog.convert
 
 uidir = $(pkgdatadir)
 ui_DATA = eog-image-properties-dialog.ui \
-	     eog-multiple-save-as-dialog.ui \
-	     eog-preferences-dialog.ui
-
-uidir = $(datadir)/eog
-UI_FILES = \
+	eog-multiple-save-as-dialog.ui \
+	eog-preferences-dialog.ui \
 	eog-ui.xml \
 	eog-toolbar.xml
-
-ui_DATA = $(UI_FILES)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
@@ -41,8 +36,7 @@ EXTRA_DIST =			\
         $(gtkrc_DATA)		\
         $(ui_DATA)		\
         $(DESKTOP_IN_FILES)	\
-	eog.convert		\
-	$(UI_FILES)
+	eog.convert
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
