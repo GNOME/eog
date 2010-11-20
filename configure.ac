@@ -87,8 +87,6 @@ GTK_REQUIRED=2.91.1
 GLIB_REQUIRED=2.25.9
 GNOME_DESKTOP_REQUIRED=2.91.2
 GDKPIXBUF_REQUIRED=2.4.0
-# Require GConf 2.31+ for GConf-GSettings-Backend
-GCONF_REQUIRED=2.31.1
 GTK_PRINT_REQUIRED=2.90.4
 GNOME_ICON_THEME_REQUIRED=2.19.1
 SHARED_MIME_INFO_REQUIRED=0.20
@@ -102,7 +100,6 @@ EOG_MODULES="gtk+-3.0 >= $GTK_REQUIRED \
              gthread-2.0 >= $GLIB_REQUIRED \
              gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
-             gconf-2.0 >= $GCONF_REQUIRED \
              gtk+-unix-print-3.0 >= $GTK_PRINT_REQUIRED \
              gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \

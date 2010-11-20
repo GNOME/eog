@@ -66,7 +66,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gdesktopappinfo.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 #if HAVE_LCMS
 #include <X11/Xlib.h>
@@ -119,19 +118,11 @@ enum {
 
 static gint signals[SIGNAL_LAST];
 
-/* GConfNotifications */
-enum {
-	EOG_WINDOW_NOTIFY_CAN_SAVE,
-	EOG_WINDOW_NOTIFY_LENGTH
-};
-
 struct _EogWindowPrivate {
 	GSettings           *fullscreen_settings;
 	GSettings           *ui_settings;
 	GSettings           *view_settings;
 	GSettings           *lockdown_settings;
-        GConfClient         *client;
-        guint                client_notifications[EOG_WINDOW_NOTIFY_LENGTH];
 
         EogListStore        *store;
         EogImage            *image;
@@ -4461,8 +4452,6 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 	priv->lockdown_settings = g_settings_new (EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA);
 
-	priv->client = gconf_client_get_default ();
-
 	window->priv->store = NULL;
 	window->priv->image = NULL;
 
@@ -4580,17 +4569,6 @@ eog_window_dispose (GObject *object)
 	eog_window_clear_load_job (window);
 
 	eog_window_clear_transform_job (window);
-
-	if (priv->client) {
-		int i;
-
-		for (i = 0; i < EOG_WINDOW_NOTIFY_LENGTH; ++i) {
-			gconf_client_notify_remove (priv->client,
-						 priv->client_notifications[i]);
-		}
-		g_object_unref (priv->client);
-		priv->client = NULL;
-	}
 
 	if (priv->view_settings) {
 		g_object_unref (priv->view_settings);
