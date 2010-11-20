@@ -34,9 +34,11 @@
 
 #define EOG_CONF_DESKTOP_WALLPAPER_SCHEMA	"org.gnome.desktop.background"
 #define EOG_CONF_DESKTOP_WALLPAPER		"picture-filename"
-#define EOG_CONF_DESKTOP_CAN_SAVE		"/desktop/gnome/lockdown/disable_save_to_disk"
-#define EOG_CONF_DESKTOP_CAN_PRINT      	"/desktop/gnome/lockdown/disable_printing"
-#define EOG_CONF_DESKTOP_CAN_SETUP_PAGE 	"/desktop/gnome/lockdown/disable_print_setup"
+
+#define EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA	"org.gnome.desktop.lockdown"
+#define EOG_CONF_DESKTOP_CAN_PRINT		"disable-printing"
+#define EOG_CONF_DESKTOP_CAN_SAVE		"disable-save-to-disk"
+#define EOG_CONF_DESKTOP_CAN_SETUP_PAGE 	"disable-print-setup"
 
 #define EOG_CONF_VIEW_BACKGROUND_COLOR		"background-color"
 #define EOG_CONF_VIEW_INTERPOLATE		"interpolate"

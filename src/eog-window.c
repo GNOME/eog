@@ -129,6 +129,7 @@ struct _EogWindowPrivate {
 	GSettings           *fullscreen_settings;
 	GSettings           *ui_settings;
 	GSettings           *view_settings;
+	GSettings           *lockdown_settings;
         GConfClient         *client;
         guint                client_notifications[EOG_WINDOW_NOTIFY_LENGTH];
 
@@ -344,10 +345,9 @@ eog_window_set_gallery_mode (EogWindow           *window,
 }
 
 static void
-eog_window_can_save_changed_cb (GConfClient *client,
-				guint       cnxn_id,
-				GConfEntry  *entry,
-				gpointer    user_data)
+eog_window_can_save_changed_cb (GSettings   *settings,
+				const gchar *key,
+				gpointer     user_data)
 {
 	EogWindowPrivate *priv;
 	EogWindow *window;
@@ -361,9 +361,7 @@ eog_window_can_save_changed_cb (GConfClient *client,
 	window = EOG_WINDOW (user_data);
 	priv = EOG_WINDOW (user_data)->priv;
 
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
-		save_disabled = gconf_value_get_bool (entry->value);
-	}
+	save_disabled = g_settings_get_boolean (settings, key);
 
 	priv->save_disabled = save_disabled;
 
@@ -688,17 +686,15 @@ update_action_groups_state (EogWindow *window)
 			gtk_widget_grab_focus (priv->view);
 	}
 
-	print_disabled = gconf_client_get_bool (priv->client,
-						EOG_CONF_DESKTOP_CAN_PRINT,
-						NULL);
+	print_disabled = g_settings_get_boolean (priv->lockdown_settings,
+						EOG_CONF_DESKTOP_CAN_PRINT);
 
 	if (print_disabled) {
 		gtk_action_set_sensitive (action_print, FALSE);
 	}
 
-	page_setup_disabled = gconf_client_get_bool (priv->client,
-						     EOG_CONF_DESKTOP_CAN_SETUP_PAGE,
-						     NULL);
+	page_setup_disabled = g_settings_get_boolean (priv->lockdown_settings,
+						      EOG_CONF_DESKTOP_CAN_SETUP_PAGE);
 
 	if (eog_sidebar_is_empty (EOG_SIDEBAR (priv->sidebar))) {
 		gtk_action_set_sensitive (action_sidebar, FALSE);
@@ -4174,7 +4170,6 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *menuitem;
 	GtkAction *action = NULL;
 
-	GConfEntry *entry;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -4427,14 +4422,12 @@ eog_window_construct_ui (EogWindow *window)
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE,
 			 window, "gallery-resizable", G_SETTINGS_BIND_GET);
 
-	entry = gconf_client_get_entry (priv->client,
-					EOG_CONF_DESKTOP_CAN_SAVE,
-					NULL, TRUE, NULL);
-	if (entry != NULL) {
-		eog_window_can_save_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_unref (entry);
-		entry = NULL;
-	}
+	g_signal_connect (priv->lockdown_settings,
+			  "changed::" EOG_CONF_DESKTOP_CAN_SAVE,
+			  G_CALLBACK (eog_window_can_save_changed_cb), window);
+	// Call callback once to have the value set
+	eog_window_can_save_changed_cb (priv->lockdown_settings,
+					EOG_CONF_DESKTOP_CAN_SAVE, window);
 
 	if ((priv->flags & EOG_STARTUP_FULLSCREEN) ||
 	    (priv->flags & EOG_STARTUP_SLIDE_SHOW)) {
@@ -4466,14 +4459,9 @@ eog_window_init (EogWindow *window)
 	priv->fullscreen_settings = g_settings_new (EOG_CONF_FULLSCREEN);
 	priv->ui_settings = g_settings_new (EOG_CONF_UI);
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
+	priv->lockdown_settings = g_settings_new (EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA);
 
 	priv->client = gconf_client_get_default ();
-
-	priv->client_notifications[EOG_WINDOW_NOTIFY_CAN_SAVE] =
-		gconf_client_notify_add (window->priv->client,
-					 EOG_CONF_DESKTOP_CAN_SAVE,
-					 eog_window_can_save_changed_cb,
-					 window, NULL, NULL);
 
 	window->priv->store = NULL;
 	window->priv->image = NULL;
@@ -4617,6 +4605,11 @@ eog_window_dispose (GObject *object)
 	if (priv->fullscreen_settings) {
 		g_object_unref (priv->fullscreen_settings);
 		priv->fullscreen_settings = NULL;
+	}
+
+	if (priv->lockdown_settings) {
+		g_object_unref (priv->lockdown_settings);
+		priv->lockdown_settings = NULL;
 	}
 
 	if (priv->file_list != NULL) {
