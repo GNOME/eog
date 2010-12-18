@@ -178,6 +178,8 @@ struct _EogWindowPrivate {
 	gboolean	     save_disabled;
 	gboolean             needs_reload_confirmation;
 
+	GtkPageSetup        *page_setup;
+
 #ifdef HAVE_LCMS
         cmsHPROFILE         *display_profile;
 #endif
@@ -2167,10 +2169,14 @@ eog_window_print (EogWindow *window)
 	eog_debug (DEBUG_PRINTING);
 
 	print_settings = eog_print_get_print_settings ();
-	page_setup = eog_print_get_page_setup ();
 
 	/* Make sure the window stays valid while printing */
 	g_object_ref (window);
+
+	if (window->priv->page_setup != NULL)
+		page_setup = g_object_ref (window->priv->page_setup);
+	else
+		page_setup = NULL;
 
 	print = eog_print_operation_new (window->priv->image,
 					 print_settings,
@@ -2200,11 +2206,16 @@ eog_window_print (EogWindow *window)
 		gtk_widget_show (dialog);
 		g_error_free (error);
 	} else if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
+		GtkPageSetup *new_page_setup;
 		eog_print_set_print_settings (gtk_print_operation_get_print_settings (print));
-		eog_print_set_page_setup (gtk_print_operation_get_default_page_setup (print));
+		new_page_setup = gtk_print_operation_get_default_page_setup (print);
+		if (window->priv->page_setup != NULL)
+			g_object_unref (window->priv->page_setup);
+		window->priv->page_setup = g_object_ref (new_page_setup);
 	}
 
-	g_object_unref (page_setup);
+	if (page_setup != NULL)
+		g_object_unref (page_setup);
 	g_object_unref (print_settings);
 	g_object_unref (window);
 }
@@ -4506,6 +4517,8 @@ eog_window_init (EogWindow *window)
 	window->priv->gallery_resizable = FALSE;
 
 	window->priv->save_disabled = FALSE;
+
+	window->priv->page_setup = NULL;
 }
 
 static void
@@ -4626,6 +4639,11 @@ eog_window_dispose (GObject *object)
 	if (priv->last_save_as_folder != NULL) {
 		g_object_unref (priv->last_save_as_folder);
 		priv->last_save_as_folder = NULL;
+	}
+
+	if (priv->page_setup != NULL) {
+		g_object_unref (priv->page_setup);
+		priv->page_setup = NULL;
 	}
 
 	eog_plugin_engine_garbage_collect ();
