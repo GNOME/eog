@@ -52,6 +52,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #ifdef HAVE_EXIF
+#include "eog-exif-util.h"
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
 #include <libexif/exif-loader.h>
@@ -1887,6 +1888,7 @@ eog_image_cancel_load (EogImage *img)
 	g_mutex_unlock (priv->status_mutex);
 }
 
+#ifdef HAVE_EXIF
 EogExifData *
 eog_image_get_exif_info (EogImage *img)
 {
@@ -1897,18 +1899,16 @@ eog_image_get_exif_info (EogImage *img)
 
 	priv = img->priv;
 
-#ifdef HAVE_EXIF
 	g_mutex_lock (priv->status_mutex);
 
 	exif_data_ref (priv->exif);
 	data = priv->exif;
 
 	g_mutex_unlock (priv->status_mutex);
-#endif
 
 	return data;
 }
-
+#endif
 
 gpointer
 eog_image_get_xmp_info (EogImage *img)
