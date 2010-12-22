@@ -2641,13 +2641,39 @@ static void
 wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 {
 	if (response == GTK_RESPONSE_YES) {
-		GdkScreen *screen;
+		GAppInfo *app_info;
+		GError *error = NULL;
 
-		screen = gtk_widget_get_screen (GTK_WIDGET (window));
-		gdk_spawn_command_line_on_screen (screen,
-						  "gnome-appearance-properties"
-						  " --show-page=background",
-						  NULL);
+		app_info = g_app_info_create_from_commandline ("gnome-appearance-properties --show-page=background",
+							       "gnome-appearance-properties",
+							       G_APP_INFO_CREATE_NONE,
+							       &error);
+
+		if (error != NULL) {
+			g_warning ("%s%s", _("Error launching appearance preferences dialog: "),
+				   error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+
+		if (app_info != NULL) {
+			GdkScreen *screen;
+			GdkAppLaunchContext *context;
+
+			screen = gtk_widget_get_screen (GTK_WIDGET (window));
+			context = gdk_display_get_app_launch_context (gdk_screen_get_display (screen));
+			g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (context), &error);
+
+			if (error != NULL) {
+				g_warning ("%s%s", _("Error launching appearance preferences dialog: "),
+					   error->message);
+				g_error_free (error);
+				error = NULL;
+			}
+
+			g_object_unref (context);
+			g_object_unref (app_info);
+		}
 	}
 
 	/* Close message area on every response */
