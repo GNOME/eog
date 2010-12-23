@@ -170,7 +170,7 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
 #if HAVE_EXIF
-EogExifData*      eog_image_get_exif_info            (EogImage   *img);
+ExifData*      eog_image_get_exif_info            (EogImage   *img);
 #endif
 
 gpointer          eog_image_get_xmp_info             (EogImage   *img);

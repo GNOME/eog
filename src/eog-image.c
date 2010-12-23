@@ -1887,11 +1887,11 @@ eog_image_cancel_load (EogImage *img)
 }
 
 #ifdef HAVE_EXIF
-EogExifData *
+ExifData *
 eog_image_get_exif_info (EogImage *img)
 {
 	EogImagePrivate *priv;
-	EogExifData *data = NULL;
+	ExifData *data = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
