@@ -2657,11 +2657,11 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 		}
 
 		if (app_info != NULL) {
-			GdkScreen *screen;
 			GdkAppLaunchContext *context;
+			GdkDisplay *display;
 
-			screen = gtk_widget_get_screen (GTK_WIDGET (window));
-			context = gdk_display_get_app_launch_context (gdk_screen_get_display (screen));
+			display = gtk_widget_get_display (GTK_WIDGET (window));
+			context = gdk_display_get_app_launch_context (display);
 			g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (context), &error);
 
 			if (error != NULL) {
