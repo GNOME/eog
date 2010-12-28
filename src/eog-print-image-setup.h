@@ -28,7 +28,7 @@ G_BEGIN_DECLS
 
 typedef struct _EogPrintImageSetup         EogPrintImageSetup;
 typedef struct _EogPrintImageSetupClass    EogPrintImageSetupClass;
-typedef struct EogPrintImageSetupPrivate   EogPrintImageSetupPrivate;
+typedef struct _EogPrintImageSetupPrivate  EogPrintImageSetupPrivate;
 
 #define EOG_TYPE_PRINT_IMAGE_SETUP            (eog_print_image_setup_get_type ())
 #define EOG_PRINT_IMAGE_SETUP(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_PRINT_IMAGE_SETUP, EogPrintImageSetup))

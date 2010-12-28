@@ -53,7 +53,7 @@
 
 G_DEFINE_TYPE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_TABLE);
 
-struct EogPrintImageSetupPrivate {
+struct _EogPrintImageSetupPrivate {
 	GtkWidget *left;
 	GtkWidget *right;
 	GtkWidget *top;
