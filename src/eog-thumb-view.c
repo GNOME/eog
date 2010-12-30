@@ -678,7 +678,7 @@ eog_thumb_view_get_image_from_path (EogThumbView *thumbview, GtkTreePath *path)
  * is not ensured to be really the first selected image in @thumbview, but
  * generally, it will be.
  *
- * Returns: A #EogImage.
+ * Returns: (transfer full): A #EogImage.
  **/
 EogImage *
 eog_thumb_view_get_first_selected_image (EogThumbView *thumbview)
@@ -711,7 +711,7 @@ eog_thumb_view_get_first_selected_image (EogThumbView *thumbview)
  * Gets a list with the currently selected images. Note that a new reference is
  * hold for each image and the list must be freed with g_list_free().
  *
- * Returns: A newly allocated list of #EogImage's.
+ * Returns: (element-type EogImage) (transfer full): A newly allocated list of #EogImage's.
  **/
 GList *
 eog_thumb_view_get_selected_images (EogThumbView *thumbview)

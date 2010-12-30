@@ -169,7 +169,7 @@ eog_application_init (EogApplication *eog_application)
  * Returns a singleton instance of #EogApplication currently running.
  * If not running yet, it will create one.
  *
- * Returns: a running #EogApplication.
+ * Returns: (transfer none): a running #EogApplication.
  **/
 EogApplication *
 eog_application_get_instance (void)
@@ -439,7 +439,7 @@ eog_application_shutdown (EogApplication *application)
  * your own references if you want to perform actions that may destroy
  * them.
  *
- * Returns: A new list of #EogWindow<!-- -->s.
+ * Returns: (element-type EogWindow) (transfer container): A new list of #EogWindow<!-- -->s.
  **/
 GList *
 eog_application_get_windows (EogApplication *application)
@@ -468,7 +468,7 @@ eog_application_get_windows (EogApplication *application)
  *
  * Retrieves the #EggToolbarsModel for the toolbar in #EogApplication.
  *
- * Returns: An #EggToolbarsModel.
+ * Returns: (transfer none): An #EggToolbarsModel.
  **/
 EggToolbarsModel *
 eog_application_get_toolbars_model (EogApplication *application)

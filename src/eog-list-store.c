@@ -726,7 +726,7 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
  * Gets the #EogImage in the position @pos of @store. If there is
  * no image at position @pos, %NULL is returned.
  *
- * Returns: the #EogImage in position @pos or %NULL.
+ * Returns: (transfer full): the #EogImage in position @pos or %NULL.
  *
  **/
 EogImage *

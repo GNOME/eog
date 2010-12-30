@@ -781,6 +781,17 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #endif
 }
 
+/**
+ * eog_properties_dialog_new:
+ * @parent: 
+ * @thumbview: 
+ * @next_image_action: 
+ * @previous_image_action: 
+ *
+ * 
+ *
+ * Returns: (transfer full): a new #EogPropertiesDialog
+ **/
 GObject *
 eog_properties_dialog_new (GtkWindow    *parent,
 			   EogThumbView *thumbview,

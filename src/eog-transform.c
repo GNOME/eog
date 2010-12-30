@@ -64,6 +64,16 @@ eog_transform_class_init (EogTransformClass *klass)
 	g_type_class_add_private (klass, sizeof (EogTransformPrivate));
 }
 
+/**
+ * eog_transform_apply:
+ * @trans: a #EogTransform
+ * @pixbuf: a #GdkPixbuf
+ * @job: a #EogJob
+ *
+ * Applies the transformation in @trans to @pixbuf, setting its progress in @job.
+ *
+ * Returns: (transfer full): A new #GdkPixbuf with the transformation applied.
+ **/
 GdkPixbuf*
 eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 {
@@ -220,6 +230,14 @@ _eog_cairo_matrix_flip (cairo_matrix_t *dst, const cairo_matrix_t *src, gboolean
 	dst->y0 = vert ? -src->y0 : src->y0;
 }
 
+/**
+ * eog_transform_reverse:
+ * @trans: a #EogTransform
+ *
+ * Creates the reverse transformation of @trans
+ *
+ * Returns: (transfer full): a new transformation
+ **/
 EogTransform*
 eog_transform_reverse (EogTransform *trans)
 {
@@ -236,6 +254,15 @@ eog_transform_reverse (EogTransform *trans)
 	return reverse;
 }
 
+/**
+ * eog_transform_compose:
+ * @trans: a #EogTransform
+ * @compose: another #EogTransform
+ *
+ * 
+ *
+ * Returns: (transfer full): a new transform
+ **/
 EogTransform*
 eog_transform_compose (EogTransform *trans, EogTransform *compose)
 {

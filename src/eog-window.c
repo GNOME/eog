@@ -5352,7 +5352,7 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
  *
  * Gets the #GtkUIManager that describes the UI of @window.
  *
- * Returns: A #GtkUIManager.
+ * Returns: (transfer none): A #GtkUIManager.
  **/
 GtkUIManager *
 eog_window_get_ui_manager (EogWindow *window)
@@ -5417,7 +5417,7 @@ eog_window_set_mode (EogWindow *window, EogWindowMode mode)
  * Gets the #EogListStore that contains the images in the gallery
  * of @window.
  *
- * Returns: an #EogListStore.
+ * Returns: (transfer none): an #EogListStore.
  **/
 EogListStore *
 eog_window_get_store (EogWindow *window)
@@ -5433,7 +5433,7 @@ eog_window_get_store (EogWindow *window)
  *
  * Gets the #EogScrollView in the window.
  *
- * Returns: the #EogScrollView.
+ * Returns: (transfer none): the #EogScrollView.
  **/
 GtkWidget *
 eog_window_get_view (EogWindow *window)
@@ -5449,7 +5449,7 @@ eog_window_get_view (EogWindow *window)
  *
  * Gets the sidebar widget of @window.
  *
- * Returns: the #EogSidebar.
+ * Returns: (transfer none): the #EogSidebar.
  **/
 GtkWidget *
 eog_window_get_sidebar (EogWindow *window)
@@ -5465,7 +5465,7 @@ eog_window_get_sidebar (EogWindow *window)
  *
  * Gets the thumbnails view in @window.
  *
- * Returns: an #EogThumbView.
+ * Returns: (transfer none): an #EogThumbView.
  **/
 GtkWidget *
 eog_window_get_thumb_view (EogWindow *window)
@@ -5481,7 +5481,7 @@ eog_window_get_thumb_view (EogWindow *window)
  *
  * Gets the thumbnails navigation pane in @window.
  *
- * Returns: an #EogThumbNav.
+ * Returns: (transfer none): an #EogThumbNav.
  **/
 GtkWidget *
 eog_window_get_thumb_nav (EogWindow *window)
@@ -5497,7 +5497,7 @@ eog_window_get_thumb_nav (EogWindow *window)
  *
  * Gets the statusbar in @window.
  *
- * Returns: a #EogStatusbar.
+ * Returns: (transfer none): a #EogStatusbar.
  **/
 GtkWidget *
 eog_window_get_statusbar (EogWindow *window)
@@ -5514,7 +5514,7 @@ eog_window_get_statusbar (EogWindow *window)
  * Gets the image currently displayed in @window or %NULL if
  * no image is being displayed.
  *
- * Returns: an #EogImage.
+ * Returns: (transfer none): an #EogImage.
  **/
 EogImage *
 eog_window_get_image (EogWindow *window)
