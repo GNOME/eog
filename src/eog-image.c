@@ -1343,9 +1343,7 @@ eog_image_get_thumbnail (EogImage *img)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
 	if (img->priv->thumbnail != NULL) {
-		g_object_ref (img->priv->thumbnail);
-
-		return img->priv->thumbnail;
+		return g_object_ref (img->priv->thumbnail);
 	}
 
 	return NULL;
