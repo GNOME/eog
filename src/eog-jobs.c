@@ -637,7 +637,7 @@ eog_job_save_run (EogJob *ejob)
 				               G_CALLBACK (save_progress_handler),
 					       job);
 
-		save_info = eog_image_save_info_from_image (image);
+		save_info = eog_image_save_info_new_from_image (image);
 
 		success = eog_image_save_by_info (image,
 						  save_info,
@@ -746,15 +746,15 @@ eog_job_save_as_run (EogJob *ejob)
 				               G_CALLBACK (save_progress_handler),
 					       job);
 
-		src_info = eog_image_save_info_from_image (image);
+		src_info = eog_image_save_info_new_from_image (image);
 
 		if (n_images == 1) {
 			g_assert (saveas_job->file != NULL);
 
 			format = eog_pixbuf_get_format (saveas_job->file);
 
-			dest_info = eog_image_save_info_from_file (saveas_job->file,
-								   format);
+			dest_info = eog_image_save_info_new_from_file (saveas_job->file,
+								       format);
 
 		/* SaveAsDialog has already secured permission to overwrite */
 			if (dest_info->exists) {
@@ -772,8 +772,8 @@ eog_job_save_as_run (EogJob *ejob)
 
 			g_assert (result);
 
-			dest_info = eog_image_save_info_from_file (dest_file,
-								   format);
+			dest_info = eog_image_save_info_new_from_file (dest_file,
+								       format);
 		}
 
 		success = eog_image_save_as_by_info (image,

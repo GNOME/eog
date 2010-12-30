@@ -79,12 +79,9 @@ get_save_file_type_by_file (GFile *file)
 }
 
 EogImageSaveInfo*
-eog_image_save_info_from_image (gpointer data)
+eog_image_save_info_new_from_image (EogImage *image)
 {
 	EogImageSaveInfo *info = NULL;
-	EogImage *image;
-
-	image = EOG_IMAGE (data);
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
@@ -104,7 +101,7 @@ eog_image_save_info_from_image (gpointer data)
 }
 
 EogImageSaveInfo*
-eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
+eog_image_save_info_new_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 {
 	GFile *file;
 	EogImageSaveInfo *info;
@@ -113,7 +110,7 @@ eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 
 	file = g_file_new_for_uri (txt_uri);
 
-	info = eog_image_save_info_from_file (file, format);
+	info = eog_image_save_info_new_from_file (file, format);
 
 	g_object_unref (file);
 
@@ -121,7 +118,7 @@ eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 }
 
 EogImageSaveInfo*
-eog_image_save_info_from_file (GFile *file, GdkPixbufFormat *format)
+eog_image_save_info_new_from_file (GFile *file, GdkPixbufFormat *format)
 {
 	EogImageSaveInfo *info;
 
