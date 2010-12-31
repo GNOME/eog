@@ -52,6 +52,7 @@
 #include "eog-save-as-dialog-helper.h"
 #include "eog-plugin-engine.h"
 #include "eog-close-confirmation-dialog.h"
+#include "eog-clipboard-handler.h"
 
 #include "eog-enum-types.h"
 
@@ -3329,10 +3330,10 @@ static void
 eog_window_cmd_copy_image (GtkAction *action, gpointer user_data)
 {
 	GtkClipboard *clipboard;
-	GdkPixbuf *pix;
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	EogImage *image;
+	EogClipboardHandler *cbhandler;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3343,12 +3344,11 @@ eog_window_cmd_copy_image (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	pix = eog_image_get_pixbuf (image);
-
 	clipboard = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
-	gtk_clipboard_set_image (clipboard, pix);
 
-	g_object_unref (pix);
+	cbhandler = eog_clipboard_handler_new (image);
+	// cbhandler will self-destruct when it's not needed anymore
+	eog_clipboard_handler_copy_to_clipboard (cbhandler, clipboard);
 }
 
 static void
