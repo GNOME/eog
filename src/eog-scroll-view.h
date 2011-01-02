@@ -29,12 +29,31 @@ struct _EogScrollViewClass {
 	void (* zoom_changed) (EogScrollView *view, double zoom);
 };
 
+/**
+ * EogTransparencyStyle:
+ * @EOG_TRANSP_BACKGROUND: Use the background color of the current UI theme
+ * @EOG_TRANSP_CHECKED: Show transparent parts as a checkerboard pattern
+ * @EOG_TRANSP_COLOR: Show transparent parts in a user defined color
+ *                    (see #EogScrollView:transparency-color )
+ *
+ * Used to define how transparent image parts are drawn.
+ */
 typedef enum {
 	EOG_TRANSP_BACKGROUND,
 	EOG_TRANSP_CHECKED,
 	EOG_TRANSP_COLOR
 } EogTransparencyStyle;
 
+/**
+ * EogZoomMode:
+ * @EOG_ZOOM_MODE_FREE: Use the currently set zoom factor to display the image
+ *                      (see eog_scroll_view_set_zoom()).
+ * @EOG_ZOOM_MODE_SHRINK_TO_FIT: If an image is to large for the window,
+ *                               zoom out until the image is fully visible.
+ *                               This will never zoom in on smaller images.
+ *
+ * Used to determine the zooming behaviour of an #EogScrollView.
+ */
 typedef enum {
 	EOG_ZOOM_MODE_FREE,
 	EOG_ZOOM_MODE_SHRINK_TO_FIT

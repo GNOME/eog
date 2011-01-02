@@ -2743,7 +2743,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * EogScrollView:transparency-color:
 	 *
 	 * This is the color used to fill the transparent parts of an image
-	 * if :transparency-style is set to use a custom color.
+	 * if #EogScrollView:transparency-style is set to %EOG_TRANSP_COLOR.
 	 */
 	g_object_class_install_property (
 		gobject_class, PROP_TRANSP_COLOR,
