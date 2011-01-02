@@ -8,7 +8,6 @@
 #include <glib/gi18n-lib.h>
 
 #include <libpeas/peas.h>
-#include <libpeasui/peas-ui.h>
 
 #include <eog-debug.h>
 #include <eog-scroll-view.h>

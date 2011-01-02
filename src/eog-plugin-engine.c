@@ -93,7 +93,7 @@ EogPluginEngine *
 eog_plugin_engine_new (void)
 {
 	EogPluginEngine *engine;
-	gchar **search_paths;
+	gchar *user_plugin_path;
 
 	/* This should be moved to libpeas */
 	g_irepository_require (g_irepository_get_default (),
@@ -101,18 +101,18 @@ eog_plugin_engine_new (void)
 	g_irepository_require (g_irepository_get_default (),
 			       "PeasUI", "1.0", 0, NULL);
 
-	search_paths = g_new (gchar *, 5);
-
-	search_paths[0] = g_build_filename (eog_util_dot_dir (), USER_EOG_PLUGINS_LOCATION, NULL);
-	search_paths[1] = g_strdup (search_paths [0]);
-	search_paths[2] = g_strdup (EOG_PLUGIN_DIR);
-	search_paths[3] = g_strdup (EOG_PLUGIN_DIR);
-	search_paths[4] = NULL;
-
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
 						  /* "base-module-dir", modules_dir, */
-						  "search-paths", search_paths,
 						  NULL));
+
+	user_plugin_path = g_build_filename (eog_util_dot_dir (),
+					     USER_EOG_PLUGINS_LOCATION, NULL);
+	/* Find per-user plugins */
+	peas_engine_add_search_path (PEAS_ENGINE (engine),
+				     user_plugin_path, user_plugin_path);
+	/* Find system-wide plugins */
+	peas_engine_add_search_path (PEAS_ENGINE (engine),
+				     EOG_PLUGIN_DIR, EOG_PLUGIN_DIR);
 
 	g_settings_bind (engine->priv->plugins_settings,
 			 EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
@@ -120,7 +120,7 @@ eog_plugin_engine_new (void)
 			 "loaded-plugins",
 			 G_SETTINGS_BIND_DEFAULT);
 
-	g_strfreev (search_paths);
+	g_free (user_plugin_path);
 
 	return engine;
 }
