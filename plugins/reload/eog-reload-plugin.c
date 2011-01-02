@@ -101,11 +101,18 @@ eog_reload_plugin_init (EogReloadPlugin *plugin)
 }
 
 static void
-eog_reload_plugin_finalize (GObject *object)
+eog_reload_plugin_dispose (GObject *object)
 {
-	eog_debug_message (DEBUG_PLUGINS, "EogReloadPlugin finalizing");
+	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (object);
 
-	G_OBJECT_CLASS (eog_reload_plugin_parent_class)->finalize (object);
+	eog_debug_message (DEBUG_PLUGINS, "EogReloadPlugin disposing");
+
+	if (plugin->window != NULL) {
+		g_object_unref (plugin->window);
+		plugin->window = NULL;
+	}
+
+	G_OBJECT_CLASS (eog_reload_plugin_parent_class)->dispose (object);
 }
 
 static void
@@ -161,7 +168,7 @@ eog_reload_plugin_class_init (EogReloadPluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->finalize = eog_reload_plugin_finalize;
+	object_class->dispose= eog_reload_plugin_dispose;
 	object_class->set_property = eog_reload_plugin_set_property;
 	object_class->get_property = eog_reload_plugin_get_property;
 

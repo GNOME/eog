@@ -184,6 +184,8 @@ struct _EogWindowPrivate {
 
 	GtkPageSetup        *page_setup;
 
+	PeasExtensionSet    *extensions;
+
 #ifdef HAVE_LCMS
         cmsHPROFILE         *display_profile;
 #endif
@@ -4595,6 +4597,12 @@ eog_window_dispose (GObject *object)
 
 	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
 
+	if (priv->extensions != NULL) {
+		g_object_unref (priv->extensions);
+		priv->extensions = NULL;
+		peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
+	}
+
 	if (priv->store != NULL) {
 		g_signal_handlers_disconnect_by_func (priv->store,
 					      eog_window_list_store_image_added,
@@ -5072,38 +5080,29 @@ on_extension_removed (PeasExtensionSet *set,
 	peas_extension_call (exten, "deactivate", window);
 }
 
-static
-gboolean on_window_delete (GtkWidget *widget,
-			   GdkEvent *event,
-			   PeasExtensionSet *set)
-{
-	peas_extension_set_call (set, "deactivate");
-	return FALSE;
-}
-
 static GObject *
 eog_window_constructor (GType type,
 			guint n_construct_properties,
 			GObjectConstructParam *construct_params)
 {
 	GObject *object;
-	PeasExtensionSet *set;
+	EogWindowPrivate *priv;
 
 	object = G_OBJECT_CLASS (eog_window_parent_class)->constructor
 			(type, n_construct_properties, construct_params);
 
+	priv = EOG_WINDOW (object)->priv;
+
 	eog_window_construct_ui (EOG_WINDOW (object));
 
-	set = peas_extension_set_new (PEAS_ENGINE (EOG_APP->plugin_engine),
-				      PEAS_TYPE_ACTIVATABLE,
-				      "object", object, NULL);
-	peas_extension_set_call (set, "activate");
-	g_signal_connect (set, "extension-added",
+	priv->extensions = peas_extension_set_new (PEAS_ENGINE (EOG_APP->plugin_engine),
+						   PEAS_TYPE_ACTIVATABLE,
+						   "object", object, NULL);
+	peas_extension_set_call (priv->extensions, "activate");
+	g_signal_connect (priv->extensions, "extension-added",
 			  G_CALLBACK (on_extension_added), object);
-	g_signal_connect (set, "extension-removed",
+	g_signal_connect (priv->extensions, "extension-removed",
 			  G_CALLBACK (on_extension_removed), object);
-	g_signal_connect (object, "delete-event",
-			  G_CALLBACK (on_window_delete), set);
 
 	return object;
 }

@@ -90,11 +90,18 @@ eog_fullscreen_plugin_init (EogFullscreenPlugin *plugin)
 }
 
 static void
-eog_fullscreen_plugin_finalize (GObject *object)
+eog_fullscreen_plugin_dispose (GObject *object)
 {
-	eog_debug_message (DEBUG_PLUGINS, "EogFullscreenPlugin finalizing");
+	EogFullscreenPlugin *plugin = EOG_FULLSCREEN_PLUGIN (object);
 
-	G_OBJECT_CLASS (eog_fullscreen_plugin_parent_class)->finalize (object);
+	eog_debug_message (DEBUG_PLUGINS, "EogFullscreenPlugin disposing");
+
+	if (plugin->window != NULL) {
+		g_object_unref (plugin->window);
+		plugin->window = NULL;
+	}
+
+	G_OBJECT_CLASS (eog_fullscreen_plugin_parent_class)->dispose (object);
 }
 
 static void
@@ -125,7 +132,7 @@ eog_fullscreen_plugin_class_init (EogFullscreenPluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->finalize = eog_fullscreen_plugin_finalize;
+	object_class->dispose = eog_fullscreen_plugin_dispose;
 	object_class->set_property = eog_fullscreen_plugin_set_property;
 	object_class->get_property = eog_fullscreen_plugin_get_property;
 

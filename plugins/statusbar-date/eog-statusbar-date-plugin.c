@@ -140,11 +140,18 @@ eog_statusbar_date_plugin_init (EogStatusbarDatePlugin *plugin)
 }
 
 static void
-eog_statusbar_date_plugin_finalize (GObject *object)
+eog_statusbar_date_plugin_dispose (GObject *object)
 {
-	eog_debug_message (DEBUG_PLUGINS, "EogStatusbarDatePlugin finalizing");
+	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (object);
 
-	G_OBJECT_CLASS (eog_statusbar_date_plugin_parent_class)->finalize (object);
+	eog_debug_message (DEBUG_PLUGINS, "EogStatusbarDatePlugin disposing");
+
+	if (plugin->window != NULL) {
+		g_object_unref (plugin->window);
+		plugin->window = NULL;		
+	}
+
+	G_OBJECT_CLASS (eog_statusbar_date_plugin_parent_class)->dispose (object);
 }
 
 static void
@@ -190,7 +197,7 @@ eog_statusbar_date_plugin_class_init (EogStatusbarDatePluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->finalize = eog_statusbar_date_plugin_finalize;
+	object_class->dispose = eog_statusbar_date_plugin_dispose;
 	object_class->set_property = eog_statusbar_date_plugin_set_property;
 	object_class->get_property = eog_statusbar_date_plugin_get_property;
 	
