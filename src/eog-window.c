@@ -53,6 +53,7 @@
 #include "eog-plugin-engine.h"
 #include "eog-close-confirmation-dialog.h"
 #include "eog-clipboard-handler.h"
+#include "eog-window-activatable.h"
 
 #include "eog-enum-types.h"
 
@@ -5096,8 +5097,9 @@ eog_window_constructor (GType type,
 	eog_window_construct_ui (EOG_WINDOW (object));
 
 	priv->extensions = peas_extension_set_new (PEAS_ENGINE (EOG_APP->plugin_engine),
-						   PEAS_TYPE_ACTIVATABLE,
-						   "object", object, NULL);
+						   EOG_TYPE_WINDOW_ACTIVATABLE,
+						   "window",
+						   EOG_WINDOW (object), NULL);
 	peas_extension_set_call (priv->extensions, "activate");
 	g_signal_connect (priv->extensions, "extension-added",
 			  G_CALLBACK (on_extension_added), object);

@@ -49,6 +49,7 @@ INST_H_FILES =				\
 	eog-application.h		\
 	eog-debug.h			\
 	eog-window.h			\
+	eog-window-activatable.h	\
 	eog-sidebar.h			\
 	eog-dialog.h			\
 	eog-properties-dialog.h		\
@@ -74,6 +75,7 @@ libeog_c_files = 			\
 	eog-util.c			\
 	eog-pixbuf-util.c		\
 	eog-window.c			\
+	eog-window-activatable.c	\
 	eog-sidebar.c			\
 	eog-dialog.c			\
 	eog-preferences-dialog.c	\
