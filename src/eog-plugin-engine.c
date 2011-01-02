@@ -110,7 +110,6 @@ eog_plugin_engine_new (void)
 	search_paths[4] = NULL;
 
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
-						  "app-name", "Eog",
 						  /* "base-module-dir", modules_dir, */
 						  "search-paths", search_paths,
 						  NULL));

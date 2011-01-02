@@ -104,8 +104,8 @@ EOG_MODULES="gtk+-3.0 >= $GTK_REQUIRED \
              gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \
              gsettings-desktop-schemas >= $DESKTOP_SCHEMAS_REQUIRED \
-             libpeas-1.0 >= 0.5.3 \
-             libpeasui-1.0 >= 0.5.3"
+             libpeas-1.0 >= 0.7.0 \
+             libpeas-gtk-1.0 >= 0.7.0"
 
 # ***************
 # ZLIB (required)
