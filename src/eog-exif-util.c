@@ -190,7 +190,7 @@ eog_exif_util_format_date (const gchar *date)
 }
 
 /**
- * eog_exif_util_get_value:
+ * eog_exif_data_get_value:
  * @exif_data: pointer to an <structname>ExifData</structname> struct
  * @tag_id: the requested tag's id. See <filename>exif-tag.h</filename>
  * from the libexif package for possible values (e.g. %EXIF_TAG_EXPOSURE_MODE).

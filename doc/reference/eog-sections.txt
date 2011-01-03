@@ -40,6 +40,12 @@ eog_image_get_supported_mime_types
 eog_image_is_supported_mime_type
 eog_image_file_changed
 eog_image_is_file_changed
+eog_image_get_metadata_status
+eog_image_get_svg
+eog_image_get_transform
+eog_image_is_animation
+eog_image_is_svg
+eog_image_start_animation
 <SUBSECTION Standard>
 EOG_IMAGE
 EOG_IS_IMAGE
@@ -122,6 +128,7 @@ EogTransform
 eog_transform_apply
 eog_transform_reverse
 eog_transform_compose
+eog_transform_get_affine
 eog_transform_is_identity
 eog_transform_identity_new
 eog_transform_rotate_new
@@ -185,6 +192,7 @@ EogPropertiesDialog
 eog_properties_dialog_new
 eog_properties_dialog_update
 eog_properties_dialog_set_page
+eog_properties_dialog_set_netbook_mode
 <SUBSECTION Standard>
 EOG_PROPERTIES_DIALOG
 EOG_IS_PROPERTIES_DIALOG
@@ -331,6 +339,7 @@ EOG_URI_CONVERTER_GET_CLASS
 EogPrintImageSetup
 eog_print_image_setup_new
 eog_print_image_setup_get_options
+eog_print_image_setup_update
 <SUBSECTION Standard>
 EOG_PRINT_IMAGE_SETUP
 EOG_IS_PRINT_IMAGE_SETUP
@@ -366,30 +375,6 @@ EOG_THUMB_VIEW_GET_CLASS
 </SECTION>
 
 <SECTION>
-<FILE>eog-plugin</FILE>
-EOG_PLUGIN_CONST
-<TITLE>EogPlugin</TITLE>
-EogPlugin
-eog_plugin_activate
-eog_plugin_deactivate
-eog_plugin_update_ui
-eog_plugin_is_configurable
-eog_plugin_create_configure_dialog
-EOG_PLUGIN_REGISTER_TYPE_WITH_CODE
-EOG_PLUGIN_REGISTER_TYPE
-EOG_PLUGIN_DEFINE_TYPE_WITH_CODE
-EOG_PLUGIN_DEFINE_TYPE
-<SUBSECTION Standard>
-EOG_PLUGIN
-EOG_IS_PLUGIN
-EOG_TYPE_PLUGIN
-eog_plugin_get_type
-EOG_PLUGIN_CLASS
-EOG_IS_PLUGIN_CLASS
-EOG_PLUGIN_GET_CLASS
-</SECTION>
-
-<SECTION>
 <FILE>eog-application</FILE>
 EOG_APP
 <TITLE>EogApplication</TITLE>
@@ -418,21 +403,6 @@ EOG_APPLICATION_GET_CLASS
 </SECTION>
 
 <SECTION>
-<FILE>eog-plugin-manager</FILE>
-<TITLE>EogPluginManager</TITLE>
-EogPluginManager
-eog_plugin_manager_new
-<SUBSECTION Standard>
-EOG_PLUGIN_MANAGER
-EOG_IS_PLUGIN_MANAGER
-EOG_TYPE_PLUGIN_MANAGER
-eog_plugin_manager_get_type
-EOG_PLUGIN_MANAGER_CLASS
-EOG_IS_PLUGIN_MANAGER_CLASS
-EOG_PLUGIN_MANAGER_GET_CLASS
-</SECTION>
-
-<SECTION>
 <FILE>eog-scroll-view</FILE>
 <TITLE>EogScrollView</TITLE>
 EogScrollView
@@ -449,13 +419,18 @@ eog_scroll_view_scrollbars_visible
 eog_scroll_view_set_popup
 eog_scroll_view_zoom_in
 eog_scroll_view_zoom_out
-eog_scroll_view_zoom_fit
 eog_scroll_view_set_zoom
 eog_scroll_view_get_zoom
 eog_scroll_view_get_zoom_is_min
 eog_scroll_view_get_zoom_is_max
+eog_scroll_view_get_zoom_mode
+eog_scroll_view_set_zoom_mode
 eog_scroll_view_show_cursor
 eog_scroll_view_hide_cursor
+eog_scroll_view_override_bg_color
+eog_scroll_view_set_background_color
+eog_scroll_view_set_transparency_color
+eog_scroll_view_set_use_bg_color
 <SUBSECTION Standard>
 EOG_SCROLL_VIEW
 EOG_IS_SCROLL_VIEW
@@ -486,6 +461,7 @@ eog_window_get_statusbar
 eog_window_get_image
 eog_window_open_file_list
 eog_window_is_empty
+eog_window_reload_image
 <SUBSECTION Standard>
 EOG_WINDOW
 EOG_IS_WINDOW
@@ -497,13 +473,28 @@ EOG_WINDOW_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>eog-window-activatable</FILE>
+<TITLE>EogWindowActivatable</TITLE>
+EogWindowActivatable
+EogWindowActivatableInterface
+eog_window_activatable_activate
+eog_window_activatable_deactivate
+<SUBSECTION Standard>
+EOG_TYPE_WINDOW_ACTIVATABLE
+EOG_IS_WINDOW_ACTIVATABLE
+EOG_WINDOW_ACTIVATABLE
+EOG_WINDOW_ACTIVATABLE_GET_IFACE
+EOG_WINDOW_ACTIVATABLE_IFACE
+eog_window_activatable_get_type
+</SECTION>
+
+<SECTION>
 <FILE>eog-statusbar</FILE>
 <TITLE>EogStatusbar</TITLE>
 EogStatusbar
 eog_statusbar_new
 eog_statusbar_set_image_number
 eog_statusbar_set_progress
-eog_statusbar_set_has_resize_grip
 <SUBSECTION Standard>
 EOG_STATUSBAR
 EOG_IS_STATUSBAR
@@ -613,7 +604,7 @@ EOG_THUMBNAIL_ORIGINAL_HEIGHT
 
 <SECTION>
 <FILE>eog-debug</FILE>
-EogDebugSection
+EogDebug
 DEBUG_WINDOW
 DEBUG_VIEW
 DEBUG_JOBS
@@ -641,7 +632,12 @@ eog_job_queue_remove_job
 <SECTION>
 <FILE>eog-exif-util</FILE>
 eog_exif_util_format_date
-eog_exif_util_get_value
+EogExifData
+eog_exif_data_copy
+eog_exif_data_free
+eog_exif_data_get_value
+<SUBSECTION Standard>
+eog_exif_data_get_type
 </SECTION>
 
 <SECTION>
@@ -658,24 +654,16 @@ zoom_fit_scale
 
 <SECTION>
 <FILE>eog-plugin-engine</FILE>
-EogPluginInfo
-eog_plugin_engine_init
-eog_plugin_engine_shutdown
-eog_plugin_engine_garbage_collect
-eog_plugin_engine_get_plugins_list
-eog_plugin_engine_activate_plugin
-eog_plugin_engine_deactivate_plugin
-eog_plugin_engine_plugin_is_active
-eog_plugin_engine_plugin_is_available
-eog_plugin_engine_plugin_is_configurable
-eog_plugin_engine_configure_plugin
-eog_plugin_engine_update_plugins_ui
-eog_plugin_engine_get_plugin_name
-eog_plugin_engine_get_plugin_description
-eog_plugin_engine_get_plugin_icon_name
-eog_plugin_engine_get_plugin_authors
-eog_plugin_engine_get_plugin_website
-eog_plugin_engine_get_plugin_copyright
+EogPluginEngine
+eog_plugin_engine_new
+<SUBSECTION Standard>
+EOG_PLUGIN_ENGINE
+EOG_IS_PLUGIN_ENGINE
+EOG_TYPE_PLUGIN_ENGINE
+eog_plugin_engine_get_type
+EOG_IS_PLUGIN_ENGINE_CLASS
+EOG_PLUGIN_ENGINE_CLASS
+EOG_PLUGIN_ENGINE_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -688,27 +676,36 @@ eog_pixbuf_get_common_suffix
 
 <SECTION>
 <FILE>eog-config-keys</FILE>
-EOG_CONF_DIR
 EOG_CONF_DESKTOP_WALLPAPER
 EOG_CONF_DESKTOP_CAN_SAVE
 EOG_CONF_DESKTOP_CAN_PRINT
 EOG_CONF_DESKTOP_CAN_SETUP_PAGE
+EOG_CONF_VIEW
 EOG_CONF_VIEW_INTERPOLATE
 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM
 EOG_CONF_VIEW_ZOOM_MULTIPLIER
 EOG_CONF_VIEW_AUTOROTATE
 EOG_CONF_VIEW_TRANSPARENCY
 EOG_CONF_VIEW_TRANS_COLOR
+EOG_CONF_VIEW_BACKGROUND_COLOR
+EOG_CONF_VIEW_EXTRAPOLATE
+EOG_CONF_VIEW_USE_BG_COLOR
 EOG_CONF_FULLSCREEN_LOOP
 EOG_CONF_FULLSCREEN_UPSCALE
 EOG_CONF_FULLSCREEN_SECONDS
 EOG_CONF_UI_TOOLBAR
 EOG_CONF_UI_STATUSBAR
-EOG_CONF_UI_IMAGE_COLLECTION
-EOG_CONF_UI_IMAGE_COLLECTION_POSITION
-EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE
 EOG_CONF_UI_SIDEBAR
 EOG_CONF_UI_SCROLL_BUTTONS
+EOG_CONF_UI_DISABLE_CLOSE_CONFIRMATION
+EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION
+EOG_CONF_UI_EXTERNAL_EDITOR
+EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK
+EOG_CONF_UI_IMAGE_GALLERY
+EOG_CONF_UI_IMAGE_GALLERY_POSITION
+EOG_CONF_UI_IMAGE_GALLERY_RESIZABLE
+EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE
+EOG_CONF_UI
 EOG_CONF_PLUGINS_ACTIVE_PLUGINS
 </SECTION>
 
@@ -755,5 +752,20 @@ eog_util_string_array_make_absolute
 eog_util_launch_desktop_file
 eog_util_dot_dir
 eog_util_file_is_persistent
+eog_util_filename_get_extension
 </SECTION>
 
+<SECTION>
+<FILE>eog-clipboard-handler</FILE>
+EogClipboardHandler
+eog_clipboard_handler_new
+eog_clipboard_handler_copy_to_clipboard
+<SUBSECTION Standard>
+EOG_CLIPBOARD_HANDLER
+EOG_IS_CLIPBOARD_HANDLER
+EOG_TYPE_CLIPBOARD_HANDLER
+eog_clipboard_handler_get_type
+EOG_CLIPBOARD_HANDLER_CLASS
+EOG_CLIPBOARD_HANDLER_GET_CLASS
+EOG_IS_CLIPBOARD_HANDLER_CLASS
+</SECTION>

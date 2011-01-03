@@ -62,7 +62,7 @@ G_GNUC_INTERNAL
 const    gchar *eog_util_dot_dir             (void);
 
 G_GNUC_INTERNAL
-char *  eog_util_filename_get_extension      (const char * filename_with_extension);
+char *  eog_util_filename_get_extension      (const char * filename);
 
 G_GNUC_INTERNAL
 gboolean eog_util_file_is_persistent (GFile *file);
