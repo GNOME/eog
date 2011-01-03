@@ -18,7 +18,7 @@ AC_SUBST(EOG_MINOR_VERSION,  eog_minor_version)
 AC_DEFINE(EOG_MICRO_VERSION, eog_micro_version, [EOG micro version])
 AC_SUBST(EOG_MICRO_VERSION,  eog_micro_version)
 
-EOG_API_VERSION=2.20
+EOG_API_VERSION=3.0
 AC_SUBST(EOG_API_VERSION)
 
 AC_CONFIG_HEADERS([config.h])
