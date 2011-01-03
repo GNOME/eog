@@ -10,19 +10,20 @@
 
 #include <eog-debug.h>
 #include <eog-scroll-view.h>
+#include <eog-window-activatable.h>
 
-static void peas_activatable_iface_init (PeasActivatableInterface *iface);
+static void eog_window_activatable_iface_init (EogWindowActivatableInterface *iface);
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (EogFullscreenPlugin,
-                                eog_fullscreen_plugin,
-                                PEAS_TYPE_EXTENSION_BASE,
-                                0,
-                                G_IMPLEMENT_INTERFACE_DYNAMIC (PEAS_TYPE_ACTIVATABLE,
-                                                               peas_activatable_iface_init))
+		eog_fullscreen_plugin,
+		PEAS_TYPE_EXTENSION_BASE,
+		0,
+		G_IMPLEMENT_INTERFACE_DYNAMIC (EOG_TYPE_WINDOW_ACTIVATABLE,
+					     eog_window_activatable_iface_init))
 
 enum {
-  PROP_0,
-  PROP_OBJECT
+	PROP_0,
+	PROP_WINDOW
 };
 
 static gboolean
@@ -53,8 +54,8 @@ eog_fullscreen_plugin_set_property (GObject      *object,
 
 	switch (prop_id)
 	{
-	case PROP_OBJECT:
-		plugin->window = GTK_WIDGET (g_value_dup_object (value));
+	case PROP_WINDOW:
+		plugin->window = EOG_WINDOW (g_value_dup_object (value));
 		break;
 
 	default:
@@ -73,7 +74,7 @@ eog_fullscreen_plugin_get_property (GObject    *object,
 
 	switch (prop_id)
 	{
-	case PROP_OBJECT:
+	case PROP_WINDOW:
 		g_value_set_object (value, plugin->window);
 		break;
 
@@ -105,10 +106,10 @@ eog_fullscreen_plugin_dispose (GObject *object)
 }
 
 static void
-eog_fullscreen_plugin_activate (PeasActivatable *activatable)
+eog_fullscreen_plugin_activate (EogWindowActivatable *activatable)
 {
 	EogFullscreenPlugin *plugin = EOG_FULLSCREEN_PLUGIN (activatable);
-	GtkWidget *view = eog_window_get_view (EOG_WINDOW (plugin->window));
+	GtkWidget *view = eog_window_get_view (plugin->window);
 
 	eog_debug (DEBUG_PLUGINS);
 
@@ -119,10 +120,10 @@ eog_fullscreen_plugin_activate (PeasActivatable *activatable)
 }
 
 static void
-eog_fullscreen_plugin_deactivate (PeasActivatable *activatable)
+eog_fullscreen_plugin_deactivate (EogWindowActivatable *activatable)
 {
 	EogFullscreenPlugin *plugin = EOG_FULLSCREEN_PLUGIN (activatable);
-	GtkWidget *view = eog_window_get_view (EOG_WINDOW (plugin->window));
+	GtkWidget *view = eog_window_get_view (plugin->window);
 
 	g_signal_handler_disconnect (view, plugin->signal_id);
 }
@@ -136,7 +137,7 @@ eog_fullscreen_plugin_class_init (EogFullscreenPluginClass *klass)
 	object_class->set_property = eog_fullscreen_plugin_set_property;
 	object_class->get_property = eog_fullscreen_plugin_get_property;
 
-	g_object_class_override_property (object_class, PROP_OBJECT, "object");
+	g_object_class_override_property (object_class, PROP_WINDOW, "window");
 }
 
 static void
@@ -145,7 +146,7 @@ eog_fullscreen_plugin_class_finalize (EogFullscreenPluginClass *klass)
 }
 
 static void
-peas_activatable_iface_init (PeasActivatableInterface *iface)
+eog_window_activatable_iface_init (EogWindowActivatableInterface *iface)
 {
 	iface->activate = eog_fullscreen_plugin_activate;
 	iface->deactivate = eog_fullscreen_plugin_deactivate;
@@ -156,6 +157,6 @@ peas_register_types (PeasObjectModule *module)
 {
 	eog_fullscreen_plugin_register_type (G_TYPE_MODULE (module));
 	peas_object_module_register_extension_type (module,
-						    PEAS_TYPE_ACTIVATABLE,
+						    EOG_TYPE_WINDOW_ACTIVATABLE,
 						    EOG_TYPE_FULLSCREEN_PLUGIN);
 }

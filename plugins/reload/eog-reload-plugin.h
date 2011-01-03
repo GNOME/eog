@@ -31,7 +31,8 @@ typedef struct _EogReloadPlugin		EogReloadPlugin;
 struct _EogReloadPlugin
 {
 	PeasExtensionBase parent_instance;
-	GtkWidget *window;
+
+	EogWindow *window;
 	GtkActionGroup *ui_action_group;
 	guint ui_id;
 };

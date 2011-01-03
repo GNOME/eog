@@ -35,19 +35,21 @@
 #include <eog-image.h>
 #include <eog-thumb-view.h>
 #include <eog-exif-util.h>
+#include <eog-window.h>
+#include <eog-window-activatable.h>
 
-static void peas_activatable_iface_init (PeasActivatableInterface *iface);
+static void eog_window_activatable_iface_init (EogWindowActivatableInterface *iface);
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (EogStatusbarDatePlugin,
-                                eog_statusbar_date_plugin,
-                                PEAS_TYPE_EXTENSION_BASE,
-                                0,
-                                G_IMPLEMENT_INTERFACE_DYNAMIC (PEAS_TYPE_ACTIVATABLE,
-                                                               peas_activatable_iface_init))
+		eog_statusbar_date_plugin,
+		PEAS_TYPE_EXTENSION_BASE,
+		0,
+		G_IMPLEMENT_INTERFACE_DYNAMIC (EOG_TYPE_WINDOW_ACTIVATABLE,
+					       eog_window_activatable_iface_init))
 
 enum {
-  PROP_0,
-  PROP_OBJECT
+	PROP_0,
+	PROP_WINDOW
 };
 
 static void
@@ -95,16 +97,16 @@ selection_changed_cb (EogThumbView *view, EogStatusbarDatePlugin *plugin)
 
 static void
 eog_statusbar_date_plugin_set_property (GObject      *object,
-				guint         prop_id,
-				const GValue *value,
-				GParamSpec   *pspec)
+					guint         prop_id,
+					const GValue *value,
+					GParamSpec   *pspec)
 {
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (object);
 
 	switch (prop_id)
 	{
-	case PROP_OBJECT:
-		plugin->window = GTK_WIDGET (g_value_dup_object (value));
+	case PROP_WINDOW:
+		plugin->window = EOG_WINDOW (g_value_dup_object (value));
 		break;
 
 	default:
@@ -115,15 +117,15 @@ eog_statusbar_date_plugin_set_property (GObject      *object,
 
 static void
 eog_statusbar_date_plugin_get_property (GObject    *object,
-				guint       prop_id,
-				GValue     *value,
-				GParamSpec *pspec)
+					guint       prop_id,
+					GValue     *value,
+					GParamSpec *pspec)
 {
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (object);
 
 	switch (prop_id)
 	{
-	case PROP_OBJECT:
+	case PROP_WINDOW:
 		g_value_set_object (value, plugin->window);
 		break;
 
@@ -155,10 +157,10 @@ eog_statusbar_date_plugin_dispose (GObject *object)
 }
 
 static void
-eog_statusbar_date_plugin_activate (PeasActivatable *activatable)
+eog_statusbar_date_plugin_activate (EogWindowActivatable *activatable)
 {
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
-	EogWindow *window = EOG_WINDOW (plugin->window);
+	EogWindow *window = plugin->window;
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
 	GtkWidget *thumbview = eog_window_get_thumb_view (window);
 
@@ -179,10 +181,10 @@ eog_statusbar_date_plugin_activate (PeasActivatable *activatable)
 }
 
 static void
-eog_statusbar_date_plugin_deactivate (PeasActivatable *activatable)
+eog_statusbar_date_plugin_deactivate (EogWindowActivatable *activatable)
 {
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
-	EogWindow *window = EOG_WINDOW (plugin->window);
+	EogWindow *window = plugin->window;
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
 	GtkWidget *view = eog_window_get_thumb_view (window);
 
@@ -201,7 +203,7 @@ eog_statusbar_date_plugin_class_init (EogStatusbarDatePluginClass *klass)
 	object_class->set_property = eog_statusbar_date_plugin_set_property;
 	object_class->get_property = eog_statusbar_date_plugin_get_property;
 	
-	g_object_class_override_property (object_class, PROP_OBJECT, "object");
+	g_object_class_override_property (object_class, PROP_WINDOW, "window");
  }
 
 static void
@@ -210,7 +212,7 @@ eog_statusbar_date_plugin_class_finalize (EogStatusbarDatePluginClass *klass)
 }
 
 static void
-peas_activatable_iface_init (PeasActivatableInterface *iface)
+eog_window_activatable_iface_init (EogWindowActivatableInterface *iface)
 {
 	iface->activate = eog_statusbar_date_plugin_activate;
 	iface->deactivate = eog_statusbar_date_plugin_deactivate;
@@ -221,6 +223,6 @@ peas_register_types (PeasObjectModule *module)
 {
 	eog_statusbar_date_plugin_register_type (G_TYPE_MODULE (module));
 	peas_object_module_register_extension_type (module,
-						    PEAS_TYPE_ACTIVATABLE,
+						    EOG_TYPE_WINDOW_ACTIVATABLE,
 						    EOG_TYPE_STATUSBAR_DATE_PLUGIN);
 }

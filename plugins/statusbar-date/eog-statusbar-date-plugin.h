@@ -28,6 +28,8 @@
 #include <libpeas/peas-extension-base.h>
 #include <libpeas/peas-object-module.h>
 
+#include <eog-window.h>
+
 G_BEGIN_DECLS
 
 /*
@@ -51,7 +53,8 @@ typedef struct _EogStatusbarDatePlugin		EogStatusbarDatePlugin;
 struct _EogStatusbarDatePlugin
 {
 	PeasExtensionBase parent_instance;
-	GtkWidget *window;
+
+	EogWindow *window;
 	GtkWidget *statusbar_date;
 	gulong signal_id;
 };

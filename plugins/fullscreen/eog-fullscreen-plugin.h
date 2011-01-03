@@ -7,6 +7,8 @@
 #include <libpeas/peas-extension-base.h>
 #include <libpeas/peas-object-module.h>
 
+#include <eog-window.h>
+
 G_BEGIN_DECLS
 
 /*
@@ -30,7 +32,8 @@ typedef struct _EogFullscreenPlugin		EogFullscreenPlugin;
 struct _EogFullscreenPlugin
 {
 	PeasExtensionBase parent_instance;
-	GtkWidget *window;
+
+	EogWindow *window;
 	gulong signal_id;
 };
 
