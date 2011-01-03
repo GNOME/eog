@@ -103,17 +103,31 @@ eog_plugin_engine_new (void)
 	g_free (search_path);
 
 	/* This should be moved to libpeas */
-	g_irepository_require (g_irepository_get_default (),
-			       "Peas", "1.0", 0, NULL);
-	g_irepository_require (g_irepository_get_default (),
-			       "PeasUI", "1.0", 0, NULL);
+	if (g_irepository_require (g_irepository_get_default (),
+				   "Peas", "1.0", 0, &error) == NULL)
+	{
+		g_warning ("Error loading Peas typelib: %s\n",
+			   error->message);
+		g_clear_error (&error);
+	}
+
+
+	if (g_irepository_require (g_irepository_get_default (),
+				   "PeasGtk", "1.0", 0, &error) == NULL)
+	{
+		g_warning ("Error loading PeasGtk typelib: %s\n",
+			   error->message);
+		g_clear_error (&error);
+	}
+
+
 
 	if (g_irepository_require (g_irepository_get_default (),
 				   "Eog", "3.0", 0, &error) == NULL)
 	{
-		g_warning ("Error loading eog typelib: %s\n",
+		g_warning ("Error loading Eog typelib: %s\n",
 			   error->message);
-		g_error_free (error);
+		g_clear_error (&error);
 	}
 
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
