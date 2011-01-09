@@ -26,11 +26,8 @@
 #include <config.h>
 #endif
 
-#include <string.h>
-
 #include "eog-plugin-engine.h"
 #include "eog-debug.h"
-#include "eog-application.h"
 #include "eog-config-keys.h"
 #include "eog-util.h"
 
@@ -39,13 +36,7 @@
 #include <gio/gio.h>
 #include <girepository.h>
 
-#ifdef ENABLE_PYTHON
-#include "eog-python-module.h"
-#endif
-
 #define USER_EOG_PLUGINS_LOCATION "plugins/"
-
-#define PLUGIN_EXT	".eog-plugin"
 
 G_DEFINE_TYPE (EogPluginEngine, eog_plugin_engine, PEAS_TYPE_ENGINE)
 
