@@ -133,6 +133,11 @@ eog_plugin_engine_new (void)
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
 						  NULL));
 
+	/* Disable python and seed bindings as they are not working very
+	 * well with eog yet (e.g. are having ref counting issues). */
+	peas_engine_disable_loader (PEAS_ENGINE (engine), "python");
+	peas_engine_disable_loader (PEAS_ENGINE (engine), "seed");
+
 	user_plugin_path = g_build_filename (eog_util_dot_dir (),
 					     USER_EOG_PLUGINS_LOCATION, NULL);
 	/* Find per-user plugins */
