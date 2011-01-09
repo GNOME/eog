@@ -131,7 +131,6 @@ eog_plugin_engine_new (void)
 	}
 
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
-						  /* "base-module-dir", modules_dir, */
 						  NULL));
 
 	user_plugin_path = g_build_filename (eog_util_dot_dir (),
