@@ -50,7 +50,25 @@ static EogImage* eog_thumb_view_get_image_from_path (EogThumbView      *thumbvie
 
 static void      eog_thumb_view_popup_menu          (EogThumbView      *widget,
 						     GdkEventButton    *event);
+static gboolean
+thumbview_on_query_tooltip_cb (GtkWidget  *widget,
+			       gint        x,
+			       gint        y,
+			       gboolean    keyboard_mode,
+			       GtkTooltip *tooltip,
+			       gpointer    user_data);
+static void
+thumbview_on_parent_set_cb (GtkWidget *widget,
+			    GtkWidget *old_parent,
+			    gpointer   user_data);
 
+static void
+thumbview_on_drag_data_get_cb (GtkWidget        *widget,
+			       GdkDragContext   *drag_context,
+			       GtkSelectionData *data,
+			       guint             info,
+			       guint             time,
+			       gpointer          user_data);
 struct _EogThumbViewPrivate {
 	gint start_thumb; /* the first visible thumbnail */
 	gint end_thumb;   /* the last visible thumbnail  */
@@ -59,6 +77,67 @@ struct _EogThumbViewPrivate {
 };
 
 /* Drag 'n Drop */
+
+static void
+eog_thumb_view_constructed (GObject *object)
+{
+	EogThumbView *thumbview;
+
+	if (G_OBJECT_CLASS (eog_thumb_view_parent_class)->constructed)
+		G_OBJECT_CLASS (eog_thumb_view_parent_class)->constructed (object);
+
+	thumbview = EOG_THUMB_VIEW (object);
+
+	thumbview->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
+
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (thumbview),
+				    thumbview->priv->pixbuf_cell,
+				    FALSE);
+
+	g_object_set (thumbview->priv->pixbuf_cell,
+	              "follow-state", FALSE,
+	              "height", 100,
+	              "width", 115,
+	              "yalign", 0.5,
+	              "xalign", 0.5,
+	              NULL);
+
+	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
+					thumbview->priv->pixbuf_cell,
+					"pixbuf", EOG_LIST_STORE_THUMBNAIL,
+					NULL);
+
+	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumbview),
+					  GTK_SELECTION_MULTIPLE);
+
+	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (thumbview),
+					  EOG_THUMB_VIEW_SPACING);
+
+	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumbview),
+				       EOG_THUMB_VIEW_SPACING);
+
+	g_object_set (thumbview, "has-tooltip", TRUE, NULL);
+
+	g_signal_connect (thumbview,
+			  "query-tooltip",
+			  G_CALLBACK (thumbview_on_query_tooltip_cb),
+			  NULL);
+
+	thumbview->priv->start_thumb = 0;
+	thumbview->priv->end_thumb = 0;
+	thumbview->priv->menu = NULL;
+
+	g_signal_connect (G_OBJECT (thumbview), "parent-set",
+			  G_CALLBACK (thumbview_on_parent_set_cb), NULL);
+
+	gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (thumbview), 0,
+						NULL, 0,
+						GDK_ACTION_COPY);
+	gtk_drag_source_add_uri_targets (GTK_WIDGET (thumbview));
+
+	g_signal_connect (G_OBJECT (thumbview), "drag-data-get",
+			  G_CALLBACK (thumbview_on_drag_data_get_cb), NULL);
+}
 
 static void
 eog_thumb_view_finalize (GObject *object)
@@ -86,6 +165,7 @@ eog_thumb_view_class_init (EogThumbViewClass *class)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (class);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
+	gobject_class->constructed = eog_thumb_view_constructed;
 	gobject_class->finalize = eog_thumb_view_finalize;
 	widget_class->destroy = eog_thumb_view_destroy;
 
@@ -500,55 +580,6 @@ eog_thumb_view_init (EogThumbView *thumbview)
 {
 	thumbview->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumbview);
 
-	thumbview->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
-
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (thumbview),
-	      	  		    thumbview->priv->pixbuf_cell,
-	      			    FALSE);
-
-	g_object_set (thumbview->priv->pixbuf_cell,
-	              "follow-state", FALSE,
-	              "height", 100,
-	              "width", 115,
-	              "yalign", 0.5,
-	              "xalign", 0.5,
-	              NULL);
-
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
-	                                thumbview->priv->pixbuf_cell,
-	      		                "pixbuf", EOG_LIST_STORE_THUMBNAIL,
-	                                NULL);
-
-	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumbview),
- 					  GTK_SELECTION_MULTIPLE);
-
-	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (thumbview),
-					  EOG_THUMB_VIEW_SPACING);
-
-	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumbview),
-				       EOG_THUMB_VIEW_SPACING);
-
-	g_object_set (thumbview, "has-tooltip", TRUE, NULL);
-
-	g_signal_connect (thumbview,
-			  "query-tooltip",
-			  G_CALLBACK (thumbview_on_query_tooltip_cb),
-			  NULL);
-
-	thumbview->priv->start_thumb = 0;
-	thumbview->priv->end_thumb = 0;
-	thumbview->priv->menu = NULL;
-
-	g_signal_connect (G_OBJECT (thumbview), "parent-set",
-			  G_CALLBACK (thumbview_on_parent_set_cb), NULL);
-
-	gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (thumbview), 0,
-						NULL, 0,
-						GDK_ACTION_COPY);
-	gtk_drag_source_add_uri_targets (GTK_WIDGET (thumbview));
-
-	g_signal_connect (G_OBJECT (thumbview), "drag-data-get",
-			  G_CALLBACK (thumbview_on_drag_data_get_cb), NULL);
 }
 
 /**
