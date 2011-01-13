@@ -154,35 +154,12 @@ eog_thumb_view_dispose (GObject *object)
 }
 
 static void
-eog_thumb_view_finalize (GObject *object)
-{
-	EogThumbView *thumbview;
-	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumbview = EOG_THUMB_VIEW (object);
-
-	G_OBJECT_CLASS (eog_thumb_view_parent_class)->finalize (object);
-}
-
-static void
-eog_thumb_view_destroy (GtkWidget *object)
-{
-	EogThumbView *thumbview;
-	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumbview = EOG_THUMB_VIEW (object);
-
-	GTK_WIDGET_CLASS (eog_thumb_view_parent_class)->destroy (object);
-}
-
-static void
 eog_thumb_view_class_init (EogThumbViewClass *class)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (class);
-	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
 	gobject_class->constructed = eog_thumb_view_constructed;
 	gobject_class->dispose = eog_thumb_view_dispose;
-	gobject_class->finalize = eog_thumb_view_finalize;
-	widget_class->destroy = eog_thumb_view_destroy;
 
 	g_type_class_add_private (class, sizeof (EogThumbViewPrivate));
 }
