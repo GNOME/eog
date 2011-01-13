@@ -43,19 +43,6 @@ struct _EogListStorePrivate {
 };
 
 static void
-eog_list_store_finalize (GObject *object)
-{
-	EogListStore *store = EOG_LIST_STORE (object);
-
-	if (store->priv != NULL) {
-		g_free (store->priv);
-		store->priv = NULL;
-	}
-
-	G_OBJECT_CLASS (eog_list_store_parent_class)->finalize (object);
-}
-
-static void
 foreach_monitors_free (gpointer data, gpointer user_data)
 {
 	g_file_monitor_cancel (G_FILE_MONITOR (data));
@@ -93,7 +80,6 @@ eog_list_store_class_init (EogListStoreClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->finalize = eog_list_store_finalize;
 	object_class->dispose = eog_list_store_dispose;
 
 	g_type_class_add_private (object_class, sizeof (EogListStorePrivate));
