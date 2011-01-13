@@ -74,6 +74,7 @@ struct _EogThumbViewPrivate {
 	gint end_thumb;   /* the last visible thumbnail  */
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
 	GtkCellRenderer *pixbuf_cell;
+	gint visible_range_changed_id;
 };
 
 /* Drag 'n Drop */
@@ -140,6 +141,19 @@ eog_thumb_view_constructed (GObject *object)
 }
 
 static void
+eog_thumb_view_dispose (GObject *object)
+{
+	EogThumbViewPrivate *priv = EOG_THUMB_VIEW (object)->priv;
+
+	if (priv->visible_range_changed_id != 0) {
+		g_source_remove (priv->visible_range_changed_id);
+		priv->visible_range_changed_id = 0;
+	}
+
+	G_OBJECT_CLASS (eog_thumb_view_parent_class)->dispose (object);
+}
+
+static void
 eog_thumb_view_finalize (GObject *object)
 {
 	EogThumbView *thumbview;
@@ -166,6 +180,7 @@ eog_thumb_view_class_init (EogThumbViewClass *class)
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
 	gobject_class->constructed = eog_thumb_view_constructed;
+	gobject_class->dispose = eog_thumb_view_dispose;
 	gobject_class->finalize = eog_thumb_view_finalize;
 	widget_class->destroy = eog_thumb_view_destroy;
 
@@ -244,14 +259,15 @@ eog_thumb_view_update_visible_range (EogThumbView *thumbview,
 	priv->end_thumb = end_thumb;
 }
 
-static void
-thumbview_on_visible_range_changed_cb (EogThumbView *thumbview,
-				       gpointer user_data)
+static gboolean
+visible_range_changed_cb (EogThumbView *thumbview)
 {
 	GtkTreePath *path1, *path2;
 
+	thumbview->priv->visible_range_changed_id = 0;
+
 	if (!gtk_icon_view_get_visible_range (GTK_ICON_VIEW (thumbview), &path1, &path2)) {
-		return;
+		return FALSE;
 	}
 
 	if (path1 == NULL) {
@@ -267,40 +283,30 @@ thumbview_on_visible_range_changed_cb (EogThumbView *thumbview,
 
 	gtk_tree_path_free (path1);
 	gtk_tree_path_free (path2);
+
+	return FALSE;
+}
+
+static void
+eog_thumb_view_visible_range_changed (EogThumbView *thumbview)
+{
+	if (thumbview->priv->visible_range_changed_id == 0) {
+		g_idle_add ((GSourceFunc)visible_range_changed_cb, thumbview);
+	}
+}
+
+static void
+thumbview_on_visible_range_changed_cb (EogThumbView *thumbview,
+				       gpointer user_data)
+{
+	eog_thumb_view_visible_range_changed (thumbview);
 }
 
 static void
 thumbview_on_adjustment_changed_cb (EogThumbView *thumbview,
 				    gpointer user_data)
 {
-	GtkTreePath *path1, *path2;
-	gint start_thumb, end_thumb;
-
-	if (!gtk_icon_view_get_visible_range (GTK_ICON_VIEW (thumbview), &path1, &path2)) {
-		return;
-	}
-
-	if (path1 == NULL) {
-		path1 = gtk_tree_path_new_first ();
-	}
-	if (path2 == NULL) {
-		gint n_items = gtk_tree_model_iter_n_children (gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview)), NULL);
-		path2 = gtk_tree_path_new_from_indices (n_items - 1 , -1);
-	}
-
-	start_thumb = gtk_tree_path_get_indices (path1) [0];
-	end_thumb = gtk_tree_path_get_indices (path2) [0];
-
-	eog_thumb_view_add_range (thumbview, start_thumb, end_thumb);
-
-	/* case we added an image, we need to make sure that the shifted thumbnail is cleared */
-	eog_thumb_view_clear_range (thumbview, end_thumb + 1, end_thumb + 1);
-
-	thumbview->priv->start_thumb = start_thumb;
-	thumbview->priv->end_thumb = end_thumb;
-
-	gtk_tree_path_free (path1);
-	gtk_tree_path_free (path2);
+	eog_thumb_view_visible_range_changed (thumbview);
 }
 
 static void
@@ -580,6 +586,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 {
 	thumbview->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumbview);
 
+	thumbview->priv->visible_range_changed_id = 0;
 }
 
 /**
