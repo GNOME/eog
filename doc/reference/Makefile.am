@@ -48,14 +48,12 @@ CFILE_GLOB=$(top_srcdir)/src/*.c
 # Header files to ignore when scanning.
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
 IGNORE_HFILES= \
-	eog-python-plugin.h \
 	eog-image-private.h \
 	eog-image-jpeg.h \
 	eog-marshal.h \
 	eog-application-service.h \
 	eog-enum-types.h \
-	eog-module.h \
-	eog-python-module.h
+	eog-module.h
 
 if !HAVE_EXIF
 if !HAVE_EXEMPI

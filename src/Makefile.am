@@ -39,12 +39,6 @@ NOINST_H_FILES =			\
 	eog-clipboard-handler.h		\
 	zoom.h
 
-if ENABLE_PYTHON
-NOINST_H_FILES += 			\
-	eog-python-module.h		\
-	eog-python-plugin.h
-endif
-
 INST_H_FILES =				\
 	eog-application.h		\
 	eog-debug.h			\
@@ -123,14 +117,6 @@ libeog_c_files +=			\
 	eog-exif-details.c
 endif
 
-if ENABLE_PYTHON
-libeog_la_SOURCES += 			\
-	eog-python-module.c		\
-	eog-python-module.h		\
-	eog-python-plugin.c		\
-	eog-python-plugin.h
-endif
-
 if HAVE_EXEMPI
 # We need to make sure eog-exif-details.h
 # is only listed once in INST_H_FILES
@@ -168,17 +154,6 @@ libeog_la_CFLAGS += 	\
 
 libeog_la_LIBADD += \
 	$(X11_LIBS)
-endif
-
-if ENABLE_PYTHON
-libeog_la_CFLAGS += 			\
-	$(NO_STRICT_ALIASING_CFLAGS)	\
-	$(PYGTK_CFLAGS)			\
-	$(PYTHON_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libeog_la_LIBADD += \
-	$(top_builddir)/bindings/python/eog.la
 endif
 
 libeog_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
