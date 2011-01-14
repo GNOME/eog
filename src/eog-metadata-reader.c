@@ -1,6 +1,6 @@
 /* Eye Of GNOME -- Metadata Reader Interface
  *
- * Copyright (C) 2008 The Free Software Foundation
+ * Copyright (C) 2008-2011 The Free Software Foundation
  *
  * Author: Felix Riemann <friemann@svn.gnome.org>
  *
@@ -28,21 +28,7 @@
 #include "eog-metadata-reader-png.h"
 #include "eog-debug.h"
 
-
-GType
-eog_metadata_reader_get_type (void)
-{
-	static GType reader_type = 0;
-
-	if (G_UNLIKELY (reader_type == 0)) {
-		reader_type = g_type_register_static_simple (G_TYPE_INTERFACE,
-							     "EogMetadataReader",
-							     sizeof (EogMetadataReaderInterface),
-							     NULL, 0, NULL, 0);
-	}
-
-	return reader_type;
-}
+G_DEFINE_INTERFACE (EogMetadataReader, eog_metadata_reader, G_TYPE_INVALID)
 
 EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)
@@ -85,51 +71,24 @@ eog_metadata_reader_consume (EogMetadataReader *emr, const guchar *buf, guint le
 void
 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint *len)
 {
-	EogMetadataReaderInterface *iface;
-
 	g_return_if_fail (data != NULL && len != NULL);
-	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
 
-	if (iface->get_raw_exif) {
-		iface->get_raw_exif (emr, data, len);
-	} else {
-		g_return_if_fail (data != NULL && len != NULL);
-
-		*data = NULL;
-		*len = 0;
-	}
-
+	EOG_METADATA_READER_GET_INTERFACE (emr)->get_raw_exif (emr, data, len);
 }
 
 #ifdef HAVE_EXIF
 ExifData*
 eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 {
-	gpointer exif_data = NULL;
-	EogMetadataReaderInterface *iface;
-
-	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-
-	if (iface->get_exif_data)
-		exif_data = iface->get_exif_data (emr);
-
-	return exif_data;
+	return EOG_METADATA_READER_GET_INTERFACE (emr)->get_exif_data (emr);
 }
 #endif
 
 #ifdef HAVE_EXEMPI
 XmpPtr
-eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
+eog_metadata_reader_get_xmp_data (EogMetadataReader *emr)
 {
-	gpointer xmp_data = NULL;
-	EogMetadataReaderInterface *iface;
-
-	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-
-	if (iface->get_xmp_ptr)
-		xmp_data = iface->get_xmp_ptr (emr);
-
-	return xmp_data;
+	return EOG_METADATA_READER_GET_INTERFACE (emr)->get_xmp_ptr (emr);
 }
 #endif
 
@@ -137,14 +96,37 @@ eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
 cmsHPROFILE
 eog_metadata_reader_get_icc_profile (EogMetadataReader *emr)
 {
-	EogMetadataReaderInterface *iface;
-	gpointer profile = NULL;
-
-	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-
-	if (iface->get_icc_profile)
-		profile = iface->get_icc_profile (emr);
-
-	return profile;
+	return EOG_METADATA_READER_GET_INTERFACE (emr)->get_icc_profile (emr);
 }
 #endif
+
+/* Default vfunc that simply clears the output if not overriden by the
+   implementing class. This mimics the old behavour of get_exif_chunk(). */
+static void
+_eog_metadata_reader_default_get_raw_exif (EogMetadataReader *emr,
+					   guchar **data, guint *length)
+{
+	g_return_if_fail (data != NULL && length != NULL);
+
+	*data = NULL;
+	*length = 0;
+}
+
+/* Default vfunc that simply returns NULL if not overriden by the implementing
+   class. Mimics the old fallback behaviour of the getter functions. */
+static gpointer
+_eog_metadata_reader_default_get_null (EogMetadataReader *emr)
+{
+	return NULL;
+}
+
+static void
+eog_metadata_reader_default_init (EogMetadataReaderInterface *iface)
+{
+	/* consume and finished are required to be implemented */
+	/* Not-implemented funcs return NULL by default */
+	iface->get_raw_exif = _eog_metadata_reader_default_get_raw_exif;
+	iface->get_exif_data = _eog_metadata_reader_default_get_null;
+	iface->get_icc_profile = _eog_metadata_reader_default_get_null;
+	iface->get_xmp_ptr = _eog_metadata_reader_default_get_null;
+}
