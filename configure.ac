@@ -319,7 +319,7 @@ AC_SUBST(EOG_LIBS)
 # *******************************************************
 
 # Check GDK rendering target
-gdk_target=`$PKG_CONFIG --variable=target gdk-2.0`
+gdk_target=`$PKG_CONFIG --variable=targets gdk-3.0`
 
 if test "x$have_lcms" = "xyes" || test "$gdk_target" = "x11"; then
 	PKG_CHECK_MODULES(X11, [x11], have_x11=yes, have_x11=no)
