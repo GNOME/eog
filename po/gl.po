@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog-master-po-gl-66757\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-09 16:46+0100\n"
-"PO-Revision-Date: 2011-01-09 16:47+0100\n"
+"POT-Creation-Date: 2011-01-27 00:01+0100\n"
+"PO-Revision-Date: 2011-01-26 13:55+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -224,7 +224,7 @@ msgstr "Previsualización do nome do ficheiro"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:8
 msgid "File Path Specifications"
-msgstr "Especificacións de camiños de ficheiros"
+msgstr "Especificacións de rutas de ficheiros"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:9
 msgid "Filename format:"
@@ -479,7 +479,7 @@ msgstr "Repetir a secuencia de imaxe en bucle"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:22
 msgid "Scroll wheel zoom"
-msgstr "Zoom coa roda do rato"
+msgstr "Ampliación coa roda do rato"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:23
 msgid "Show/Hide the image gallery pane scroll buttons."
@@ -530,9 +530,10 @@ msgid ""
 "a 100% zoom increment."
 msgstr ""
 "O multiplicador que se vai usar cando se utilice a roda do rato para "
-"empregar o zoom. Ese valor define o paso de zoom que se usa en cada "
-"desprazamento. Por exemplo, 0.05 produce un incremento do 5% de zoom en cada "
-"desprazamento e 1.00 produce un incremento de zoom do 100%."
+"empregar a ampliación. Ese valor define o paso de ampliación que se usa en "
+"cada desprazamento. Por exemplo, 0.05 produce un incremento do 5% de "
+"ampliación en cada desprazamento e 1.00 produce un incremento de ampliación "
+"do 100%."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:32
 msgid "Transparency color"
@@ -594,7 +595,7 @@ msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:42
 msgid "Whether the scroll wheel should be used for zooming."
-msgstr "Indica se se debe usar a roda do rato para facer zoom ou non."
+msgstr "Indica se se debe usar a roda do rato para facer ampliación ou non."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:43
 msgid "Whether the sequence of images should be shown in an endless loop."
@@ -603,7 +604,7 @@ msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:44
 msgid "Zoom multiplier"
-msgstr "Multiplicador de zoom"
+msgstr "Multiplicador da ampliación"
 
 #: ../src/eog-application.c:124
 msgid "Running in fullscreen mode"
@@ -679,7 +680,7 @@ msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:286 ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:380
+#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "píxel"
@@ -803,7 +804,7 @@ msgstr "Non foi posíbel cargar a imaxe «%s»."
 #: ../src/eog-error-message-area.c:192
 #, c-format
 msgid "No images found in '%s'."
-msgstr "Non se encontraron as imaxes en «%s»."
+msgstr "Non se atoparon as imaxes en «%s»."
 
 #: ../src/eog-error-message-area.c:199
 msgid "The given locations contain no images."
@@ -939,7 +940,7 @@ msgstr "como é"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:408
+#: ../src/eog-thumb-view.c:471
 msgid "Taken on"
 msgstr "Tomada en"
 
@@ -954,7 +955,7 @@ msgstr "Non foi posíbel mostrar a axuda para o Visor de imaxes"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
-msgstr " (Unicode non é correcto)"
+msgstr " (Unicode non é válido)"
 
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
@@ -1024,7 +1025,7 @@ msgstr "Editor da barra de ferramentas"
 
 #: ../src/eog-window.c:2474
 msgid "_Reset to Default"
-msgstr "_Restabelecer os predefinidos"
+msgstr "_Restabelecer os predeterminados"
 
 #: ../src/eog-window.c:2560
 msgid "translator-credits"
@@ -1069,7 +1070,7 @@ msgstr ""
 
 #: ../src/eog-window.c:3116
 msgid "Saving image locally…"
-msgstr "Gardando a imaxe localmente..."
+msgstr "Gardando a imaxe localmente…"
 
 #: ../src/eog-window.c:3196
 #, c-format
@@ -1086,7 +1087,7 @@ msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr ""
-"Non foi posíbel localizar o lixo para «%s». Quere eliminar esta imaxe "
+"Non foi posíbel atopar o lixo para «%s». Quere eliminar esta imaxe "
 "permanentemente?"
 
 # (pofilter) variables: (u'translation contains variables not in original: %d',)
@@ -1162,7 +1163,7 @@ msgstr "A_xuda"
 
 #: ../src/eog-window.c:3645
 msgid "_Open…"
-msgstr "_Abrir..."
+msgstr "_Abrir…"
 
 #: ../src/eog-window.c:3646
 msgid "Open a file"
@@ -1258,7 +1259,7 @@ msgstr "Abrir a imaxe seleccionada cun aplicativo distinto"
 
 #: ../src/eog-window.c:3687
 msgid "Save _As…"
-msgstr "Gardar _como..."
+msgstr "Gardar _como…"
 
 #: ../src/eog-window.c:3688
 msgid "Save the selected images with a different name"
@@ -1266,7 +1267,7 @@ msgstr "Gardar as imaxes seleccionadas cun nome distinto"
 
 #: ../src/eog-window.c:3690
 msgid "_Print…"
-msgstr "Im_primir..."
+msgstr "Im_primir…"
 
 #: ../src/eog-window.c:3691
 msgid "Print the selected image"
@@ -1512,7 +1513,7 @@ msgstr "Mostrar a versión do aplicativo"
 
 #: ../src/main.c:84
 msgid "[FILE…]"
-msgstr "[FICHEIRO...]"
+msgstr "[FICHEIRO…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
 #: ../src/main.c:214
