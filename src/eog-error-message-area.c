@@ -122,13 +122,13 @@ create_error_message_area (const gchar *primary_text,
 }
 
 /**
- * eog_image_load_error_message_area_new:
+ * eog_image_load_error_message_area_new: (skip):
  * @caption: 
  * @error: 
  *
  * 
  *
- * Returns: (transfer full): a new #GtkInfoArea
+ * Returns: (transfer full): a new #GtkInfoBar
  **/
 GtkWidget *
 eog_image_load_error_message_area_new (const gchar  *caption,
@@ -164,7 +164,7 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 }
 
 /**
- * eog_no_images_error_message_area_new:
+ * eog_no_images_error_message_area_new: (skip):
  * @file: 
  *
  * 
