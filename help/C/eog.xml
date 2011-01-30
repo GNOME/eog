@@ -26,6 +26,10 @@
     <copyright> 
       <year>2006</year> 
       <year>2007</year>
+      <year>2008</year>
+      <year>2009</year>
+      <year>2010</year>
+      <year>2011</year>
       <holder>GNOME Documentation Project</holder> 
     </copyright>
     <copyright> 
@@ -254,7 +258,7 @@
 
   <sect2 id="eog-closeapp">
     <title>Closing &appname;</title>
-    <para>To close the current &app; window choose <menuchoice><guimenu>File</guimenu>
+    <para>To close the current &app; window choose <menuchoice><guimenu>Image</guimenu>
     <guimenuitem>Close</guimenuitem></menuchoice>, or press
     <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
   </sect2>
@@ -342,7 +346,7 @@
 		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
 		    </imageobject>
 		    <textobject>
-		      <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, and display area. Menubar contains File, Edit, View, and Help menus.</phrase>
+		      <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, and display area. Menubar contains Image, Edit, View, Go and Help menus.</phrase>
 		    </textobject>
 		  </mediaobject>
 		</screenshot>
@@ -379,12 +383,12 @@
 	    <para>The image gallery shows you all supported images in the current working directory. It shows up once an image has been loaded. To show or hide the gallery, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Image Gallery</guimenuitem></menuchoice> or press <keycap>F9</keycap>.</para>
 	  </listitem>
 	</varlistentry>
-	<varlistentry>
+	<!--<varlistentry>
 	  <term>Image Information Pane</term>
 	  <listitem>
 	    <para>The image information pane provides further information about the current image, for example EXIF metadata (if available). It shows up after an image has been loaded. To show or hide the image information pane, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Image Information</guimenuitem></menuchoice> or press <keycombo><keycap>Ctrl</keycap><keycap>I</keycap></keycombo>.</para>
 	  </listitem>
-	</varlistentry>
+	</varlistentry>-->
   </variablelist>
   <para>Most actions in &app; can be performed several ways.  For example,
   you can open a file in the following ways:</para>
@@ -393,11 +397,11 @@
     application or window.</para></listitem>
     <listitem><para>Double-click on an image file in the file manager
     or other application.</para></listitem>
-    <listitem><para>Choose <menuchoice><guimenu>File</guimenu>
+    <listitem><para>Choose <menuchoice><guimenu>Image</guimenu>
     <guimenuitem>Open</guimenuitem></menuchoice> and select an image file
-    in the <application>Load Image</application> dialog.</para></listitem>
+    in the <application>Open Image</application> dialog.</para></listitem>
     <listitem><para>Press <keycombo><keycap>Ctrl</keycap><keycap>O</keycap>
-    </keycombo> and select an image file in the <application>Load
+    </keycombo> and select an image file in the <application>Open
     Image</application> dialog.</para></listitem>
   </itemizedlist>
 </sect1>
@@ -414,11 +418,11 @@
                 <orderedlist>
                   <listitem>
                     <para>
-                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice>, or press <keycombo> <keycap>Ctrl</keycap><keycap>O</keycap> </keycombo>.  </para>
+                      Choose <menuchoice> <guimenu>Image</guimenu><guimenuitem>Open</guimenuitem> </menuchoice>, or press <keycombo> <keycap>Ctrl</keycap><keycap>O</keycap> </keycombo>.  </para>
                   </listitem>
                   <listitem>
                     <para>
-                      In the <guilabel>Load Image</guilabel> dialog, select the file you want to open.
+                      In the <guilabel>Open Image</guilabel> dialog, select the file you want to open.
                     </para>
                   </listitem>
                   <listitem>
@@ -428,7 +432,7 @@
                   </listitem>
                 </orderedlist>
                 <para> 
-	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window.
+	          To open another image, choose <menuchoice> <guimenu>Image</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window.
                 </para>
 	</sect2>
 
@@ -448,7 +452,7 @@
                   </listitem>
 		</orderedlist>
 	     <para>The gallery shows thumbnails of all supported images in the folder. You can browse the images by clicking on an image in the gallery, by choosing the appropriate option in the <guimenu>Go</guimenu> menu or by pressing <keycombo><keycap>Alt</keycap><keycap>Left</keycap></keycombo> or <keycombo><keycap>Alt</keycap><keycap>Right</keycap></keycombo>.</para>
-             <para>To view all of the images in the directory fullscreen, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem> </menuchoice> or press <keycap>F11</keycap>. To view them as a slide show, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or press <keycap>F5</keycap>. To return to the gallery view, press the <keycap>Esc</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
+             <para>To view all of the images in the directory fullscreen, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Fullscreen</guimenuitem> </menuchoice> or press <keycap>F11</keycap>. To view them as a slide show, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or press <keycap>F5</keycap>. To return to the gallery view, press the <keycap>Esc</keycap> key. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
                     </para>
 	</sect2>
 
@@ -486,12 +490,12 @@
 
 	<!--=========== To View Image Fullscreen ==================== -->
 	<sect2 id="eog-fullscreen">
-		<title>Viewing an Image Full Screen/Slideshow</title>
-		<para>To show the image using the entire screen,  choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>.</para>
-		<para>No panels, window frames, or menubars are visible when an image is shown like this. To return to the normal view, press <keycap>Esc</keycap>, or <keycap>F11</keycap>, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+		<title>Viewing an Image Fullscreen/Slideshow</title>
+		<para>To show the image using the entire screen,  choose <menuchoice><guimenu>View</guimenu><guimenuitem>Fullscreen</guimenuitem></menuchoice>.</para>
+		<para>No panels, window frames, or menubars are visible when an image is shown like this. To return to the normal view, press <keycap>Esc</keycap>, or <keycap>F11</keycap>.</para>
 		<para>You can zoom or scroll around the image in the same way as when it is shown in a window, using the mouse or the keyboard.</para>
 		<para>If you have multiple images in your gallery you can press <keycap>Space</keycap> or use the right/down cursor keys to advance to the next image. The previous image can be reached by pressing <keycap>Backspace</keycap> or using the left/up cursor keys.</para>
-	<para>In this case you can also use the slideshow mode, where &app; automatically switches to the next image in your gallery. You can start a slideshow by choosing <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or by pressing <keycap>F5</keycap>. The slideshow can be paused/continued by pressing <keycap>P</keycap>. To stop the slideshow, press the <keycap>Esc</keycap> or <keycap>F5</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>. </para>
+	<para>In this case you can also use the slideshow mode, where &app; automatically switches to the next image in your gallery. You can start a slideshow by choosing <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or by pressing <keycap>F5</keycap>. The slideshow can be paused/continued by pressing <keycap>P</keycap>. To stop the slideshow, press the <keycap>Esc</keycap> or <keycap>F5</keycap> key. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>. </para>
 	</sect2>
 </sect1>
 
@@ -509,12 +513,12 @@
 		<title>Flipping an Image</title>
 		<para>To flip an image along the horizontal axis of the image, choose 
 		<menuchoice>
-		<guimenu>Image</guimenu>
+		<guimenu>Edit</guimenu>
 		<guimenuitem>Flip Horizontal</guimenuitem>
 		</menuchoice>.</para>
 		<para>To flip an image along the vertical axis of the image, choose 
 		<menuchoice>
-		<guimenu>Image</guimenu>
+		<guimenu>Edit</guimenu>
 		<guimenuitem>Flip Vertical</guimenuitem>
 		</menuchoice>.</para>
 	</sect2>
@@ -524,13 +528,13 @@
 		<title>Rotating an Image</title>
 		<para>To rotate an image 90 degrees in a clockwise direction, choose 
 		<menuchoice>
-		<guimenu>Image</guimenu>
+		<guimenu>Edit</guimenu>
 		<guimenuitem>Rotate Clockwise</guimenuitem>
 		</menuchoice>.</para>
 		<para>To rotate an image 90 degrees in an anticlockwise direction, choose 
 		<menuchoice>
-		<guimenu>Image</guimenu>
-		<guimenuitem>Rotate Counter Clockwise</guimenuitem>
+		<guimenu>Edit</guimenu>
+		<guimenuitem>Rotate Counterclockwise</guimenuitem>
 		</menuchoice>.</para>
 	</sect2>
 
@@ -576,7 +580,7 @@
 		<title>Saving an Image</title>
 		<para>To save an image, choose 
 			<menuchoice>
-			<guimenu>File</guimenu>
+			<guimenu>Image</guimenu>
 			<guimenuitem>Save</guimenuitem>
 			</menuchoice>.
 		The image will be saved under the same name and file type. Therefore, unmodified images needn't be saved.</para>
@@ -587,7 +591,7 @@
 		<title>Saving an Image under a Different Name</title>
 		<para>To save an image under a different name, or convert it to a different file type, choose
 			<menuchoice>
-			<guimenu>File</guimenu>
+			<guimenu>Image</guimenu>
 			<guimenuitem>Save As</guimenuitem>
 			</menuchoice>.</para>
 		<para>Specify the filename in the <guilabel>Name</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton>. The file is saved in the current folder by default. &app; tries to determine the file type from the given filename suffix. If the image should be saved in another folder or the file type detection failed, expand the dialog by clicking on <guilabel>Browse for other folders</guilabel>. This allows further folder navigation and the specification of the file type from the drop down box.</para>
@@ -600,7 +604,7 @@
 		<para>Saving multiple images at once allows you to convert several images to a different format, or give them similar filenames.</para>
 		<para>To save multiple images, select the images and choose 
 			<menuchoice>
-			<guimenu>File</guimenu>
+			<guimenu>Image</guimenu>
 			<guimenuitem>Save As</guimenuitem>
 			</menuchoice>. 		
 		The following window is displayed:</para>
@@ -640,18 +644,18 @@
 
 <sect1 id="eog-print">
 	<title>Printing Images</title>
-	<sect2 id="eog-print-pagesettings">
+	<!--<sect2 id="eog-print-pagesettings">
 		<title>Setting your Page Settings</title>
 		<para>Before printing you need to set the page settings you would like to use. To do that choose <menuchoice><guimenu>File</guimenu><guimenuitem>Page Setup</guimenuitem></menuchoice>.</para>
 		<para>In the <guilabel>Page Setup</guilabel> dialog you can now choose paper size and orientation. If possible also select your printer to have the page borders set correctly.</para>
-	</sect2>
+	</sect2>-->
 
 	<sect2 id="eog-print-image">
 		<title>Printing an Image</title>
 		<para>To print an image, perform the following steps:</para>
 		<orderedlist>
 			<listitem>
-				<para>Select <menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice></para>
+				<para>Select <menuchoice><guimenu>Image</guimenu><guimenuitem>Print</guimenuitem></menuchoice></para>
 			</listitem>
 			<listitem>
 				<para>In the <guilabel>Print</guilabel> dialog, select the printer you want to use from the list.</para>
