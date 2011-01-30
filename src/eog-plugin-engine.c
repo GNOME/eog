@@ -85,13 +85,11 @@ eog_plugin_engine_new (void)
 {
 	EogPluginEngine *engine;
 	gchar *user_plugin_path;
-	gchar *search_path;
+	gchar *private_path;
 	GError *error = NULL;
 
-	search_path = g_build_filename (LIBDIR, "eog",
+	private_path = g_build_filename (LIBDIR, "eog",
 					"girepository-1.0", NULL);
-	g_irepository_prepend_search_path (search_path);
-	g_free (search_path);
 
 	/* This should be moved to libpeas */
 	if (g_irepository_require (g_irepository_get_default (),
@@ -112,14 +110,16 @@ eog_plugin_engine_new (void)
 	}
 
 
-
-	if (g_irepository_require (g_irepository_get_default (),
-				   "Eog", "3.0", 0, &error) == NULL)
+	if (g_irepository_require_private (g_irepository_get_default (),
+					   private_path, "Eog", "3.0", 0,
+					   &error) == NULL)
 	{
 		g_warning ("Error loading Eog typelib: %s\n",
 			   error->message);
 		g_clear_error (&error);
 	}
+
+	g_free (private_path);
 
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
 						  NULL));
