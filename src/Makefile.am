@@ -18,87 +18,87 @@ MARSHAL_OUTPUT = 	\
 	eog-marshal.c
 
 NOINST_H_FILES =			\
-	eog-session.h			\
-	eog-util.h			\
-	eog-pixbuf-util.h		\
-	eog-preferences-dialog.h	\
+	eog-close-confirmation-dialog.h	\
 	eog-config-keys.h		\
 	eog-image-jpeg.h		\
 	eog-image-private.h		\
-	eog-uri-converter.h		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader-jpg.h	\
 	eog-metadata-reader-png.h	\
-	eog-save-as-dialog-helper.h	\
+	eog-pixbuf-util.h		\
+	eog-plugin-engine.h             \
+	eog-preferences-dialog.h	\
+	eog-print.h			\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
-	eog-print.h			\
-	eog-plugin-engine.h             \
+	eog-save-as-dialog-helper.h	\
+	eog-session.h			\
+	eog-uri-converter.h		\
+	eog-util.h			\
 	uta.h				\
-	eog-close-confirmation-dialog.h	\
 	zoom.h
 
 INST_H_FILES =				\
 	eog-application.h		\
+	eog-clipboard-handler.h		\
 	eog-debug.h			\
-	eog-window.h			\
-	eog-window-activatable.h	\
-	eog-sidebar.h			\
 	eog-dialog.h			\
-	eog-properties-dialog.h		\
+	eog-enums.h			\
 	eog-error-message-area.h	\
 	eog-file-chooser.h		\
-	eog-statusbar.h			\
-	eog-thumb-nav.h			\
-	eog-transform.h			\
 	eog-image.h			\
-	eog-enums.h			\
 	eog-image-save-info.h		\
-	eog-scroll-view.h		\
-	eog-thumb-view.h		\
-	eog-list-store.h		\
-	eog-thumbnail.h			\
 	eog-job-queue.h			\
-	eog-clipboard-handler.h		\
-	eog-jobs.h
+	eog-jobs.h			\
+	eog-list-store.h		\
+	eog-properties-dialog.h		\
+	eog-scroll-view.h		\
+	eog-sidebar.h			\
+	eog-statusbar.h			\
+	eog-thumbnail.h			\
+	eog-thumb-nav.h			\
+	eog-thumb-view.h		\
+	eog-transform.h			\
+	eog-window-activatable.h	\
+	eog-window.h
 
 libeog_c_files = 			\
 	eog-application.c		\
-	eog-session.c			\
+	eog-clipboard-handler.c		\
+	eog-close-confirmation-dialog.c \
 	eog-debug.c			\
-	eog-util.c			\
-	eog-pixbuf-util.c		\
-	eog-window.c			\
-	eog-window-activatable.c	\
-	eog-sidebar.c			\
 	eog-dialog.c			\
-	eog-preferences-dialog.c	\
-	eog-properties-dialog.c		\
 	eog-error-message-area.c	\
 	eog-file-chooser.c		\
-	eog-statusbar.c			\
-	eog-thumb-nav.c			\
-	eog-transform.c			\
 	eog-image.c			\
 	eog-image-jpeg.c		\
 	eog-image-save-info.c		\
-	eog-scroll-view.c		\
-	eog-thumb-view.c		\
-	eog-list-store.c		\
-	eog-thumbnail.c			\
 	eog-job-queue.c			\
 	eog-jobs.c			\
-	eog-uri-converter.c		\
+	eog-list-store.c		\
 	eog-metadata-reader.c		\
 	eog-metadata-reader-jpg.c	\
 	eog-metadata-reader-png.c	\
-	eog-save-as-dialog-helper.c	\
+	eog-pixbuf-util.c		\
+	eog-plugin-engine.c            	\
+	eog-preferences-dialog.c	\
+	eog-print.c			\
 	eog-print-image-setup.c         \
 	eog-print-preview.c           	\
-	eog-print.c			\
-	eog-close-confirmation-dialog.c \
-	eog-plugin-engine.c            	\
-	eog-clipboard-handler.c		\
+	eog-properties-dialog.c		\
+	eog-save-as-dialog-helper.c	\
+	eog-scroll-view.c		\
+	eog-session.c			\
+	eog-sidebar.c			\
+	eog-statusbar.c			\
+	eog-thumbnail.c			\
+	eog-thumb-nav.c			\
+	eog-thumb-view.c		\
+	eog-transform.c			\
+	eog-uri-converter.c		\
+	eog-util.c			\
+	eog-window-activatable.c	\
+	eog-window.c			\
 	uta.c				\
 	zoom.c
 
@@ -110,11 +110,12 @@ libeog_la_SOURCES =			\
 
 if HAVE_EXIF
 INST_H_FILES +=				\
-	eog-exif-util.h			\
-	eog-exif-details.h
+	eog-exif-details.h		\
+	eog-exif-util.h
+
 libeog_c_files +=			\
-	eog-exif-util.c			\
-	eog-exif-details.c
+	eog-exif-details.c		\
+	eog-exif-util.c
 endif
 
 if HAVE_EXEMPI
