@@ -36,7 +36,6 @@ NOINST_H_FILES =			\
 	eog-plugin-engine.h             \
 	uta.h				\
 	eog-close-confirmation-dialog.h	\
-	eog-clipboard-handler.h		\
 	zoom.h
 
 INST_H_FILES =				\
@@ -60,6 +59,7 @@ INST_H_FILES =				\
 	eog-list-store.h		\
 	eog-thumbnail.h			\
 	eog-job-queue.h			\
+	eog-clipboard-handler.h		\
 	eog-jobs.h
 
 libeog_c_files = 			\
