@@ -331,8 +331,7 @@ eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
  * @image: An #EogImage.
  *
  * Adds an #EogImage to @store. The thumbnail of the image is not
- * loaded and will only be loaded if the thumbnail is made visible
- * or eog_list_store_set_thumbnail() is called.
+ * loaded and will only be loaded if the thumbnail is made visible.
  *
  **/
 void
