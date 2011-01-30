@@ -16,7 +16,9 @@
 #include "eog-marshal.h"
 #include "eog-scroll-view.h"
 #include "eog-debug.h"
+#if 0
 #include "uta.h"
+#endif
 #include "zoom.h"
 
 /* Maximum size of delayed repaint rectangles */
@@ -115,10 +117,12 @@ struct _EogScrollViewPrivate {
 	/* Current scrolling offsets */
 	int xofs, yofs;
 
+#if 0
 	/* Microtile arrays for dirty region.  This represents the dirty region
 	 * for interpolated drawing.
 	 */
 	EogUta *uta;
+#endif
 
 	/* handler ID for paint idle callback */
 	guint idle_id;
@@ -1109,9 +1113,11 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	GtkAllocation allocation;
 	int xofs, yofs;
 	GdkWindow *window;
+#if 0
 	int src_x, src_y;
 	int dest_x, dest_y;
 	int twidth, theight;
+#endif
 
 	priv = view->priv;
 
@@ -1149,7 +1155,7 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
 
 	/* Ensure that the uta has the full size */
-
+#if 0
 	twidth = (allocation.width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 	theight = (allocation.height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
@@ -1175,7 +1181,7 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 		       dest_x, dest_y,
 		       allocation.width - abs (xofs),
 		       allocation.height - abs (yofs));
-
+#endif
 	/* Scroll the window area and process exposure synchronously. */
 
 	gdk_window_scroll (window, -xofs, -yofs);
@@ -2416,7 +2422,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->min_zoom = MIN_ZOOM_FACTOR;
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
-	priv->uta = NULL;
+	//priv->uta = NULL;
 	priv->interp_type_in = CAIRO_FILTER_BILINEAR;
 	priv->interp_type_out = CAIRO_FILTER_BILINEAR;
 	priv->scroll_wheel_zoom = FALSE;
@@ -2536,10 +2542,12 @@ eog_scroll_view_dispose (GObject *object)
 	view = EOG_SCROLL_VIEW (object);
 	priv = view->priv;
 
+#if 0
 	if (priv->uta != NULL) {
 		eog_uta_free (priv->uta);
 		priv->uta = NULL;
 	}
+#endif
 
 	if (priv->idle_id != 0) {
 		g_source_remove (priv->idle_id);
