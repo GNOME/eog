@@ -35,7 +35,6 @@ NOINST_H_FILES =			\
 	eog-session.h			\
 	eog-uri-converter.h		\
 	eog-util.h			\
-	uta.h				\
 	zoom.h
 
 INST_H_FILES =				\
@@ -99,7 +98,6 @@ libeog_c_files = 			\
 	eog-util.c			\
 	eog-window-activatable.c	\
 	eog-window.c			\
-	uta.c				\
 	zoom.c
 
 libeog_la_SOURCES =			\
