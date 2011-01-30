@@ -790,7 +790,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
  *
  * 
  *
- * Returns: (transfer full): a new #EogPropertiesDialog
+ * Returns: (transfer full) (type EogPropertiesDialog): a new #EogPropertiesDialog
  **/
 GObject *
 eog_properties_dialog_new (GtkWindow    *parent,
