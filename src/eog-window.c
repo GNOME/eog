@@ -339,7 +339,7 @@ eog_window_set_gallery_mode (EogWindow           *window,
 
 	eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav), mode);
 
-	if (priv->mode != EOG_WINDOW_STATUS_UNKNOWN) {
+	if (priv->mode != EOG_WINDOW_MODE_UNKNOWN) {
 		update_action_groups_state (window);
 	}
 }
@@ -4956,33 +4956,6 @@ eog_window_button_press (GtkWidget *widget, GdkEventButton *event)
 }
 
 static gboolean
-eog_window_configure_event (GtkWidget *widget, GdkEventConfigure *event)
-{
-	EogWindow *window;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (widget), TRUE);
-
-	window = EOG_WINDOW (widget);
-
-	GTK_WIDGET_CLASS (eog_window_parent_class)->configure_event (widget, event);
-
-	return FALSE;
-}
-
-static void
-eog_window_unrealize (GtkWidget *widget)
-{
-	EogWindow *window;
-
-	g_return_if_fail (EOG_IS_WINDOW (widget));
-
-	window = EOG_WINDOW (widget);
-
-	GTK_WIDGET_CLASS (eog_window_parent_class)->unrealize (widget);
-}
-
-
-static gboolean
 eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 {
 	EogWindow *window = EOG_WINDOW (widget);
@@ -5125,8 +5098,6 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->key_press_event = eog_window_key_press;
 	widget_class->button_press_event = eog_window_button_press;
 	widget_class->drag_data_received = eog_window_drag_data_received;
-        widget_class->configure_event = eog_window_configure_event;
-	widget_class->unrealize = eog_window_unrealize;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 
 /**

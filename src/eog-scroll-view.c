@@ -2017,10 +2017,6 @@ update_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 static void
 image_changed_cb (EogImage *img, gpointer data)
 {
-	EogScrollViewPrivate *priv;
-
-	priv = EOG_SCROLL_VIEW (data)->priv;
-
 	update_pixbuf (EOG_SCROLL_VIEW (data), eog_image_get_pixbuf (img));
 
 	_set_zoom_mode_internal (EOG_SCROLL_VIEW (data),
@@ -2628,12 +2624,10 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 			      const GValue *value, GParamSpec *pspec)
 {
 	EogScrollView *view;
-	EogScrollViewPrivate *priv;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (object));
 
 	view = EOG_SCROLL_VIEW (object);
-	priv = view->priv;
 
 	switch (property_id) {
 	case PROP_ANTIALIAS_IN:

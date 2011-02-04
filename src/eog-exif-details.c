@@ -459,11 +459,7 @@ eog_exif_details_reset (EogExifDetails *exif_details)
 void
 eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 {
-	EogExifDetailsPrivate *priv;
-
 	g_return_if_fail (EOG_IS_EXIF_DETAILS (exif_details));
-
-	priv = exif_details->priv;
 
 	eog_exif_details_reset (exif_details);
 	if (data) {
@@ -547,11 +543,7 @@ xmp_entry_insert (EogExifDetails *view, XmpStringPtr xmp_schema,
 void
 eog_exif_details_xmp_update (EogExifDetails *view, XmpPtr data)
 {
-	EogExifDetailsPrivate *priv;
-
 	g_return_if_fail (EOG_IS_EXIF_DETAILS (view));
-
-	priv = view->priv;
 
 	if (data) {
 		XmpIteratorPtr iter = xmp_iterator_new(data, NULL, NULL, XMP_ITER_JUSTLEAFNODES);

@@ -344,23 +344,8 @@ eog_job_load_run (EogJob *job)
 static void eog_job_model_init (EogJobModel *job) { /* Do Nothing */ }
 
 static void
-eog_job_model_dispose (GObject *object)
-{
-	EogJobModel *job;
-
-	job = EOG_JOB_MODEL (object);
-
-	(* G_OBJECT_CLASS (eog_job_model_parent_class)->dispose) (object);
-}
-
-static void
 eog_job_model_class_init (EogJobModelClass *class)
 {
-	GObjectClass *oclass;
-
-	oclass = G_OBJECT_CLASS (class);
-
-	oclass->dispose = eog_job_model_dispose;
 	EOG_JOB_CLASS (class)->run = eog_job_model_run;
 }
 
@@ -879,16 +864,12 @@ eog_job_copy_run (EogJob *ejob)
 {
 	EogJobCopy *job;
 	GList *it;
-	guint n_images;
 	GFile *src, *dest;
 	gchar *filename, *dest_filename;
 
 	g_return_if_fail (EOG_IS_JOB_COPY (ejob));
 
 	job = EOG_JOB_COPY (ejob);
-
-	n_images = g_list_length (job->images);
-
 	job->current_pos = 0;
 
 	for (it = job->images; it != NULL; it = g_list_next (it), job->current_pos++) {

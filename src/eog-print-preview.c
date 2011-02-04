@@ -551,10 +551,8 @@ draw_cb (GtkDrawingArea *drawing_area,
 		 gpointer  user_data)
 {
 	GtkWidget *widget;
-	EogPrintPreviewPrivate *priv;
 
 	widget = GTK_WIDGET (drawing_area);
-	priv = EOG_PRINT_PREVIEW (user_data)->priv;
 
 	update_relative_sizes (EOG_PRINT_PREVIEW (user_data));
 
@@ -854,12 +852,9 @@ key_press_event_cb (GtkWidget   *widget,
 		    GdkEventKey *event,
 		    gpointer     user_data)
 {
-	EogPrintPreviewPrivate *priv;
 	gfloat delta, align;
 	gboolean stop_emission = FALSE;
 	const gchar *property;
-
-	priv = EOG_PRINT_PREVIEW (user_data)->priv;
 
 	delta = 0;
 
