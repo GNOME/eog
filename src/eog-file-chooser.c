@@ -140,40 +140,17 @@ save_response_cb (GtkDialog *dlg, gint id, gpointer data)
 	}
 }
 
-static void
-eog_file_chooser_add_filter (EogFileChooser *chooser)
+static GSList*
+_eog_file_chooser_prepare_save_file_filter (GtkFileFilter *all_img_filter)
 {
-	GSList *it;
-	GSList *formats;
- 	GtkFileFilter *all_file_filter;
-	GtkFileFilter *all_img_filter;
-	GtkFileFilter *filter;
 	GSList *filters = NULL;
+	GSList *formats = NULL;
+	GSList *it;
+	GtkFileFilter *filter;
 	gchar **mime_types, **pattern, *tmp;
 	int i;
-	GtkFileChooserAction action;
 
-	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (chooser));
-
-	if (action != GTK_FILE_CHOOSER_ACTION_SAVE && action != GTK_FILE_CHOOSER_ACTION_OPEN) {
-		return;
-	}
-
-	/* All Files Filter */
-	all_file_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_file_filter, _("All Files"));
-	gtk_file_filter_add_pattern (all_file_filter, "*");
-
-	/* All Image Filter */
-	all_img_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_img_filter, _("All Images"));
-
-	if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
-		formats = eog_pixbuf_get_savable_formats ();
-	}
-	else {
-		formats = gdk_pixbuf_get_formats ();
-	}
+	formats = eog_pixbuf_get_savable_formats ();
 
 	/* Image filters */
 	for (it = formats; it != NULL; it = it->next) {
@@ -219,6 +196,39 @@ eog_file_chooser_add_filter (EogFileChooser *chooser)
 		filters = g_slist_prepend (filters, filter);
 	}
 	g_slist_free (formats);
+
+	return filters;
+}
+static void
+eog_file_chooser_add_filter (EogFileChooser *chooser)
+{
+	GSList *it;
+ 	GtkFileFilter *all_file_filter;
+	GtkFileFilter *all_img_filter;
+	GSList *filters = NULL;
+	GtkFileChooserAction action;
+
+	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (chooser));
+
+	if (action != GTK_FILE_CHOOSER_ACTION_SAVE && action != GTK_FILE_CHOOSER_ACTION_OPEN) {
+		return;
+	}
+
+	/* All Files Filter */
+	all_file_filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (all_file_filter, _("All files"));
+	gtk_file_filter_add_pattern (all_file_filter, "*");
+
+	/* All Image Filter */
+	all_img_filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (all_img_filter, _("Supported image files"));
+
+	if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
+		filters = _eog_file_chooser_prepare_save_file_filter(all_img_filter);
+	}
+	else {
+		gtk_file_filter_add_pixbuf_formats(all_img_filter);
+	}
 
 	/* Add filter to filechooser */
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), all_file_filter);
