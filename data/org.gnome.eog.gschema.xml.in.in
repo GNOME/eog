@@ -1,11 +1,11 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog" path="/apps/eog/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog" path="/org/gnome/eog/">
     <child name="view" schema="org.gnome.eog.view"/>
     <child name="fullscreen" schema="org.gnome.eog.fullscreen"/>
     <child name="ui" schema="org.gnome.eog.ui"/>
     <child name="plugins" schema="org.gnome.eog.plugins"/>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.view" path="/apps/eog/view/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.view" path="/org/gnome/eog/view/">
     <key name="autorotate" type="b">
       <default>true</default>
       <_summary>Automatic orientation</_summary>
@@ -52,7 +52,7 @@
 	<_description>If this is active, the color set by the background-color key will be used to fill the area behind the image. If it is not set, the current GTK+ theme will determine the fill color.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.fullscreen" path="/apps/eog/fullscreen/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.fullscreen" path="/org/gnome/eog/fullscreen/">
     <key name="loop" type="b">
       <default>true</default>
       <_summary>Loop through the image sequence</_summary>
@@ -69,7 +69,7 @@
       <_description>A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero  disables the automatic browsing.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.ui" path="/apps/eog/ui/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.ui" path="/org/gnome/eog/ui/">
     <key name="toolbar" type="b">
       <default>true</default>
       <_summary>Show/Hide the window toolbar.</_summary>
@@ -123,7 +123,7 @@
       <_description>The desktop file name (including the ".desktop") of the application to use for editing images (when the "Edit Image" toolbar button is clicked). Set to the empty string to disable this feature.</_description>
     </key>
   </schema>
-  <schema id="org.gnome.eog.plugins" path="/apps/eog/plugins/">
+  <schema id="org.gnome.eog.plugins" path="/org/gnome/eog/plugins/">
     <key name="active-plugins" type="as">
       <default>[]</default>
       <_summary>Active plugins</_summary>
