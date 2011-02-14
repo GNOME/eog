@@ -2951,7 +2951,7 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 		priv->background_surface = NULL;
 	}
 
-	gtk_widget_modify_bg (GTK_WIDGET (view),
+	gtk_widget_modify_bg (GTK_WIDGET (priv->display),
 			      GTK_STATE_NORMAL,
 			      selected);
 }
