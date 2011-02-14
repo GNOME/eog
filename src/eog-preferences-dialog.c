@@ -255,7 +255,7 @@ eog_preferences_dialog_constructor (GType type,
 	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_SECONDS,
 			 seconds_spin, "value", G_SETTINGS_BIND_DEFAULT);
 
-        plugin_manager = peas_gtk_plugin_manager_new ();
+        plugin_manager = peas_gtk_plugin_manager_new (NULL);
 
         g_assert (plugin_manager != NULL);
 
