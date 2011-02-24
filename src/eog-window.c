@@ -2651,13 +2651,13 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 		GAppInfo *app_info;
 		GError *error = NULL;
 
-		app_info = g_app_info_create_from_commandline ("gnome-appearance-properties --show-page=background",
-							       "gnome-appearance-properties",
+		app_info = g_app_info_create_from_commandline ("gnome-control-center background",
+							       "System Settings",
 							       G_APP_INFO_CREATE_NONE,
 							       &error);
 
 		if (error != NULL) {
-			g_warning ("%s%s", _("Error launching appearance preferences dialog: "),
+			g_warning ("%s%s", _("Error launching System Settings: "),
 				   error->message);
 			g_error_free (error);
 			error = NULL;
@@ -2672,7 +2672,7 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 			g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (context), &error);
 
 			if (error != NULL) {
-				g_warning ("%s%s", _("Error launching appearance preferences dialog: "),
+				g_warning ("%s%s", _("Error launching System Settings: "),
 					   error->message);
 				g_error_free (error);
 				error = NULL;
