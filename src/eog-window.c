@@ -4360,6 +4360,8 @@ eog_window_construct_ui (EogWindow *window)
 			       "ui-manager", priv->ui_mgr,
 			       "model", eog_application_get_toolbars_model (EOG_APP),
 			       NULL));
+	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (priv->toolbar)),
+				     GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
 
 	egg_editable_toolbar_show (EGG_EDITABLE_TOOLBAR (priv->toolbar),
 				   "Toolbar");
