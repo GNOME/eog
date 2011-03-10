@@ -33,7 +33,7 @@
 #define EOG_CONF_VIEW				EOG_CONF_DOMAIN".view"
 
 #define EOG_CONF_DESKTOP_WALLPAPER_SCHEMA	"org.gnome.desktop.background"
-#define EOG_CONF_DESKTOP_WALLPAPER		"picture-filename"
+#define EOG_CONF_DESKTOP_WALLPAPER		"picture-uri"
 
 #define EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA	"org.gnome.desktop.lockdown"
 #define EOG_CONF_DESKTOP_CAN_PRINT		"disable-printing"

@@ -2694,10 +2694,13 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	gchar *markup;
 	gchar *text;
 	gchar *basename;
+	gchar *uri;
 
+	uri = g_filename_to_uri (filename, NULL, NULL);
 	settings = g_settings_new (EOG_CONF_DESKTOP_WALLPAPER_SCHEMA);
-	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER, filename);
+	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER, uri);
 	g_object_unref (settings);
+	g_free (uri);
 
 	/* I18N: When setting mnemonics for these strings, watch out to not
 	   clash with mnemonics from eog's menubar */
