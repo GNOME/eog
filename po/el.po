@@ -17,14 +17,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog-HEAD-po-el-4121\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-15 10:50+0200\n"
-"PO-Revision-Date: 2011-01-15 10:25+0300\n"
+"POT-Creation-Date: 2011-03-13 19:54+0200\n"
+"PO-Revision-Date: 2011-02-27 09:35+0300\n"
 "Last-Translator: Michael Kotsarinis <mk73628@gmail.com>\n"
 "Language-Team: Greek team\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.5.2\n"
 "X-Poedit-Language: Greek\n"
@@ -520,10 +520,10 @@ msgid ""
 "for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
 "to the empty string to disable this feature."
 msgstr ""
-"Το όνομα αρχείου της επιφάνειας εργασίας (συμπεριλαμβανομένου του «."
-"desktop») της εφαρμογής που θα χρησιμοποιηθεί για την επεξεργασία εικόνων "
-"(όταν το κουμπί της εργαλειοθήκης «Επεξεργασία εικόνας» είναι πατημένο). "
-"Ορίστε το σε κενό αλφαριθμητικό για να το απενεργοποιήσετε."
+"Το όνομα αρχείου της επιφάνειας εργασίας (συμπεριλαμβανομένου του «.desktop») "
+"της εφαρμογής που θα χρησιμοποιηθεί για την επεξεργασία εικόνων (όταν το "
+"κουμπί της εργαλειοθήκης «Επεξεργασία εικόνας» είναι πατημένο). Ορίστε το σε "
+"κενό αλφαριθμητικό για να το απενεργοποιήσετε."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:31
 #, no-c-format
@@ -665,23 +665,22 @@ msgstr ""
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Παρακαλώ δοκιμάστε μια διαφορετική επέκταση αρχείου όπως .png ή .jpg."
 
-#: ../src/eog-file-chooser.c:164
-msgid "All Files"
-msgstr "Όλα τα αρχεία"
-
-#
-#: ../src/eog-file-chooser.c:169
-msgid "All Images"
-msgstr "Όλες οι εικόνες"
-
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:190
+#: ../src/eog-file-chooser.c:167
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
+#: ../src/eog-file-chooser.c:219
+msgid "All files"
+msgstr "Όλα τα αρχεία"
+
+#: ../src/eog-file-chooser.c:224
+msgid "Supported image files"
+msgstr "Υποστηριζόμενα αρχεία εικόνας"
+
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:286 ../src/eog-properties-dialog.c:137
+#: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
 #: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
 msgid "pixel"
 msgid_plural "pixels"
@@ -689,17 +688,17 @@ msgstr[0] "εικονοστοιχείο (pixel)"
 msgstr[1] "εικονοστοιχεία (pixel)"
 
 #
-#: ../src/eog-file-chooser.c:437
+#: ../src/eog-file-chooser.c:447
 msgid "Open Image"
 msgstr "Άνοιγμα εικόνας"
 
 #
-#: ../src/eog-file-chooser.c:445
+#: ../src/eog-file-chooser.c:455
 msgid "Save Image"
 msgstr "Αποθήκευση εικόνας"
 
 #
-#: ../src/eog-file-chooser.c:453
+#: ../src/eog-file-chooser.c:463
 msgid "Open Folder"
 msgstr "Άνοιγμα φακέλου"
 
@@ -1055,8 +1054,8 @@ msgid "The GNOME image viewer."
 msgstr "Εφαρμογή προβολής εικόνων του GNOME."
 
 #: ../src/eog-window.c:2660 ../src/eog-window.c:2675
-msgid "Error launching appearance preferences dialog: "
-msgstr "Σφάλμα κατά την εκκίνηση του διαλόγου προτιμήσεων εμφάνισης:"
+msgid "Error launching System Settings: "
+msgstr "Σφάλμα κατά την εκκίνηση των ρυθμίσεων συστήματος:"
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
@@ -1529,6 +1528,13 @@ msgstr "[ΑΡΧΕΙΟ…]"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Εκτελέστε '%s --help' για να δείτε την πλήρη λίστα των διαθέσιμων εντολών."
+
+#
+#~ msgid "All Images"
+#~ msgstr "Όλες οι εικόνες"
+
+#~ msgid "Error launching appearance preferences dialog: "
+#~ msgstr "Σφάλμα κατά την εκκίνηση του διαλόγου προτιμήσεων εμφάνισης:"
 
 #~ msgid ""
 #~ "This program is free software; you can redistribute it and/or modify it "
