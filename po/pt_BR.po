@@ -19,17 +19,18 @@
 # Krix Apolinário <krixapolinario@gmail.com>, 2009.
 # Wancharle Sebastião Quirino <wancharle@gmail.com>, 2009.
 # Michel Recondo <michel@recondo.com.br>, 2010.
-# André Gondim <andregondim@ubuntu.com>, 2010.
+# André Gondim <andregondim@ubuntu.com>, 2010, 2011.
+# Flamarion Jorge <jorge.flamarion@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&component=general\n"
-"POT-Creation-Date: 2011-02-24 12:49+0000\n"
-"PO-Revision-Date: 2010-09-23 02:59-0300\n"
-"Last-Translator: André Gondim <andregondim@ubuntu.com>\n"
-"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"product=eog&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-12 18:55+0000\n"
+"PO-Revision-Date: 2011-03-12 20:59-0300\n"
+"Last-Translator: Flamarion Jorge <jorge.flamarion@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -387,14 +388,12 @@ msgid ""
 "determines the color value used."
 msgstr ""
 "Determina quanto de transparência deve ser indicado. Valores válidos são "
-"CHECK_PATTERN, COLOR e NONE. Se COLOR for escolhido, então a chave de "
-"trans-color determina o valor da cor a ser usada."
+"CHECK_PATTERN, COLOR e NONE. Se COLOR for escolhido, então a chave de trans-"
+"color determina o valor da cor a ser usada."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:10
-#, fuzzy
-#| msgid "Error on deleting image %s"
 msgid "External program to use for editing images"
-msgstr "Erro ao excluir a imagem %s"
+msgstr "Usar programa externo para editar imagens"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:11
 msgid "Extrapolate Image"
@@ -407,8 +406,8 @@ msgid ""
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
-"Se ativado e nenhuma imagem for carregada na janela ativa, o seletor de arquivos "
-"mostrará a pasta de imagens do usuário utilizando o diretório "
+"Se ativado e nenhuma imagem for carregada na janela ativa, o seletor de "
+"arquivos mostrará a pasta de imagens do usuário utilizando o diretório "
 "especial do usuário, XGD. Se desativado ou se a pasta de imagens não tive "
 "sido definida, será mostrado o diretório atual."
 
@@ -431,8 +430,8 @@ msgid ""
 msgstr ""
 "Se ativado, a lista detalhada de metadados no diálogo de propriedades será "
 "movida para sua própria página na caixa de diálogo. Isso deve tornar o "
-"diálogo mais utilizável em telas menores, por exemplo, como as utilizadas por "
-"netbooks. Se desativado, o widget será embutido na página \"Metadata\"."
+"diálogo mais utilizável em telas menores, por exemplo, como as utilizadas "
+"por netbooks. Se desativado, o widget será embutido na página \"Metadata\"."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:15
 msgid ""
@@ -449,16 +448,16 @@ msgid ""
 "will determine the fill color."
 msgstr ""
 "Se ativo, a cor definida pela chave background-color será usada para "
-"preencher a área atrás da imagem. Se não for definido, o atual "
-"tema GTK + irá determinar a cor de preenchimento."
+"preencher a área atrás da imagem. Se não for definido, o atual tema GTK + "
+"irá determinar a cor de preenchimento."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:17
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Se definido como FALSO, imagens pequenas não serão ampliadas "
-"inicialmente para se ajustarem ao tamanho da tela."
+"Se definido como FALSO, imagens pequenas não serão ampliadas inicialmente "
+"para se ajustarem ao tamanho da tela."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:18
 msgid ""
@@ -515,8 +514,8 @@ msgid ""
 "background-color key is not set, the color is determined by the active GTK+ "
 "theme instead."
 msgstr ""
-"A cor que é usada para preencher a área atrás da imagem. Se a chave  "
-"use-background-color não for definida, a cor será determinada pelo tema GTK+ "
+"A cor que é usada para preencher a área atrás da imagem. Se a chave  use-"
+"background-color não for definida, a cor será determinada pelo tema GTK+ "
 "ativo."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:29
@@ -525,6 +524,9 @@ msgid ""
 "for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
 "to the empty string to disable this feature."
 msgstr ""
+"O nome do arquivo desktop (incluindo o \".desktop\") da aplicação para usar "
+"para editar imagens (quando o botão \"Editar imagem\" na barra de tarefa é "
+"clicado). Configure uma string vazia para desabilitar esta funcionalidade."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:31
 #, no-c-format
@@ -669,14 +671,12 @@ msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #: ../src/eog-file-chooser.c:219
-#, fuzzy
-#| msgid "All Files"
 msgid "All files"
-msgstr "Todos os arquivos"
+msgstr "Todos arquivos"
 
 #: ../src/eog-file-chooser.c:224
 msgid "Supported image files"
-msgstr ""
+msgstr "Arquivos de imagens suportados"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
@@ -1059,7 +1059,7 @@ msgstr "Visualizador de imagens do GNOME."
 
 #: ../src/eog-window.c:2660 ../src/eog-window.c:2675
 msgid "Error launching System Settings: "
-msgstr ""
+msgstr "Erro ao lançar as configurações do sistema: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
@@ -1343,16 +1343,12 @@ msgid "Move the selected image to the trash folder"
 msgstr "Move a imagem selecionada para a pasta da lixeira"
 
 #: ../src/eog-window.c:3717
-#, fuzzy
-#| msgid "_Top:"
 msgid "_Copy"
-msgstr "Ci_ma:"
+msgstr "_Copiar"
 
 #: ../src/eog-window.c:3718
-#, fuzzy
-#| msgid "Move the selected item on the toolbar"
 msgid "Copy the selected image to the clipboard"
-msgstr "Move o item selecionado na barra de ferramentas"
+msgstr "Copiar a imagem selecionada para a área de transferência"
 
 #: ../src/eog-window.c:3720 ../src/eog-window.c:3729 ../src/eog-window.c:3732
 msgid "_Zoom In"
@@ -1492,16 +1488,13 @@ msgid "Trash"
 msgstr "Enviar para a lixeira"
 
 #: ../src/eog-window.c:4227
-#, fuzzy, c-format
-#| msgid "Show the current image in fullscreen mode"
+#, c-format
 msgid "Edit the current image using %s"
-msgstr "Mostra a imagem atual em modo de tela cheia"
+msgstr "Editar a imagem atual usando %s"
 
 #: ../src/eog-window.c:4229
-#, fuzzy
-#| msgid "_First Image"
 msgid "Edit Image"
-msgstr "_Primeira imagem"
+msgstr "Editar imagem"
 
 #: ../src/main.c:69 ../src/main.c:254
 msgid "Eye of GNOME Image Viewer"
@@ -1538,4 +1531,3 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Execute \"%s --help\" para ver a lista completa das opções disponíveis na "
 "linha de comandos."
-
