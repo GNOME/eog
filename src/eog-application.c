@@ -32,9 +32,7 @@
 #include "eog-application.h"
 #include "eog-util.h"
 
-#ifdef HAVE_DBUS
 #include "totem-scrsaver.h"
-#endif
 
 #include <string.h>
 #include <glib.h>
@@ -516,7 +514,6 @@ eog_application_reset_toolbars_model (EogApplication *app)
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 }
 
-#ifdef HAVE_DBUS
 /**
  * eog_application_screensaver_enable:
  * @application: an #EogApplication.
@@ -544,7 +541,6 @@ eog_application_screensaver_disable (EogApplication *application)
         if (application->scr_saver)
                 totem_scrsaver_disable (application->scr_saver);
 }
-#endif
 
 static void
 eog_application_load_accelerators (void)

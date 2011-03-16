@@ -2089,9 +2089,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	gtk_window_fullscreen (GTK_WINDOW (window));
 	eog_window_update_fullscreen_popup (window);
 
-#ifdef HAVE_DBUS
 	eog_application_screensaver_disable (EOG_APP);
-#endif
 
 	/* Update both actions as we could've already been in one those modes */
 	eog_window_update_slideshow_action (window);
@@ -2157,9 +2155,7 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 
 	eog_scroll_view_show_cursor (EOG_SCROLL_VIEW (priv->view));
 
-#ifdef HAVE_DBUS
 	eog_application_screensaver_enable (EOG_APP);
-#endif
 }
 
 static void

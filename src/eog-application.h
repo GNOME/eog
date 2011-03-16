@@ -29,9 +29,7 @@
 #include "egg-toolbars-model.h"
 #include "eog-plugin-engine.h"
 
-#ifdef HAVE_DBUS
 #include "totem-scrsaver.h"
-#endif
 
 #include <glib.h>
 #include <glib-object.h>
@@ -57,9 +55,8 @@ struct _EogApplication {
 	EggToolbarsModel *toolbars_model;
 	gchar            *toolbars_file;
 	EogPluginEngine  *plugin_engine;
-#ifdef HAVE_DBUS
+
 	TotemScrsaver    *scr_saver;
-#endif
 };
 
 struct _EogApplicationClass {
@@ -109,11 +106,9 @@ void              eog_application_save_toolbars_model (EogApplication *applicati
 
 void		  eog_application_reset_toolbars_model (EogApplication *app);
 
-#ifdef HAVE_DBUS
 void              eog_application_screensaver_enable  (EogApplication *application);
 
 void              eog_application_screensaver_disable (EogApplication *application);
-#endif
 
 G_END_DECLS
 
