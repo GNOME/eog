@@ -7,7 +7,7 @@
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004-2006.
 # Peter Bach <bach.peter@gmail.com>, 2007.
 # M.P. Rommedahl <lhademmor@gmail.com>, 2008.
-# Kenneth Nielsen <k.nielsen81@gmail.com>, 2007, 2009-2010.
+# Kenneth Nielsen <k.nielsen81@gmail.com>, 2007, 2009-2011.
 #
 # Konventioner:
 #
@@ -21,10 +21,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-15 20:30+0200\n"
-"PO-Revision-Date: 2010-09-14 19:43+0200\n"
+"POT-Creation-Date: 2011-03-28 23:15+0200\n"
+"PO-Revision-Date: 2011-03-28 23:14+0200\n"
 "Last-Translator: Kenneth Nielsen <k.nielsen81@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,29 +71,29 @@ msgstr "Fjern den valgte værktøjslinje"
 msgid "Separator"
 msgstr "Separator"
 
-#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:1
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Activate fullscreen mode with double-click"
 msgstr "Aktivér fulskærmstilstand med dobbeltklik"
 
-#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:2
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
 msgid "Fullscreen with double-click"
 msgstr "Fuldskærm med dobbeltklik"
 
-#: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
-#: ../plugins/reload/eog-reload-plugin.c:45
+#: ../plugins/reload/eog-reload-plugin.c:53
+#: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "Genindlæs billede"
 
-#: ../plugins/reload/reload.eog-plugin.desktop.in.h:2
-#: ../plugins/reload/eog-reload-plugin.c:47
+#: ../plugins/reload/eog-reload-plugin.c:55
+#: ../plugins/reload/reload.plugin.desktop.in.h:2
 msgid "Reload current image"
 msgstr "Genindlæs nuværende billede"
 
-#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:1
+#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:1
 msgid "Date in statusbar"
 msgstr "Dato i statuslinje"
 
-#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:2
+#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:2
 msgid "Shows the image date in the window statusbar"
 msgstr "Viser billedets dato i vinduets statuslinje"
 
@@ -367,7 +368,7 @@ msgstr "Automatisk orientering"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:7
 msgid "Close main window without asking to save changes."
-msgstr ""
+msgstr "Luk hovedvinduet uden at spørge om ændringer skal gemmes."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:8
 msgid "Delay in seconds until showing the next image"
@@ -384,10 +385,14 @@ msgstr ""
 "farveværdi."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:10
+msgid "External program to use for editing images"
+msgstr "Eksternt program til at redigere billeder med"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
 msgid "Extrapolate Image"
 msgstr "Ekstrapolér billede"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
 msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
 "will display the user's pictures folder using the XDG special user "
@@ -399,7 +404,7 @@ msgstr ""
 "brugermapper. Hvis deaktiveret, eller hvis billedmappen ikke er blevet "
 "konfigureret, vil den vise den aktuelle arbejdsmappe."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
 msgid ""
 "If activated, Eye of GNOME won't ask for confirmation when moving images to "
 "the trash. It will still ask if any of the files cannot be moved to the "
@@ -409,7 +414,7 @@ msgstr ""
 "flyttes til papirkurven. Programmet vil dog stadig spørge, hvis nogle af "
 "filerne ikke kan flyttes til papirkurven og i stedet vil blive slettet."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
 msgid ""
 "If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
@@ -422,7 +427,7 @@ msgstr ""
 "netbook-computere. Hvis deaktiveret, vil kontrollen blive indlejret i "
 "\"Metadata\"-siden."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -430,7 +435,7 @@ msgstr ""
 "Hvis transparency-nøglen har værdien COLOR, angiver denne nøgle hvilken "
 "farve, der benyttes til at vise gennemsigtighed."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
 msgid ""
 "If this is active, the color set by the background-color key will be used to "
 "fill the area behind the image. If it is not set, the current GTK+ theme "
@@ -440,7 +445,7 @@ msgstr ""
 "color blive brugt til at fylde området bagved baggrundsbilledet. Hvis det "
 "ikke er aktiveret, vil det nuværende GTK+-tema bestemme fyldfarven."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -448,20 +453,19 @@ msgstr ""
 "Hvis dette er sat til falsk, vil små billeder ikke blive strukket for at "
 "passe til skærmen ved start."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
-#, fuzzy
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
 msgid ""
 "Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
 "for right."
 msgstr ""
-"Position af billedsamlingspanel. Sæt til 0 for bund; 1 for venstre; 2 for "
+"Position af billedgalleripanel. Sæt til 0 for bund; 1 for venstre; 2 for "
 "top; 3 for højre."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
 msgid "Interpolate Image"
 msgstr "Interpolér billede"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
 msgid ""
 "List of active plugins. It doesn't contain the \"Location\" of the active "
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
@@ -471,37 +475,35 @@ msgstr ""
 "aktive udvidelsesmoduler. Kig i \".eog-plugin\"-filen for at finde "
 "placeringen for et bestemt udvidelsesmodul."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
 msgid "Loop through the image sequence"
 msgstr "Gå i løkke gennem billedsekvensen"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
 msgid "Scroll wheel zoom"
 msgstr "Rullehjulszoom"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
-#, fuzzy
-msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr "Vis/skjul rulleknapper for billedsamlingspanel."
-
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:23
-#, fuzzy
-msgid "Show/Hide the image gallery pane."
-msgstr "Vis/skjul billedsamlingspanelet."
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr "Vis/skjul rulleknapper for billedgalleripanel."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:24
+msgid "Show/Hide the image gallery pane."
+msgstr "Vis/skjul billedgalleripanelet."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
 msgid "Show/Hide the window side pane."
 msgstr "Vis/skjul vinduessidepanel."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
 msgid "Show/Hide the window statusbar."
 msgstr "Vis/skjul vinduesstatuslinjen."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
 msgid "Show/Hide the window toolbar."
 msgstr "Vis/skjul vinduesværktøjslinjen."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
 msgid ""
 "The color that is used to fill the area behind the image. If the use-"
 "background-color key is not set, the color is determined by the active GTK+ "
@@ -512,6 +514,16 @@ msgstr ""
 "GTK+-tema i stedet for."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:29
+msgid ""
+"The desktop file name (including the \".desktop\") of the application to use "
+"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
+"to the empty string to disable this feature."
+msgstr ""
+"Skrivebordsfilnavnet (inklusive \".desktop\") for det program der skal "
+"bruges til at redigere billeder (når værktøjsbjælkeknappen \"Rediger billede"
+"\" trykkes). Sæt til den tomme streng for at deaktivere denne funktion."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
 #, no-c-format
 msgid ""
 "The multiplier to be applied when using the mouse scroll wheel for zooming. "
@@ -524,23 +536,23 @@ msgstr ""
 "eks. vil 0.05 resultere i en 5% zoom-stigning for hver rullebegivenhed og "
 "1.00 vil resultere i en 100% zoom-stigning."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:30
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
 msgid "Transparency color"
 msgstr "Gennemsigtighedsfarve"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
 msgid "Transparency indicator"
 msgstr "Gennemsigtigshedsindikator"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
 msgid "Trash images without asking"
 msgstr "Spørg ikke, når billeder flyttes til papirkurven"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
 msgid "Use a custom background color"
 msgstr "Brug en brugerdefineret baggrundsfarve"
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
 msgid ""
 "Whether the file chooser should show the user's pictures folder if no images "
 "are loaded."
@@ -548,13 +560,12 @@ msgstr ""
 "Om filvælgeren skal vise brugerens billedmappe, hvis ingen billeder er "
 "indlæst."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
-#, fuzzy
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
 msgid "Whether the image gallery pane should be resizable."
 msgstr ""
-"Om det skal være muligt at ændre på størrelsen af billedsamlingspanelet."
+"Om det skal være muligt at ændre på størrelsen af billedgalleripanelet."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
 msgid ""
 "Whether the image should be extrapolated on zoom-in. This leads to blurry "
 "quality and is somewhat slower than non-extrapolated images."
@@ -562,7 +573,7 @@ msgstr ""
 "Om billedet skal ekstrapoleres, når der zoomes ind, eller ej. Dette gør "
 "billedet sløret, og er noget langsommere end ikke-ekstrapolerede billeder."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
 "quality but is somewhat slower than non-interpolated images."
@@ -571,29 +582,29 @@ msgstr ""
 "bedre billedkvalitet, men er noget langsommere end billeder der ikke er "
 "interpolerede."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "Om billedet skal roteres automatisk baseret på EXIF-orientering."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
 msgid ""
 "Whether the metadata list in the properties dialog should have its own page."
 msgstr "Om metadatalisten i egenskabsdialogvinduet skal have sin egen side."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
 msgid "Whether the scroll wheel should be used for zooming."
 msgstr "Om rullehjulet skal bruges til at zoome med eller ej."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
 msgid "Whether the sequence of images should be shown in an endless loop."
 msgstr "Om sekvensen af billeder skal vises i en uendelig løkke."
 
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
 msgid "Zoom multiplier"
 msgstr "Zoom-faktor"
 
-#: ../src/eog-application.c:123
+#: ../src/eog-application.c:122
 msgid "Running in fullscreen mode"
 msgstr "Kører i fuldskærmstilstand"
 
@@ -647,76 +658,76 @@ msgstr ""
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Prøv med en anden filendelse som f.eks. .png eller .jpg."
 
-#: ../src/eog-file-chooser.c:164
-msgid "All Files"
-msgstr "Alle filer"
-
-#: ../src/eog-file-chooser.c:169
-msgid "All Images"
-msgstr "Alle billeder"
-
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:190
+#: ../src/eog-file-chooser.c:167
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
+#: ../src/eog-file-chooser.c:219
+msgid "All files"
+msgstr "Alle filer"
+
+#: ../src/eog-file-chooser.c:224
+msgid "Supported image files"
+msgstr "Understøttede billedfiler"
+
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:286 ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:380
+#: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
+#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "punkt"
 msgstr[1] "punkter"
 
-#: ../src/eog-file-chooser.c:435
+#: ../src/eog-file-chooser.c:447
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: ../src/eog-file-chooser.c:443
+#: ../src/eog-file-chooser.c:455
 msgid "Save Image"
 msgstr "Gem billede"
 
-#: ../src/eog-file-chooser.c:451
+#: ../src/eog-file-chooser.c:463
 msgid "Open Folder"
 msgstr "Åbn mappe"
 
-#: ../src/eog-image.c:598
+#: ../src/eog-image.c:600
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformation af ikke indlæst billede."
 
-#: ../src/eog-image.c:626
+#: ../src/eog-image.c:628
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformationen fejlede."
 
-#: ../src/eog-image.c:1053
+#: ../src/eog-image.c:1055
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke understøttet for dette filformat."
 
-#: ../src/eog-image.c:1180
+#: ../src/eog-image.c:1184
 #, c-format
 msgid "Image loading failed."
 msgstr "Indlæsning af billede mislykkedes."
 
-#: ../src/eog-image.c:1585 ../src/eog-image.c:1687
+#: ../src/eog-image.c:1605 ../src/eog-image.c:1707
 #, c-format
 msgid "No image loaded."
 msgstr "Intet billede indlæst."
 
-#: ../src/eog-image.c:1595 ../src/eog-image.c:1699
+#: ../src/eog-image.c:1615 ../src/eog-image.c:1719
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oprettelse af midlertidig fil mislykkedes."
 
-#: ../src/eog-image-jpeg.c:364
+#: ../src/eog-image-jpeg.c:373
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Kunne ikke oprette midlertidig fil til gemning: %s"
 
-#: ../src/eog-image-jpeg.c:383
+#: ../src/eog-image-jpeg.c:392
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunne ikke tildele hukommelse til indlæsning af JPEG-fil"
@@ -766,12 +777,12 @@ msgid "Value"
 msgstr "Værdi"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:113 ../src/eog-exif-util.c:153
+#: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:147
+#: ../src/eog-exif-util.c:152
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
@@ -779,17 +790,17 @@ msgstr "%a, %d %B %Y"
 msgid "_Retry"
 msgstr "_Prøv igen"
 
-#: ../src/eog-error-message-area.c:141
+#: ../src/eog-error-message-area.c:150
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "Kunne ikke indlæse billedet \"%s\"."
 
-#: ../src/eog-error-message-area.c:175
+#: ../src/eog-error-message-area.c:192
 #, c-format
 msgid "No images found in '%s'."
 msgstr "Ingen billeder fundet i \"%s\"."
 
-#: ../src/eog-error-message-area.c:182
+#: ../src/eog-error-message-area.c:199
 msgid "The given locations contain no images."
 msgstr "Den angivne placering inderholder ingen billeder."
 
@@ -919,13 +930,13 @@ msgstr "som original"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:125
+#: ../src/eog-statusbar.c:126
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
 
 # Jeg kunne forestille mig to forskellige ting denne streng kan bruges til. Det kan henvise til en dato. "Taken on Jun 26, 2007", eller til kameraet billedet er taget på "Taken on Phillips T3000 super Zoom". Oversættelsen "Taget på" dækker heldigvis begge disse tilfælde
-#: ../src/eog-thumb-view.c:408
+#: ../src/eog-thumb-view.c:471
 msgid "Taken on"
 msgstr "Taget på"
 
@@ -948,25 +959,25 @@ msgstr " (ugyldig Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:518
+#: ../src/eog-window.c:531
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i billedpunkt  %s    %i%%"
 msgstr[1] "%i × %i billedpunkter  %s    %i%%"
 
-#: ../src/eog-window.c:824
+#: ../src/eog-window.c:831
 msgid "_Reload"
 msgstr "_Genindlæs"
 
-#: ../src/eog-window.c:826 ../src/eog-window.c:2636
+#: ../src/eog-window.c:833 ../src/eog-window.c:2709
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Skj_ul"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:836
+#: ../src/eog-window.c:843
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -975,7 +986,7 @@ msgstr ""
 "Billedet \"%s\" er blevet modificeret af et eksternt program.\n"
 "Ønsker du at genindlæse det?"
 
-#: ../src/eog-window.c:991
+#: ../src/eog-window.c:1007
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Brug \"%s\" til at åbne det valgte billede"
@@ -985,17 +996,17 @@ msgstr "Brug \"%s\" til at åbne det valgte billede"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1141
+#: ../src/eog-window.c:1163
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Gemmer billede \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1486
+#: ../src/eog-window.c:1516
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Åbner billede \"%s\""
 
-#: ../src/eog-window.c:2166
+#: ../src/eog-window.c:2205
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1004,15 +1015,15 @@ msgstr ""
 "Fejl ved udskrivning af fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2423
+#: ../src/eog-window.c:2467
 msgid "Toolbar Editor"
 msgstr "Værktøjslinje-redigering"
 
-#: ../src/eog-window.c:2426
+#: ../src/eog-window.c:2470
 msgid "_Reset to Default"
 msgstr "_Gendan standard"
 
-#: ../src/eog-window.c:2510
+#: ../src/eog-window.c:2556
 msgid "translator-credits"
 msgstr ""
 "Keld Simonsen\n"
@@ -1027,23 +1038,27 @@ msgstr ""
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
-#: ../src/eog-window.c:2515
+#: ../src/eog-window.c:2561
 msgid "Eye of GNOME"
 msgstr "Gnomes øje"
 
-#: ../src/eog-window.c:2518
+#: ../src/eog-window.c:2564
 msgid "The GNOME image viewer."
 msgstr "Gnomes øje - billedfremviser."
 
+#: ../src/eog-window.c:2656 ../src/eog-window.c:2671
+msgid "Error launching System Settings: "
+msgstr "Fejl ved start af systemindstillinger: "
+
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2634
+#: ../src/eog-window.c:2707
 msgid "_Open Background Preferences"
 msgstr "_Åbn baggrundsindstillinger"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2650
+#: ../src/eog-window.c:2723
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1052,11 +1067,11 @@ msgstr ""
 "Billedet \"%s\" er blevet valgt som skrivebordsbaggrund.\n"
 "Ønsker du at ændre dets udseende?"
 
-#: ../src/eog-window.c:3042
+#: ../src/eog-window.c:3115
 msgid "Saving image locally…"
 msgstr "Gemmer billede lokalt…"
 
-#: ../src/eog-window.c:3122
+#: ../src/eog-window.c:3195
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1065,7 +1080,7 @@ msgstr ""
 "Ønsker du at flytte\n"
 "\"%s\" til papirkurven?"
 
-#: ../src/eog-window.c:3125
+#: ../src/eog-window.c:3198
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1074,7 +1089,7 @@ msgstr ""
 "Der kunne ikke findes en papirkurv for \"%s\". Ønsker du at slette dette "
 "billede permanent?"
 
-#: ../src/eog-window.c:3130
+#: ../src/eog-window.c:3203
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1089,7 +1104,7 @@ msgstr[1] ""
 "Ønsker du at flytte de %d\n"
 "valgte billeder til papirkurven?"
 
-#: ../src/eog-window.c:3135
+#: ../src/eog-window.c:3208
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1097,442 +1112,445 @@ msgstr ""
 "Nogle af de valgte billeder kan ikke flyttes til papirkurven, og vil blive "
 "slettet permanent. Er du sikker på, at du ønsker at fortsætte?"
 
-#: ../src/eog-window.c:3152 ../src/eog-window.c:3610 ../src/eog-window.c:3634
+#: ../src/eog-window.c:3225 ../src/eog-window.c:3713 ../src/eog-window.c:3737
 msgid "Move to _Trash"
 msgstr "Flyt til _papirkurv"
 
-#: ../src/eog-window.c:3154
+#: ../src/eog-window.c:3227
 msgid "_Do not ask again during this session"
 msgstr "_Spørg ikke igen under denne session"
 
-#: ../src/eog-window.c:3199 ../src/eog-window.c:3213
+#: ../src/eog-window.c:3272 ../src/eog-window.c:3286
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kunne ikke tilgå papirkurven."
 
-#: ../src/eog-window.c:3221
+#: ../src/eog-window.c:3294
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Kunne ikke slette fil"
 
-#: ../src/eog-window.c:3292
+#: ../src/eog-window.c:3390
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fejl ved sletning af billede %s"
 
-#: ../src/eog-window.c:3534
+#: ../src/eog-window.c:3637
 msgid "_Image"
 msgstr "_Billede"
 
-#: ../src/eog-window.c:3535
+#: ../src/eog-window.c:3638
 msgid "_Edit"
 msgstr "_Redigér"
 
-#: ../src/eog-window.c:3536
+#: ../src/eog-window.c:3639
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/eog-window.c:3537
+#: ../src/eog-window.c:3640
 msgid "_Go"
 msgstr "_Navigering"
 
-#: ../src/eog-window.c:3538
+#: ../src/eog-window.c:3641
 msgid "_Tools"
 msgstr "_Værktøjer"
 
-#: ../src/eog-window.c:3539
+#: ../src/eog-window.c:3642
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: ../src/eog-window.c:3541
+#: ../src/eog-window.c:3644
 msgid "_Open…"
 msgstr "_Åbn…"
 
-#: ../src/eog-window.c:3542
+#: ../src/eog-window.c:3645
 msgid "Open a file"
 msgstr "Åbn en fil"
 
-#: ../src/eog-window.c:3544
+#: ../src/eog-window.c:3647
 msgid "_Close"
 msgstr "_Luk"
 
-#: ../src/eog-window.c:3545
+#: ../src/eog-window.c:3648
 msgid "Close window"
 msgstr "Luk vinduet"
 
-#: ../src/eog-window.c:3547
+#: ../src/eog-window.c:3650
 msgid "T_oolbar"
 msgstr "_Værktøjslinje"
 
-#: ../src/eog-window.c:3548
+#: ../src/eog-window.c:3651
 msgid "Edit the application toolbar"
 msgstr "Redigér programmets værktøjslinje"
 
-#: ../src/eog-window.c:3550
+#: ../src/eog-window.c:3653
 msgid "Prefere_nces"
 msgstr "_Indstillinger"
 
-#: ../src/eog-window.c:3551
+#: ../src/eog-window.c:3654
 msgid "Preferences for Eye of GNOME"
 msgstr "Indstillinger for Gnomes øje"
 
-#: ../src/eog-window.c:3553
+#: ../src/eog-window.c:3656
 msgid "_Contents"
 msgstr "_Indhold"
 
-#: ../src/eog-window.c:3554
+#: ../src/eog-window.c:3657
 msgid "Help on this application"
 msgstr "Hjælp til dette program"
 
-#: ../src/eog-window.c:3556 ../src/eog-plugin-manager.c:505
+#: ../src/eog-window.c:3659
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/eog-window.c:3557
+#: ../src/eog-window.c:3660
 msgid "About this application"
 msgstr "Om dette program"
 
-#: ../src/eog-window.c:3562
+#: ../src/eog-window.c:3665
 msgid "_Toolbar"
 msgstr "_Værktøjslinje"
 
-#: ../src/eog-window.c:3563
+#: ../src/eog-window.c:3666
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Skifter synligheden af værktøjslinjen i det aktuelle vindue"
 
-#: ../src/eog-window.c:3565
+#: ../src/eog-window.c:3668
 msgid "_Statusbar"
 msgstr "_Statuslinje"
 
-#: ../src/eog-window.c:3566
+#: ../src/eog-window.c:3669
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Skifter synligheden af statuslinjen i det aktuelle vindue"
 
-#: ../src/eog-window.c:3568
-#, fuzzy
+#: ../src/eog-window.c:3671
 msgid "_Image Gallery"
-msgstr "_Billedsamling"
+msgstr "_Billedgalleri"
 
-#: ../src/eog-window.c:3569
-#, fuzzy
+#: ../src/eog-window.c:3672
 msgid "Changes the visibility of the image gallery pane in the current window"
-msgstr "Skifter synligheden af billedsamlingspanelet i det aktuelle vindue"
+msgstr "Skifter synligheden af billedgalleripanelet i det aktuelle vindue"
 
-#: ../src/eog-window.c:3571
+#: ../src/eog-window.c:3674
 msgid "Side _Pane"
 msgstr "Side_panel"
 
-#: ../src/eog-window.c:3572
+#: ../src/eog-window.c:3675
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Skifter synligheden af sidepanelet i det aktuelle vindue"
 
-#: ../src/eog-window.c:3577
+#: ../src/eog-window.c:3680
 msgid "_Save"
 msgstr "_Gem"
 
-#: ../src/eog-window.c:3578
+#: ../src/eog-window.c:3681
 msgid "Save changes in currently selected images"
 msgstr "Gem ændringer i de valgte billeder"
 
-#: ../src/eog-window.c:3580
+#: ../src/eog-window.c:3683
 msgid "Open _with"
 msgstr "Åbn _med"
 
-#: ../src/eog-window.c:3581
+#: ../src/eog-window.c:3684
 msgid "Open the selected image with a different application"
 msgstr "Åben det valgte billede med et andet program"
 
-#: ../src/eog-window.c:3583
+#: ../src/eog-window.c:3686
 msgid "Save _As…"
 msgstr "Gem _som…"
 
-#: ../src/eog-window.c:3584
+#: ../src/eog-window.c:3687
 msgid "Save the selected images with a different name"
 msgstr "Gem de valgte billeder under andre navne"
 
-#: ../src/eog-window.c:3586
+#: ../src/eog-window.c:3689
 msgid "_Print…"
 msgstr "_Udskriv…"
 
-#: ../src/eog-window.c:3587
+#: ../src/eog-window.c:3690
 msgid "Print the selected image"
 msgstr "Udskriv det valgte billede"
 
-#: ../src/eog-window.c:3589
+#: ../src/eog-window.c:3692
 msgid "Prope_rties"
 msgstr "_Egenskaber"
 
-#: ../src/eog-window.c:3590
+#: ../src/eog-window.c:3693
 msgid "Show the properties and metadata of the selected image"
 msgstr "Vis det valgte billedes egenskaber og metadata"
 
-#: ../src/eog-window.c:3592
+#: ../src/eog-window.c:3695
 msgid "_Undo"
 msgstr "_Fortryd"
 
-#: ../src/eog-window.c:3593
+#: ../src/eog-window.c:3696
 msgid "Undo the last change in the image"
 msgstr "Fortryd den seneste ændring i billedet"
 
-#: ../src/eog-window.c:3595
+#: ../src/eog-window.c:3698
 msgid "Flip _Horizontal"
 msgstr "Vend om _vandret"
 
-#: ../src/eog-window.c:3596
+#: ../src/eog-window.c:3699
 msgid "Mirror the image horizontally"
 msgstr "Spejlvend billedet vandret"
 
-#: ../src/eog-window.c:3598
+#: ../src/eog-window.c:3701
 msgid "Flip _Vertical"
 msgstr "Vend om _lodret"
 
-#: ../src/eog-window.c:3599
+#: ../src/eog-window.c:3702
 msgid "Mirror the image vertically"
 msgstr "Spejlvend billedet lodret"
 
-#: ../src/eog-window.c:3601
+#: ../src/eog-window.c:3704
 msgid "_Rotate Clockwise"
 msgstr "Rotér m_ed uret"
 
-#: ../src/eog-window.c:3602
+#: ../src/eog-window.c:3705
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotér billedet 90 grader til højre"
 
-#: ../src/eog-window.c:3604
+#: ../src/eog-window.c:3707
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotér m_od uret"
 
-#: ../src/eog-window.c:3605
+#: ../src/eog-window.c:3708
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotér billedet 90 grader til venstre"
 
-#: ../src/eog-window.c:3607
+#: ../src/eog-window.c:3710
 msgid "Set as _Desktop Background"
 msgstr "Gør til _skrivebordsbaggrund"
 
-#: ../src/eog-window.c:3608
+#: ../src/eog-window.c:3711
 msgid "Set the selected image as the desktop background"
 msgstr "Gør det valgte billede til skrivebordsbaggrund"
 
-#: ../src/eog-window.c:3611
+#: ../src/eog-window.c:3714
 msgid "Move the selected image to the trash folder"
 msgstr "Flyt det valgte billede til papirkurven"
 
-#: ../src/eog-window.c:3613 ../src/eog-window.c:3625 ../src/eog-window.c:3628
+#: ../src/eog-window.c:3716
+msgid "_Copy"
+msgstr "_Kopier"
+
+#: ../src/eog-window.c:3717
+msgid "Copy the selected image to the clipboard"
+msgstr "Kopier det valgte billede til klippebordet"
+
+#: ../src/eog-window.c:3719 ../src/eog-window.c:3728 ../src/eog-window.c:3731
 msgid "_Zoom In"
 msgstr "Zoom _ind"
 
-#: ../src/eog-window.c:3614 ../src/eog-window.c:3626
+#: ../src/eog-window.c:3720 ../src/eog-window.c:3729
 msgid "Enlarge the image"
 msgstr "Forstør billedet"
 
-#: ../src/eog-window.c:3616 ../src/eog-window.c:3631
+#: ../src/eog-window.c:3722 ../src/eog-window.c:3734
 msgid "Zoom _Out"
 msgstr "Zoom _ud"
 
-#: ../src/eog-window.c:3617 ../src/eog-window.c:3629 ../src/eog-window.c:3632
+#: ../src/eog-window.c:3723 ../src/eog-window.c:3732 ../src/eog-window.c:3735
 msgid "Shrink the image"
 msgstr "Formindsk billedet"
 
-#: ../src/eog-window.c:3619
+#: ../src/eog-window.c:3725
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: ../src/eog-window.c:3620
+#: ../src/eog-window.c:3726
 msgid "Show the image at its normal size"
 msgstr "Vis billedet i sin normale størrelse"
 
-#: ../src/eog-window.c:3622
-msgid "Best _Fit"
-msgstr "Til_pas"
-
-#: ../src/eog-window.c:3623
-msgid "Fit the image to the window"
-msgstr "Tilpas billedet til vinduet"
-
-#: ../src/eog-window.c:3640
+#: ../src/eog-window.c:3743
 msgid "_Fullscreen"
 msgstr "_Fuldskærm"
 
-#: ../src/eog-window.c:3641
+#: ../src/eog-window.c:3744
 msgid "Show the current image in fullscreen mode"
 msgstr "Vis det valgte billede fuldskærmstilstand"
 
-#: ../src/eog-window.c:3643
+#: ../src/eog-window.c:3746
 msgid "Pause Slideshow"
 msgstr "Pause slideshow"
 
-#: ../src/eog-window.c:3644
+#: ../src/eog-window.c:3747
 msgid "Pause or resume the slideshow"
 msgstr "Pause eller genoptag slideshow"
 
-#: ../src/eog-window.c:3649 ../src/eog-window.c:3664
+#: ../src/eog-window.c:3749
+msgid "Best _Fit"
+msgstr "Til_pas"
+
+#: ../src/eog-window.c:3750
+msgid "Fit the image to the window"
+msgstr "Tilpas billedet til vinduet"
+
+#: ../src/eog-window.c:3755 ../src/eog-window.c:3770
 msgid "_Previous Image"
 msgstr "_Forrige billede"
 
-#: ../src/eog-window.c:3650
-#, fuzzy
+#: ../src/eog-window.c:3756
 msgid "Go to the previous image of the gallery"
-msgstr "Gå til det forrige billede i samlingen"
+msgstr "Gå til det forrige billede i galleriet"
 
-#: ../src/eog-window.c:3652
+#: ../src/eog-window.c:3758
 msgid "_Next Image"
 msgstr "_Næste billede"
 
-#: ../src/eog-window.c:3653
-#, fuzzy
+#: ../src/eog-window.c:3759
 msgid "Go to the next image of the gallery"
-msgstr "Gå til det næste billede i samlingen"
+msgstr "Gå til det næste billede i galleriet"
 
-#: ../src/eog-window.c:3655 ../src/eog-window.c:3667
+#: ../src/eog-window.c:3761 ../src/eog-window.c:3773
 msgid "_First Image"
 msgstr "_Første billede"
 
-#: ../src/eog-window.c:3656
-#, fuzzy
+#: ../src/eog-window.c:3762
 msgid "Go to the first image of the gallery"
-msgstr "Gå til det første billede i samlingen"
+msgstr "Gå til det første billede i galleriet"
 
-#: ../src/eog-window.c:3658 ../src/eog-window.c:3670
+#: ../src/eog-window.c:3764 ../src/eog-window.c:3776
 msgid "_Last Image"
 msgstr "_Sidste billede"
 
-#: ../src/eog-window.c:3659
-#, fuzzy
+#: ../src/eog-window.c:3765
 msgid "Go to the last image of the gallery"
-msgstr "Gå til det sidste billede i samlingen"
+msgstr "Gå til det sidste billede i galleriet"
 
-#: ../src/eog-window.c:3661
+#: ../src/eog-window.c:3767
 msgid "_Random Image"
 msgstr "_Tilfældigt billede"
 
-#: ../src/eog-window.c:3662
-#, fuzzy
+#: ../src/eog-window.c:3768
 msgid "Go to a random image of the gallery"
-msgstr "Gå til et tilfældigt billede i samlingen"
+msgstr "Gå til et tilfældigt billede i galleriet"
 
-#: ../src/eog-window.c:3676
+#: ../src/eog-window.c:3782
 msgid "_Slideshow"
 msgstr "_Slideshow"
 
-#: ../src/eog-window.c:3677
+#: ../src/eog-window.c:3783
 msgid "Start a slideshow view of the images"
 msgstr "Start et diasshow af billederne"
 
-#: ../src/eog-window.c:3743
+#: ../src/eog-window.c:3849
 msgid "Previous"
 msgstr "Forrige"
 
-#: ../src/eog-window.c:3747
+#: ../src/eog-window.c:3853
 msgid "Next"
 msgstr "Næste"
 
-#: ../src/eog-window.c:3751
+#: ../src/eog-window.c:3857
 msgid "Right"
 msgstr "Højre"
 
-#: ../src/eog-window.c:3754
+#: ../src/eog-window.c:3860
 msgid "Left"
 msgstr "Venstre"
 
-#: ../src/eog-window.c:3757
+#: ../src/eog-window.c:3863
 msgid "In"
 msgstr "Ind"
 
-#: ../src/eog-window.c:3760
+#: ../src/eog-window.c:3866
 msgid "Out"
 msgstr "Ud"
 
-#: ../src/eog-window.c:3763
+#: ../src/eog-window.c:3869
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/eog-window.c:3766
+#: ../src/eog-window.c:3872
 msgid "Fit"
 msgstr "Tilpas"
 
-#: ../src/eog-window.c:3769
+#: ../src/eog-window.c:3875
 msgid "Gallery"
-msgstr ""
+msgstr "Galleri"
 
-#: ../src/eog-window.c:3772
+#: ../src/eog-window.c:3878
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Flyt til papirkurven"
 
-#: ../src/eog-plugin-manager.c:51
-msgid "Plugin"
-msgstr "Udvidelsesmodul"
+#: ../src/eog-window.c:4226
+#, c-format
+msgid "Edit the current image using %s"
+msgstr "Rediger det nuværende billede ved hjælp af %s"
 
-#: ../src/eog-plugin-manager.c:52
-msgid "Enabled"
-msgstr "Aktiveret"
+#: ../src/eog-window.c:4228
+msgid "Edit Image"
+msgstr "Rediger billede"
 
-#: ../src/eog-plugin-manager.c:513
-msgid "C_onfigure"
-msgstr "K_onfigurér"
-
-#: ../src/eog-plugin-manager.c:523
-msgid "A_ctivate"
-msgstr "A_ktivér"
-
-#: ../src/eog-plugin-manager.c:535
-msgid "Ac_tivate All"
-msgstr "Ak_tivér alle"
-
-#: ../src/eog-plugin-manager.c:540
-msgid "_Deactivate All"
-msgstr "_Deaktivér alle"
-
-#: ../src/eog-plugin-manager.c:834
-msgid "Active _Plugins:"
-msgstr "Aktive _udvidelsesmoduler:"
-
-# Bevidst valgt lidt vag. Mit umiddelbare gæt ville være at det rigtige er "_Om udvidelsesmodulet" men den anden skulle også gå
-#: ../src/eog-plugin-manager.c:863
-msgid "_About Plugin"
-msgstr "_Om udvidelsesmodul"
-
-#: ../src/eog-plugin-manager.c:870
-msgid "C_onfigure Plugin"
-msgstr "K_onfigurér udvidelsesmodul"
-
-#: ../src/main.c:66 ../src/main.c:249
+#: ../src/main.c:69 ../src/main.c:254
 msgid "Eye of GNOME Image Viewer"
 msgstr "Gnomes øje - billedfremviser"
 
-#: ../src/main.c:73
+#: ../src/main.c:76
 msgid "Open in fullscreen mode"
 msgstr "Åbn i fuldskærmstilstand"
 
-#: ../src/main.c:74
-#, fuzzy
+#: ../src/main.c:77
 msgid "Disable image gallery"
-msgstr "Slå billedsamling fra"
+msgstr "Slå billedgalleri fra"
 
-#: ../src/main.c:75
+#: ../src/main.c:78
 msgid "Open in slideshow mode"
 msgstr "Åbn i diastilstand"
 
-#: ../src/main.c:77
+#: ../src/main.c:80
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Start en ny instans i stedet for at genbruge en eksisterende"
 
-#: ../src/main.c:80
+#: ../src/main.c:83
 msgid "Show the application's version"
 msgstr "Vis programmets version"
 
-#: ../src/main.c:81
+#: ../src/main.c:84
 msgid "[FILE…]"
 msgstr "[FIL…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:208
+#: ../src/main.c:214
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Kør \"%s --help\" for at se den fulde liste af tilgængelige "
 "kommandolinjetilvalg."
+
+#~ msgid "All Images"
+#~ msgstr "Alle billeder"
+
+#~ msgid "Plugin"
+#~ msgstr "Udvidelsesmodul"
+
+#~ msgid "Enabled"
+#~ msgstr "Aktiveret"
+
+#~ msgid "C_onfigure"
+#~ msgstr "K_onfigurér"
+
+#~ msgid "A_ctivate"
+#~ msgstr "A_ktivér"
+
+#~ msgid "Ac_tivate All"
+#~ msgstr "Ak_tivér alle"
+
+#~ msgid "_Deactivate All"
+#~ msgstr "_Deaktivér alle"
+
+#~ msgid "Active _Plugins:"
+#~ msgstr "Aktive _udvidelsesmoduler:"
+
+# Bevidst valgt lidt vag. Mit umiddelbare gæt ville være at det rigtige er "_Om udvidelsesmodulet" men den anden skulle også gå
+#~ msgid "_About Plugin"
+#~ msgstr "_Om udvidelsesmodul"
+
+#~ msgid "C_onfigure Plugin"
+#~ msgstr "K_onfigurér udvidelsesmodul"
 
 #~ msgid ""
 #~ "This program is free software; you can redistribute it and/or modify it "
