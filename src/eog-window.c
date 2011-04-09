@@ -3746,7 +3746,7 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 	{ "PauseSlideshow", "media-playback-pause", N_("Pause Slideshow"),
 	  NULL, N_("Pause or resume the slideshow"),
 	  G_CALLBACK (eog_window_cmd_pause_slideshow), FALSE },
-	{ "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), "F",
+	{ "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("_Best Fit"), "F",
 	  N_("Fit the image to the window"),
 	  G_CALLBACK (eog_window_cmd_zoom_fit) },
 };
@@ -3779,7 +3779,7 @@ static const GtkActionEntry action_entries_gallery[] = {
 };
 
 static const GtkToggleActionEntry toggle_entries_gallery[] = {
-	{ "ViewSlideshow", "slideshow-play", N_("_Slideshow"), "F5",
+	{ "ViewSlideshow", "slideshow-play", N_("S_lideshow"), "F5",
 	  N_("Start a slideshow view of the images"),
 	  G_CALLBACK (eog_window_cmd_slideshow), FALSE },
 };
