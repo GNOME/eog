@@ -1,0 +1,67 @@
+<page xmlns="http://projectmallard.org/1.0/" 
+      type="topic" style="task" 
+      id="format-change"> 
+ 
+  <info> 
+    <link type="guide" xref="index#edit"/> 
+    <desc><link xref="format-change#single">Single image</link>, <link
+xref="format-change#multiple">multiple images</link>.</desc> 
+ 
+    <revision pkgversion="3.2" version="0.1" date="2011-04-11" 
+status="draft"/> 
+    <credit type="author"> 
+      <name>Tiffany Antopolski</name> 
+      <email>tiffany@antopolski.com</email> 
+    </credit> 
+    <license> 
+      <p>Creative Commons Share Alike 3.0</p> 
+    </license> 
+ 
+  </info> 
+ 
+<title>Convert to a different file type</title>
+<section id="single">
+<title>Convert single image</title>
+<note><p><app>Image viewer</app> tries to determine the file type from
+the file extention.</p></note>
+<steps>
+<item><p>Click <guiseq><gui>Image</gui><gui>Save As</gui></guiseq>.  The
+<gui>Save Image</gui> dialog will pop up.</p></item>
+<item><p>In the name field, change (or add) the extention to the file type you wish to
+convert your image too.  For example:</p>
+<p><em>original file:</em> <file>image.jpg</file></p>
+<p><em>new file:</em> <file>image.bmp</file> (or <file>image.jpg.bmp</file>).</p>
+</item>
+<item><p>Click <gui>Save</gui></p>
+<note><p>The file is saved in the current folder by default.If the image
+should be saved in another folder or the file type
+detection failed, expand the dialog by clicking on <gui>Browse</gui> for other
+folders. This allows further folder navigation and the specification of
+the file type from the drop down box.
+</p></note></item>
+<item><p><app>Image viewer</app> will ask if you would like to reload
+the new image.  Click <gui>Reload</gui> if you want to work with the new
+file.  Click <gui>Hide</gui> if you want to continue working with the
+original file.</p></item>
+</steps>
+</section>
+
+<section id="multiple">><title>Convert multiple images</title>
+<steps>
+<item><p>Press the <key>Ctrl</key> key and click on the images you want
+to convert in the <link xref="view#image-gallery">image
+gallery</link> or press 
+<keyseq><key>Ctrl</key><key>A</key></keyseq> to select all the
+images.</p></item>
+<item><p>Click <guiseq><gui>Image</gui><gui>Save as</gui></guiseq>.  The
+following dialog will appear.</p>
+<media type="image" src="figures/multiple-convert.png"/></item>
+<item><p>The images will be saved in the current folder by default.  If
+you want to save them elsewhere, select the folder from the
+<gui>Destination folder</gui> drop-down menu.</p></item>
+<item><p>Select the file format from the drop-down menu to the right of
+the <gui>Filename format</gui> entry box.</p></item>
+<item><p>Click <gui>Save</gui>.</p></item>
+</steps>
+</section>
+</page>
