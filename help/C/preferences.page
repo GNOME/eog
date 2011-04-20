@@ -27,30 +27,34 @@ status="review"/>
 <p></p>
 <media type="image" src="figures/image-view-prefs.png" style="floatright" width="300"/>
 <terms>
-<item><title>Image Enhancements</title><p>Select the <gui>Smooth images when
-zoomed-out</gui> option to enable image smoothing when you change the image's zoom
-factor. If you select this option, your images will be smoothed to
-improve their display quality while viewing them with Image
-Viewer.</p><p>If you select the <gui>Automatic orientation</gui> option, your
-images will be rotated on loading according to their metadata. For
-example portraits are automatically rotated upright. Note that this
-function requires a correctly set orientation tag in the image's
-metadata and thus does not work with all images. The rotation is not
-saved until you save the rotated image (see Saving Images).</p></item>
-<item><title>Transparent Parts</title><p>Select one of the following
-options to determine how the <app>image viewer</app> displays transparent parts of an
-image:</p>
-<list>
-<item><p><gui>As check pattern:</gui></p><p>Displays any transparent parts of the
-image in a check pattern.</p></item>
-<item><p><gui>As custom color:</gui></p><p>Displays any transparent parts of the
-image in a solid color that you specify. Click on the color selector
-button to select a color.</p></item>
-<item><p><gui>As background:</gui></p><p>Displays any transparent parts of the
-image in the background color of the Image Viewer application.</p></item>
-</list>
-</item>
-</terms>
+  <item>
+    <title>Image Enhancements</title>
+    <p>Select the <gui>Smooth images when zoomed-out</gui> option to
+        enable image smoothing when you change the image's zoom
+        factor. This will improve their display quality. </p>
+    <p>If you select the <gui>Automatic orientation</gui> option, your
+           images will be rotated according to their metadata. For
+         example portraits are automatically rotated upright. The rotation is not
+        saved until you save the rotated image. </p> 
+       <note><p>This function does not work with all images, as it requires a correctly set orientation tag in the image's metadata.</p></note>
+  </item>
+  <item>
+    <title>Transparent Parts</title>
+     <p>Select one of the following
+     options to determine how the transparent parts of an
+     image are displayed:</p>
+    <list>
+      <item><p><gui>As check pattern:</gui></p><p>Displays any transparent parts of the
+        image in a check pattern.</p></item>
+      <item><p><gui>As custom color:</gui></p><p>Displays any transparent parts of the
+        image in a solid color that you specify  by clicking on the color selector  button.</p></item>
+      <item><p><gui>As background:</gui></p><p>Displays any transparent parts of the
+        image in the <gui>Background</gui> color, if <gui>as custom
+color</gui> under <gui>Background</gui> is checked. Otherwise, the
+default background color is used.</p></item>
+    </list>
+  </item>
+ </terms>
 </section>
 
 <section id="slideshow">
