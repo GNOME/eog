@@ -3876,6 +3876,26 @@ set_action_properties (GtkActionGroup *window_group,
 
         action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
         g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
+
+	/* Only allow editing the toolbar if it is visible */
+	action = gtk_action_group_get_action (window_group, "ViewToolbar");
+	if (G_LIKELY (action != NULL)) {
+		GtkAction *tbedit_action;
+
+		tbedit_action = gtk_action_group_get_action (window_group,
+							     "EditToolbar");
+
+		if (G_LIKELY (tbedit_action != NULL)) {
+			// The binding should free itself when the actions do
+			g_object_bind_property (action, "active",
+						tbedit_action, "sensitive",
+						G_BINDING_SYNC_CREATE);
+		} else {
+			g_warn_if_reached ();
+		}
+	} else {
+		g_warn_if_reached ();
+	}
 }
 
 static gint
