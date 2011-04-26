@@ -2520,6 +2520,13 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 					tb_action, "sensitive", 
 					G_BINDING_SYNC_CREATE |
 					G_BINDING_INVERT_BOOLEAN);
+	/* Do the same for the EditToolbar action to avoid spawning
+	 * additional (useless) editor windows. */
+	g_object_bind_property (dialog, "visible",
+				action, "sensitive", 
+				G_BINDING_SYNC_CREATE |
+				G_BINDING_INVERT_BOOLEAN);
+
 }
 
 static void
