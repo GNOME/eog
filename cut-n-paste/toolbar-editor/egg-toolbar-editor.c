@@ -363,7 +363,11 @@ set_drag_cursor (GtkWidget *widget)
   cursor = gdk_cursor_new_for_display (gdk_screen_get_display (screen),
 				       GDK_HAND2);
   gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
+#if GTK_CHECK_VERSION (3,0,0)
+  g_object_unref (cursor);
+#else
   gdk_cursor_unref (cursor);
+#endif
 }
 
 static void
@@ -380,8 +384,8 @@ event_box_realize_cb (GtkWidget *widget, GtkImage *icon)
       GdkPixbuf *pixbuf;
 
       gtk_image_get_stock (icon, &stock_id, NULL);
-      pixbuf = gtk_widget_render_icon (widget, stock_id,
-	                               GTK_ICON_SIZE_LARGE_TOOLBAR, NULL);
+      pixbuf = gtk_widget_render_icon_pixbuf (widget, stock_id,
+                                              GTK_ICON_SIZE_LARGE_TOOLBAR);
       gtk_drag_source_set_icon_pixbuf (widget, pixbuf);
       g_object_unref (pixbuf);
     }
