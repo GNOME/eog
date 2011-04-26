@@ -2449,6 +2449,8 @@ eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
 
 		eog_application_save_toolbars_model (EOG_APP);
 
+		// Destroying the dialog will also make the previously
+		// disabled action sensitive again through the GBindings
         	gtk_widget_destroy (GTK_WIDGET (dialog));
 	}
 }
@@ -2459,6 +2461,7 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 	EogWindow *window;
 	GtkWidget *dialog;
 	GtkWidget *editor;
+	GtkAction *tb_action;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2506,6 +2509,17 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 			  window);
 
 	gtk_widget_show_all (dialog);
+
+	tb_action = gtk_action_group_get_action (window->priv->actions_window,
+						"ViewToolbar");
+	/* Bind sensitivity of ViewToolbar action to the dialog's visibility.
+	 * This will make it sensitive again once the dialog goes away.
+	 */
+	if(tb_action)
+		g_object_bind_property (dialog, "visible",
+					tb_action, "sensitive", 
+					G_BINDING_SYNC_CREATE |
+					G_BINDING_INVERT_BOOLEAN);
 }
 
 static void
