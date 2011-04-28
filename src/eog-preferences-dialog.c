@@ -111,7 +111,7 @@ eog_preferences_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
 	switch (res_id) {
 		case GTK_RESPONSE_HELP:
-			eog_util_show_help ("eog-prefs", NULL);
+			eog_util_show_help ("preferences", NULL);
 			break;
 		default:
 			gtk_widget_destroy (GTK_WIDGET (dlg));

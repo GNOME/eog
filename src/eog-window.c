@@ -2432,7 +2432,7 @@ eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
 		egg_editable_toolbar_set_edit_mode
 			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
 	} else if (response == GTK_RESPONSE_HELP) {
-		eog_util_show_help ("eog-toolbareditor", NULL);
+		eog_util_show_help ("toolbar#modify", NULL);
 	} else {
         	egg_editable_toolbar_set_edit_mode
 			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
