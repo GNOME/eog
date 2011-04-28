@@ -1,13 +1,61 @@
 include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
 
-DOC_MODULE = eog
-DOC_ENTITIES = legal.xml
-DOC_INCLUDES =
-DOC_FIGURES = 					\
-	figures/eog_save_as_window.png		\
-	figures/eog_start_window.png		\
-	figures/eog_toolbar_editor_window.png
+DOC_ID = eog
+DOC_INCLUDES = legal.xml
+
+DOC_FIGURES = \
+	figures/eog-bestfit.png			\
+	figures/eog-enlarge.png			\
+	figures/eog-normalsize.png		\
+	figures/eog.png				\
+	figures/eog-shrink.png			\
+	figures/eog-toolbar-default.png		\
+	figures/eog-toolbar-editor.png		\
+	figures/image-view-prefs.png		\
+	figures/multiple-convert.png		\
+	figures/multiple-rename-count.png	\
+	figures/plugins-all.png			\
+	figures/plugin-send-by-mail.png		\
+	figures/plugin-tools-flickr.png		\
+	figures/prefs-plugins-date.png		\
+	figures/prefs-plugins-fullscreen.png	\
+	figures/prefs-plugins.png		\
+	figures/slideshow-prefs.png
+
+DOC_PAGES = \
+	bug-filing.page				\
+	commandline.page			\
+	copy-paste.page				\
+	default.page				\
+	delete.page				\
+	desktop-background.page			\
+	edit.page				\
+	flip-rotate.page			\
+	format-change.page			\
+	formats-save.page			\
+	formats-view.page			\
+	index.page				\
+	introduction.page			\
+	open.page				\
+	plugin-date-statusbar.page		\
+	plugin-exif-digital.page		\
+	plugin-fullscreen-double-click.page	\
+	plugin-map.page				\
+	plugin-postr.page			\
+	plugin-python-console.page		\
+	plugin-send-by-mail.page		\
+	plugin-slideshow-shuffle.page		\
+	plugins.page				\
+	plugin-zoom-width.page			\
+	preferences.page			\
+	print.page				\
+	rename-multiple.page			\
+	shortcuts.page				\
+	slideshow.page				\
+	toolbar.page				\
+	view.page				\
+	zoom.page
 
 DOC_LINGUAS = ar ca cs da de el en_GB es eu fi fr it ja ko oc pa pl pt_BR ru sl sv th uk zh_CN zh_TW
 
