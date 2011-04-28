@@ -387,7 +387,7 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 
 #ifdef HAVE_LCMS
 static cmsHPROFILE *
-eog_window_get_display_profile (GdkScreen *screen)
+eog_window_get_display_profile (GtkWidget *window)
 {
 	Display *dpy;
 	Atom icc_atom, type;
@@ -399,7 +399,9 @@ eog_window_get_display_profile (GdkScreen *screen)
 	int result;
 	cmsHPROFILE *profile;
 	char *atom_name;
+	GdkScreen *screen;
 
+	screen = gtk_widget_get_screen (window);
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
 	if (gdk_screen_get_number (screen) > 0)
@@ -4560,15 +4562,12 @@ static void
 eog_window_init (EogWindow *window)
 {
 	GdkGeometry hints;
-	GdkScreen *screen;
 	EogWindowPrivate *priv;
 
 	eog_debug (DEBUG_WINDOW);
 
 	hints.min_width  = EOG_WINDOW_MIN_WIDTH;
 	hints.min_height = EOG_WINDOW_MIN_HEIGHT;
-
-	screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
 	priv = window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
@@ -4602,7 +4601,7 @@ eog_window_init (EogWindow *window)
 
 #ifdef HAVE_LCMS
 	window->priv->display_profile =
-		eog_window_get_display_profile (screen);
+		eog_window_get_display_profile (GTK_WIDGET (window));
 #endif
 
 	window->priv->recent_menu_id = 0;
