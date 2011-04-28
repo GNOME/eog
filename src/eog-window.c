@@ -2559,6 +2559,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 		"Eliot Landrum <eliot@landrum.cx>",
 		"Federico Mena-Quintero <federico@gnu.org>",
 		"Sun GNOME Documentation Team <gdocteam@sun.com>",
+		"Tiffany Antopolski <tiffany@antopolski.com>",
 		NULL
 	};
 
