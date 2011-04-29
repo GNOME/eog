@@ -4,7 +4,7 @@
 
   <info>
     <link type="guide" xref="index#advanced"/>
-    <desc>See a list of all shortcuts, and learn how to create your own custom shortcuts.</desc>
+    <desc>List of all shortcuts.</desc>
 
     <revision pkgversion="3.2" version="0.1" date="2011-04-17" status="review"/>
     <credit type="author">
@@ -18,33 +18,32 @@
 
 <title>Keyboard Shortcuts</title>
 
-<section><title>Default Shortcuts</title>
-<section>
+<section id="open-close-save-print">
   <title>Opening, Closing, Saving And Printing</title>
   <table frame="all" rules="cols" shade="rows">
     <tr>
-        <td><p>Open an image file.</p></td>
+        <td><p>Open an image file</p></td>
         <td><p><keyseq><key>Ctrl</key><key>O</key></keyseq> (letter O)</p></td>
     </tr>
     <tr>
-        <td><p>Save the image with the same filename.</p></td>
+        <td><p>Save the image with the same filename</p></td>
         <td><p><keyseq><key>Ctrl</key><key>S</key></keyseq></p></td>
     </tr>
     <tr>
         <td><p>Save a copy of the current image with a new file
-name.</p></td>
+name</p></td>
         <td><p><keyseq><key>Shift</key><key>Ctrl</key><key>S</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Print the current image.</p></td>
+        <td><p>Print the current image</p></td>
         <td><p><keyseq><key>Ctrl</key><key>P</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Close the <app>image viewer</app>.</p></td>
+        <td><p>Close the <app>image viewer</app></p></td>
         <td><p><keyseq><key>Ctrl</key><key>W</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Set the image as your desktop background.</p></td>
+        <td><p>Set the image as your desktop background</p></td>
         <td><p><keyseq><key>Ctrl</key><key>F8</key></keyseq></p></td>
     </tr>
   </table>
@@ -54,28 +53,28 @@ name.</p></td>
     <title>Viewing images</title>
 <table frame="all" rules="cols" shade="rows">
     <tr>
-        <td><p>Go to the previous image in the folder.</p></td>
+        <td><p>Go to the previous image in the folder</p></td>
         <td><p><key>Back space</key> /
 <keyseq><key>Alt</key><key>Left</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Go to the next image in the folder.</p></td>
+        <td><p>Go to the next image in the folder</p></td>
         <td><p><key>Space bar</key> / <keyseq><key>Alt</key><key>Right</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Go to first image in the folder.</p></td>
+        <td><p>Go to first image in the folder</p></td>
         <td><p><keyseq><key>Alt</key><key>Home</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Go to the laste image in the folder.</p></td>
+        <td><p>Go to the laste image in the folder</p></td>
          <td><p><keyseq><key>Alt</key><key>End</key></keyseq></p></td>
     </tr>
     <tr>
-        <td><p>Choose a random image in the folder.</p></td>
+        <td><p>Choose a random image in the folder</p></td>
         <td><p><keyseq><key>Ctrl</key><key>M</key></keyseq></p></td>
     </tr>
     <tr>
-    	<td><p>View the image gallery.</p></td>
+    	<td><p>View the image gallery</p></td>
         <td><p><key>F9</key></p></td>
     </tr>
     <tr>
@@ -112,28 +111,6 @@ name.</p></td>
 </table>
 </section>
 
-<section id="other">
-    <title>Other</title>
-<table frame="all" rules="cols" shade="rows">
-    <tr>
-        <td><p>View side pane</p></td>
-        <td><p><keyseq><key>Ctrl</key><key>F9</key></keyseq></p></td>
-    </tr>
-    <tr>
-        <td><p>View image properties</p></td>
-        <td><p><keyseq><key>Alt</key><key>Return</key></keyseq></p></td>
-    </tr>
-    <tr>
-        <td><p>Undo</p></td>
-        <td><p><keyseq><key>Ctrl</key><key>Z</key></keyseq></p></td>
-    </tr>
-    <tr>
-        <td><p>Help</p></td>
-        <td><p><key>F1</key></p></td>
-    </tr>
-</table>
-</section>
-
 <section id="zoom-rotate">
     <title>Zoom and Rotate</title>
 <table frame="all" rules="cols" shade="rows">
@@ -155,86 +132,26 @@ name.</p></td>
     </tr>
 </table>
 </section>
-</section>
 
-<section>
- <title>Create Your Own Custom Shortcuts</title>
-
-
-<p>
-Enable the /desktop/gnome/interface/can_change_accels flag in gconf:
-</p>
-<steps>
- <item>
-  <p>
-   Press <keyseq><key>Alt</key><key>F2</key></keyseq>. The Run Application dialogue opens.
-  </p>
- </item>
- <item>
-  <p>
-    In the textbox, type 'gconf-editor'.
-  </p>
- </item>
- <item>
-  <p>
-    In the Configuration Editor select <guiseq><gui>desktop</gui><gui>gnome</gui><gui>interface</gui></guiseq>.
-  </p>
- </item>
- <item>
-  <p>
-    Check the value box for <gui>can_change_accels</gui> in the right side of the window.
-  </p>
- </item>
- <item>
-  <p>
-   You can add/change the shortcut as follows:
-  </p>
-    <list style = "auto">
-     <item>
-      <p>
-        Open <app>Eye of GNOME Image Viewer</app>.
-      </p>
-     </item>
-      <item>
-      <p>
-        Hover the pointer over the menu item you want to change/create the shortcut for.
-      </p>
-     </item>
-     <item>
-      <p>
-        Enter the shortcut you want on the keyboard, e.g. <keyseq><key>Ctrl</key><key>Shift</key><key>T</key></keyseq>.
-      </p>
-     </item>
-     <item>
-      <p>
-       Close the <app>image viewer</app>.
-      </p>
-      </item>
-     </list>
-     </item>
-     <item>
-      <p>
-        Repeat steps 1-3.
-      </p>
-     </item>
-      <item>
-      <p>
-            Uncheck the value box for <gui>can_change_accels</gui> in the right side of the window.
-      </p>
-       <note>
-        <p>
-          The next time <app>image viewer</app> starts your custom shortcut key will be preserved.
-        </p>
-       </note>
-
-     </item>
-</steps>
-
-
-<note style = "tip">
- <p>
-  Note that this also works for many other GNOME applications as well.
- </p>
-</note>
+<section id="other">
+    <title>Other</title>
+<table frame="all" rules="cols" shade="rows">
+    <tr>
+        <td><p>View side pane</p></td>
+        <td><p><keyseq><key>Ctrl</key><key>F9</key></keyseq></p></td>
+    </tr>
+    <tr>
+        <td><p>View image properties</p></td>
+        <td><p><keyseq><key>Alt</key><key>Return</key></keyseq></p></td>
+    </tr>
+    <tr>
+        <td><p>Undo</p></td>
+        <td><p><keyseq><key>Ctrl</key><key>Z</key></keyseq></p></td>
+    </tr>
+    <tr>
+        <td><p>Help</p></td>
+        <td><p><key>F1</key></p></td>
+    </tr>
+</table>
 </section>
 </page>
