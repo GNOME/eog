@@ -28,7 +28,6 @@ DOC_PAGES = \
 	commandline.page			\
 	copy-paste.page				\
 	default.page				\
-	delete.page				\
 	desktop-background.page			\
 	edit.page				\
 	flip-rotate.page			\
@@ -38,10 +37,8 @@ DOC_PAGES = \
 	index.page				\
 	introduction.page			\
 	open.page				\
-	plugin-date-statusbar.page		\
 	plugin-exif-digital.page		\
 	plugin-fullscreen-double-click.page	\
-	plugin-map.page				\
 	plugin-postr.page			\
 	plugin-python-console.page		\
 	plugin-send-by-mail.page		\
