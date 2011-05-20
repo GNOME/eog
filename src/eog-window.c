@@ -3748,7 +3748,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "ImageSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"), "<control><shift>s",
 	  N_("Save the selected images with a different name"),
 	  G_CALLBACK (eog_window_cmd_save_as) },
-	{ "ImageOpenContainingFolder", GTK_STOCK_DIRECTORY, N_("Open Containing _Folder"), NULL,
+	{ "ImageOpenContainingFolder", GTK_STOCK_DIRECTORY, N_("Show Containing _Folder"), NULL,
 	  N_("Show the folder which contains this file in the file manager"),
 	  G_CALLBACK (eog_window_cmd_open_containing_folder) },
 	{ "ImagePrint", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
@@ -3925,7 +3925,7 @@ set_action_properties (GtkActionGroup *window_group,
         g_object_set (action, "short_label", _("Left"), NULL);
 
         action = gtk_action_group_get_action (image_group, "ImageOpenContainingFolder");
-        g_object_set (action, "short_label", _("Open Folder"), NULL);
+        g_object_set (action, "short_label", _("Show Folder"), NULL);
 
         action = gtk_action_group_get_action (image_group, "ViewZoomIn");
         g_object_set (action, "short_label", _("In"), NULL);
