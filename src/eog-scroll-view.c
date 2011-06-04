@@ -77,6 +77,7 @@ enum {
 	PROP_ANTIALIAS_IN,
 	PROP_ANTIALIAS_OUT,
 	PROP_BACKGROUND_COLOR,
+	PROP_IMAGE,
 	PROP_SCROLLWHEEL_ZOOM,
 	PROP_TRANSP_COLOR,
 	PROP_TRANSPARENCY_STYLE,
@@ -2349,6 +2350,31 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 
 	priv->image = image;
+
+	g_object_notify (G_OBJECT (view), "image");
+}
+
+/**
+ * eog_scroll_view_get_image:
+ * @view: An #EogScrollView.
+ *
+ * Gets the the currently displayed #EogImage.
+ *
+ * Returns: (transfer full): An #EogImage.
+ **/
+EogImage*
+eog_scroll_view_get_image (EogScrollView *view)
+{
+	EogImage *img;
+
+	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), NULL);
+
+	img = view->priv->image;
+
+	if (img != NULL)
+		g_object_ref (img);
+
+	return img;
 }
 
 gboolean
@@ -2614,6 +2640,9 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 	case PROP_ZOOM_MULTIPLIER:
 		g_value_set_double (value, priv->zoom_multiplier);
 		break;
+	case PROP_IMAGE:
+		g_value_set_object (value, priv->image);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 	}
@@ -2659,6 +2688,9 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 		break;
 	case PROP_ZOOM_MULTIPLIER:
 		eog_scroll_view_set_zoom_multiplier (view, g_value_get_double (value));
+		break;
+	case PROP_IMAGE:
+		eog_scroll_view_set_image (view, g_value_get_object (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -2740,6 +2772,16 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 		gobject_class, PROP_SCROLLWHEEL_ZOOM,
 		g_param_spec_boolean ("scrollwheel-zoom", NULL, NULL, TRUE,
 				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+
+	/**
+	 * EogScrollView:image:
+	 *
+	 * This is the currently display #EogImage.
+	 */
+	g_object_class_install_property (
+		gobject_class, PROP_IMAGE,
+		g_param_spec_object ("image", NULL, NULL, EOG_TYPE_IMAGE,
+				     G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:transparency-color:
