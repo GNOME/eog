@@ -1987,14 +1987,14 @@ eog_image_get_exif_info (EogImage *img)
 gpointer
 eog_image_get_xmp_info (EogImage *img)
 {
-	EogImagePrivate *priv;
  	gpointer data = NULL;
 
  	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
+#ifdef HAVE_EXEMPI
+	EogImagePrivate *priv;
  	priv = img->priv;
 
-#ifdef HAVE_EXEMPI
  	g_mutex_lock (priv->status_mutex);
  	data = (gpointer) xmp_copy (priv->xmp);
  	g_mutex_unlock (priv->status_mutex);
