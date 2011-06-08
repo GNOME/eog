@@ -187,9 +187,7 @@ void              eog_image_transform                (EogImage   *img,
 						      EogTransform *trans,
 						      EogJob     *job);
 
-#ifdef HAVE_EXIF
 void              eog_image_autorotate               (EogImage   *img);
-#endif
 
 #ifdef HAVE_LCMS
 cmsHPROFILE       eog_image_get_profile              (EogImage    *img);

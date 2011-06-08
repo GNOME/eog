@@ -727,17 +727,19 @@ eog_image_set_icc_data (EogImage *img, EogMetadataReader *md_reader)
 }
 #endif
 
-#ifdef HAVE_EXIF
 static void
 eog_image_set_orientation (EogImage *img)
 {
 	EogImagePrivate *priv;
+#ifdef HAVE_EXIF
 	ExifData* exif;
+#endif
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	priv = img->priv;
 
+#ifdef HAVE_EXIF
 	exif = (ExifData*) eog_image_get_exif_info (img);
 
 	if (exif != NULL) {
@@ -749,10 +751,28 @@ eog_image_set_orientation (EogImage *img)
 		if (entry && entry->data != NULL) {
 			priv->orientation = exif_get_short (entry->data, o);
 		}
-	}
 
-	/* exif_data_unref handles NULL values like g_free */
-	exif_data_unref (exif);
+		exif_data_unref (exif);
+	} else
+#endif
+	{
+		GdkPixbuf *pbuf;
+
+		pbuf = eog_image_get_pixbuf (img);
+
+		if (pbuf) {
+			const gchar *o_str;
+
+			o_str = gdk_pixbuf_get_option (pbuf, "orientation");
+			if (o_str) {
+				short t = (short) g_ascii_strtoll (o_str,
+								   NULL, 10);
+				if (t >= 0 && t < 9)
+					priv->orientation = t;
+			}
+			g_object_unref (pbuf);
+		}
+	}
 
 	if (priv->orientation > 4 &&
 	    priv->orientation < 9) {
@@ -801,7 +821,6 @@ eog_image_autorotate (EogImage *img)
 	/* Schedule auto orientation */
 	img->priv->autorotate = TRUE;
 }
-#endif
 
 #ifdef HAVE_EXEMPI
 static void
@@ -1182,6 +1201,10 @@ eog_image_real_load (EogImage *img,
 
 			priv->file_is_changed = FALSE;
 
+			/* Set orientation again for safety, eg. if we don't
+			 * have Exif data or HAVE_EXIF is undefined. */
+			eog_image_set_orientation (img);
+
 			/* If it's non-threadsafe loader, then trigger window
  			 * showing in the end of the process. */
 			if (!priv->threadsafe_format)
@@ -1282,16 +1305,17 @@ eog_image_load (EogImage *img, EogImageData data2read, EogJob *job, GError **err
 
 	success = eog_image_real_load (img, data2read, job, error);
 
-#ifdef HAVE_EXIF
+
 	/* Check that the metadata was loaded at least once before
 	 * trying to autorotate. Also only an image load job should try to
 	 * autorotate an image. */
-	if (priv->autorotate && 
-	    priv->metadata_status == EOG_IMAGE_METADATA_READY &&
+	if (priv->autorotate &&
+#ifdef HAVE_EXIF
+	    priv->metadata_status != EOG_IMAGE_METADATA_NOT_READ &&
+#endif
 	    data2read & EOG_IMAGE_DATA_IMAGE) {
 		eog_image_real_autorotate (img);
 	}
-#endif
 
 	if (success && eog_image_needs_transformation (img)) {
 		success = eog_image_apply_transformations (img, error);

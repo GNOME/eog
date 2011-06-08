@@ -64,9 +64,9 @@ struct _EogImagePrivate {
 	gboolean          modified;
 	gboolean          file_is_changed;
 
-#ifdef HAVE_EXIF
 	gboolean          autorotate;
 	gint              orientation;
+#ifdef HAVE_EXIF
 	ExifData         *exif;
 #endif
 #ifdef HAVE_EXEMPI
