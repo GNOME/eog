@@ -50,28 +50,23 @@ typedef struct _EogApplicationPrivate EogApplicationPrivate;
 #define EOG_APP				(eog_application_get_instance ())
 
 struct _EogApplication {
-	GObject base_instance;
+	GtkApplication base_instance;
 
 	EggToolbarsModel *toolbars_model;
 	gchar            *toolbars_file;
 	EogPluginEngine  *plugin_engine;
 
 	TotemScrsaver    *scr_saver;
+	EogStartupFlags   flags;
 };
 
 struct _EogApplicationClass {
-	GObjectClass parent_class;
+	GtkApplicationClass parent_class;
 };
 
 GType	          eog_application_get_type	      (void) G_GNUC_CONST;
 
 EogApplication   *eog_application_get_instance        (void);
-
-#ifdef HAVE_DBUS
-gboolean          eog_application_register_service    (EogApplication *application);
-#endif
-
-void	          eog_application_shutdown	      (EogApplication   *application);
 
 gboolean          eog_application_open_window         (EogApplication   *application,
 						       guint             timestamp,
@@ -90,15 +85,11 @@ gboolean          eog_application_open_file_list     (EogApplication  *applicati
 						      EogStartupFlags flags,
 						      GError         **error);
 
-#ifdef HAVE_DBUS
 gboolean          eog_application_open_uris           (EogApplication *application,
 						       gchar         **uris,
 						       guint           timestamp,
 						       EogStartupFlags flags,
 						       GError        **error);
-#endif
-
-GList		 *eog_application_get_windows	      (EogApplication   *application);
 
 EggToolbarsModel *eog_application_get_toolbars_model  (EogApplication *application);
 

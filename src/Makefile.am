@@ -200,17 +200,6 @@ EXTRA_DIST = 				\
 	eog-enum-types.c.template	\
 	eog-marshal.list
 
-if HAVE_DBUS
-
-BUILT_SOURCES += eog-application-service.h
-
-EXTRA_DIST += eog-application-service.xml
-
-eog-application-service.h: eog-application-service.xml
-	$(AM_V_GEN)dbus-binding-tool --prefix=eog_application --mode=glib-server --output=eog-application-service.h $<
-
-endif
-
 CLEANFILES = $(BUILT_SOURCES)
 
 if HAVE_INTROSPECTION

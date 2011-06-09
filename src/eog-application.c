@@ -41,12 +41,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#ifdef HAVE_DBUS
-#include "eog-application-service.h"
-#include <dbus/dbus-glib-bindings.h>
-
 #define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
-#endif
 
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
@@ -54,81 +49,103 @@ static void eog_application_save_accelerators (void);
 #define EOG_APPLICATION_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
 
-G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
+G_DEFINE_TYPE (EogApplication, eog_application, GTK_TYPE_APPLICATION);
 
-#ifdef HAVE_DBUS
-
-/**
- * eog_application_register_service:
- * @application: An #EogApplication.
- *
- * Registers #EogApplication<!-- -->'s DBus service, to allow
- * remote calls. If the DBus service is already registered,
- * or there is any other connection error, returns %FALSE.
- *
- * Returns: %TRUE if the service was registered succesfully. %FALSE
- * otherwise.
- **/
-gboolean
-eog_application_register_service (EogApplication *application)
+static void
+eog_application_activate (GApplication *application)
 {
-	static DBusGConnection *connection = NULL;
-	DBusGProxy *driver_proxy;
-	GError *err = NULL;
-	guint request_name_result;
-
-	if (connection) {
-		g_warning ("Service already registered.");
-		return FALSE;
-	}
-
-	connection = dbus_g_bus_get (DBUS_BUS_STARTER, &err);
-
-	if (connection == NULL) {
-		g_warning ("Service registration failed.");
-		g_error_free (err);
-
-		return FALSE;
-	}
-
-	driver_proxy = dbus_g_proxy_new_for_name (connection,
-						  DBUS_SERVICE_DBUS,
-						  DBUS_PATH_DBUS,
-						  DBUS_INTERFACE_DBUS);
-
-	if (!org_freedesktop_DBus_request_name (driver_proxy,
-                                        	APPLICATION_SERVICE_NAME,
-						DBUS_NAME_FLAG_DO_NOT_QUEUE,
-						&request_name_result, &err)) {
-		g_warning ("Service registration failed.");
-		g_clear_error (&err);
-	}
-
-	g_object_unref (driver_proxy);
-
-	if (request_name_result == DBUS_REQUEST_NAME_REPLY_EXISTS) {
-		return FALSE;
-	}
-
-	dbus_g_object_type_install_info (EOG_TYPE_APPLICATION,
-					 &dbus_glib_eog_application_object_info);
-
-	dbus_g_connection_register_g_object (connection,
-					     "/org/gnome/eog/Eog",
-                                             G_OBJECT (application));
-
-        application->scr_saver = totem_scrsaver_new ();
-        g_object_set (application->scr_saver,
-		      "reason", _("Running in fullscreen mode"),
-		      NULL);
-
-	return TRUE;
+	eog_application_open_window (EOG_APPLICATION (application),
+				     GDK_CURRENT_TIME,
+				     EOG_APPLICATION (application)->flags,
+				     NULL);
 }
-#endif /* ENABLE_DBUS */
+
+static void
+eog_application_open (GApplication *application,
+		      GFile       **files,
+		      gint          n_files,
+		      const gchar  *hint)
+{
+	GSList *list = NULL;
+
+	while (n_files--)
+		list = g_slist_prepend (list, files[n_files]);
+
+	eog_application_open_file_list (EOG_APPLICATION (application),
+					list, GDK_CURRENT_TIME,
+					EOG_APPLICATION (application)->flags,
+					NULL);
+}
+
+static void
+eog_application_finalize (GObject *object)
+{
+	EogApplication *application = EOG_APPLICATION (object);
+
+	if (application->toolbars_model) {
+		g_object_unref (application->toolbars_model);
+		application->toolbars_model = NULL;
+		g_free (application->toolbars_file);
+		application->toolbars_file = NULL;
+	}
+	if (application->plugin_engine) {
+		g_object_unref (application->plugin_engine);
+		application->plugin_engine = NULL;
+	}
+	eog_application_save_accelerators ();
+}
+
+static void
+eog_application_add_platform_data (GApplication *application,
+				   GVariantBuilder *builder)
+{
+	EogApplication *app = EOG_APPLICATION (application);
+
+	G_APPLICATION_CLASS (eog_application_parent_class)->add_platform_data (application,
+									       builder);
+
+	if (app->flags) {
+		g_variant_builder_add (builder, "{sv}",
+				       "eog-application-startup-flags",
+				       g_variant_new_byte (app->flags));
+	}
+}
+
+static void
+eog_application_before_emit (GApplication *application,
+			     GVariant *platform_data)
+{
+	GVariantIter iter;
+	const gchar *key;
+	GVariant *value;
+
+	EOG_APPLICATION (application)->flags = 0;
+	g_variant_iter_init (&iter, platform_data);
+	while (g_variant_iter_loop (&iter, "{&sv}", &key, &value)) {
+		if (strcmp (key, "eog-application-startup-flags") == 0) {
+			EOG_APPLICATION (application)->flags = g_variant_get_byte (value);
+		}
+	}
+
+	G_APPLICATION_CLASS (eog_application_parent_class)->before_emit (application,
+									 platform_data);
+}
 
 static void
 eog_application_class_init (EogApplicationClass *eog_application_class)
 {
+	GApplicationClass *application_class;
+	GObjectClass *object_class;
+
+	application_class = (GApplicationClass *) eog_application_class;
+	object_class = (GObjectClass *) eog_application_class;
+
+	object_class->finalize = eog_application_finalize;
+
+	application_class->activate = eog_application_activate;
+	application_class->open = eog_application_open;
+	application_class->add_platform_data = eog_application_add_platform_data;
+	application_class->before_emit = eog_application_before_emit;
 }
 
 static void
@@ -140,6 +157,7 @@ eog_application_init (EogApplication *eog_application)
 
 	eog_application->toolbars_model = egg_toolbars_model_new ();
 	eog_application->plugin_engine = eog_plugin_engine_new ();
+	eog_application->flags = 0;
 
 	egg_toolbars_model_load_names (eog_application->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
@@ -175,7 +193,10 @@ eog_application_get_instance (void)
 	static EogApplication *instance;
 
 	if (!instance) {
-		instance = EOG_APPLICATION (g_object_new (EOG_TYPE_APPLICATION, NULL));
+		instance = EOG_APPLICATION (g_object_new (EOG_TYPE_APPLICATION,
+							  "application-id", APPLICATION_SERVICE_NAME,
+							  "flags", G_APPLICATION_HANDLES_OPEN,
+							  NULL));
 	}
 
 	return instance;
@@ -190,7 +211,7 @@ eog_application_get_empty_window (EogApplication *application)
 
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
 
-	windows = eog_application_get_windows (application);
+	windows = gtk_application_get_windows (GTK_APPLICATION (application));
 
 	for (l = windows; l != NULL; l = l->next) {
 		EogWindow *window = EOG_WINDOW (l->data);
@@ -200,8 +221,6 @@ eog_application_get_empty_window (EogApplication *application)
 			break;
 		}
 	}
-
-	g_list_free (windows);
 
 	return empty_window;
 }
@@ -367,7 +386,6 @@ eog_application_open_uri_list (EogApplication  *application,
 					       error);
 }
 
-#ifdef HAVE_DBUS
 /**
  * eog_application_open_uris:
  * @application: an #EogApplication
@@ -396,69 +414,7 @@ eog_application_open_uris (EogApplication  *application,
  	return eog_application_open_file_list (application, file_list, timestamp,
 						    flags, error);
 }
-#endif
 
-/**
- * eog_application_shutdown:
- * @application: An #EogApplication.
- *
- * Takes care of shutting down the Eye of GNOME, and quits.
- **/
-void
-eog_application_shutdown (EogApplication *application)
-{
-	g_return_if_fail (EOG_IS_APPLICATION (application));
-
-	if (application->toolbars_model) {
-		g_object_unref (application->toolbars_model);
-		application->toolbars_model = NULL;
-
-		g_free (application->toolbars_file);
-		application->toolbars_file = NULL;
-	}
-	if (application->plugin_engine) {
-		g_object_unref (application->plugin_engine);
-		application->plugin_engine = NULL;
-	}
-
-	eog_application_save_accelerators ();
-
-	g_object_unref (application);
-
-	gtk_main_quit ();
-}
-
-/**
- * eog_application_get_windows:
- * @application: An #EogApplication.
- *
- * Gets the list of existing #EogApplication<!-- -->s. The windows
- * in this list are not individually referenced, you need to keep
- * your own references if you want to perform actions that may destroy
- * them.
- *
- * Returns: (element-type EogWindow) (transfer container): A new list of #EogWindow<!-- -->s.
- **/
-GList *
-eog_application_get_windows (EogApplication *application)
-{
-	GList *l, *toplevels;
-	GList *windows = NULL;
-
-	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
-
-	toplevels = gtk_window_list_toplevels ();
-
-	for (l = toplevels; l != NULL; l = l->next) {
-		if (EOG_IS_WINDOW (l->data)) {
-			windows = g_list_append (windows, l->data);
-		}
-	}
-
-	g_list_free (toplevels);
-
-	return windows;
-}
 
 /**
  * eog_application_get_toolbars_model:

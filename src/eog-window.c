@@ -4666,6 +4666,8 @@ eog_window_init (EogWindow *window)
 	window->priv->save_disabled = FALSE;
 
 	window->priv->page_setup = NULL;
+
+	gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (EOG_APP));
 }
 
 static void
@@ -4802,24 +4804,6 @@ eog_window_dispose (GObject *object)
 	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
-}
-
-static void
-eog_window_finalize (GObject *object)
-{
-        GList *windows = eog_application_get_windows (EOG_APP);
-
-	g_return_if_fail (EOG_IS_WINDOW (object));
-
-	eog_debug (DEBUG_WINDOW);
-
-        if (windows == NULL) {
-                eog_application_shutdown (EOG_APP);
-        } else {
-                g_list_free (windows);
-	}
-
-        G_OBJECT_CLASS (eog_window_parent_class)->finalize (object);
 }
 
 static gint
@@ -5176,7 +5160,6 @@ eog_window_class_init (EogWindowClass *class)
 
 	g_object_class->constructor = eog_window_constructor;
 	g_object_class->dispose = eog_window_dispose;
-	g_object_class->finalize = eog_window_finalize;
 	g_object_class->set_property = eog_window_set_property;
 	g_object_class->get_property = eog_window_get_property;
 
