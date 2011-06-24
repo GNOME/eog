@@ -1675,14 +1675,6 @@ screen_size_changed_cb (GdkScreen *screen, EogWindow *window)
 	eog_window_update_fullscreen_popup (window);
 }
 
-static void
-fullscreen_popup_size_request_cb (GtkWidget      *popup,
-				  GtkRequisition *req,
-				  EogWindow      *window)
-{
-	eog_window_update_fullscreen_popup (window);
-}
-
 static gboolean
 fullscreen_timeout_cb (gpointer data)
 {
@@ -1903,10 +1895,6 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 
 	g_signal_connect_object (screen, "size-changed",
 			         G_CALLBACK (screen_size_changed_cb),
-				 window, 0);
-
-	g_signal_connect_object (popup, "size_request",
-			         G_CALLBACK (fullscreen_popup_size_request_cb),
 				 window, 0);
 
 	g_signal_connect (popup,
