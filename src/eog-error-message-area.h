@@ -29,8 +29,28 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
-GtkWidget   *eog_image_load_error_message_area_new   (const gchar       *caption,
-						      const GError      *error);
+/**
+ * EogErrorMessageAreaResponseType:
+ * @EOG_ERROR_MESSAGE_AREA_RESPONSE_NONE: Returned if the message area has no response id,
+ * or if the message area gets programmatically hidden or destroyed
+ * @EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL: Returned by CANCEL button in the message area
+ * @EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD: Returned by RELOAD button in the message area
+ * @EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS: Returned by SAVE AS button in the message area
+ *
+ */
+typedef enum
+{
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_NONE   = 0,
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL = 1,
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD = 2,
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS = 3
+} EogErrorMessageAreaResponseType;
+
+GtkWidget   *eog_image_load_error_message_area_new   (const gchar  *caption,
+						      const GError *error);
+
+GtkWidget   *eog_image_save_error_message_area_new   (const gchar  *caption,
+						      const GError *error);
 
 GtkWidget   *eog_no_images_error_message_area_new    (GFile *file);
 

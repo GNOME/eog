@@ -1400,7 +1400,7 @@ eog_image_get_profile (EogImage *img)
  * eog_image_get_thumbnail:
  * @img: a #EogImage
  *
- * Gets the thumbnail pixbuf for @img 
+ * Gets the thumbnail pixbuf for @img
  *
  * Returns: (transfer full): a #GdkPixbuf with a thumbnail
  **/
@@ -1625,6 +1625,59 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 	priv->file_type = g_strdup (target->format);
 }
 
+static gboolean
+check_if_file_is_writable (GFile *file)
+{
+	GFile           *file_to_check;
+	GFileInfo	*file_info;
+	GError		*error;
+	gboolean	 is_writable;
+
+	g_return_val_if_fail (G_IS_FILE (file), FALSE);
+
+	/* check if file exists */
+	if (!g_file_query_exists (file, NULL)) {
+		g_warning ("%s don't exist. Checking parent directory.",
+			   g_file_get_parse_name (file));
+
+		file_to_check = g_file_get_parent (file);
+
+		/* recover file information */
+		error = NULL;
+		file_info = g_file_query_info (file_to_check,
+					       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+					       G_FILE_QUERY_INFO_NONE,
+					       NULL,
+					       &error);
+
+		g_object_unref (file_to_check);
+	} else {
+		file_to_check = g_file_dup (file);
+
+		/* recover file information */
+		error = NULL;
+		file_info = g_file_query_info (file_to_check,
+					       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+					       G_FILE_QUERY_INFO_NONE,
+					       NULL,
+					       &error);
+	}
+
+	/* we assume that the image can't be saved when
+	   we can't retrieve any file information */
+	if (file_info == NULL)
+		return FALSE;
+
+	/* check if file can be writed */
+	is_writable = g_file_info_get_attribute_boolean (file_info,
+							 G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+
+	/* free objects */
+	g_object_unref (file_info);
+
+	return is_writable;
+}
+
 gboolean
 eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 {
@@ -1654,6 +1707,17 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("No image loaded."));
+		return FALSE;
+	}
+
+	/* fail if there is not write rights to save */
+	if (!check_if_file_is_writable (priv->file)) {
+		g_warning ("Could not save image '%s'.",
+			   g_file_get_parse_name (priv->file));
+
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_NOT_SAVED,
+			     _("You do not have the permissions necessary to save the file."));
 		return FALSE;
 	}
 
@@ -1757,6 +1821,17 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("No image loaded."));
 
+		return FALSE;
+	}
+
+	/* fail if there is not write rights to save on target */
+	if (!check_if_file_is_writable (target->file)) {
+		g_warning ("Could not save image '%s'.",
+			   g_file_get_parse_name (target->file));
+
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_NOT_SAVED,
+			     _("You do not have the permissions necessary to save the file."));
 		return FALSE;
 	}
 
@@ -2205,7 +2280,7 @@ eog_image_iter_advance (EogImage *img)
 	priv = img->priv;
 
 	if ((new_frame = gdk_pixbuf_animation_iter_advance (img->priv->anim_iter, NULL)) == TRUE)
-	  {      
+	  {
 		g_mutex_lock (priv->status_mutex);
 		g_object_unref (priv->image);
 		priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
@@ -2217,7 +2292,7 @@ eog_image_iter_advance (EogImage *img)
 			priv->image = transformed;
 			priv->width = gdk_pixbuf_get_width (transformed);
 			priv->height = gdk_pixbuf_get_height (transformed);
-		}      
+		}
 		g_mutex_unlock (priv->status_mutex);
 		/* Emit next frame signal so we can update the display */
 		g_signal_emit (img, signals[SIGNAL_NEXT_FRAME], 0,
@@ -2234,7 +2309,7 @@ eog_image_iter_advance (EogImage *img)
  * Checks whether a given image is animated.
  *
  * Returns: #TRUE if it is an animated image, #FALSE otherwise.
- * 
+ *
  **/
 gboolean
 eog_image_is_animation (EogImage *img)
@@ -2249,7 +2324,7 @@ private_timeout (gpointer data)
 	EogImage *img = EOG_IMAGE (data);
 	EogImagePrivate *priv = img->priv;
 
-	if (eog_image_is_animation (img) && 
+	if (eog_image_is_animation (img) &&
 	    !g_source_is_destroyed (g_main_current_source ()) &&
 	    priv->is_playing) {
 		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
@@ -2338,4 +2413,25 @@ eog_image_is_file_changed (EogImage *img)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), TRUE);
 
 	return img->priv->file_is_changed;
+}
+
+/**
+ * eog_image_is_file_writable:
+ * @img: a #EogImage
+ *
+ * Evaluate if the user has write permission on the image file.
+ *
+ * Returns: %TRUE on success, %FALSE if the user hasn't write permissions on it,
+ * or @img is not an #EogImage.
+ **/
+gboolean
+eog_image_is_file_writable (EogImage *img)
+{
+	gboolean is_writable;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	is_writable = check_if_file_is_writable (img->priv->file);
+
+	return is_writable;
 }

@@ -6,7 +6,7 @@
  *
  * Based on gedit code (gedit/gedit-close-confirmation.h) by gedit Team
  *
- * Copyright (C) 2004-2009 GNOME Foundation 
+ * Copyright (C) 2004-2009 GNOME Foundation
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, 
- * Boston, MA 02111-1307, USA. 
+ * Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifndef __EOG_CLOSE_CONFIRMATION_DIALOG_H__
@@ -43,7 +43,7 @@ typedef struct _EogCloseConfirmationDialog 		EogCloseConfirmationDialog;
 typedef struct _EogCloseConfirmationDialogClass 	EogCloseConfirmationDialogClass;
 typedef struct _EogCloseConfirmationDialogPrivate 	EogCloseConfirmationDialogPrivate;
 
-struct _EogCloseConfirmationDialog 
+struct _EogCloseConfirmationDialog
 {
 	GtkDialog parent;
 
@@ -51,10 +51,29 @@ struct _EogCloseConfirmationDialog
 	EogCloseConfirmationDialogPrivate *priv;
 };
 
-struct _EogCloseConfirmationDialogClass 
+struct _EogCloseConfirmationDialogClass
 {
 	GtkDialogClass parent_class;
 };
+
+/**
+ * EogCloseConfirmationDialogResponseType:
+ * @EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_NONE: Returned if the dialog has no response id,
+ * or if the message area gets programmatically hidden or destroyed
+ * @EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CLOSE: Returned by CLOSE button in the dialog
+ * @EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CANCEL: Returned by CANCEL button in the dialog
+ * @EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVE: Returned by SAVE button in the dialog
+ * @EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVEAS: Returned by SAVE AS button in the dialog
+ *
+ */
+typedef enum
+{
+	EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_NONE   = 0,
+	EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CLOSE  = 1,
+	EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CANCEL = 2,
+	EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVE   = 3,
+	EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVEAS = 4
+} EogCloseConfirmationDialogResponseType;
 
 G_GNUC_INTERNAL
 GType 		 eog_close_confirmation_dialog_get_type		(void) G_GNUC_CONST;
@@ -63,7 +82,7 @@ G_GNUC_INTERNAL
 GtkWidget	*eog_close_confirmation_dialog_new			(GtkWindow     *parent,
 									 GList         *unsaved_documents);
 G_GNUC_INTERNAL
-GtkWidget 	*eog_close_confirmation_dialog_new_single 		(GtkWindow     *parent, 
+GtkWidget 	*eog_close_confirmation_dialog_new_single 		(GtkWindow     *parent,
 									 EogImage      *image);
 
 G_GNUC_INTERNAL

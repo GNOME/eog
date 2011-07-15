@@ -34,6 +34,13 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
+typedef enum {
+	EOG_ERROR_MESSAGE_AREA_NO_BUTTONS    = 0,
+	EOG_ERROR_MESSAGE_AREA_CANCEL_BUTTON = 1 << 0,
+	EOG_ERROR_MESSAGE_AREA_RELOAD_BUTTON = 1 << 1,
+	EOG_ERROR_MESSAGE_AREA_SAVEAS_BUTTON = 1 << 2
+} EogErrorMessageAreaButtons;
+
 static void
 set_message_area_text_and_icon (GtkInfoBar   *message_area,
 				const gchar  *icon_stock_id,
@@ -97,22 +104,36 @@ set_message_area_text_and_icon (GtkInfoBar   *message_area,
 }
 
 static GtkWidget *
-create_error_message_area (const gchar *primary_text,
-			   const gchar *secondary_text,
-			   gboolean     recoverable)
+create_error_message_area (const gchar                 *primary_text,
+			   const gchar                 *secondary_text,
+			   EogErrorMessageAreaButtons   buttons)
 {
 	GtkWidget *message_area;
 
-	if (recoverable)
-		message_area = gtk_info_bar_new_with_buttons (_("_Retry"),
-							      GTK_RESPONSE_OK,
-							      NULL);
-	else
-		message_area = gtk_info_bar_new ();
+	/* create a new message area */
+	message_area = gtk_info_bar_new ();
 
+	/* add requested buttons to the message area */
+	if (buttons & EOG_ERROR_MESSAGE_AREA_CANCEL_BUTTON)
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
+					 _("_Cancel"),
+					 EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL);
+
+	if (buttons & EOG_ERROR_MESSAGE_AREA_RELOAD_BUTTON)
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
+					 _("_Reload"),
+					 EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD);
+
+	if (buttons & EOG_ERROR_MESSAGE_AREA_SAVEAS_BUTTON)
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
+					 _("Save _As…"),
+					 EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS);
+
+	/* set message type */
 	gtk_info_bar_set_message_type (GTK_INFO_BAR (message_area),
 				       GTK_MESSAGE_ERROR);
 
+	/* set text and icon */
 	set_message_area_text_and_icon (GTK_INFO_BAR (message_area),
 					GTK_STOCK_DIALOG_ERROR,
 					primary_text,
@@ -123,10 +144,10 @@ create_error_message_area (const gchar *primary_text,
 
 /**
  * eog_image_load_error_message_area_new: (skip):
- * @caption: 
- * @error: 
+ * @caption:
+ * @error:
  *
- * 
+ *
  *
  * Returns: (transfer full): a new #GtkInfoBar
  **/
@@ -154,7 +175,50 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 
 	message_area = create_error_message_area (error_message,
 						  message_details,
-						  TRUE);
+						  EOG_ERROR_MESSAGE_AREA_CANCEL_BUTTON);
+
+	g_free (pango_escaped_caption);
+	g_free (error_message);
+	g_free (message_details);
+
+	return message_area;
+}
+
+/**
+ * eog_image_save_error_message_area_new: (skip):
+ * @caption:
+ * @error:
+ *
+ *
+ *
+ * Returns: (transfer full): a new #GtkInfoBar
+ **/
+GtkWidget *
+eog_image_save_error_message_area_new (const gchar  *caption,
+				       const GError *error)
+{
+	GtkWidget *message_area;
+	gchar *error_message = NULL;
+	gchar *message_details = NULL;
+	gchar *pango_escaped_caption = NULL;
+
+	g_return_val_if_fail (caption != NULL, NULL);
+	g_return_val_if_fail (error != NULL, NULL);
+
+	/* Escape the caption string with respect to pango markup.
+	   This is necessary because otherwise characters like "&" will
+	   be interpreted as the beginning of a pango entity inside
+	   the message area GtkLabel. */
+	pango_escaped_caption = g_markup_escape_text (caption, -1);
+	error_message = g_strdup_printf (_("Could not save image '%s'."),
+					 pango_escaped_caption);
+
+	message_details = g_strdup (error->message);
+
+	message_area = create_error_message_area (error_message,
+						  message_details,
+						  EOG_ERROR_MESSAGE_AREA_CANCEL_BUTTON |
+						  EOG_ERROR_MESSAGE_AREA_SAVEAS_BUTTON);
 
 	g_free (pango_escaped_caption);
 	g_free (error_message);
@@ -165,9 +229,9 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 
 /**
  * eog_no_images_error_message_area_new: (skip):
- * @file: 
+ * @file:
  *
- * 
+ *
  *
  * Returns: (transfer full): a new #GtkInfoBar
  **/
@@ -201,7 +265,7 @@ eog_no_images_error_message_area_new (GFile *file)
 
 	message_area = create_error_message_area (error_message,
 						  NULL,
-						  FALSE);
+						  EOG_ERROR_MESSAGE_AREA_NO_BUTTONS);
 
 	g_free (error_message);
 

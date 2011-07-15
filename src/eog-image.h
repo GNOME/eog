@@ -68,6 +68,7 @@ typedef struct _EogImagePrivate EogImagePrivate;
 typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
 	EOG_IMAGE_ERROR_NOT_LOADED,
+	EOG_IMAGE_ERROR_NOT_SAVED,
 	EOG_IMAGE_ERROR_VFS,
 	EOG_IMAGE_ERROR_FILE_EXISTS,
 	EOG_IMAGE_ERROR_TMP_FILE_FAILED,
@@ -215,6 +216,8 @@ EogTransform     *eog_image_get_transform            (EogImage *img);
 void              eog_image_file_changed             (EogImage *img);
 
 gboolean          eog_image_is_file_changed          (EogImage *img);
+
+gboolean          eog_image_is_file_writable         (EogImage *img);
 
 G_END_DECLS
 

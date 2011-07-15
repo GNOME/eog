@@ -194,6 +194,8 @@ struct _EogWindowPrivate {
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
+static void eog_window_cmd_save (GtkAction *action, gpointer user_data);
+static void eog_window_cmd_save_as (GtkAction *action, gpointer user_data);
 static void eog_window_cmd_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_cmd_pause_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
@@ -239,7 +241,7 @@ _eog_zoom_shrink_to_boolean (GBinding *binding, const GValue *source,
 	is_fit = (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT);
 	g_value_set_boolean (target, is_fit);
 
-	return TRUE;	
+	return TRUE;
 }
 
 static void
@@ -1044,7 +1046,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
 
-                path = g_strdup_printf ("/MainMenu/Image/ImageOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/MainMenu/Image/ImageOpenWith/Applications Placeholder/%s", name);
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1053,7 +1055,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_free (path);
 
-                path = g_strdup_printf ("/ThumbnailPopup/ImageOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/ThumbnailPopup/ImageOpenWith/Applications Placeholder/%s", name);
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1062,7 +1064,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_free (path);
 
-                path = g_strdup_printf ("/ViewPopup/ImageOpenWith/Applications Placeholder/%s", name);	
+                path = g_strdup_printf ("/ViewPopup/ImageOpenWith/Applications Placeholder/%s", name);
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1254,15 +1256,30 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 					gint              response_id,
 					EogWindow        *window)
 {
-	if (response_id != GTK_RESPONSE_OK) {
-		eog_window_set_message_area (window, NULL);
+	GtkAction *action_save_as;
 
-		return;
+	g_return_if_fail (GTK_IS_INFO_BAR (message_area));
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	/* remove message area */
+	eog_window_set_message_area (window, NULL);
+
+	/* evaluate message area response */
+	switch (response_id) {
+	case EOG_ERROR_MESSAGE_AREA_RESPONSE_NONE:
+	case EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL:
+		/* nothing to do in this case */
+		break;
+	case EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD:
+		/* TODO: trigger loading for current image again */
+		break;
+	case EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS:
+		/* trigger save as command for current image */
+		action_save_as = gtk_action_group_get_action (window->priv->actions_image,
+							      "ImageSaveAs");
+		eog_window_cmd_save_as (action_save_as, window);
+		break;
 	}
-
-	/* Trigger loading for current image again */
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
-				      EOG_THUMB_VIEW_SELECT_CURRENT);
 }
 
 static void
@@ -2258,12 +2275,54 @@ static void
 eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
+	GtkAction *action_save;
 
 	g_signal_handlers_disconnect_by_func (job,
 					      eog_job_close_save_cb,
 					      window);
 
-	gtk_widget_destroy (GTK_WIDGET (window));
+	/* clean the last save job */
+	g_object_unref (window->priv->save_job);
+	window->priv->save_job = NULL;
+
+	/* recover save action from actions group */
+	action_save = gtk_action_group_get_action (window->priv->actions_image,
+						   "ImageSave");
+
+	/* check if job contains any error */
+	if (EOG_JOB (job)->error == NULL) {
+		gtk_widget_destroy (GTK_WIDGET (window));
+	} else {
+		GtkWidget *message_area;
+
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview),
+						  job->current_image,
+						  TRUE);
+
+		message_area = eog_image_save_error_message_area_new (
+					eog_image_get_caption (job->current_image),
+					EOG_JOB (job)->error);
+
+		g_signal_connect (message_area,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+
+		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->current_image));
+
+		eog_window_set_message_area (window, message_area);
+
+		gtk_info_bar_set_default_response (GTK_INFO_BAR (message_area),
+						   GTK_RESPONSE_CANCEL);
+
+		gtk_widget_show (message_area);
+
+		update_status_bar (window);
+
+		gtk_action_set_sensitive (action_save, TRUE);
+	}
 }
 
 static void
@@ -2271,38 +2330,49 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 					    gint                        response_id,
 					    EogWindow                  *window)
 {
-	GList *selected_images;
+	GList            *selected_images;
 	EogWindowPrivate *priv;
+	GtkAction        *action_save_as;
 
 	priv = window->priv;
 
-	switch (response_id)
-	{
-		case GTK_RESPONSE_YES:
-			/* save selected images */
-			selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
-			eog_close_confirmation_dialog_set_sensitive (dlg, FALSE);
-			if (eog_window_save_images (window, selected_images)) {
-				g_signal_connect (priv->save_job,
-							  "finished",
-							  G_CALLBACK (eog_job_close_save_cb),
-							  window);
+	switch (response_id) {
+	case EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVE:
+		selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
+		gtk_widget_destroy (GTK_WIDGET (dlg));
 
-				eog_job_queue_add_job (priv->save_job);
-			}
+		if (eog_window_save_images (window, selected_images)) {
+			g_signal_connect (priv->save_job,
+					  "finished",
+					  G_CALLBACK (eog_job_close_save_cb),
+					  window);
 
-			break;
+			eog_job_queue_add_job (priv->save_job);
+		}
 
-		case GTK_RESPONSE_NO:
-			/* dont save */
-			gtk_widget_destroy (GTK_WIDGET (window));
-			break;
+		break;
 
-		default:
-			/* Cancel */
-			gtk_widget_destroy (GTK_WIDGET (dlg));
-			break;
-	}	
+	case EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVEAS:
+		selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
+		gtk_widget_destroy (GTK_WIDGET (dlg));
+
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
+						  g_list_first (selected_images)->data,
+						  TRUE);
+
+		action_save_as = gtk_action_group_get_action (priv->actions_image,
+							      "ImageSaveAs");
+		eog_window_cmd_save_as (action_save_as, window);
+		break;
+
+	case EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CLOSE:
+		gtk_widget_destroy (GTK_WIDGET (window));
+		break;
+
+	case EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CANCEL:
+		gtk_widget_destroy (GTK_WIDGET (dlg));
+		break;
+	}
 }
 
 static gboolean
@@ -2338,9 +2408,9 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 				list = g_list_prepend (list, image);
 			}
 		} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter));
-	}		
+	}
 
-	if (list) {	
+	if (list) {
 		list = g_list_reverse (list);
 		dialog = eog_close_confirmation_dialog_new (GTK_WINDOW (window),
 							    list);
@@ -2497,13 +2567,13 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 	 */
 	if(tb_action)
 		g_object_bind_property (dialog, "visible",
-					tb_action, "sensitive", 
+					tb_action, "sensitive",
 					G_BINDING_SYNC_CREATE |
 					G_BINDING_INVERT_BOOLEAN);
 	/* Do the same for the EditToolbar action to avoid spawning
 	 * additional (useless) editor windows. */
 	g_object_bind_property (dialog, "visible",
-				action, "sensitive", 
+				action, "sensitive",
 				G_BINDING_SYNC_CREATE |
 				G_BINDING_INVERT_BOOLEAN);
 
@@ -2763,13 +2833,46 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 					      eog_job_save_progress_cb,
 					      window);
 
+	/* clean the last save job */
 	g_object_unref (window->priv->save_job);
 	window->priv->save_job = NULL;
 
-	update_status_bar (window);
+	/* recover save action from actions group */
 	action_save = gtk_action_group_get_action (window->priv->actions_image,
 						   "ImageSave");
-	gtk_action_set_sensitive (action_save, FALSE);
+
+	/* check if job contains any error */
+	if (EOG_JOB (job)->error == NULL) {
+		update_status_bar (window);
+
+		gtk_action_set_sensitive (action_save, FALSE);
+	} else {
+		GtkWidget *message_area;
+
+		message_area = eog_image_save_error_message_area_new (
+					eog_image_get_caption (job->current_image),
+					EOG_JOB (job)->error);
+
+		g_signal_connect (message_area,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+
+		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->current_image));
+
+		eog_window_set_message_area (window, message_area);
+
+		gtk_info_bar_set_default_response (GTK_INFO_BAR (message_area),
+						   GTK_RESPONSE_CANCEL);
+
+		gtk_widget_show (message_area);
+
+		update_status_bar (window);
+
+		gtk_action_set_sensitive (action_save, TRUE);
+	}
 }
 
 static void
@@ -2992,17 +3095,17 @@ eog_window_cmd_open_containing_folder (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	EogWindowPrivate *priv;
-	
+
 	GtkWidget *eog_window_widget;
-  
+
 	GFile *file;
 	GFile *parent = NULL;
-	
-	eog_window_widget = GTK_WIDGET (window);	
+
+	eog_window_widget = GTK_WIDGET (window);
 	priv = window->priv;
-	
-	g_return_if_fail (priv->image != NULL);	
-	
+
+	g_return_if_fail (priv->image != NULL);
+
 	file = eog_image_get_file (priv->image);
 
 	if (file) {
@@ -3012,7 +3115,7 @@ eog_window_cmd_open_containing_folder (GtkAction *action, gpointer user_data)
 
 	if (parent) {
 		char *parent_uri;
-		
+
 		parent_uri = g_file_get_uri (parent);
 		if (parent_uri) {
 			GdkScreen *screen;
@@ -3236,7 +3339,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	 * asked and the trash is available */
 	if (can_trash && (dontaskagain || neverask))
 		return GTK_RESPONSE_OK;
-	
+
 	n_images = g_list_length (images);
 
 	if (n_images == 1) {
@@ -4121,7 +4224,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 		return;
 	}
 
-        if (gdk_drag_context_get_suggested_action (context) == GDK_ACTION_COPY) 
+        if (gdk_drag_context_get_suggested_action (context) == GDK_ACTION_COPY)
         {
                 window = EOG_WINDOW (widget);
 

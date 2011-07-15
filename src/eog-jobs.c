@@ -771,7 +771,12 @@ eog_job_save_as_run (EogJob *ejob)
 					  NULL,
 					  NULL);
 
-		file_permissions = g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_UNIX_MODE);
+		/* if we can't retrieve file permission apply default */
+		if (info != NULL) {
+			file_permissions = g_file_info_get_attribute_uint32 (info,
+									     G_FILE_ATTRIBUTE_UNIX_MODE);
+			g_object_unref (info);
+		}
 
 		/* apply permission mask to file permissions */
 		file_permissions |= permissions_mask;
@@ -782,8 +787,6 @@ eog_job_save_as_run (EogJob *ejob)
 					     G_FILE_QUERY_INFO_NONE,
 					     NULL,
 					     NULL);
-
-		g_object_unref (info);
 
 		if (src_info)
 			g_object_unref (src_info);
