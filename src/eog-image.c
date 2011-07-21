@@ -1630,7 +1630,7 @@ check_if_file_is_writable (GFile *file)
 {
 	GFile           *file_to_check;
 	GFileInfo	*file_info;
-	GError		*error;
+	GError		*error = NULL;
 	gboolean	 is_writable;
 
 	g_return_val_if_fail (G_IS_FILE (file), FALSE);
@@ -1641,32 +1641,29 @@ check_if_file_is_writable (GFile *file)
 				   "Checking parent directory.");
 
 		file_to_check = g_file_get_parent (file);
-
-		/* recover file information */
-		error = NULL;
-		file_info = g_file_query_info (file_to_check,
-					       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
-					       G_FILE_QUERY_INFO_NONE,
-					       NULL,
-					       &error);
-
-		g_object_unref (file_to_check);
 	} else {
-		file_to_check = g_file_dup (file);
-
-		/* recover file information */
-		error = NULL;
-		file_info = g_file_query_info (file_to_check,
-					       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
-					       G_FILE_QUERY_INFO_NONE,
-					       NULL,
-					       &error);
+		/* Add another ref so we don't need to split between file and
+		 * parent file again after querying and can simply unref it. */
+		file_to_check = g_object_ref (file);
 	}
+
+	/* recover file information */
+	file_info = g_file_query_info (file_to_check,
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+				       G_FILE_QUERY_INFO_NONE,
+				       NULL,
+				       &error);
 
 	/* we assume that the image can't be saved when
 	   we can't retrieve any file information */
-	if (file_info == NULL)
+	if (G_UNLIKELY (file_info == NULL)) {
+		eog_debug_message (DEBUG_IMAGE_SAVE,
+				   "Couldn't query file info: %s",
+				   error->message);
+		g_error_free (error);
+		g_object_unref (file_to_check);
 		return FALSE;
+	}
 
 	/* check if file can be writed */
 	is_writable = g_file_info_get_attribute_boolean (file_info,
@@ -1674,6 +1671,7 @@ check_if_file_is_writable (GFile *file)
 
 	/* free objects */
 	g_object_unref (file_info);
+	g_object_unref (file_to_check);
 
 	return is_writable;
 }
