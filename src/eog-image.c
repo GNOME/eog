@@ -1637,8 +1637,8 @@ check_if_file_is_writable (GFile *file)
 
 	/* check if file exists */
 	if (!g_file_query_exists (file, NULL)) {
-		g_warning ("%s don't exist. Checking parent directory.",
-			   g_file_get_parse_name (file));
+		eog_debug_message (DEBUG_IMAGE_SAVE, "File doesn't exist. "
+				   "Checking parent directory.");
 
 		file_to_check = g_file_get_parent (file);
 
@@ -1712,9 +1712,6 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 
 	/* fail if there is not write rights to save */
 	if (!check_if_file_is_writable (priv->file)) {
-		g_warning ("Could not save image '%s'.",
-			   g_file_get_parse_name (priv->file));
-
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_SAVED,
 			     _("You do not have the permissions necessary to save the file."));
@@ -1826,9 +1823,6 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 	/* fail if there is not write rights to save on target */
 	if (!check_if_file_is_writable (target->file)) {
-		g_warning ("Could not save image '%s'.",
-			   g_file_get_parse_name (target->file));
-
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_SAVED,
 			     _("You do not have the permissions necessary to save the file."));
