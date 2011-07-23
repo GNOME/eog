@@ -20,6 +20,7 @@ MARSHAL_OUTPUT = 	\
 NOINST_H_FILES =			\
 	eog-close-confirmation-dialog.h	\
 	eog-config-keys.h		\
+	eog-error-message-area.h	\
 	eog-image-jpeg.h		\
 	eog-image-private.h		\
 	eog-metadata-reader.h		\
@@ -43,7 +44,6 @@ INST_H_FILES =				\
 	eog-debug.h			\
 	eog-dialog.h			\
 	eog-enums.h			\
-	eog-error-message-area.h	\
 	eog-file-chooser.h		\
 	eog-image.h			\
 	eog-image-save-info.h		\
