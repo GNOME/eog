@@ -491,11 +491,7 @@ pd_close_button_clicked_cb (GtkButton *button,
 
 static gboolean
 eog_properties_dialog_page_switch (GtkNotebook     *notebook,
-#if GTK_CHECK_VERSION (2, 90, 6)
 				   GtkWidget       *page,
-#else
-				   GtkNotebookPage *page,
-#endif
 				   gint             page_index,
 				   EogPropertiesDialog *prop_dlg)
 {
