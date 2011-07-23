@@ -4692,6 +4692,8 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_can_save_changed_cb (priv->lockdown_settings,
 					EOG_CONF_DESKTOP_CAN_SAVE, window);
 
+	update_action_groups_state (window);
+
 	if ((priv->flags & EOG_STARTUP_FULLSCREEN) ||
 	    (priv->flags & EOG_STARTUP_SLIDE_SHOW)) {
 		eog_window_run_fullscreen (window, (priv->flags & EOG_STARTUP_SLIDE_SHOW));
