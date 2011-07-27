@@ -38,7 +38,7 @@ G_DEFINE_TYPE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
 struct _EogStatusbarPrivate
 {
 	GtkWidget *progressbar;
-	GtkWidget *img_num_statusbar;
+	GtkWidget *img_num_label;
 };
 
 static void
@@ -58,12 +58,12 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	statusbar->priv = EOG_STATUSBAR_GET_PRIVATE (statusbar);
 	priv = statusbar->priv;
 
-	priv->img_num_statusbar = gtk_statusbar_new ();
-	gtk_widget_set_size_request (priv->img_num_statusbar, 100, 10);
-	gtk_widget_show (priv->img_num_statusbar);
+	priv->img_num_label = gtk_label_new (NULL);
+	gtk_widget_set_size_request (priv->img_num_label, 100, 10);
+	gtk_widget_show (priv->img_num_label);
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
-			  priv->img_num_statusbar,
+			  priv->img_num_label,
 			  FALSE,
 			  TRUE,
 			  0);
@@ -107,8 +107,6 @@ eog_statusbar_set_image_number (EogStatusbar *statusbar,
 
 	g_return_if_fail (EOG_IS_STATUSBAR (statusbar));
 
-	gtk_statusbar_pop (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0);
-
 	/* Hide number display if values don't make sense */
 	if (G_UNLIKELY (num <= 0 || tot <= 0))
 		return;
@@ -125,7 +123,7 @@ eog_statusbar_set_image_number (EogStatusbar *statusbar,
 	 * too.*/
 	msg = g_strdup_printf (_("%d / %d"), num, tot);
 
-	gtk_statusbar_push (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0, msg);
+	gtk_label_set_text (GTK_LABEL (statusbar->priv->img_num_label), msg);
 
       	g_free (msg);
 }
@@ -141,9 +139,9 @@ eog_statusbar_set_progress (EogStatusbar *statusbar,
 
 	if (progress > 0 && progress < 1) {
 		gtk_widget_show (statusbar->priv->progressbar);
-		gtk_widget_hide (statusbar->priv->img_num_statusbar);
+		gtk_widget_hide (statusbar->priv->img_num_label);
 	} else {
 		gtk_widget_hide (statusbar->priv->progressbar);
-		gtk_widget_show (statusbar->priv->img_num_statusbar);
+		gtk_widget_show (statusbar->priv->img_num_label);
 	}
 }
