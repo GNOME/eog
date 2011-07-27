@@ -65,6 +65,11 @@
 #endif
 #endif
 
+#ifdef HAVE_RSVG
+#include <librsvg/rsvg.h>
+#include <librsvg/librsvg-features.h>
+#endif
+
 #define EOG_IMAGE_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_IMAGE, EogImagePrivate))
 
@@ -983,7 +988,11 @@ eog_image_real_load (EogImage *img,
 			priv->svg = NULL;
 		}
 
-		if (!strcmp (mime_type, "image/svg+xml")) {
+		if (!strcmp (mime_type, "image/svg+xml")
+#if LIBRSVG_CHECK_FEATURE(SVGZ)
+		    || !strcmp (mime_type, "image/svg+xml-compressed")
+#endif
+		) {
 			gchar *file_path;
 			/* Keep the object for rendering */
 			priv->svg = rsvg_handle_new ();
