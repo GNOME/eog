@@ -1257,17 +1257,17 @@ eog_image_has_data (EogImage *img, EogImageData req_data)
 	priv = img->priv;
 
 	if ((req_data & EOG_IMAGE_DATA_IMAGE) > 0) {
-		req_data = (req_data & !EOG_IMAGE_DATA_IMAGE);
+		req_data = (req_data & ~EOG_IMAGE_DATA_IMAGE);
 		has_data = has_data && (priv->image != NULL);
 	}
 
 	if ((req_data & EOG_IMAGE_DATA_DIMENSION) > 0 ) {
-		req_data = (req_data & !EOG_IMAGE_DATA_DIMENSION);
+		req_data = (req_data & ~EOG_IMAGE_DATA_DIMENSION);
 		has_data = has_data && (priv->width >= 0) && (priv->height >= 0);
 	}
 
 	if ((req_data & EOG_IMAGE_DATA_EXIF) > 0) {
-		req_data = (req_data & !EOG_IMAGE_DATA_EXIF);
+		req_data = (req_data & ~EOG_IMAGE_DATA_EXIF);
 #ifdef HAVE_EXIF
 		has_data = has_data && (priv->exif != NULL);
 #else
@@ -1276,7 +1276,7 @@ eog_image_has_data (EogImage *img, EogImageData req_data)
 	}
 
 	if ((req_data & EOG_IMAGE_DATA_XMP) > 0) {
-		req_data = (req_data & !EOG_IMAGE_DATA_XMP);
+		req_data = (req_data & ~EOG_IMAGE_DATA_XMP);
 #ifdef HAVE_EXEMPI
 		has_data = has_data && (priv->xmp != NULL);
 #endif
