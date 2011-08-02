@@ -154,6 +154,7 @@ eog_image_free_mem_private (EogImage *image)
 #endif
 
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
+		priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
 	}
 }
 

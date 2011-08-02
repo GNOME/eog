@@ -609,10 +609,26 @@ eog_job_save_run (EogJob *ejob)
 		eog_image_data_ref (image);
 
 		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			eog_image_load (image,
-					EOG_IMAGE_DATA_ALL,
-					NULL,
-					&ejob->error);
+			EogImageMetadataStatus m_status;
+			gint data2load = 0;
+
+			m_status = eog_image_get_metadata_status (image);
+			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
+				// Queue full read in this case
+				data2load = EOG_IMAGE_DATA_ALL;
+			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
+			{
+				// Load only if we haven't read it yet
+				data2load = EOG_IMAGE_DATA_EXIF
+						| EOG_IMAGE_DATA_XMP;
+			}
+
+			if (data2load != 0) {
+				eog_image_load (image,
+						data2load,
+						NULL,
+						&ejob->error);
+			}
 		}
 
 		handler_id = g_signal_connect (G_OBJECT (image),
@@ -716,11 +732,28 @@ eog_job_save_as_run (EogJob *ejob)
 		eog_image_data_ref (image);
 
 		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			eog_image_load (image,
-					EOG_IMAGE_DATA_ALL,
-					NULL,
-					&ejob->error);
+			EogImageMetadataStatus m_status;
+			gint data2load = 0;
+
+			m_status = eog_image_get_metadata_status (image);
+			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
+				// Queue full read in this case
+				data2load = EOG_IMAGE_DATA_ALL;
+			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
+			{
+				// Load only if we haven't read it yet
+				data2load = EOG_IMAGE_DATA_EXIF
+						| EOG_IMAGE_DATA_XMP;
+			}
+
+			if (data2load != 0) {
+				eog_image_load (image,
+						data2load,
+						NULL,
+						&ejob->error);
+			}
 		}
+
 
 		g_assert (ejob->error == NULL);
 

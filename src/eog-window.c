@@ -501,7 +501,7 @@ update_status_bar (EogWindow *window)
 	priv = window->priv;
 
 	if (priv->image != NULL &&
-	    eog_image_has_data (priv->image, EOG_IMAGE_DATA_ALL)) {
+	    eog_image_has_data (priv->image, EOG_IMAGE_DATA_DIMENSION)) {
 		int zoom, width, height;
 		goffset bytes = 0;
 
@@ -866,7 +866,7 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	eog_debug (DEBUG_WINDOW);
 
-	g_assert (eog_image_has_data (image, EOG_IMAGE_DATA_ALL));
+	g_assert (eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE));
 
 	priv = window->priv;
 
@@ -1494,7 +1494,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 		return;
 	}
 
-	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+	if (eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
 		eog_window_display_image (window, image);
 		return;
 	}
