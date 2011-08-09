@@ -1495,6 +1495,9 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 	}
 
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
+		if (priv->image != NULL)
+			g_object_unref (priv->image);
+		priv->image = image;
 		eog_window_display_image (window, image);
 		return;
 	}
