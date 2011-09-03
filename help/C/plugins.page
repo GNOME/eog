@@ -1,4 +1,6 @@
 <page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      xmlns:if="http://projectmallard.org/experimental/if/"
       type="topic" style="task"
       id="plugins">
 
@@ -24,8 +26,15 @@ status="review"/>
 <p>The eog-plugins contain a set of plugins for the <app>image
 viewer</app>.  Plugins add additional features.</p>
 
-<note><p>You can install the eog-plugins using your distribution's <app>package
-manager</app>.</p><p><link action="install:eog-plugins" style="button" href="http://ftp.gnome.org/pub/gnome/sources/eog-plugins">install eog-plugins</link></p></note>
+<note style="info package">
+  <p>You can install the eog-plugins using your distribution's <app>packagemanager</app>.</p>
+
+  <if:choose>
+    <if:when test="if:supports('action:install')">
+      <p><link action="install:eog-plugins" href="http://ftp.gnome.org/pub/gnome/sources/eog-plugins" style="button">install eog-plugins</link></p>
+    </if:when>
+  </if:choose>
+</note>
 
 <p>The following plugins are included in eog-plugins:</p>
 <list>
