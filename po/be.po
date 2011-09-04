@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-25 11:04+0300\n"
-"PO-Revision-Date: 2011-07-25 11:03+0300\n"
+"POT-Creation-Date: 2011-09-04 18:41+0300\n"
+"PO-Revision-Date: 2011-09-04 18:41+0300\n"
 "Last-Translator: Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -60,11 +60,11 @@ msgstr "Падзяляльнік"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Activate fullscreen mode with double-click"
-msgstr "Пераход у поўнаэкранны рэжым пры падвойным пстрычку"
+msgstr "Пераход у поўнаэкранны рэжым пры падвойнай пстрычцы"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
 msgid "Fullscreen with double-click"
-msgstr "На ўвесь экран пры падвойным пстрычку"
+msgstr "На ўвесь экран пры падвойнай пстрычцы"
 
 #: ../plugins/reload/eog-reload-plugin.c:53
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
@@ -74,7 +74,7 @@ msgstr "Перазагрузка выявы"
 #: ../plugins/reload/eog-reload-plugin.c:55
 #: ../plugins/reload/reload.plugin.desktop.in.h:2
 msgid "Reload current image"
-msgstr "Перазагрузка адчыненай выявы"
+msgstr "Перазагрузка адкрытай выявы"
 
 #: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:1
 msgid "Date in statusbar"
@@ -295,41 +295,45 @@ msgstr "Маштабаванне"
 msgid "Plugins"
 msgstr "Плугіны"
 
-#: ../data/eog-preferences-dialog.ui.h:14
-msgid "Sequence"
-msgstr "Паслядоўнасць"
-
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:15
-msgid "Slideshow"
-msgstr "Слайдшоў"
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "секунд"
 
-#: ../data/eog-preferences-dialog.ui.h:16
-msgid "Smooth images when zoomed-_in"
-msgstr "_Згладжваць павялічаныя выявы"
-
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:17
-msgid "Smooth images when zoomed-_out"
-msgstr "З_гладжваць паменшаныя выявы"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Transparent Parts"
-msgstr "Празрыстыя часткі"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "_Automatic orientation"
-msgstr "_Аўтаматычная арыентацыя"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "_Loop sequence"
-msgstr "Пераключаць паслядоўнасць у _цыкле"
-
-#: ../data/eog-preferences-dialog.ui.h:21
+msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "Пераключаць _выяву праз:"
 
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Sequence"
+msgstr "Паслядоўнасць"
+
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "Slideshow"
+msgstr "Слайдшоў"
+
+#: ../data/eog-preferences-dialog.ui.h:20
+msgid "Smooth images when zoomed-_in"
+msgstr "_Згладжваць павялічаныя выявы"
+
+#: ../data/eog-preferences-dialog.ui.h:21
+msgid "Smooth images when zoomed-_out"
+msgstr "З_гладжваць паменшаныя выявы"
+
 #: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "секунд"
+msgid "Transparent Parts"
+msgstr "Празрыстыя часткі"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "_Automatic orientation"
+msgstr "_Аўтаматычная арыентацыя"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "_Loop sequence"
+msgstr "Пераключаць паслядоўнасць у _цыкле"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
@@ -355,7 +359,7 @@ msgstr "Аўтаматычная арыентацыя"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:7
 msgid "Close main window without asking to save changes."
-msgstr "Зачыняць галоўнае акно, не пытаючы аб захаванні змен."
+msgstr "Закрываць галоўнае акно, не пытаючы аб захаванні змен."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:8
 msgid "Delay in seconds until showing the next image"
@@ -504,7 +508,7 @@ msgid ""
 "to the empty string to disable this feature."
 msgstr ""
 "Назва desktop-файла (разам з пашырэннем \".desktop\") праграмы рэдагавання "
-"выяў (пры пстрычку ў кнопку \"Рэдагаваць выяву\" на паліцы прылад). Каб "
+"выяў (пры пстрычцы ў кнопку \"Рэдагаваць выяву\" на паліцы прылад). Каб "
 "выключыць гэту функцыю, выдаліце значэнне гэтага ключа."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:31
@@ -590,7 +594,7 @@ msgstr "Множнік маштабавання"
 
 #: ../src/eog-close-confirmation-dialog.c:171
 msgid "Close _without Saving"
-msgstr "Зачыніць, _не захоўваючы"
+msgstr "Закрыць, _не захоўваючы"
 
 #: ../src/eog-close-confirmation-dialog.c:217
 msgid "Question"
@@ -603,16 +607,16 @@ msgstr "Калі вы не захаваеце выяву, змены будуц�
 #: ../src/eog-close-confirmation-dialog.c:435
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
-msgstr "Захаваць змены для выявы \"%s\" перад зачыненнем?"
+msgstr "Захаваць змены для выявы \"%s\" перад закрыццём?"
 
 #: ../src/eog-close-confirmation-dialog.c:643
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d images with unsaved changes. Save changes before closing?"
-msgstr[0] "%d выява мае незахаваныя змены. Захаваць іх перад зачыненнем?"
-msgstr[1] "%d выявы маюць незахаваныя змены. Захаваць іх перад зачыненнем?"
-msgstr[2] "%d выяў маюць незахаваныя змены. Захаваць іх перад зачыненнем?"
+msgstr[0] "%d выява мае незахаваныя змены. Захаваць іх перад закрыццём?"
+msgstr[1] "%d выявы маюць незахаваныя змены. Захаваць іх перад закрыццём?"
+msgstr[2] "%d выяў маюць незахаваныя змены. Захаваць іх перад закрыццём?"
 
 #: ../src/eog-close-confirmation-dialog.c:660
 msgid "S_elect the images you want to save:"
@@ -666,7 +670,7 @@ msgstr[2] "пікселаў"
 
 #: ../src/eog-file-chooser.c:447
 msgid "Open Image"
-msgstr "Адчыненне выявы"
+msgstr "Адкрыццё выявы"
 
 #: ../src/eog-file-chooser.c:455
 msgid "Save Image"
@@ -674,39 +678,39 @@ msgstr "Захаванне выявы"
 
 #: ../src/eog-file-chooser.c:463
 msgid "Open Folder"
-msgstr "Адчыненне папкі"
+msgstr "Адкрыццё папкі"
 
-#: ../src/eog-image.c:600
+#: ../src/eog-image.c:606
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Трансфармацыя незагружанай выявы."
 
-#: ../src/eog-image.c:628
+#: ../src/eog-image.c:634
 #, c-format
 msgid "Transformation failed."
 msgstr "Няўдалая трансфармацыя."
 
-#: ../src/eog-image.c:1085
+#: ../src/eog-image.c:1095
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Гэты фармат файлаў не падтрымлівае EXIF."
 
-#: ../src/eog-image.c:1234
+#: ../src/eog-image.c:1244
 #, c-format
 msgid "Image loading failed."
 msgstr "Няўдалая загрузка выявы."
 
-#: ../src/eog-image.c:1707 ../src/eog-image.c:1817
+#: ../src/eog-image.c:1717 ../src/eog-image.c:1827
 #, c-format
 msgid "No image loaded."
 msgstr "Выява не загружана."
 
-#: ../src/eog-image.c:1715 ../src/eog-image.c:1826
+#: ../src/eog-image.c:1725 ../src/eog-image.c:1836
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Вы не маеце дазволаў, патрэбных для захавання файла."
 
-#: ../src/eog-image.c:1725 ../src/eog-image.c:1837
+#: ../src/eog-image.c:1735 ../src/eog-image.c:1847
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Не ўдалося стварыць часовы файл."
@@ -803,7 +807,7 @@ msgstr "_Скасаваць"
 msgid "_Reload"
 msgstr "Пера_загрузіць"
 
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3839
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
 msgid "Save _As…"
 msgstr "Захаваць _як..."
 
@@ -951,7 +955,7 @@ msgstr "як ёсць"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:126
+#: ../src/eog-statusbar.c:124
 #, c-format
 msgid "%d / %d"
 msgstr "%d/%d"
@@ -987,7 +991,7 @@ msgstr[0] "%i × %i піксел, %s, %i%%"
 msgstr[1] "%i × %i пікселы %s, %i%%"
 msgstr[2] "%i × %i пікселаў %s, %i%%"
 
-#: ../src/eog-window.c:827 ../src/eog-window.c:2781
+#: ../src/eog-window.c:827 ../src/eog-window.c:2784
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "С_хаваць"
@@ -1006,7 +1010,7 @@ msgstr ""
 #: ../src/eog-window.c:1001
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "Адчыніць вылучаную выяву з дапамогай \"%s\""
+msgstr "Адкрыць вылучаную выяву з дапамогай \"%s\""
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
@@ -1018,12 +1022,12 @@ msgstr "Адчыніць вылучаную выяву з дапамогай \"%
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Захаванне выявы \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1525
+#: ../src/eog-window.c:1528
 #, c-format
 msgid "Opening image \"%s\""
-msgstr "Адчыненне выявы \"%s\""
+msgstr "Адкрыццё выявы \"%s\""
 
-#: ../src/eog-window.c:2202
+#: ../src/eog-window.c:2205
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1032,42 +1036,42 @@ msgstr ""
 "Памылка друку файла:\n"
 "%s"
 
-#: ../src/eog-window.c:2520
+#: ../src/eog-window.c:2523
 msgid "Toolbar Editor"
 msgstr "Рэдактар паліцы прылад"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2526
 msgid "_Reset to Default"
 msgstr "_Вярнуць прадвызначанае"
 
-#: ../src/eog-window.c:2628
+#: ../src/eog-window.c:2631
 msgid "translator-credits"
 msgstr ""
 "Ales Nyakhaychyk <nab mail by>\n"
 "Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
 "Мікалай Цэхан <tsekhan@gmail.com>"
 
-#: ../src/eog-window.c:2633
+#: ../src/eog-window.c:2636
 msgid "Eye of GNOME"
 msgstr "Вока GNOME"
 
-#: ../src/eog-window.c:2636
+#: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
 msgstr "Праглядальнік выяў GNOME."
 
-#: ../src/eog-window.c:2728 ../src/eog-window.c:2743
+#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
 msgid "Error launching System Settings: "
 msgstr "Памылка запуску модуля сістэмных настроек: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2779
+#: ../src/eog-window.c:2782
 msgid "_Open Background Preferences"
-msgstr "_Адчыніць настройкі фону стала"
+msgstr "_Адкрыць настройкі фону стала"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2795
+#: ../src/eog-window.c:2798
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1076,11 +1080,11 @@ msgstr ""
 "Выява \"%s\" зроблена фонам стала.\n"
 "Ці хочаце змяніць яго выгляд?"
 
-#: ../src/eog-window.c:3268
+#: ../src/eog-window.c:3271
 msgid "Saving image locally…"
 msgstr "Захаванне мясцовай копіі выявы..."
 
-#: ../src/eog-window.c:3348
+#: ../src/eog-window.c:3351
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1089,7 +1093,7 @@ msgstr ""
 "Ці вы насамрэч хочаце выкінуць\n"
 "\"%s\" у сметніцу?"
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3354
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1098,7 +1102,7 @@ msgstr ""
 "Не ўдалося адшукаць сметніцу для \"%s\". Ці хочаце незваротна выдаліць гэту "
 "выяву?"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1116,7 +1120,7 @@ msgstr[2] ""
 "Вы насамрэч хочаце выкінуць\n"
 "%d вылучаных выяў у сметніцу?"
 
-#: ../src/eog-window.c:3361
+#: ../src/eog-window.c:3364
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1124,384 +1128,384 @@ msgstr ""
 "Не ўдалося выкінуць некаторыя вылучаныя выявы ў сметніцу, і таму яны будуць "
 "незваротна выдалены. Ці хочаце працягнуць?"
 
-#: ../src/eog-window.c:3378 ../src/eog-window.c:3869 ../src/eog-window.c:3893
+#: ../src/eog-window.c:3381 ../src/eog-window.c:3872 ../src/eog-window.c:3896
 msgid "Move to _Trash"
 msgstr "Вы_кінуць у сметніцу"
 
-#: ../src/eog-window.c:3380
+#: ../src/eog-window.c:3383
 msgid "_Do not ask again during this session"
 msgstr "_Больш не пытаць у гэтым сеансе"
 
-#: ../src/eog-window.c:3425 ../src/eog-window.c:3439
+#: ../src/eog-window.c:3428 ../src/eog-window.c:3442
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Не ўдалося атрымаць доступ да сметніцы."
 
-#: ../src/eog-window.c:3447
+#: ../src/eog-window.c:3450
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Не ўдалося сцерці файл"
 
-#: ../src/eog-window.c:3543
+#: ../src/eog-window.c:3546
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Памылка сцірання выявы %s"
 
-#: ../src/eog-window.c:3790
+#: ../src/eog-window.c:3793
 msgid "_Image"
 msgstr "_Выява"
 
-#: ../src/eog-window.c:3791
+#: ../src/eog-window.c:3794
 msgid "_Edit"
 msgstr "_Праўка"
 
-#: ../src/eog-window.c:3792
+#: ../src/eog-window.c:3795
 msgid "_View"
 msgstr "_Від"
 
-#: ../src/eog-window.c:3793
+#: ../src/eog-window.c:3796
 msgid "_Go"
 msgstr "Пера_ход"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3797
 msgid "_Tools"
 msgstr "Пры_лады"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3798
 msgid "_Help"
 msgstr "_Дапамога"
 
-#: ../src/eog-window.c:3797
-msgid "_Open…"
-msgstr "_Адчыніць..."
-
-#: ../src/eog-window.c:3798
-msgid "Open a file"
-msgstr "Адчыніць файл"
-
 #: ../src/eog-window.c:3800
-msgid "_Close"
-msgstr "_Зачыніць"
+msgid "_Open…"
+msgstr "_Адкрыць..."
 
 #: ../src/eog-window.c:3801
-msgid "Close window"
-msgstr "Зачыніць акно"
+msgid "Open a file"
+msgstr "Адкрыць файл"
 
 #: ../src/eog-window.c:3803
+msgid "_Close"
+msgstr "_Закрыць"
+
+#: ../src/eog-window.c:3804
+msgid "Close window"
+msgstr "Закрыць акно"
+
+#: ../src/eog-window.c:3806
 msgid "T_oolbar"
 msgstr "_Паліца прылад"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3807
 msgid "Edit the application toolbar"
 msgstr "Рэдагаваць паліцу прылад праграмы"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3809
 msgid "Prefere_nces"
 msgstr "_Настройкі"
 
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3810
 msgid "Preferences for Eye of GNOME"
 msgstr "Настройкі Вока GNOME"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3812
 msgid "_Contents"
 msgstr "_Змест"
 
-#: ../src/eog-window.c:3810
+#: ../src/eog-window.c:3813
 msgid "Help on this application"
 msgstr "Даведка аб гэтай праграме"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3815
 msgid "_About"
 msgstr "_Аб праграме"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3816
 msgid "About this application"
 msgstr "Аб гэтай праграме"
 
-#: ../src/eog-window.c:3818
+#: ../src/eog-window.c:3821
 msgid "_Toolbar"
 msgstr "_Паліца прылад"
 
-#: ../src/eog-window.c:3819
+#: ../src/eog-window.c:3822
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Змяняе бачнасць паліцы прылад у бягучым акне"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3824
 msgid "_Statusbar"
 msgstr "_Стужка стану"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3825
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Змяняе бачнасць стужкі стану ў бягучым акне"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3827
 msgid "_Image Gallery"
 msgstr "_Галерэя выяў"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3828
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Змяняе бачнасць абшару галерэі выяў у бягучым акне"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3830
 msgid "Side _Pane"
 msgstr "_Бакавы абшар"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3831
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Змяняе бачнасць бакавога абшару ў бягучым акне"
 
-#: ../src/eog-window.c:3833
+#: ../src/eog-window.c:3836
 msgid "_Save"
 msgstr "_Захаваць"
 
-#: ../src/eog-window.c:3834
+#: ../src/eog-window.c:3837
 msgid "Save changes in currently selected images"
 msgstr "Захаваць змены для ўсіх вылучаных выяў"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3839
 msgid "Open _with"
-msgstr "Ад_чыніць з дапамогай"
-
-#: ../src/eog-window.c:3837
-msgid "Open the selected image with a different application"
-msgstr "Адчыніць вылучаную выяву ў іншай праграме"
+msgstr "Ад_крыць з дапамогай"
 
 #: ../src/eog-window.c:3840
+msgid "Open the selected image with a different application"
+msgstr "Адкрыць вылучаную выяву ў іншай праграме"
+
+#: ../src/eog-window.c:3843
 msgid "Save the selected images with a different name"
 msgstr "Захаваць вылучаныя выявы з іншымі назвамі"
 
-#: ../src/eog-window.c:3842
+#: ../src/eog-window.c:3845
 msgid "Show Containing _Folder"
 msgstr "Паказаць папку, _якая змяшчае выяву"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3846
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Паказаць папку, якая змяшчае гэты файл, у кіраўніку файлаў"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3848
 msgid "_Print…"
 msgstr "_Надрукаваць..."
 
-#: ../src/eog-window.c:3846
+#: ../src/eog-window.c:3849
 msgid "Print the selected image"
 msgstr "Надрукаваць вылучаную выяву"
 
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3851
 msgid "Prope_rties"
 msgstr "_Уласцівасці"
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3852
 msgid "Show the properties and metadata of the selected image"
 msgstr "Паказаць уласцівасці і метаданыя для вылучанай выявы"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3854
 msgid "_Undo"
 msgstr "Адра_біць"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3855
 msgid "Undo the last change in the image"
 msgstr "Адрабіць апошняе змяненне выявы назад"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3857
 msgid "Flip _Horizontal"
 msgstr "Перакуліць па _гарызанталі"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3858
 msgid "Mirror the image horizontally"
 msgstr "Адлюстраваць выяву па гарызанталі"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3860
 msgid "Flip _Vertical"
 msgstr "Перакуліць па _вертыкалі"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3861
 msgid "Mirror the image vertically"
 msgstr "Адлюстраваць выяву па вертыкалі"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3863
 msgid "_Rotate Clockwise"
 msgstr "Павярнуць па _ходу гадзіннікавай стрэлкі"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3864
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Павярнуць выяву на 90° управа"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3866
 msgid "Rotate Counterc_lockwise"
 msgstr "Павярнуць супраць _гадзіннікавай стрэлкі"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3867
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Павярнуць выяву на 90° улева"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3869
 msgid "Set as _Desktop Background"
 msgstr "Зрабіць ф_онам стала"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3870
 msgid "Set the selected image as the desktop background"
 msgstr "Зрабіць вылучаную выяву фонам стала"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3873
 msgid "Move the selected image to the trash folder"
 msgstr "Выкінуць вылучаную выяву ў сметніцу"
 
-#: ../src/eog-window.c:3872
+#: ../src/eog-window.c:3875
 msgid "_Copy"
 msgstr "С_капіраваць"
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3876
 msgid "Copy the selected image to the clipboard"
 msgstr "Скапіраваць вылучаную выяву ў буфер абмену"
 
-#: ../src/eog-window.c:3875 ../src/eog-window.c:3884 ../src/eog-window.c:3887
+#: ../src/eog-window.c:3878 ../src/eog-window.c:3887 ../src/eog-window.c:3890
 msgid "_Zoom In"
 msgstr "Па_вялічыць"
 
-#: ../src/eog-window.c:3876 ../src/eog-window.c:3885
+#: ../src/eog-window.c:3879 ../src/eog-window.c:3888
 msgid "Enlarge the image"
 msgstr "Павялічыць выяву"
 
-#: ../src/eog-window.c:3878 ../src/eog-window.c:3890
+#: ../src/eog-window.c:3881 ../src/eog-window.c:3893
 msgid "Zoom _Out"
 msgstr "Па_меншыць"
 
-#: ../src/eog-window.c:3879 ../src/eog-window.c:3888 ../src/eog-window.c:3891
+#: ../src/eog-window.c:3882 ../src/eog-window.c:3891 ../src/eog-window.c:3894
 msgid "Shrink the image"
 msgstr "Паменшыць выяву"
 
-#: ../src/eog-window.c:3881
+#: ../src/eog-window.c:3884
 msgid "_Normal Size"
 msgstr "_Звычайны памер"
 
-#: ../src/eog-window.c:3882
+#: ../src/eog-window.c:3885
 msgid "Show the image at its normal size"
 msgstr "Паказаць выяву ў яе звычайным памеры"
 
-#: ../src/eog-window.c:3899
+#: ../src/eog-window.c:3902
 msgid "_Fullscreen"
 msgstr "_На ўвесь экран"
 
-#: ../src/eog-window.c:3900
+#: ../src/eog-window.c:3903
 msgid "Show the current image in fullscreen mode"
 msgstr "Паказаць гэтую выяву ў поўнаэкранным рэжыме"
 
-#: ../src/eog-window.c:3902
+#: ../src/eog-window.c:3905
 msgid "Pause Slideshow"
 msgstr "Прыпыніць слайдшоў"
 
-#: ../src/eog-window.c:3903
+#: ../src/eog-window.c:3906
 msgid "Pause or resume the slideshow"
 msgstr "Прыпыніць ці працягнуць слайдшоў"
 
-#: ../src/eog-window.c:3905
+#: ../src/eog-window.c:3908
 msgid "_Best Fit"
 msgstr "_Дапасаваць як найлепш"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3909
 msgid "Fit the image to the window"
 msgstr "Дапасаваць выяву да памераў акна"
 
-#: ../src/eog-window.c:3911 ../src/eog-window.c:3926
+#: ../src/eog-window.c:3914 ../src/eog-window.c:3929
 msgid "_Previous Image"
 msgstr "Да _папярэдняй выявы"
 
-#: ../src/eog-window.c:3912
+#: ../src/eog-window.c:3915
 msgid "Go to the previous image of the gallery"
 msgstr "Перайсці да папярэдняй выявы ў галерэі"
 
-#: ../src/eog-window.c:3914
+#: ../src/eog-window.c:3917
 msgid "_Next Image"
 msgstr "Да _наступнай выявы"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3918
 msgid "Go to the next image of the gallery"
 msgstr "Перайсці да наступнай выявы ў галерэі"
 
-#: ../src/eog-window.c:3917 ../src/eog-window.c:3929
+#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
 msgid "_First Image"
 msgstr "Да пер_шай выявы"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3921
 msgid "Go to the first image of the gallery"
 msgstr "Перайсці да першай выявы ў галерэі"
 
-#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
+#: ../src/eog-window.c:3923 ../src/eog-window.c:3935
 msgid "_Last Image"
 msgstr "Да _апошняй выявы"
 
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3924
 msgid "Go to the last image of the gallery"
 msgstr "Перайсці да апошняй выявы ў галерэі"
 
-#: ../src/eog-window.c:3923
+#: ../src/eog-window.c:3926
 msgid "_Random Image"
 msgstr "Да _выпадковай выявы"
 
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3927
 msgid "Go to a random image of the gallery"
 msgstr "Перайсці да выпадкова выбранай выявы ў галерэі"
 
-#: ../src/eog-window.c:3938
+#: ../src/eog-window.c:3941
 msgid "S_lideshow"
 msgstr "С_лайдшоў"
 
-#: ../src/eog-window.c:3939
+#: ../src/eog-window.c:3942
 msgid "Start a slideshow view of the images"
 msgstr "Запусціць слайдшоў для гэтых выяў"
 
-#: ../src/eog-window.c:4005
+#: ../src/eog-window.c:4008
 msgid "Previous"
 msgstr "Назад"
 
-#: ../src/eog-window.c:4009
+#: ../src/eog-window.c:4012
 msgid "Next"
 msgstr "Наперад"
 
-#: ../src/eog-window.c:4013
+#: ../src/eog-window.c:4016
 msgid "Right"
 msgstr "Управа"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:4019
 msgid "Left"
 msgstr "Улева"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:4022
 msgid "Show Folder"
 msgstr "Паказаць папку"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:4025
 msgid "In"
 msgstr "Павялічыць"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4028
 msgid "Out"
 msgstr "Паменшыць"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4031
 msgid "Normal"
 msgstr "Звычайны памер"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:4034
 msgid "Fit"
 msgstr "Дапасаваць"
 
-#: ../src/eog-window.c:4034
+#: ../src/eog-window.c:4037
 msgid "Gallery"
 msgstr "Галерэя"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4040
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "У сметніцу"
 
-#: ../src/eog-window.c:4405
+#: ../src/eog-window.c:4408
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Адрэдагаваць гэту выяву з дапамогай %s"
 
-#: ../src/eog-window.c:4407
+#: ../src/eog-window.c:4410
 msgid "Edit Image"
 msgstr "Адрэдагаваць выяву"
 
@@ -1511,7 +1515,7 @@ msgstr "Праглядальнік выяў: Вока GNOME"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
-msgstr "Адчыніць у поўнаэкранным рэжыме"
+msgstr "Адкрыць у поўнаэкранным рэжыме"
 
 #: ../src/main.c:71
 msgid "Disable image gallery"
@@ -1519,7 +1523,7 @@ msgstr "Выключыць галерэю выяў"
 
 #: ../src/main.c:72
 msgid "Open in slideshow mode"
-msgstr "Адчыніць у рэжыме слайдшоў"
+msgstr "Адкрыць у рэжыме слайдшоў"
 
 #: ../src/main.c:73
 msgid "Start a new instance instead of reusing an existing one"
