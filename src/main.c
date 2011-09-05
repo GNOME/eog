@@ -60,7 +60,7 @@ _print_version_and_exit (const gchar *option_name,
 			 gpointer data,
 			 GError **error)
 {
-	g_print("%s %s\n", _("Eye of GNOME Image Viewer"), VERSION);
+	g_print("%s %s\n", _("GNOME Image Viewer"), VERSION);
 	exit (EXIT_SUCCESS);
 	return TRUE;
 }
@@ -149,7 +149,7 @@ main (int argc, char **argv)
                                            EOG_DATA_DIR G_DIR_SEPARATOR_S "icons");
 
 	gtk_window_set_default_icon_name ("eog");
-	g_set_application_name (_("Eye of GNOME Image Viewer"));
+	g_set_application_name (_("Image Viewer"));
 
 	settings = gtk_settings_get_default ();
 	g_object_set (G_OBJECT (settings),

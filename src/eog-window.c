@@ -96,7 +96,7 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
 #define EOG_RECENT_FILES_GROUP  "Graphics"
-#define EOG_RECENT_FILES_APP_NAME "Eye of GNOME Image Viewer"
+#define EOG_RECENT_FILES_APP_NAME "Image Viewer"
 #define EOG_RECENT_FILES_LIMIT  5
 
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
@@ -2633,7 +2633,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "program-name", _("Eye of GNOME"),
+			       "program-name", _("Image Viewer"),
 			       "version", VERSION,
 			       "copyright", "Copyright \xc2\xa9 2000-2010 Free Software Foundation, Inc.",
 			       "comments",_("The GNOME image viewer."),
@@ -3807,7 +3807,7 @@ static const GtkActionEntry action_entries_window[] = {
 	  N_("Edit the application toolbar"),
 	  G_CALLBACK (eog_window_cmd_edit_toolbar) },
 	{ "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL,
-	  N_("Preferences for Eye of GNOME"),
+	  N_("Preferences for Image Viewer"),
 	  G_CALLBACK (eog_window_cmd_preferences) },
 	{ "HelpManual", GTK_STOCK_HELP, N_("_Contents"), "F1",
 	  N_("Help on this application"),

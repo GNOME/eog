@@ -128,7 +128,7 @@ save_response_cb (GtkDialog *dlg, gint id, gpointer data)
 		gtk_message_dialog_format_secondary_text (
 						GTK_MESSAGE_DIALOG (msg_dialog),
 						"%s\n%s",
-		 				_("Eye of GNOME could not determine a supported writable file format based on the filename."),
+						_("Image Viewer could not determine a supported writable file format based on the filename."),
 		  				_("Please try a different file extension like .png or .jpg."));
 
 		gtk_dialog_run (GTK_DIALOG (msg_dialog));
