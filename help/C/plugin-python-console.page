@@ -4,9 +4,9 @@
 
   <info>
    <link type="guide" xref="index#advanced"/>
-   <desc>A python console for the <app>image viewer</app>.</desc>
+   <desc>The Python console can be used to add extra functions and run scripts in the image viewer.</desc>
 
-   <revision pkgversion="3.2" version="0.1" date="2011-09-03" status="candidate"/>
+   <revision pkgversion="3.2" version="0.1" date="2011-09-05" status="final"/>
    <credit type="author">
      <name>Tiffany Antopolski</name>
      <email>tiffany.antopolski@gmail.com</email>
@@ -19,10 +19,27 @@
 
 <title>Python console</title>
 
-  <p>In order to add this functionality, you will need to install <link
-xref="plugins">eog-plugins</link>.</p>
+<p>The image viewer has a plugin system which uses the Python scripting 
+ language. If you activate the <em>Python console</em>, you can gain direct 
+ access to a Python interpreter from inside the image viewer, which you can 
+ then use to write scripts or programmatically manipulate images, for example.</p>
 
-  <p>Once installed, you can activate/deactivate the <gui>Python console</gui> <gui>Tools</gui> menu item in the <link
-xref="preferences#plugins">preferences plugins menu</link>. </p>
-<p>Click <guiseq><gui>Tools</gui><gui>Python Console</gui></guiseq> to bring up the console.</p>
+<steps>
+ <item>
+  <p>Before you can activate the Python console, you will need to install <link
+xref="plugins">eog-plugins</link>.</p>
+ </item>
+ <item>
+  <p>Once <sys>eog-plugins</sys> is installed, click <guiseq><gui>Edit</gui>
+ <gui>Preferences</gui></guiseq> and go to the <gui>Plugins</gui> tab.</p>
+ </item>
+ <item>
+  <p>Check <gui>Python Console</gui> and click <gui>Close</gui>.</p>
+ </item>
+ <item>
+  <p>Click <guiseq><gui>Tools</gui><gui>Python Console</gui></guiseq> to 
+  bring up the console.</p>
+ </item>
+</steps>
+
 </page>

@@ -4,9 +4,9 @@
 
   <info>
    <link type="guide" xref="index#plugins"/>
-   <desc><link xref="plugin-exif-digital#exif-map">Camera settings and histogram, geolocation</link>, <link xref="plugin-exif-digital#date">and date.</link></desc>
+   <desc>You can view lots of information about pictures taken with a digital camera, such as <link xref="plugin-exif-digital#exif">camera settings and histogram</link>, <link xref="plugin-exif-digital#map">geolocation</link>, and <link xref="plugin-exif-digital#date">date</link>.</desc>
 
-   <revision pkgversion="3.2" version="0.1" date="2011-09-03" status="candidate"/>
+   <revision pkgversion="3.2" version="0.1" date="2011-09-05" status="final"/>
    <credit type="author">
      <name>Tiffany Antopolski</name>
      <email>tiffany.antopolski@gmail.com</email>
@@ -17,25 +17,75 @@
 
   </info>
 
-<title>View digital picture data</title>
-<section id="exif-map"><title>Exif display and map</title>
-  <p>In order to add the <app>Exif display</app> and/or <app>Map</app> functions, you will need to install <link
-xref="plugins">eog-plugins</link>.</p>
+<title>View detailed information about a picture</title>
 
-  <p>Once installed, you can activate/deactivate <gui>Exif display</gui> and/or <gui>Map</gui> in the <link
-xref="preferences#plugins">preferences plugins menu</link>.</p>
-<p>Click <guiseq><gui>View</gui><gui>Side Pane</gui></guiseq> to view the camera settings, histogram and geolocation of the image on a map (if available).</p>
-</section>
+<p>Pictures taken by digital cameras are stored with a host of extra 
+information embedded in them, such as the date that they were taken, what 
+exposure settings were used on the camera and, in some cases, even where the 
+picture was taken.</p>
+
+<p>This topic shows you how to access this information.</p>
 
 <section id="date">
-<title>Date in statusbar</title>
+<title>Show the date in the status bar</title>
   <media type="image" src="figures/prefs-plugins-date.png" width="300"
 style="floatright"/>
-  <p>To activate this function, you will need to check it in the <link
-xref="preferences#plugins">plugins</link>
-tab of the <link xref="preferences">preferences</link> menu.</p>
-<p>The date the image was taken (if available) will
-show in the statusbar (bottom-right of image window). </p>
-
+  <p>You can display the date that a picture was taken in the status bar at 
+  the bottom of the window.</p>
+  <p> To do this, click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> 
+  and go to the <gui>Plugins</gui> tab. Then, check <gui>Date in 
+  statusbar</gui>.</p>
 </section>
+
+<section id="exif">
+ <title>Detailed Exif data</title>
+  <p>The detailed information stored with digital photos is called <em>Exif 
+  data</em>. You can view it by installing a plugin for the image viewer.</p>
+  
+  <steps>
+   <item>
+    <p>To be able to see the Exif data embedded in your photos, you must 
+  first install the <link xref="plugins">eog-plugins</link> package.</p>
+   </item>
+   <item>
+    <p>If <sys>eog-plugins</sys> is installed, click 
+    <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and go to the 
+    <gui>Plugins</gui> tab. Then, check <gui>Exif display</gui> and click 
+    <gui>Close</gui>.</p>
+   </item>
+   <item>
+    <p>Click <guiseq><gui>View</gui><gui>Side Pane</gui></guiseq> to view the 
+    camera settings used to take the photo, and a histogram showing the balance 
+    of colors and light/shade in the picture.</p>
+   </item>
+  </steps>
+</section>
+
+<section id="map">
+ <title>Display a photo location map</title>
+  <p>Some cameras are able to attach <em>geolocation</em> information 
+  (geotags) to digital photos. Geotags are usually just the GPS coordinates 
+  (latitude and longitude) for the place where a photo was taken.</p>
+  
+  <steps>
+   <item>
+    <p>To be able to see a map of where your photos were taken, you must 
+  first install the <link xref="plugins">eog-plugins</link> package.</p>
+   </item>
+   <item>
+    <p>If <sys>eog-plugins</sys> is installed, click 
+    <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and go to the 
+    <gui>Plugins</gui> tab. Then, check <gui>Map</gui> and click 
+    <gui>Close</gui>.</p>
+   </item>
+   <item>
+    <p>Click <guiseq><gui>View</gui><gui>Side Pane</gui></guiseq> to show the map.</p>
+   </item>
+  </steps>
+  <p>The map will show the location that a picture was taken in only if there 
+  is geolocation information attached to the photo. Many cameras do not attach 
+  geolocation information to pictures.</p>
+</section>
+
+
 </page>
