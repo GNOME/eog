@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-04 18:41+0300\n"
-"PO-Revision-Date: 2011-09-04 18:41+0300\n"
+"POT-Creation-Date: 2011-09-07 01:42+0300\n"
+"PO-Revision-Date: 2011-09-07 01:42+0300\n"
 "Last-Translator: Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -88,7 +88,7 @@ msgstr "Паказвае дату здымкі выявы ў стужцы ста
 msgid "Browse and rotate images"
 msgstr "Агляд і паварот выяў"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Праглядальнік выяў"
 
@@ -276,36 +276,36 @@ msgid "E_xpand images to fit screen"
 msgstr "_Разгортваць выявы на ўвесь экран"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Настройкі Вока GNOME"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "Паляпшэнні выяў"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "Прагляд выяў"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "Маштабаванне"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "Плугіны"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:14
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
 msgstr "секунд"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:16
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "Пераключаць _выяву праз:"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "Настройкі"
 
 #: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
@@ -633,10 +633,10 @@ msgstr "Фармат файла невядомы ці не падтрымлів�
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"Вока GNOME не здолела вызначыць падтрыманы фармат файлаў з магчымасцю "
+"Праглядальнік выяў не здолеў вызначыць вядомы фармат файлаў з магчымасцю "
 "запісу, які б адпавядаў назве файла."
 
 #: ../src/eog-file-chooser.c:132
@@ -970,8 +970,8 @@ msgid "At least two file names are equal."
 msgstr "Прынамсі дзве назвы файлаў аднолькавыя."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Не ўдалося паказаць даведку для Вока GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "Не ўдалося паказаць даведку для Праглядальніка выяў"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1050,10 +1050,6 @@ msgstr ""
 "Ales Nyakhaychyk <nab mail by>\n"
 "Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
 "Мікалай Цэхан <tsekhan@gmail.com>"
-
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "Вока GNOME"
 
 #: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
@@ -1204,8 +1200,8 @@ msgid "Prefere_nces"
 msgstr "_Настройкі"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "Настройкі Вока GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "Настройкі Праглядальніка выяў"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1509,9 +1505,9 @@ msgstr "Адрэдагаваць гэту выяву з дапамогай %s"
 msgid "Edit Image"
 msgstr "Адрэдагаваць выяву"
 
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "Праглядальнік выяў: Вока GNOME"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "Праглядальнік выяў GNOME"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
