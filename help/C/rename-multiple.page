@@ -5,9 +5,9 @@
   <info> 
     <link type="guide" xref="index#edit"/>
     <link type="seealso" xref="format-change#multiple"/> 
-    <desc>Automatically number your images.</desc> 
+    <desc>Automatically rename and number batches of pictures.</desc> 
  
-    <revision pkgversion="3.2" version="0.1" date="2011-09-03" status="candidate"/> 
+    <revision pkgversion="3.2" version="0.1" date="2011-09-06" status="final"/> 
     <credit type="author"> 
       <name>Tiffany Antopolski</name> 
       <email>tiffany@antopolski.com</email> 
@@ -18,51 +18,62 @@
  
   </info> 
  
-<title>Rename many images at once</title>
-<list type="numbered">
-<item>
-<note style="sidebar">
-<p>You can also press
-<keyseq><key>Ctrl</key><key>A</key></keyseq> to select all the images
-from the folder.</p></note>
+<title>Rename many pictures at once</title>
 
-<p>Select all the images you would like to rename in the <link
-xref="view#image-gallery">image gallery</link> by pressing
-<key>Ctrl</key> and clicking on the images.</p>
-</item>
-<item>
-<p>Click <guiseq><gui>Image</gui><gui>Save as</gui></guiseq>. The
-following dialog box appears.</p>
-<note style="sidebar">
-<p>
-  The same dialog is used to <link xref="format-change#multiple">convert multiple images</link> to a different file type.
-</p>
-</note>
+<p>If you have lots of pictures that you want to rename, perhaps so that they have a standard, numbered name format:</p>
+
+<steps>
+ <item>
+  <p>Open the <link xref="view#image-gallery">image gallery</link> by pressing 
+  <key>F9</key>.</p>
+ </item>
+ <item>
+  <p>Select all of the pictures that you would like to rename from the image 
+  gallery by holding down <key>Ctrl</key> and clicking them one by one.</p>
+ <p>Alternatively, press <keyseq><key>Ctrl</key><key>A</key></keyseq> to select 
+ all of the pictures.</p>
+ </item>
+ <item>
+  <p>Click <guiseq><gui>Image</gui><gui>Save as</gui></guiseq>. A window with 
+  some filename options will appear (the picture, below, shows what this window 
+  looks like).</p>
+ </item>
+ <item>
+  <p>The renamed pictures will be saved in the current folder by default. To
+save them elsewhere, change the <gui>Destination folder</gui>.</p>
+ </item>
+ <item>
+  <p>Use the <gui>Filename format</gui> box to choose a naming format for the 
+  pictures. The <gui>File Name Preview</gui> shows you what the new filenames 
+  will look like. See the <link xref="#filename-format"/> section, below, for advice on choosing how to rename the files.</p>
+ </item>
+ <item>
+  <p>Ensure that the <gui>Filename Format</gui> drop-down list says 
+  <gui>as is</gui>, unless you want to <link xref="format-change#multiple">convert the pictures to a different file format</link>.</p>
+ </item>
+ <item>
+  <p>Click <gui>Save As</gui> and the pictures will be renamed.</p>
+ </item>
+</steps>
 
 <media type="image" src="figures/multiple-rename-count.png" width="300"/>
-</item>
-<item><p>The images will be saved in the current folder by default.  To
-save them elsewhere, select the location from the <gui>Destination
-folder</gui> dropdown menu.</p>
-<note><p>
-  Ensure the <gui>Filename Format</gui> dropdown box says <gui>as is</gui>, unless you are <link xref="format-change#multiple">converting formats</link>.
-</p></note>
-</item>
-<item>
 
+<section id="filename-format">
+ <title>Choose a filename format</title>
+ <p>The filenames of the renamed files are determined by what you put in the 
+ <gui>Filename format</gui> box.</p>
+ <list>
+  <item>
+   <p>You can keep the original filename as part of the new filename by leaving 
+  the <input>%f</input> in the box.</p>
+   <p>For example, if you type <input>paris_%f</input> into the <gui>Filename format</gui> box, pictures called <file>flower.jpg</file>, <file>house.jpg</file>, and <file>cat.jpg</file> would be renamed to <file>paris_flower.jpg</file>, <file>paris_house.jpg</file>, and <file>paris_cat.jpg</file>.</p>
+  </item>
+  <item>
+   <p>Adding a <input>%n</input> will number the pictures consecutively, 
+  starting at the counter number you choose under <gui>Options</gui>.</p>
+  <p>For example, if you type <input>sunshine_%n</input> into the <gui>Filename format</gui> box, pictures called <file>flower.jpg</file>, <file>house.jpg</file>, and <file>cat.jpg</file> would be renamed to <file>sunshine_2.jpg</file>, <file>sunshine_3.jpg</file>, and <file>sunshine_1.jpg</file>. (They will be numbered by alphabetical order of the original filenames.)</p>
+  </item>
+ </list>
+</section>
 
-<note style="sidebar"><p>You can also give
-the files a specific name in the <gui>Filename format</gui> input box.
-For example:</p><p><input>Vacation_%n</input> will name all your images,
-Vacation_01, Vacation_02, Vacation_03, etc.</p></note>
-
-<p>You can keep the original filename by leaving the
-<input>%f</input> in the <gui>Filename format</gui> field.</p><p>Adding
-a <input>%n</input> will number your images consecutively, starting at
-the number you choose under <gui>Options</gui>.</p>
-</item>
-<item><p>When you are done, click <gui>Save As</gui>.</p></item>
-</list>
-<p></p>
 </page>
-

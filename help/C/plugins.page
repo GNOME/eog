@@ -6,9 +6,9 @@
 
   <info>
    <link type="guide" xref="index#plugins" group="first"/>
-   <desc></desc>
+   <desc>Install plugins to access extra features.</desc>
 
-   <revision pkgversion="3.2" version="0.1" date="2011-09-03" status="candidate"/>
+   <revision pkgversion="3.2" version="0.1" date="2011-09-06" status="final"/>
    <credit type="author">
      <name>Tiffany Antopolski</name>
      <email>tiffany.antopolski@gmail.com</email>
@@ -21,12 +21,12 @@
 
 <title>Plugins</title>
 
-
-<p>The eog-plugins contain a set of plugins for the <app>image
-viewer</app>.  Plugins add additional features.</p>
+<p>You can install the <sys>eog-plugins</sys> package to get extra plugins for 
+the image viewer. Plugins add additional features, like the ones listed below.</p>
 
 <note style="info package">
-  <p>You can install the eog-plugins using your distribution's <app>packagemanager</app>.</p>
+  <p>You can install the <sys>eog-plugins</sys> package using your Linux 
+  distribution's <em>package manager</em>.</p>
 
   <if:choose>
     <if:when test="if:supports('action:install')">
@@ -35,34 +35,45 @@ viewer</app>.  Plugins add additional features.</p>
   </if:choose>
 </note>
 
-<p>The following plugins are included in eog-plugins:</p>
+<p>The following features are included in <sys>eog-plugins</sys>:</p>
+
 <list>
-<item><p><link xref="plugin-exif-digital">Exif display</link>: Displays
-camera settings and histogram.</p></item>
-
-<item><p><link xref="plugin-postr">Flickr Uploader</link>: Create a
-<gui>Tools</gui> menu item to quickly upload your
-pictures to Flickr.</p></item> 
-
-<item><p><link xref="plugin-exif-digital#exif-map">Map</link>: Display the geolocation of the image on a map.</p></item> 
-
-<item><p><link xref="plugin-send-by-mail">Send By Mail</link>: Sends an
-image attached to a new mail.</p></item> 
-
-<item><p><link xref="plugin-slideshow-shuffle">Slideshow Shuffle</link>:
-Shuffles images in slideshow mode.</p></item> 
-
-<item><p><link xref="plugin-zoom-width">Zoom to fit image width</link>:
-Adjusts the zoom to have the image's width fit into the window.</p></item> 
-
-<item><p><link xref="plugin-python-console">Python Console</link>:
-Python console for the <app>image viewer</app>.</p></item> 
-
-<item><p>PicasaWeb Uploader: Upload your pictures to PicasaWeb.</p></item> 
+ <item>
+  <p><link xref="plugin-exif-digital">Exif display</link>: Displays
+camera settings and histograms for digital photos.</p>
+ </item>
+ <item>
+  <p><link xref="plugin-postr">Flickr Uploader</link>: Create a 
+  <gui>Tools</gui> menu item to quickly upload your pictures to Flickr.</p>
+ </item> 
+ <item>
+  <p><link xref="plugin-exif-digital#map">Map</link>: Display the 
+  geolocation of a digital photo on a map.</p>
+ </item> 
+ <item>
+  <p><link xref="plugin-send-by-mail">Send By Mail</link>: Send a picture to 
+  a friend by attaching it to a new email.</p>
+ </item> 
+ <item>
+  <p><link xref="plugin-slideshow-shuffle">Slideshow Shuffle</link>: Shuffles 
+  images in slideshow mode.</p>
+ </item>
+ <item>
+  <p><link xref="plugin-zoom-width">Zoom to fit image width</link>:
+Adjusts the zoom to have the pictures's full width fit into the window.</p>
+ </item>
+ <item>
+  <p><link xref="plugin-python-console">Python Console</link>:
+A Python scripting console for the image viewer.</p>
+ </item>
+ <item>
+  <p>PicasaWeb Uploader: Upload your pictures to PicasaWeb.</p>
+ </item>
 </list>
 
-<note><p>You can manage your
-plugins in the preferences <link xref="preferences#plugins">Plugins
-tab</link>.</p>
+<note>
+ <p>You can manage plugins by using the the
+ <link xref="preferences#plugins">Plugins tab</link> in the Preferences window.</p>
 </note>
+
 </page>
