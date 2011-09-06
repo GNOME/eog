@@ -11,15 +11,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 16:01+0100\n"
-"PO-Revision-Date: 2011-03-17 16:03+0100\n"
-"Last-Translator: Gintautas Miliauskas <gintautas@miliauskas.lt>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-09-05 20:53+0000\n"
+"PO-Revision-Date: 2011-09-06 22:34+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -30,36 +30,36 @@ msgstr ""
 #. * produce duplicates, but don't worry about it. If your language
 #. * normally has a mnemonic at the start, please use the _. If not,
 #. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:948
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:988
 #, c-format
 msgid "Show “_%s”"
 msgstr "Rodyti „_%s“"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1411
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1479
 msgid "_Move on Toolbar"
 msgstr "P_erkelti į įrankinę"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1412
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1480
 msgid "Move the selected item on the toolbar"
 msgstr "Perkelti pasirinktą elementą į įrankinę"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1413
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
 msgid "_Remove from Toolbar"
 msgstr "_Pašalinti iš įrankinės"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1414
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
 msgid "Remove the selected item from the toolbar"
 msgstr "Pašalinti pasirinktą elementą iš įrankinės"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1415
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
 msgid "_Delete Toolbar"
 msgstr "_Ištrinti įrankinę"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1416
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
 msgid "Remove the selected toolbar"
 msgstr "Ištrinti pasirinktą įrankinę"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:485
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:489
 msgid "Separator"
 msgstr "Skirtukas"
 
@@ -94,6 +94,8 @@ msgid "Browse and rotate images"
 msgstr "Naršyti ir vartyti paveikslėlius"
 
 #: ../data/eog.desktop.in.in.h:2
+#: ../src/eog-window.c:2636
+#: ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Paveikslėlių peržiūros programa"
 
@@ -281,60 +283,67 @@ msgid "E_xpand images to fit screen"
 msgstr "Ište_mpti paveikslėlius, kad užpildytų ekraną"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Eye of GNOME nustatymai"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "Paveikslėlio pagerinimai"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "Paveikslėlio rodinys"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "Paveikslėlio mastelis"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "Įskiepiai"
 
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
-msgid "Sequence"
-msgstr "Seka"
+#| msgid "seconds"
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "sekundės"
 
-#: ../data/eog-preferences-dialog.ui.h:15
-msgid "Slideshow"
-msgstr "Skaidrių rodymas"
-
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:16
-msgid "Smooth images when zoomed-_in"
-msgstr "_Didinant glotninti paveikslėlį"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-msgid "Smooth images when zoomed-_out"
-msgstr "_Mažinant glotninti paveikslėlį"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Transparent Parts"
-msgstr "Skaidrios dalys"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "_Automatic orientation"
-msgstr "_Automatinis pasukimas"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "_Loop sequence"
-msgstr "_Ciklinė seka"
-
-#: ../data/eog-preferences-dialog.ui.h:21
+#| msgid "_Switch image after:"
+msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "_Pakeisti paveikslėlį po:"
 
+#: ../data/eog-preferences-dialog.ui.h:17
+#| msgid "Prefere_nces"
+msgid "Preferences"
+msgstr "Nustatymai"
+
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Sequence"
+msgstr "Seka"
+
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "Slideshow"
+msgstr "Skaidrių rodymas"
+
+#: ../data/eog-preferences-dialog.ui.h:20
+msgid "Smooth images when zoomed-_in"
+msgstr "_Didinant glotninti paveikslėlį"
+
+#: ../data/eog-preferences-dialog.ui.h:21
+msgid "Smooth images when zoomed-_out"
+msgstr "_Mažinant glotninti paveikslėlį"
+
 #: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "sek."
+msgid "Transparent Parts"
+msgstr "Skaidrios dalys"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "_Automatic orientation"
+msgstr "_Automatinis pasukimas"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "_Loop sequence"
+msgstr "_Ciklinė seka"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
@@ -502,28 +511,24 @@ msgstr "Ar paveikslėlių seka turi būti rodoma nesibaigiančiu ciklu."
 msgid "Zoom multiplier"
 msgstr "Mastelio daugiklis"
 
-#: ../src/eog-application.c:122
-msgid "Running in fullscreen mode"
-msgstr "Veikia viso ekrano veiksenoje"
-
-#: ../src/eog-close-confirmation-dialog.c:159
+#: ../src/eog-close-confirmation-dialog.c:171
 msgid "Close _without Saving"
 msgstr "Užverti _neįrašant"
 
-#: ../src/eog-close-confirmation-dialog.c:192
+#: ../src/eog-close-confirmation-dialog.c:217
 msgid "Question"
 msgstr "Klausimas"
 
-#: ../src/eog-close-confirmation-dialog.c:373
+#: ../src/eog-close-confirmation-dialog.c:398
 msgid "If you don't save, your changes will be lost."
 msgstr "Jei neįrašysite, jūsų atlikti pakeitimai bus prarasti."
 
-#: ../src/eog-close-confirmation-dialog.c:408
+#: ../src/eog-close-confirmation-dialog.c:435
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "Įrašyti paveikslėlio „%s“ pakeitimus prieš užveriant?"
 
-#: ../src/eog-close-confirmation-dialog.c:603
+#: ../src/eog-close-confirmation-dialog.c:643
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
@@ -531,12 +536,12 @@ msgstr[0] "Yra %d paveikslėlis, turintis neįrašytų pakeitimų. Įrašyti pak
 msgstr[1] "Yra %d paveikslėliai, turintys neįrašytų pakeitimų. Įrašyti pakeitimus prieš užveriant?"
 msgstr[2] "Yra %d paveikslėlių, turinčių neįrašytų pakeitimų. Įrašyti pakeitimus prieš užveriant?"
 
-#: ../src/eog-close-confirmation-dialog.c:620
+#: ../src/eog-close-confirmation-dialog.c:660
 msgid "S_elect the images you want to save:"
 msgstr "_Pasirinkite paveikslėlius, kuriuos norite įrašyti:"
 
 #. Secondary label
-#: ../src/eog-close-confirmation-dialog.c:638
+#: ../src/eog-close-confirmation-dialog.c:678
 msgid "If you don't save, all your changes will be lost."
 msgstr "Jei neįrašysite, visi jūsų atlikti pakeitimai bus prarasti."
 
@@ -545,8 +550,11 @@ msgid "File format is unknown or unsupported"
 msgstr "Failo formatas nežinomas arba nepalaikomas"
 
 #: ../src/eog-file-chooser.c:131
-msgid "Eye of GNOME could not determine a supported writable file format based on the filename."
-msgstr "Eye of GNOME nepavyko pagal failo vardą nustatyti palaikomo įrašomo failo formato."
+#| msgid ""
+#| "Eye of GNOME could not determine a supported writable file format based "
+#| "on the filename."
+msgid "Image Viewer could not determine a supported writable file format based on the filename."
+msgstr "Paveikslėlių žiūryklei nepavyko pagal failo vardą nustatyti palaikomo įrašomo failo formato."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -589,34 +597,40 @@ msgstr "Įrašyti paveikslėlį"
 msgid "Open Folder"
 msgstr "Atverti aplanką"
 
-#: ../src/eog-image.c:600
+#: ../src/eog-image.c:606
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Neįkelto paveikslėlio transformacija."
 
-#: ../src/eog-image.c:628
+#: ../src/eog-image.c:634
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformuoti nepavyko."
 
-#: ../src/eog-image.c:1055
+#: ../src/eog-image.c:1095
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Šiam failo formatui EXIF nepalaikomas."
 
-#: ../src/eog-image.c:1184
+#: ../src/eog-image.c:1244
 #, c-format
 msgid "Image loading failed."
 msgstr "Nepavyko įkelti paveikslėlio."
 
-#: ../src/eog-image.c:1605
-#: ../src/eog-image.c:1707
+#: ../src/eog-image.c:1717
+#: ../src/eog-image.c:1827
 #, c-format
 msgid "No image loaded."
 msgstr "Neįkeltas joks paveikslėlis."
 
-#: ../src/eog-image.c:1615
-#: ../src/eog-image.c:1719
+#: ../src/eog-image.c:1725
+#: ../src/eog-image.c:1836
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "Jūs neturite reikiamų teisių failo įrašymui."
+
+#: ../src/eog-image.c:1735
+#: ../src/eog-image.c:1847
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Laikino failo sukūrimas nepavyko."
@@ -631,49 +645,71 @@ msgstr "Nepavyko sukurti laikino failo saugojimui: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nepavyko išskirti atminties JPEG failo įkėlimui"
 
-#: ../src/eog-exif-details.c:68
+#: ../src/eog-exif-details.c:69
 msgid "Camera"
 msgstr "Kamera"
 
-#: ../src/eog-exif-details.c:69
+#: ../src/eog-exif-details.c:70
 msgid "Image Data"
 msgstr "Paveikslėlio duomenys"
 
-#: ../src/eog-exif-details.c:70
+#: ../src/eog-exif-details.c:71
 msgid "Image Taking Conditions"
 msgstr "Paveikslėlių darymo sąlygos"
 
-#: ../src/eog-exif-details.c:71
+#: ../src/eog-exif-details.c:72
+msgid "GPS Data"
+msgstr "GPS duomenys"
+
+#: ../src/eog-exif-details.c:73
 msgid "Maker Note"
 msgstr "Kūrėjo pastabos"
 
-#: ../src/eog-exif-details.c:72
+#: ../src/eog-exif-details.c:74
 msgid "Other"
 msgstr "Kita"
 
-#: ../src/eog-exif-details.c:74
+#: ../src/eog-exif-details.c:76
 msgid "XMP Exif"
 msgstr "XMP Exif"
 
-#: ../src/eog-exif-details.c:75
+#: ../src/eog-exif-details.c:77
 msgid "XMP IPTC"
 msgstr "XMP IPTC"
 
-#: ../src/eog-exif-details.c:76
+#: ../src/eog-exif-details.c:78
 msgid "XMP Rights Management"
 msgstr "XMP teisių valdymas"
 
-#: ../src/eog-exif-details.c:77
+#: ../src/eog-exif-details.c:79
 msgid "XMP Other"
 msgstr "XMP kita"
 
-#: ../src/eog-exif-details.c:251
+#: ../src/eog-exif-details.c:253
 msgid "Tag"
 msgstr "Žyma"
 
-#: ../src/eog-exif-details.c:258
+#: ../src/eog-exif-details.c:260
 msgid "Value"
 msgstr "Reikšmė"
+
+#: ../src/eog-exif-details.c:422
+#| msgid "Both"
+msgid "North"
+msgstr "Šiaurė"
+
+#: ../src/eog-exif-details.c:425
+msgid "East"
+msgstr "Rytai"
+
+#: ../src/eog-exif-details.c:428
+msgid "West"
+msgstr "Vakarai"
+
+#: ../src/eog-exif-details.c:431
+#| msgid "Both"
+msgid "South"
+msgstr "Pietūs"
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:118
@@ -686,21 +722,37 @@ msgstr "%Y %B %d (%a) %X"
 msgid "%a, %d %B %Y"
 msgstr "%Y %B %d (%a)"
 
-#: ../src/eog-error-message-area.c:107
-msgid "_Retry"
-msgstr "_Kartoti"
+#: ../src/eog-error-message-area.c:119
+msgid "_Cancel"
+msgstr "_Atsisakyti"
 
-#: ../src/eog-error-message-area.c:150
+#: ../src/eog-error-message-area.c:124
+#: ../src/eog-window.c:825
+msgid "_Reload"
+msgstr "Įkelti iš _naujo"
+
+#: ../src/eog-error-message-area.c:129
+#: ../src/eog-window.c:3842
+msgid "Save _As…"
+msgstr "Įrašyti k_aip…"
+
+#: ../src/eog-error-message-area.c:171
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "Nepavyko įkelti paveikslėlio „%s“."
 
-#: ../src/eog-error-message-area.c:192
+#: ../src/eog-error-message-area.c:213
+#, c-format
+#| msgid "Could not load image '%s'."
+msgid "Could not save image '%s'."
+msgstr "Nepavyko įrašyti paveikslėlio „%s“."
+
+#: ../src/eog-error-message-area.c:256
 #, c-format
 msgid "No images found in '%s'."
 msgstr "„%s“ paveikslėlių nerasta."
 
-#: ../src/eog-error-message-area.c:199
+#: ../src/eog-error-message-area.c:263
 msgid "The given locations contain no images."
 msgstr "Nurodytose vietose paveikslėlių nėra."
 
@@ -829,7 +881,7 @@ msgstr "kaip yra"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:126
+#: ../src/eog-statusbar.c:124
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
@@ -844,8 +896,9 @@ msgid "At least two file names are equal."
 msgstr "Mažiausiai du failų pavadinimai yra vienodi."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Nepavyko parodyti Eye of GNOME žinyno"
+#| msgid "Could not display help for Eye of GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "Nepavyko parodyti paveikslėlių žiūryklės žinyno"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -857,7 +910,7 @@ msgstr " (netaisyklingas unikodas)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:531
+#: ../src/eog-window.c:525
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -865,19 +918,15 @@ msgstr[0] "%i × %i taško  %s    %i%%"
 msgstr[1] "%i × %i taškų  %s    %i%%"
 msgstr[2] "%i × %i taškų  %s    %i%%"
 
-#: ../src/eog-window.c:831
-msgid "_Reload"
-msgstr "Įkelti iš _naujo"
-
-#: ../src/eog-window.c:833
-#: ../src/eog-window.c:2706
+#: ../src/eog-window.c:827
+#: ../src/eog-window.c:2784
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Slėpti"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:843
+#: ../src/eog-window.c:837
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -886,7 +935,7 @@ msgstr ""
 "Paveikslėlis „%s“ buvo pakeistas išorinės programos.\n"
 "Ar norite jį įkelti iš naujo?"
 
-#: ../src/eog-window.c:1007
+#: ../src/eog-window.c:1001
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Atidaryti pasirinktą paveikslėlį su „%s“"
@@ -896,12 +945,12 @@ msgstr "Atidaryti pasirinktą paveikslėlį su „%s“"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1163
+#: ../src/eog-window.c:1157
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Įrašomas paveikslėlis „%s“ (%u/%u)"
 
-#: ../src/eog-window.c:1516
+#: ../src/eog-window.c:1528
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Atveriamas paveikslėlis „%s“"
@@ -915,15 +964,15 @@ msgstr ""
 "Klaida spausdintant failą:\n"
 "%s"
 
-#: ../src/eog-window.c:2467
+#: ../src/eog-window.c:2523
 msgid "Toolbar Editor"
 msgstr "Įrankinės redaktorius"
 
-#: ../src/eog-window.c:2470
+#: ../src/eog-window.c:2526
 msgid "_Reset to Default"
 msgstr "_Atkurti numatytuosius"
 
-#: ../src/eog-window.c:2556
+#: ../src/eog-window.c:2631
 msgid "translator-credits"
 msgstr ""
 "Paskutinysis vertėjas:\n"
@@ -933,28 +982,24 @@ msgstr ""
 "Justina Klingaitė <justina.klingaite@gmail.com>,\n"
 "Gediminas Paulauskas <menesis@chatsubo.lt>"
 
-#: ../src/eog-window.c:2561
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
-
-#: ../src/eog-window.c:2564
+#: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
 msgstr "GNOME paveikslėlių peržiūros programa."
 
-#: ../src/eog-window.c:2656
-#: ../src/eog-window.c:2671
+#: ../src/eog-window.c:2731
+#: ../src/eog-window.c:2746
 msgid "Error launching System Settings: "
 msgstr "Klaida atveriant sistemos nustatymus:"
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2704
+#: ../src/eog-window.c:2782
 msgid "_Open Background Preferences"
 msgstr "_Atverti fono nustatymus"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2720
+#: ../src/eog-window.c:2798
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -963,11 +1008,11 @@ msgstr ""
 "Paveikslėlis „%s“ nustatytas kaip darbastalio fonas.\n"
 "Ar norite pakeisti jo išvaizdą?"
 
-#: ../src/eog-window.c:3112
+#: ../src/eog-window.c:3271
 msgid "Saving image locally…"
 msgstr "Paveikslėlis įrašomas vietiniame diske…"
 
-#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3351
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -976,12 +1021,12 @@ msgstr ""
 "Ar tikrai norite perkelti\n"
 "„%s“ į šiukšlinę?"
 
-#: ../src/eog-window.c:3195
+#: ../src/eog-window.c:3354
 #, c-format
 msgid "A trash for \"%s\" couldn't be found. Do you want to remove this image permanently?"
 msgstr "„%s“ šiukšlinė nerasta. Ar norite šį paveikslėlį ištrinti negrįžtamai?"
 
-#: ../src/eog-window.c:3200
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -999,450 +1044,487 @@ msgstr[2] ""
 "Ar tikrai norite perkelti %d pasirinktų\n"
 "paveikslėlių į šiukšlinę?"
 
-#: ../src/eog-window.c:3205
+#: ../src/eog-window.c:3364
 msgid "Some of the selected images can't be moved to the trash and will be removed permanently. Are you sure you want to proceed?"
 msgstr "Kai kurių pasirinktų paveikslėlių negalima perkelti į šiukšlinę, tad jie bus ištrinti negrįžtamai. Ar tikrai norite tęsti?"
 
-#: ../src/eog-window.c:3222
-#: ../src/eog-window.c:3710
-#: ../src/eog-window.c:3734
+#: ../src/eog-window.c:3381
+#: ../src/eog-window.c:3872
+#: ../src/eog-window.c:3896
 msgid "Move to _Trash"
 msgstr "Perkelti į ši_ukšlinę"
 
-#: ../src/eog-window.c:3224
+#: ../src/eog-window.c:3383
 msgid "_Do not ask again during this session"
 msgstr "_Daugiau neklausti šio seanso metu"
 
-#: ../src/eog-window.c:3269
-#: ../src/eog-window.c:3283
+#: ../src/eog-window.c:3428
+#: ../src/eog-window.c:3442
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Nepavyko gauti prieigos prie šiukšlinės."
 
-#: ../src/eog-window.c:3291
+#: ../src/eog-window.c:3450
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Nepavyko ištrinti failo"
 
-#: ../src/eog-window.c:3387
+#: ../src/eog-window.c:3546
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Trinant paveikslėlį %s įvyko klaida"
 
-#: ../src/eog-window.c:3634
+#: ../src/eog-window.c:3793
 msgid "_Image"
 msgstr "_Paveikslėlis"
 
-#: ../src/eog-window.c:3635
+#: ../src/eog-window.c:3794
 msgid "_Edit"
 msgstr "_Taisa"
 
-#: ../src/eog-window.c:3636
+#: ../src/eog-window.c:3795
 msgid "_View"
 msgstr "R_odymas"
 
-#: ../src/eog-window.c:3637
+#: ../src/eog-window.c:3796
 msgid "_Go"
 msgstr "_Eiti"
 
-#: ../src/eog-window.c:3638
+#: ../src/eog-window.c:3797
 msgid "_Tools"
 msgstr "Įran_kiai"
 
-#: ../src/eog-window.c:3639
+#: ../src/eog-window.c:3798
 msgid "_Help"
 msgstr "_Žinynas"
 
-#: ../src/eog-window.c:3641
+#: ../src/eog-window.c:3800
 msgid "_Open…"
 msgstr "_Atverti…"
 
-#: ../src/eog-window.c:3642
+#: ../src/eog-window.c:3801
 msgid "Open a file"
 msgstr "Atverti failą"
 
-#: ../src/eog-window.c:3644
+#: ../src/eog-window.c:3803
 msgid "_Close"
 msgstr "_Užverti"
 
-#: ../src/eog-window.c:3645
+#: ../src/eog-window.c:3804
 msgid "Close window"
 msgstr "Užverti langą"
 
-#: ../src/eog-window.c:3647
+#: ../src/eog-window.c:3806
 msgid "T_oolbar"
 msgstr "Į_rankinė"
 
-#: ../src/eog-window.c:3648
+#: ../src/eog-window.c:3807
 msgid "Edit the application toolbar"
 msgstr "Keisti programos įrankinę"
 
-#: ../src/eog-window.c:3650
+#: ../src/eog-window.c:3809
 msgid "Prefere_nces"
 msgstr "_Nustatymai"
 
-#: ../src/eog-window.c:3651
-msgid "Preferences for Eye of GNOME"
-msgstr "Eye of GNOME nustatymai"
+#: ../src/eog-window.c:3810
+#| msgid "Preferences for Eye of GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "Paveikslėlių žiūryklės nustatymai"
 
-#: ../src/eog-window.c:3653
+#: ../src/eog-window.c:3812
 msgid "_Contents"
 msgstr "_Turinys"
 
-#: ../src/eog-window.c:3654
+#: ../src/eog-window.c:3813
 msgid "Help on this application"
 msgstr "Šios programos žinynas"
 
-#: ../src/eog-window.c:3656
+#: ../src/eog-window.c:3815
 msgid "_About"
 msgstr "_Apie"
 
-#: ../src/eog-window.c:3657
+#: ../src/eog-window.c:3816
 msgid "About this application"
 msgstr "Apie šią programą"
 
-#: ../src/eog-window.c:3662
+#: ../src/eog-window.c:3821
 msgid "_Toolbar"
 msgstr "Į_rankinė"
 
-#: ../src/eog-window.c:3663
+#: ../src/eog-window.c:3822
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Keičia įrankinės esamame lange matomumą"
 
-#: ../src/eog-window.c:3665
+#: ../src/eog-window.c:3824
 msgid "_Statusbar"
 msgstr "_Būsenos juosta"
 
-#: ../src/eog-window.c:3666
+#: ../src/eog-window.c:3825
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Keičia būsenos juostos esamame lange matomumą"
 
-#: ../src/eog-window.c:3668
+#: ../src/eog-window.c:3827
 msgid "_Image Gallery"
 msgstr "_Paveikslėlių galerija"
 
-#: ../src/eog-window.c:3669
+#: ../src/eog-window.c:3828
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Keičia esamo lango paveikslėlių kolekcijos skydelio matomumą"
 
-#: ../src/eog-window.c:3671
+#: ../src/eog-window.c:3830
 msgid "Side _Pane"
 msgstr "Šoninis _polangis"
 
-#: ../src/eog-window.c:3672
+#: ../src/eog-window.c:3831
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Keičia esamo lango šoninio polangio matomumą"
 
-#: ../src/eog-window.c:3677
+#: ../src/eog-window.c:3836
 msgid "_Save"
 msgstr "Į_rašyti"
 
-#: ../src/eog-window.c:3678
+#: ../src/eog-window.c:3837
 msgid "Save changes in currently selected images"
 msgstr "Įrašyti pažymėtų paveikslėlių pakeitimus"
 
-#: ../src/eog-window.c:3680
+#: ../src/eog-window.c:3839
 msgid "Open _with"
 msgstr "Atverti _su"
 
-#: ../src/eog-window.c:3681
+#: ../src/eog-window.c:3840
 msgid "Open the selected image with a different application"
 msgstr "Atverti pažymėtą paveikslėlį su kita programa"
 
-#: ../src/eog-window.c:3683
-msgid "Save _As…"
-msgstr "Įrašyti k_aip…"
-
-#: ../src/eog-window.c:3684
+#: ../src/eog-window.c:3843
 msgid "Save the selected images with a different name"
 msgstr "Įrašyti pažymėtus paveikslėlius kitu vardu"
 
-#: ../src/eog-window.c:3686
+#: ../src/eog-window.c:3845
+msgid "Show Containing _Folder"
+msgstr "Rodyti _aplanką"
+
+#: ../src/eog-window.c:3846
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Rodyti failų tvarkyklėje aplanką, kuriame yra šis failas"
+
+#: ../src/eog-window.c:3848
 msgid "_Print…"
 msgstr "S_pausdinti…"
 
-#: ../src/eog-window.c:3687
+#: ../src/eog-window.c:3849
 msgid "Print the selected image"
 msgstr "Spausdinti pažymėtą paveikslėlį"
 
-#: ../src/eog-window.c:3689
+#: ../src/eog-window.c:3851
 msgid "Prope_rties"
 msgstr "Sa_vybės"
 
-#: ../src/eog-window.c:3690
+#: ../src/eog-window.c:3852
 msgid "Show the properties and metadata of the selected image"
 msgstr "Rodyti pasirinkto paveikslėlio savybes ir metaduomenis"
 
-#: ../src/eog-window.c:3692
+#: ../src/eog-window.c:3854
 msgid "_Undo"
 msgstr "_Atšaukti"
 
-#: ../src/eog-window.c:3693
+#: ../src/eog-window.c:3855
 msgid "Undo the last change in the image"
 msgstr "Atšaukti paskutinį paveikslėlio pakeitimą"
 
-#: ../src/eog-window.c:3695
+#: ../src/eog-window.c:3857
 msgid "Flip _Horizontal"
 msgstr "Apversti _horizontaliai"
 
-#: ../src/eog-window.c:3696
+#: ../src/eog-window.c:3858
 msgid "Mirror the image horizontally"
 msgstr "Atspindėti paveikslėlį horizontaliai"
 
-#: ../src/eog-window.c:3698
+#: ../src/eog-window.c:3860
 msgid "Flip _Vertical"
 msgstr "Apversti _vertikaliai"
 
-#: ../src/eog-window.c:3699
+#: ../src/eog-window.c:3861
 msgid "Mirror the image vertically"
 msgstr "Atspindėti paveikslėlį vertikaliai"
 
-#: ../src/eog-window.c:3701
+#: ../src/eog-window.c:3863
 msgid "_Rotate Clockwise"
 msgstr "Pasukti pagal laik_rodžio rodyklę"
 
-#: ../src/eog-window.c:3702
+#: ../src/eog-window.c:3864
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Pasukti paveikslėlį 90 laipsnių į dešinę"
 
-#: ../src/eog-window.c:3704
+#: ../src/eog-window.c:3866
 msgid "Rotate Counterc_lockwise"
 msgstr "Pasukti prieš _laikrodžio rodyklę"
 
-#: ../src/eog-window.c:3705
+#: ../src/eog-window.c:3867
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Pasukti paveikslėlį 90 laipsnių į kairę"
 
-#: ../src/eog-window.c:3707
+#: ../src/eog-window.c:3869
 msgid "Set as _Desktop Background"
 msgstr "Nustatyti kaip _darbastalio foną"
 
-#: ../src/eog-window.c:3708
+#: ../src/eog-window.c:3870
 msgid "Set the selected image as the desktop background"
 msgstr "Nustatyti pasirinktą paveikslėlį kaip darbastalio foną"
 
-#: ../src/eog-window.c:3711
+#: ../src/eog-window.c:3873
 msgid "Move the selected image to the trash folder"
 msgstr "Perkelti pasirinktą paveikslėlį į šiukšlinę"
 
-#: ../src/eog-window.c:3713
+#: ../src/eog-window.c:3875
 msgid "_Copy"
 msgstr "_Kopijuoti:"
 
-#: ../src/eog-window.c:3714
+#: ../src/eog-window.c:3876
 msgid "Copy the selected image to the clipboard"
 msgstr "Kopijuoti pasirinktą elementą į iškarpinę"
 
-#: ../src/eog-window.c:3716
-#: ../src/eog-window.c:3725
-#: ../src/eog-window.c:3728
+#: ../src/eog-window.c:3878
+#: ../src/eog-window.c:3887
+#: ../src/eog-window.c:3890
 msgid "_Zoom In"
 msgstr "_Didinti"
 
-#: ../src/eog-window.c:3717
-#: ../src/eog-window.c:3726
+#: ../src/eog-window.c:3879
+#: ../src/eog-window.c:3888
 msgid "Enlarge the image"
 msgstr "Padidinti paveikslėlį"
 
-#: ../src/eog-window.c:3719
-#: ../src/eog-window.c:3731
+#: ../src/eog-window.c:3881
+#: ../src/eog-window.c:3893
 msgid "Zoom _Out"
 msgstr "_Mažinti"
 
-#: ../src/eog-window.c:3720
-#: ../src/eog-window.c:3729
-#: ../src/eog-window.c:3732
+#: ../src/eog-window.c:3882
+#: ../src/eog-window.c:3891
+#: ../src/eog-window.c:3894
 msgid "Shrink the image"
 msgstr "Sumažinti paveikslėlį"
 
-#: ../src/eog-window.c:3722
+#: ../src/eog-window.c:3884
 msgid "_Normal Size"
 msgstr "_Normalus dydis"
 
-#: ../src/eog-window.c:3723
+#: ../src/eog-window.c:3885
 msgid "Show the image at its normal size"
 msgstr "Rodyti paveikslėlį normaliu dydžiu"
 
-#: ../src/eog-window.c:3740
+#: ../src/eog-window.c:3902
 msgid "_Fullscreen"
 msgstr "_Visame ekrane"
 
-#: ../src/eog-window.c:3741
+#: ../src/eog-window.c:3903
 msgid "Show the current image in fullscreen mode"
 msgstr "Rodyti pasirinktą paveikslėlį viso ekrano veiksenoje"
 
-#: ../src/eog-window.c:3743
+#: ../src/eog-window.c:3905
 msgid "Pause Slideshow"
 msgstr "Stabdyti skaidrių rodymas"
 
-#: ../src/eog-window.c:3744
+#: ../src/eog-window.c:3906
 msgid "Pause or resume the slideshow"
 msgstr "Stabdyti arba pratęsti skaidrių rodymą"
 
-#: ../src/eog-window.c:3746
-msgid "Best _Fit"
-msgstr "Geriausiai _tinka"
+#: ../src/eog-window.c:3908
+#| msgid "Best _Fit"
+msgid "_Best Fit"
+msgstr "Geriausiai _tinkantis"
 
-#: ../src/eog-window.c:3747
+#: ../src/eog-window.c:3909
 msgid "Fit the image to the window"
 msgstr "Pritaikyti paveikslėlio dydį langui"
 
-#: ../src/eog-window.c:3752
-#: ../src/eog-window.c:3767
+#: ../src/eog-window.c:3914
+#: ../src/eog-window.c:3929
 msgid "_Previous Image"
 msgstr "_Ankstesnis paveikslėlis"
 
-#: ../src/eog-window.c:3753
+#: ../src/eog-window.c:3915
 msgid "Go to the previous image of the gallery"
 msgstr "Rodyti ankstesnį rinkinio paveikslėlį"
 
-#: ../src/eog-window.c:3755
+#: ../src/eog-window.c:3917
 msgid "_Next Image"
 msgstr "_Kitas paveikslėlis"
 
-#: ../src/eog-window.c:3756
+#: ../src/eog-window.c:3918
 msgid "Go to the next image of the gallery"
 msgstr "Rodyti kitą rinkinio paveikslėlį"
 
-#: ../src/eog-window.c:3758
-#: ../src/eog-window.c:3770
+#: ../src/eog-window.c:3920
+#: ../src/eog-window.c:3932
 msgid "_First Image"
 msgstr "_Pirmas paveikslėlis"
 
-#: ../src/eog-window.c:3759
+#: ../src/eog-window.c:3921
 msgid "Go to the first image of the gallery"
 msgstr "Rodyti pirmąjį rinkinio paveikslėlį"
 
-#: ../src/eog-window.c:3761
-#: ../src/eog-window.c:3773
+#: ../src/eog-window.c:3923
+#: ../src/eog-window.c:3935
 msgid "_Last Image"
 msgstr "Pas_kutinis paveikslėlis"
 
-#: ../src/eog-window.c:3762
+#: ../src/eog-window.c:3924
 msgid "Go to the last image of the gallery"
 msgstr "Rodyti paskutinį rinkinio paveikslėlį"
 
-#: ../src/eog-window.c:3764
+#: ../src/eog-window.c:3926
 msgid "_Random Image"
 msgstr "_Atsitiktinis paveikslėlis"
 
-#: ../src/eog-window.c:3765
+#: ../src/eog-window.c:3927
 msgid "Go to a random image of the gallery"
 msgstr "Rodyti atsitiktinį rinkinio paveikslėlį"
 
-#: ../src/eog-window.c:3779
-msgid "_Slideshow"
-msgstr "_Skaidrių rodymas"
+#: ../src/eog-window.c:3941
+#| msgid "Slideshow"
+msgid "S_lideshow"
+msgstr "Skaidrių _rodymas"
 
-#: ../src/eog-window.c:3780
+#: ../src/eog-window.c:3942
 msgid "Start a slideshow view of the images"
 msgstr "Rodyti paveikslėlius kaip skaidres"
 
-#: ../src/eog-window.c:3846
+#: ../src/eog-window.c:4008
 msgid "Previous"
 msgstr "Ankstesnis"
 
-#: ../src/eog-window.c:3850
+#: ../src/eog-window.c:4012
 msgid "Next"
 msgstr "Kitas"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:4016
 msgid "Right"
 msgstr "Dešinėn"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:4019
 msgid "Left"
 msgstr "Kairėn"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:4022
+#| msgid "Open Folder"
+msgid "Show Folder"
+msgstr "Rodyti aplanką"
+
+#: ../src/eog-window.c:4025
 msgid "In"
 msgstr "Didinti"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:4028
 msgid "Out"
 msgstr "Mažinti"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:4031
 msgid "Normal"
 msgstr "Normalus"
 
-#: ../src/eog-window.c:3869
+#: ../src/eog-window.c:4034
 msgid "Fit"
 msgstr "Taikyti"
 
-#: ../src/eog-window.c:3872
+#: ../src/eog-window.c:4037
 msgid "Gallery"
 msgstr "Galerija"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:4040
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Perkelti į šiukšlinę"
 
-#: ../src/eog-window.c:4223
+#: ../src/eog-window.c:4408
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Redaguoti dabartinį paveikslėlį naudojant %s"
 
-#: ../src/eog-window.c:4225
+#: ../src/eog-window.c:4410
 msgid "Edit Image"
 msgstr "Redaguoti paveikslėlį"
 
-#: ../src/main.c:69
-#: ../src/main.c:254
-msgid "Eye of GNOME Image Viewer"
-msgstr "Paveikslėlių peržiūros programa „Eye of GNOME“"
+#: ../src/main.c:63
+#| msgid "Eye of GNOME Image Viewer"
+msgid "GNOME Image Viewer"
+msgstr "GNOME paveikslėlių žiūryklė"
 
-#: ../src/main.c:76
+#: ../src/main.c:70
 msgid "Open in fullscreen mode"
 msgstr "Atverti viso ekrano veiksenoje"
 
-#: ../src/main.c:77
+#: ../src/main.c:71
 msgid "Disable image gallery"
 msgstr "Išjungti paveikslėlių kolekciją"
 
-#: ../src/main.c:78
+#: ../src/main.c:72
 msgid "Open in slideshow mode"
 msgstr "Atverti skaidrių rodymo veiksenoje"
 
-#: ../src/main.c:80
+#: ../src/main.c:73
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Paleisti naują egzempliorių užuot naudojus jau paleistą"
 
-#: ../src/main.c:83
+#: ../src/main.c:75
 msgid "Show the application's version"
 msgstr "Rodyti programos versiją"
 
-#: ../src/main.c:84
+#: ../src/main.c:108
 msgid "[FILE…]"
 msgstr "[FAILAS…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:214
+#: ../src/main.c:121
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite „%s --help“."
 
+#~ msgid "Eye of GNOME Preferences"
+#~ msgstr "Eye of GNOME nustatymai"
+
+#~ msgid "Running in fullscreen mode"
+#~ msgstr "Veikia viso ekrano veiksenoje"
+
+#~ msgid "_Retry"
+#~ msgstr "_Kartoti"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "Eye of GNOME"
+
+#~ msgid "_Slideshow"
+#~ msgstr "_Skaidrių rodymas"
+
 #~ msgid "All Images"
 #~ msgstr "Visi paveikslėliai"
+
 #~ msgid "Plugin"
 #~ msgstr "Įskiepis"
+
 #~ msgid "Enabled"
 #~ msgstr "Įjungtas"
+
 #~ msgid "C_onfigure"
 #~ msgstr "K_onfigūruoti"
+
 #~ msgid "A_ctivate"
 #~ msgstr "Įj_ungti"
+
 #~ msgid "Ac_tivate All"
 #~ msgstr "Į_jungti visus"
+
 #~ msgid "_Deactivate All"
 #~ msgstr "Išjun_gti visus"
+
 #~ msgid "Active _Plugins:"
 #~ msgstr "Aktyvūs įs_kiepiai:"
+
 #~ msgid "_About Plugin"
 #~ msgstr "_Apie įskiepį"
+
 #~ msgid "C_onfigure Plugin"
 #~ msgstr "K_onfigūruoti įskiepį"
+
 #~ msgid ""
 #~ "This program is free software; you can redistribute it and/or modify it "
 #~ "under the terms of the GNU General Public License as published by the "
@@ -1453,6 +1535,7 @@ msgstr "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite �
 #~ "modifikuoti GNU Bendrosios Viešosios Licencijos sąlygomis, paskelbtomis "
 #~ "Laisvosios Programinės Įrangos Fondo; 2-osios arba (jūsų pasirinkimu) bet "
 #~ "kurios vėlesnės licencijos versijos sąlygomis.\n"
+
 #~ msgid ""
 #~ "This program is distributed in the hope that it will be useful, but "
 #~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
@@ -1463,6 +1546,7 @@ msgstr "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite �
 #~ "NESUTEIKIANT JOKIŲ GARANTIJŲ; netgi numanomų PARDAVIMO arba TINKAMUMO TAM "
 #~ "TIKRAM TIKSLUI garantijų. Išsamesnę informaciją rasite GNU Bendrojoje "
 #~ "Viešojoje licencijoje.\n"
+
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
 #~ "with this program; if not, write to the Free Software Foundation, Inc., "
@@ -1471,43 +1555,59 @@ msgstr "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite �
 #~ "Turėjote gauti GNU Bendrosios Viešosios licencijos kopiją kartu su šia "
 #~ "programa. Jeigu negavote, rašykite Free Software Foundation, Inc., 59 "
 #~ "Temple Place, Suite 330, Boston, MA  02111-1307  USA."
+
 #~ msgid "Collection"
 #~ msgstr "Kolekcija"
+
 #~ msgid "Load Image"
 #~ msgstr "Įkelti paveikslėlį"
+
 #~ msgid "_File"
 #~ msgstr "_Failas"
+
 #~ msgid "Set up the page properties for printing"
 #~ msgstr "Nustatyti puslapio savybes spausdinimui"
+
 #~ msgid "<b>Details</b>"
 #~ msgstr "<b>Išsami informacija</b>"
+
 #~ msgid "<b>Height:</b>"
 #~ msgstr "<b>Aukštis:</b>"
+
 #~ msgid "<b>Name:</b>"
 #~ msgstr "<b>Pavadinimas:</b>"
+
 #~ msgid "<b>Type:</b>"
 #~ msgstr "<b>Tipas:</b>"
+
 #~ msgid "<b>Width:</b>"
 #~ msgstr "<b>Plotis:</b>"
+
 #~ msgid "Save _As..."
 #~ msgstr "Įrašyti _kaip..."
+
 #~ msgid "Open with \"%s\""
 #~ msgstr "Atverti su „%s“"
+
 #~ msgid "Move to Trash"
 #~ msgstr "Perkelti į šiukšlinę"
+
 #~ msgid "Only local images can be used as wallpapers"
 #~ msgstr ""
 #~ "Tik vietinis paveikslėlis gali būti naudojamas kaip darbastalio fonas"
+
 #~ msgid ""
 #~ "To be able to set this image as your wallpaper, please save it locally in "
 #~ "your computer"
 #~ msgstr ""
 #~ "Norėdami padaryti šį paveikslėlį darbastalio fonu, įrašykite jį savo "
 #~ "kompiuteryje."
+
 #~ msgid "Page Set_up..."
 #~ msgstr "Puslapio są_ranka..."
+
 #~ msgid "Set As _Wallpaper"
 #~ msgstr "Padaryti _darbastalio fonu"
+
 #~ msgid "File exists"
 #~ msgstr "Failas egzistuoja"
-
