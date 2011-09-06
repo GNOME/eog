@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-22 04:52+0000\n"
-"PO-Revision-Date: 2011-08-31 17:12+0330\n"
+"POT-Creation-Date: 2011-09-05 20:53+0000\n"
+"PO-Revision-Date: 2011-09-06 12:16+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,6 +97,8 @@ msgid "Browse and rotate images"
 msgstr "مرور و چرخاندن تصویر"
 
 #: ../data/eog.desktop.in.in.h:2
+#: ../src/eog-window.c:2636
+#: ../src/main.c:152
 msgid "Image Viewer"
 msgstr "نمایشگر تصویر"
 
@@ -284,60 +286,67 @@ msgid "E_xpand images to fit screen"
 msgstr "تصویر‌ها _کشیده شوند تا با صفحه‌نمایش جور شوند"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "ترجیحات چشم گنوم"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "بهبود تصویر"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "نمایش تصویر"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "بزرگ‌نمایی تصویر"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
-msgid "Sequence"
-msgstr "دنباله"
+#| msgid "seconds"
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "ثانیه"
 
-#: ../data/eog-preferences-dialog.ui.h:15
-msgid "Slideshow"
-msgstr "نمایش اسلایدی"
-
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:16
-msgid "Smooth images when zoomed-_in"
-msgstr "هموار کردن تصویرها هنگام _بزرگنمایی"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-msgid "Smooth images when zoomed-_out"
-msgstr "هموار کردن تصویرها هنگام _کوچک‌نمایی"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Transparent Parts"
-msgstr "قسمت‌های شفاف"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "_Automatic orientation"
-msgstr "جهت‌یابی _خودکار"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "_Loop sequence"
-msgstr "_تکرار دنباله"
-
-#: ../data/eog-preferences-dialog.ui.h:21
+#| msgid "_Switch image after:"
+msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "ت_عویض تصویر پس از:"
 
+#: ../data/eog-preferences-dialog.ui.h:17
+#| msgid "Prefere_nces"
+msgid "Preferences"
+msgstr "ترجیحات"
+
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Sequence"
+msgstr "دنباله"
+
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "Slideshow"
+msgstr "نمایش اسلایدی"
+
+#: ../data/eog-preferences-dialog.ui.h:20
+msgid "Smooth images when zoomed-_in"
+msgstr "هموار کردن تصویرها هنگام _بزرگنمایی"
+
+#: ../data/eog-preferences-dialog.ui.h:21
+msgid "Smooth images when zoomed-_out"
+msgstr "هموار کردن تصویرها هنگام _کوچک‌نمایی"
+
 #: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "ثانیه"
+msgid "Transparent Parts"
+msgstr "قسمت‌های شفاف"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "_Automatic orientation"
+msgstr "جهت‌یابی _خودکار"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "_Loop sequence"
+msgstr "_تکرار دنباله"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
@@ -542,8 +551,11 @@ msgid "File format is unknown or unsupported"
 msgstr "قالب پرونده ناشناخته یا پشتیبانی نشده است"
 
 #: ../src/eog-file-chooser.c:131
-msgid "Eye of GNOME could not determine a supported writable file format based on the filename."
-msgstr "چشم گنوم نتوانست براساس نام پرونده، قالب قابل نوشتن پشتیبانی شده‌ای را تعیین کند."
+#| msgid ""
+#| "Eye of GNOME could not determine a supported writable file format based "
+#| "on the filename."
+msgid "Image Viewer could not determine a supported writable file format based on the filename."
+msgstr "نمایشگر تصویر نتوانست براساس نام پرونده، قالب قابل نوشتن پشتیبانی شده‌ای را تعیین کند."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -681,7 +693,6 @@ msgid "Value"
 msgstr "مقدار"
 
 #: ../src/eog-exif-details.c:422
-#| msgid "Both"
 msgid "North"
 msgstr "شمال"
 
@@ -694,7 +705,6 @@ msgid "West"
 msgstr "غرب"
 
 #: ../src/eog-exif-details.c:431
-#| msgid "Both"
 msgid "South"
 msgstr "جنوب"
 
@@ -710,7 +720,6 @@ msgid "%a, %d %B %Y"
 msgstr "%a, Od% %B OY%"
 
 #: ../src/eog-error-message-area.c:119
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "_لغو"
 
@@ -731,7 +740,6 @@ msgstr "تصویر «%s» بار نشد."
 
 #: ../src/eog-error-message-area.c:213
 #, c-format
-#| msgid "Could not load image '%s'."
 msgid "Could not save image '%s'."
 msgstr "تصویر «%s» را نمی‌توان ذخیره کرد."
 
@@ -884,8 +892,9 @@ msgid "At least two file names are equal."
 msgstr "دست کم دو پرونده همنام هستند."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "نمایش راهنمای چشم گنوم ممکن نبود"
+#| msgid "Could not display help for Eye of GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "نمایش راهنمای نمایشگر تصویر ممکن نبود"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -966,10 +975,6 @@ msgstr ""
 "میلاد زکریا <meelad@farsiweb.info>\n"
 "الناز سربر <elnaz@farsiweb.info>\n"
 "آرش موسوی <mousavi.arash@gmail.com>"
-
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "چشم گنوم"
 
 #: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
@@ -1110,8 +1115,9 @@ msgid "Prefere_nces"
 msgstr "ترجی_حات"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "ترجیحات چشم گنوم"
+#| msgid "Preferences for Eye of GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "ترجیحات نمایشگر تصویر"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1387,7 +1393,6 @@ msgid "Left"
 msgstr "چپ"
 
 #: ../src/eog-window.c:4022
-#| msgid "Open Folder"
 msgid "Show Folder"
 msgstr "نمایش پوشه"
 
@@ -1426,9 +1431,9 @@ msgid "Edit Image"
 msgstr "ویرایش تصویر"
 
 #: ../src/main.c:63
-#: ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "نمایشگر تصویر «چشم گنوم»"
+#| msgid "Eye of GNOME Image Viewer"
+msgid "GNOME Image Viewer"
+msgstr "نمایشگر تصویر گنوم"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
@@ -1459,6 +1464,12 @@ msgstr "[FILE…]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "فرمان «%s --help» را برای رویت لیست کامل گزینه‌های خط فرمان اجرا کنید."
+
+#~ msgid "Eye of GNOME Preferences"
+#~ msgstr "ترجیحات چشم گنوم"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "چشم گنوم"
 
 #~ msgid "Running in fullscreen mode"
 #~ msgstr "در حال اجرا در حالت تمام‌صفحه"
