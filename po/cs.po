@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-03 15:39+0000\n"
-"PO-Revision-Date: 2011-07-18 21:22+0200\n"
+"POT-Creation-Date: 2011-09-05 20:53+0000\n"
+"PO-Revision-Date: 2011-09-08 08:07+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr "Zobrazuje datum obrázku ve stavové liště okna"
 msgid "Browse and rotate images"
 msgstr "Procházení a otáčení obrázků"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Prohlížeč obrázků"
 
@@ -290,36 +290,37 @@ msgid "E_xpand images to fit screen"
 msgstr "_Roztáhnout obrázky podle obrazovky"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Předvolby Eye of GNOME"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "Vylepšení obrázku"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "Zobrazení obrázku"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "Přiblížení obrázku"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:14
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
 msgstr "sekundách"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:16
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "_Přepnout obrázek po:"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+#| msgid "Prefere_nces"
+msgid "Preferences"
+msgstr "Předvolby"
 
 #: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
@@ -646,12 +647,15 @@ msgid "File format is unknown or unsupported"
 msgstr "Formát souboru je neznámý nebo nepodporovaný"
 
 #: ../src/eog-file-chooser.c:131
+#| msgid ""
+#| "Eye of GNOME could not determine a supported writable file format based "
+#| "on the filename."
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"Program Eye of GNOME nemohl stanovit podporovaný zapisovatelný formát "
-"souboru v závislosti na názvu souboru."
+"Prohlížeč obrázků nemohl podle názvu souboru určit podporovaný formát "
+"souboru pro zápis."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -982,8 +986,9 @@ msgid "At least two file names are equal."
 msgstr "Názvy alespoň dvou souborů jsou stejné."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Nelze zobrazit nápovědu pro Eye of GNOME"
+#| msgid "Could not display help for Eye of GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "Nelze zobrazit nápovědu pro prohlížeč obrázků"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1069,10 +1074,6 @@ msgstr ""
 "Petr Kovář <pknbe@volny.cz>\n"
 "Adrian Guniš <andygun696@gmail.com>\n"
 "Marek Černocký <marek@manet.cz>"
-
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
 
 #: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
@@ -1222,8 +1223,9 @@ msgid "Prefere_nces"
 msgstr "_Předvolby"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "Předvolby Eye of GNOME"
+#| msgid "Preferences for Eye of GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "Předvolby pro prohlížeč obrázků"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1527,9 +1529,10 @@ msgstr "Upravit aktuální obrázek pomocí %s"
 msgid "Edit Image"
 msgstr "Upravit obrázek"
 
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "Prohlížeč obrázků Eye of GNOME"
+#: ../src/main.c:63
+#| msgid "Eye of GNOME Image Viewer"
+msgid "GNOME Image Viewer"
+msgstr "Prohlížeč obrázků pro GNOME"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
