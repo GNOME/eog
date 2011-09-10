@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: eog-help.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-06 09:02+0000\n"
-"PO-Revision-Date: 2011-09-10 14:05+0200\n"
+"PO-Revision-Date: 2011-09-10 16:21+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -442,6 +442,9 @@ msgid ""
 "displayed. You can skip pictures by using the <key>Left</key> and "
 "<key>Right</key> arrow keys."
 msgstr ""
+"Comenzará un pase de diapositivas a pantalla completa. Cada pocos segundos "
+"se mostrará una imagen nueva. Puede omitir imágenes usando las teclas de "
+"flechas <key>Izquierda</key> y <key>Derecha</key>."
 
 #: C/slideshow.page:38(p)
 msgid "To quit the slideshow, press <key>Esc</key> or <key>F5</key>."
@@ -806,6 +809,11 @@ msgid ""
 "will look like. See the <link xref=\"#filename-format\"/> section, below, "
 "for advice on choosing how to rename the files."
 msgstr ""
+"Use la caja <gui>Formato del nombre de archivo</gui> para escoger escojer el "
+"formato para el nombre de las imágenes. La <gui>Vista previa del nombre de "
+"archivo</gui> le muestra cómo serán los nombres de archivo nuevos. Consulte "
+"debajo la sección <link xref=\"#filename-format\"/> para obtener consejos "
+"sobre cómo renombrar archivos."
 
 # Traducción basada en el IGU. No me convence del todo
 #: C/rename-multiple.page:51(p)
@@ -859,6 +867,10 @@ msgid ""
 "file>, and <file>cat.jpg</file> would be renamed to <file>paris_flower.jpg</"
 "file>, <file>paris_house.jpg</file>, and <file>paris_cat.jpg</file>."
 msgstr ""
+"Por ejemplo, si escribe <input>londres_%f</input> en la caja <gui>Formato "
+"del nombre de archivo</gui>, las imágenes <file>flor.jpg</file>, <file>casa."
+"jpg</file> y <file>gato.jpg</file> serán renombradas a <file>londres_flor."
+"jpg</file>, <file>londres_casa.jpg</file> y <file>londres_gato.jpg</file>."
 
 #: C/rename-multiple.page:72(p)
 #| msgid ""
@@ -879,6 +891,12 @@ msgid ""
 "file>, <file>sunshine_3.jpg</file>, and <file>sunshine_1.jpg</file>. (They "
 "will be numbered by alphabetical order of the original filenames.)"
 msgstr ""
+"Por ejemplo, si escribe <input>hacienda_%n</input> en la caja <gui>Formato "
+"del nombre de archivo</gui>, las imágenes <file>flor.jpg</file>, <file>casa."
+"jpg</file> y <file>gato.jpg</file> serán renombradas a <file>hacienda_2.jpg</"
+"file>, <file>hacienda_3.jpg</file> y <file>hacienda_4.jpg</file>. (Se "
+"numerarán por orden alfabético según el orden original de sus nombres de "
+"archivo.)"
 
 #: C/print.page:7(desc)
 #| msgid "Click <guiseq><gui>Image</gui><gui>Print</gui></guiseq>"
@@ -940,6 +958,11 @@ msgid ""
 "<gui>Image Quality</gui> tab and choose a high quality setting, so that you "
 "get the best possible photo quality."
 msgstr ""
+"Si está usando un papel fotográfico de alta calidad, vaya a la pestaña "
+"<gui>Configuración de página</gui> y seleccione el <gui>Tipo de papel</gui> "
+"correcto. También debería ir a la pestaña <gui>Calidad de la imagen</gui> y "
+"elegir un ajuste de alta calidad para que así obtenga la mejor calidad en la "
+"foto."
 
 #: C/print.page:45(p)
 msgid "Click <gui>Print</gui>."
@@ -953,6 +976,12 @@ msgid ""
 "don't see an <gui>Image Quality</gui> tab, that probably means that the "
 "printer drivers that are being used don't support those settings."
 msgstr ""
+"Note que algunas de las pestañas mencionadas pueden no mostrarse para "
+"ciertos tipos de impresora. Es porque los <em>controladores de impresión</"
+"em> para esas impresoras no permiten cambiar algunos de los ajutes. De tal "
+"forma que, si no ve la pestaña <gui>Calidad de la imagen</gui> probablemente "
+"significa que los controladores de la impresora que está usando no soportan "
+"esa configuración."
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -1006,6 +1035,9 @@ msgid ""
 "viewer. Click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> to "
 "start changing the preferences."
 msgstr ""
+"Este tema explica toda la configuración que puede cambiar en el Visor de "
+"imágenes. Pulse <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> "
+"para comenzar a cambiar las preferencias."
 
 #: C/preferences.page:35(title)
 msgid "Image view preferences"
@@ -1040,6 +1072,13 @@ msgid ""
 "portrait photos are automatically rotated upright. The rotation is not saved "
 "until you <link xref=\"flip-rotate#rotate\">save the rotated image</link>."
 msgstr ""
+"Si activa la <gui>Orientación automática</gui> las imágenes se rotarán "
+"automáticamente según sus <em>metadatos Exif</em>. Es información acerca de "
+"una imagen automáticamente insertada por la cámara digital y puede incluir "
+"detalles acerca de cómo se sostuvo la cámara cuando se tomó la fotografía. "
+"Por ejemplo, cuando se usa la orientación automática, las fotos de retratos "
+"se rotan automáticamente de forma correcta. La rotación no se guarda hasta "
+"que <link xref=\"flip-rotate#rotate\">guarda la imagen rotada</link>."
 
 #: C/preferences.page:51(p)
 msgid ""
@@ -1183,17 +1222,15 @@ msgstr ""
 "pueda verlos a la derecha."
 
 #: C/plugin-zoom-width.page:7(desc)
-#, fuzzy
 #| msgid "Adjusts zoom fit image's width into window."
 msgid "Adjusts the zoom to fit a picture's full width into the window."
 msgstr ""
-"Ajusta el enfoque de la imagen para que se ajuste en el ancho de la ventana."
+"Ajusta la ampliación para que la imagen ocupe la anchura de la pantalla."
 
 #: C/plugin-zoom-width.page:20(title)
-#, fuzzy
 #| msgid "Zoom to fit image width"
 msgid "Zoom to fit picture width"
-msgstr "Ampliar para ajustar a la anchura de la imagen"
+msgstr "Ampliar para ajustar a la anchura de la pantalla"
 
 #: C/plugin-zoom-width.page:22(p)
 msgid ""
@@ -1205,7 +1242,6 @@ msgstr ""
 "completa de la ventana."
 
 #: C/plugin-zoom-width.page:25(p)
-#, fuzzy
 #| msgid ""
 #| "To do this, click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> "
 #| "and go to the <gui>Plugins</gui> tab. Then, check <gui>Fullscreen with "
@@ -1216,11 +1252,10 @@ msgid ""
 "gui> and click <gui>Close</gui>."
 msgstr ""
 "Para ello, pulse <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y "
-"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Pantalla "
-"completa con doble pulsación</gui> y pulse <gui>Cerrar</gui>."
+"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Ampliar para "
+"ajustar a la anchura de la imagen</gui> y pulse <gui>Cerrar</gui>."
 
 #: C/plugin-zoom-width.page:29(p)
-#, fuzzy
 #| msgid ""
 #| "In order to add this functionality, you will need to install <link xref="
 #| "\"plugins\">eog-plugins</link>."
@@ -1240,7 +1275,6 @@ msgid "Plugins"
 msgstr "Complementos"
 
 #: C/plugins.page:24(p)
-#, fuzzy
 #| msgid ""
 #| "The eog-plugins contain a set of plugins for the <app>image viewer</app>. "
 #| "Plugins add additional features."
@@ -1249,12 +1283,11 @@ msgid ""
 "the image viewer. Plugins add additional features, like the ones listed "
 "below."
 msgstr ""
-"El paquete «eog-plugins» contiene un conjunto de complementos para el "
-"<app>Visor de imágenes</app>. Los complementos añaden funcionalidades "
-"adiciones."
+"Puede instalar el paquete <sys>eog-plugins</sys> para obtener un conjunto de "
+"complementos para el Visor de imágenes. Los complementos añaden "
+"funcionalidades adiciones, como las listadas debajo."
 
 #: C/plugins.page:28(p)
-#, fuzzy
 #| msgid ""
 #| "You can install the eog-plugins using your distribution's "
 #| "<app>packagemanager</app>."
@@ -1262,21 +1295,19 @@ msgid ""
 "You can install the <sys>eog-plugins</sys> package using your Linux "
 "distribution's <em>package manager</em>."
 msgstr ""
-"Puede instalar el paquete «eog-plugins» usando el <app>gestor de paquetes</"
-"app> de su distribución."
+"Puede instalar el paquete <sys>eog-plugins</sys> usando el <app>gestor de "
+"paquetes</app> de su distribución GNU/Linux."
 
 #: C/plugins.page:33(link)
 msgid "install eog-plugins"
 msgstr "Instalar «eog-plugins»"
 
 #: C/plugins.page:38(p)
-#, fuzzy
 #| msgid "The following plugins are included in eog-plugins:"
 msgid "The following features are included in <sys>eog-plugins</sys>:"
-msgstr "Los siguientes complementos se incluyen en «eog-plugins»:"
+msgstr "Las siguientes características se incluyen en <sys>eog-plugins</sys>:"
 
 #: C/plugins.page:42(p)
-#, fuzzy
 #| msgid ""
 #| "<link xref=\"plugin-exif-digital\">Exif display</link>: Displays camera "
 #| "settings and histogram."
@@ -1285,7 +1316,7 @@ msgid ""
 "settings and histograms for digital photos."
 msgstr ""
 "<link xref=\"plugin-exif-digital\">Mostrar Exif</link>: muestra la "
-"configuración de la cámara y el histograma."
+"configuración de la cámara y el histograma de fotos digitales."
 
 #: C/plugins.page:46(p)
 msgid ""
@@ -1296,7 +1327,6 @@ msgstr ""
 "el menú <gui>Herramientas</gui> para subir rápidamente sus fotos a Flickr."
 
 #: C/plugins.page:50(p)
-#, fuzzy
 #| msgid ""
 #| "<link xref=\"plugin-exif-digital#exif-map\">Map</link>: Display the "
 #| "geolocation of the image on a map."
@@ -1304,11 +1334,10 @@ msgid ""
 "<link xref=\"plugin-exif-digital#map\">Map</link>: Display the geolocation "
 "of a digital photo on a map."
 msgstr ""
-"<link xref=\"plugin-map\">Mapa</link>: mostrar la geolocalización de la "
-"imagen en un mapa."
+"<link xref=\"plugin-exif-digital#map\">Mapa</link>: muestra la "
+"geolocalización de la imagen en un mapa."
 
 #: C/plugins.page:54(p)
-#, fuzzy
 #| msgid ""
 #| "<link xref=\"plugin-send-by-mail\">Send By Mail</link>: Sends an image "
 #| "attached to a new mail."
@@ -1317,7 +1346,7 @@ msgid ""
 "friend by attaching it to a new email."
 msgstr ""
 "<link xref=\"plugin-send-by-mail\">Enviar por correo-e</link>: envía una "
-"imagen como adjunto en un correo-e nuevo."
+"imagen a un contacto como adjunto en un correo-e nuevo."
 
 #: C/plugins.page:58(p)
 msgid ""
@@ -1328,7 +1357,6 @@ msgstr ""
 "muestra las diapositivas de forma aleatoria."
 
 #: C/plugins.page:62(p)
-#, fuzzy
 #| msgid ""
 #| "<link xref=\"plugin-zoom-width\">Zoom to fit image width</link>: Adjusts "
 #| "the zoom to have the image's width fit into the window."
@@ -1356,7 +1384,6 @@ msgid "PicasaWeb Uploader: Upload your pictures to PicasaWeb."
 msgstr "Cargador de PicasaWeb: suba sus imágenes a PicasaWeb"
 
 #: C/plugins.page:75(p)
-#, fuzzy
 #| msgid ""
 #| "You can manage your plugins in the preferences <link xref="
 #| "\"preferences#plugins\">Plugins tab</link>."
@@ -1364,8 +1391,8 @@ msgid ""
 "You can manage plugins by using the the <link xref=\"preferences#plugins"
 "\">Plugins tab</link> in the Preferences window."
 msgstr ""
-"Puede gestionar las preferencias de sus complementos en la <link xref="
-"\"preferences#plugins\">pestaña de complementos</link>."
+"Puede gestionar los complementos en la <link xref=\"preferences#plugins"
+"\">pestaña de complementos</link> en la ventana de Preferencias."
 
 #: C/plugin-slideshow-shuffle.page:8(desc)
 msgid "Show photos in a random order when playing a slideshow."
@@ -1377,7 +1404,6 @@ msgid "Slideshow shuffle"
 msgstr "Diapositivas aleatorias"
 
 #: C/plugin-slideshow-shuffle.page:23(p)
-#, fuzzy
 #| msgid ""
 #| "Now your images will be randomly shuffled in when you are viewing in "
 #| "<link xref=\"slideshow\">slideshow</link> mode."
@@ -1385,11 +1411,10 @@ msgid ""
 "You can make it so that pictures are shown in a random order when you start "
 "a <link xref=\"slideshow\">slideshow</link>."
 msgstr ""
-"Ahora sus imágenes se mostrarán de forma aleatoria al verlas en el modo de "
-"pase de <link xref=\"slideshow\">diapositivas</link>."
+"Puede hacer que sus imágenes se muestren de forma aleatoria al verlas en el "
+"modo de pase de <link xref=\"slideshow\">diapositivas</link>."
 
 #: C/plugin-slideshow-shuffle.page:26(p)
-#, fuzzy
 #| msgid ""
 #| "To do this, click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> "
 #| "and go to the <gui>Plugins</gui> tab. Then, check <gui>Fullscreen with "
@@ -1400,8 +1425,8 @@ msgid ""
 "and click <gui>Close</gui>."
 msgstr ""
 "Para ello, pulse <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y "
-"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Pantalla "
-"completa con doble pulsación</gui> y pulse <gui>Cerrar</gui>."
+"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Diapositivas "
+"aleatorias</gui> y pulse <gui>Cerrar</gui>."
 
 #: C/plugin-slideshow-shuffle.page:30(p) C/plugin-send-by-mail.page:30(p)
 #| msgid ""
@@ -1443,7 +1468,6 @@ msgstr ""
 "imágenes a gente a través de correo electrónico."
 
 #: C/plugin-send-by-mail.page:25(p)
-#, fuzzy
 #| msgid ""
 #| "To do this, click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> "
 #| "and go to the <gui>Plugins</gui> tab. Then, check <gui>Fullscreen with "
@@ -1455,8 +1479,10 @@ msgid ""
 "gui><gui>Send by mail</gui></guiseq> menu item."
 msgstr ""
 "Para ello, pulse <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y "
-"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Pantalla "
-"completa con doble pulsación</gui> y pulse <gui>Cerrar</gui>."
+"vaya a la pestaña <gui>Complementos</gui>. Allí, marque <gui>Enviar por "
+"correo-e</gui> y pulse <gui>Cerrar</gui>. Esto le proporcionará un elemento "
+"de menú <guiseq><gui>Herramientas</gui><gui>Enviar por correo-e</gui></"
+"guiseq>."
 
 #: C/plugin-send-by-mail.page:34(p)
 #| msgid ""
@@ -1488,6 +1514,10 @@ msgid ""
 "access to a Python interpreter from inside the image viewer, which you can "
 "then use to write scripts or programmatically manipulate images, for example."
 msgstr ""
+"El Visor de imágenes tiene un sistema de complementos que usa el lenguaje de "
+"«scripting» Python. Si activa la <em>Consola de Python</em> puede obtener "
+"acceso al intérprete de Python dentro del Visor de imágenes, que puede usar "
+"para escribir «scripts» o manipular imágenes programando."
 
 #: C/plugin-python-console.page:29(p)
 msgid ""
@@ -1551,7 +1581,6 @@ msgstr ""
 "el Visor de imágenes."
 
 #: C/plugin-postr.page:26(p)
-#, fuzzy
 #| msgid ""
 #| "In order to be able to use the <app>Flickr Uploader</app>, you will need "
 #| "to install <app>Postr</app> using your distribution's <app>package "
@@ -1563,10 +1592,10 @@ msgid ""
 "Flickr:"
 msgstr ""
 "Para poder usar el <app>Cargador para Flickr</app> debe instalar <app>Postr</"
-"app> usando el <app>gestor de paquetes</app> de su distribución."
+"app> usando el <app>gestor de paquetes</app> de su distribución GNU/Linux. "
+"Una vez que lo haya instalado podrá subir fotos a Flickr:"
 
 #: C/plugin-postr.page:33(p)
-#, fuzzy
 #| msgid ""
 #| "Once it is installed, uploading photos to Flickr is very simple. The "
 #| "first time you upload a photo, the <app>Flickr Uploader</app> will ask "
@@ -1577,13 +1606,11 @@ msgid ""
 "you to log into Flickr. The website will ask you to authorize <app>Postr</"
 "app> to access your account."
 msgstr ""
-"Una vez instalado, subir fotos a Flickr es muy fácil. La primera vez que "
-"suba una foto, el <app>Cargador para Flickr</app> le pedirá que inicie "
-"sesión en Flickr. El sitio web le pedirá que autorize a <app>Postr</app> "
-"para acceder a su cuenta."
+"La primera vez que suba una foto, el <app>Cargador para Flickr</app> le "
+"pedirá que inicie sesión en Flickr. El sitio web le pedirá que autorize a "
+"<app>Postr</app> para acceder a su cuenta."
 
 #: C/plugin-postr.page:38(p)
-#, fuzzy
 #| msgid ""
 #| "Click <guiseq><gui>Image</gui><gui>Open With</gui><gui>Flickr Uploader</"
 #| "gui></guiseq>"
@@ -1591,8 +1618,8 @@ msgid ""
 "Back in the image viewer, click <guiseq><gui>Image</gui><gui>Open With</"
 "gui><gui>Flickr Uploader</gui></guiseq>."
 msgstr ""
-"Pulse <guiseq><gui>Imagen</gui><gui>Abrir con</gui><gui>Cargador para "
-"Flickr</gui></guiseq>"
+"De vuelta en el Visor de imágenes, pulse <guiseq><gui>Imagen</gui><gui>Abrir "
+"con</gui><gui>Cargador para Flickr</gui></guiseq>."
 
 #: C/plugin-postr.page:42(p)
 #| msgid "Click <gui>Upload</gui>"
@@ -1609,7 +1636,6 @@ msgid "You can add a shortcut button for uploading pictures to Flickr."
 msgstr "También puede añadir un botón para subir imágenes a Flickr."
 
 #: C/plugin-postr.page:49(p)
-#, fuzzy
 #| msgid ""
 #| "If <sys>eog-plugins</sys> is installed, click <guiseq><gui>Edit</"
 #| "gui><gui>Preferences</gui></guiseq> and go to the <gui>Plugins</gui> tab. "
@@ -1620,9 +1646,9 @@ msgid ""
 "guiseq>, go to the <gui>Plugins</gui> tab and check <gui>Upload to Flickr</"
 "gui>."
 msgstr ""
-"Si <sys>eog-plugins</sys> está instalado, pulse <guiseq><gui>Editar</"
-"gui><gui>Preferencias</gui></guiseq> y vaya a la pestaña <gui>Complementos</"
-"gui>. Después, marque <gui>Mapa</gui> y pulse <gui>Cerrar</gui>."
+"Para ello, asegúrese de que <sys>eog-plugins</sys> está instalado. Después, "
+"pulse <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y vaya a la "
+"pestaña <gui>Complementos</gui> y marque <gui>Cargador para Flickr</gui>."
 
 #: C/plugin-postr.page:52(p)
 #| msgid ""
@@ -1714,6 +1740,10 @@ msgid ""
 "exposure settings were used on the camera and, in some cases, even where the "
 "picture was taken."
 msgstr ""
+"Las imágenes tomadas con una cámara digital se almacenan con información "
+"adicional empotrada en ellas, tal como la fecha en la que se tomaron, la "
+"configuración de exposición usada en la cámara y, en algunos casos, incluso "
+"dónde se tomó la foto."
 
 #: C/plugin-exif-digital.page:27(p)
 msgid "This topic shows you how to access this information."
@@ -1845,6 +1875,10 @@ msgid ""
 "need to make the image viewer the <link xref=\"default\">default "
 "application</link> for viewing pictures."
 msgstr ""
+"Las imágenes deberían abrirse automáticamente en el Visor de imágenes cuando "
+"pulsa dos veces sobre un <app>archivo</app> de imagen en el examinador de "
+"archivos. Si no es el caso, debe hacer que el Visor de imágenes sea la <link "
+"xref=\"default\">aplicación predeterminada</link> para ver imágenes."
 
 #: C/open.page:27(p)
 msgid ""
@@ -1892,6 +1926,13 @@ msgid ""
 "link> them, or <link xref=\"format-change\">converting them</link> to a "
 "different file format."
 msgstr ""
+"<app>Eye of GNOME</app> es un visor de imágenes. Con él puede ver imágenes "
+"de <link xref=\"formats-view\">casi cualquier tipo</link>. Puede gestionar "
+"<link xref=\"view#image-gallery\">grandes colecciones</link> de imágenes y "
+"puede mostrar un pase de <link xref=\"slideshow\">diapositivas</link>. "
+"También puede hacer cambios básicos en las fotografías como <link xref="
+"\"flip-rotate\">rotarlas o voltearlas</link>, o <link xref=\"format-change"
+"\">convertirlas</link> a un formato de archivo diferente."
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -2177,6 +2218,11 @@ msgid ""
 "the <gui>Save Image</gui> window. This will allow you to choose the file "
 "type from the drop down box."
 msgstr ""
+"El Visor de imágenes intenta adivinar el formato de archivo en el que "
+"guardar la imagen basándose en la extensión de archivo que elija. Si no "
+"reconoce la extensión de archivo que esciba o si no sabe cuál usar, pulse "
+"<gui>Examinar</gui> en la ventana <gui>Guardar imagen</gui>. Esto le "
+"permitirá elegir un tipo de archivo de la lista desplegable."
 
 #: C/format-change.page:58(title)
 msgid "Convert multiple pictures to a different format"
@@ -2337,6 +2383,9 @@ msgid ""
 "that, you must use a picture editing application, like the GIMP image "
 "editor. To open a picture for editing in a different application:"
 msgstr ""
+"El Visor de imágenes sólo se puede usar para ver imágenes; no puede "
+"editarlas. Para ello debe usar una aplicación de edición de imágenes, tal "
+"como GIMP. Para abrir una imagen para editarla en una aplicación diferente:"
 
 #: C/edit.page:27(p)
 msgid ""
@@ -2358,7 +2407,6 @@ msgid "When you are finished editing, save it and close the other application."
 msgstr "Cuando haya terminado de editar, guárdela y cierre la otra aplicación."
 
 #: C/edit.page:38(p)
-#, fuzzy
 #| msgid ""
 #| "When you are finished editing your image, save it and close the program. "
 #| "The <app>image viewer</app> will ask you if you want to reload the image. "
@@ -2369,10 +2417,9 @@ msgid ""
 "and will ask you if you want to reload it. Clicking <gui>Reload</gui> will "
 "ensure that you are viewing the most recent version of the file."
 msgstr ""
-"Cuando termine de editar la imagen, guárdela y cierre el programa. El "
-"<app>Visor de imágenes</app> le preguntará si quiere recargar la imagen. Al "
-"pulsar en <gui>Recargar</gui> se asegurará de que está trabajando con la "
-"versión del archivo más reciente."
+"El <app>Visor de imágenes</app> detectará que la imagen ha cambiado y le "
+"preguntará si quiere recargarla. Al pulsar en <gui>Recargar</gui> se "
+"asegurará de que está trabajando con la versión del archivo más reciente."
 
 #: C/edit.page:47(title)
 msgid "Delete a picture"
@@ -2635,6 +2682,12 @@ msgid ""
 "href=\"https://bugzilla.gnome.org/\"/>. Bug reports are how software "
 "developers keep track of problems so that they can fix them."
 msgstr ""
+"Si sufre problemas con el Visor de imágenes (por ejemplo, si se cuelga o se "
+"comporta de forma inesperada) o si le falta alguna característica que cree "
+"que debería tener, rellene un <em>informe de error</em> pulsando en el "
+"enlace <link href=\"https://bugzilla.gnome.org/\"/>. Los informes de error "
+"son la base para que los desarrolladores sigan los problemas y puedan "
+"arreglarlos."
 
 #: C/bug-filing.page:23(p)
 msgid ""
