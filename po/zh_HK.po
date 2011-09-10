@@ -10,10 +10,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 3.1.91\n"
+"Project-Id-Version: eog 3.1.92\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-04 06:41+0800\n"
-"PO-Revision-Date: 2011-09-04 06:44+0800\n"
+"POT-Creation-Date: 2011-09-10 14:55+0800\n"
+"PO-Revision-Date: 2011-09-10 14:55+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
@@ -94,7 +94,7 @@ msgid "Browse and rotate images"
 msgstr "瀏覽及更改圖片的方向"
 
 # src/preferences-dialog.glade.h:32
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "圖片瀏覽程式"
 
@@ -292,41 +292,39 @@ msgstr "表示透明區域的顏色"
 msgid "E_xpand images to fit screen"
 msgstr "放大至適合螢幕的大小(_X)"
 
-# src/window.c:162
-# src/window.c:573
-# src/window.c:812
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Eye of GNOME 偏好設定"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "圖片增強"
 
 # src/preferences-dialog.glade.h:32
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "圖片顯示"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "圖片縮放"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "外掛程式"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:14
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
 msgstr "秒後顯示下一張圖片"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:16
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "在(_S)"
+
+# src/preferences.c:219
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "偏好設定"
 
 #: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
@@ -612,9 +610,9 @@ msgstr "檔案格式未知或不支援"
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
-msgstr "Eye of GNOME 無法根據據此檔案名稱來判斷是否為可寫入的檔案格式。"
+msgstr "圖片檢視器無法根據據此檔案名稱來判斷是否為可寫入的檔案格式。"
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -959,8 +957,8 @@ msgid "At least two file names are equal."
 msgstr "最少有兩個檔案的名稱相同。"
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "無法顯示 Eye of GNOME 的說明文件。"
+msgid "Could not display help for Image Viewer"
+msgstr "無法顯示圖片檢視器的說明文件"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1046,13 +1044,6 @@ msgstr ""
 "Lawrence Leung <hksarhong@yahoo.com>, 2004\n"
 "Abel Cheung <abel@oaka.org>, 2001-2003\n"
 "Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000"
-
-# src/window.c:162
-# src/window.c:573
-# src/window.c:812
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
 
 # src/window.c:166
 #: ../src/eog-window.c:2639
@@ -1203,8 +1194,8 @@ msgid "Prefere_nces"
 msgstr "偏好設定(_N)"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "Eye of GNOME 偏好設定"
+msgid "Preferences for Image Viewer"
+msgstr "圖片檢視器偏好設定"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1527,9 +1518,9 @@ msgstr "編輯圖片"
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "Eye of GNOME 圖片檢視器"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "GNOME 圖片檢視器"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
@@ -1560,12 +1551,3 @@ msgstr "[檔案…]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
-
-#~ msgid "Running in fullscreen mode"
-#~ msgstr "在全螢幕模式執行"
-
-#~ msgid "_Retry"
-#~ msgstr "重試(_R)"
-
-#~ msgid "_Slideshow"
-#~ msgstr "投影片(_S)"
