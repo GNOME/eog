@@ -23,9 +23,9 @@ msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-03 15:39+0000\n"
-"PO-Revision-Date: 2011-09-04 20:26+0200\n"
-"Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
+"POT-Creation-Date: 2011-09-11 21:37+0000\n"
+"PO-Revision-Date: 2011-09-12 16:49+0200\n"
+"Last-Translator: Luc Guillemin <luc.guillemin@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,7 +103,7 @@ msgstr "Affiche la date de l'image dans la barre d'état de la fenêtre"
 msgid "Browse and rotate images"
 msgstr "Parcourir et pivoter les images"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Visionneur d'images"
 
@@ -291,36 +291,36 @@ msgid "E_xpand images to fit screen"
 msgstr "É_tendre les images pour remplir l'écran"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Préférences de Eye of GNOME"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "Améliorations de l'image"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "Vue Image"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "Zoom de l'image"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "Greffons"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:14
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
 msgstr "secondes"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:16
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "_Changer d'image après :"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "Préférences"
 
 #: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
@@ -663,11 +663,11 @@ msgstr "Le format de fichier est inconnu ou non pris en charge"
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"Eye of GNOME n'a pu trouver un format de fichier avec prise en charge de "
-"l'écriture d'après le nom de fichier."
+"Le visionneur d'images n'a pu trouver un format de fichier avec prise en "
+"charge de l'écriture d'après le nom de fichier."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -1000,8 +1000,8 @@ msgid "At least two file names are equal."
 msgstr "Au moins deux noms de fichiers sont identiques."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Impossible d'afficher l'aide de Eye of GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "Impossible d'afficher l'aide du visionneur d'images"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1087,10 +1087,6 @@ msgstr ""
 "Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Claude Paroz <claude@2xlibre.net>\n"
 "Pierre Lemaire <pierre.lemaire@kamick.org>"
-
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
 
 #: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
@@ -1238,8 +1234,8 @@ msgid "Prefere_nces"
 msgstr "_Préférences"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "Préférences de Eye of GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "Préférences du visionneur d'images"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1547,9 +1543,9 @@ msgstr "Modifie l'image actuelle en utilisant %s"
 msgid "Edit Image"
 msgstr "Modifier l'image"
 
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "Visionneur d'images Eye of GNOME"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "Visionneur d'images de GNOME"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
