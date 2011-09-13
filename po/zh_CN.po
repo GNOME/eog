@@ -18,9 +18,9 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-07 14:10+0000\n"
-"PO-Revision-Date: 2011-08-08 13:34+0800\n"
-"Last-Translator: 朱涛 <bill_zt@sina.com>\n"
+"POT-Creation-Date: 2011-09-12 23:52+0000\n"
+"PO-Revision-Date: 2011-09-13 10:54+0800\n"
+"Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,7 +97,7 @@ msgstr "在窗口状态栏中显示图像日期"
 msgid "Browse and rotate images"
 msgstr "浏览及旋转图像"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "图像查看器"
 
@@ -287,61 +287,65 @@ msgid "E_xpand images to fit screen"
 msgstr "将图像扩展以适合屏幕(_X)"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "GNOME 之眼首选项"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "图像增强"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "图像查看"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "图像缩放"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "插件"
 
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "秒"
+
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:16
+msgctxt "PrefDlgSlideSwitchPrefix"
+msgid "_Switch image after:"
+msgstr "切换图像的时间(_S)："
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "首选项"
+
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
 msgstr "序列"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "Slideshow"
 msgstr "幻灯片放映"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "Smooth images when zoomed-_in"
 msgstr "放大时平滑图像(_I)"
 
 # SUN CHANGED MESSAGE
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "Smooth images when zoomed-_out"
 msgstr "缩小时平滑图像(_O)"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "Transparent Parts"
 msgstr "透明部分"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:23
 msgid "_Automatic orientation"
 msgstr "自动旋转(_A)"
 
-#: ../data/eog-preferences-dialog.ui.h:20
+#: ../data/eog-preferences-dialog.ui.h:24
 msgid "_Loop sequence"
 msgstr "循环(_L)"
-
-#: ../data/eog-preferences-dialog.ui.h:21
-msgid "_Switch image after:"
-msgstr "切换图像的时间(_S)："
-
-#: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "秒"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
@@ -622,9 +626,9 @@ msgstr "文件格式未知或不支持"
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
-msgstr "GNOME 之眼无法从文件名推测出被支持的可写入的文件格式。"
+msgstr "图像查看器无法根据文件名推测出支持写入的文件格式。"
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -664,37 +668,37 @@ msgid "Open Folder"
 msgstr "打开文件夹"
 
 # 此句校对时，请注意！--syq
-#: ../src/eog-image.c:605
+#: ../src/eog-image.c:606
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "卸载图像时的变形。"
 
-#: ../src/eog-image.c:633
+#: ../src/eog-image.c:634
 #, c-format
 msgid "Transformation failed."
 msgstr "变形失败。"
 
-#: ../src/eog-image.c:1094
+#: ../src/eog-image.c:1095
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "这种文件格式不支持 EXIF。"
 
-#: ../src/eog-image.c:1243
+#: ../src/eog-image.c:1244
 #, c-format
 msgid "Image loading failed."
 msgstr "图像载入失败。"
 
-#: ../src/eog-image.c:1716 ../src/eog-image.c:1826
+#: ../src/eog-image.c:1717 ../src/eog-image.c:1827
 #, c-format
 msgid "No image loaded."
 msgstr "没有载入图像。"
 
-#: ../src/eog-image.c:1724 ../src/eog-image.c:1835
+#: ../src/eog-image.c:1725 ../src/eog-image.c:1836
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "您没有保存此文件必须的权限。"
 
-#: ../src/eog-image.c:1734 ../src/eog-image.c:1846
+#: ../src/eog-image.c:1735 ../src/eog-image.c:1847
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "临时文件创建失败。"
@@ -792,7 +796,7 @@ msgstr "取消(_C)"
 msgid "_Reload"
 msgstr "重新载入图像(_R)"
 
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3839
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
 msgid "Save _As…"
 msgstr "另存为"
 
@@ -957,8 +961,8 @@ msgstr "至少两个文件名相等。"
 
 # SUN CHANGED MESSAGE
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "无法显示 GNOME 之眼的帮助"
+msgid "Could not display help for Image Viewer"
+msgstr "无法显示图像查看器的帮助"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -976,7 +980,7 @@ msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i 像素  %s    %i%%"
 
-#: ../src/eog-window.c:827 ../src/eog-window.c:2781
+#: ../src/eog-window.c:827 ../src/eog-window.c:2784
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隐藏(_D)"
@@ -1007,12 +1011,12 @@ msgstr "使用“%s”打开选中图像"
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "保存图像“%s”(第%u个，共%u个)"
 
-#: ../src/eog-window.c:1525
+#: ../src/eog-window.c:1528
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "正在打开图像“%s”"
 
-#: ../src/eog-window.c:2202
+#: ../src/eog-window.c:2205
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1021,15 +1025,15 @@ msgstr ""
 "打印文件出错：\n"
 "%s"
 
-#: ../src/eog-window.c:2520
+#: ../src/eog-window.c:2523
 msgid "Toolbar Editor"
 msgstr "工具栏编辑器"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2526
 msgid "_Reset to Default"
 msgstr "重设为默认值(_R)"
 
-#: ../src/eog-window.c:2628
+#: ../src/eog-window.c:2631
 msgid "translator-credits"
 msgstr ""
 "开源软件国际化之简体中文组\n"
@@ -1041,27 +1045,23 @@ msgstr ""
 "李炜 <lw124124@gmail.com>, 2011\n"
 "Julius Wong<villahwong@gmail.com>, 2011"
 
-#: ../src/eog-window.c:2633
-msgid "Eye of GNOME"
-msgstr "GNOME 之眼"
-
-#: ../src/eog-window.c:2636
+#: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
 msgstr "GNOME 之眼图像查看器。"
 
-#: ../src/eog-window.c:2728 ../src/eog-window.c:2743
+#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
 msgid "Error launching System Settings: "
 msgstr "启动系统设置时出错："
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2779
+#: ../src/eog-window.c:2782
 msgid "_Open Background Preferences"
 msgstr "打开背景首选项(_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2795
+#: ../src/eog-window.c:2798
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1070,11 +1070,11 @@ msgstr ""
 "图像“%s”已设为桌面背景。\n"
 "您想修改它的外观吗？"
 
-#: ../src/eog-window.c:3268
+#: ../src/eog-window.c:3271
 msgid "Saving image locally…"
 msgstr "本地保存图像..."
 
-#: ../src/eog-window.c:3348
+#: ../src/eog-window.c:3351
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1083,14 +1083,14 @@ msgstr ""
 "您真的想要将“%s”\n"
 "移至回收站吗？"
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3354
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "无法找到可用于“%s”的回收站。您想要将此图像永久移除吗？"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1102,399 +1102,399 @@ msgstr[0] ""
 "您真的想要将 %d 个\n"
 "选中的图像移至回收站吗？"
 
-#: ../src/eog-window.c:3361
+#: ../src/eog-window.c:3364
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "有些所选择的图像无法移动到回收站并将永久移除。您确定要这样进行吗？"
 
-#: ../src/eog-window.c:3378 ../src/eog-window.c:3869 ../src/eog-window.c:3893
+#: ../src/eog-window.c:3381 ../src/eog-window.c:3872 ../src/eog-window.c:3896
 msgid "Move to _Trash"
 msgstr "移至回收站(_T)"
 
-#: ../src/eog-window.c:3380
+#: ../src/eog-window.c:3383
 msgid "_Do not ask again during this session"
 msgstr "在这个会话期间不再询问(_D)"
 
-#: ../src/eog-window.c:3425 ../src/eog-window.c:3439
+#: ../src/eog-window.c:3428 ../src/eog-window.c:3442
 #, c-format
 msgid "Couldn't access trash."
 msgstr "无法访问回收站。"
 
-#: ../src/eog-window.c:3447
+#: ../src/eog-window.c:3450
 #, c-format
 msgid "Couldn't delete file"
 msgstr "无法删除文件"
 
-#: ../src/eog-window.c:3543
+#: ../src/eog-window.c:3546
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "删除图像 %s 出错"
 
-#: ../src/eog-window.c:3790
+#: ../src/eog-window.c:3793
 msgid "_Image"
 msgstr "图像(_I)"
 
-#: ../src/eog-window.c:3791
+#: ../src/eog-window.c:3794
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../src/eog-window.c:3792
+#: ../src/eog-window.c:3795
 msgid "_View"
 msgstr "查看(_V)"
 
-#: ../src/eog-window.c:3793
+#: ../src/eog-window.c:3796
 msgid "_Go"
 msgstr "转到(_G)"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3797
 msgid "_Tools"
 msgstr "工具(_T)"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3798
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../src/eog-window.c:3797
+#: ../src/eog-window.c:3800
 msgid "_Open…"
 msgstr "打开(_O)..."
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3801
 msgid "Open a file"
 msgstr "打开一个文件"
 
-#: ../src/eog-window.c:3800
+#: ../src/eog-window.c:3803
 msgid "_Close"
 msgstr "关闭(_C)"
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3804
 msgid "Close window"
 msgstr "关闭窗口"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3806
 msgid "T_oolbar"
 msgstr "工具栏(_O)"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3807
 msgid "Edit the application toolbar"
 msgstr "编辑应用程序工具栏"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3809
 msgid "Prefere_nces"
 msgstr "首选项(_N)"
 
-#: ../src/eog-window.c:3807
-msgid "Preferences for Eye of GNOME"
-msgstr "GNOME 之眼的首选项"
+#: ../src/eog-window.c:3810
+msgid "Preferences for Image Viewer"
+msgstr "图像查看器的首选项"
 
 # SUN CHANGED MESSAGE
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3812
 msgid "_Contents"
 msgstr "内容(_C)"
 
 # SUN CHANGED MESSAGE
-#: ../src/eog-window.c:3810
+#: ../src/eog-window.c:3813
 msgid "Help on this application"
 msgstr "关于此应用程序的帮助"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3815
 msgid "_About"
 msgstr "关于(_A)"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3816
 msgid "About this application"
 msgstr "关于此应用程序"
 
-#: ../src/eog-window.c:3818
+#: ../src/eog-window.c:3821
 msgid "_Toolbar"
 msgstr "工具栏(_T)"
 
-#: ../src/eog-window.c:3819
+#: ../src/eog-window.c:3822
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "更改当前窗口工具栏的可见性"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3824
 msgid "_Statusbar"
 msgstr "状态栏(_S)"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3825
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "更改当前窗口状态栏的可见性"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3827
 msgid "_Image Gallery"
 msgstr "图像收藏(_I)"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3828
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "更改当前窗口图像收藏面板的可见性"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3830
 msgid "Side _Pane"
 msgstr "侧边栏(_P)"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3831
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "更改当前窗口侧边栏的可见性"
 
-#: ../src/eog-window.c:3833
+#: ../src/eog-window.c:3836
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../src/eog-window.c:3834
+#: ../src/eog-window.c:3837
 msgid "Save changes in currently selected images"
 msgstr "保存更改到当前选中图像"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3839
 msgid "Open _with"
 msgstr "打开方式(_W)"
 
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3840
 msgid "Open the selected image with a different application"
 msgstr "用一个不同的应用程序打开选中图片"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3843
 msgid "Save the selected images with a different name"
 msgstr "以一个不同的名字保存选中图片"
 
-#: ../src/eog-window.c:3842
+#: ../src/eog-window.c:3845
 msgid "Show Containing _Folder"
 msgstr "显示图像所在文件夹"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3846
 msgid "Show the folder which contains this file in the file manager"
 msgstr "在文件管理器中显示包含这个文件的文件夹"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3848
 msgid "_Print…"
 msgstr "打印(_P)..."
 
-#: ../src/eog-window.c:3846
+#: ../src/eog-window.c:3849
 msgid "Print the selected image"
 msgstr "打印选中图像"
 
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3851
 msgid "Prope_rties"
 msgstr "属性(_R)"
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3852
 msgid "Show the properties and metadata of the selected image"
 msgstr "显示选中图像的属性和元数据"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3854
 msgid "_Undo"
 msgstr "撤销(_U)"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3855
 msgid "Undo the last change in the image"
 msgstr "撤销上一次对图像的修改"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3857
 msgid "Flip _Horizontal"
 msgstr "水平翻转(_H)"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3858
 msgid "Mirror the image horizontally"
 msgstr "水平翻转图像"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3860
 msgid "Flip _Vertical"
 msgstr "垂直翻转(_V)"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3861
 msgid "Mirror the image vertically"
 msgstr "垂直翻转图像"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3863
 msgid "_Rotate Clockwise"
 msgstr "顺时针旋转(_R)"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3864
 msgid "Rotate the image 90 degrees to the right"
 msgstr "将图片顺时针旋转90度"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3866
 msgid "Rotate Counterc_lockwise"
 msgstr "逆时针旋转(_L)"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3867
 msgid "Rotate the image 90 degrees to the left"
 msgstr "将图片逆时针旋转90度"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3869
 msgid "Set as _Desktop Background"
 msgstr "设为桌面背景(_D)"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3870
 msgid "Set the selected image as the desktop background"
 msgstr "将选中图像设为桌面背景"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3873
 msgid "Move the selected image to the trash folder"
 msgstr "将选中图像移至回收站文件夹"
 
-#: ../src/eog-window.c:3872
+#: ../src/eog-window.c:3875
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3876
 msgid "Copy the selected image to the clipboard"
 msgstr "复制选中图像到剪贴板"
 
-#: ../src/eog-window.c:3875 ../src/eog-window.c:3884 ../src/eog-window.c:3887
+#: ../src/eog-window.c:3878 ../src/eog-window.c:3887 ../src/eog-window.c:3890
 msgid "_Zoom In"
 msgstr "放大(_Z)"
 
-#: ../src/eog-window.c:3876 ../src/eog-window.c:3885
+#: ../src/eog-window.c:3879 ../src/eog-window.c:3888
 msgid "Enlarge the image"
 msgstr "放大图片"
 
-#: ../src/eog-window.c:3878 ../src/eog-window.c:3890
+#: ../src/eog-window.c:3881 ../src/eog-window.c:3893
 msgid "Zoom _Out"
 msgstr "缩小(_O)"
 
-#: ../src/eog-window.c:3879 ../src/eog-window.c:3888 ../src/eog-window.c:3891
+#: ../src/eog-window.c:3882 ../src/eog-window.c:3891 ../src/eog-window.c:3894
 msgid "Shrink the image"
 msgstr "缩小图像"
 
-#: ../src/eog-window.c:3881
+#: ../src/eog-window.c:3884
 msgid "_Normal Size"
 msgstr "正常大小(_N)"
 
-#: ../src/eog-window.c:3882
+#: ../src/eog-window.c:3885
 msgid "Show the image at its normal size"
 msgstr "以正常大小显示图像"
 
-#: ../src/eog-window.c:3899
+#: ../src/eog-window.c:3902
 msgid "_Fullscreen"
 msgstr "全屏(_F)"
 
-#: ../src/eog-window.c:3900
+#: ../src/eog-window.c:3903
 msgid "Show the current image in fullscreen mode"
 msgstr "在全屏模式中显示当前图像"
 
-#: ../src/eog-window.c:3902
+#: ../src/eog-window.c:3905
 msgid "Pause Slideshow"
 msgstr "暂停放映"
 
-#: ../src/eog-window.c:3903
+#: ../src/eog-window.c:3906
 msgid "Pause or resume the slideshow"
 msgstr "暂停或继续幻灯片放映"
 
-#: ../src/eog-window.c:3905
+#: ../src/eog-window.c:3908
 msgid "_Best Fit"
 msgstr "最佳匹配(_B)"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3909
 msgid "Fit the image to the window"
 msgstr "使图像适合窗口"
 
-#: ../src/eog-window.c:3911 ../src/eog-window.c:3926
+#: ../src/eog-window.c:3914 ../src/eog-window.c:3929
 msgid "_Previous Image"
 msgstr "上一个图像(_P)"
 
-#: ../src/eog-window.c:3912
+#: ../src/eog-window.c:3915
 msgid "Go to the previous image of the gallery"
 msgstr "转到收藏中上一个图像"
 
-#: ../src/eog-window.c:3914
+#: ../src/eog-window.c:3917
 msgid "_Next Image"
 msgstr "下一个图像(_N)"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3918
 msgid "Go to the next image of the gallery"
 msgstr "转到收藏中下一个图像"
 
-#: ../src/eog-window.c:3917 ../src/eog-window.c:3929
+#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
 msgid "_First Image"
 msgstr "第一个图像(_F)"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3921
 msgid "Go to the first image of the gallery"
 msgstr "转到收藏中第一个图像"
 
-#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
+#: ../src/eog-window.c:3923 ../src/eog-window.c:3935
 msgid "_Last Image"
 msgstr "最后一个图像(_L)"
 
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3924
 msgid "Go to the last image of the gallery"
 msgstr "转到收藏中最后一个图像"
 
-#: ../src/eog-window.c:3923
+#: ../src/eog-window.c:3926
 msgid "_Random Image"
 msgstr "随机图像(_R)"
 
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3927
 msgid "Go to a random image of the gallery"
 msgstr "转到收藏中任意一个图像"
 
-#: ../src/eog-window.c:3938
+#: ../src/eog-window.c:3941
 msgid "S_lideshow"
 msgstr "幻灯片放映(_L)"
 
-#: ../src/eog-window.c:3939
+#: ../src/eog-window.c:3942
 msgid "Start a slideshow view of the images"
 msgstr "以幻灯片方式查看图像"
 
-#: ../src/eog-window.c:4005
+#: ../src/eog-window.c:4008
 msgid "Previous"
 msgstr "上一张"
 
-#: ../src/eog-window.c:4009
+#: ../src/eog-window.c:4012
 msgid "Next"
 msgstr "下一张"
 
 # SUN CHANGED MESSAGE
-#: ../src/eog-window.c:4013
+#: ../src/eog-window.c:4016
 msgid "Right"
 msgstr "顺时针"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:4019
 msgid "Left"
 msgstr "逆时针"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:4022
 msgid "Show Folder"
 msgstr "显示文件夹"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:4025
 msgid "In"
 msgstr "放大"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4028
 msgid "Out"
 msgstr "缩小"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4031
 msgid "Normal"
 msgstr "正常"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:4034
 msgid "Fit"
 msgstr "适合"
 
-#: ../src/eog-window.c:4034
+#: ../src/eog-window.c:4037
 msgid "Gallery"
 msgstr "收藏"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4040
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "移入回收站"
 
-#: ../src/eog-window.c:4405
+#: ../src/eog-window.c:4408
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "使用%s来编辑当前图像"
 
-#: ../src/eog-window.c:4407
+#: ../src/eog-window.c:4410
 msgid "Edit Image"
 msgstr "编辑图像"
 
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "GNOME 之眼图像查看器"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "GNOME 图像查看器"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
@@ -1525,6 +1525,12 @@ msgstr "[文件...]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
+
+#~ msgid "Eye of GNOME Preferences"
+#~ msgstr "GNOME 之眼首选项"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "GNOME 之眼"
 
 #~ msgid "Running in fullscreen mode"
 #~ msgstr "在全屏模式中运行"
