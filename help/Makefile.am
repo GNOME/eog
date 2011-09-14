@@ -5,13 +5,9 @@ DOC_ID = eog
 DOC_INCLUDES = legal.xml
 
 DOC_FIGURES = \
-	figures/eog-bestfit.png			\
-	figures/eog-enlarge.png			\
-	figures/eog-normalsize.png		\
-	figures/eog.png				\
-	figures/eog-shrink.png			\
-	figures/eog-toolbar-default.png		\
+	figures/eog-logo.png			\
 	figures/eog-toolbar-editor.png		\
+	figures/eog-trail.png			\
 	figures/image-view-prefs.png		\
 	figures/multiple-convert.png		\
 	figures/multiple-rename-count.png	\
