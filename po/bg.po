@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-22 07:52+0300\n"
-"PO-Revision-Date: 2011-08-17 15:31+0300\n"
+"POT-Creation-Date: 2011-09-18 10:54+0300\n"
+"PO-Revision-Date: 2011-09-18 10:54+0300\n"
 "Last-Translator: Ivaylo Valkov <ivaylo@e-valkov.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -94,7 +94,7 @@ msgstr "Показва датата на изображението в лент�
 msgid "Browse and rotate images"
 msgstr "Преглед и завъртане на изображения"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Преглед на изображения (EoG)"
 
@@ -282,60 +282,64 @@ msgid "E_xpand images to fit screen"
 msgstr "Раз_ширяване на изображенията за напасване към екрана"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Настройки на програмата"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "Подобряване на изображението"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "Преглед на изображения"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "Мащаб"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "Приставки"
 
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
-msgid "Sequence"
-msgstr "Последователност"
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "секунди"
 
-#: ../data/eog-preferences-dialog.ui.h:15
-msgid "Slideshow"
-msgstr "Прожекция"
-
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:16
-msgid "Smooth images when zoomed-_in"
-msgstr "Заглаждане при _увеличаване"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-msgid "Smooth images when zoomed-_out"
-msgstr "Заглаждане при _намаляване"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Transparent Parts"
-msgstr "Прозрачни части"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "_Automatic orientation"
-msgstr "_Автоматично завъртане"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "_Loop sequence"
-msgstr "П_оследователност на завъртанията"
-
-#: ../data/eog-preferences-dialog.ui.h:21
+msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "_Смяна на изображението след:"
 
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "Настройки"
+
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Sequence"
+msgstr "Последователност"
+
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "Slideshow"
+msgstr "Прожекция"
+
+#: ../data/eog-preferences-dialog.ui.h:20
+msgid "Smooth images when zoomed-_in"
+msgstr "Заглаждане при _увеличаване"
+
+#: ../data/eog-preferences-dialog.ui.h:21
+msgid "Smooth images when zoomed-_out"
+msgstr "Заглаждане при _намаляване"
+
 #: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "секунди"
+msgid "Transparent Parts"
+msgstr "Прозрачни части"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "_Automatic orientation"
+msgstr "_Автоматично завъртане"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "_Loop sequence"
+msgstr "П_оследователност на завъртанията"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
@@ -646,11 +650,11 @@ msgstr "Файловият формат е непознат или неподд�
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"Програмата не може да определи поддържан файлов формат на основата на "
-"файловото име."
+"Програмата не може да определи поддържан файлов формат за писане на основата "
+"на файловото име."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -980,8 +984,10 @@ msgid "At least two file names are equal."
 msgstr "Поне два файла имат еднакви имена."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Ръководството на Eye of GNOME не може да бъде показано"
+msgid "Could not display help for Image Viewer"
+msgstr ""
+"Ръководството на програмата за преглед на изображения не може да бъде "
+"показано"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1066,10 +1072,6 @@ msgstr ""
 "Проектът за превод на GNOME има нужда от подкрепа.\n"
 "Научете повече за нас на http://gnome.cult.bg\n"
 "Докладвайте за грешки на http://gnome.cult.bg/bugs"
-
-#: ../src/eog-window.c:2636
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
 
 #: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
@@ -1217,8 +1219,8 @@ msgid "Prefere_nces"
 msgstr "_Настройки"
 
 #: ../src/eog-window.c:3810
-msgid "Preferences for Eye of GNOME"
-msgstr "Настройки на Eye of GNOME"
+msgid "Preferences for Image Viewer"
+msgstr "Настройки на програмата за преглед на изображения"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1523,9 +1525,9 @@ msgstr "Редактиране на текущото изображение с %
 msgid "Edit Image"
 msgstr "Редактиране на изображението"
 
-#: ../src/main.c:63 ../src/main.c:152
-msgid "Eye of GNOME Image Viewer"
-msgstr "Програма за преглед на изображения EoG"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "Програма за преглед на изображения"
 
 #: ../src/main.c:70
 msgid "Open in fullscreen mode"
