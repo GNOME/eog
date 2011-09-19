@@ -145,7 +145,6 @@ eog_reload_plugin_activate (EogWindowActivatable *activatable)
 							   ui_definition,
 							   -1, NULL);
 	g_warn_if_fail (plugin->ui_id != 0);
-	g_print ("activate\n");
 }
 
 static void
