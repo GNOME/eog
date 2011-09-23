@@ -82,7 +82,14 @@ eog_statusbar_init (EogStatusbar *statusbar)
 			  priv->progressbar,
 			  TRUE,
 			  TRUE,
-			  2);
+			  0);
+
+	/* Set margins by hand to avoid causing redraws due to the statusbar
+	 * becoming too small for the progressbar */
+	gtk_widget_set_margin_left (priv->progressbar, 2);
+	gtk_widget_set_margin_right (priv->progressbar, 2);
+	gtk_widget_set_margin_top (priv->progressbar, 1);
+	gtk_widget_set_margin_bottom (priv->progressbar, 1);
 
 	gtk_widget_set_size_request (priv->progressbar, -1, 10);
 
