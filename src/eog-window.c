@@ -820,6 +820,12 @@ image_file_changed_cb (EogImage *img, EogWindow *window)
 	if (window->priv->needs_reload_confirmation == FALSE)
 		return;
 
+	if (!eog_image_is_modified (img)) {
+		/* Auto-reload when image is unmodified (bug #555370) */
+		eog_window_reload_image (window);
+		return;
+	}
+
 	window->priv->needs_reload_confirmation = FALSE;
 
 	info_bar = gtk_info_bar_new_with_buttons (_("_Reload"),
