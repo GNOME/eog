@@ -38,25 +38,20 @@ G_DEFINE_INTERFACE(EogWindowActivatable, eog_window_activatable, G_TYPE_OBJECT)
 void
 eog_window_activatable_default_init (EogWindowActivatableInterface *iface)
 {
-	static gboolean initialized = FALSE;
-
-	if (!initialized) {
-		/**
-		 * EogWindowActivatable:window:
-		 *
-		 * This is the #EogWindow this #EogWindowActivatable instance
-		 * should be attached to.
-		 */
-		g_object_interface_install_property (iface,
-				g_param_spec_object ("window", "Window",
-						     "The EogWindow this "
-						     "instance it attached to",
-						     EOG_TYPE_WINDOW,
-						     G_PARAM_READWRITE |
-						     G_PARAM_CONSTRUCT_ONLY |
-						     G_PARAM_STATIC_STRINGS));
-		initialized = TRUE;
-	}
+	/**
+	 * EogWindowActivatable:window:
+	 *
+	 * This is the #EogWindow this #EogWindowActivatable instance
+	 * should be attached to.
+	 */
+	g_object_interface_install_property (iface,
+			g_param_spec_object ("window", "Window",
+					     "The EogWindow this "
+					     "instance it attached to",
+					     EOG_TYPE_WINDOW,
+					     G_PARAM_READWRITE |
+					     G_PARAM_CONSTRUCT_ONLY |
+					     G_PARAM_STATIC_STRINGS));
 }
 
 void
