@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-14 15:09+0000\n"
-"PO-Revision-Date: 2011-09-15 22:22+0100\n"
+"POT-Creation-Date: 2011-10-04 09:22+0000\n"
+"PO-Revision-Date: 2011-10-04 12:42+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgid "Browse and rotate images"
 msgstr "Prebrskaj in zavrti slike"
 
 #: ../data/eog.desktop.in.in.h:2
-#: ../src/eog-window.c:2636
+#: ../src/eog-window.c:2642
 #: ../src/main.c:152
 msgid "Image Viewer"
 msgstr "Pregledovalnik slik"
@@ -143,54 +143,58 @@ msgid "Focal Length:"
 msgstr "Goriščna razdalja:"
 
 #: ../data/eog-image-properties-dialog.ui.h:12
+msgid "Folder:"
+msgstr "Mapa:"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
 msgid "General"
 msgstr "Splošno"
 
-#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../data/eog-image-properties-dialog.ui.h:14
 msgid "Height:"
 msgstr "Višina:"
 
-#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../data/eog-image-properties-dialog.ui.h:15
 msgid "ISO Speed Rating:"
 msgstr "ISO raven hitrosti:"
 
-#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../data/eog-image-properties-dialog.ui.h:16
 msgid "Image Properties"
 msgstr "Lastnosti slike"
 
-#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../data/eog-image-properties-dialog.ui.h:17
 msgid "Keywords:"
 msgstr "Ključne besede:"
 
-#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../data/eog-image-properties-dialog.ui.h:18
 msgid "Location:"
 msgstr "Mesto:"
 
-#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../data/eog-image-properties-dialog.ui.h:19
 msgid "Metadata"
 msgstr "Metapodatki"
 
-#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../data/eog-image-properties-dialog.ui.h:20
 msgid "Metering Mode:"
 msgstr "Metrični način:"
 
-#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../data/eog-image-properties-dialog.ui.h:21
 msgid "Name:"
 msgstr "Ime:"
 
-#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../data/eog-image-properties-dialog.ui.h:22
 msgid "Type:"
 msgstr "Vrsta:"
 
-#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../data/eog-image-properties-dialog.ui.h:23
 msgid "Width:"
 msgstr "Širina:"
 
-#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../data/eog-image-properties-dialog.ui.h:24
 msgid "_Next"
 msgstr "_Naslednja"
 
-#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../data/eog-image-properties-dialog.ui.h:25
 msgid "_Previous"
 msgstr "_Predhodna"
 
@@ -299,20 +303,17 @@ msgstr "Vstavki"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
-#| msgid "seconds"
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
 msgstr "sekund"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:16
-#| msgid "_Switch image after:"
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
 msgstr "_Preklopi sliko vsakih:"
 
 #: ../data/eog-preferences-dialog.ui.h:17
-#| msgid "Prefere_nces"
 msgid "Preferences"
 msgstr "Možnosti"
 
@@ -550,9 +551,6 @@ msgid "File format is unknown or unsupported"
 msgstr "Zapis datoteke ni znan ali pa ni podprt."
 
 #: ../src/eog-file-chooser.c:131
-#| msgid ""
-#| "Eye of GNOME could not determine a supported writable file format based "
-#| "on the filename."
 msgid "Image Viewer could not determine a supported writable file format based on the filename."
 msgstr "Pregledovalnik slik ne zazna podprte vrste datotek za pisanje na osnovi imena datoteke."
 
@@ -576,8 +574,8 @@ msgstr "Vse slikovne datoteke"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:296
-#: ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139
+#: ../src/eog-properties-dialog.c:138
+#: ../src/eog-properties-dialog.c:140
 #: ../src/eog-thumb-view.c:443
 msgid "pixel"
 msgid_plural "pixels"
@@ -726,12 +724,12 @@ msgid "_Cancel"
 msgstr "_Prekliči"
 
 #: ../src/eog-error-message-area.c:124
-#: ../src/eog-window.c:825
+#: ../src/eog-window.c:831
 msgid "_Reload"
 msgstr "_Ponovno naloži"
 
 #: ../src/eog-error-message-area.c:129
-#: ../src/eog-window.c:3842
+#: ../src/eog-window.c:3848
 msgid "Save _As…"
 msgstr "Shrani _kot ..."
 
@@ -846,13 +844,13 @@ msgstr "Cole"
 msgid "Preview"
 msgstr "Predogled"
 
-#: ../src/eog-properties-dialog.c:154
+#: ../src/eog-properties-dialog.c:155
 msgid "Unknown"
 msgstr "Neznano"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:232
+#: ../src/eog-properties-dialog.c:239
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (leča)"
@@ -860,10 +858,15 @@ msgstr "%.1f (leča)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:243
+#: ../src/eog-properties-dialog.c:250
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm film)"
+
+#: ../src/eog-properties-dialog.c:762
+#: ../src/eog-window.c:3852
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Pokaži mapo, ki vsebuje datoteko v upravljalniku datotek"
 
 #: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
@@ -879,7 +882,7 @@ msgstr "kot je"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:124
+#: ../src/eog-statusbar.c:131
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
@@ -894,7 +897,6 @@ msgid "At least two file names are equal."
 msgstr "Vsaj dve imeni datotek sta enaki."
 
 #: ../src/eog-util.c:68
-#| msgid "Could not display help for Eye of GNOME"
 msgid "Could not display help for Image Viewer"
 msgstr "Pomoči za pregledovalnik slik ni mogoče prikazati"
 
@@ -917,15 +919,15 @@ msgstr[1] "%i × %i točka  %s    %i%%"
 msgstr[2] "%i × %i točki  %s    %i%%"
 msgstr[3] "%i × %i točke  %s    %i%%"
 
-#: ../src/eog-window.c:827
-#: ../src/eog-window.c:2784
+#: ../src/eog-window.c:833
+#: ../src/eog-window.c:2790
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "S_krij"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:837
+#: ../src/eog-window.c:843
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -934,7 +936,7 @@ msgstr ""
 "Slika \"%s\" je spremenjena za zunanjim programom.\n"
 "Ali želite sliko ponovno naložiti?"
 
-#: ../src/eog-window.c:1001
+#: ../src/eog-window.c:1007
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Uporabi \"%s\" za odpiranje izbrane slike"
@@ -944,17 +946,17 @@ msgstr "Uporabi \"%s\" za odpiranje izbrane slike"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1157
+#: ../src/eog-window.c:1163
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Shranjevanje slike \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1528
+#: ../src/eog-window.c:1534
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Odpiranje slike \"%s\""
 
-#: ../src/eog-window.c:2205
+#: ../src/eog-window.c:2211
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -963,36 +965,36 @@ msgstr ""
 "Napaka med tiskanjem datoteke:\n"
 "%s"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2529
 msgid "Toolbar Editor"
 msgstr "Urejevalnik orodnih vrstic"
 
-#: ../src/eog-window.c:2526
+#: ../src/eog-window.c:2532
 msgid "_Reset to Default"
 msgstr "_Povrni na privzeto"
 
-#: ../src/eog-window.c:2631
+#: ../src/eog-window.c:2637
 msgid "translator-credits"
 msgstr "Matej Urbančič <mateju@svn.gnome.org>"
 
-#: ../src/eog-window.c:2639
+#: ../src/eog-window.c:2645
 msgid "The GNOME image viewer."
 msgstr "Pregledovalnik slik za GNOME"
 
-#: ../src/eog-window.c:2731
-#: ../src/eog-window.c:2746
+#: ../src/eog-window.c:2737
+#: ../src/eog-window.c:2752
 msgid "Error launching System Settings: "
 msgstr "Napaka med zaganjanjem sistemskih nastavitev:"
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2782
+#: ../src/eog-window.c:2788
 msgid "_Open Background Preferences"
 msgstr "_Odpri možnosti ozadja"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2798
+#: ../src/eog-window.c:2804
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1001,11 +1003,11 @@ msgstr ""
 "Slika \"%s\" je določena kot ozadje namizja.\n"
 "Ali želite spremeniti njen videz?"
 
-#: ../src/eog-window.c:3271
+#: ../src/eog-window.c:3277
 msgid "Saving image locally…"
 msgstr "Krajevno shranjevanje slike ..."
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3357
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1014,12 +1016,12 @@ msgstr ""
 "Ali stre prepričani, da želite premakniti\n"
 "\"%s\" v smeti?"
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3360
 #, c-format
 msgid "A trash for \"%s\" couldn't be found. Do you want to remove this image permanently?"
 msgstr "Smeti za \"%s\" ni mogoče najti. Ali želite slike trajno izbrisati?"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3365
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1040,406 +1042,400 @@ msgstr[3] ""
 "Ali ste prepričani, da želite premakniti\n"
 "%d izbrane slike v smeti?"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3370
 msgid "Some of the selected images can't be moved to the trash and will be removed permanently. Are you sure you want to proceed?"
 msgstr "Nekaterih izbranih slik ni mogoče premakniti v smeti in bodo trajno izbrisane. Ali ste prepričani, da želite nadaljevati?"
 
-#: ../src/eog-window.c:3381
-#: ../src/eog-window.c:3872
-#: ../src/eog-window.c:3896
+#: ../src/eog-window.c:3387
+#: ../src/eog-window.c:3878
+#: ../src/eog-window.c:3902
 msgid "Move to _Trash"
 msgstr "Premakni v _smeti"
 
-#: ../src/eog-window.c:3383
+#: ../src/eog-window.c:3389
 msgid "_Do not ask again during this session"
 msgstr "_To sejo ne vprašaj več"
 
-#: ../src/eog-window.c:3428
-#: ../src/eog-window.c:3442
+#: ../src/eog-window.c:3434
+#: ../src/eog-window.c:3448
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Ni mogoč dostop do smeti."
 
-#: ../src/eog-window.c:3450
+#: ../src/eog-window.c:3456
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Ni mogoče izbrisati datoteke"
 
-#: ../src/eog-window.c:3546
+#: ../src/eog-window.c:3552
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Napaka med brisanjem datoteke %s."
 
-#: ../src/eog-window.c:3793
+#: ../src/eog-window.c:3799
 msgid "_Image"
 msgstr "_Slika"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3800
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3801
 msgid "_View"
 msgstr "Po_gled"
 
-#: ../src/eog-window.c:3796
+#: ../src/eog-window.c:3802
 msgid "_Go"
 msgstr "P_ojdi"
 
-#: ../src/eog-window.c:3797
+#: ../src/eog-window.c:3803
 msgid "_Tools"
 msgstr "_Orodja"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3804
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: ../src/eog-window.c:3800
+#: ../src/eog-window.c:3806
 msgid "_Open…"
 msgstr "_Odpri…"
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3807
 msgid "Open a file"
 msgstr "Odpri datoteko"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3809
 msgid "_Close"
 msgstr "_Zapri"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3810
 msgid "Close window"
 msgstr "Zapri okno"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3812
 msgid "T_oolbar"
 msgstr "_Orodna vrstica"
 
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3813
 msgid "Edit the application toolbar"
 msgstr "Urejanje orodne vrstice programa"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3815
 msgid "Prefere_nces"
 msgstr "_Možnosti"
 
-#: ../src/eog-window.c:3810
-#| msgid "Preferences for Eye of GNOME"
+#: ../src/eog-window.c:3816
 msgid "Preferences for Image Viewer"
 msgstr "Možnosti za pregledovalnik slik"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3818
 msgid "_Contents"
 msgstr "_Vsebina"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3819
 msgid "Help on this application"
 msgstr "Pomoč za delo s programom"
 
-#: ../src/eog-window.c:3815
+#: ../src/eog-window.c:3821
 msgid "_About"
 msgstr "_O programu"
 
-#: ../src/eog-window.c:3816
+#: ../src/eog-window.c:3822
 msgid "About this application"
 msgstr "O tem programu"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3827
 msgid "_Toolbar"
 msgstr "_Orodna vrstica"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3828
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Spremeni prikazovanje orodne vrstice trenutnega okna."
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3830
 msgid "_Statusbar"
 msgstr "Vrstica _stanja"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3831
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Spremeni prikaz vrstice stanja trenutnega okna."
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3833
 msgid "_Image Gallery"
 msgstr "_Galerija slik"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3834
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Spremeni prikazovanje pladnja slik galerije v trenutnem oknu."
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3836
 msgid "Side _Pane"
 msgstr "Stranski _pladenj"
 
-#: ../src/eog-window.c:3831
+#: ../src/eog-window.c:3837
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Spremeni prikazovanje stranskega pladnja v trenutnem oknu."
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3842
 msgid "_Save"
 msgstr "_Shrani"
 
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3843
 msgid "Save changes in currently selected images"
 msgstr "Shrani spremembe trenutno izbranih slik"
 
-#: ../src/eog-window.c:3839
+#: ../src/eog-window.c:3845
 msgid "Open _with"
 msgstr "Odpri _s programom"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3846
 msgid "Open the selected image with a different application"
 msgstr "Odpri izbrano sliko z drugim programom"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3849
 msgid "Save the selected images with a different name"
 msgstr "Shrani izbrano sliko z drugim imenom"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3851
 msgid "Show Containing _Folder"
 msgstr "Pokaži vsebujočo _mapo"
 
-#: ../src/eog-window.c:3846
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Pokaži mapo, ki vsebuje datoteko v upravljalniku datotek"
-
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3854
 msgid "_Print…"
 msgstr "_Natisni ..."
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3855
 msgid "Print the selected image"
 msgstr "Natisni izbrano sliko"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3857
 msgid "Prope_rties"
 msgstr "_Lastnosti"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3858
 msgid "Show the properties and metadata of the selected image"
 msgstr "Pokaži lastnosti in metapodatke izbrane slike"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3860
 msgid "_Undo"
 msgstr "_Razveljavi"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3861
 msgid "Undo the last change in the image"
 msgstr "Razveljavi zadnje spremembe v sliki"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3863
 msgid "Flip _Horizontal"
 msgstr "Zrcali _vodoravno"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3864
 msgid "Mirror the image horizontally"
 msgstr "Zrcali sliko vodoravno"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3866
 msgid "Flip _Vertical"
 msgstr "Zrcali _navpično"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3867
 msgid "Mirror the image vertically"
 msgstr "Zrcali sliko navpično"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3869
 msgid "_Rotate Clockwise"
 msgstr "Zavrti v _desno"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3870
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Zavrti sliko za 90 stopinj v desno"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3872
 msgid "Rotate Counterc_lockwise"
 msgstr "Zavrti v _levo"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3873
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Zavrti sliko za 90 stopinj v levo"
 
-#: ../src/eog-window.c:3869
+#: ../src/eog-window.c:3875
 msgid "Set as _Desktop Background"
 msgstr "Slika kot _ozadje namizja"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3876
 msgid "Set the selected image as the desktop background"
 msgstr "Nastavi izbrano sliko kot ozadje namizja."
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3879
 msgid "Move the selected image to the trash folder"
 msgstr "Premakni izbrano sliko v mapo smeti"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:3881
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: ../src/eog-window.c:3876
+#: ../src/eog-window.c:3882
 msgid "Copy the selected image to the clipboard"
 msgstr "Kopiraj izbrano sliko na odložišče"
 
-#: ../src/eog-window.c:3878
-#: ../src/eog-window.c:3887
-#: ../src/eog-window.c:3890
+#: ../src/eog-window.c:3884
+#: ../src/eog-window.c:3893
+#: ../src/eog-window.c:3896
 msgid "_Zoom In"
 msgstr "_Približaj"
 
-#: ../src/eog-window.c:3879
-#: ../src/eog-window.c:3888
+#: ../src/eog-window.c:3885
+#: ../src/eog-window.c:3894
 msgid "Enlarge the image"
 msgstr "Približaj sliko"
 
-#: ../src/eog-window.c:3881
-#: ../src/eog-window.c:3893
+#: ../src/eog-window.c:3887
+#: ../src/eog-window.c:3899
 msgid "Zoom _Out"
 msgstr "_Oddalji"
 
-#: ../src/eog-window.c:3882
-#: ../src/eog-window.c:3891
-#: ../src/eog-window.c:3894
+#: ../src/eog-window.c:3888
+#: ../src/eog-window.c:3897
+#: ../src/eog-window.c:3900
 msgid "Shrink the image"
 msgstr "Oddalji sliko"
 
-#: ../src/eog-window.c:3884
+#: ../src/eog-window.c:3890
 msgid "_Normal Size"
 msgstr "_Običajna velikost"
 
-#: ../src/eog-window.c:3885
+#: ../src/eog-window.c:3891
 msgid "Show the image at its normal size"
 msgstr "Pokaži sliko v običajni velikosti"
 
-#: ../src/eog-window.c:3902
+#: ../src/eog-window.c:3908
 msgid "_Fullscreen"
 msgstr "_Celozaslonski način"
 
-#: ../src/eog-window.c:3903
+#: ../src/eog-window.c:3909
 msgid "Show the current image in fullscreen mode"
 msgstr "Pokaži trenutno sliko v celozaslonskem načinu"
 
-#: ../src/eog-window.c:3905
+#: ../src/eog-window.c:3911
 msgid "Pause Slideshow"
 msgstr "Premor predvajanja"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3912
 msgid "Pause or resume the slideshow"
 msgstr "Premor ali nadaljevanje predvajanja predstavitve"
 
-#: ../src/eog-window.c:3908
+#: ../src/eog-window.c:3914
 msgid "_Best Fit"
 msgstr "_Najboljša prilagoditev"
 
-#: ../src/eog-window.c:3909
+#: ../src/eog-window.c:3915
 msgid "Fit the image to the window"
 msgstr "Prilagodi sliko velikosti okna"
 
-#: ../src/eog-window.c:3914
-#: ../src/eog-window.c:3929
+#: ../src/eog-window.c:3920
+#: ../src/eog-window.c:3935
 msgid "_Previous Image"
 msgstr "_Predhodna slika"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3921
 msgid "Go to the previous image of the gallery"
 msgstr "Skoči na predhodno sliko galerije"
 
-#: ../src/eog-window.c:3917
+#: ../src/eog-window.c:3923
 msgid "_Next Image"
 msgstr "_Naslednja slika"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3924
 msgid "Go to the next image of the gallery"
 msgstr "Skoči na naslednjo sliko galerije"
 
-#: ../src/eog-window.c:3920
-#: ../src/eog-window.c:3932
+#: ../src/eog-window.c:3926
+#: ../src/eog-window.c:3938
 msgid "_First Image"
 msgstr "_Prva slika"
 
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3927
 msgid "Go to the first image of the gallery"
 msgstr "Skoči na prvo sliko galerije"
 
-#: ../src/eog-window.c:3923
-#: ../src/eog-window.c:3935
+#: ../src/eog-window.c:3929
+#: ../src/eog-window.c:3941
 msgid "_Last Image"
 msgstr "_Zadnja sliko"
 
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3930
 msgid "Go to the last image of the gallery"
 msgstr "Skoči na zadnjo sliko galerije"
 
-#: ../src/eog-window.c:3926
+#: ../src/eog-window.c:3932
 msgid "_Random Image"
 msgstr "_Naključna slika"
 
-#: ../src/eog-window.c:3927
+#: ../src/eog-window.c:3933
 msgid "Go to a random image of the gallery"
 msgstr "Skoči na naključno sliko galerije"
 
-#: ../src/eog-window.c:3941
+#: ../src/eog-window.c:3947
 msgid "S_lideshow"
 msgstr "_Predstavitev"
 
-#: ../src/eog-window.c:3942
+#: ../src/eog-window.c:3948
 msgid "Start a slideshow view of the images"
 msgstr "Začni predstavitveno prikazovanje slik"
 
-#: ../src/eog-window.c:4008
+#: ../src/eog-window.c:4014
 msgid "Previous"
 msgstr "Predhodna"
 
-#: ../src/eog-window.c:4012
+#: ../src/eog-window.c:4018
 msgid "Next"
 msgstr "Naslednja"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:4022
 msgid "Right"
 msgstr "Desno"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:4025
 msgid "Left"
 msgstr "Levo"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:4028
 msgid "Show Folder"
 msgstr "Pokaži mapo"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4031
 msgid "In"
 msgstr "Povečaj"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4034
 msgid "Out"
 msgstr "Pomanjšaj"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:4037
 msgid "Normal"
 msgstr "Običajno"
 
-#: ../src/eog-window.c:4034
+#: ../src/eog-window.c:4040
 msgid "Fit"
 msgstr "Prilagodi"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4043
 msgid "Gallery"
 msgstr "Galerija"
 
-#: ../src/eog-window.c:4040
+#: ../src/eog-window.c:4046
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Premakni v smeti"
 
-#: ../src/eog-window.c:4408
+#: ../src/eog-window.c:4414
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Uredi trenutno sliko s programom %s"
 
-#: ../src/eog-window.c:4410
+#: ../src/eog-window.c:4416
 msgid "Edit Image"
 msgstr "Uredi sliko"
 
 #: ../src/main.c:63
-#| msgid "Eye of GNOME Image Viewer"
 msgid "GNOME Image Viewer"
 msgstr "Pregledovalnik slik GNOME"
 
@@ -1472,3 +1468,4 @@ msgstr "[DATOTEKA ...]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite '%s --help'."
+
