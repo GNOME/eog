@@ -295,6 +295,27 @@ eog_application_get_file_window (EogApplication *application, GFile *file)
 	return file_window;
 }
 
+static EogWindow *
+eog_application_get_first_window (EogApplication *application)
+{
+	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
+
+	GList *windows;
+	GList *l;
+	EogWindow *window = NULL;
+	windows = gtk_window_list_toplevels ();
+	for (l = windows; l != NULL; l = l->next) {
+		if (EOG_IS_WINDOW (l->data)) {
+			window = EOG_WINDOW (l->data);
+			break;
+		}
+	}
+	g_list_free (windows);
+
+	return window;
+}
+
+
 static void
 eog_application_show_window (EogWindow *window, gpointer user_data)
 {
@@ -314,6 +335,8 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
  * Opens a list of files in a #EogWindow. If an #EogWindow displaying the first
  * image in the list is already open, this will be used. Otherwise, an empty
  * #EogWindow is used, either already existing or newly created.
+ * If the EOG_STARTUP_SINGLE_WINDOW flag is set, the files are opened in the
+ * first #EogWindow and no new one is opened.
  *
  * Returns: Currently always %TRUE.
  **/
@@ -326,13 +349,20 @@ eog_application_open_file_list (EogApplication  *application,
 {
 	EogWindow *new_window = NULL;
 
-	if (file_list != NULL)
-		new_window = eog_application_get_file_window (application,
-							      (GFile *) file_list->data);
+	if (file_list != NULL) {
+		if(flags & EOG_STARTUP_SINGLE_WINDOW)
+			new_window = eog_application_get_first_window (application);
+		else
+			new_window = eog_application_get_file_window (application,
+								      (GFile *) file_list->data);
+	}
 
 	if (new_window != NULL) {
-		gtk_window_present_with_time (GTK_WINDOW (new_window),
-					      timestamp);
+		if(flags & EOG_STARTUP_SINGLE_WINDOW)
+		        eog_window_open_file_list (new_window, file_list);
+		else
+			gtk_window_present_with_time (GTK_WINDOW (new_window),
+						      timestamp);
 		return TRUE;
 	}
 

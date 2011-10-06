@@ -52,6 +52,7 @@ static gboolean fullscreen = FALSE;
 static gboolean slide_show = FALSE;
 static gboolean disable_gallery = FALSE;
 static gboolean force_new_instance = FALSE;
+static gboolean single_window = FALSE;
 static gchar **startup_files = NULL;
 
 static gboolean
@@ -71,6 +72,7 @@ static const GOptionEntry goption_options[] =
 	{ "disable-gallery", 'g', 0, G_OPTION_ARG_NONE, &disable_gallery, N_("Disable image gallery"), NULL  },
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slideshow mode"), NULL  },
 	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
+	{ "single-window", 'w', 0, G_OPTION_ARG_NONE, &single_window, N_("Open in a single window, if multiple windows are open the first one is used"), NULL },
 	{ "version", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	  _print_version_and_exit, N_("Show the application's version"), NULL},
 	{ NULL }
@@ -87,6 +89,9 @@ set_startup_flags (void)
 
   if (slide_show)
     flags |= EOG_STARTUP_SLIDE_SHOW;
+
+  if (single_window)
+    flags |= EOG_STARTUP_SINGLE_WINDOW;
 }
 
 int
