@@ -71,7 +71,7 @@ struct EggToolbarEditorPrivate
   gulong     sig_handlers[SIGNAL_HANDLER_LIST_SIZE];
 };
 
-G_DEFINE_TYPE (EggToolbarEditor, egg_toolbar_editor, GTK_TYPE_VBOX);
+G_DEFINE_TYPE (EggToolbarEditor, egg_toolbar_editor, GTK_TYPE_BOX);
 
 static gint
 compare_items (gconstpointer a,
@@ -456,7 +456,7 @@ editor_create_item (EggToolbarEditor *editor,
 		        G_CALLBACK (drag_end_cb), NULL);
     }
 
-  vbox = gtk_vbox_new (0, FALSE);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_widget_show (vbox);
   gtk_container_add (GTK_CONTAINER (event_box), vbox);
 
@@ -667,6 +667,8 @@ egg_toolbar_editor_init (EggToolbarEditor *t)
 {
   t->priv = EGG_TOOLBAR_EDITOR_GET_PRIVATE (t);
 
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (t),
+                                  GTK_ORIENTATION_VERTICAL);
   t->priv->manager = NULL;
   t->priv->actions_list = NULL;
 
