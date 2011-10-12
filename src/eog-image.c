@@ -2215,7 +2215,7 @@ compare_quarks (gconstpointer a, gconstpointer b)
  *
  * Gets the list of supported mimetypes
  *
- * Returns: (transfer none): a #GList of supported mimetypes
+ * Returns: (transfer none)(element-type utf8): a #GList of supported mimetypes
  **/
 GList *
 eog_image_get_supported_mime_types (void)

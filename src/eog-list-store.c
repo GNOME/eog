@@ -523,7 +523,7 @@ eog_list_store_append_directory (EogListStore *store,
 /**
  * eog_list_store_add_files:
  * @store: An #EogListStore.
- * @file_list: A %NULL-terminated list of #GFile's.
+ * @file_list: (element-type GFile): A %NULL-terminated list of #GFile's.
  *
  * Adds a list of #GFile's to @store. The given list
  * must be %NULL-terminated.
@@ -652,7 +652,7 @@ eog_list_store_remove_image (EogListStore *store, EogImage *image)
 
 /**
  * eog_list_store_new_from_glist:
- * @list: a %NULL-terminated list of #EogImage's.
+ * @list: (element-type EogImage): a %NULL-terminated list of #EogImage's.
  *
  * Creates a new #EogListStore from a list of #EogImage's.
  * The given list must be %NULL-terminated.
