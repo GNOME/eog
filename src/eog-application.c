@@ -326,7 +326,7 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
 /**
  * eog_application_open_file_list:
  * @application: An #EogApplication.
- * @file_list: A list of #GFile<!-- -->s.
+ * @file_list: (element-type GFile): A list of #GFile<!-- -->s.
  * @timestamp: The timestamp of the user interaction which triggered this call
  * (see gtk_window_present_with_time()).
  * @flags: A set of #EogStartupFlags influencing a new windows' state.
@@ -385,7 +385,7 @@ eog_application_open_file_list (EogApplication  *application,
 /**
  * eog_application_open_uri_list:
  * @application: An #EogApplication.
- * @uri_list: A list of URIs.
+ * @uri_list: (element-type utf8): A list of URIs.
  * @timestamp: The timestamp of the user interaction which triggered this call
  * (see gtk_window_present_with_time()).
  * @flags: A set of #EogStartupFlags influencing a new windows' state.

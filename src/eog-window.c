@@ -5459,7 +5459,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 /**
  * eog_window_open_file_list:
  * @window: An #EogWindow.
- * @file_list: A %NULL-terminated list of #GFile's.
+ * @file_list: (element-type GFile): A %NULL-terminated list of #GFile's.
  *
  * Opens a list of files, adding them to the gallery in @window.
  * Files will be checked to be readable and later filtered according
