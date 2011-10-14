@@ -1,20 +1,21 @@
 # translation of te.po to Telugu
 # Telugu translation of eog.
 # Copyright (C) 2011 Gnome Telugu Translation Team.
+# Copyright (C) 2007,2011 Swecha Telugu Localisation Team <localization@swecha.net>.
 # This file is distributed under the same license as the eog package.
 #
 # Bharat Kumar <jonnalagaddabharat@gmail.com>, 2007.
 # Krishna Babu K <kkrothap@redhat.com>, 2009, 2010.
 # Praveen Illa <mail2ipn@gmail.com>, 2011.
-#
+# Hari Krishna <hari@swecha.net>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-29 16:00+0000\n"
+"POT-Creation-Date: 2011-10-12 12:44+0000\n"
 "PO-Revision-Date: 2011-05-30 13:36+0530\n"
-"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
+"Last-Translator: Hari Krishna <hari@swecha.net>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
 "Language: te\n"
 "MIME-Version: 1.0\n"
@@ -34,32 +35,32 @@ msgstr ""
 #. * produce duplicates, but don't worry about it. If your language
 #. * normally has a mnemonic at the start, please use the _. If not,
 #. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:958
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:988
 #, c-format
 msgid "Show “_%s”"
 msgstr "“_%s” ని చూపించు"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1448
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1479
 msgid "_Move on Toolbar"
 msgstr "సాధనపట్టీ మీదకి తరలించు (_M)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1449
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1480
 msgid "Move the selected item on the toolbar"
 msgstr "ఎంచుకున్న అంశమును సాధనపట్టీ మీదకి తరలించు"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1450
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
 msgid "_Remove from Toolbar"
 msgstr "సాధనపట్టీ నుండి తొలగించు (_R)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1451
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
 msgid "Remove the selected item from the toolbar"
 msgstr "ఎంచుకున్న అంశమును సాధనపట్టీ నుండి తీసివేయి"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1452
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
 msgid "_Delete Toolbar"
 msgstr "సాధనపట్టీని తొలగించు (_D)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1453
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
 msgid "Remove the selected toolbar"
 msgstr "ఎంచుకున్న సాధనపట్టీని తీసివేయి"
 
@@ -97,7 +98,7 @@ msgstr "విండో స్థితిపట్టీ నందు బొమ
 msgid "Browse and rotate images"
 msgstr "బొమ్మలు అన్వేషించు మరియు తిప్పు"
 
-#: ../data/eog.desktop.in.in.h:2
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
 msgid "Image Viewer"
 msgstr "బొమ్మ వీక్షకము"
 
@@ -285,60 +286,64 @@ msgid "E_xpand images to fit screen"
 msgstr "తెరకు అమరేటట్టు బొమ్మలను విస్తరించు (_x)"
 
 #: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Eye of GNOME ప్రాధాన్యతలు"
-
-#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image Enhancements"
 msgstr "బొమ్మను మెరుగుపరుచునవి"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Image View"
 msgstr "బొమ్మ వీక్షణం"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Image Zoom"
 msgstr "బొమ్మ జూమ్"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Plugins"
 msgstr "ప్లగిన్లు"
 
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "క్షణాలు"
+
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:16
+msgctxt "PrefDlgSlideSwitchPrefix"
+msgid "_Switch image after:"
+msgstr "తరువాత బొమ్మను మార్చు (_S):"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Preferences"
+msgstr "ప్రాధాన్యతలు "
+
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
 msgstr "వరుస"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "Slideshow"
 msgstr "పలకప్రదర్శన"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "Smooth images when zoomed-_in"
 msgstr "బొమ్మను పెద్దదిగా చేసినప్పుడు మృదువుగా చేయి (_i)"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "Smooth images when zoomed-_out"
 msgstr "బొమ్మనుచిన్నదిగా చేసినప్పుడు మృదువుగా చేయి (_o)"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "Transparent Parts"
 msgstr "పారదర్శక భాగాలు"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:23
 msgid "_Automatic orientation"
 msgstr "స్వయం చాలక పునశ్ఛరణ (_A)"
 
-#: ../data/eog-preferences-dialog.ui.h:20
+#: ../data/eog-preferences-dialog.ui.h:24
 msgid "_Loop sequence"
 msgstr "ఆవృతం క్రమము (_L)"
-
-#: ../data/eog-preferences-dialog.ui.h:21
-msgid "_Switch image after:"
-msgstr "ఇన్ని సెకనుల తరువాత బొమ్మను మార్చు (_S):"
-
-#: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "సెకన్లు"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
@@ -586,28 +591,24 @@ msgstr "అంతములేని ఆవృతములో వరుస బొ
 msgid "Zoom multiplier"
 msgstr "జూమ్‌ను గుణించునది"
 
-#: ../src/eog-application.c:122
-msgid "Running in fullscreen mode"
-msgstr "పూర్తితెర విధములో నడుస్తున్నది"
-
-#: ../src/eog-close-confirmation-dialog.c:159
+#: ../src/eog-close-confirmation-dialog.c:171
 msgid "Close _without Saving"
 msgstr "అడగకుండానే బొమ్మని మూసివేయి (_w)"
 
-#: ../src/eog-close-confirmation-dialog.c:192
+#: ../src/eog-close-confirmation-dialog.c:217
 msgid "Question"
 msgstr "ప్రశ్న"
 
-#: ../src/eog-close-confirmation-dialog.c:373
+#: ../src/eog-close-confirmation-dialog.c:398
 msgid "If you don't save, your changes will be lost."
 msgstr "ఒకవేళ మీరు భద్రపరచకపోతే, మీరు చేసిన మార్పులు పోతాయి."
 
-#: ../src/eog-close-confirmation-dialog.c:408
+#: ../src/eog-close-confirmation-dialog.c:435
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "మూసివేయుటకు ముందుగా \"%s\" బొమ్మకు చేసిన  మార్పులను భద్రపరచమంటారా?"
 
-#: ../src/eog-close-confirmation-dialog.c:603
+#: ../src/eog-close-confirmation-dialog.c:643
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -615,12 +616,12 @@ msgid_plural ""
 msgstr[0] "%d బొమ్మ భద్రపరుచని మార్పులతో ఉన్నది. మూసివేయుటకు ముందుగా మార్పులను భద్రపరచమంటారా?"
 msgstr[1] "%d బొమ్మలు భద్రపరుచని మార్పులతో ఉన్నాయి. మూసివేయుటకు ముందుగా మార్పులను భద్రపరచమంటారా?"
 
-#: ../src/eog-close-confirmation-dialog.c:620
+#: ../src/eog-close-confirmation-dialog.c:660
 msgid "S_elect the images you want to save:"
 msgstr "మీరు భద్రపరచాలనుకుంటున్న బొమ్మలను ఎంచుకోండి (_e) :"
 
 #. Secondary label
-#: ../src/eog-close-confirmation-dialog.c:638
+#: ../src/eog-close-confirmation-dialog.c:678
 msgid "If you don't save, all your changes will be lost."
 msgstr "ఒకవేళ మీరు భద్రపరచకపోతే, మీరు చేసిన అన్ని మార్పులు పోతాయి."
 
@@ -630,10 +631,10 @@ msgstr "ఫైల్ ఫార్మేటు తెలియనిది లే
 
 #: ../src/eog-file-chooser.c:131
 msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
+"Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"ఫైల్ పేరు పై ఆధారపడి సహకారము ఉన్నటువంటి వ్రాయదగిన ఫైల్ ఫార్మేటును Eye of GNOME నిర్ణయించలేకపోయింది."
+"ఫైల్ పేరు పై ఆధారపడి సహకారము ఉన్నటువంటి వ్రాయదగిన ఫైల్ ఫార్మేటును Image Viewer నిర్ణయించలేకపోయింది."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -673,32 +674,37 @@ msgstr "బొమ్మను భద్రపరుచు"
 msgid "Open Folder"
 msgstr "సంచయమును తెరువు"
 
-#: ../src/eog-image.c:600
+#: ../src/eog-image.c:606
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "లోడవ్వని బొమ్మ పై రూపాంతరము."
 
-#: ../src/eog-image.c:628
+#: ../src/eog-image.c:634
 #, c-format
 msgid "Transformation failed."
 msgstr "రూపాంతరం విఫలమైనది."
 
-#: ../src/eog-image.c:1066
+#: ../src/eog-image.c:1095
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "ఈ ఫైల్ ఫార్మేటుకి EXIF సహకారం లేదు."
 
-#: ../src/eog-image.c:1211
+#: ../src/eog-image.c:1244
 #, c-format
 msgid "Image loading failed."
 msgstr "బొమ్మను నింపుటలో విఫలమైనది."
 
-#: ../src/eog-image.c:1632 ../src/eog-image.c:1734
+#: ../src/eog-image.c:1717 ../src/eog-image.c:1827
 #, c-format
 msgid "No image loaded."
 msgstr "ఎటువంటి బొమ్మ లోడవ్వలేదు."
 
-#: ../src/eog-image.c:1642 ../src/eog-image.c:1746
+#: ../src/eog-image.c:1725 ../src/eog-image.c:1836
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "మీకు దస్త్రమును దాచుటకు అవసరమైన అనుమతులు లెవు"
+
+#: ../src/eog-image.c:1735 ../src/eog-image.c:1847
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "తాత్కాలిక ఫైలును సృష్టించుటలో విఫలమైనది."
@@ -713,49 +719,69 @@ msgstr "దీనిని భద్రపరుచుటకు తాత్క�
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ఫైల్ లోడుచేయుటకు మెమొరీను కేటాయించలేకపోయింది"
 
-#: ../src/eog-exif-details.c:68
+#: ../src/eog-exif-details.c:69
 msgid "Camera"
 msgstr "కెమెరా"
 
-#: ../src/eog-exif-details.c:69
+#: ../src/eog-exif-details.c:70
 msgid "Image Data"
 msgstr "బొమ్మ డేటా"
 
-#: ../src/eog-exif-details.c:70
+#: ../src/eog-exif-details.c:71
 msgid "Image Taking Conditions"
 msgstr "బొమ్మను తీయు నిబంధనలు"
 
-#: ../src/eog-exif-details.c:71
+#: ../src/eog-exif-details.c:72
+msgid "GPS Data"
+msgstr "GPS దత్తాంశం"
+
+#: ../src/eog-exif-details.c:73
 msgid "Maker Note"
 msgstr "రూపకర్త సూచన"
 
-#: ../src/eog-exif-details.c:72
+#: ../src/eog-exif-details.c:74
 msgid "Other"
 msgstr "ఇతర"
 
-#: ../src/eog-exif-details.c:74
+#: ../src/eog-exif-details.c:76
 msgid "XMP Exif"
 msgstr "XMP Exif"
 
-#: ../src/eog-exif-details.c:75
+#: ../src/eog-exif-details.c:77
 msgid "XMP IPTC"
 msgstr "XMP IPTC"
 
-#: ../src/eog-exif-details.c:76
+#: ../src/eog-exif-details.c:78
 msgid "XMP Rights Management"
 msgstr "XMP Rights Management"
 
-#: ../src/eog-exif-details.c:77
+#: ../src/eog-exif-details.c:79
 msgid "XMP Other"
 msgstr "XMP Other"
 
-#: ../src/eog-exif-details.c:251
+#: ../src/eog-exif-details.c:253
 msgid "Tag"
 msgstr "ట్యాగ్"
 
-#: ../src/eog-exif-details.c:258
+#: ../src/eog-exif-details.c:260
 msgid "Value"
 msgstr "విలువ"
+
+#: ../src/eog-exif-details.c:422
+msgid "North"
+msgstr "ఉత్తరం "
+
+#: ../src/eog-exif-details.c:425
+msgid "East"
+msgstr "తూర్పు "
+
+#: ../src/eog-exif-details.c:428
+msgid "West"
+msgstr "పడమర "
+
+#: ../src/eog-exif-details.c:431
+msgid "South"
+msgstr "దక్షినం "
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
@@ -767,21 +793,34 @@ msgstr "%a, %d %B %Y  %X"
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: ../src/eog-error-message-area.c:107
-msgid "_Retry"
-msgstr "మళ్ళీ ప్రయత్నించు (_R)"
+#: ../src/eog-error-message-area.c:119
+msgid "_Cancel"
+msgstr "రద్దుచేయు(_C)"
 
-#: ../src/eog-error-message-area.c:150
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:825
+msgid "_Reload"
+msgstr "తిరిగిలోడుచేయి (_R)"
+
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
+msgid "Save _As…"
+msgstr "ఇలా భద్రపరుచు...(_A)"
+
+#: ../src/eog-error-message-area.c:171
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "'%s' బొమ్మను లోడుచేయలేకపోయింది."
 
-#: ../src/eog-error-message-area.c:192
+#: ../src/eog-error-message-area.c:213
+#, c-format
+msgid "Could not save image '%s'."
+msgstr "'%s' బొమ్మను దాచలేకపోయింది."
+
+#: ../src/eog-error-message-area.c:256
 #, c-format
 msgid "No images found in '%s'."
 msgstr "'%s' నందు ఏ బొమ్మలు కనుబడలేదు."
 
-#: ../src/eog-error-message-area.c:199
+#: ../src/eog-error-message-area.c:263
 msgid "The given locations contain no images."
 msgstr "ఇచ్చిన స్థానాలలో ఏ బొమ్మలను కలిగిలేవు"
 
@@ -910,7 +949,7 @@ msgstr "వలె ఉన్నది"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:126
+#: ../src/eog-statusbar.c:124
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
@@ -925,8 +964,8 @@ msgid "At least two file names are equal."
 msgstr "కనీసం రెండు ఫైళ్ళ పేర్లు సమంగా ఉండాలి."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Eye of GNOME సహాయమును  ప్రదర్శించలేదు"
+msgid "Could not display help for Image Viewer"
+msgstr "Image Viewer సహాయమును  ప్రదర్శించలేదు"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -938,25 +977,21 @@ msgstr " (చెల్లని యూనికోడ్)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:523
+#: ../src/eog-window.c:525
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i పిక్సెల్  %s    %i%%"
 msgstr[1] "%i × %i పిక్సెళ్ళు  %s    %i%%"
 
-#: ../src/eog-window.c:823
-msgid "_Reload"
-msgstr "తిరిగిలోడుచేయి (_R)"
-
-#: ../src/eog-window.c:825 ../src/eog-window.c:2723
+#: ../src/eog-window.c:827 ../src/eog-window.c:2784
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "దాయి (_d)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:835
+#: ../src/eog-window.c:837
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -965,7 +1000,7 @@ msgstr ""
 "\"%s\" బొమ్మ బాహ్య అనువర్తనముచే సవరించబడింది.\n"
 "మీరు దానిని తిరిగిలోడుచేయాలనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:999
+#: ../src/eog-window.c:1001
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "ఎంచుకున్న బొమ్మని తెరుచుటకు \"%s\" ని వినియోగించు"
@@ -975,17 +1010,17 @@ msgstr "ఎంచుకున్న బొమ్మని తెరుచుట�
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1155
+#: ../src/eog-window.c:1157
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "\"%s\" బొమ్మను భద్రపరుస్తున్నది (%u/%u)"
 
-#: ../src/eog-window.c:1508
+#: ../src/eog-window.c:1528
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "\"%s\" బొమ్మని తెరుస్తున్నది"
 
-#: ../src/eog-window.c:2197
+#: ../src/eog-window.c:2205
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -994,42 +1029,38 @@ msgstr ""
 "ఫైల్ ముద్రించుటలో దోషం:\n"
 "%s"
 
-#: ../src/eog-window.c:2462
+#: ../src/eog-window.c:2523
 msgid "Toolbar Editor"
 msgstr "సాధనపట్టీ కూర్పకము"
 
-#: ../src/eog-window.c:2465
+#: ../src/eog-window.c:2526
 msgid "_Reset to Default"
 msgstr "అప్రమేయమునకు తిరిగి అమర్చు (_R)"
 
-#: ../src/eog-window.c:2570
+#: ../src/eog-window.c:2631
 msgid "translator-credits"
 msgstr ""
 "Bharat Kumar <jonnalagaddabharat@gmail.com>,\n"
 "కృష్ణబాబు కె <kkrothap@redhat.com> 2009, 2010,\n"
 "Praveen Illa <mail2ipn@gmail.com>, 2011."
 
-#: ../src/eog-window.c:2575
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
-
-#: ../src/eog-window.c:2578
+#: ../src/eog-window.c:2639
 msgid "The GNOME image viewer."
 msgstr "GNOME బొమ్మ వీక్షకము"
 
-#: ../src/eog-window.c:2670 ../src/eog-window.c:2685
+#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
 msgid "Error launching System Settings: "
 msgstr "వ్యవస్థ అమరికలను ప్రారంభించుటలో దోషము: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2721
+#: ../src/eog-window.c:2782
 msgid "_Open Background Preferences"
 msgstr "నేపథ్య ప్రాధాన్యతలను తెరువు (_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2737
+#: ../src/eog-window.c:2798
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1038,11 +1069,11 @@ msgstr ""
 "\"%s\" బొమ్మ డెస్క్‍టాప్ నేపథ్యము వలె అమర్చబడింది.\n"
 "అది కనిపించువిధమును సవరించాలనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:3177
+#: ../src/eog-window.c:3271
 msgid "Saving image locally…"
 msgstr "బొమ్మను స్థానికంగా భద్రపరుస్తున్నది..."
 
-#: ../src/eog-window.c:3257
+#: ../src/eog-window.c:3351
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1051,14 +1082,14 @@ msgstr ""
 "\"%s\" ని ఖచ్చితముగా చెత్తబుట్టకి\n"
 "తరలించాలనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:3260
+#: ../src/eog-window.c:3354
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "\"%s\" కొరకు చెత్తబుట్ట కనుగొనబడలేదు. మీరు ఈ బొమ్మను శాశ్వతముగా తీసివేద్దామనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:3265
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1073,7 +1104,7 @@ msgstr[1] ""
 "ఎంచుకున్న %d బొమ్మలను చెత్తబుట్టలోకి\n"
 "తరలించాలనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:3270
+#: ../src/eog-window.c:3364
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1081,427 +1112,432 @@ msgstr ""
 "ఎంచుకున్న వాటిలో కొన్ని బొమ్మలు చెత్తబుట్టకు తరలించబడవు మరియు శాశ్వతముగా తొలగించబడతాయి. మీరు "
 "ఖచ్చితముగా కొనసాగాలనుకుంటున్నారా?"
 
-#: ../src/eog-window.c:3287 ../src/eog-window.c:3778 ../src/eog-window.c:3802
+#: ../src/eog-window.c:3381 ../src/eog-window.c:3872 ../src/eog-window.c:3896
 msgid "Move to _Trash"
 msgstr "చెత్తబుట్టకు తరలించు (_T)"
 
-#: ../src/eog-window.c:3289
+#: ../src/eog-window.c:3383
 msgid "_Do not ask again during this session"
 msgstr "ఈ చర్యాకాలములో మరలా అడుగవద్దు (_D)"
 
-#: ../src/eog-window.c:3334 ../src/eog-window.c:3348
+#: ../src/eog-window.c:3428 ../src/eog-window.c:3442
 #, c-format
 msgid "Couldn't access trash."
 msgstr "చెత్తబుట్టకు ప్రవేశ సౌలభ్యత కుదురుటలేదు."
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3450
 #, c-format
 msgid "Couldn't delete file"
 msgstr "ఫైలును తొలగించలేకపోతుంది"
 
-#: ../src/eog-window.c:3452
+#: ../src/eog-window.c:3546
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s బొమ్మని తొలగించుటలో దోషం"
 
-#: ../src/eog-window.c:3699
+#: ../src/eog-window.c:3793
 msgid "_Image"
 msgstr "బొమ్మ (_I)"
 
-#: ../src/eog-window.c:3700
+#: ../src/eog-window.c:3794
 msgid "_Edit"
 msgstr "సవరణ (_E)"
 
-#: ../src/eog-window.c:3701
+#: ../src/eog-window.c:3795
 msgid "_View"
 msgstr "వీక్షణం (_V)"
 
-#: ../src/eog-window.c:3702
+#: ../src/eog-window.c:3796
 msgid "_Go"
 msgstr "వెళ్ళు (_G)"
 
-#: ../src/eog-window.c:3703
+#: ../src/eog-window.c:3797
 msgid "_Tools"
 msgstr "సాధనాలు (_T)"
 
-#: ../src/eog-window.c:3704
+#: ../src/eog-window.c:3798
 msgid "_Help"
 msgstr "సహాయం (_H)"
 
-#: ../src/eog-window.c:3706
+#: ../src/eog-window.c:3800
 msgid "_Open…"
 msgstr "తెరువు...(_O)"
 
-#: ../src/eog-window.c:3707
+#: ../src/eog-window.c:3801
 msgid "Open a file"
 msgstr "ఒక ఫైల్ తెరువు"
 
-#: ../src/eog-window.c:3709
+#: ../src/eog-window.c:3803
 msgid "_Close"
 msgstr "మూసివేయి (_C)"
 
-#: ../src/eog-window.c:3710
+#: ../src/eog-window.c:3804
 msgid "Close window"
 msgstr "విండోను మూసివేయి"
 
-#: ../src/eog-window.c:3712
+#: ../src/eog-window.c:3806
 msgid "T_oolbar"
 msgstr "సాధనపట్టీ (_o)"
 
-#: ../src/eog-window.c:3713
+#: ../src/eog-window.c:3807
 msgid "Edit the application toolbar"
 msgstr "అనువర్తనము సాధనపట్టీని సవరించు"
 
-#: ../src/eog-window.c:3715
+#: ../src/eog-window.c:3809
 msgid "Prefere_nces"
 msgstr "ప్రాధాన్యతలు (_n)"
 
-#: ../src/eog-window.c:3716
-msgid "Preferences for Eye of GNOME"
-msgstr "Eye of GNOME కొరకు ప్రాధాన్యతలు"
+#: ../src/eog-window.c:3810
+msgid "Preferences for Image Viewer"
+msgstr "Image Viewer కొరకు ప్రాధాన్యతలు"
 
-#: ../src/eog-window.c:3718
+#: ../src/eog-window.c:3812
 msgid "_Contents"
 msgstr "విషయసూచిక (_C)"
 
-#: ../src/eog-window.c:3719
+#: ../src/eog-window.c:3813
 msgid "Help on this application"
 msgstr "ఈ అనువర్తనమునకై సహాయం"
 
-#: ../src/eog-window.c:3721
+#: ../src/eog-window.c:3815
 msgid "_About"
 msgstr "గురించి (_A)"
 
-#: ../src/eog-window.c:3722
+#: ../src/eog-window.c:3816
 msgid "About this application"
 msgstr "ఈ అనువర్తనము గురించి"
 
-#: ../src/eog-window.c:3727
+#: ../src/eog-window.c:3821
 msgid "_Toolbar"
 msgstr "సాధనపట్టీ (_T)"
 
-#: ../src/eog-window.c:3728
+#: ../src/eog-window.c:3822
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "ప్రస్థుత విండోలో సాధనపట్టీ యొక్క కనిపించువిధమును మార్చుతుంది"
 
-#: ../src/eog-window.c:3730
+#: ../src/eog-window.c:3824
 msgid "_Statusbar"
 msgstr "స్థితిపట్టీ (_S)"
 
-#: ../src/eog-window.c:3731
+#: ../src/eog-window.c:3825
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "ప్రస్థుత విండోలో స్థితిపట్టీ యొక్క కనిపించువిధమును మార్చుతుంది"
 
-#: ../src/eog-window.c:3733
+#: ../src/eog-window.c:3827
 msgid "_Image Gallery"
 msgstr "బొమ్మల సేకరణ (_I)"
 
-#: ../src/eog-window.c:3734
+#: ../src/eog-window.c:3828
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "ప్రస్థుత విండోలో చిత్రశాల పట్టీ కనిపించువిధమును మార్చుతుంది"
 
-#: ../src/eog-window.c:3736
+#: ../src/eog-window.c:3830
 msgid "Side _Pane"
 msgstr "పక్కపట్టీ (_P)"
 
-#: ../src/eog-window.c:3737
+#: ../src/eog-window.c:3831
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "ప్రస్థుత విండోలో పక్కపట్టీ యొక్క కనిపించువిధమును మార్చుతుంది"
 
-#: ../src/eog-window.c:3742
+#: ../src/eog-window.c:3836
 msgid "_Save"
 msgstr "భద్రపరుచు (_S)"
 
-#: ../src/eog-window.c:3743
+#: ../src/eog-window.c:3837
 msgid "Save changes in currently selected images"
 msgstr "ప్రస్తుతం ఎంచుకున్న బొమ్మలలో మార్పులను భద్రపరుచు"
 
-#: ../src/eog-window.c:3745
+#: ../src/eog-window.c:3839
 msgid "Open _with"
 msgstr "దీనితో తెరువు (_w)"
 
-#: ../src/eog-window.c:3746
+#: ../src/eog-window.c:3840
 msgid "Open the selected image with a different application"
 msgstr "ఎంచుకున్న బొమ్మని వేరొక అనువర్తనముతో తెరువు"
 
-#: ../src/eog-window.c:3748
-msgid "Save _As…"
-msgstr "ఇలా భద్రపరుచు...(_A)"
-
-#: ../src/eog-window.c:3749
+#: ../src/eog-window.c:3843
 msgid "Save the selected images with a different name"
 msgstr "ఎంచుకున్న బొమ్మలను వేరొక పేరుతో భద్రపరుచు"
 
-#: ../src/eog-window.c:3751
+#: ../src/eog-window.c:3845
 msgid "Show Containing _Folder"
-msgstr ""
+msgstr "కలిగి ఉన్న సంచయమును చూపుము (_F)"
 
-#: ../src/eog-window.c:3752
+#: ../src/eog-window.c:3846
 msgid "Show the folder which contains this file in the file manager"
-msgstr ""
+msgstr "దస్త్ర నిర్వాహకి లో ఉన్న దస్త్రము కలిగిఉన్న సంచయమును చూపుము"
 
-#: ../src/eog-window.c:3754
+#: ../src/eog-window.c:3848
 msgid "_Print…"
 msgstr "ముద్రించు...(_P)"
 
-#: ../src/eog-window.c:3755
+#: ../src/eog-window.c:3849
 msgid "Print the selected image"
 msgstr "ఎంచుకున్న బొమ్మనుముద్రించు"
 
-#: ../src/eog-window.c:3757
+#: ../src/eog-window.c:3851
 msgid "Prope_rties"
 msgstr "లక్షణాలు (_r)"
 
-#: ../src/eog-window.c:3758
+#: ../src/eog-window.c:3852
 msgid "Show the properties and metadata of the selected image"
 msgstr "ఎంచుకున్న బొమ్మ యొక్క లక్షణములను మరియు మెటాడేటాను చూపించు"
 
-#: ../src/eog-window.c:3760
+#: ../src/eog-window.c:3854
 msgid "_Undo"
 msgstr "రద్దుచేయి (_U)"
 
-#: ../src/eog-window.c:3761
+#: ../src/eog-window.c:3855
 msgid "Undo the last change in the image"
 msgstr "బొమ్మలో ఆఖరుగా చేసిన మార్పును రద్దుచేయి"
 
-#: ../src/eog-window.c:3763
+#: ../src/eog-window.c:3857
 msgid "Flip _Horizontal"
 msgstr "అడ్డముగా తిప్పు (_H)"
 
-#: ../src/eog-window.c:3764
+#: ../src/eog-window.c:3858
 msgid "Mirror the image horizontally"
 msgstr "బొమ్మను అడ్డముగా అద్దములో చూపు"
 
-#: ../src/eog-window.c:3766
+#: ../src/eog-window.c:3860
 msgid "Flip _Vertical"
 msgstr "నిలువుగా తిప్పు (_V)"
 
-#: ../src/eog-window.c:3767
+#: ../src/eog-window.c:3861
 msgid "Mirror the image vertically"
 msgstr "బొమ్మను నిలువుగా అద్దములో చూపు"
 
-#: ../src/eog-window.c:3769
+#: ../src/eog-window.c:3863
 msgid "_Rotate Clockwise"
 msgstr "సవ్యదిశలో తిప్పు (_R)"
 
-#: ../src/eog-window.c:3770
+#: ../src/eog-window.c:3864
 msgid "Rotate the image 90 degrees to the right"
 msgstr "బొమ్మను 90 డిగ్రీలలో కుడివైపునకు తిప్పు"
 
-#: ../src/eog-window.c:3772
+#: ../src/eog-window.c:3866
 msgid "Rotate Counterc_lockwise"
 msgstr "అపసవ్యదిశలో తిప్పు (_l)"
 
-#: ../src/eog-window.c:3773
+#: ../src/eog-window.c:3867
 msgid "Rotate the image 90 degrees to the left"
 msgstr "బొమ్మను 90 డిగ్రీలలో ఎడమవైపునకు తిప్పు"
 
-#: ../src/eog-window.c:3775
+#: ../src/eog-window.c:3869
 msgid "Set as _Desktop Background"
 msgstr "డెస్క్‍టాప్ నేపథ్యముగా అమర్చు (_D)"
 
-#: ../src/eog-window.c:3776
+#: ../src/eog-window.c:3870
 msgid "Set the selected image as the desktop background"
 msgstr "ఎంచుకున్న బొమ్మని డెస్క్‍టాపు నేపథ్యముగా అమర్చండి"
 
-#: ../src/eog-window.c:3779
+#: ../src/eog-window.c:3873
 msgid "Move the selected image to the trash folder"
 msgstr "ఎంచుకున్న బొమ్మని చెత్తబుట్ట సంచయానికి తరలించు"
 
-#: ../src/eog-window.c:3781
+#: ../src/eog-window.c:3875
 msgid "_Copy"
 msgstr "నకలుతీయి (_C)"
 
-#: ../src/eog-window.c:3782
+#: ../src/eog-window.c:3876
 msgid "Copy the selected image to the clipboard"
 msgstr "ఎంచుకున్న బొమ్మని క్లిప్‌బోర్డునకు నకలుతీయి"
 
-#: ../src/eog-window.c:3784 ../src/eog-window.c:3793 ../src/eog-window.c:3796
+#: ../src/eog-window.c:3878 ../src/eog-window.c:3887 ../src/eog-window.c:3890
 msgid "_Zoom In"
 msgstr "పెద్దగాచేయి (_Z)"
 
-#: ../src/eog-window.c:3785 ../src/eog-window.c:3794
+#: ../src/eog-window.c:3879 ../src/eog-window.c:3888
 msgid "Enlarge the image"
 msgstr "బొమ్మను పెద్దది చేయి"
 
-#: ../src/eog-window.c:3787 ../src/eog-window.c:3799
+#: ../src/eog-window.c:3881 ../src/eog-window.c:3893
 msgid "Zoom _Out"
 msgstr "చిన్నగాచేయి (_O)"
 
-#: ../src/eog-window.c:3788 ../src/eog-window.c:3797 ../src/eog-window.c:3800
+#: ../src/eog-window.c:3882 ../src/eog-window.c:3891 ../src/eog-window.c:3894
 msgid "Shrink the image"
 msgstr "బొమ్మను కుదించు"
 
-#: ../src/eog-window.c:3790
+#: ../src/eog-window.c:3884
 msgid "_Normal Size"
 msgstr "సాధారణ పరిమాణం (_N)"
 
-#: ../src/eog-window.c:3791
+#: ../src/eog-window.c:3885
 msgid "Show the image at its normal size"
 msgstr "బొమ్మను దాని సాధారణ పరిమాణం వద్ద చూపించు"
 
-#: ../src/eog-window.c:3808
+#: ../src/eog-window.c:3902
 msgid "_Fullscreen"
 msgstr "పూర్తితెర (_F)"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3903
 msgid "Show the current image in fullscreen mode"
 msgstr "ప్రస్తుతపు బొమ్మని పూర్తితెర విధములో చూపించు"
 
-#: ../src/eog-window.c:3811
+#: ../src/eog-window.c:3905
 msgid "Pause Slideshow"
 msgstr "పలకప్రదర్శనను నిలిపివేయి"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3906
 msgid "Pause or resume the slideshow"
 msgstr "పలకప్రదర్శనను నిలిపివేయి లేదా పునఃప్రారంభించు"
 
-#: ../src/eog-window.c:3814
-#, fuzzy
+#: ../src/eog-window.c:3908
 msgid "_Best Fit"
-msgstr "ఉత్తమ అమరిక (_F)"
+msgstr "ఉత్తమ అమరిక (_B)"
 
-#: ../src/eog-window.c:3815
+#: ../src/eog-window.c:3909
 msgid "Fit the image to the window"
 msgstr "బొమ్మను విండోకు సరిపోయేటట్లు అమర్చు"
 
-#: ../src/eog-window.c:3820 ../src/eog-window.c:3835
+#: ../src/eog-window.c:3914 ../src/eog-window.c:3929
 msgid "_Previous Image"
 msgstr "మునుపటి బొమ్మ (_P)"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3915
 msgid "Go to the previous image of the gallery"
 msgstr "చిత్రశాల నందు మునుపటి బొమ్మకు వెళ్ళు"
 
-#: ../src/eog-window.c:3823
+#: ../src/eog-window.c:3917
 msgid "_Next Image"
 msgstr "తరువాత బొమ్మ (_N)"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3918
 msgid "Go to the next image of the gallery"
 msgstr "చిత్రశాల నందు తదుపరి బొమ్మకు వెళ్ళు"
 
-#: ../src/eog-window.c:3826 ../src/eog-window.c:3838
+#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
 msgid "_First Image"
 msgstr "మొదటి బొమ్మ (_F)"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3921
 msgid "Go to the first image of the gallery"
 msgstr "చిత్రశాల నందు మొదటి బొమ్మకు వెళ్ళు"
 
-#: ../src/eog-window.c:3829 ../src/eog-window.c:3841
+#: ../src/eog-window.c:3923 ../src/eog-window.c:3935
 msgid "_Last Image"
 msgstr "చివరి బొమ్మ (_L)"
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3924
 msgid "Go to the last image of the gallery"
 msgstr "చిత్రశాల నందు చివరి బొమ్మకు వెళ్ళు"
 
-#: ../src/eog-window.c:3832
+#: ../src/eog-window.c:3926
 msgid "_Random Image"
 msgstr "యాదృచ్ఛిక బొమ్మ (_R)"
 
-#: ../src/eog-window.c:3833
+#: ../src/eog-window.c:3927
 msgid "Go to a random image of the gallery"
 msgstr "చిత్రశాల నందు యాదృచ్ఛిక బొమ్మకు వెళ్ళు"
 
-#: ../src/eog-window.c:3847
-#, fuzzy
+#: ../src/eog-window.c:3941
 msgid "S_lideshow"
-msgstr "పలకప్రదర్శన"
+msgstr "పలకప్రదర్శన(_l)"
 
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3942
 msgid "Start a slideshow view of the images"
 msgstr "బొమ్మల యొక్క పలకప్రదర్శన వీక్షణాన్ని ప్రారంభించు"
 
-#: ../src/eog-window.c:3914
+#: ../src/eog-window.c:4008
 msgid "Previous"
 msgstr "మునుపటి"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:4012
 msgid "Next"
 msgstr "తరువాత"
 
-#: ../src/eog-window.c:3922
+#: ../src/eog-window.c:4016
 msgid "Right"
 msgstr "కుడి"
 
-#: ../src/eog-window.c:3925
+#: ../src/eog-window.c:4019
 msgid "Left"
 msgstr "ఎడమ"
 
-#: ../src/eog-window.c:3928
-#, fuzzy
+#: ../src/eog-window.c:4022
 msgid "Show Folder"
-msgstr "సంచయమును తెరువు"
+msgstr "సంచయమును చూపుము"
 
-#: ../src/eog-window.c:3931
+#: ../src/eog-window.c:4025
 msgid "In"
 msgstr "లోపలికి"
 
-#: ../src/eog-window.c:3934
+#: ../src/eog-window.c:4028
 msgid "Out"
 msgstr "బయటికి"
 
-#: ../src/eog-window.c:3937
+#: ../src/eog-window.c:4031
 msgid "Normal"
 msgstr "సాధారణ"
 
-#: ../src/eog-window.c:3940
+#: ../src/eog-window.c:4034
 msgid "Fit"
 msgstr "తగిన"
 
-#: ../src/eog-window.c:3943
+#: ../src/eog-window.c:4037
 msgid "Gallery"
 msgstr "చిత్రశాల"
 
-#: ../src/eog-window.c:3946
+#: ../src/eog-window.c:4040
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "చెత్తబుట్ట"
 
-#: ../src/eog-window.c:4314
+#: ../src/eog-window.c:4408
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "%s వాడి ప్రస్తుత బొమ్మను సవరించు"
 
-#: ../src/eog-window.c:4316
+#: ../src/eog-window.c:4410
 msgid "Edit Image"
 msgstr "బొమ్మను సవరించు"
 
-#: ../src/main.c:69 ../src/main.c:254
-msgid "Eye of GNOME Image Viewer"
-msgstr "Eye of GNOME బొమ్మ వీక్షకం"
+#: ../src/main.c:63
+msgid "GNOME Image Viewer"
+msgstr "Image Viewer బొమ్మ వీక్షకం"
 
-#: ../src/main.c:76
+#: ../src/main.c:70
 msgid "Open in fullscreen mode"
 msgstr "పూర్తితెర విధములో తెరువు"
 
-#: ../src/main.c:77
+#: ../src/main.c:71
 msgid "Disable image gallery"
 msgstr "చిత్రశాలని అచేతనపరుచు"
 
-#: ../src/main.c:78
+#: ../src/main.c:72
 msgid "Open in slideshow mode"
 msgstr "పలకప్రదర్శన విధములో తెరువు"
 
-#: ../src/main.c:80
+#: ../src/main.c:73
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "ఉన్నదానిని తిరిగి ఉపయోగించుటకు బదులుగా కొత్త ప్రక్రియను ప్రారంభించు"
 
-#: ../src/main.c:83
+#: ../src/main.c:75
 msgid "Show the application's version"
 msgstr "అనువర్తనము యొక్క రూపాంతరాన్ని చూపించు"
 
-#: ../src/main.c:84
+#: ../src/main.c:108
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:214
+#: ../src/main.c:121
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "అందుబాటులో వున్న అదేశ వరుస ఐచ్చికముల కొరకు '%s --help' నడుపుము."
+
+#~ msgid "Eye of GNOME Preferences"
+#~ msgstr "Eye of GNOME ప్రాధాన్యతలు"
+
+#~ msgid "Running in fullscreen mode"
+#~ msgstr "పూర్తితెర విధములో నడుస్తున్నది"
+
+#~ msgid "_Retry"
+#~ msgstr "మళ్ళీ ప్రయత్నించు (_R)"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "Eye of GNOME"
 
 #~ msgid "_Slideshow"
 #~ msgstr "పలకప్రదర్శన (_S)"
