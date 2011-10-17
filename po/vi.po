@@ -10,8 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-10-04 15:31+0000\n"
-"PO-Revision-Date: 2011-10-17 19:37+1100\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"PO-Revision-Date: 2011-10-17 19:42+1100\n"
+"Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -294,7 +294,6 @@ msgstr "Phần bổ sung"
 
 #. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:14
-#, fuzzy
 #| msgid "seconds"
 msgctxt "PrefDlgSlideSwitchPostfix"
 msgid "seconds"
@@ -302,17 +301,15 @@ msgstr "giây"
 
 #. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
 #: ../data/eog-preferences-dialog.ui.h:16
-#, fuzzy
 #| msgid "_Switch image after:"
 msgctxt "PrefDlgSlideSwitchPrefix"
 msgid "_Switch image after:"
-msgstr "_Chuyển đổi ảnh sau:"
+msgstr "_Chuyển ảnh sau:"
 
 #: ../data/eog-preferences-dialog.ui.h:17
-#, fuzzy
 #| msgid "Prefere_nces"
 msgid "Preferences"
-msgstr "_Cấu hình"
+msgstr "Cấu hình"
 
 #: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
@@ -629,7 +626,6 @@ msgid "File format is unknown or unsupported"
 msgstr "Định dạng tập tin không rõ hay không được hỗ trợ"
 
 #: ../src/eog-file-chooser.c:131
-#, fuzzy
 #| msgid ""
 #| "Eye of GNOME could not determine a supported writable file format based "
 #| "on the filename."
@@ -637,8 +633,7 @@ msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr ""
-"Dựa vào tên tập tin, Mắt GNOME không thể xác định một định dạng tập tin có "
-"thể ghi mà được hỗ trợ."
+"Mắt GNOME không thể xác định định dạng ghi được hỗ trợ dựa vào tên tập tin."
 
 #: ../src/eog-file-chooser.c:132
 msgid "Please try a different file extension like .png or .jpg."
@@ -705,7 +700,7 @@ msgstr "Chưa nạp ảnh nào."
 #: ../src/eog-image.c:1725 ../src/eog-image.c:1836
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
-msgstr ""
+msgstr "Bạn không có quyền lưu tập tin."
 
 #: ../src/eog-image.c:1735 ../src/eog-image.c:1847
 #, c-format
@@ -736,7 +731,7 @@ msgstr "Điều kiện chụp ảnh"
 
 #: ../src/eog-exif-details.c:72
 msgid "GPS Data"
-msgstr ""
+msgstr "Dữ liệu GPS"
 
 #: ../src/eog-exif-details.c:73
 msgid "Maker Note"
@@ -771,24 +766,22 @@ msgid "Value"
 msgstr "Giá trị"
 
 #: ../src/eog-exif-details.c:422
-#, fuzzy
 #| msgid "Both"
 msgid "North"
-msgstr "Cả hai"
+msgstr "Bắc"
 
 #: ../src/eog-exif-details.c:425
 msgid "East"
-msgstr ""
+msgstr "Đông"
 
 #: ../src/eog-exif-details.c:428
 msgid "West"
-msgstr ""
+msgstr "Tây"
 
 #: ../src/eog-exif-details.c:431
-#, fuzzy
 #| msgid "Both"
 msgid "South"
-msgstr "Cả hai"
+msgstr "Nam"
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
@@ -802,7 +795,7 @@ msgstr "%a, %d %B %Y"
 
 #: ../src/eog-error-message-area.c:119
 msgid "_Cancel"
-msgstr ""
+msgstr "T_hôi"
 
 #: ../src/eog-error-message-area.c:124 ../src/eog-window.c:825
 msgid "_Reload"
@@ -810,7 +803,7 @@ msgstr "_Nạp lại ảnh"
 
 #: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
 msgid "Save _As…"
-msgstr "Lưu _dạng..."
+msgstr "Lưu _dạng…"
 
 #: ../src/eog-error-message-area.c:171
 #, c-format
@@ -818,10 +811,10 @@ msgid "Could not load image '%s'."
 msgstr "Không thể nạp ảnh '%s'."
 
 #: ../src/eog-error-message-area.c:213
-#, fuzzy, c-format
+#, c-format
 #| msgid "Could not load image '%s'."
 msgid "Could not save image '%s'."
-msgstr "Không thể nạp ảnh '%s'."
+msgstr "Không thể lưu ảnh '%s'."
 
 #: ../src/eog-error-message-area.c:256
 #, c-format
@@ -972,10 +965,9 @@ msgid "At least two file names are equal."
 msgstr "Ít nhất hai tên tập tin bị trùng."
 
 #: ../src/eog-util.c:68
-#, fuzzy
 #| msgid "Could not display help for Eye of GNOME"
 msgid "Could not display help for Image Viewer"
-msgstr "Không thể hiển thị trợ giúp cho Mắt GNOME."
+msgstr "Không thể hiển thị trợ giúp cho Mắt GNOME"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -1077,7 +1069,7 @@ msgstr ""
 
 #: ../src/eog-window.c:3271
 msgid "Saving image locally…"
-msgstr "Đang lưu ảnh cục bộ..."
+msgstr "Đang lưu ảnh cục bộ…"
 
 #: ../src/eog-window.c:3351
 #, c-format
@@ -1164,7 +1156,7 @@ msgstr "Trợ _giúp"
 
 #: ../src/eog-window.c:3800
 msgid "_Open…"
-msgstr "_Mở..."
+msgstr "_Mở…"
 
 #: ../src/eog-window.c:3801
 msgid "Open a file"
@@ -1191,10 +1183,9 @@ msgid "Prefere_nces"
 msgstr "_Cấu hình"
 
 #: ../src/eog-window.c:3810
-#, fuzzy
 #| msgid "Preferences for Eye of GNOME"
 msgid "Preferences for Image Viewer"
-msgstr "Cấu hình của Mắt GNOME"
+msgstr "Cấu hình Mắt GNOME"
 
 #: ../src/eog-window.c:3812
 msgid "_Contents"
@@ -1268,15 +1259,15 @@ msgstr "Lưu ảnh được chọn với tên khác"
 
 #: ../src/eog-window.c:3845
 msgid "Show Containing _Folder"
-msgstr ""
+msgstr "Hiện thư mục _chứa ảnh"
 
 #: ../src/eog-window.c:3846
 msgid "Show the folder which contains this file in the file manager"
-msgstr ""
+msgstr "Hiện thư mục chứa tập tin này với trình quản lý tập tin"
 
 #: ../src/eog-window.c:3848
 msgid "_Print…"
-msgstr "_In..."
+msgstr "_In…"
 
 #: ../src/eog-window.c:3849
 msgid "Print the selected image"
@@ -1391,7 +1382,6 @@ msgid "Pause or resume the slideshow"
 msgstr "Tạm dừng hoặc tiếp tục trình chiếu"
 
 #: ../src/eog-window.c:3908
-#, fuzzy
 #| msgid "Best _Fit"
 msgid "_Best Fit"
 msgstr "_Vừa khít"
@@ -1441,10 +1431,9 @@ msgid "Go to a random image of the gallery"
 msgstr "Đến ảnh kế tiếp trong tập ảnh"
 
 #: ../src/eog-window.c:3941
-#, fuzzy
 #| msgid "Slideshow"
 msgid "S_lideshow"
-msgstr "Trình chiếu ảnh"
+msgstr "_Trình chiếu"
 
 #: ../src/eog-window.c:3942
 msgid "Start a slideshow view of the images"
@@ -1467,7 +1456,6 @@ msgid "Left"
 msgstr "Trái"
 
 #: ../src/eog-window.c:4022
-#, fuzzy
 #| msgid "Open Folder"
 msgid "Show Folder"
 msgstr "Mở thư mục"
@@ -1507,7 +1495,6 @@ msgid "Edit Image"
 msgstr "Sửa ảnh"
 
 #: ../src/main.c:63
-#, fuzzy
 #| msgid "Eye of GNOME Image Viewer"
 msgid "GNOME Image Viewer"
 msgstr "Bộ xem ảnh Mắt GNOME"
@@ -1534,7 +1521,7 @@ msgstr "Hiện phiên bản ứng dụng"
 
 #: ../src/main.c:108
 msgid "[FILE…]"
-msgstr "[TẬP TIN...]"
+msgstr "[TẬP TIN…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
 #: ../src/main.c:121
