@@ -1887,6 +1887,7 @@ eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
 
+	/* copy the image */
 	result = g_file_copy (source->file,
 			      target->file,
 			      (target->overwrite ? G_FILE_COPY_OVERWRITE : 0) |
@@ -1907,6 +1908,15 @@ eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo
 			     "%s", ioerror->message);
 		}
 		g_error_free (ioerror);
+	} else {
+		/* reset NAUTILUS-ICON-POSITION metadata attribute */
+		g_file_set_attribute (target->file,
+				      "metadata::nautilus-icon-position",
+				      G_FILE_ATTRIBUTE_TYPE_INVALID,
+				      NULL,
+				      G_FILE_QUERY_INFO_NONE,
+				      NULL,
+				      NULL);
 	}
 
 	return result;
