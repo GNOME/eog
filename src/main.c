@@ -161,8 +161,6 @@ main (int argc, char **argv)
 	              "gtk-application-prefer-dark-theme", TRUE,
 	              NULL);
 
-	gdk_threads_enter ();
-
 	EOG_APP->flags = flags;
 	if (force_new_instance) {
 		GApplicationFlags app_flags = g_application_get_flags (G_APPLICATION (EOG_APP));
@@ -172,8 +170,6 @@ main (int argc, char **argv)
 
 	g_application_run (G_APPLICATION (EOG_APP), argc, argv);
 	g_object_unref (EOG_APP);
-
-	gdk_threads_leave ();
 
   	if (startup_files)
 		g_strfreev (startup_files);
