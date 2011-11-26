@@ -381,7 +381,7 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 					    G_TYPE_INT);
 
 	/* top option menu */
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	eog_sidebar->priv->hbox = hbox;
 	gtk_box_pack_start (GTK_BOX (eog_sidebar), hbox, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
@@ -398,7 +398,7 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 			  G_CALLBACK (eog_sidebar_select_button_key_press_cb),
 			  eog_sidebar);
 
-	select_hbox = gtk_hbox_new (FALSE, 0);
+	select_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
 	eog_sidebar->priv->label = gtk_label_new ("");
 

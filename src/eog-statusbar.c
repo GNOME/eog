@@ -68,7 +68,7 @@ eog_statusbar_init (EogStatusbar *statusbar)
 			  TRUE,
 			  0);
 
-	vbox = gtk_vbox_new (FALSE, 0);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  vbox,
