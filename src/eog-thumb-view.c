@@ -408,7 +408,7 @@ thumbview_get_tooltip_string (EogImage *image)
 	ExifData *exif_data;
 #endif
 
-	bytes = g_format_size_for_display (eog_image_get_bytes (image));
+	bytes = g_format_size (eog_image_get_bytes (image));
 
 	eog_image_get_size (image, &width, &height);
 

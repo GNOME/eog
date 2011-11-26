@@ -513,9 +513,9 @@ update_status_bar (EogWindow *window)
 		bytes = eog_image_get_bytes (priv->image);
 
 		if ((width > 0) && (height > 0)) {
-			char *size_string;
+			gchar *size_string;
 
-			size_string = g_format_size_for_display (bytes);
+			size_string = g_format_size (bytes);
 
 			/* Translators: This is the string displayed in the statusbar
 			 * The tokens are from left to right:

@@ -280,10 +280,10 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 		bytes_str = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Size");
 		if (bytes_str != NULL) {
 			bytes = atoi (bytes_str);
-			size_str = g_format_size_for_display (bytes);
+			size_str = g_format_size (bytes);
 		}
 		else {
-			size_str = g_format_size_for_display (size);
+			size_str = g_format_size (size);
 		}
 
 		/* try to read image dimensions */
