@@ -51,7 +51,7 @@
 #define EOG_PRINT_IMAGE_SETUP_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_PRINT_IMAGE_SETUP, EogPrintImageSetupPrivate))
 
-G_DEFINE_TYPE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_TABLE);
+G_DEFINE_TYPE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_GRID);
 
 struct _EogPrintImageSetupPrivate {
 	GtkWidget *left;
@@ -868,9 +868,7 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
 	frame = wrap_in_frame (_("Position"), table);
-	gtk_table_attach (GTK_TABLE (setup), frame,
-			  0, 1, 0, 1,  GTK_FILL, 0,
-			  0, 0);
+	gtk_grid_attach (GTK_GRID (setup), frame, 0, 0, 1, 1);
 
 	priv->left = table_attach_spin_button_with_label (table, _("_Left:"), 0, 0);
 	priv->right = table_attach_spin_button_with_label (table, _("_Right:"), 0, 1);
@@ -905,9 +903,7 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
 	frame = wrap_in_frame (_("Size"), table);
-	gtk_table_attach (GTK_TABLE (setup), frame,
-			  0, 1, 1, 2,  GTK_FILL, 0,
-			  0, 0);
+	gtk_grid_attach (GTK_GRID (setup), frame, 0, 1, 1, 1);
 
 	priv->width = table_attach_spin_button_with_label (table, _("_Width:"),
 							   0, 0);
@@ -965,9 +961,8 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	gtk_widget_set_size_request (priv->preview, 250, 250);
 
 	frame = wrap_in_frame (_("Preview"), priv->preview);
-	gtk_table_attach (GTK_TABLE (setup), frame,
-			  1, 2, 0, 2, GTK_FILL, GTK_FILL,
-			  0, 0);
+	/* The preview widget needs to span the whole grid height */
+	gtk_grid_attach (GTK_GRID (setup), frame, 1, 0, 1, 2);
 
 	gtk_widget_show_all (GTK_WIDGET (setup));
 }
@@ -992,9 +987,7 @@ eog_print_image_setup_new (EogImage *image, GtkPageSetup *page_setup)
 	GtkWidget *preview;
 
 	setup = g_object_new (EOG_TYPE_PRINT_IMAGE_SETUP,
-			     "n-rows", 2,
-			     "n-columns", 2,
-			     "homogeneous", FALSE,
+			     "orientation", GTK_ORIENTATION_VERTICAL,
 			     "row-spacing", 18,
 			     "column-spacing", 18,
 			     "border-width", 12,

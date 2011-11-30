@@ -38,13 +38,13 @@ typedef struct _EogPrintImageSetupPrivate  EogPrintImageSetupPrivate;
 #define EOG_PRINT_IMAGE_SETUP_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), EOG_TYPE_PRINT_IMAGE_SETUP, EogPrintImageSetupClass))
 
 struct _EogPrintImageSetup {
-	GtkTable parent_instance;
+	GtkGrid parent_instance;
 
 	EogPrintImageSetupPrivate *priv;
 };
 
 struct _EogPrintImageSetupClass {
-	GtkTableClass parent_class;
+	GtkGridClass parent_class;
 };
 
 G_GNUC_INTERNAL
