@@ -4375,7 +4375,8 @@ eog_window_open_editor (GtkAction *action,
 	if (app_info == NULL)
 		return;
 
-	context = gdk_app_launch_context_new ();
+	context = gdk_display_get_app_launch_context (
+	  gtk_widget_get_display (GTK_WIDGET (window)));
 	gdk_app_launch_context_set_screen (context,
 	  gtk_widget_get_screen (GTK_WIDGET (window)));
 	gdk_app_launch_context_set_icon (context,
