@@ -667,9 +667,9 @@ wrap_in_frame (const gchar *label,
 }
 
 static GtkWidget *
-table_attach_spin_button_with_label (GtkWidget *table,
-				     const gchar* text_label,
-				     gint left, gint top)
+grid_attach_spin_button_with_label (GtkWidget *grid,
+				    const gchar* text_label,
+				    gint left, gint top)
 {
 	GtkWidget *label, *spin_button;
 
@@ -678,14 +678,14 @@ table_attach_spin_button_with_label (GtkWidget *table,
 	spin_button = gtk_spin_button_new_with_range (0, 100, 0.01);
 	gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spin_button), 2);
 	gtk_entry_set_width_chars (GTK_ENTRY (spin_button), 6);
-	gtk_table_attach (GTK_TABLE (table), label, left, left + 1,
-			  top, top + 1, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), spin_button, left + 1, left + 2,
-			  top, top + 1, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_grid_attach (GTK_GRID (grid), label, left, top, 1, 1);
+	gtk_grid_attach_next_to (GTK_GRID (grid), spin_button, label,
+				 GTK_POS_RIGHT, 1, 1);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), spin_button);
 
 	return spin_button;
 }
+
 
 static void
 eog_print_image_setup_set_property (GObject      *object,
@@ -850,7 +850,7 @@ static void
 eog_print_image_setup_init (EogPrintImageSetup *setup)
 {
 	GtkWidget *frame;
-	GtkWidget *table;
+	GtkWidget *grid;
 	GtkWidget *label;
 	GtkWidget *hscale;
 	GtkWidget *combobox;
@@ -864,16 +864,19 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 
 	priv->image = NULL;
 
-	table = gtk_table_new (3, 4, FALSE);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	frame = wrap_in_frame (_("Position"), table);
+	grid = gtk_grid_new ();
+	gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+	gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+	frame = wrap_in_frame (_("Position"), grid);
 	gtk_grid_attach (GTK_GRID (setup), frame, 0, 0, 1, 1);
 
-	priv->left = table_attach_spin_button_with_label (table, _("_Left:"), 0, 0);
-	priv->right = table_attach_spin_button_with_label (table, _("_Right:"), 0, 1);
-	priv->top = table_attach_spin_button_with_label (table, _("_Top:"), 2, 0);
-	priv->bottom = table_attach_spin_button_with_label (table, _("_Bottom:"), 2, 1);
+	priv->left = grid_attach_spin_button_with_label (grid,
+							 _("_Left:"), 0, 0);
+	priv->right = grid_attach_spin_button_with_label (grid,
+							  _("_Right:"), 0, 1);
+	priv->top = grid_attach_spin_button_with_label (grid, _("_Top:"), 2, 0);
+	priv->bottom = grid_attach_spin_button_with_label (grid, _("_Bottom:"),
+							   2, 1);
 
 	label = gtk_label_new_with_mnemonic (_("C_enter:"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -888,38 +891,36 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (combobox),
 				        CENTER_BOTH, _("Both"));
 	gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), CENTER_NONE);
-	gtk_table_attach (GTK_TABLE (table), label,
-			  0, 1, 2, 3, GTK_FILL, GTK_FILL,
-			  0, 0);
-	gtk_table_attach (GTK_TABLE (table), combobox,
-			  1, 4, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL,
-			  0, 0);
+	/* Attach combobox below right margin spinbutton and span until end */
+	gtk_grid_attach_next_to (GTK_GRID (grid), combobox, priv->right,
+				 GTK_POS_BOTTOM, 3, 1);
+	/* Attach the label to the left of the combobox */
+	gtk_grid_attach_next_to (GTK_GRID (grid), label, combobox, GTK_POS_LEFT,
+				 1, 1);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), combobox);
 	priv->center = combobox;
 	g_signal_connect (G_OBJECT (combobox), "changed",
 			  G_CALLBACK (on_center_changed), setup);
 
-	table = gtk_table_new (3, 4, FALSE);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	frame = wrap_in_frame (_("Size"), table);
+	grid = gtk_grid_new ();
+	gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+	gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+	frame = wrap_in_frame (_("Size"), grid);
 	gtk_grid_attach (GTK_GRID (setup), frame, 0, 1, 1, 1);
 
-	priv->width = table_attach_spin_button_with_label (table, _("_Width:"),
+	priv->width = grid_attach_spin_button_with_label (grid, _("_Width:"),
 							   0, 0);
-	priv->height = table_attach_spin_button_with_label (table, _("_Height:"),
+	priv->height = grid_attach_spin_button_with_label (grid, _("_Height:"),
 							    2, 0);
 
 	label = gtk_label_new_with_mnemonic (_("_Scaling:"));
 	hscale = gtk_hscale_new_with_range (1, 100, 1);
 	gtk_scale_set_value_pos (GTK_SCALE (hscale), GTK_POS_RIGHT);
 	gtk_range_set_value (GTK_RANGE (hscale), 100);
-	gtk_table_attach (GTK_TABLE (table), label,
-			  0, 1, 1, 2, GTK_FILL, GTK_FILL,
-			  0, 0);
-	gtk_table_attach (GTK_TABLE (table), hscale,
-			  1, 4, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL,
-			  0, 0);
+	gtk_grid_attach_next_to (GTK_GRID (grid), hscale, priv->width,
+				 GTK_POS_BOTTOM, 3, 1);
+	gtk_grid_attach_next_to (GTK_GRID (grid), label, hscale, GTK_POS_LEFT,
+				 1, 1);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), hscale);
 	priv->scaling = hscale;
 
@@ -944,12 +945,11 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 		set_scale_unit (setup, GTK_UNIT_MM);
 	}
 
-	gtk_table_attach (GTK_TABLE (table), label,
-			  0, 1, 2, 3, GTK_FILL, GTK_FILL,
-			  0, 0);
-	gtk_table_attach (GTK_TABLE (table), combobox,
-			  1, 4, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL,
-			  0, 0);
+	gtk_grid_attach_next_to (GTK_GRID (grid), combobox, hscale,
+				 GTK_POS_BOTTOM, 3, 1);
+	gtk_grid_attach_next_to (GTK_GRID (grid), label, combobox, GTK_POS_LEFT,
+				 1, 1);
+
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), combobox);
 	priv->unit = combobox;
 	g_signal_connect (G_OBJECT (combobox), "changed",
