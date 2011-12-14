@@ -1875,9 +1875,11 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		cairo_scale (cr, priv->zoom, priv->zoom);
 		cairo_set_source_surface (cr, priv->surface, xofs/priv->zoom, yofs/priv->zoom);
 		cairo_pattern_set_extend (cairo_get_source (cr), CAIRO_EXTEND_PAD);
-		if ((is_zoomed_in (view) && priv->interp_type_in == CAIRO_FILTER_NEAREST) ||
-		    (is_zoomed_out (view) && priv->interp_type_out == CAIRO_FILTER_NEAREST))
-			cairo_pattern_set_filter (cairo_get_source (cr), CAIRO_FILTER_NEAREST);
+		if (is_zoomed_in (view))
+			cairo_pattern_set_filter (cairo_get_source (cr), priv->interp_type_in);
+		else if (is_zoomed_out (view))
+			cairo_pattern_set_filter (cairo_get_source (cr), priv->interp_type_out);
+
 		cairo_paint (cr);
 	}
 
