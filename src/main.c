@@ -46,6 +46,8 @@
 #include <exempi/xmp.h>
 #endif
 
+#define EOG_CSS_FILE_PATH EOG_DATA_DIR G_DIR_SEPARATOR_S "eog.css"
+
 static EogStartupFlags flags;
 
 static gboolean fullscreen = FALSE;
@@ -100,6 +102,7 @@ main (int argc, char **argv)
 	GError *error = NULL;
 	GOptionContext *ctx;
 	GtkSettings *settings;
+	GtkCssProvider *provider;
 
 	if (!g_thread_supported ())
 		g_thread_init (NULL);
@@ -107,8 +110,6 @@ main (int argc, char **argv)
 	bindtextdomain (PACKAGE, EOG_LOCALE_DIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
-
-	gtk_rc_parse (EOG_DATA_DIR G_DIR_SEPARATOR_S "gtkrc");
 
 	ctx = g_option_context_new (_("[FILE…]"));
 	g_option_context_add_main_entries (ctx, goption_options, PACKAGE);
@@ -148,6 +149,22 @@ main (int argc, char **argv)
 	eog_job_queue_init ();
 	gdk_threads_init ();
 	eog_thumbnail_init ();
+
+	/* Load special style properties for EogThumbView's scrollbar */
+	provider = gtk_css_provider_new ();
+	if (G_UNLIKELY (!gtk_css_provider_load_from_path(provider,
+							 EOG_CSS_FILE_PATH,
+							 &error)))
+	{
+		g_critical ("Could not load CSS data: %s", error->message);
+		g_clear_error (&error);
+	} else {
+		gtk_style_context_add_provider_for_screen (
+				gdk_screen_get_default(),
+				GTK_STYLE_PROVIDER (provider),
+				GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	}
+	g_object_unref (provider);
 
 	/* Add application specific icons to search path */
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),

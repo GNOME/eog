@@ -29,8 +29,8 @@ ui_DATA = eog-image-properties-dialog.ui \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
 
-gtkrcdir = $(pkgdatadir)
-gtkrc_DATA = gtkrc
+styledir = $(pkgdatadir)
+style_DATA = eog.css
 
 EXTRA_DIST =			\
         $(gtkrc_DATA)		\
