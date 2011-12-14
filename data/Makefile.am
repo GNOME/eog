@@ -33,7 +33,7 @@ styledir = $(pkgdatadir)
 style_DATA = eog.css
 
 EXTRA_DIST =			\
-        $(gtkrc_DATA)		\
+        $(style_DATA)		\
         $(ui_DATA)		\
         $(DESKTOP_IN_FILES)	\
 	eog.convert
