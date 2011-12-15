@@ -3103,49 +3103,21 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 static void
 eog_window_cmd_open_containing_folder (GtkAction *action, gpointer user_data)
 {
-	EogWindow *window = EOG_WINDOW (user_data);
 	EogWindowPrivate *priv;
-
-	GtkWidget *eog_window_widget;
-
 	GFile *file;
-	GFile *parent = NULL;
 
-	eog_window_widget = GTK_WIDGET (window);
-	priv = window->priv;
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
 
 	g_return_if_fail (priv->image != NULL);
 
 	file = eog_image_get_file (priv->image);
 
-	if (file) {
-		parent = g_file_get_parent (file);
-		g_object_unref(file);
-	}
+	g_return_if_fail (file != NULL);
 
-	if (parent) {
-		char *parent_uri;
-
-		parent_uri = g_file_get_uri (parent);
-		if (parent_uri) {
-			GdkScreen *screen;
-			guint32 timestamp;
-			GError *error;
-
-			screen = gtk_widget_get_screen (eog_window_widget);
-			timestamp = gtk_get_current_event_time ();
-
-			error = NULL;
-			if (!gtk_show_uri (screen, parent_uri, timestamp, &error)) {
-				eog_debug_message (DEBUG_WINDOW, "Could not open the containing folder");
-				g_error_free (error);
-			}
-
-			g_free (parent_uri);
-		}
-
-		g_object_unref(parent);
-	}
+	eog_util_show_file_in_filemanager (file,
+				gtk_widget_get_screen (GTK_WIDGET (user_data)));
 }
 
 static void
