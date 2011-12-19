@@ -23,6 +23,7 @@ NOINST_H_FILES =			\
 	eog-error-message-area.h	\
 	eog-image-jpeg.h		\
 	eog-image-private.h		\
+	eog-metadata-sidebar.h		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader-jpg.h	\
 	eog-metadata-reader-png.h	\
@@ -75,6 +76,7 @@ libeog_c_files = 			\
 	eog-job-queue.c			\
 	eog-jobs.c			\
 	eog-list-store.c		\
+	eog-metadata-sidebar.c		\
 	eog-metadata-reader.c		\
 	eog-metadata-reader-jpg.c	\
 	eog-metadata-reader-png.c	\

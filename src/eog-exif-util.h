@@ -29,20 +29,30 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <gtk/gtk.h>
 #include <libexif/exif-data.h>
 
 G_BEGIN_DECLS
 
 #define EOG_TYPE_EXIF_DATA eog_exif_data_get_type ()
 
-gchar*       eog_exif_util_format_date           (const gchar *date);
+gchar       *eog_exif_util_format_date           (const gchar *date);
+void         eog_exif_util_set_label_text        (GtkLabel *label,
+                                                  ExifData *exif_data,
+                                                  gint tag_id);
 
-const gchar *eog_exif_data_get_value             (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size);
+void         eog_exif_util_set_focal_length_label_text (GtkLabel *label,
+                                                        ExifData *exif_data);
 
-GType                 eog_exif_data_get_type           (void) G_GNUC_CONST;
 
-ExifData * eog_exif_data_copy (ExifData *data);
-void          eog_exif_data_free (ExifData *data);
+const gchar *eog_exif_data_get_value             (ExifData *exif_data,
+                                                  gint tag_id, gchar *buffer,
+                                                  guint buf_size);
+
+GType        eog_exif_data_get_type              (void) G_GNUC_CONST;
+
+ExifData    *eog_exif_data_copy                  (ExifData *data);
+void         eog_exif_data_free                  (ExifData *data);
 
 G_END_DECLS
 
