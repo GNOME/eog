@@ -40,9 +40,19 @@
 #include "eog-util.h"
 #include "eog-window.h"
 
+#ifdef HAVE_EXIF
+#include <libexif/exif-data.h>
+#include <libexif/exif-tag.h>
+#include "eog-exif-util.h"
+#endif
+
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
 #include <exempi/xmpconsts.h>
+#endif
+
+#if HAVE_EXIF || HAVE_EXEMPI
+#define HAVE_METADATA 1
 #endif
 
 enum {
@@ -67,6 +77,7 @@ struct _EogMetadataSidebarPrivate {
 	GtkWidget *size_label;
 	GtkWidget *folder_button;
 
+#if HAVE_EXIF
 	GtkWidget *aperture_label;
 	GtkWidget *exposure_label;
 	GtkWidget *focallen_label;
@@ -75,14 +86,19 @@ struct _EogMetadataSidebarPrivate {
 	GtkWidget *metering_label;
 	GtkWidget *model_label;
 	GtkWidget *date_label;
+#endif
 
+#if HAVE_EXEMPI
 	GtkWidget *location_label;
 	GtkWidget *desc_label;
 	GtkWidget *keyword_label;
 	GtkWidget *creator_label;
 	GtkWidget *rights_label;
+#endif
 
+#if HAVE_METADATA
 	GtkWidget *details_button;
+#endif
 };
 
 #define EOG_METADATA_SIDEBAR_GET_PRIVATE(object) \
@@ -247,21 +263,29 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	g_object_unref (parent_file);
 }
 
+#if HAVE_METADATA
 static void
 eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 {
 	EogMetadataSidebarPrivate *priv = sidebar->priv;
 	EogImage *img = priv->image;
+#if HAVE_EXIF
 	ExifData *exif_data = NULL;
+#endif
+#if HAVE_EXEMPI
 	XmpPtr xmp_data = NULL;
-
+#endif
 
 	if (img) {
+#if HAVE_EXIF
 		exif_data = eog_image_get_exif_info (img);
+#endif
+#if HAVE_EXEMPI
 		xmp_data =  eog_image_get_xmp_info (img);
+#endif
 	}
 
-
+#if HAVE_EXIF
 	eog_exif_util_set_label_text (GTK_LABEL (priv->aperture_label),
 				      exif_data, EXIF_TAG_FNUMBER);
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exposure_label),
@@ -286,6 +310,7 @@ eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 
 	/* exif_data_unref can handle NULL-values */
 	exif_data_unref(exif_data);
+#endif /* HAVE_EXIF */
 
 #if HAVE_EXEMPI
  	eog_xmp_set_label (xmp_data,
@@ -316,9 +341,9 @@ eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 
 	if (xmp_data != NULL)
 		xmp_free (xmp_data);
-#endif
-		
+#endif /* HAVE_EXEMPI */
 }
+#endif /* HAVE_METADATA */
 
 static void
 eog_metadata_sidebar_update (EogMetadataSidebar *sidebar)
@@ -326,7 +351,9 @@ eog_metadata_sidebar_update (EogMetadataSidebar *sidebar)
 	g_return_if_fail (EOG_IS_METADATA_SIDEBAR (sidebar));
 
 	eog_metadata_sidebar_update_general_section (sidebar);
+#if HAVE_METADATA
 	eog_metadata_sidebar_update_metadata_section (sidebar);
+#endif
 }
 
 static void
@@ -403,6 +430,7 @@ _folder_button_clicked_cb (GtkButton *button, gpointer user_data)
 	g_object_unref (file);
 }
 
+#ifdef HAVE_METADATA
 static void
 _details_button_clicked_cb (GtkButton *button, gpointer user_data)
 {
@@ -418,7 +446,7 @@ _details_button_clicked_cb (GtkButton *button, gpointer user_data)
 					EOG_PROPERTIES_DIALOG_PAGE_DETAILS);
 	eog_dialog_show (dlg);
 }
-
+#endif
 
 static void
 eog_metadata_sidebar_set_parent_window (EogMetadataSidebar *sidebar,
@@ -475,9 +503,11 @@ eog_metadata_sidebar_init (EogMetadataSidebar *sidebar)
 			  G_CALLBACK (_folder_button_clicked_cb), sidebar);
 	gtk_grid_attach_next_to (GTK_GRID (priv->grid), priv->folder_button,
 				 label, GTK_POS_RIGHT, 1, 1);
-	
+
+#if HAVE_METADATA
 	label = _gtk_grid_append_title_line (GTK_GRID (priv->grid),
 					     label, _("Metadata"));
+#if HAVE_EXIF
 	label = _gtk_grid_append_prop_line (GTK_GRID (priv->grid), label,
 					    &priv->aperture_label,
 					    _("Aperture Value:"));
@@ -501,6 +531,8 @@ eog_metadata_sidebar_init (EogMetadataSidebar *sidebar)
 					    _("Camera Model:"));
 	label = _gtk_grid_append_prop_line (GTK_GRID (priv->grid), label,
 					    &priv->date_label, _("Date/Time:"));
+#endif /* HAVE_EXIF */
+#if HAVE_EXEMPI
 	label = _gtk_grid_append_prop_line (GTK_GRID (priv->grid), label,
 					    &priv->desc_label,
 					    _("Description:"));
@@ -515,12 +547,15 @@ eog_metadata_sidebar_init (EogMetadataSidebar *sidebar)
 	label = _gtk_grid_append_prop_line (GTK_GRID (priv->grid), label,
 					    &priv->rights_label,
 					    _("Copyright:"));
+#endif /* HAVE_EXEMPI */
 
 	priv->details_button = gtk_button_new_with_label (_("Details"));
 	g_signal_connect (priv->details_button, "clicked",
 			  G_CALLBACK (_details_button_clicked_cb), sidebar);
 	gtk_grid_attach_next_to (GTK_GRID (priv->grid), priv->details_button,
 				 label, GTK_POS_BOTTOM, 1, 1);
+#endif /* HAVE_METADATA */
+
 
 
 	gtk_widget_show_all (priv->grid);
