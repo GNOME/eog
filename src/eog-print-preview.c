@@ -477,7 +477,6 @@ static gboolean button_press_event_cb   (GtkWidget *widget, GdkEventButton *bev,
 static gboolean button_release_event_cb (GtkWidget *widget, GdkEventButton *bev, gpointer user_data);
 static gboolean motion_notify_event_cb  (GtkWidget *widget, GdkEventMotion *mev, gpointer user_data);
 static gboolean key_press_event_cb      (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
-static gboolean scroll_event_cb         (GtkWidget *widget, GdkEventScroll *event, gpointer user_data);
 
 static gboolean draw_cb (GtkDrawingArea *drawing_area, cairo_t *cr, gpointer  user_data);
 static void size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data);
@@ -558,9 +557,6 @@ eog_print_preview_new (void)
 	g_signal_connect (area, "size-allocate",
 			  G_CALLBACK (size_allocate_cb), preview);
 
-	g_signal_connect (G_OBJECT (area), "scroll-event",
-			  G_CALLBACK (scroll_event_cb), preview);
-
 	return GTK_WIDGET (preview);
 }
 
@@ -636,6 +632,16 @@ press_inside_image_area (EogPrintPreview *preview,
 		return TRUE;
 
 	return FALSE;
+}
+
+gboolean
+eog_print_preview_point_in_image_area (EogPrintPreview *preview,
+				       guint x,
+				       guint y)
+{
+	g_return_val_if_fail (EOG_IS_PRINT_PREVIEW (preview), FALSE);
+
+	return press_inside_image_area (preview, x, y);
 }
 
 static void
@@ -975,39 +981,6 @@ motion_notify_event_cb (GtkWidget      *widget,
 	}
 	return FALSE;
 }
-
-static gboolean
-scroll_event_cb (GtkWidget *widget,
-		 GdkEventScroll *event,
-		 gpointer user_data)
-{
-	g_assert (EOG_IS_PRINT_PREVIEW (user_data));
-
-	EogPrintPreview *preview = EOG_PRINT_PREVIEW (user_data);
-
-	if (press_inside_image_area (EOG_PRINT_PREVIEW (user_data),
-				     event->x, event->y))
-	{
-		gfloat scale;
-		gfloat multiplier;
-
-		g_object_get (preview, "image-scale", &scale, NULL);
-
-		switch (event->direction) {
-		case GDK_SCROLL_UP:
-			/* scale up */
-			multiplier = 1.1;
-			break;
-		case GDK_SCROLL_DOWN:
-			/* scale down */
-			multiplier = 0.9;
-
-		}
-		eog_print_preview_set_scale (preview, CLAMP (scale * multiplier, 0., 1.));
-	}
-	return TRUE;
-}
-
 
 static void
 size_allocate_cb (GtkWidget *widget,

@@ -634,16 +634,72 @@ on_preview_image_moved (EogPrintPreview *preview,
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->top), y);
 }
 
-static void
-on_preview_image_scaled (EogPrintPreview *preview,
-			 gpointer user_data)
+static gboolean
+on_preview_image_scrolled (GtkWidget *widget,
+			   GdkEventScroll *event,
+			   gpointer user_data)
 {
 	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	EogPrintPreview *preview = EOG_PRINT_PREVIEW (widget);
 	gfloat scale;
 
 	scale = eog_print_preview_get_scale (preview);
 
+	if (!eog_print_preview_point_in_image_area (preview,
+						    event->x, event->y))
+	{
+		return FALSE;
+	}
+
+	switch (event->direction) {
+	case GDK_SCROLL_UP:
+		/* scale up */
+		scale *= 1.1;
+		break;
+	case GDK_SCROLL_DOWN:
+		/* scale down */
+		scale *= 0.9;
+		break;
+	default:
+		return FALSE;
+		break;
+	}
+
 	gtk_range_set_value (GTK_RANGE (priv->scaling), 100*scale);
+
+	return TRUE;
+}
+
+static gboolean
+on_preview_image_key_pressed (GtkWidget *widget,
+			      GdkEventKey *event,
+			      gpointer user_data)
+{
+	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	EogPrintPreview *preview = EOG_PRINT_PREVIEW (widget);
+	gfloat scale;
+
+	scale = eog_print_preview_get_scale (preview);
+
+	switch (event->keyval) {
+	case GDK_KEY_KP_Add:
+	case GDK_KEY_plus:
+		/* scale up */
+		scale *= 1.1;
+		break;
+	case GDK_KEY_KP_Subtract:
+	case GDK_KEY_minus:
+		/* scale down */
+		scale *= 0.9;
+		break;
+	default:
+		return FALSE;
+		break;
+	}
+
+	gtk_range_set_value (GTK_RANGE (priv->scaling), 100*scale);
+
+	return TRUE;
 }
 
 /* Function taken from gtkprintunixdialog.c */
@@ -831,8 +887,10 @@ connect_signals (EogPrintImageSetup *setup)
 			  G_CALLBACK (on_scale_format_value), NULL);
 	g_signal_connect (G_OBJECT (priv->preview), "image-moved",
 			  G_CALLBACK (on_preview_image_moved), setup);
-	g_signal_connect (G_OBJECT (priv->preview), "image-scaled",
-			  G_CALLBACK (on_preview_image_scaled), setup);
+	g_signal_connect (G_OBJECT (priv->preview), "scroll-event",
+			  G_CALLBACK (on_preview_image_scrolled), setup);
+	g_signal_connect (G_OBJECT (priv->preview), "key-press-event",
+			  G_CALLBACK (on_preview_image_key_pressed), setup);
 }
 
 static void

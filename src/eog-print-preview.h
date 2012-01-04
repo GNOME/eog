@@ -76,9 +76,13 @@ void         eog_print_preview_set_image_position  (EogPrintPreview *preview,
 						    gdouble          y);
 
 G_GNUC_INTERNAL
+gboolean     eog_print_preview_point_in_image_area (EogPrintPreview *preview,
+						    guint            x,
+						    guint            y);
+G_GNUC_INTERNAL
 void         eog_print_preview_set_scale           (EogPrintPreview *preview,
 						    gfloat           scale);
-
+G_GNUC_INTERNAL
 gfloat       eog_print_preview_get_scale           (EogPrintPreview *preview);
 
 G_END_DECLS
