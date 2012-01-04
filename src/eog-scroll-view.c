@@ -13,7 +13,6 @@
 
 #include "eog-config-keys.h"
 #include "eog-enum-types.h"
-#include "eog-marshal.h"
 #include "eog-scroll-view.h"
 #include "eog-debug.h"
 #if 0
@@ -2823,7 +2822,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
 			      NULL, NULL,
-			      eog_marshal_VOID__DOUBLE,
+			      g_cclosure_marshal_VOID__DOUBLE,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_DOUBLE);
 
