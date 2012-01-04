@@ -77,6 +77,7 @@ struct _EogPrintPreviewPrivate {
 /* Signal IDs */
 enum {
 	SIGNAL_IMAGE_MOVED,
+	SIGNAL_IMAGE_SCALED,
 	SIGNAL_LAST
 };
 static gint preview_signals [SIGNAL_LAST];
@@ -388,6 +389,19 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 			      g_cclosure_marshal_VOID__VOID, G_TYPE_NONE,
 			      0, NULL);
 
+/**
+ * EogPrintPreview::image-scaled:
+ * @preview: the object which received the signal
+ *
+ * The ::image-scaled signal is emmited when the scale of the image is changed.
+ */
+	preview_signals [SIGNAL_IMAGE_SCALED] =
+		g_signal_new ("image_scaled",
+			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_SIGNAL_RUN_FIRST, 0, NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID, G_TYPE_NONE,
+			      0, NULL);
+
 	g_type_class_add_private (klass, sizeof (EogPrintPreviewPrivate));
 }
 
@@ -463,6 +477,7 @@ static gboolean button_press_event_cb   (GtkWidget *widget, GdkEventButton *bev,
 static gboolean button_release_event_cb (GtkWidget *widget, GdkEventButton *bev, gpointer user_data);
 static gboolean motion_notify_event_cb  (GtkWidget *widget, GdkEventMotion *mev, gpointer user_data);
 static gboolean key_press_event_cb      (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+static gboolean scroll_event_cb         (GtkWidget *widget, GdkEventScroll *event, gpointer user_data);
 
 static gboolean draw_cb (GtkDrawingArea *drawing_area, cairo_t *cr, gpointer  user_data);
 static void size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data);
@@ -516,6 +531,7 @@ eog_print_preview_new (void)
 			       GDK_POINTER_MOTION_MASK      |
 			       GDK_BUTTON_PRESS_MASK        |
 			       GDK_BUTTON_RELEASE_MASK      |
+			       GDK_SCROLL_MASK              |
 			       GDK_KEY_PRESS_MASK);
 
 	g_object_set (G_OBJECT (area),
@@ -541,6 +557,9 @@ eog_print_preview_new (void)
 
 	g_signal_connect (area, "size-allocate",
 			  G_CALLBACK (size_allocate_cb), preview);
+
+	g_signal_connect (G_OBJECT (area), "scroll-event",
+			  G_CALLBACK (scroll_event_cb), preview);
 
 	return GTK_WIDGET (preview);
 }
@@ -957,6 +976,39 @@ motion_notify_event_cb (GtkWidget      *widget,
 	return FALSE;
 }
 
+static gboolean
+scroll_event_cb (GtkWidget *widget,
+		 GdkEventScroll *event,
+		 gpointer user_data)
+{
+	g_assert (EOG_IS_PRINT_PREVIEW (user_data));
+
+	EogPrintPreview *preview = EOG_PRINT_PREVIEW (user_data);
+
+	if (press_inside_image_area (EOG_PRINT_PREVIEW (user_data),
+				     event->x, event->y))
+	{
+		gfloat scale;
+		gfloat multiplier;
+
+		g_object_get (preview, "image-scale", &scale, NULL);
+
+		switch (event->direction) {
+		case GDK_SCROLL_UP:
+			/* scale up */
+			multiplier = 1.1;
+			break;
+		case GDK_SCROLL_DOWN:
+			/* scale down */
+			multiplier = 0.9;
+
+		}
+		eog_print_preview_set_scale (preview, CLAMP (scale * multiplier, 0., 1.));
+	}
+	return TRUE;
+}
+
+
 static void
 size_allocate_cb (GtkWidget *widget,
 		  GtkAllocation *allocation,
@@ -1214,4 +1266,31 @@ eog_print_preview_set_scale (EogPrintPreview *preview,
 	g_object_set (preview,
 		      "image-scale", scale,
 		      NULL);
+
+	g_signal_emit (G_OBJECT (preview),
+		       preview_signals
+		       [SIGNAL_IMAGE_SCALED], 0);
+
+}
+
+/**
+ * eog_print_preview_get_scale:
+ * @preview: A #EogPrintPreview.
+ *
+ * Gets the scale for the image.
+ *
+ * Returns: The scale for the image.
+ **/
+gfloat
+eog_print_preview_get_scale (EogPrintPreview *preview)
+{
+	gfloat scale;
+
+	g_return_val_if_fail (EOG_IS_PRINT_PREVIEW (preview), 0);
+
+	g_object_get (preview,
+		      "image-scale", &scale,
+		      NULL);
+
+	return scale;
 }

@@ -634,6 +634,18 @@ on_preview_image_moved (EogPrintPreview *preview,
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->top), y);
 }
 
+static void
+on_preview_image_scaled (EogPrintPreview *preview,
+			 gpointer user_data)
+{
+	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	gfloat scale;
+
+	scale = eog_print_preview_get_scale (preview);
+
+	gtk_range_set_value (GTK_RANGE (priv->scaling), 100*scale);
+}
+
 /* Function taken from gtkprintunixdialog.c */
 static GtkWidget *
 wrap_in_frame (const gchar *label,
@@ -819,6 +831,8 @@ connect_signals (EogPrintImageSetup *setup)
 			  G_CALLBACK (on_scale_format_value), NULL);
 	g_signal_connect (G_OBJECT (priv->preview), "image-moved",
 			  G_CALLBACK (on_preview_image_moved), setup);
+	g_signal_connect (G_OBJECT (priv->preview), "image-scaled",
+			  G_CALLBACK (on_preview_image_scaled), setup);
 }
 
 static void

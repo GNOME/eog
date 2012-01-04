@@ -79,6 +79,8 @@ G_GNUC_INTERNAL
 void         eog_print_preview_set_scale           (EogPrintPreview *preview,
 						    gfloat           scale);
 
+gfloat       eog_print_preview_get_scale           (EogPrintPreview *preview);
+
 G_END_DECLS
 
 #endif /* _EOG_PRINT_PREVIEW_H_ */
