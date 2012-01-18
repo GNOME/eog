@@ -2893,6 +2893,7 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	gchar *filepath, *basename, *filename, *extension;
 	GtkAction *action;
 	GFile *source_file, *dest_file;
+	GTimeVal mtime;
 
 	/* Create source GFile */
 	basename = g_file_get_basename (job->images->data);
@@ -2911,6 +2912,16 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	/* Move the file */
 	g_file_move (source_file, dest_file, G_FILE_COPY_OVERWRITE,
 		     NULL, NULL, NULL, NULL);
+
+	/* Update mtime, see bug 664747 */
+	g_get_current_time (&mtime);
+	g_file_set_attribute_uint64 (dest_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+	                             mtime.tv_sec, G_FILE_QUERY_INFO_NONE,
+				     NULL, NULL);
+	g_file_set_attribute_uint32 (dest_file,
+				     G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC,
+				     mtime.tv_usec, G_FILE_QUERY_INFO_NONE,
+				     NULL, NULL);
 
 	/* Set the wallpaper */
 	eog_window_set_wallpaper (window, filepath, basename);
