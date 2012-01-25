@@ -401,7 +401,7 @@ eog_window_get_display_profile (GtkWidget *window)
 	gulong length;
 	guchar *str;
 	int result;
-	cmsHPROFILE *profile;
+	cmsHPROFILE *profile = NULL;
 	char *atom_name;
 	GdkScreen *screen;
 
@@ -455,14 +455,17 @@ eog_window_get_display_profile (GtkWidget *window)
 
 		if (G_UNLIKELY (profile == NULL)) {
 			eog_debug_message (DEBUG_LCMS,
-					   "Invalid display profile, "
-					   "not correcting");
+					   "Invalid display profile set, "
+					   "not using it");
 		}
 
 		XFree (str);
-	} else {
-		profile = NULL;
-		eog_debug_message (DEBUG_LCMS, "No profile, not correcting");
+	}
+
+	if (profile == NULL) {
+		profile = cmsCreate_sRGBProfile ();
+		eog_debug_message (DEBUG_LCMS,
+				 "No valid display profile set, assuming sRGB");
 	}
 
 	return profile;
