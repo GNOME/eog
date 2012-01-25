@@ -4772,6 +4772,8 @@ eog_window_init (EogWindow *window)
 	window->priv->page_setup = NULL;
 
 	gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (EOG_APP));
+
+	gtk_window_set_hide_titlebar_when_maximized (GTK_WINDOW (window), TRUE);
 }
 
 static void
