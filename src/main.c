@@ -104,9 +104,6 @@ main (int argc, char **argv)
 	GtkSettings *settings;
 	GtkCssProvider *provider;
 
-	if (!g_thread_supported ())
-		g_thread_init (NULL);
-
 	bindtextdomain (PACKAGE, EOG_LOCALE_DIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
