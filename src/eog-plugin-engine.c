@@ -37,6 +37,7 @@
 #include <girepository.h>
 
 #define USER_EOG_PLUGINS_LOCATION "plugins/"
+#define EOG_PLUGIN_DATA_DIR EOG_DATA_DIR G_DIR_SEPARATOR_S "plugins"
 
 G_DEFINE_TYPE (EogPluginEngine, eog_plugin_engine, PEAS_TYPE_ENGINE)
 
@@ -133,7 +134,7 @@ eog_plugin_engine_new (void)
 				     user_plugin_path, user_plugin_path);
 	/* Find system-wide plugins */
 	peas_engine_add_search_path (PEAS_ENGINE (engine),
-				     EOG_PLUGIN_DIR, EOG_PLUGIN_DIR);
+				     EOG_PLUGIN_DIR, EOG_PLUGIN_DATA_DIR);
 
 	g_settings_bind (engine->priv->plugins_settings,
 			 EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
