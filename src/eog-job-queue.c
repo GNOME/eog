@@ -161,7 +161,8 @@ eog_job_queue_init (void)
 	save_queue = g_queue_new ();
 	copy_queue = g_queue_new ();
 
-	g_thread_create (eog_render_thread, NULL, FALSE, NULL);
+	/* Unref to detach the thread */
+	g_thread_unref (g_thread_new ("EogJobQueue", eog_render_thread, NULL));
 }
 
 static GQueue *
