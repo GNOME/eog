@@ -52,8 +52,10 @@ struct _EogMetadataSidebarClass {
 	GtkScrolledWindowClass parent_klass;
 };
 
+G_GNUC_INTERNAL
 GType eog_metadata_sidebar_get_type (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget* eog_metadata_sidebar_new (EogWindow *window);
 
 G_END_DECLS

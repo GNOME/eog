@@ -51,8 +51,10 @@ struct _EogPluginEngineClass {
   PeasEngineClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType eog_plugin_engine_get_type (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 EogPluginEngine* eog_plugin_engine_new (void);
 
 G_END_DECLS

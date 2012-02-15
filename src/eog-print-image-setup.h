@@ -60,6 +60,7 @@ void              eog_print_image_setup_get_options (EogPrintImageSetup *setup,
 						     gdouble            *top,
 						     gdouble            *scale,
 						     GtkUnit            *unit);
+G_GNUC_INTERNAL
 void              eog_print_image_setup_update      (GtkPrintOperation *operation,
 						     GtkWidget         *custom_widget,
 						     GtkPageSetup      *page_setup,

@@ -46,12 +46,15 @@ typedef enum
 	EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS = 3
 } EogErrorMessageAreaResponseType;
 
+G_GNUC_INTERNAL
 GtkWidget   *eog_image_load_error_message_area_new   (const gchar  *caption,
 						      const GError *error);
 
+G_GNUC_INTERNAL
 GtkWidget   *eog_image_save_error_message_area_new   (const gchar  *caption,
 						      const GError *error);
 
+G_GNUC_INTERNAL
 GtkWidget   *eog_no_images_error_message_area_new    (GFile *file);
 
 #endif /* __EOG_ERROR_MESSAGE_AREA__ */
