@@ -1071,8 +1071,8 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 		GtkStyleContext *ctx;
 
 		ctx = gtk_widget_get_style_context (area);
-		gtk_render_focus (ctx, cr, 0, 0,
-				  allocation.width, allocation.height);
+		gtk_render_focus (ctx, cr, x0, y0,
+				  priv->r_width, priv->r_height);
 	}
 }
 
