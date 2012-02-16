@@ -565,10 +565,6 @@ draw_cb (GtkDrawingArea *drawing_area,
 		 cairo_t *cr,
 		 gpointer  user_data)
 {
-	GtkWidget *widget;
-
-	widget = GTK_WIDGET (drawing_area);
-
 	update_relative_sizes (EOG_PRINT_PREVIEW (user_data));
 
 	eog_print_preview_draw (EOG_PRINT_PREVIEW (user_data), cr);

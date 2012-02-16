@@ -3183,10 +3183,7 @@ static void
 eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	EogWindowPrivate *priv;
 	EogDialog *dialog;
-
-	priv = window->priv;
 
 	dialog = eog_window_get_properties_dialog (window);
 	eog_dialog_show (dialog);
