@@ -260,7 +260,7 @@ eog_sidebar_select_button_press_cb (GtkWidget      *widget,
 		gtk_widget_get_allocation (widget, &allocation);
 
 		gtk_widget_set_size_request (eog_sidebar->priv->menu, -1, -1);
-		gtk_widget_size_request (eog_sidebar->priv->menu, &requisition);
+		gtk_widget_get_preferred_size (eog_sidebar->priv->menu, &requisition, NULL);
 		gtk_widget_set_size_request (eog_sidebar->priv->menu,
 					     MAX (allocation.width,
 						  requisition.width), -1);

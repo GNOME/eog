@@ -434,9 +434,9 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	compute_scaled_size (view, priv->zoom, &img_width, &img_height);
 
 	/* this should work fairly well in this special case for scrollbars */
-	gtk_widget_size_request (priv->hbar, &req);
+	gtk_widget_get_preferred_size (priv->hbar, &req, NULL);
 	bar_height = req.height;
-	gtk_widget_size_request (priv->vbar, &req);
+	gtk_widget_get_preferred_size (priv->vbar, &req, NULL);
 	bar_width = req.width;
 
 	eog_debug_message (DEBUG_WINDOW, "Widget Size allocate: %i, %i   Bar: %i, %i\n",
@@ -2466,7 +2466,7 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (adjustment_changed_cb),
 			  view);
 
-	priv->hbar = gtk_hscrollbar_new (priv->hadj);
+	priv->hbar = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, priv->hadj);
 	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 	g_signal_connect (priv->vadj, "value_changed",
 			  G_CALLBACK (adjustment_changed_cb),

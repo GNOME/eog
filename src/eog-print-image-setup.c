@@ -986,7 +986,7 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 							    2, 0);
 
 	label = gtk_label_new_with_mnemonic (_("_Scaling:"));
-	hscale = gtk_hscale_new_with_range (1, 100, 1);
+	hscale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 1, 100, 1);
 	gtk_scale_set_value_pos (GTK_SCALE (hscale), GTK_POS_RIGHT);
 	gtk_range_set_value (GTK_RANGE (hscale), 100);
 	gtk_grid_attach_next_to (GTK_GRID (grid), hscale, priv->width,
