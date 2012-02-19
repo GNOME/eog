@@ -70,9 +70,17 @@ eog_list_store_dispose (GObject *object)
 		store->priv->missing_image = NULL;
 	}
 
+	G_OBJECT_CLASS (eog_list_store_parent_class)->dispose (object);
+}
+
+static void
+eog_list_store_finalize (GObject *object)
+{
+	EogListStore *store = EOG_LIST_STORE (object);
+
 	g_mutex_clear (&store->priv->mutex);
 
-	G_OBJECT_CLASS (eog_list_store_parent_class)->dispose (object);
+	G_OBJECT_CLASS (eog_list_store_parent_class)->finalize (object);
 }
 
 static void
@@ -81,6 +89,7 @@ eog_list_store_class_init (EogListStoreClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	object_class->dispose = eog_list_store_dispose;
+	object_class->finalize = eog_list_store_finalize;
 
 	g_type_class_add_private (object_class, sizeof (EogListStorePrivate));
 }

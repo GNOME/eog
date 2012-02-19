@@ -209,11 +209,24 @@ eog_image_dispose (GObject *object)
 }
 
 static void
+eog_image_finalize (GObject *object)
+{
+	EogImagePrivate *priv;
+
+	priv = EOG_IMAGE (object)->priv;
+
+	g_mutex_clear (&priv->status_mutex);
+
+	G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
+}
+
+static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
 
 	object_class->dispose = eog_image_dispose;
+	object_class->finalize = eog_image_finalize;
 
 	signals[SIGNAL_SIZE_PREPARED] =
 		g_signal_new ("size-prepared",
