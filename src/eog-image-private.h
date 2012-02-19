@@ -81,7 +81,7 @@ struct _EogImagePrivate {
 
 	gchar            *collate_key;
 
-	GMutex           *status_mutex;
+	GMutex            status_mutex;
 
 	gboolean          cancel_loading;
 	guint             data_ref_count;

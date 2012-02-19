@@ -187,10 +187,7 @@ eog_image_dispose (GObject *object)
 		priv->file_type = NULL;
 	}
 
-	if (priv->status_mutex) {
-		g_mutex_free (priv->status_mutex);
-		priv->status_mutex = NULL;
-	}
+	g_mutex_clear (&priv->status_mutex);
 
 	if (priv->trans) {
 		g_object_unref (priv->trans);
@@ -300,7 +297,7 @@ eog_image_init (EogImage *img)
 	img->priv->height = -1;
 	img->priv->modified = FALSE;
 	img->priv->file_is_changed = FALSE;
-	img->priv->status_mutex = g_mutex_new ();
+	g_mutex_init (&img->priv->status_mutex);
 	img->priv->status = EOG_IMAGE_STATUS_UNKNOWN;
         img->priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
 	img->priv->is_monitored = FALSE;
@@ -539,12 +536,12 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 
 	img = EOG_IMAGE (data);
 
-	g_mutex_lock (img->priv->status_mutex);
+	g_mutex_lock (&img->priv->status_mutex);
 
 	img->priv->width = width;
 	img->priv->height = height;
 
-	g_mutex_unlock (img->priv->status_mutex);
+	g_mutex_unlock (&img->priv->status_mutex);
 
 #ifdef HAVE_EXIF
 	if (img->priv->threadsafe_format && (!img->priv->autorotate || img->priv->exif))
@@ -855,12 +852,12 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 	priv = img->priv;
 
 #ifdef HAVE_EXIF
-	g_mutex_lock (priv->status_mutex);
+	g_mutex_lock (&priv->status_mutex);
 	if (priv->exif) {
 		exif_data_unref (priv->exif);
 	}
 	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
-	g_mutex_unlock (priv->status_mutex);
+	g_mutex_unlock (&priv->status_mutex);
 
 	priv->exif_chunk = NULL;
 	priv->exif_chunk_len = 0;
@@ -1385,9 +1382,9 @@ eog_image_get_pixbuf (EogImage *img)
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
-	g_mutex_lock (img->priv->status_mutex);
+	g_mutex_lock (&img->priv->status_mutex);
 	image = img->priv->image;
-	g_mutex_unlock (img->priv->status_mutex);
+	g_mutex_unlock (&img->priv->status_mutex);
 
 	if (image != NULL) {
 		g_object_ref (image);
@@ -2139,13 +2136,13 @@ eog_image_cancel_load (EogImage *img)
 
 	priv = img->priv;
 
-	g_mutex_lock (priv->status_mutex);
+	g_mutex_lock (&priv->status_mutex);
 
 	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
 		priv->cancel_loading = TRUE;
 	}
 
-	g_mutex_unlock (priv->status_mutex);
+	g_mutex_unlock (&priv->status_mutex);
 }
 
 #ifdef HAVE_EXIF
@@ -2159,12 +2156,12 @@ eog_image_get_exif_info (EogImage *img)
 
 	priv = img->priv;
 
-	g_mutex_lock (priv->status_mutex);
+	g_mutex_lock (&priv->status_mutex);
 
 	exif_data_ref (priv->exif);
 	data = priv->exif;
 
-	g_mutex_unlock (priv->status_mutex);
+	g_mutex_unlock (&priv->status_mutex);
 
 	return data;
 }
@@ -2190,9 +2187,9 @@ eog_image_get_xmp_info (EogImage *img)
 	EogImagePrivate *priv;
  	priv = img->priv;
 
- 	g_mutex_lock (priv->status_mutex);
+	g_mutex_lock (&priv->status_mutex);
  	data = (gpointer) xmp_copy (priv->xmp);
- 	g_mutex_unlock (priv->status_mutex);
+	g_mutex_unlock (&priv->status_mutex);
 #endif
 
  	return data;
@@ -2401,7 +2398,7 @@ eog_image_iter_advance (EogImage *img)
 
 	if ((new_frame = gdk_pixbuf_animation_iter_advance (img->priv->anim_iter, NULL)) == TRUE)
 	  {
-		g_mutex_lock (priv->status_mutex);
+		g_mutex_lock (&priv->status_mutex);
 		g_object_unref (priv->image);
 		priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
 	 	g_object_ref (priv->image);
@@ -2413,7 +2410,7 @@ eog_image_iter_advance (EogImage *img)
 			priv->width = gdk_pixbuf_get_width (transformed);
 			priv->height = gdk_pixbuf_get_height (transformed);
 		}
-		g_mutex_unlock (priv->status_mutex);
+		g_mutex_unlock (&priv->status_mutex);
 		/* Emit next frame signal so we can update the display */
 		g_signal_emit (img, signals[SIGNAL_NEXT_FRAME], 0,
 			       gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter));
@@ -2474,10 +2471,10 @@ eog_image_start_animation (EogImage *img)
 	if (!eog_image_is_animation (img) || priv->is_playing)
 		return FALSE;
 
-	g_mutex_lock (priv->status_mutex);
+	g_mutex_lock (&priv->status_mutex);
 	g_object_ref (priv->anim_iter);
 	priv->is_playing = TRUE;
-	g_mutex_unlock (priv->status_mutex);
+	g_mutex_unlock (&priv->status_mutex);
 
  	g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
 
