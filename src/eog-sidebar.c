@@ -64,7 +64,7 @@ struct _EogSidebarPrivate {
 	GtkTreeModel *page_model;
 };
 
-G_DEFINE_TYPE (EogSidebar, eog_sidebar, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (EogSidebar, eog_sidebar, GTK_TYPE_BOX)
 
 #define EOG_SIDEBAR_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SIDEBAR, EogSidebarPrivate))
@@ -369,6 +369,9 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 	GtkWidget *select_hbox;
 	GtkWidget *arrow;
 	GtkWidget *image;
+
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (eog_sidebar),
+					GTK_ORIENTATION_VERTICAL);
 
 	eog_sidebar->priv = EOG_SIDEBAR_GET_PRIVATE (eog_sidebar);
 

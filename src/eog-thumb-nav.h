@@ -49,13 +49,13 @@ typedef enum {
 } EogThumbNavMode;
 
 struct _EogThumbNav {
-	GtkHBox base_instance;
+	GtkBox base_instance;
 
 	EogThumbNavPrivate *priv;
 };
 
 struct _EogThumbNavClass {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 GType	         eog_thumb_nav_get_type          (void) G_GNUC_CONST;

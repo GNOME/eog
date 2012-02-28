@@ -83,7 +83,8 @@ enum {
 static gint preview_signals [SIGNAL_LAST];
 
 enum {
-	PROP_IMAGE = 1,
+	PROP_0,
+	PROP_IMAGE,
 	PROP_IMAGE_X_ALIGN,
 	PROP_IMAGE_Y_ALIGN,
 	PROP_IMAGE_SCALE,

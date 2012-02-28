@@ -42,13 +42,13 @@ typedef struct _EogSidebarPrivate EogSidebarPrivate;
 #define EOG_SIDEBAR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_SIDEBAR, EogSidebarClass))
 
 struct _EogSidebar {
-	GtkVBox base_instance;
+	GtkBox base_instance;
 
 	EogSidebarPrivate *priv;
 };
 
 struct _EogSidebarClass {
-	GtkVBoxClass base_class;
+	GtkBoxClass base_class;
 
 	void (* page_added)   (EogSidebar *eog_sidebar,
 			       GtkWidget  *main_widget);
