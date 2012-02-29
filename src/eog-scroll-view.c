@@ -2472,7 +2472,7 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (adjustment_changed_cb),
 			  view);
 
-	priv->vbar = gtk_vscrollbar_new (priv->vadj);
+	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
 	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
 				      "can-focus", TRUE,
 				      NULL);
