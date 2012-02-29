@@ -1487,9 +1487,14 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	}
 
 	if (do_zoom) {
+		GdkDeviceManager *device_manager;
+		GdkDevice *device;
 		gint x, y;
 
-		gdk_window_get_pointer (gtk_widget_get_window (widget),
+		device_manager = gdk_display_get_device_manager (gtk_widget_get_display(widget));
+		device = gdk_device_manager_get_client_pointer (device_manager);
+
+		gdk_window_get_device_position (gtk_widget_get_window (widget), device,
 					&x, &y, NULL);
 		set_zoom (view, zoom, TRUE, x, y);
 	}
@@ -1673,7 +1678,7 @@ eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer
 		return FALSE;
 
 	if (event->is_hint)
-		gdk_window_get_pointer (gtk_widget_get_window (GTK_WIDGET (priv->display)), &x, &y, &mods);
+		gdk_window_get_device_position (gtk_widget_get_window (GTK_WIDGET (priv->display)), event->device, &x, &y, &mods);
 	else {
 		x = event->x;
 		y = event->y;
