@@ -46,6 +46,11 @@
 #include <exempi/xmp.h>
 #endif
 
+#if HAVE_RSVG
+#include <librsvg/rsvg.h>
+#include <librsvg/librsvg-features.h>
+#endif
+
 #define EOG_CSS_FILE_PATH EOG_DATA_DIR G_DIR_SEPARATOR_S "eog.css"
 
 static EogStartupFlags flags;
@@ -139,7 +144,7 @@ main (int argc, char **argv)
 #ifdef HAVE_EXEMPI
  	xmp_init();
 #endif
-#ifdef HAVE_RSVG
+#if defined (HAVE_RSVG) && !LIBRSVG_CHECK_VERSION(2, 35, 1)
 	rsvg_init();
 #endif
 	eog_debug_init ();
@@ -188,7 +193,7 @@ main (int argc, char **argv)
   	if (startup_files)
 		g_strfreev (startup_files);
 
-#ifdef HAVE_RSVG
+#if defined (HAVE_RSVG) && !LIBRSVG_CHECK_VERSION(2, 35, 1)
 	rsvg_term();
 #endif
 #ifdef HAVE_EXEMPI
