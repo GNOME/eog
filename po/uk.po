@@ -3,13 +3,13 @@
 # Yuri Syrota <rasta@renome.rovno.ua>, 1999, 2000.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2004-2010
 # wanderlust <wanderlust@ukr.net>, 2009.
-# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
+# Korostil Daniel <ted.korostiled@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-28 02:25+0300\n"
-"PO-Revision-Date: 2011-09-28 02:32+0300\n"
+"POT-Creation-Date: 2012-03-04 21:48+0200\n"
+"PO-Revision-Date: 2012-03-04 22:11+0300\n"
 "Last-Translator: Korostil Daniel <ted.korostiled@gmail.com>\n"
 "Language-Team: translation@linux.org.ua\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.6.1\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
@@ -27,32 +27,32 @@ msgstr ""
 #. * produce duplicates, but don't worry about it. If your language
 #. * normally has a mnemonic at the start, please use the _. If not,
 #. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:988
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:992
 #, c-format
 msgid "Show “_%s”"
 msgstr "Показувати «_%s»"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1479
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
 msgid "_Move on Toolbar"
 msgstr "_Перемістити на панель"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1480
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1486
 msgid "Move the selected item on the toolbar"
 msgstr "Перемістити виділений пункт на панель інструментів"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1487
 msgid "_Remove from Toolbar"
 msgstr "В_иkexbnb з панелі"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1488
 msgid "Remove the selected item from the toolbar"
 msgstr "Вилучити виділений пункт з панелі"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1489
 msgid "_Delete Toolbar"
 msgstr "В_илучити панель"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1490
 msgid "Remove the selected toolbar"
 msgstr "Вилучити виділену панель"
 
@@ -60,13 +60,554 @@ msgstr "Вилучити виділену панель"
 msgid "Separator"
 msgstr "Роздільник"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
-msgid "Activate fullscreen mode with double-click"
-msgstr "Увімкнути повноекранний режим подвійним клацанням"
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-window.c:2647 ../src/main.c:176
+msgid "Image Viewer"
+msgstr "Перегляд зображень"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+#: ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Перегляд та обертання зображень"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#: ../data/eog.desktop.in.in.h:4
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Малюнок;Слайд;Графіки;"
+
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4627
+msgid "Image Properties"
+msgstr "Властивості зображення"
+
+#: ../data/eog-image-properties-dialog.ui.h:2
+msgid "_Previous"
+msgstr "_Назад"
+
+#: ../data/eog-image-properties-dialog.ui.h:3
+msgid "_Next"
+msgstr "_Далі"
+
+#: ../data/eog-image-properties-dialog.ui.h:4
+#: ../src/eog-metadata-sidebar.c:498
+msgid "Name:"
+msgstr "Назва:"
+
+#: ../data/eog-image-properties-dialog.ui.h:5
+#: ../src/eog-metadata-sidebar.c:500
+msgid "Width:"
+msgstr "Ширина:"
+
+#: ../data/eog-image-properties-dialog.ui.h:6
+#: ../src/eog-metadata-sidebar.c:502
+msgid "Height:"
+msgstr "Висота:"
+
+#: ../data/eog-image-properties-dialog.ui.h:7
+#: ../src/eog-metadata-sidebar.c:504
+msgid "Type:"
+msgstr "Тип:"
+
+#: ../data/eog-image-properties-dialog.ui.h:8
+msgid "Bytes:"
+msgstr "Байтів:"
+
+#: ../data/eog-image-properties-dialog.ui.h:9
+#: ../src/eog-metadata-sidebar.c:508
+msgid "Folder:"
+msgstr "Тека:"
+
+#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../src/eog-metadata-sidebar.c:496
+msgid "General"
+msgstr "Загальні"
+
+#: ../data/eog-image-properties-dialog.ui.h:11
+#: ../src/eog-metadata-sidebar.c:528
+msgid "Aperture Value:"
+msgstr "Значення апертури:"
+
+#: ../data/eog-image-properties-dialog.ui.h:12
+#: ../src/eog-metadata-sidebar.c:531
+msgid "Exposure Time:"
+msgstr "Час експозиції:"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../src/eog-metadata-sidebar.c:534
+msgid "Focal Length:"
+msgstr "Фокусна відстань:"
+
+#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../src/eog-metadata-sidebar.c:536
+msgid "Flash:"
+msgstr "Спалах:"
+
+#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../src/eog-metadata-sidebar.c:540
+msgid "ISO Speed Rating:"
+msgstr "Чутливість (ISO):"
+
+#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../src/eog-metadata-sidebar.c:543
+msgid "Metering Mode:"
+msgstr "Режим виміру експозиції:"
+
+#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../src/eog-metadata-sidebar.c:546
+msgid "Camera Model:"
+msgstr "Модель камери:"
+
+#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../src/eog-metadata-sidebar.c:548
+msgid "Date/Time:"
+msgstr "Дата/час:"
+
+#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../src/eog-metadata-sidebar.c:553
+msgid "Description:"
+msgstr "Опис:"
+
+#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../src/eog-metadata-sidebar.c:556
+msgid "Location:"
+msgstr "Розташування:"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../src/eog-metadata-sidebar.c:559
+msgid "Keywords:"
+msgstr "Ключові слова:"
+
+#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../src/eog-metadata-sidebar.c:561
+msgid "Author:"
+msgstr "Автор:"
+
+#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../src/eog-metadata-sidebar.c:564
+msgid "Copyright:"
+msgstr "Авторські права:"
+
+#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../src/eog-metadata-sidebar.c:567
+msgid "Details"
+msgstr "Подробиці"
+
+#: ../data/eog-image-properties-dialog.ui.h:25
+#: ../src/eog-metadata-sidebar.c:524
+msgid "Metadata"
+msgstr "Метадані"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:1
+msgid "Save As"
+msgstr "Зберегти як"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:3
+#, no-c-format
+msgid "<b>%f:</b> original filename"
+msgstr "<b>%f:</b> початкову назву файлу"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
+#, no-c-format
+msgid "<b>%n:</b> counter"
+msgstr "<b>%n:</b> лічильник"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:6
+msgid "Filename format:"
+msgstr "Формат назви файла:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
+msgid "Choose a folder"
+msgstr "Вибрати каталог"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
+msgid "Destination folder:"
+msgstr "Тека призначення:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
+msgid "File Path Specifications"
+msgstr "Визначення шляху файла"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
+msgid "Start counter at:"
+msgstr "Починати відлік з:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
+msgid "Replace spaces with underscores"
+msgstr "Замінювати пробіли на підкреслення"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
+msgid "Options"
+msgstr "Параметри"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
+msgid "Rename from:"
+msgstr "Перейменувати:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
+msgid "To:"
+msgstr "На:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
+msgid "File Name Preview"
+msgstr "Перегляд назви файла"
+
+#: ../data/eog-preferences-dialog.ui.h:1
+msgid "Preferences"
+msgstr "Параметри"
+
+#: ../data/eog-preferences-dialog.ui.h:2
+msgid "Image Enhancements"
+msgstr "Покращення зображень"
+
+#: ../data/eog-preferences-dialog.ui.h:3
+msgid "Smooth images when zoomed-_out"
+msgstr "Згладжувати зображення при зменшенні _масштабу"
+
+#: ../data/eog-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed-_in"
+msgstr "Згладжувати зображення при збільшенні _масштабу"
+
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "_Automatic orientation"
+msgstr "_Автоматичне орієнтування"
+
+#: ../data/eog-preferences-dialog.ui.h:6
+msgid "Background"
+msgstr "Тло"
+
+#: ../data/eog-preferences-dialog.ui.h:7
+msgid "As custom color:"
+msgstr "Як власний колір:"
+
+#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:3
+msgid "Background Color"
+msgstr "Колір тла"
+
+#: ../data/eog-preferences-dialog.ui.h:9
+msgid "Transparent Parts"
+msgstr "Прозорі елементи"
+
+#: ../data/eog-preferences-dialog.ui.h:10
+msgid "As check _pattern"
+msgstr "У вигляді _клітчатого поля"
+
+#: ../data/eog-preferences-dialog.ui.h:11
+msgid "As custom c_olor:"
+msgstr "_Іншим кольором:"
+
+#: ../data/eog-preferences-dialog.ui.h:12
+msgid "Color for Transparent Areas"
+msgstr "Колір прозорих ділянок"
+
+#: ../data/eog-preferences-dialog.ui.h:13
+msgid "As _background"
+msgstr "Колір _тла"
+
+#: ../data/eog-preferences-dialog.ui.h:14
+msgid "Image View"
+msgstr "Перегляд зображення"
+
+#: ../data/eog-preferences-dialog.ui.h:15
+msgid "Image Zoom"
+msgstr "Масштаб зображення"
+
+#: ../data/eog-preferences-dialog.ui.h:16
+msgid "E_xpand images to fit screen"
+msgstr "Роз_ширювати зображення до розміру вікна"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Sequence"
+msgstr "Послідовність"
+
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:19
+msgctxt "PrefDlgSlideSwitchPrefix"
+msgid "_Switch image after:"
+msgstr "_Перемкнути зображення через:"
+
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:21
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "секунд"
+
+#: ../data/eog-preferences-dialog.ui.h:22
+msgid "_Loop sequence"
+msgstr "_Циклічна послідовність"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "Slideshow"
+msgstr "Показ слайдів"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "Plugins"
+msgstr "Додатки"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
+msgid "Automatic orientation"
+msgstr "Автоматичне орієнтування"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "Чи повинно зображення автоматично обертатись відповідно до даних EXIF."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
+msgstr ""
+"колір, який використовується для заливання ділянки за зображенням. Якщо ключ "
+"use-background-color не встановлено, колір натомість визначить тема GTK+."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
+msgid "Interpolate Image"
+msgstr "Інтерполювати зображення"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non-interpolated images."
+msgstr ""
+"Визначає, чи потрібно інтерполювати зображення коли змінюється його масштаб. "
+"В результаті можна отримати кращу якість при сповільненні роботи, на відміну "
+"від неінтерпольованих зображень."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
+msgid "Extrapolate Image"
+msgstr "Екстраполювати зображення"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
+msgid ""
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
+msgstr ""
+"Визначає, чи потрібно екстраполювати зображення коли змінюється його "
+"масштаб. В результаті можна отримати кращу якість при сповільненні роботи, "
+"на відміну від неекстрапольованих зображень."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
+msgid "Transparency indicator"
+msgstr "Індикатор прозорості"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
+msgstr ""
+"Визначає, як потрібно позначати прозорість. Правильними значеннями є  "
+"CHECK_PATTERN, COLOR і NONE. Якщо вибрано COLOR, то ключ кольору, яким "
+"позначатиметься прозорість, буде визначати значення."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
+msgid "Scroll wheel zoom"
+msgstr "Масштабувати обертання колеса миші"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
+msgid "Whether the scroll wheel should be used for zooming."
+msgstr "Чи використовувати прокручування колеса для зміни масштабу."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
+msgid "Zoom multiplier"
+msgstr "Коефіцієнт збільшення"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
+#, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"Множник, що застосовується при використанні колеса миші для зміни масштабу. "
+"Це значення визначає крок зміни масштабу при кожній русі прокручування. "
+"Наприклад, 0.05 означає збільшення на 5% для кожної події прокручування, а "
+"1.00 — збільшення на 100%."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
+msgid "Transparency color"
+msgstr "Колір прозорості"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+"Якщо ключ transparency має значення COLOR, то цей ключ визначає колір, яким "
+"позначатиметься прозорість."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
+msgid "Use a custom background color"
+msgstr "Використати власний колір тла"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"Якщо ввімкнено, вказаний колір у ключі background-color буде використано для "
+"заповнення ділянки за зображенням. Якщо не вказано, поточна тема GTK+ "
+"визначить колір заливання."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
+msgid "Loop through the image sequence"
+msgstr "Циклічна послідовність зображень"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
+msgid "Whether the sequence of images should be shown in an endless loop."
+msgstr ""
+"Визначає, що потрібно показувати послідовність зображень у нескінченному "
+"циклі."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Дозволяти початковий масштаб більше 100%"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
+msgid ""
+"If this is set to FALSE small images will not be stretched to fit into the "
+"screen initially."
+msgstr ""
+"Якщо не позначено, то малі зображення не будуть розтягуватись до розмірів "
+"екрана на початку."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
+msgid "Delay in seconds until showing the next image"
+msgstr "Затримка у секундах перед наступним зображенням"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
+msgid ""
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"Значення більше 0 визначає кількість секунд, яку зображення лишатиметься на "
+"екрані перед автоматичною появою наступного. Нуль вимикає автоматичний "
+"перегляд."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
+msgid "Show/Hide the window toolbar."
+msgstr "Показати чи прибрати панель інструментів."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
+msgid "Show/Hide the window statusbar."
+msgstr "Показати чи приховати рядок стану вікна."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
+msgid "Show/Hide the image gallery pane."
+msgstr "Показувати/приховувати панель галереї зображень."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:30
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"Положення панелі галереї зображень. Встановіть 0 — знизу; 1 — ліворуч; 2 — "
+"згори; 3 — праворуч."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
+msgid "Whether the image gallery pane should be resizable."
+msgstr "Чи можна змінювати розмір панелі галереї зображень."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
+msgid "Show/Hide the window side pane."
+msgstr "Показати чи приховати бічну панель."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr "Показати/сховати кнопки прокручування панелі галереї."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
+msgid "Close main window without asking to save changes."
+msgstr "Закрити головне вікно без запитання про зберігання змін."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
+msgid "Trash images without asking"
+msgstr "Знищувати зображення не питаючи дозволу"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"Якщо активне, «Око GNOME» не запитуватиме підтвердження при переміщенні "
+"зображень до смітника. Однак, ви будете отримувати запити у випадку, якщо "
+"файли не можна перенести до смітника, а натомість їх пропонується вилучити."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
+msgid ""
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"Чи у вікні вибору файла слід показувати зображення з теки малюнків, якщо "
+"зображення не завантажено у програмі."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
+msgstr ""
+"Якщо ввімкнено й у активному вікні не завантажено зображення, вікно вибору "
+"файлів показуватиме теку користувача для малюнків, зі спеціальних каталогів "
+"XDG. Якщо вимкнено або теку малюнків не встановлено, показуватиметься "
+"поточний каталог."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
+msgid ""
+"Whether the metadata list in the properties dialog should have its own page."
+msgstr "Чи матиме список метаданих власну сторінку у вікні властивостей."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
+msgid ""
+"If activated, the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
+msgstr ""
+"Якщо ввімкнено, докладний список метаданих у діалозі властивостей буде "
+"показано на власній сторінці у вікні. Це дозволяє краще розміщуватись на "
+"маленьких екранах, наприклад? нетбуках. Якщо вимкнено, віджет вбудовується у "
+"сторінку «Метадані»."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
+msgid "External program to use for editing images"
+msgstr "Зовнішня програма для редагування зображень"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
+msgid ""
+"The desktop file name (including the \".desktop\") of the application to use "
+"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
+"to the empty string to disable this feature."
+msgstr ""
+"Назва файла стільниці (зокрема «.desktop») програми для редагування "
+"зображень (коли панель «Редагування зображення» натиснуто). Залиште порожній "
+"рядок, щоб вимкнути цю функцію."
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
+msgid "Active plugins"
+msgstr "Увімкнути додатки"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"Список активних модулів. У списку не міститься \"Розташування\" активних "
+"модулів. Щоб дізнатись \"Розташування\" певного модуля дивіться файл .eog-"
+"plugin\"."
+
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Fullscreen with double-click"
 msgstr "На весь екран подвійним клацанням"
+
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+msgid "Activate fullscreen mode with double-click"
+msgstr "Увімкнути повноекранний режим подвійним клацанням"
 
 #: ../plugins/reload/eog-reload-plugin.c:53
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
@@ -85,517 +626,6 @@ msgstr "Дата у рядку стану"
 #: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:2
 msgid "Shows the image date in the window statusbar"
 msgstr "Показати чи приховати жату у рядку стану"
-
-#: ../data/eog.desktop.in.in.h:1
-msgid "Browse and rotate images"
-msgstr "Перегляд та обертання зображень"
-
-#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
-msgid "Image Viewer"
-msgstr "Перегляд зображень"
-
-#: ../data/eog-image-properties-dialog.ui.h:1
-msgid "Aperture Value:"
-msgstr "Значення апертури:"
-
-#: ../data/eog-image-properties-dialog.ui.h:2
-msgid "Author:"
-msgstr "Автор:"
-
-#: ../data/eog-image-properties-dialog.ui.h:3
-msgid "Bytes:"
-msgstr "Байтів:"
-
-#: ../data/eog-image-properties-dialog.ui.h:4
-msgid "Camera Model:"
-msgstr "Модель камери:"
-
-#: ../data/eog-image-properties-dialog.ui.h:5
-msgid "Copyright:"
-msgstr "Авторські права:"
-
-#: ../data/eog-image-properties-dialog.ui.h:6
-msgid "Date/Time:"
-msgstr "Дата/час:"
-
-#: ../data/eog-image-properties-dialog.ui.h:7
-msgid "Description:"
-msgstr "Опис:"
-
-#: ../data/eog-image-properties-dialog.ui.h:8
-msgid "Details"
-msgstr "Подробиці"
-
-#: ../data/eog-image-properties-dialog.ui.h:9
-msgid "Exposure Time:"
-msgstr "Час експозиції:"
-
-#: ../data/eog-image-properties-dialog.ui.h:10
-msgid "Flash:"
-msgstr "Спалах:"
-
-#: ../data/eog-image-properties-dialog.ui.h:11
-msgid "Focal Length:"
-msgstr "Фокусна відстань:"
-
-#: ../data/eog-image-properties-dialog.ui.h:12
-msgid "General"
-msgstr "Загальні"
-
-#: ../data/eog-image-properties-dialog.ui.h:13
-msgid "Height:"
-msgstr "Висота:"
-
-#: ../data/eog-image-properties-dialog.ui.h:14
-msgid "ISO Speed Rating:"
-msgstr "Чутливість (ISO):"
-
-#: ../data/eog-image-properties-dialog.ui.h:15
-msgid "Image Properties"
-msgstr "Властивості зображення"
-
-#: ../data/eog-image-properties-dialog.ui.h:16
-msgid "Keywords:"
-msgstr "Ключові слова:"
-
-#: ../data/eog-image-properties-dialog.ui.h:17
-msgid "Location:"
-msgstr "Розташування:"
-
-#: ../data/eog-image-properties-dialog.ui.h:18
-msgid "Metadata"
-msgstr "Метадані"
-
-#: ../data/eog-image-properties-dialog.ui.h:19
-msgid "Metering Mode:"
-msgstr "Режим виміру експозиції:"
-
-#: ../data/eog-image-properties-dialog.ui.h:20
-msgid "Name:"
-msgstr "Назва:"
-
-#: ../data/eog-image-properties-dialog.ui.h:21
-msgid "Type:"
-msgstr "Тип:"
-
-#: ../data/eog-image-properties-dialog.ui.h:22
-msgid "Width:"
-msgstr "Ширина:"
-
-#: ../data/eog-image-properties-dialog.ui.h:23
-msgid "_Next"
-msgstr "_Далі"
-
-#: ../data/eog-image-properties-dialog.ui.h:24
-msgid "_Previous"
-msgstr "_Назад"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:2
-#, no-c-format
-msgid "<b>%f:</b> original filename"
-msgstr "<b>%f:</b> початкову назву файлу"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%n:</b> counter"
-msgstr "<b>%n:</b> лічильник"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:5
-msgid "Choose a folder"
-msgstr "Вибрати каталог"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:6
-msgid "Destination folder:"
-msgstr "Тека призначення:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:7
-msgid "File Name Preview"
-msgstr "Перегляд назви файла"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:8
-msgid "File Path Specifications"
-msgstr "Визначення шляху файла"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:9
-msgid "Filename format:"
-msgstr "Формат назви файла:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:10
-msgid "Options"
-msgstr "Параметри"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:11
-msgid "Rename from:"
-msgstr "Перейменувати:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:12
-msgid "Replace spaces with underscores"
-msgstr "Замінювати пробіли на підкреслення"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:13
-msgid "Save As"
-msgstr "Зберегти як"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:14
-msgid "Start counter at:"
-msgstr "Починати відлік з:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:15
-msgid "To:"
-msgstr "На:"
-
-#: ../data/eog-preferences-dialog.ui.h:1
-msgid "As _background"
-msgstr "Колір _тла"
-
-#: ../data/eog-preferences-dialog.ui.h:2
-msgid "As check _pattern"
-msgstr "У вигляді _клітчатого поля"
-
-#: ../data/eog-preferences-dialog.ui.h:3
-msgid "As custom c_olor:"
-msgstr "_Іншим кольором:"
-
-#: ../data/eog-preferences-dialog.ui.h:4
-msgid "As custom color:"
-msgstr "Як власний колір:"
-
-#: ../data/eog-preferences-dialog.ui.h:5
-msgid "Background"
-msgstr "Тло"
-
-#: ../data/eog-preferences-dialog.ui.h:6
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
-msgid "Background Color"
-msgstr "Колір тла"
-
-#: ../data/eog-preferences-dialog.ui.h:7
-msgid "Color for Transparent Areas"
-msgstr "Колір прозорих ділянок"
-
-#: ../data/eog-preferences-dialog.ui.h:8
-msgid "E_xpand images to fit screen"
-msgstr "Роз_ширювати зображення до розміру вікна"
-
-#: ../data/eog-preferences-dialog.ui.h:9
-msgid "Image Enhancements"
-msgstr "Покращення зображень"
-
-#: ../data/eog-preferences-dialog.ui.h:10
-msgid "Image View"
-msgstr "Перегляд зображення"
-
-#: ../data/eog-preferences-dialog.ui.h:11
-msgid "Image Zoom"
-msgstr "Масштаб зображення"
-
-#: ../data/eog-preferences-dialog.ui.h:12
-msgid "Plugins"
-msgstr "Додатки"
-
-#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:14
-msgctxt "PrefDlgSlideSwitchPostfix"
-msgid "seconds"
-msgstr "секунд"
-
-#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:16
-msgctxt "PrefDlgSlideSwitchPrefix"
-msgid "_Switch image after:"
-msgstr "_Перемкнути зображення через:"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-msgid "Preferences"
-msgstr "Параметри"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Sequence"
-msgstr "Послідовність"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "Slideshow"
-msgstr "Показ слайдів"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "Smooth images when zoomed-_in"
-msgstr "Згладжувати зображення при збільшенні _масштабу"
-
-#: ../data/eog-preferences-dialog.ui.h:21
-msgid "Smooth images when zoomed-_out"
-msgstr "Згладжувати зображення при зменшенні _масштабу"
-
-#: ../data/eog-preferences-dialog.ui.h:22
-msgid "Transparent Parts"
-msgstr "Прозорі елементи"
-
-#: ../data/eog-preferences-dialog.ui.h:23
-msgid "_Automatic orientation"
-msgstr "_Автоматичне орієнтування"
-
-#: ../data/eog-preferences-dialog.ui.h:24
-msgid "_Loop sequence"
-msgstr "_Циклічна послідовність"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
-msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"Значення більше 0 визначає кількість секунд, яку зображення лишатиметься на "
-"екрані перед автоматичною появою наступного. Нуль вимикає автоматичний "
-"перегляд."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
-msgid "Active plugins"
-msgstr "Увімкнути додатки"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
-#, no-c-format
-msgid "Allow zoom greater than 100% initially"
-msgstr "Дозволяти початковий масштаб більше 100%"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
-msgid "Automatic orientation"
-msgstr "Автоматичне орієнтування"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
-msgid "Close main window without asking to save changes."
-msgstr "Закрити головне вікно без запитання про зберігання змін."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
-msgid "Delay in seconds until showing the next image"
-msgstr "Затримка у секундах перед наступним зображенням"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
-"determines the color value used."
-msgstr ""
-"Визначає, як потрібно позначати прозорість. Правильними значеннями є  "
-"CHECK_PATTERN, COLOR і NONE. Якщо вибрано COLOR, то ключ кольору, яким "
-"позначатиметься прозорість, буде визначати значення."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
-msgid "External program to use for editing images"
-msgstr "Зовнішня програма для редагування зображень"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
-msgid "Extrapolate Image"
-msgstr "Екстраполювати зображення"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
-msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up, it "
-"will show the current working directory."
-msgstr ""
-"Якщо ввімкнено й у активному вікні не завантажено зображення, вікно вибору "
-"файлів показуватиме теку користувача для малюнків, зі спеціальних каталогів "
-"XDG. Якщо вимкнено або теку малюнків не встановлено, показуватиметься "
-"поточний каталог."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
-msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"Якщо активне, «Око GNOME» не запитуватиме підтвердження при переміщенні "
-"зображень до смітника. Однак, ви будете отримувати запити у випадку, якщо "
-"файли не можна перенести до смітника, а натомість їх пропонується вилучити."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
-msgstr ""
-"Якщо ввімкнено, докладний список метаданих у діалозі властивостей буде "
-"показано на власній сторінці у вікні. Це дозволяє краще розміщуватись на "
-"маленьких екранах, наприклад? нетбуках. Якщо вимкнено, віджет вбудовується у "
-"сторінку «Метадані»."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"Якщо ключ transparency має значення COLOR, то цей ключ визначає колір, яким "
-"позначатиметься прозорість."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
-msgid ""
-"If this is active, the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set, the current GTK+ theme "
-"will determine the fill color."
-msgstr ""
-"Якщо ввімкнено, вказаний колір у ключі background-color буде використано для "
-"заповнення ділянки за зображенням. Якщо не вказано, поточна тема GTK+ "
-"визначить колір заливання."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
-msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
-msgstr ""
-"Якщо не позначено, то малі зображення не будуть розтягуватись до розмірів "
-"екрана на початку."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
-msgid ""
-"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
-"for right."
-msgstr ""
-"Положення панелі галереї зображень. Встановіть 0 — знизу; 1 — ліворуч; 2 — "
-"згори; 3 — праворуч."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
-msgid "Interpolate Image"
-msgstr "Інтерполювати зображення"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
-msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
-"plugin."
-msgstr ""
-"Список активних модулів. У списку не міститься \"Розташування\" активних "
-"модулів. Щоб дізнатись \"Розташування\" певного модуля дивіться файл .eog-"
-"plugin\"."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
-msgid "Loop through the image sequence"
-msgstr "Циклічна послідовність зображень"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
-msgid "Scroll wheel zoom"
-msgstr "Масштабувати обертання колеса миші"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
-msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr "Показати/сховати кнопки прокручування панелі галереї."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
-msgid "Show/Hide the image gallery pane."
-msgstr "Показувати/приховувати панель галереї зображень."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
-msgid "Show/Hide the window side pane."
-msgstr "Показати чи приховати бічну панель."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
-msgid "Show/Hide the window statusbar."
-msgstr "Показати чи приховати рядок стану вікна."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
-msgid "Show/Hide the window toolbar."
-msgstr "Показати чи прибрати панель інструментів."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
-msgid ""
-"The color that is used to fill the area behind the image. If the use-"
-"background-color key is not set, the color is determined by the active GTK+ "
-"theme instead."
-msgstr ""
-"колір, який використовується для заливання ділянки за зображенням. Якщо ключ "
-"use-background-color не встановлено, колір натомість визначить тема GTK+."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
-msgid ""
-"The desktop file name (including the \".desktop\") of the application to use "
-"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
-"to the empty string to disable this feature."
-msgstr ""
-"Назва файла стільниці (зокрема «.desktop») програми для редагування "
-"зображень (коли панель «Редагування зображення» натиснуто). Залиште порожній "
-"рядок, щоб вимкнути цю функцію."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
-#, no-c-format
-msgid ""
-"The multiplier to be applied when using the mouse scroll wheel for zooming. "
-"This value defines the zooming step used for each scroll event. For example, "
-"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
-"a 100% zoom increment."
-msgstr ""
-"Множник, що застосовується при використанні колеса миші для зміни масштабу. "
-"Це значення визначає крок зміни масштабу при кожній русі прокручування. "
-"Наприклад, 0.05 означає збільшення на 5% для кожної події прокручування, а "
-"1.00 — збільшення на 100%."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
-msgid "Transparency color"
-msgstr "Колір прозорості"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
-msgid "Transparency indicator"
-msgstr "Індикатор прозорості"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
-msgid "Trash images without asking"
-msgstr "Знищувати зображення не питаючи дозволу"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
-msgid "Use a custom background color"
-msgstr "Використати власний колір тла"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
-msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
-"are loaded."
-msgstr ""
-"Чи у вікні вибору файла слід показувати зображення з теки малюнків, якщо "
-"зображення не завантажено у програмі."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
-msgid "Whether the image gallery pane should be resizable."
-msgstr "Чи можна змінювати розмір панелі галереї зображень."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
-msgid ""
-"Whether the image should be extrapolated on zoom-in. This leads to blurry "
-"quality and is somewhat slower than non-extrapolated images."
-msgstr ""
-"Визначає, чи потрібно екстраполювати зображення коли змінюється його "
-"масштаб. В результаті можна отримати кращу якість при сповільненні роботи, "
-"на відміну від неекстрапольованих зображень."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
-msgid ""
-"Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non-interpolated images."
-msgstr ""
-"Визначає, чи потрібно інтерполювати зображення коли змінюється його масштаб. "
-"В результаті можна отримати кращу якість при сповільненні роботи, на відміну "
-"від неінтерпольованих зображень."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
-msgid ""
-"Whether the image should be rotated automatically based on EXIF orientation."
-msgstr "Чи повинно зображення автоматично обертатись відповідно до даних EXIF."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr "Чи матиме список метаданих власну сторінку у вікні властивостей."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
-msgid "Whether the scroll wheel should be used for zooming."
-msgstr "Чи використовувати прокручування колеса для зміни масштабу."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
-msgid "Whether the sequence of images should be shown in an endless loop."
-msgstr ""
-"Визначає, що потрібно показувати послідовність зображень у нескінченному "
-"циклі."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
-msgid "Zoom multiplier"
-msgstr "Коефіцієнт збільшення"
 
 #: ../src/eog-close-confirmation-dialog.c:171
 msgid "Close _without Saving"
@@ -632,101 +662,36 @@ msgstr "В_иберіть зображення, які треба зберегт
 msgid "If you don't save, all your changes will be lost."
 msgstr "Якщо ви не збережете, усі зміни буде втрачено."
 
-#: ../src/eog-file-chooser.c:126
-msgid "File format is unknown or unsupported"
-msgstr "Формат файла невідомий або не підтримується"
+#: ../src/eog-error-message-area.c:119
+msgid "_Cancel"
+msgstr "_Скасувати"
 
-#: ../src/eog-file-chooser.c:131
-msgid ""
-"Image Viewer could not determine a supported writable file format based on "
-"the filename."
-msgstr ""
-"Переглядач зображень не може визначити підтримуваний записуваний формат "
-"файла, який основано на назві файла."
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:836
+msgid "_Reload"
+msgstr "_Перезавантажити"
 
-#: ../src/eog-file-chooser.c:132
-msgid "Please try a different file extension like .png or .jpg."
-msgstr "Спробуйте різні розширення файлів, наприклад .png чи .jpg."
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3847
+msgid "Save _As…"
+msgstr "Зберегти _як…"
 
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:167
+#: ../src/eog-error-message-area.c:171
 #, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
+msgid "Could not load image '%s'."
+msgstr "Не вдалось завантажити зображення \"%s\"."
 
-#: ../src/eog-file-chooser.c:219
-msgid "All files"
-msgstr "Всі файли"
-
-#: ../src/eog-file-chooser.c:224
-msgid "Supported image files"
-msgstr "Підтримувані файли зображень"
-
-#. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "точка"
-msgstr[1] "точки"
-msgstr[2] "точок"
-
-#: ../src/eog-file-chooser.c:447
-msgid "Open Image"
-msgstr "Відкрити зображення"
-
-#: ../src/eog-file-chooser.c:455
-msgid "Save Image"
-msgstr "Зберегти зображення"
-
-#: ../src/eog-file-chooser.c:463
-msgid "Open Folder"
-msgstr "Відкрити теку"
-
-#: ../src/eog-image.c:606
+#: ../src/eog-error-message-area.c:213
 #, c-format
-msgid "Transformation on unloaded image."
-msgstr "Перетворення для не завантаженого зображення."
+msgid "Could not save image '%s'."
+msgstr "Неможливо зберегти зображення «%s»."
 
-#: ../src/eog-image.c:634
+#: ../src/eog-error-message-area.c:256
 #, c-format
-msgid "Transformation failed."
-msgstr "Помилка при перетворенні."
+msgid "No images found in '%s'."
+msgstr "Зображення не знайдено у «%s»."
 
-#: ../src/eog-image.c:1095
-#, c-format
-msgid "EXIF not supported for this file format."
-msgstr "Для цього формату файлів EXIF не підтримується."
-
-#: ../src/eog-image.c:1244
-#, c-format
-msgid "Image loading failed."
-msgstr "Помилка завантаження зображення."
-
-#: ../src/eog-image.c:1717 ../src/eog-image.c:1827
-#, c-format
-msgid "No image loaded."
-msgstr "Зображення не завантажено."
-
-#: ../src/eog-image.c:1725 ../src/eog-image.c:1836
-#, c-format
-msgid "You do not have the permissions necessary to save the file."
-msgstr "У вас немає прав потрібних для збереження файла."
-
-#: ../src/eog-image.c:1735 ../src/eog-image.c:1847
-#, c-format
-msgid "Temporary file creation failed."
-msgstr "Помилка при створенні тимчасового файлу."
-
-#: ../src/eog-image-jpeg.c:373
-#, c-format
-msgid "Couldn't create temporary file for saving: %s"
-msgstr "Не вдалось створити тимчасовий файл для збереження: %s"
-
-#: ../src/eog-image-jpeg.c:392
-#, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Не вдалось виділити пам'ять для завантаження файла у форматі JPEG"
+#: ../src/eog-error-message-area.c:263
+msgid "The given locations contain no images."
+msgstr "Вказані місця не містять зображень."
 
 #: ../src/eog-exif-details.c:69
 msgid "Camera"
@@ -793,145 +758,18 @@ msgid "South"
 msgstr "Південь"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
+#: ../src/eog-exif-util.c:119 ../src/eog-exif-util.c:159
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:152
+#: ../src/eog-exif-util.c:153
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: ../src/eog-error-message-area.c:119
-msgid "_Cancel"
-msgstr "_Скасувати"
-
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:825
-msgid "_Reload"
-msgstr "_Перезавантажити"
-
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
-msgid "Save _As…"
-msgstr "Зберегти _як…"
-
-#: ../src/eog-error-message-area.c:171
-#, c-format
-msgid "Could not load image '%s'."
-msgstr "Не вдалось завантажити зображення \"%s\"."
-
-#: ../src/eog-error-message-area.c:213
-#, c-format
-msgid "Could not save image '%s'."
-msgstr "Неможливо зберегти зображення «%s»."
-
-#: ../src/eog-error-message-area.c:256
-#, c-format
-msgid "No images found in '%s'."
-msgstr "Зображення не знайдено у «%s»."
-
-#: ../src/eog-error-message-area.c:263
-msgid "The given locations contain no images."
-msgstr "Вказані місця не містять зображень."
-
-#: ../src/eog-print.c:219
-msgid "Image Settings"
-msgstr "Параметри зображення"
-
-#: ../src/eog-print-image-setup.c:834
-msgid "Image"
-msgstr "Зображення"
-
-#: ../src/eog-print-image-setup.c:835
-msgid "The image whose printing properties will be set up"
-msgstr "Зображення, для якого будуть налаштовані властивості друку"
-
-#: ../src/eog-print-image-setup.c:841
-msgid "Page Setup"
-msgstr "Параметри сторінки"
-
-#: ../src/eog-print-image-setup.c:842
-msgid "The information for the page where the image will be printed"
-msgstr "Інформація про сторінку, на якій буде надруковане зображення"
-
-#: ../src/eog-print-image-setup.c:870
-msgid "Position"
-msgstr "Положення"
-
-#: ../src/eog-print-image-setup.c:875
-msgid "_Left:"
-msgstr "З_ліва:"
-
-#: ../src/eog-print-image-setup.c:876
-msgid "_Right:"
-msgstr "С_права:"
-
-#: ../src/eog-print-image-setup.c:877
-msgid "_Top:"
-msgstr "З_верху:"
-
-#: ../src/eog-print-image-setup.c:878
-msgid "_Bottom:"
-msgstr "З_низу:"
-
-#: ../src/eog-print-image-setup.c:880
-msgid "C_enter:"
-msgstr "_Центрувати:"
-
-#: ../src/eog-print-image-setup.c:885
-msgid "None"
-msgstr "Немає"
-
-#: ../src/eog-print-image-setup.c:887
-msgid "Horizontal"
-msgstr "Горизонтально"
-
-#: ../src/eog-print-image-setup.c:889
-msgid "Vertical"
-msgstr "Вертикально"
-
-#: ../src/eog-print-image-setup.c:891
-msgid "Both"
-msgstr "Горизонтально та вертикально"
-
-#: ../src/eog-print-image-setup.c:907
-msgid "Size"
-msgstr "Розмір"
-
-#: ../src/eog-print-image-setup.c:912
-msgid "_Width:"
-msgstr "_Ширина:"
-
-#: ../src/eog-print-image-setup.c:914
-msgid "_Height:"
-msgstr "_Висота:"
-
-#: ../src/eog-print-image-setup.c:917
-msgid "_Scaling:"
-msgstr "_Масштаб:"
-
-#: ../src/eog-print-image-setup.c:930
-msgid "_Unit:"
-msgstr "_Одиниця:"
-
-#: ../src/eog-print-image-setup.c:935
-msgid "Millimeters"
-msgstr "Міліметри"
-
-#: ../src/eog-print-image-setup.c:937
-msgid "Inches"
-msgstr "Дюйми"
-
-#: ../src/eog-print-image-setup.c:967
-msgid "Preview"
-msgstr "Попередній перегляд"
-
-#: ../src/eog-properties-dialog.c:154
-msgid "Unknown"
-msgstr "Невідомо"
-
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:232
+#: ../src/eog-exif-util.c:250
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (лінза)"
@@ -939,10 +777,212 @@ msgstr "%.1f (лінза)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:243
+#: ../src/eog-exif-util.c:261
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35мм плівка)"
+
+#: ../src/eog-file-chooser.c:126
+msgid "File format is unknown or unsupported"
+msgstr "Формат файла невідомий або не підтримується"
+
+#: ../src/eog-file-chooser.c:131
+msgid ""
+"Image Viewer could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"Переглядач зображень не може визначити підтримуваний записуваний формат "
+"файла, який основано на назві файла."
+
+#: ../src/eog-file-chooser.c:132
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Спробуйте різні розширення файлів, наприклад .png чи .jpg."
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../src/eog-file-chooser.c:167
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: ../src/eog-file-chooser.c:219
+msgid "All files"
+msgstr "Всі файли"
+
+#: ../src/eog-file-chooser.c:224
+msgid "Supported image files"
+msgstr "Підтримувані файли зображень"
+
+#. Pixel size of image: width x height in pixel
+#: ../src/eog-file-chooser.c:296 ../src/eog-metadata-sidebar.c:235
+#: ../src/eog-metadata-sidebar.c:239 ../src/eog-properties-dialog.c:138
+#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:446
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] "точка"
+msgstr[1] "точки"
+msgstr[2] "точок"
+
+#: ../src/eog-file-chooser.c:447
+msgid "Open Image"
+msgstr "Відкрити зображення"
+
+#: ../src/eog-file-chooser.c:455
+msgid "Save Image"
+msgstr "Зберегти зображення"
+
+#: ../src/eog-file-chooser.c:463
+msgid "Open Folder"
+msgstr "Відкрити теку"
+
+#: ../src/eog-image.c:616
+#, c-format
+msgid "Transformation on unloaded image."
+msgstr "Перетворення для не завантаженого зображення."
+
+#: ../src/eog-image.c:644
+#, c-format
+msgid "Transformation failed."
+msgstr "Помилка при перетворенні."
+
+#: ../src/eog-image.c:1105
+#, c-format
+msgid "EXIF not supported for this file format."
+msgstr "Для цього формату файлів EXIF не підтримується."
+
+#: ../src/eog-image.c:1254
+#, c-format
+msgid "Image loading failed."
+msgstr "Помилка завантаження зображення."
+
+#: ../src/eog-image.c:1835 ../src/eog-image.c:1955
+#, c-format
+msgid "No image loaded."
+msgstr "Зображення не завантажено."
+
+#: ../src/eog-image.c:1843 ../src/eog-image.c:1964
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "У вас немає прав потрібних для збереження файла."
+
+#: ../src/eog-image.c:1853 ../src/eog-image.c:1975
+#, c-format
+msgid "Temporary file creation failed."
+msgstr "Помилка при створенні тимчасового файлу."
+
+#: ../src/eog-image-jpeg.c:373
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Не вдалось створити тимчасовий файл для збереження: %s"
+
+#: ../src/eog-image-jpeg.c:392
+#, c-format
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Не вдалось виділити пам'ять для завантаження файла у форматі JPEG"
+
+#: ../src/eog-metadata-sidebar.c:248 ../src/eog-properties-dialog.c:155
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: ../src/eog-metadata-sidebar.c:506
+msgid "File size:"
+msgstr "Розмір файла:"
+
+#: ../src/eog-metadata-sidebar.c:517 ../src/eog-properties-dialog.c:674
+#: ../src/eog-window.c:3851
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Показати теку, яка містить цей файл у файловому менеджері"
+
+#: ../src/eog-print.c:219
+msgid "Image Settings"
+msgstr "Параметри зображення"
+
+#: ../src/eog-print-image-setup.c:906
+msgid "Image"
+msgstr "Зображення"
+
+#: ../src/eog-print-image-setup.c:907
+msgid "The image whose printing properties will be set up"
+msgstr "Зображення, для якого будуть налаштовані властивості друку"
+
+#: ../src/eog-print-image-setup.c:913
+msgid "Page Setup"
+msgstr "Параметри сторінки"
+
+#: ../src/eog-print-image-setup.c:914
+msgid "The information for the page where the image will be printed"
+msgstr "Інформація про сторінку, на якій буде надруковане зображення"
+
+#: ../src/eog-print-image-setup.c:942
+msgid "Position"
+msgstr "Положення"
+
+#: ../src/eog-print-image-setup.c:946
+msgid "_Left:"
+msgstr "З_ліва:"
+
+#: ../src/eog-print-image-setup.c:948
+msgid "_Right:"
+msgstr "С_права:"
+
+#: ../src/eog-print-image-setup.c:949
+msgid "_Top:"
+msgstr "З_верху:"
+
+#: ../src/eog-print-image-setup.c:950
+msgid "_Bottom:"
+msgstr "З_низу:"
+
+#: ../src/eog-print-image-setup.c:953
+msgid "C_enter:"
+msgstr "_Центрувати:"
+
+#: ../src/eog-print-image-setup.c:958
+msgid "None"
+msgstr "Немає"
+
+#: ../src/eog-print-image-setup.c:960
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+#: ../src/eog-print-image-setup.c:962
+msgid "Vertical"
+msgstr "Вертикально"
+
+#: ../src/eog-print-image-setup.c:964
+msgid "Both"
+msgstr "Горизонтально та вертикально"
+
+#: ../src/eog-print-image-setup.c:980
+msgid "Size"
+msgstr "Розмір"
+
+#: ../src/eog-print-image-setup.c:983
+msgid "_Width:"
+msgstr "_Ширина:"
+
+#: ../src/eog-print-image-setup.c:985
+msgid "_Height:"
+msgstr "_Висота:"
+
+#: ../src/eog-print-image-setup.c:988
+msgid "_Scaling:"
+msgstr "_Масштаб:"
+
+#: ../src/eog-print-image-setup.c:999
+msgid "_Unit:"
+msgstr "_Одиниця:"
+
+#: ../src/eog-print-image-setup.c:1004
+msgid "Millimeters"
+msgstr "Міліметри"
+
+#: ../src/eog-print-image-setup.c:1006
+msgid "Inches"
+msgstr "Дюйми"
+
+#: ../src/eog-print-image-setup.c:1035
+msgid "Preview"
+msgstr "Попередній перегляд"
 
 #: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
@@ -958,12 +998,12 @@ msgstr "як є"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:124
+#: ../src/eog-statusbar.c:131
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:471
+#: ../src/eog-thumb-view.c:474
 msgid "Taken on"
 msgstr "Знято"
 
@@ -986,7 +1026,7 @@ msgstr " (некоректний символ Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:525
+#: ../src/eog-window.c:530
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -994,14 +1034,14 @@ msgstr[0] "%i × %i точок  %s    %i%%"
 msgstr[1] "%i × %i точок  %s    %i%%"
 msgstr[2] "%i × %i точок  %s    %i%%"
 
-#: ../src/eog-window.c:827 ../src/eog-window.c:2784
+#: ../src/eog-window.c:838 ../src/eog-window.c:2795
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Сховати"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:837
+#: ../src/eog-window.c:848
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1010,7 +1050,7 @@ msgstr ""
 "Зображення «%s» змінено через іншу програму.\n"
 "Перезавантажити його?"
 
-#: ../src/eog-window.c:1001
+#: ../src/eog-window.c:1012
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Використовувати «%s» для відкривання вибраного зображення"
@@ -1020,17 +1060,17 @@ msgstr "Використовувати «%s» для відкривання ви
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1157
+#: ../src/eog-window.c:1168
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Збереження зображення «%s» (%u/%u)"
 
-#: ../src/eog-window.c:1528
+#: ../src/eog-window.c:1539
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Відкриття зображення «%s»"
 
-#: ../src/eog-window.c:2205
+#: ../src/eog-window.c:2216
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1039,38 +1079,38 @@ msgstr ""
 "Помилка при друкуванні файла:\n"
 "%s"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2534
 msgid "Toolbar Editor"
 msgstr "Редактор панелі інструментів"
 
-#: ../src/eog-window.c:2526
+#: ../src/eog-window.c:2537
 msgid "_Reset to Default"
 msgstr "_Типове розташування"
 
-#: ../src/eog-window.c:2631
+#: ../src/eog-window.c:2642
 msgid "translator-credits"
 msgstr ""
 "Юрій Сирота\n"
 "Максим Дзюманенко <dziumanenko@gmail.com>\n"
 "Daniel Korostil <ted.korostiled@gmail.com>"
 
-#: ../src/eog-window.c:2639
+#: ../src/eog-window.c:2650
 msgid "The GNOME image viewer."
 msgstr "Програма перегляду зображень для GNOME."
 
-#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
+#: ../src/eog-window.c:2742 ../src/eog-window.c:2757
 msgid "Error launching System Settings: "
 msgstr "помилка запуску системних налаштувань:"
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2782
+#: ../src/eog-window.c:2793
 msgid "_Open Background Preferences"
 msgstr "_Відкрити налаштування тла"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2798
+#: ../src/eog-window.c:2809
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1079,11 +1119,11 @@ msgstr ""
 "Зображення «%s» встановлено як тло стільниці.\n"
 "Змінити його вигляд?"
 
-#: ../src/eog-window.c:3271
+#: ../src/eog-window.c:3276
 msgid "Saving image locally…"
 msgstr "Збереження зображення локально…"
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3356
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1092,14 +1132,14 @@ msgstr ""
 "Перемістити\n"
 "«%s» у смітник?"
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "Не можу знайти смітника для «%s». Остаточно вилучити це зображення?"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3364
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1117,7 +1157,7 @@ msgstr[2] ""
 "Перемістити\n"
 "%d вибраних зображень у смітник?"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3369
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1125,417 +1165,419 @@ msgstr ""
 "Деякі з вибраних зображень не можна перенести до смітника, а тому їх буде "
 "вилучено остаточно. Продовжити?"
 
-#: ../src/eog-window.c:3381 ../src/eog-window.c:3872 ../src/eog-window.c:3896
+#: ../src/eog-window.c:3386 ../src/eog-window.c:3877 ../src/eog-window.c:3901
 msgid "Move to _Trash"
 msgstr "Перемістити у _смітник"
 
-#: ../src/eog-window.c:3383
+#: ../src/eog-window.c:3388
 msgid "_Do not ask again during this session"
 msgstr "_Не запитувати знову впродовж цього сеансу"
 
-#: ../src/eog-window.c:3428 ../src/eog-window.c:3442
+#: ../src/eog-window.c:3433 ../src/eog-window.c:3447
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Не вдалось отримати доступ до смітника."
 
-#: ../src/eog-window.c:3450
+#: ../src/eog-window.c:3455
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Не можу вилучити файл"
 
-#: ../src/eog-window.c:3546
+#: ../src/eog-window.c:3551
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Помилка при вилученні зображення %s"
 
-#: ../src/eog-window.c:3793
+#: ../src/eog-window.c:3798
 msgid "_Image"
 msgstr "_Образ"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3799
 msgid "_Edit"
 msgstr "З_міни"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3800
 msgid "_View"
 msgstr "П_ерегляд"
 
-#: ../src/eog-window.c:3796
+#: ../src/eog-window.c:3801
 msgid "_Go"
 msgstr "Пере_хід"
 
-#: ../src/eog-window.c:3797
+#: ../src/eog-window.c:3802
 msgid "_Tools"
 msgstr "_Засоби"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3803
 msgid "_Help"
 msgstr "_Довідка"
 
-#: ../src/eog-window.c:3800
+#: ../src/eog-window.c:3805
 msgid "_Open…"
 msgstr "_Відкрити…"
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3806
 msgid "Open a file"
 msgstr "Відкрити файл"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3808
 msgid "_Close"
 msgstr "_Закрити"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3809
 msgid "Close window"
 msgstr "Закрити вікно"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3811
 msgid "T_oolbar"
 msgstr "_Панель інструментів"
 
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3812
 msgid "Edit the application toolbar"
 msgstr "Редагувати панель інструментів"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3814
 msgid "Prefere_nces"
 msgstr "П_араметри"
 
-#: ../src/eog-window.c:3810
+#: ../src/eog-window.c:3815
 msgid "Preferences for Image Viewer"
 msgstr "Параметри переглядача зображень"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3817
 msgid "_Contents"
 msgstr "_Зміст"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3818
 msgid "Help on this application"
 msgstr "Довідка про програму"
 
-#: ../src/eog-window.c:3815
+#: ../src/eog-window.c:3820
 msgid "_About"
 msgstr "_Про програму"
 
-#: ../src/eog-window.c:3816
+#: ../src/eog-window.c:3821
 msgid "About this application"
 msgstr "Про цю програму"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3826
 msgid "_Toolbar"
 msgstr "_Панель інструментів"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3827
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Змінює видимість панелі інструментів у поточному вікні"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3829
 msgid "_Statusbar"
 msgstr "_Рядок стану"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3830
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Змінює видимість рядка стану у поточному вікні"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3832
 msgid "_Image Gallery"
 msgstr "Галерея _зображень"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3833
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Змінює видимість панелі галереї зображень у поточному вікні"
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3835
 msgid "Side _Pane"
 msgstr "Бі_чна панель"
 
-#: ../src/eog-window.c:3831
+#: ../src/eog-window.c:3836
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Змінює видимість бічної панелі у поточному вікні"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3841
 msgid "_Save"
 msgstr "З_берегти"
 
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3842
 msgid "Save changes in currently selected images"
 msgstr "Зберегти зміни у виділених зображеннях"
 
-#: ../src/eog-window.c:3839
+#: ../src/eog-window.c:3844
 msgid "Open _with"
 msgstr "Відкрити _у програмі"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3845
 msgid "Open the selected image with a different application"
 msgstr "Відкрити виділене зображення у інший програмі"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3848
 msgid "Save the selected images with a different name"
 msgstr "Зберегти виділене зображення з іншою назвою"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3850
 msgid "Show Containing _Folder"
 msgstr "Показати вміст _теки"
 
-#: ../src/eog-window.c:3846
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Показати теку, яка містить цей файл у файловому менеджері"
-
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3853
 msgid "_Print…"
 msgstr "Над_рукувати…"
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3854
 msgid "Print the selected image"
 msgstr "Надрукувати вибрані зображення"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3856
 msgid "Prope_rties"
 msgstr "В_ластивості"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3857
 msgid "Show the properties and metadata of the selected image"
 msgstr "Показати властивості та метадані вибраних зображень"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3859
 msgid "_Undo"
 msgstr "В_ернути"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3860
 msgid "Undo the last change in the image"
 msgstr "Вернути останню зміну у зображенні"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3862
 msgid "Flip _Horizontal"
 msgstr "Перевернути _горизонтально"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3863
 msgid "Mirror the image horizontally"
 msgstr "Горизонтальне віддзеркалення зображення "
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3865
 msgid "Flip _Vertical"
 msgstr "Перевернути _вертикально"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3866
 msgid "Mirror the image vertically"
 msgstr "Вертикальне віддзеркалення зображення "
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3868
 msgid "_Rotate Clockwise"
 msgstr "Обернути _за годинниковою стрілкою"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3869
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Обернути зображення за годинниковою стрілкою на 90 градусів"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3871
 msgid "Rotate Counterc_lockwise"
 msgstr "Обернути _проти годинникової стрілки"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3872
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Обернути зображення проти годинникової стрілки на 90 градусів"
 
-#: ../src/eog-window.c:3869
+#: ../src/eog-window.c:3874
 msgid "Set as _Desktop Background"
 msgstr "Встановити як _тло"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3875
 msgid "Set the selected image as the desktop background"
 msgstr "Встановити обране зображення як тло робочого столу"
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3878
 msgid "Move the selected image to the trash folder"
 msgstr "Перемістити виділене зображення у теку смітника"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:3880
 msgid "_Copy"
 msgstr "_Скопіювати"
 
-#: ../src/eog-window.c:3876
+#: ../src/eog-window.c:3881
 msgid "Copy the selected image to the clipboard"
 msgstr "Скопіювати вибране зображення у буфер"
 
-#: ../src/eog-window.c:3878 ../src/eog-window.c:3887 ../src/eog-window.c:3890
+#: ../src/eog-window.c:3883 ../src/eog-window.c:3892 ../src/eog-window.c:3895
 msgid "_Zoom In"
 msgstr "З_більшити"
 
-#: ../src/eog-window.c:3879 ../src/eog-window.c:3888
+#: ../src/eog-window.c:3884 ../src/eog-window.c:3893
 msgid "Enlarge the image"
 msgstr "Збільшити зображення"
 
-#: ../src/eog-window.c:3881 ../src/eog-window.c:3893
+#: ../src/eog-window.c:3886 ../src/eog-window.c:3898
 msgid "Zoom _Out"
 msgstr "З_меншити"
 
-#: ../src/eog-window.c:3882 ../src/eog-window.c:3891 ../src/eog-window.c:3894
+#: ../src/eog-window.c:3887 ../src/eog-window.c:3896 ../src/eog-window.c:3899
 msgid "Shrink the image"
 msgstr "Зменшити зображення"
 
-#: ../src/eog-window.c:3884
+#: ../src/eog-window.c:3889
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: ../src/eog-window.c:3885
+#: ../src/eog-window.c:3890
 msgid "Show the image at its normal size"
 msgstr "Показати зображення зі звичайними розмірами"
 
-#: ../src/eog-window.c:3902
+#: ../src/eog-window.c:3907
 msgid "_Fullscreen"
 msgstr "На _весь екран"
 
-#: ../src/eog-window.c:3903
+#: ../src/eog-window.c:3908
 msgid "Show the current image in fullscreen mode"
 msgstr "Показати зображення у повноекранному режимі"
 
-#: ../src/eog-window.c:3905
+#: ../src/eog-window.c:3910
 msgid "Pause Slideshow"
 msgstr "Зупинити показ"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3911
 msgid "Pause or resume the slideshow"
 msgstr "Зупинити або відновити показ слайдів"
 
-#: ../src/eog-window.c:3908
+#: ../src/eog-window.c:3913
 msgid "_Best Fit"
 msgstr "_Оптимізувати"
 
-#: ../src/eog-window.c:3909
+#: ../src/eog-window.c:3914
 msgid "Fit the image to the window"
 msgstr "Розмістити зображення цілком у вікні"
 
-#: ../src/eog-window.c:3914 ../src/eog-window.c:3929
+#: ../src/eog-window.c:3919 ../src/eog-window.c:3934
 msgid "_Previous Image"
 msgstr "_Попереднє зображення"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3920
 msgid "Go to the previous image of the gallery"
 msgstr "Перейти до попередньої галереї зображень"
 
-#: ../src/eog-window.c:3917
+#: ../src/eog-window.c:3922
 msgid "_Next Image"
 msgstr "_Наступне зображення"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3923
 msgid "Go to the next image of the gallery"
 msgstr "Перейти до наступної галереї зображень"
 
-#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
+#: ../src/eog-window.c:3925 ../src/eog-window.c:3937
 msgid "_First Image"
 msgstr "П_ерше зображення"
 
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3926
 msgid "Go to the first image of the gallery"
 msgstr "Перейти до першої галереї зображень"
 
-#: ../src/eog-window.c:3923 ../src/eog-window.c:3935
+#: ../src/eog-window.c:3928 ../src/eog-window.c:3940
 msgid "_Last Image"
 msgstr "_Останнє зображення"
 
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3929
 msgid "Go to the last image of the gallery"
 msgstr "Перейти до останньої галереї зображень"
 
-#: ../src/eog-window.c:3926
+#: ../src/eog-window.c:3931
 msgid "_Random Image"
 msgstr "Випа_дкове зображення"
 
-#: ../src/eog-window.c:3927
+#: ../src/eog-window.c:3932
 msgid "Go to a random image of the gallery"
 msgstr "Перейти до випадкової галереї зображень"
 
-#: ../src/eog-window.c:3941
+#: ../src/eog-window.c:3946
 msgid "S_lideshow"
 msgstr "Показ _слайдів"
 
-#: ../src/eog-window.c:3942
+#: ../src/eog-window.c:3947
 msgid "Start a slideshow view of the images"
 msgstr "Почати показ слайдів із зображень"
 
-#: ../src/eog-window.c:4008
+#: ../src/eog-window.c:4013
 msgid "Previous"
 msgstr "Попереднє"
 
-#: ../src/eog-window.c:4012
+#: ../src/eog-window.c:4017
 msgid "Next"
 msgstr "Наступне"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:4021
 msgid "Right"
 msgstr "За годинниковою"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:4024
 msgid "Left"
 msgstr "Проти годинникової"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:4027
 msgid "Show Folder"
 msgstr "Показати теку"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4030
 msgid "In"
 msgstr "Збільшити"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4033
 msgid "Out"
 msgstr "Зменшити"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:4036
 msgid "Normal"
 msgstr "Нормальний"
 
-#: ../src/eog-window.c:4034
+#: ../src/eog-window.c:4039
 msgid "Fit"
 msgstr "Підігнати"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4042
 msgid "Gallery"
 msgstr "Галерея"
 
-#: ../src/eog-window.c:4040
+#: ../src/eog-window.c:4045
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/eog-window.c:4408
+#: ../src/eog-window.c:4411
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Редагувати поточне зображення через %s"
 
-#: ../src/eog-window.c:4410
+#: ../src/eog-window.c:4413
 msgid "Edit Image"
 msgstr "Редагування зображення"
 
-#: ../src/main.c:63
+#: ../src/main.c:71
 msgid "GNOME Image Viewer"
 msgstr "Переглядач зображень GNOME"
 
-#: ../src/main.c:70
+#: ../src/main.c:78
 msgid "Open in fullscreen mode"
 msgstr "Відкрити у повноекранному режимі"
 
-#: ../src/main.c:71
+#: ../src/main.c:79
 msgid "Disable image gallery"
 msgstr "Вимкнути галерею зображень"
 
-#: ../src/main.c:72
+#: ../src/main.c:80
 msgid "Open in slideshow mode"
 msgstr "Відкрити у режимі показу слайдів"
 
-#: ../src/main.c:73
+#: ../src/main.c:81
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Запускати новий екземпляр замість використання наявного"
 
-#: ../src/main.c:75
+#: ../src/main.c:82
+msgid ""
+"Open in a single window, if multiple windows are open the first one is used"
+msgstr ""
+"Відкрите в одному вікно, якщо кілька вікон відкрито і перше використовується"
+
+#: ../src/main.c:84
 msgid "Show the application's version"
 msgstr "показати версію програми"
 
-#: ../src/main.c:108
+#: ../src/main.c:116
 msgid "[FILE…]"
 msgstr "[ФАЙЛ…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:121
+#: ../src/main.c:129
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
