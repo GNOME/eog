@@ -5,14 +5,14 @@
 # Amitakhya Phukan <amitakhya@svn.gnome.org>, 2008.
 # Amitakhya Phukan <aphukan@fedoraproject.org>, 2009.
 # Amitakhya Phukan <aphukan@redhat.com>, 2010.
-# Nilamdyuti Goswami <ngoswami@redhat.com>, 2011.
+# Nilamdyuti Goswami <ngoswami@redhat.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-05 20:53+0000\n"
-"PO-Revision-Date: 2011-08-11 18:10+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=eog&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-02-29 17:05+0000\n"
+"PO-Revision-Date: 2012-03-05 20:04+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: as_IN <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,27 +33,27 @@ msgstr ""
 msgid "Show “_%s”"
 msgstr "“%s” প্ৰদৰ্শন কৰক"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1479
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
 msgid "_Move on Toolbar"
 msgstr "টুলবাৰত স্থানান্তৰ কৰক (_M)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1480
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
 msgid "Move the selected item on the toolbar"
 msgstr "চিহ্নিত বস্তুক টুলবাৰত স্থানান্তৰ কৰক"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
 msgid "_Remove from Toolbar"
 msgstr "টুলবাৰৰ পৰা আতৰাওক (_R)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
 msgid "Remove the selected item from the toolbar"
 msgstr "টুলবাৰৰ পৰা নিৰ্বাচিত বস্তু আঁতৰাওক"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
 msgid "_Delete Toolbar"
 msgstr "টুলবাৰ মচি পেলাওক (_D)"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1486
 msgid "Remove the selected toolbar"
 msgstr "চিহ্নিত টুলবাৰ আতৰাওক"
 
@@ -61,13 +61,551 @@ msgstr "চিহ্নিত টুলবাৰ আতৰাওক"
 msgid "Separator"
 msgstr "বিভাজক"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
-msgid "Activate fullscreen mode with double-click"
-msgstr "দুবাৰ ক্লিক কৰিলে সম্পূৰ্ণ পৰ্দাত প্ৰদৰ্শন ব্যৱস্থা সক্ৰিয় কৰক"
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-window.c:2647 ../src/main.c:171
+msgid "Image Viewer"
+msgstr "ছবি প্ৰদৰ্শক"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+#: ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "ছবি ব্ৰাউছ কৰক আৰু ঘুৰাওক"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#: ../data/eog.desktop.in.in.h:4
+msgid "Picture;Slideshow;Graphics;"
+msgstr "ছবি;স্লাইডশ্ব;গ্ৰাফিক্স;"
+
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4627
+msgid "Image Properties"
+msgstr "ছবিৰ বৈশিষ্টসমূহ"
+
+#: ../data/eog-image-properties-dialog.ui.h:2
+msgid "_Previous"
+msgstr "আগলৈ (_P)"
+
+#: ../data/eog-image-properties-dialog.ui.h:3
+msgid "_Next"
+msgstr "পিছলৈ (_N)"
+
+#: ../data/eog-image-properties-dialog.ui.h:4
+#: ../src/eog-metadata-sidebar.c:498
+msgid "Name:"
+msgstr "নাম:"
+
+#: ../data/eog-image-properties-dialog.ui.h:5
+#: ../src/eog-metadata-sidebar.c:500
+msgid "Width:"
+msgstr "প্ৰস্থ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:6
+#: ../src/eog-metadata-sidebar.c:502
+msgid "Height:"
+msgstr "উচ্চতা:"
+
+#: ../data/eog-image-properties-dialog.ui.h:7
+#: ../src/eog-metadata-sidebar.c:504
+msgid "Type:"
+msgstr "ধৰণ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:8
+msgid "Bytes:"
+msgstr "বাইটসমূহ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:9
+#: ../src/eog-metadata-sidebar.c:508
+#| msgid "Open Folder"
+msgid "Folder:"
+msgstr "ফোল্ডাৰ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../src/eog-metadata-sidebar.c:496
+msgid "General"
+msgstr "সাধাৰণ"
+
+#: ../data/eog-image-properties-dialog.ui.h:11
+#: ../src/eog-metadata-sidebar.c:528
+msgid "Aperture Value:"
+msgstr "বিন্ধাৰ মান:"
+
+#: ../data/eog-image-properties-dialog.ui.h:12
+#: ../src/eog-metadata-sidebar.c:531
+msgid "Exposure Time:"
+msgstr "উদুঙাই ৰখাৰ সময়:"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../src/eog-metadata-sidebar.c:534
+msgid "Focal Length:"
+msgstr "ফ'কেল দৈৰ্ঘ্য:"
+
+#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../src/eog-metadata-sidebar.c:536
+msgid "Flash:"
+msgstr "ফ্লেশ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../src/eog-metadata-sidebar.c:540
+msgid "ISO Speed Rating:"
+msgstr "ISO গতিৰ হাৰ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../src/eog-metadata-sidebar.c:543
+msgid "Metering Mode:"
+msgstr "মিটাৰিং অৱস্থা:"
+
+#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../src/eog-metadata-sidebar.c:546
+msgid "Camera Model:"
+msgstr "কেমেৰা আৰ্হি:"
+
+#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../src/eog-metadata-sidebar.c:548
+msgid "Date/Time:"
+msgstr "তাৰিখ/সময়:"
+
+#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../src/eog-metadata-sidebar.c:553
+msgid "Description:"
+msgstr "বিৱৰণ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../src/eog-metadata-sidebar.c:556
+msgid "Location:"
+msgstr "অৱস্থান:"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../src/eog-metadata-sidebar.c:559
+msgid "Keywords:"
+msgstr "কিৱাৰ্ডসমূহ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../src/eog-metadata-sidebar.c:561
+msgid "Author:"
+msgstr "লিখক:"
+
+#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../src/eog-metadata-sidebar.c:564
+msgid "Copyright:"
+msgstr "স্বত্বাধিকাৰ:"
+
+#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../src/eog-metadata-sidebar.c:567
+msgid "Details"
+msgstr "বিৱৰণ"
+
+#: ../data/eog-image-properties-dialog.ui.h:25
+#: ../src/eog-metadata-sidebar.c:524
+msgid "Metadata"
+msgstr "মেটাডাটা"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:1
+msgid "Save As"
+msgstr "এই ধৰণে সংৰক্ষণ কৰক"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:3
+#, no-c-format
+msgid "<b>%f:</b> original filename"
+msgstr "<b>%f:</b> প্ৰকৃত নথিপত্ৰৰনাম"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
+#, no-c-format
+msgid "<b>%n:</b> counter"
+msgstr "<b>%n:</b> গণক"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:6
+msgid "Filename format:"
+msgstr "নথিপত্ৰনাম বিন্যাস:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
+msgid "Choose a folder"
+msgstr "এটা ফোল্ডাৰ বাছক"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
+msgid "Destination folder:"
+msgstr "গন্তব্যৰ ফোল্ডাৰ:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
+msgid "File Path Specifications"
+msgstr "নথিপত্ৰ পথৰ ধাৰ্য্যকৰণসমূহ"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
+msgid "Start counter at:"
+msgstr "ইয়াত গণক আৰম্ভ কৰক:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
+msgid "Replace spaces with underscores"
+msgstr "ৰিক্তস্থানক আন্ডাৰস্ক'ৰেৰে প্ৰতিস্থাপন কৰক"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
+msgid "Options"
+msgstr "বিকল্পসমূহ"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
+msgid "Rename from:"
+msgstr "ইয়াৰ পৰা পুনৰ নামকৰণ কৰক:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
+msgid "To:"
+msgstr "লৈ:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
+msgid "File Name Preview"
+msgstr "নথিপত্ৰ নাম পূৰ্বদৰ্শন"
+
+#: ../data/eog-preferences-dialog.ui.h:1
+#| msgid "Prefere_nces"
+msgid "Preferences"
+msgstr "পছন্দসমূহ"
+
+#: ../data/eog-preferences-dialog.ui.h:2
+msgid "Image Enhancements"
+msgstr "ছবিৰ বৃদ্ধিসমূহ"
+
+#: ../data/eog-preferences-dialog.ui.h:3
+msgid "Smooth images when zoomed-_out"
+msgstr "সৰুকৈ প্ৰদৰ্শনৰ সময়ত ছবিসমূহ নিমজ কৰক (_o)"
+
+#: ../data/eog-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed-_in"
+msgstr "ডাঙৰকৈ প্ৰদৰ্শনৰ সময়ত ছবিসমূহ নিমজ কৰক (_i)"
+
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "_Automatic orientation"
+msgstr "স্বচালিতভাবে দিশ নিৰ্ণয় কৰা (_A)"
+
+#: ../data/eog-preferences-dialog.ui.h:6
+msgid "Background"
+msgstr "পটভূমি"
+
+#: ../data/eog-preferences-dialog.ui.h:7
+msgid "As custom color:"
+msgstr "স্বনিৰ্বাচিত ৰঙ হিচাপে:"
+
+#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:3
+msgid "Background Color"
+msgstr "পটভূমি ৰঙ"
+
+#: ../data/eog-preferences-dialog.ui.h:9
+msgid "Transparent Parts"
+msgstr "স্বচ্ছ অংশবোৰ"
+
+#: ../data/eog-preferences-dialog.ui.h:10
+msgid "As check _pattern"
+msgstr "চেক বিন্যাস হিচাপে (_p)"
+
+#: ../data/eog-preferences-dialog.ui.h:11
+msgid "As custom c_olor:"
+msgstr "স্বনিৰ্বাচিত ৰঙ হিচাপে: (_o)"
+
+#: ../data/eog-preferences-dialog.ui.h:12
+msgid "Color for Transparent Areas"
+msgstr "স্বচ্ছ অংশসমূহৰ বাবে ৰঙ"
+
+#: ../data/eog-preferences-dialog.ui.h:13
+msgid "As _background"
+msgstr "পটভূমি হিচাপে (_b)"
+
+#: ../data/eog-preferences-dialog.ui.h:14
+msgid "Image View"
+msgstr "ছবি দৰ্শন"
+
+#: ../data/eog-preferences-dialog.ui.h:15
+msgid "Image Zoom"
+msgstr "ছবিৰ জুম"
+
+#: ../data/eog-preferences-dialog.ui.h:16
+msgid "E_xpand images to fit screen"
+msgstr "পৰ্দাত খাপ খুৱাব বাবে ছবি ডাঙৰ কৰক (_x)"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "Sequence"
+msgstr "ক্ৰম"
+
+#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:19
+#| msgid "_Switch image after:"
+msgctxt "PrefDlgSlideSwitchPrefix"
+msgid "_Switch image after:"
+msgstr "ইয়াৰ পিছত ছবি পৰিবৰ্তন কৰক (_S):"
+
+#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#: ../data/eog-preferences-dialog.ui.h:21
+#| msgid "seconds"
+msgctxt "PrefDlgSlideSwitchPostfix"
+msgid "seconds"
+msgstr "ছেকেণ্ড"
+
+#: ../data/eog-preferences-dialog.ui.h:22
+msgid "_Loop sequence"
+msgstr "চক্ৰাকাৰ আবৰ্তনৰ ক্ৰম (_L)"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "Slideshow"
+msgstr "স্লাইডশ্ব'"
+
+#: ../data/eog-preferences-dialog.ui.h:24
+msgid "Plugins"
+msgstr "প্লাগিনসমূহ"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
+msgid "Automatic orientation"
+msgstr "স্বচালিত দিশ নিৰ্ধাৰণ"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
+msgid "Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "EXIF দিশৰ মতে ছবিক স্বচালিতভাবে ঘূৰুৱা হ'ব নে নহয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
+msgstr ""
+"যোনটো ৰঙ ব্যৱহাৰ কৰা হয় ছবিৰ পাছফালৰ স্থান পূৰ্ণ কৰিবলে। যদি ব্যৱহাৰ কৰা- পটভূমি-"
+"ৰঙ চাবি সংহিত কৰা হোৱা নাই তেনেহলে, সক্ৰিয় GTK+ theme -এ  ৰঙ নিৰ্ধাৰণ কৰিব।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
+msgid "Interpolate Image"
+msgstr "ছবিক প্ৰক্ষিপ্ত কৰক"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non-interpolated images."
+msgstr ""
+"ছবি প্ৰদৰ্শনৰ মাত্ৰা হ্ৰাসৰ সময় ছবি প্ৰক্ষিপ্ত কৰা হব নে নহয়। ইয়াৰ ফলত ছবি ধোঁৱা "
+"চোৱা হয় আৰু প্ৰক্ষিপ্ত নকৰা ছবিৰ তুলনাত অধিক সময় ব্যয় হয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
+msgid "Extrapolate Image"
+msgstr "ছবি প্ৰক্ষিপ্ত কৰক"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
+msgid ""
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
+msgstr ""
+"ছবি প্ৰদৰ্শনৰ মাত্ৰা বৃদ্ধিৰ সময় ছবি বিক্ষিপ্ত কৰা হব নে নহয়। ইয়াৰ ফলত ছবি ধোঁৱা "
+"চোৱা হয় আৰু বিক্ষিপ্ত নকৰা ছবিৰ তুলনাত অধিক সময় ব্যয় হয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
+msgid "Transparency indicator"
+msgstr "স্বচ্ছতা সূচক"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
+msgstr ""
+"কিভাবে স্বচ্ছতা নিৰ্দেশ কৰক, সেইটো নিৰ্ধাৰণ কৰে। বৈধ মানসমূহ হ'ল CHECK_PATTERN, "
+"COLOR আৰু NONE। যদি COLOR বছা হয়, তেন্তে trans_color চাবিয়ে ব্যৱহৃত ৰঙৰ মান ঠিক "
+"কৰে।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
+msgid "Scroll wheel zoom"
+msgstr "স্ক্ৰল হুইল জুম"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
+msgid "Whether the scroll wheel should be used for zooming."
+msgstr "স্ক্ৰ'ল হুইলক জুম কৰিবলৈ ব্যৱহাৰ কৰা হব নে নাই।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
+msgid "Zoom multiplier"
+msgstr "জুম মাল্টিপ্লায়াৰ"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
+#, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"জুম কৰিবলৈ মাউছৰ স্ক্ৰ'ল হুইল ব্যৱহাৰ কৰোঁতে প্ৰয়োগ কৰিব লগা বৈশিষ্টক। এই মানে "
+"প্ৰত্যেক স্ক্ৰ'লৰ ঘটনাৰ কাৰণে জুম কৰাৰ পদক্ষেপৰ সংজ্ঞা দিয়ে। যেনে, ০.০৫ ৰ ফলত "
+"প্ৰত্যেক স্ক্ৰ'ল ঘটনাত এটা ৫% জুম বৃদ্ধি হয় আৰু ১.০০ ৰ ফলত ১০০% জুম বৃদ্ধি হয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
+msgid "Transparency color"
+msgstr "স্বচ্ছতাৰ ৰঙ"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+"স্বচ্ছতা চাবিৰ মান যদি COLOR হয়, তেনেহ'লে এই চাবিটোৱে নিৰ্ধাৰণ কৰে কি ৰঙ ব্যৱহাৰ "
+"কৰি স্বচ্ছতা বুজুৱা হ'ব।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
+msgid "Use a custom background color"
+msgstr "স্বনিৰ্বাচিত পটভূমিৰ ৰঙ ব্যৱহাৰ কৰক "
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"এইটো যদি সক্ৰিয় হয়, তেনেহলে পটভূমিৰ-ৰঙ চাবিয়ে সংহিত কৰা ৰঙ ব্যৱহাৰ কৰা হব ছবিৰ "
+"পাছফালৰ স্থান পূৰ্ণ কৰিবলে। যদি এইটো সংহিত কৰা হোৱা নাই তেনেহলে, বৰ্তমান GTK+ "
+"theme -এ পূৰ্ণ কৰিব লগিয়া ৰঙ নিৰ্ধাৰণ কৰিব।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
+msgid "Loop through the image sequence"
+msgstr "ছবিৰ ক্ৰমত আবৰ্তন কৰক"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
+msgid "Whether the sequence of images should be shown in an endless loop."
+msgstr "ছবিৰ ধাৰা এটা অন্তহিন আবৰ্তন হিচাপে দেখুৱা হ'ব নে নহয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "আৰম্ভণিত ডাঙৰ কৰি চোৱাৰ মাত্ৰা ১০০ % -ত কে অধিকৰ অনুমতি দিয়ক"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
+msgid ""
+"If this is set to FALSE small images will not be stretched to fit into the "
+"screen initially."
+msgstr ""
+"ইয়াক যদি FALSE হিচাপে নিৰ্ধাৰিত কৰা হয় তেনেহ'লে প্ৰাথমিকভাবে সৰু ছবিসমূহক সম্পূৰ্ণ "
+"পৰ্দাত দেখুৱা ন'হ'ব।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
+msgid "Delay in seconds until showing the next image"
+msgstr "পিছৰ ছবি চোৱাৰ সময়ৰ ব্যৱধান ছেকেণ্ডসমূহত"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
+msgid ""
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"০ ৰ পৰা ডাঙৰ মানে নিৰ্দেশ কৰে কিমান ছেকেণ্ডৰ পিছত স্ক্ৰিনত ছবি সলনি কৰা হব। ০ ৰ "
+"মান স্বচালিত ব্ৰাউছিং অসামৰ্থবান কৰে।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
+msgid "Show/Hide the window toolbar."
+msgstr "উইন্ডো টুলবাৰ দেখুৱাওক/লুকাওক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
+msgid "Show/Hide the window statusbar."
+msgstr "উইন্ডো অৱস্থাবাৰ দেখুৱাওক/লুকাওক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
+msgid "Show/Hide the image gallery pane."
+msgstr "ছবি গেলেৰিৰ পেইন দেখাওক/লুকাওক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:30
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"ছবি সংগ্ৰহত পেইনৰ স্থান। তলৰ কাৰণে ০; বাওঁফালৰ কাৰণে ১; ওপৰৰ কাৰণে ২; সোঁফালৰ "
+"কাৰণে ৩ নিৰ্ধাৰণ কৰক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
+msgid "Whether the image gallery pane should be resizable."
+msgstr "ছবি গেলেৰিৰ পেইনক পুনৰ আকাৰ দিব পৰা হ'ব নে নহয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
+msgid "Show/Hide the window side pane."
+msgstr "উইন্ডোৰ কাষৰ পেইন দেখুৱাওক/লুকাওক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr "ছবি গেলেৰিৰ পেইন স্ক্ৰ'লৰ বুটাম দেখাওক/লুকাওক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
+msgid "Close main window without asking to save changes."
+msgstr "পৰিৱৰ্তনসমূহ সংৰক্ষণ কৰাৰ কাৰণে নোসোধাকৈ মূখ্য উইন্ডো বন্ধ কৰক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
+msgid "Trash images without asking"
+msgstr "প্ৰশ্ন নকৰি ছবি আঁতৰুৱা হ'ব"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"সক্ৰিয় থাকিলে, আবৰ্জনাৰ বাকচত ছবি স্থানান্তৰৰ সময়ত  Eye of GNOME -এ নিশ্চিতকৰণৰ "
+"বাবে নুশুধিব। ই কেৱল তেতিয়ায় শুধিব যেতিয়া কোনো নথিপত্ৰ আবৰ্জনালে স্থানান্তৰ কৰিব "
+"নোৱাৰি আৰু মচি পেলোৱা হব।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
+msgid ""
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"কোনো ছবি লোড নথাকিলে, নথিপত্ৰ নিৰ্বাচন ব্যৱস্থা দ্বাৰা ব্যৱহাৰকাৰীৰ ছবিৰ ফোল্ডাৰ "
+"দেখুৱা হ'ব নে নহয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
+msgstr ""
+"সক্ৰিয় থাকিলে আৰু সক্ৰিয় উইন্ডোত কোনো ছবি লোড নথাকিলে নথিপত্ৰ নিৰ্বাচন ব্যৱস্থা "
+"দ্বাৰা XDG বিশেষ ব্যৱহাৰকাৰীৰ ডাইৰেকটৰি প্ৰয়োগ কৰি ব্যৱহাৰকাৰীৰ ছবিৰ ফোল্ডাৰ "
+"প্ৰদৰ্শন কৰক। যদি এই বৈশিষ্ট্য অসামৰ্থবান থাকে অথবা যদি এইটো প্ৰস্তুত নকৰা হয় "
+"তেনেহ'লে বৰ্তমানে ব্যৱহৃত ডাইৰেকটৰি প্ৰদৰ্শন কৰক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
+msgid "Whether the metadata list in the properties dialog should have its own page."
+msgstr ""
+"বিভিন্ন বৈশিষ্ট্যৰ ডাইলগত উপস্থিত মেটাডাটা তালিকাৰ ক্ষেত্ৰত স্বত্বন্ত্ৰ পৃষ্ঠা উপলব্ধ কৰা "
+"হ'ব নে নহয়।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
+msgid ""
+"If activated, the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
+msgstr ""
+"এই বৈশিষ্ট্য সক্ৰিয় থাকিলে, বিৱিধ বৈশিষ্ট্যৰ ডাইলগ বাকচত প্ৰদৰ্শিত মেটাডাটাৰ "
+"তালিকাৰ বাবে ডাইলগত এটা পৃথক পৃষ্ঠা নিৰ্মিত হ'ব। ইয়াৰ ফলত, সৰু আকাৰৰ পৰ্দাত যেনে "
+"নেটবুক ইত্যাদিত, এই ডাইলগ সহজে ব্যৱহাৰ কৰা সম্ভব হ'ব। অসামৰ্থবান থাকিলে, উইজেট "
+"\"মেটাডাটা\" পৃষ্ঠাত সংযোজন কৰক।"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
+msgid "External program to use for editing images"
+msgstr "ছবিসমূহ সম্পাদন কৰিবলে ব্যৱহৃত বহিৰ্তম প্ৰগ্ৰাম"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
+msgid ""
+"The desktop file name (including the \".desktop\") of the application to use "
+"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
+"to the empty string to disable this feature."
+msgstr ""
+"ছবিবোৰ সম্পাদন কৰিবলে (যেতিয়া \"ছবি সম্পাদন\" টুলবাৰ বুটাম ক্লিক কৰা হয়) ব্যৱহৃত "
+"অনুপ্ৰয়োগৰ ডেক্সটপ নথিপত্ৰৰ নাম (\".desktop\" -কে ধৰি)। এই বৈশিষ্ট অসামৰ্থবান "
+"কৰিবলে খালি স্ট্ৰিংলে সংহিত কৰক। "
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
+msgid "Active plugins"
+msgstr "সক্ৰিয় প্লাগিনসমূহ"
+
+#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"সক্ৰিয় প্লাগিনসমূহৰ তালিকা। ইয়াত সক্ৰিয় প্লাগিনৰ \"অৱস্থান\" নাথাকে। এটা প্লাগিনৰ "
+"\"অৱস্থান\"ৰ কাৰণে .eog-plugin নথিপত্ৰ চাওক।"
+
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Fullscreen with double-click"
 msgstr "দুবাৰ ক্লিকত সম্পূৰ্ণ পৰ্দাত প্ৰদৰ্শন"
+
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+msgid "Activate fullscreen mode with double-click"
+msgstr "দুবাৰ ক্লিক কৰিলে সম্পূৰ্ণ পৰ্দাত প্ৰদৰ্শন ব্যৱস্থা সক্ৰিয় কৰক"
 
 #: ../plugins/reload/eog-reload-plugin.c:53
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
@@ -86,518 +624,6 @@ msgstr "অৱস্থাবাৰত তাৰিখ"
 #: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:2
 msgid "Shows the image date in the window statusbar"
 msgstr "উইন্ডোৰ অৱস্থাবাৰত ছবি তাৰিখ দেখায়"
-
-#: ../data/eog.desktop.in.in.h:1
-msgid "Browse and rotate images"
-msgstr "ছবি ব্ৰাউছ কৰক আৰু ঘুৰাওক"
-
-#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2636 ../src/main.c:152
-msgid "Image Viewer"
-msgstr "ছবি প্ৰদৰ্শক"
-
-#: ../data/eog-image-properties-dialog.ui.h:1
-msgid "Aperture Value:"
-msgstr "বিন্ধাৰ মান:"
-
-#: ../data/eog-image-properties-dialog.ui.h:2
-msgid "Author:"
-msgstr "লিখক:"
-
-#: ../data/eog-image-properties-dialog.ui.h:3
-msgid "Bytes:"
-msgstr "বাইটসমূহ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:4
-msgid "Camera Model:"
-msgstr "কেমেৰা আৰ্হি:"
-
-#: ../data/eog-image-properties-dialog.ui.h:5
-msgid "Copyright:"
-msgstr "স্বত্বাধিকাৰ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:6
-msgid "Date/Time:"
-msgstr "তাৰিখ/সময়:"
-
-#: ../data/eog-image-properties-dialog.ui.h:7
-msgid "Description:"
-msgstr "বিৱৰণ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:8
-msgid "Details"
-msgstr "বিৱৰণ"
-
-#: ../data/eog-image-properties-dialog.ui.h:9
-msgid "Exposure Time:"
-msgstr "উদুঙাই ৰখাৰ সময়:"
-
-#: ../data/eog-image-properties-dialog.ui.h:10
-msgid "Flash:"
-msgstr "ফ্লেশ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:11
-msgid "Focal Length:"
-msgstr "ফ'কেল দৈৰ্ঘ্য:"
-
-#: ../data/eog-image-properties-dialog.ui.h:12
-msgid "General"
-msgstr "সাধাৰণ"
-
-#: ../data/eog-image-properties-dialog.ui.h:13
-msgid "Height:"
-msgstr "উচ্চতা:"
-
-#: ../data/eog-image-properties-dialog.ui.h:14
-msgid "ISO Speed Rating:"
-msgstr "ISO গতিৰ হাৰ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:15
-msgid "Image Properties"
-msgstr "ছবিৰ বৈশিষ্টসমূহ"
-
-#: ../data/eog-image-properties-dialog.ui.h:16
-msgid "Keywords:"
-msgstr "কিৱাৰ্ডসমূহ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:17
-msgid "Location:"
-msgstr "অৱস্থান:"
-
-#: ../data/eog-image-properties-dialog.ui.h:18
-msgid "Metadata"
-msgstr "মেটাডাটা"
-
-#: ../data/eog-image-properties-dialog.ui.h:19
-msgid "Metering Mode:"
-msgstr "মিটাৰিং অৱস্থা:"
-
-#: ../data/eog-image-properties-dialog.ui.h:20
-msgid "Name:"
-msgstr "নাম:"
-
-#: ../data/eog-image-properties-dialog.ui.h:21
-msgid "Type:"
-msgstr "ধৰণ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:22
-msgid "Width:"
-msgstr "প্ৰস্থ:"
-
-#: ../data/eog-image-properties-dialog.ui.h:23
-msgid "_Next"
-msgstr "পিছলৈ (_N)"
-
-#: ../data/eog-image-properties-dialog.ui.h:24
-msgid "_Previous"
-msgstr "আগলৈ (_P)"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:2
-#, no-c-format
-msgid "<b>%f:</b> original filename"
-msgstr "<b>%f:</b> প্ৰকৃত নথিপত্ৰৰনাম"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%n:</b> counter"
-msgstr "<b>%n:</b> গণক"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:5
-msgid "Choose a folder"
-msgstr "এটা ফোল্ডাৰ বাছক"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:6
-msgid "Destination folder:"
-msgstr "গন্তব্যৰ ফোল্ডাৰ:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:7
-msgid "File Name Preview"
-msgstr "নথিপত্ৰ নাম পূৰ্বদৰ্শন"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:8
-msgid "File Path Specifications"
-msgstr "নথিপত্ৰ পথৰ ধাৰ্য্যকৰণসমূহ"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:9
-msgid "Filename format:"
-msgstr "নথিপত্ৰনাম বিন্যাস:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:10
-msgid "Options"
-msgstr "বিকল্পসমূহ"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:11
-msgid "Rename from:"
-msgstr "ইয়াৰ পৰা পুনৰ নামকৰণ কৰক:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:12
-msgid "Replace spaces with underscores"
-msgstr "ৰিক্তস্থানক আন্ডাৰস্ক'ৰেৰে প্ৰতিস্থাপন কৰক"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:13
-msgid "Save As"
-msgstr "এই ধৰণে সংৰক্ষণ কৰক"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:14
-msgid "Start counter at:"
-msgstr "ইয়াত গণক আৰম্ভ কৰক:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:15
-msgid "To:"
-msgstr "লৈ:"
-
-#: ../data/eog-preferences-dialog.ui.h:1
-msgid "As _background"
-msgstr "পটভূমি হিচাপে (_b)"
-
-#: ../data/eog-preferences-dialog.ui.h:2
-msgid "As check _pattern"
-msgstr "চেক বিন্যাস হিচাপে (_p)"
-
-#: ../data/eog-preferences-dialog.ui.h:3
-msgid "As custom c_olor:"
-msgstr "স্বনিৰ্বাচিত ৰঙ হিচাপে: (_o)"
-
-#: ../data/eog-preferences-dialog.ui.h:4
-msgid "As custom color:"
-msgstr "স্বনিৰ্বাচিত ৰঙ হিচাপে:"
-
-#: ../data/eog-preferences-dialog.ui.h:5
-msgid "Background"
-msgstr "পটভূমি"
-
-#: ../data/eog-preferences-dialog.ui.h:6
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
-msgid "Background Color"
-msgstr "পটভূমি ৰঙ"
-
-#: ../data/eog-preferences-dialog.ui.h:7
-msgid "Color for Transparent Areas"
-msgstr "স্বচ্ছ অংশসমূহৰ বাবে ৰঙ"
-
-#: ../data/eog-preferences-dialog.ui.h:8
-msgid "E_xpand images to fit screen"
-msgstr "পৰ্দাত খাপ খুৱাব বাবে ছবি ডাঙৰ কৰক (_x)"
-
-#: ../data/eog-preferences-dialog.ui.h:9
-msgid "Image Enhancements"
-msgstr "ছবিৰ বৃদ্ধিসমূহ"
-
-#: ../data/eog-preferences-dialog.ui.h:10
-msgid "Image View"
-msgstr "ছবি দৰ্শন"
-
-#: ../data/eog-preferences-dialog.ui.h:11
-msgid "Image Zoom"
-msgstr "ছবিৰ জুম"
-
-#: ../data/eog-preferences-dialog.ui.h:12
-msgid "Plugins"
-msgstr "প্লাগিনসমূহ"
-
-#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:14
-#, fuzzy
-#| msgid "seconds"
-msgctxt "PrefDlgSlideSwitchPostfix"
-msgid "seconds"
-msgstr "ছেকেণ্ডসমূহ"
-
-#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:16
-#, fuzzy
-#| msgid "_Switch image after:"
-msgctxt "PrefDlgSlideSwitchPrefix"
-msgid "_Switch image after:"
-msgstr "ইয়াৰ পিছত ছবি পৰিবৰ্তন কৰক: (_S)"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-#, fuzzy
-#| msgid "Prefere_nces"
-msgid "Preferences"
-msgstr "পছন্দসমূহ (_n)"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Sequence"
-msgstr "ক্ৰম"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "Slideshow"
-msgstr "স্লাইডশ্ব'"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "Smooth images when zoomed-_in"
-msgstr "ডাঙৰকৈ প্ৰদৰ্শনৰ সময়ত ছবিসমূহ নিমজ কৰক (_i)"
-
-#: ../data/eog-preferences-dialog.ui.h:21
-msgid "Smooth images when zoomed-_out"
-msgstr "সৰুকৈ প্ৰদৰ্শনৰ সময়ত ছবিসমূহ নিমজ কৰক (_o)"
-
-#: ../data/eog-preferences-dialog.ui.h:22
-msgid "Transparent Parts"
-msgstr "স্বচ্ছ অংশবোৰ"
-
-#: ../data/eog-preferences-dialog.ui.h:23
-msgid "_Automatic orientation"
-msgstr "স্বচালিতভাবে দিশ নিৰ্ণয় কৰা (_A)"
-
-#: ../data/eog-preferences-dialog.ui.h:24
-msgid "_Loop sequence"
-msgstr "চক্ৰাকাৰ আবৰ্তনৰ ক্ৰম (_L)"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
-msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"০ ৰ পৰা ডাঙৰ মানে নিৰ্দেশ কৰে কিমান ছেকেণ্ডৰ পিছত স্ক্ৰিনত ছবি সলনি কৰা হব। ০ ৰ "
-"মান স্বচালিত ব্ৰাউছিং অসামৰ্থবান কৰে।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
-msgid "Active plugins"
-msgstr "সক্ৰিয় প্লাগিনসমূহ"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
-#, no-c-format
-msgid "Allow zoom greater than 100% initially"
-msgstr "আৰম্ভণিত ডাঙৰ কৰি চোৱাৰ মাত্ৰা ১০০ % -ত কে অধিকৰ অনুমতি দিয়ক"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
-msgid "Automatic orientation"
-msgstr "স্বচালিত দিশ নিৰ্ধাৰণ"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
-msgid "Close main window without asking to save changes."
-msgstr "পৰিৱৰ্তনসমূহ সংৰক্ষণ কৰাৰ কাৰণে নোসোধাকৈ মূখ্য উইন্ডো বন্ধ কৰক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
-msgid "Delay in seconds until showing the next image"
-msgstr "পিছৰ ছবি চোৱাৰ সময়ৰ ব্যৱধান ছেকেণ্ডসমূহত"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
-"determines the color value used."
-msgstr ""
-"কিভাবে স্বচ্ছতা নিৰ্দেশ কৰক, সেইটো নিৰ্ধাৰণ কৰে। বৈধ মানসমূহ হ'ল CHECK_PATTERN, "
-"COLOR আৰু NONE। যদি COLOR বছা হয়, তেন্তে trans_color চাবিয়ে ব্যৱহৃত ৰঙৰ মান ঠিক "
-"কৰে।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
-msgid "External program to use for editing images"
-msgstr "ছবিসমূহ সম্পাদন কৰিবলে ব্যৱহৃত বহিৰ্তম প্ৰগ্ৰাম"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
-msgid "Extrapolate Image"
-msgstr "ছবি প্ৰক্ষিপ্ত কৰক"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
-msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up, it "
-"will show the current working directory."
-msgstr ""
-"সক্ৰিয় থাকিলে আৰু সক্ৰিয় উইন্ডোত কোনো ছবি লোড নথাকিলে নথিপত্ৰ নিৰ্বাচন ব্যৱস্থা "
-"দ্বাৰা XDG বিশেষ ব্যৱহাৰকাৰীৰ ডাইৰেকটৰি প্ৰয়োগ কৰি ব্যৱহাৰকাৰীৰ ছবিৰ ফোল্ডাৰ "
-"প্ৰদৰ্শন কৰক। যদি এই বৈশিষ্ট্য অসামৰ্থবান থাকে অথবা যদি এইটো প্ৰস্তুত নকৰা হয় "
-"তেনেহ'লে বৰ্তমানে ব্যৱহৃত ডাইৰেকটৰি প্ৰদৰ্শন কৰক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
-msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"সক্ৰিয় থাকিলে, আবৰ্জনাৰ বাকচত ছবি স্থানান্তৰৰ সময়ত  Eye of GNOME -এ নিশ্চিতকৰণৰ "
-"বাবে নুশুধিব। ই কেৱল তেতিয়ায় শুধিব যেতিয়া কোনো নথিপত্ৰ আবৰ্জনালে স্থানান্তৰ কৰিব "
-"নোৱাৰি আৰু মচি পেলোৱা হব।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
-msgstr ""
-"এই বৈশিষ্ট্য সক্ৰিয় থাকিলে, বিৱিধ বৈশিষ্ট্যৰ ডাইলগ বাকচত প্ৰদৰ্শিত মেটাডাটাৰ "
-"তালিকাৰ বাবে ডাইলগত এটা পৃথক পৃষ্ঠা নিৰ্মিত হ'ব। ইয়াৰ ফলত, সৰু আকাৰৰ পৰ্দাত যেনে "
-"নেটবুক ইত্যাদিত, এই ডাইলগ সহজে ব্যৱহাৰ কৰা সম্ভব হ'ব। অসামৰ্থবান থাকিলে, উইজেট "
-"\"মেটাডাটা\" পৃষ্ঠাত সংযোজন কৰক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"স্বচ্ছতা চাবিৰ মান যদি COLOR হয়, তেনেহ'লে এই চাবিটোৱে নিৰ্ধাৰণ কৰে কি ৰঙ ব্যৱহাৰ "
-"কৰি স্বচ্ছতা বুজুৱা হ'ব।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
-msgid ""
-"If this is active, the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set, the current GTK+ theme "
-"will determine the fill color."
-msgstr ""
-"এইটো যদি সক্ৰিয় হয়, তেনেহলে পটভূমিৰ-ৰঙ চাবিয়ে সংহিত কৰা ৰঙ ব্যৱহাৰ কৰা হব ছবিৰ "
-"পাছফালৰ স্থান পূৰ্ণ কৰিবলে। যদি এইটো সংহিত কৰা হোৱা নাই তেনেহলে, বৰ্তমান GTK+ "
-"theme -এ পূৰ্ণ কৰিব লগিয়া ৰঙ নিৰ্ধাৰণ কৰিব।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
-msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
-msgstr ""
-"ইয়াক যদি FALSE হিচাপে নিৰ্ধাৰিত কৰা হয় তেনেহ'লে প্ৰাথমিকভাবে সৰু ছবিসমূহক সম্পূৰ্ণ "
-"পৰ্দাত দেখুৱা ন'হ'ব।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
-msgid ""
-"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
-"for right."
-msgstr ""
-"ছবি সংগ্ৰহত পেইনৰ স্থান। তলৰ কাৰণে ০; বাওঁফালৰ কাৰণে ১; ওপৰৰ কাৰণে ২; সোঁফালৰ "
-"কাৰণে ৩ নিৰ্ধাৰণ কৰক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
-msgid "Interpolate Image"
-msgstr "ছবিক প্ৰক্ষিপ্ত কৰক"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
-msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
-"plugin."
-msgstr ""
-"সক্ৰিয় প্লাগিনসমূহৰ তালিকা। ইয়াত সক্ৰিয় প্লাগিনৰ \"অৱস্থান\" নাথাকে। এটা প্লাগিনৰ "
-"\"অৱস্থান\"ৰ কাৰণে .eog-plugin নথিপত্ৰ চাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
-msgid "Loop through the image sequence"
-msgstr "ছবিৰ ক্ৰমত আবৰ্তন কৰক"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
-msgid "Scroll wheel zoom"
-msgstr "স্ক্ৰল হুইল জুম"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
-msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr "ছবি গেলেৰিৰ পেইন স্ক্ৰ'লৰ বুটাম দেখাওক/লুকাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
-msgid "Show/Hide the image gallery pane."
-msgstr "ছবি গেলেৰিৰ পেইন দেখাওক/লুকাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
-msgid "Show/Hide the window side pane."
-msgstr "উইন্ডোৰ কাষৰ পেইন দেখুৱাওক/লুকাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
-msgid "Show/Hide the window statusbar."
-msgstr "উইন্ডো অৱস্থাবাৰ দেখুৱাওক/লুকাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
-msgid "Show/Hide the window toolbar."
-msgstr "উইন্ডো টুলবাৰ দেখুৱাওক/লুকাওক।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
-msgid ""
-"The color that is used to fill the area behind the image. If the use-"
-"background-color key is not set, the color is determined by the active GTK+ "
-"theme instead."
-msgstr ""
-"যোনটো ৰঙ ব্যৱহাৰ কৰা হয় ছবিৰ পাছফালৰ স্থান পূৰ্ণ কৰিবলে। যদি ব্যৱহাৰ কৰা- পটভূমি-"
-"ৰঙ চাবি সংহিত কৰা হোৱা নাই তেনেহলে, সক্ৰিয় GTK+ theme -এ  ৰঙ নিৰ্ধাৰণ কৰিব।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
-msgid ""
-"The desktop file name (including the \".desktop\") of the application to use "
-"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
-"to the empty string to disable this feature."
-msgstr ""
-"ছবিবোৰ সম্পাদন কৰিবলে (যেতিয়া \"ছবি সম্পাদন\" টুলবাৰ বুটাম ক্লিক কৰা হয়) ব্যৱহৃত "
-"অনুপ্ৰয়োগৰ ডেক্সটপ নথিপত্ৰৰ নাম (\".desktop\" -কে ধৰি)। এই বৈশিষ্ট অসামৰ্থবান "
-"কৰিবলে খালি স্ট্ৰিংলে সংহিত কৰক। "
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
-#, no-c-format
-msgid ""
-"The multiplier to be applied when using the mouse scroll wheel for zooming. "
-"This value defines the zooming step used for each scroll event. For example, "
-"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
-"a 100% zoom increment."
-msgstr ""
-"জুম কৰিবলৈ মাউছৰ স্ক্ৰ'ল হুইল ব্যৱহাৰ কৰোঁতে প্ৰয়োগ কৰিব লগা বৈশিষ্টক। এই মানে "
-"প্ৰত্যেক স্ক্ৰ'লৰ ঘটনাৰ কাৰণে জুম কৰাৰ পদক্ষেপৰ সংজ্ঞা দিয়ে। যেনে, ০.০৫ ৰ ফলত "
-"প্ৰত্যেক স্ক্ৰ'ল ঘটনাত এটা ৫% জুম বৃদ্ধি হয় আৰু ১.০০ ৰ ফলত ১০০% জুম বৃদ্ধি হয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
-msgid "Transparency color"
-msgstr "স্বচ্ছতাৰ ৰঙ"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
-msgid "Transparency indicator"
-msgstr "স্বচ্ছতা সূচক"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
-msgid "Trash images without asking"
-msgstr "প্ৰশ্ন নকৰি ছবি আঁতৰুৱা হ'ব"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
-msgid "Use a custom background color"
-msgstr "স্বনিৰ্বাচিত পটভূমিৰ ৰঙ ব্যৱহাৰ কৰক "
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
-msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
-"are loaded."
-msgstr ""
-"কোনো ছবি লোড নথাকিলে, নথিপত্ৰ নিৰ্বাচন ব্যৱস্থা দ্বাৰা ব্যৱহাৰকাৰীৰ ছবিৰ ফোল্ডাৰ "
-"দেখুৱা হ'ব নে নহয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
-msgid "Whether the image gallery pane should be resizable."
-msgstr "ছবি গেলেৰিৰ পেইনক পুনৰ আকাৰ দিব পৰা হ'ব নে নহয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
-msgid ""
-"Whether the image should be extrapolated on zoom-in. This leads to blurry "
-"quality and is somewhat slower than non-extrapolated images."
-msgstr ""
-"ছবি প্ৰদৰ্শনৰ মাত্ৰা বৃদ্ধিৰ সময় ছবি বিক্ষিপ্ত কৰা হব নে নহয়। ইয়াৰ ফলত ছবি ধোঁৱা "
-"চোৱা হয় আৰু বিক্ষিপ্ত নকৰা ছবিৰ তুলনাত অধিক সময় ব্যয় হয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
-msgid ""
-"Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non-interpolated images."
-msgstr ""
-"ছবি প্ৰদৰ্শনৰ মাত্ৰা হ্ৰাসৰ সময় ছবি প্ৰক্ষিপ্ত কৰা হব নে নহয়। ইয়াৰ ফলত ছবি ধোঁৱা "
-"চোৱা হয় আৰু প্ৰক্ষিপ্ত নকৰা ছবিৰ তুলনাত অধিক সময় ব্যয় হয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
-msgid ""
-"Whether the image should be rotated automatically based on EXIF orientation."
-msgstr "EXIF দিশৰ মতে ছবিক স্বচালিতভাবে ঘূৰুৱা হ'ব নে নহয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr ""
-"বিভিন্ন বৈশিষ্ট্যৰ ডাইলগত উপস্থিত মেটাডাটা তালিকাৰ ক্ষেত্ৰত স্বত্বন্ত্ৰ পৃষ্ঠা উপলব্ধ কৰা "
-"হ'ব নে নহয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
-msgid "Whether the scroll wheel should be used for zooming."
-msgstr "স্ক্ৰ'ল হুইলক জুম কৰিবলৈ ব্যৱহাৰ কৰা হব নে নাই।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
-msgid "Whether the sequence of images should be shown in an endless loop."
-msgstr "ছবিৰ ধাৰা এটা অন্তহিন আবৰ্তন হিচাপে দেখুৱা হ'ব নে নহয়।"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
-msgid "Zoom multiplier"
-msgstr "জুম মাল্টিপ্লায়াৰ"
 
 #: ../src/eog-close-confirmation-dialog.c:171
 msgid "Close _without Saving"
@@ -619,8 +645,7 @@ msgstr "বন্ধ কৰাৰ আগতে পৰিৱৰ্তনসমূ
 #: ../src/eog-close-confirmation-dialog.c:643
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
-msgid_plural ""
-"There are %d images with unsaved changes. Save changes before closing?"
+msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] ""
 "%d ছবি অসংৰক্ষীত পৰিৱৰ্তনসমূহৰ সৈতে আছে। বন্ধ কৰাৰ আগতে পৰিৱৰ্তনসমূহ সংৰক্ষণ কৰিব "
 "নে?"
@@ -637,104 +662,36 @@ msgstr "আপুনি সংৰক্ষণ কৰিব বিচৰা ছ�
 msgid "If you don't save, all your changes will be lost."
 msgstr "আপুনি যদি সংৰক্ষণ নকৰে, আপুনি কৰা সকলো পৰিৱৰ্তন হেৰাই যাব।"
 
-#: ../src/eog-file-chooser.c:126
-msgid "File format is unknown or unsupported"
-msgstr "নথিপত্ৰৰ বিন্যাস অজ্ঞাত বা অসমৰ্থিত"
+#: ../src/eog-error-message-area.c:119
+msgid "_Cancel"
+msgstr "বাতিল কৰক (_C)"
 
-#: ../src/eog-file-chooser.c:131
-#, fuzzy
-#| msgid ""
-#| "Eye of GNOME could not determine a supported writable file format based "
-#| "on the filename."
-msgid ""
-"Image Viewer could not determine a supported writable file format based on "
-"the filename."
-msgstr ""
-"Eye of GNOME এ নথিপত্ৰৰ নামৰ আধাৰত এটা সমৰ্থিত লিখিব পৰা নথিপত্ৰৰ বিন্যাস "
-"নিৰ্ধাৰণ কৰিব নোৱাৰিলে।"
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:836
+msgid "_Reload"
+msgstr "পুনৰ লোড কৰক (_R)"
 
-#: ../src/eog-file-chooser.c:132
-msgid "Please try a different file extension like .png or .jpg."
-msgstr "অনুগ্ৰহ কৰি .png বা .jpg ৰ দৰে এটা অন্য নথিপত্ৰৰ সম্প্ৰসাৰণ বাছক।"
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3847
+msgid "Save _As…"
+msgstr "এই ধৰণে সংৰক্ষণ কৰক (_A)..."
 
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:167
+#: ../src/eog-error-message-area.c:171
 #, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
+msgid "Could not load image '%s'."
+msgstr "'%s' ছবি লোড কৰিবলৈ অক্ষম।"
 
-#: ../src/eog-file-chooser.c:219
-msgid "All files"
-msgstr "সকলোবোৰ নথিপত্ৰ"
-
-#: ../src/eog-file-chooser.c:224
-msgid "Supported image files"
-msgstr "সমৰ্থিত ছবি নথিপত্ৰসমূহ"
-
-#. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "পিক্সেল"
-msgstr[1] "পিক্সেলসমূহ"
-
-#: ../src/eog-file-chooser.c:447
-msgid "Open Image"
-msgstr "ছবি খোলক"
-
-#: ../src/eog-file-chooser.c:455
-msgid "Save Image"
-msgstr "ছবি সংৰক্ষণ কৰক"
-
-#: ../src/eog-file-chooser.c:463
-msgid "Open Folder"
-msgstr "ফোল্ডাৰ খোলক"
-
-#: ../src/eog-image.c:606
+#: ../src/eog-error-message-area.c:213
 #, c-format
-msgid "Transformation on unloaded image."
-msgstr "আনলোড কৰা ছবিত ৰূপান্তৰণ।"
+msgid "Could not save image '%s'."
+msgstr "'%s' ছবি সংৰক্ষণ কৰিব নোৱাৰি।"
 
-#: ../src/eog-image.c:634
+#: ../src/eog-error-message-area.c:256
 #, c-format
-msgid "Transformation failed."
-msgstr "ৰূপান্তৰণ ব্যৰ্থ হল।"
+msgid "No images found in '%s'."
+msgstr "'%s' ত কোনো ছবি পোৱা ন'গ'ল।"
 
-#: ../src/eog-image.c:1095
-#, c-format
-msgid "EXIF not supported for this file format."
-msgstr "এই নথিপত্ৰ বিন্যাসৰ বাবে EXIF সমৰ্থিত নহয়।"
-
-#: ../src/eog-image.c:1244
-#, c-format
-msgid "Image loading failed."
-msgstr "ছবি লোড ব্যৰ্থ হল।"
-
-#: ../src/eog-image.c:1717 ../src/eog-image.c:1827
-#, c-format
-msgid "No image loaded."
-msgstr "কোনো ছবি লোড কৰা হোৱা নাই।"
-
-#: ../src/eog-image.c:1725 ../src/eog-image.c:1836
-#, c-format
-msgid "You do not have the permissions necessary to save the file."
-msgstr "আপোনাৰ নথিপত্ৰটো সংৰক্ষণ কৰিবলে পৰ্যাপ্ত অনুমতিসমূহ নাই।"
-
-#: ../src/eog-image.c:1735 ../src/eog-image.c:1847
-#, c-format
-msgid "Temporary file creation failed."
-msgstr "অস্থায়ী নথিপত্ৰ সৃষ্টিকৰণ ব্যৰ্থ হল।"
-
-#: ../src/eog-image-jpeg.c:373
-#, c-format
-msgid "Couldn't create temporary file for saving: %s"
-msgstr "সংৰক্ষণ কৰাৰ বাবে অস্থায়ী নথিপত্ৰ সৃষ্টি কৰা ন'গ'ল: %s"
-
-#: ../src/eog-image-jpeg.c:392
-#, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "JPEG নথিপত্ৰ পঢ়াৰ বাবে মেমৰি আবন্টন কৰিব পৰা নগল।"
+#: ../src/eog-error-message-area.c:263
+msgid "The given locations contain no images."
+msgstr "প্ৰদান কৰা স্থানত কোনো ছবি নাই।"
 
 #: ../src/eog-exif-details.c:69
 msgid "Camera"
@@ -801,145 +758,18 @@ msgid "South"
 msgstr "দক্ষিন"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
+#: ../src/eog-exif-util.c:119 ../src/eog-exif-util.c:159
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:152
+#: ../src/eog-exif-util.c:153
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: ../src/eog-error-message-area.c:119
-msgid "_Cancel"
-msgstr "বাতিল কৰক (_C)"
-
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:825
-msgid "_Reload"
-msgstr "পুনৰ লোড কৰক (_R)"
-
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3842
-msgid "Save _As…"
-msgstr "এই ধৰণে সংৰক্ষণ কৰক (_A)..."
-
-#: ../src/eog-error-message-area.c:171
-#, c-format
-msgid "Could not load image '%s'."
-msgstr "'%s' ছবি লোড কৰিবলৈ অক্ষম।"
-
-#: ../src/eog-error-message-area.c:213
-#, c-format
-msgid "Could not save image '%s'."
-msgstr "'%s' ছবি সংৰক্ষণ কৰিব নোৱাৰি।"
-
-#: ../src/eog-error-message-area.c:256
-#, c-format
-msgid "No images found in '%s'."
-msgstr "'%s' ত কোনো ছবি পোৱা ন'গ'ল।"
-
-#: ../src/eog-error-message-area.c:263
-msgid "The given locations contain no images."
-msgstr "প্ৰদান কৰা স্থানত কোনো ছবি নাই।"
-
-#: ../src/eog-print.c:219
-msgid "Image Settings"
-msgstr "ছবি সংহতিসমূহ"
-
-#: ../src/eog-print-image-setup.c:834
-msgid "Image"
-msgstr "ছবি"
-
-#: ../src/eog-print-image-setup.c:835
-msgid "The image whose printing properties will be set up"
-msgstr "ছবি যাৰ প্ৰিন্টৰ বৈশিষ্ট প্ৰতিষ্ঠা কৰা হব"
-
-#: ../src/eog-print-image-setup.c:841
-msgid "Page Setup"
-msgstr "পৃষ্ঠাৰ সংস্থাপন"
-
-#: ../src/eog-print-image-setup.c:842
-msgid "The information for the page where the image will be printed"
-msgstr "ছবি প্ৰিন্ট কৰিব লগা পৃষ্ঠাৰ তথ্য"
-
-#: ../src/eog-print-image-setup.c:870
-msgid "Position"
-msgstr "অৱস্থান"
-
-#: ../src/eog-print-image-setup.c:875
-msgid "_Left:"
-msgstr "বাওঁফালে(_L):"
-
-#: ../src/eog-print-image-setup.c:876
-msgid "_Right:"
-msgstr "সোঁফালে (_R):"
-
-#: ../src/eog-print-image-setup.c:877
-msgid "_Top:"
-msgstr "ওপৰত (_T):"
-
-#: ../src/eog-print-image-setup.c:878
-msgid "_Bottom:"
-msgstr "তলত (_B):"
-
-#: ../src/eog-print-image-setup.c:880
-msgid "C_enter:"
-msgstr "মাজত (_e):"
-
-#: ../src/eog-print-image-setup.c:885
-msgid "None"
-msgstr "শূণ্য"
-
-#: ../src/eog-print-image-setup.c:887
-msgid "Horizontal"
-msgstr "আনুভূমিক"
-
-#: ../src/eog-print-image-setup.c:889
-msgid "Vertical"
-msgstr "উলম্ব"
-
-#: ../src/eog-print-image-setup.c:891
-msgid "Both"
-msgstr "দুয়োটা"
-
-#: ../src/eog-print-image-setup.c:907
-msgid "Size"
-msgstr "আকাৰ"
-
-#: ../src/eog-print-image-setup.c:912
-msgid "_Width:"
-msgstr "প্ৰস্থ (_W):"
-
-#: ../src/eog-print-image-setup.c:914
-msgid "_Height:"
-msgstr "উচ্চতা (_H):"
-
-#: ../src/eog-print-image-setup.c:917
-msgid "_Scaling:"
-msgstr "স্কেলিং (_S):"
-
-#: ../src/eog-print-image-setup.c:930
-msgid "_Unit:"
-msgstr "একক (_U):"
-
-#: ../src/eog-print-image-setup.c:935
-msgid "Millimeters"
-msgstr "মিলিমিটাৰসমূহ"
-
-#: ../src/eog-print-image-setup.c:937
-msgid "Inches"
-msgstr "ইঞ্চিসমূহ"
-
-#: ../src/eog-print-image-setup.c:967
-msgid "Preview"
-msgstr "পূৰ্বদৰ্শন"
-
-#: ../src/eog-properties-dialog.c:154
-msgid "Unknown"
-msgstr "অজ্ঞাত"
-
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:232
+#: ../src/eog-exif-util.c:250
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (লেন্স)"
@@ -947,10 +777,214 @@ msgstr "%.1f (লেন্স)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:243
+#: ../src/eog-exif-util.c:261
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (৩৫ মিলিমিটাৰ ফিল্ম)"
+
+#: ../src/eog-file-chooser.c:126
+msgid "File format is unknown or unsupported"
+msgstr "নথিপত্ৰৰ বিন্যাস অজ্ঞাত বা অসমৰ্থিত"
+
+#: ../src/eog-file-chooser.c:131
+#| msgid ""
+#| "Eye of GNOME could not determine a supported writable file format based "
+#| "on the filename."
+msgid ""
+"Image Viewer could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"ছবি দৰ্শকে নথিপত্ৰৰ নামৰ আধাৰত এটা সমৰ্থিত লিখিব পৰা নথিপত্ৰৰ বিন্যাস "
+"নিৰ্ধাৰণ কৰিব নোৱাৰিলে।"
+
+#: ../src/eog-file-chooser.c:132
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "অনুগ্ৰহ কৰি .png বা .jpg ৰ দৰে এটা অন্য নথিপত্ৰৰ সম্প্ৰসাৰণ বাছক।"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../src/eog-file-chooser.c:167
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: ../src/eog-file-chooser.c:219
+msgid "All files"
+msgstr "সকলোবোৰ নথিপত্ৰ"
+
+#: ../src/eog-file-chooser.c:224
+msgid "Supported image files"
+msgstr "সমৰ্থিত ছবি নথিপত্ৰসমূহ"
+
+#. Pixel size of image: width x height in pixel
+#: ../src/eog-file-chooser.c:296 ../src/eog-metadata-sidebar.c:235
+#: ../src/eog-metadata-sidebar.c:239 ../src/eog-properties-dialog.c:138
+#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:446
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] "পিক্সেল"
+msgstr[1] "পিক্সেলসমূহ"
+
+#: ../src/eog-file-chooser.c:447
+msgid "Open Image"
+msgstr "ছবি খোলক"
+
+#: ../src/eog-file-chooser.c:455
+msgid "Save Image"
+msgstr "ছবি সংৰক্ষণ কৰক"
+
+#: ../src/eog-file-chooser.c:463
+msgid "Open Folder"
+msgstr "ফোল্ডাৰ খোলক"
+
+#: ../src/eog-image.c:616
+#, c-format
+msgid "Transformation on unloaded image."
+msgstr "আনলোড কৰা ছবিত ৰূপান্তৰণ।"
+
+#: ../src/eog-image.c:644
+#, c-format
+msgid "Transformation failed."
+msgstr "ৰূপান্তৰণ ব্যৰ্থ হল।"
+
+#: ../src/eog-image.c:1105
+#, c-format
+msgid "EXIF not supported for this file format."
+msgstr "এই নথিপত্ৰ বিন্যাসৰ বাবে EXIF সমৰ্থিত নহয়।"
+
+#: ../src/eog-image.c:1254
+#, c-format
+msgid "Image loading failed."
+msgstr "ছবি লোড ব্যৰ্থ হল।"
+
+#: ../src/eog-image.c:1835 ../src/eog-image.c:1955
+#, c-format
+msgid "No image loaded."
+msgstr "কোনো ছবি লোড কৰা হোৱা নাই।"
+
+#: ../src/eog-image.c:1843 ../src/eog-image.c:1964
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "আপোনাৰ নথিপত্ৰটো সংৰক্ষণ কৰিবলে পৰ্যাপ্ত অনুমতিসমূহ নাই।"
+
+#: ../src/eog-image.c:1853 ../src/eog-image.c:1975
+#, c-format
+msgid "Temporary file creation failed."
+msgstr "অস্থায়ী নথিপত্ৰ সৃষ্টিকৰণ ব্যৰ্থ হল।"
+
+#: ../src/eog-image-jpeg.c:373
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "সংৰক্ষণ কৰাৰ বাবে অস্থায়ী নথিপত্ৰ সৃষ্টি কৰা ন'গ'ল: %s"
+
+#: ../src/eog-image-jpeg.c:392
+#, c-format
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "JPEG নথিপত্ৰ পঢ়াৰ বাবে মেমৰি আবন্টন কৰিব পৰা নগল।"
+
+#: ../src/eog-metadata-sidebar.c:248 ../src/eog-properties-dialog.c:155
+msgid "Unknown"
+msgstr "অজ্ঞাত"
+
+#: ../src/eog-metadata-sidebar.c:506
+msgid "File size:"
+msgstr "নথিপত্ৰৰ আকাৰ:"
+
+#: ../src/eog-metadata-sidebar.c:517 ../src/eog-properties-dialog.c:674
+#: ../src/eog-window.c:3851
+msgid "Show the folder which contains this file in the file manager"
+msgstr "নথিপত্ৰ ব্যৱস্থাপকত এই নথিপত্ৰ থকা ফোল্ডাৰটো দেখুৱাওক"
+
+#: ../src/eog-print.c:219
+msgid "Image Settings"
+msgstr "ছবি সংহতিসমূহ"
+
+#: ../src/eog-print-image-setup.c:906
+msgid "Image"
+msgstr "ছবি"
+
+#: ../src/eog-print-image-setup.c:907
+msgid "The image whose printing properties will be set up"
+msgstr "ছবি যাৰ প্ৰিন্টৰ বৈশিষ্ট প্ৰতিষ্ঠা কৰা হব"
+
+#: ../src/eog-print-image-setup.c:913
+msgid "Page Setup"
+msgstr "পৃষ্ঠাৰ সংস্থাপন"
+
+#: ../src/eog-print-image-setup.c:914
+msgid "The information for the page where the image will be printed"
+msgstr "ছবি প্ৰিন্ট কৰিব লগা পৃষ্ঠাৰ তথ্য"
+
+#: ../src/eog-print-image-setup.c:942
+msgid "Position"
+msgstr "অৱস্থান"
+
+#: ../src/eog-print-image-setup.c:946
+msgid "_Left:"
+msgstr "বাওঁফালে(_L):"
+
+#: ../src/eog-print-image-setup.c:948
+msgid "_Right:"
+msgstr "সোঁফালে (_R):"
+
+#: ../src/eog-print-image-setup.c:949
+msgid "_Top:"
+msgstr "ওপৰত (_T):"
+
+#: ../src/eog-print-image-setup.c:950
+msgid "_Bottom:"
+msgstr "তলত (_B):"
+
+#: ../src/eog-print-image-setup.c:953
+msgid "C_enter:"
+msgstr "মাজত (_e):"
+
+#: ../src/eog-print-image-setup.c:958
+msgid "None"
+msgstr "শূণ্য"
+
+#: ../src/eog-print-image-setup.c:960
+msgid "Horizontal"
+msgstr "আনুভূমিক"
+
+#: ../src/eog-print-image-setup.c:962
+msgid "Vertical"
+msgstr "উলম্ব"
+
+#: ../src/eog-print-image-setup.c:964
+msgid "Both"
+msgstr "দুয়োটা"
+
+#: ../src/eog-print-image-setup.c:980
+msgid "Size"
+msgstr "আকাৰ"
+
+#: ../src/eog-print-image-setup.c:983
+msgid "_Width:"
+msgstr "প্ৰস্থ (_W):"
+
+#: ../src/eog-print-image-setup.c:985
+msgid "_Height:"
+msgstr "উচ্চতা (_H):"
+
+#: ../src/eog-print-image-setup.c:988
+msgid "_Scaling:"
+msgstr "স্কেলিং (_S):"
+
+#: ../src/eog-print-image-setup.c:999
+msgid "_Unit:"
+msgstr "একক (_U):"
+
+#: ../src/eog-print-image-setup.c:1004
+msgid "Millimeters"
+msgstr "মিলিমিটাৰসমূহ"
+
+#: ../src/eog-print-image-setup.c:1006
+msgid "Inches"
+msgstr "ইঞ্চিসমূহ"
+
+#: ../src/eog-print-image-setup.c:1035
+msgid "Preview"
+msgstr "পূৰ্বদৰ্শন"
 
 #: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
@@ -966,12 +1000,12 @@ msgstr "যেনে আছে"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:124
+#: ../src/eog-statusbar.c:131
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:471
+#: ../src/eog-thumb-view.c:474
 msgid "Taken on"
 msgstr "চলি আছে"
 
@@ -981,10 +1015,9 @@ msgid "At least two file names are equal."
 msgstr "অন্ততঃ দুটা নথিপত্ৰৰ নাম একেই।"
 
 #: ../src/eog-util.c:68
-#, fuzzy
 #| msgid "Could not display help for Eye of GNOME"
 msgid "Could not display help for Image Viewer"
-msgstr "Eye of GNOME সংক্ৰান্ত সহায়ক তথ্য প্ৰদৰ্শন কৰিবলৈ ব্যৰ্থ"
+msgstr "ছবি দৰ্শক  সংক্ৰান্ত সহায়ক তথ্য প্ৰদৰ্শন কৰিবলৈ ব্যৰ্থ"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -996,21 +1029,21 @@ msgstr " (অবৈধ ইউনিকোড)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:525
+#: ../src/eog-window.c:530
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i পিক্সেল  %s    %i%%"
 msgstr[1] "%i × %i পিক্সেলসমূহ  %s    %i%%"
 
-#: ../src/eog-window.c:827 ../src/eog-window.c:2784
+#: ../src/eog-window.c:838 ../src/eog-window.c:2795
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "লুকাওক (_d)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:837
+#: ../src/eog-window.c:848
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1019,7 +1052,7 @@ msgstr ""
 "\"%s\" ছবিক এটা বহিৰ্তম অনুপ্ৰয়োগে সলনি কৰিছে।\n"
 "আপুনি ইয়াক পুনৰ লোড কৰিব বিচাৰে নে?"
 
-#: ../src/eog-window.c:1001
+#: ../src/eog-window.c:1012
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "নিৰ্বাচিত ছবি খুলিবলৈ \"%s\" ব্যৱহাৰ কৰক"
@@ -1029,17 +1062,17 @@ msgstr "নিৰ্বাচিত ছবি খুলিবলৈ \"%s\" ব�
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1157
+#: ../src/eog-window.c:1168
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "\"%s\" ছবি ৰক্ষা কৰা হৈছে (%u/%u)"
 
-#: ../src/eog-window.c:1528
+#: ../src/eog-window.c:1539
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "\"%s\" ছবি খোলা হৈ আছে"
 
-#: ../src/eog-window.c:2205
+#: ../src/eog-window.c:2216
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1048,37 +1081,37 @@ msgstr ""
 "নথিপত্ৰ প্ৰিন্ট কৰোঁতে ত্ৰুটি:\n"
 "%s"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2534
 msgid "Toolbar Editor"
 msgstr "টুলবাৰ সম্পাদক"
 
-#: ../src/eog-window.c:2526
+#: ../src/eog-window.c:2537
 msgid "_Reset to Default"
 msgstr "অবিকল্পিতলৈ পুনৰ নিৰ্ধাৰণ কৰক (_R)"
 
-#: ../src/eog-window.c:2631
+#: ../src/eog-window.c:2642
 msgid "translator-credits"
 msgstr ""
 "অমিতাক্ষ ফুকন (aphukan@fedoraproject.org), নীলমদ্যুতি গোস্বামী (ngoswami@redhat."
 "com)"
 
-#: ../src/eog-window.c:2639
+#: ../src/eog-window.c:2650
 msgid "The GNOME image viewer."
 msgstr "GNOME ছবি দৰ্শক।"
 
-#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
+#: ../src/eog-window.c:2742 ../src/eog-window.c:2757
 msgid "Error launching System Settings: "
 msgstr "চিস্টেম সংহতিসমূহ লঞ্চ কৰোতে ত্ৰুটি:"
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2782
+#: ../src/eog-window.c:2793
 msgid "_Open Background Preferences"
 msgstr "পটভূমি পছন্দসমূহ খোলক (_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2798
+#: ../src/eog-window.c:2809
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1087,11 +1120,11 @@ msgstr ""
 "\"%s\" ছবিক ডেস্কটপৰ পটভূমি হিচাপে সংস্থাপন কৰা হৈছে।\n"
 "আপুনি ইয়াৰ ৰূপ সলনি কৰিব বিচাৰে নেকি? "
 
-#: ../src/eog-window.c:3271
+#: ../src/eog-window.c:3276
 msgid "Saving image locally…"
 msgstr "স্থানীয় অৱস্থানত ছবি সংৰক্ষণ কৰা হৈছে..."
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3356
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1100,7 +1133,7 @@ msgstr ""
 "আপুনি \n"
 "\"%s\" আবৰ্জনাৰ বাকচত স্থানান্তৰ কৰিবলৈ নিশ্চিত নে ?"
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3359
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1109,7 +1142,7 @@ msgstr ""
 "\"%s\"-ৰ বাবে প্ৰযোজ্য আবৰ্জনাৰ বাকচ পোৱা নাযায়। আপুনি এইটো স্থায়ীৰূপে বৰ্জন কৰিবলৈ "
 "ইচ্ছুক নেকি ?"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3364
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1124,7 +1157,7 @@ msgstr[1] ""
 "আপুনি %d নিৰ্বাচিত ছবিসমূহক\n"
 "আবৰ্জনাৰ বাকচলৈ স্থানান্তৰ কৰিবলৈ নিশ্চিত নে ?"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3369
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1132,421 +1165,419 @@ msgstr ""
 "নিৰ্বাচিত কিছু ছবি, আবৰ্জনাৰ বাকচত স্থানান্তৰ কৰা সম্ভব ন'হ'ব আৰু স্থায়ীভাবে বৰ্জন "
 "কৰা হব। আগবাঢ়িবলৈ আপুনি নিশ্চিত নে ?"
 
-#: ../src/eog-window.c:3381 ../src/eog-window.c:3872 ../src/eog-window.c:3896
+#: ../src/eog-window.c:3386 ../src/eog-window.c:3877 ../src/eog-window.c:3901
 msgid "Move to _Trash"
 msgstr "আবৰ্জনাৰ বাকচত স্থানান্তৰণ (_T)"
 
-#: ../src/eog-window.c:3383
+#: ../src/eog-window.c:3388
 msgid "_Do not ask again during this session"
 msgstr "বৰ্তমানৰ অধিবেশনত পুনৰ প্ৰশ্ন কৰা নকৰিব (_D)"
 
-#: ../src/eog-window.c:3428 ../src/eog-window.c:3442
+#: ../src/eog-window.c:3433 ../src/eog-window.c:3447
 #, c-format
 msgid "Couldn't access trash."
 msgstr "আবৰ্জনা ফোল্ডাৰত প্ৰবেশ কৰা নাযায়।"
 
-#: ../src/eog-window.c:3450
+#: ../src/eog-window.c:3455
 #, c-format
 msgid "Couldn't delete file"
 msgstr "নথিপত্ৰ মচিব নোৱাৰি"
 
-#: ../src/eog-window.c:3546
+#: ../src/eog-window.c:3551
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s মচি পেলাওতে ত্ৰুটি।"
 
-#: ../src/eog-window.c:3793
+#: ../src/eog-window.c:3798
 msgid "_Image"
 msgstr "ছবি (_I)"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3799
 msgid "_Edit"
 msgstr "সম্পাদনা কৰক (_E)"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3800
 msgid "_View"
 msgstr "দৰ্শন (_V)"
 
-#: ../src/eog-window.c:3796
+#: ../src/eog-window.c:3801
 msgid "_Go"
 msgstr "যাওক (_G)"
 
-#: ../src/eog-window.c:3797
+#: ../src/eog-window.c:3802
 msgid "_Tools"
 msgstr "সঁজুলিসমূহ(_T)"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3803
 msgid "_Help"
 msgstr "সহায় (_H)"
 
-#: ../src/eog-window.c:3800
+#: ../src/eog-window.c:3805
 msgid "_Open…"
 msgstr "খোলক (_O)..."
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3806
 msgid "Open a file"
 msgstr "এটা নথিপত্ৰ খোলক"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3808
 msgid "_Close"
 msgstr "বন্ধ কৰক (_C)"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3809
 msgid "Close window"
 msgstr "উইন্ডো বন্ধ কৰক"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3811
 msgid "T_oolbar"
 msgstr "টুলবাৰ (_o)"
 
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3812
 msgid "Edit the application toolbar"
 msgstr "অনুপ্ৰয়োগৰ টুলবাৰ সম্পাদন কৰক"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3814
 msgid "Prefere_nces"
 msgstr "পছন্দসমূহ (_n)"
 
-#: ../src/eog-window.c:3810
-#, fuzzy
+#: ../src/eog-window.c:3815
 #| msgid "Preferences for Eye of GNOME"
 msgid "Preferences for Image Viewer"
-msgstr "Eye of GNOME পছন্দসমূহ"
+msgstr "ছবি দৰ্শকৰ বাবে পছন্দসমূহ"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3817
 msgid "_Contents"
 msgstr "সমলসমূহ (_C)"
 
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3818
 msgid "Help on this application"
 msgstr "এই অনুপ্ৰয়োগৰ কাৰণে সহায়"
 
-#: ../src/eog-window.c:3815
+#: ../src/eog-window.c:3820
 msgid "_About"
 msgstr "বিষয়ে (_A)"
 
-#: ../src/eog-window.c:3816
+#: ../src/eog-window.c:3821
 msgid "About this application"
 msgstr "এই অনুপ্ৰয়োগৰ বিষয়ে"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3826
 msgid "_Toolbar"
 msgstr "টুলবাৰ(_T)"
 
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3827
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "বৰ্তমান উইন্ডোত টুলবাৰৰ উপস্থিতি সলনি কৰে"
 
-#: ../src/eog-window.c:3824
+#: ../src/eog-window.c:3829
 msgid "_Statusbar"
 msgstr "অৱস্থাবাৰ (_S)"
 
-#: ../src/eog-window.c:3825
+#: ../src/eog-window.c:3830
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "বৰ্তমান উইন্ডোত অৱস্থাসূচক বাৰৰ উপস্থিতি সলনি কৰে"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3832
 msgid "_Image Gallery"
 msgstr "ছবিৰ গেলেৰি (_I)"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3833
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "বৰ্তমান উইন্ডোত ছবি গেলেৰিৰ পেইনৰ প্ৰদৰ্শন পৰিবৰ্তন কৰে"
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3835
 msgid "Side _Pane"
 msgstr "কাষৰ পেইন (_P)"
 
-#: ../src/eog-window.c:3831
+#: ../src/eog-window.c:3836
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "বৰ্তমান উইন্ডোত কাষৰ পেইনৰ উপস্থিতি সলনি কৰে"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3841
 msgid "_Save"
 msgstr "সংৰক্ষণ কৰক (_S)"
 
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3842
 msgid "Save changes in currently selected images"
 msgstr "বৰ্ত্তমানে নিৰ্বাচিত ছবিৰ সলনিসমূহ সংৰক্ষণ কৰক"
 
-#: ../src/eog-window.c:3839
+#: ../src/eog-window.c:3844
 msgid "Open _with"
 msgstr "ইয়াৰ সহায়ত খোলক (_w)"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3845
 msgid "Open the selected image with a different application"
 msgstr "নিৰ্বাচিত ছবিক অন্য এটা অনুপ্ৰয়োগেৰে খোলক"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3848
 msgid "Save the selected images with a different name"
 msgstr "নিৰ্বাচিত ছবিক অন্য নামেৰে ৰক্ষা কৰক"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3850
 msgid "Show Containing _Folder"
 msgstr "অন্তৰ্ভুক্ত কৰা ফোল্ডাৰ দেখুৱাওক (_F)"
 
-#: ../src/eog-window.c:3846
-msgid "Show the folder which contains this file in the file manager"
-msgstr "নথিপত্ৰ ব্যৱস্থাপকত এই নথিপত্ৰ থকা ফোল্ডাৰটো দেখুৱাওক"
-
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3853
 msgid "_Print…"
 msgstr "প্ৰিন্ট কৰক (_P)..."
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3854
 msgid "Print the selected image"
 msgstr "নিৰ্বাচিত ছবি প্ৰিন্ট কৰক"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3856
 msgid "Prope_rties"
 msgstr "বৈশিষ্টসমূহ (_r)"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3857
 msgid "Show the properties and metadata of the selected image"
 msgstr "নিৰ্বাচিত ছবিৰ বৈশিষ্টসমূহ আৰু মেটাডাটা দেখাওক"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3859
 msgid "_Undo"
 msgstr "পূৰ্বাৱস্থালৈ নিয়ক (_U)"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3860
 msgid "Undo the last change in the image"
 msgstr "ছবিক পূৰ্বাৱস্থালৈ নিয়ক"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3862
 msgid "Flip _Horizontal"
 msgstr "আনুভূমিক দিশত ওলোটাওক (_H)"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3863
 msgid "Mirror the image horizontally"
 msgstr "ছবিৰ আনুভূমিক ভাবে মিৰৰ কৰক"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3865
 msgid "Flip _Vertical"
 msgstr "উলম্বভাবে ওলোটাওক (_V)"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3866
 msgid "Mirror the image vertically"
 msgstr "ছবিক উলম্বভাবে মিৰৰ কৰক"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3868
 msgid "_Rotate Clockwise"
 msgstr "ঘড়িৰ কটাৰ দিশত ঘূৰাওক (_R)"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3869
 msgid "Rotate the image 90 degrees to the right"
 msgstr "ছবিক ৯০ ডিগ্ৰী সোঁফালে ঘূৰাওক"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3871
 msgid "Rotate Counterc_lockwise"
 msgstr "ঘড়িৰ কাঁটাৰ বিপৰীত দিশত ঘূৰাওক (_l)"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3872
 msgid "Rotate the image 90 degrees to the left"
 msgstr "ছবিক ৯০ ডিগ্ৰী বাওঁফালে ঘূৰাওক"
 
-#: ../src/eog-window.c:3869
+#: ../src/eog-window.c:3874
 msgid "Set as _Desktop Background"
 msgstr "ডেষ্কট'পৰ পটভূমি ৰূপে নিৰ্ধাৰণ কৰক (_D)"
 
-#: ../src/eog-window.c:3870
+#: ../src/eog-window.c:3875
 msgid "Set the selected image as the desktop background"
 msgstr "নিৰ্বাচিত ছবি ডেস্কট'পৰ পটভূমি ৰূপে ধাৰ্য্য কৰক"
 
-#: ../src/eog-window.c:3873
+#: ../src/eog-window.c:3878
 msgid "Move the selected image to the trash folder"
 msgstr "নিৰ্বাচিত ছবিক আবৰ্জনাৰ বাকচলৈ নিয়ক"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:3880
 msgid "_Copy"
 msgstr "কপি কৰক (_C)"
 
-#: ../src/eog-window.c:3876
+#: ../src/eog-window.c:3881
 msgid "Copy the selected image to the clipboard"
 msgstr "চিহ্নিত ছবিক ক্লিপবোৰ্ডত স্থানান্তৰ কৰক"
 
-#: ../src/eog-window.c:3878 ../src/eog-window.c:3887 ../src/eog-window.c:3890
+#: ../src/eog-window.c:3883 ../src/eog-window.c:3892 ../src/eog-window.c:3895
 msgid "_Zoom In"
 msgstr "ডাঙৰ কৰি প্ৰদৰ্শন কৰক (_Z)"
 
-#: ../src/eog-window.c:3879 ../src/eog-window.c:3888
+#: ../src/eog-window.c:3884 ../src/eog-window.c:3893
 msgid "Enlarge the image"
 msgstr "ছবি ডাঙৰ কৰক"
 
-#: ../src/eog-window.c:3881 ../src/eog-window.c:3893
+#: ../src/eog-window.c:3886 ../src/eog-window.c:3898
 msgid "Zoom _Out"
 msgstr "সৰু কৰি প্ৰদৰ্শন কৰক(_O)"
 
-#: ../src/eog-window.c:3882 ../src/eog-window.c:3891 ../src/eog-window.c:3894
+#: ../src/eog-window.c:3887 ../src/eog-window.c:3896 ../src/eog-window.c:3899
 msgid "Shrink the image"
 msgstr "ছবি সৰু কৰক"
 
-#: ../src/eog-window.c:3884
+#: ../src/eog-window.c:3889
 msgid "_Normal Size"
 msgstr "স্বাভাবিক আকাৰ (_N)"
 
-#: ../src/eog-window.c:3885
+#: ../src/eog-window.c:3890
 msgid "Show the image at its normal size"
 msgstr "স্বাভাবিক আকাৰত ছবি দেখুৱাওক"
 
-#: ../src/eog-window.c:3902
+#: ../src/eog-window.c:3907
 msgid "_Fullscreen"
 msgstr "সম্পূৰ্ণ পৰ্দাত প্ৰদৰ্শন (_F)"
 
-#: ../src/eog-window.c:3903
+#: ../src/eog-window.c:3908
 msgid "Show the current image in fullscreen mode"
 msgstr "বৰ্ত্তমানৰ ছবিক সম্পূৰ্ণ পৰ্দাত দেখুৱাওক"
 
-#: ../src/eog-window.c:3905
+#: ../src/eog-window.c:3910
 msgid "Pause Slideshow"
 msgstr "স্লাইডশ্ব' বিৰতি দিয়ক"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3911
 msgid "Pause or resume the slideshow"
 msgstr "স্লাইডশ্ব'ক বিৰতি দিয়ক বা পুনৰ আৰম্ভ কৰক"
 
-#: ../src/eog-window.c:3908
+#: ../src/eog-window.c:3913
 msgid "_Best Fit"
 msgstr "সৰ্বোত্তম খাপ (_B)"
 
-#: ../src/eog-window.c:3909
+#: ../src/eog-window.c:3914
 msgid "Fit the image to the window"
 msgstr "ছবিক উইন্ডোত খাপ খোৱাওক"
 
-#: ../src/eog-window.c:3914 ../src/eog-window.c:3929
+#: ../src/eog-window.c:3919 ../src/eog-window.c:3934
 msgid "_Previous Image"
 msgstr "আগৰ ছবি (_P)"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3920
 msgid "Go to the previous image of the gallery"
 msgstr "গেলেৰিৰ আগৰ ছবিলৈ যাওক"
 
-#: ../src/eog-window.c:3917
+#: ../src/eog-window.c:3922
 msgid "_Next Image"
 msgstr "পিছৰ ছবি (_N)"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3923
 msgid "Go to the next image of the gallery"
 msgstr "গেলেৰিৰ পিছৰ ছবিলৈ যাওক"
 
-#: ../src/eog-window.c:3920 ../src/eog-window.c:3932
+#: ../src/eog-window.c:3925 ../src/eog-window.c:3937
 msgid "_First Image"
 msgstr "প্ৰথম ছবি (_F)"
 
-#: ../src/eog-window.c:3921
+#: ../src/eog-window.c:3926
 msgid "Go to the first image of the gallery"
 msgstr "গেলেৰিৰ প্ৰথম ছবিলৈ যাওক"
 
-#: ../src/eog-window.c:3923 ../src/eog-window.c:3935
+#: ../src/eog-window.c:3928 ../src/eog-window.c:3940
 msgid "_Last Image"
 msgstr "সৰ্বশেষ ছবি (_L)"
 
-#: ../src/eog-window.c:3924
+#: ../src/eog-window.c:3929
 msgid "Go to the last image of the gallery"
 msgstr "গেলেৰিৰ সৰ্বশেষ ছবিলৈ যাওক"
 
-#: ../src/eog-window.c:3926
+#: ../src/eog-window.c:3931
 msgid "_Random Image"
 msgstr "যাদৃচ্ছিক ছবি (_R)"
 
-#: ../src/eog-window.c:3927
+#: ../src/eog-window.c:3932
 msgid "Go to a random image of the gallery"
 msgstr "গেলেৰিৰ এটা যাদৃচ্ছিক ছবিলৈ যাওক"
 
-#: ../src/eog-window.c:3941
+#: ../src/eog-window.c:3946
 msgid "S_lideshow"
 msgstr "স্লাইডশ্ব' (_l)"
 
-#: ../src/eog-window.c:3942
+#: ../src/eog-window.c:3947
 msgid "Start a slideshow view of the images"
 msgstr "ছবিসমূহৰ এটা স্লাইডশ্ব' প্ৰদৰ্শন আৰম্ভ কৰক"
 
-#: ../src/eog-window.c:4008
+#: ../src/eog-window.c:4013
 msgid "Previous"
 msgstr "আগলৈ"
 
-#: ../src/eog-window.c:4012
+#: ../src/eog-window.c:4017
 msgid "Next"
 msgstr "পিছলৈ"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:4021
 msgid "Right"
 msgstr "সোঁফালে"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:4024
 msgid "Left"
 msgstr "বাওঁফালে"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:4027
 msgid "Show Folder"
 msgstr "ফোল্ডাৰ দেখুৱাওক"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4030
 msgid "In"
 msgstr "ভিতৰত"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4033
 msgid "Out"
 msgstr "বাহিৰত"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:4036
 msgid "Normal"
 msgstr "স্বাভাবিক"
 
-#: ../src/eog-window.c:4034
+#: ../src/eog-window.c:4039
 msgid "Fit"
 msgstr "সৰ্বোত্তম আকাৰ"
 
-#: ../src/eog-window.c:4037
+#: ../src/eog-window.c:4042
 msgid "Gallery"
 msgstr "গেলেৰি"
 
-#: ../src/eog-window.c:4040
+#: ../src/eog-window.c:4045
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "আৰ্বজনা"
 
-#: ../src/eog-window.c:4408
+#: ../src/eog-window.c:4411
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "বৰ্ত্তমানৰ ছবিক %s ব্যৱহাৰ কৰি সম্পাদন কৰক"
 
-#: ../src/eog-window.c:4410
+#: ../src/eog-window.c:4413
 msgid "Edit Image"
 msgstr "ছবি সম্পাদন কৰক"
 
-#: ../src/main.c:63
-#, fuzzy
+#: ../src/main.c:66
 #| msgid "Eye of GNOME Image Viewer"
 msgid "GNOME Image Viewer"
-msgstr "Eye of GNOME ছবি প্ৰদৰ্শন ব্যৱস্থা"
+msgstr "GNOME ছবি দৰ্শক"
 
-#: ../src/main.c:70
+#: ../src/main.c:73
 msgid "Open in fullscreen mode"
 msgstr "সম্পূৰ্ণ পৰ্দাৰ মোডত খোলক"
 
-#: ../src/main.c:71
+#: ../src/main.c:74
 msgid "Disable image gallery"
 msgstr "ছবিৰ সঙ্কলন অসামৰ্থবান কৰক"
 
-#: ../src/main.c:72
+#: ../src/main.c:75
 msgid "Open in slideshow mode"
 msgstr "স্লাইডশ্ব' অৱস্থাত খোলক"
 
-#: ../src/main.c:73
+#: ../src/main.c:76
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "উপস্থিত চানেকি পুনৰ ব্যৱহাৰ নকৰি এটা নতুন চানেকি নিৰ্মাণ কৰক"
 
-#: ../src/main.c:75
+#: ../src/main.c:77
+msgid "Open in a single window, if multiple windows are open the first one is used"
+msgstr "এটা উইন্ডোত খোলক, যদি কেইবাটাও উইন্ডো খোলা থাকে প্ৰথম উইন্ডো ব্যৱহাৰ কৰা হয়"
+
+#: ../src/main.c:79
 msgid "Show the application's version"
 msgstr "অনুপ্ৰয়োগৰ সংস্কৰণ দেখুৱাওক"
 
-#: ../src/main.c:108
+#: ../src/main.c:111
 msgid "[FILE…]"
 msgstr "[নথিপত্ৰ...]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:121
+#: ../src/main.c:124
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
