@@ -2083,20 +2083,6 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	eog_scroll_view_override_bg_color (EOG_SCROLL_VIEW (window->priv->view),
 			  &(gtk_widget_get_style (GTK_WIDGET (window))->black));
 
-	{
-		GtkStyle *style;
-
-		style = gtk_style_copy (gtk_widget_get_style (gtk_widget_get_parent (priv->view)));
-
-		style->xthickness = 0;
-		style->ythickness = 0;
-
-		gtk_widget_set_style (gtk_widget_get_parent (priv->view),
-				      style);
-
-		g_object_unref (style);
-	}
-
 	gtk_window_fullscreen (GTK_WINDOW (window));
 	eog_window_update_fullscreen_popup (window);
 
