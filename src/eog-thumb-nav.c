@@ -30,6 +30,7 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <math.h>
 #include <string.h>
 
 #define EOG_THUMB_NAV_GET_PRIVATE(object) \
@@ -82,6 +83,23 @@ eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer u
 	case GDK_SCROLL_DOWN:
 	case GDK_SCROLL_RIGHT:
 		break;
+
+	case GDK_SCROLL_SMOOTH:
+	{
+		/* Compatibility code to catch smooth events from mousewheels */
+		gdouble x_delta, y_delta;
+		gboolean set = gdk_event_get_scroll_deltas ((GdkEvent*)event,
+		                                            &x_delta, &y_delta);
+
+		/* Propagate horizontal smooth scroll events further,
+		   as well as non-mousewheel events. */
+		if (G_UNLIKELY (!set) || x_delta != 0.0 || fabs(y_delta) != 1.0)
+			return FALSE;
+
+		/* The y_delta is either +1.0 or -1.0 here */
+		inc *= (gint) y_delta;
+	}
+	break;
 
 	default:
 		g_assert_not_reached ();
@@ -377,6 +395,7 @@ eog_thumb_nav_init (EogThumbNav *nav)
 			  "scroll-event",
 			  G_CALLBACK (eog_thumb_nav_scroll_event),
 			  nav);
+	gtk_widget_add_events (priv->sw, GDK_SCROLL_MASK);
 
 	priv->adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->sw));
 
