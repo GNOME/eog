@@ -50,6 +50,6 @@ DOC_PAGES = \
 	view.page				\
 	zoom.page
 
-DOC_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pl pt_BR ru sl sv th uk zh_CN zh_TW
+DOC_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pl pt_BR ru sl sv te th uk zh_CN zh_TW
 
 -include $(top_srcdir)/git.mk
