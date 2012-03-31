@@ -25,6 +25,8 @@ DOC_PAGES = \
 	copy-paste.page				\
 	default.page				\
 	desktop-background.page			\
+	develop.page				\
+	documentation.page			\
 	edit.page				\
 	flip-rotate.page			\
 	format-change.page			\
@@ -32,6 +34,7 @@ DOC_PAGES = \
 	formats-view.page			\
 	index.page				\
 	introduction.page			\
+	license.page				\
 	open.page				\
 	plugin-exif-digital.page		\
 	plugin-fullscreen-double-click.page	\
@@ -47,6 +50,7 @@ DOC_PAGES = \
 	shortcuts.page				\
 	slideshow.page				\
 	toolbar.page				\
+	translate.page				\
 	view.page				\
 	zoom.page
 
