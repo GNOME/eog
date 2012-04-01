@@ -5,16 +5,16 @@
 # Arafat Medini <lumina@silverpen.de>, 2003, 2004.
 # Abdulaziz Al-Arfaj <alarfaj0@yahoo.com>, 2004.
 # Djihed Afifi <djihed@gmail.com>, 2006.
-# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007, 2008, 2009, 2010, 2011.
+# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
 # Osama Khalid <OsamaK.WFM@gmail.com>, 2008, 2009.
 # Abderrahim Kitouni <a.kitouni@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-18 15:09+0100\n"
-"PO-Revision-Date: 2012-03-18 15:58+0100\n"
-"Last-Translator: Abderrahim Kitouni <a.kitouni@gmail.com>\n"
+"POT-Creation-Date: 2012-04-01 17:07+0200\n"
+"PO-Revision-Date: 2012-04-01 17:06+0200\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Virtaal 0.7.0\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
@@ -34,7 +34,7 @@ msgstr ""
 #: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:992
 #, c-format
 msgid "Show “_%s”"
-msgstr "اعرض “_%s”"
+msgstr "اعرض ”_%s“"
 
 #: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
 msgid "_Move on Toolbar"
@@ -205,12 +205,12 @@ msgstr "احفظ باسم"
 #: ../data/eog-multiple-save-as-dialog.ui.h:3
 #, no-c-format
 msgid "<b>%f:</b> original filename"
-msgstr "‏<b>‪%f‬:</b> اسم الملف الأصلي"
+msgstr "‏<b>‪%f‬‏:</b> اسم الملف الأصلي"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:5
 #, no-c-format
 msgid "<b>%n:</b> counter"
-msgstr "‏<b>‪%n‬:</b> عدّاد"
+msgstr "‏<b>‪%n‬‏:</b> عدّاد"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:6
 msgid "Filename format:"
@@ -278,7 +278,7 @@ msgstr "خلفية"
 
 #: ../data/eog-preferences-dialog.ui.h:7
 msgid "As custom color:"
-msgstr "كلون مخصص"
+msgstr "كلون مخصص:"
 
 #: ../data/eog-preferences-dialog.ui.h:8
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:3
@@ -578,7 +578,7 @@ msgid ""
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
 "plugin."
 msgstr ""
-"قائمة الملحقات النشطة. لا تحتوي على قيمة \"المكان\"  للملحقات النشطة. انظر "
+"قائمة الملحقات النشطة. لا تحتوي على قيمة \"المكان\" للملحقات النشطة. انظر "
 "ملف .eog-plugin لتحصل على \"مكان\" أي ملحق."
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
@@ -630,7 +630,8 @@ msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] "لا صور تحتوي تغييراتٍ غير محفوظة."
-msgstr[1] "هناك صورة واحدة تحتوي تغييراتٍ غير محفوظة. أأحفظ التغييرات قبل الإغلاق؟"
+msgstr[1] ""
+"هناك صورة واحدة تحتوي تغييراتٍ غير محفوظة. أأحفظ التغييرات قبل الإغلاق؟"
 msgstr[2] "هناك صورتين تحتوي تغييراتٍ غير محفوظة. أأحفظ التغييرات قبل الإغلاق؟"
 msgstr[3] "هناك %d صور تحتوي تغييراتٍ غير محفوظة. أأحفظ التغييرات قبل الإغلاق؟"
 msgstr[4] "هناك %d صورة تحتوي تغييراتٍ غير محفوظة. أأحفظ التغييرات قبل الإغلاق؟"
@@ -783,7 +784,7 @@ msgstr "الرجاء اختيار نمط صور مختلف مثل .png أو .jpg
 #: ../src/eog-file-chooser.c:167
 #, c-format
 msgid "%s (*.%s)"
-msgstr "‏%s ‏(*.%s)"
+msgstr "‏%s ‏(‪*.%s‬)"
 
 #: ../src/eog-file-chooser.c:219
 msgid "All files"
@@ -831,7 +832,7 @@ msgstr "فشل التحويل."
 #: ../src/eog-image.c:1105
 #, c-format
 msgid "EXIF not supported for this file format."
-msgstr "إكسيف(EXIF) غير مدعوم لهذا النسق من الملفّات."
+msgstr "إكسيف (EXIF) غير مدعوم لهذا النسق من الملفّات."
 
 #: ../src/eog-image.c:1254
 #, c-format
@@ -1055,7 +1056,7 @@ msgstr "يحفظ الصورة ‏\"%s\" ‏(%Iu‏/%Iu)"
 #: ../src/eog-window.c:1539
 #, c-format
 msgid "Opening image \"%s\""
-msgstr "يفتح الصورة “%s”"
+msgstr "يفتح الصورة ”%s“"
 
 #: ../src/eog-window.c:2202
 #, c-format
@@ -1077,10 +1078,10 @@ msgstr "أ_عد الضبط للمبدئي"
 #: ../src/eog-window.c:2628
 msgid "translator-credits"
 msgstr ""
-"فريق عربآيز للترجمة http://www.arabeyes.org :\n"
-"عرفات المديني\t<lumina@silverpen.de>\n"
-"عبدالعزيز العرفج\t<alarfaj0@yahoo.com>\n"
-"خالد حسني\t<khaledhosny@eglug.org>"
+"فريق عربآيز للترجمة http://www.arabeyes.org:\n"
+"عرفات المديني <lumina@silverpen.de>\n"
+"عبدالعزيز العرفج <alarfaj0@yahoo.com>\n"
+"خالد حسني <khaledhosny@eglug.org>"
 
 #: ../src/eog-window.c:2636
 msgid "The GNOME image viewer."
@@ -1088,7 +1089,7 @@ msgstr "عارِض صور جنوم."
 
 #: ../src/eog-window.c:2728 ../src/eog-window.c:2743
 msgid "Error launching System Settings: "
-msgstr "حدث عطل أثناء بدء تفضيلات النظام:"
+msgstr "حدث عطل أثناء بدء تفضيلات النظام: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
@@ -1116,7 +1117,9 @@ msgstr "يحفظ الصورة محليا…"
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
-msgstr "أتريد فعلًا نقل الصورة \"%s\" إلى المهملات؟"
+msgstr ""
+"أتريد فعلًا نقل الصورة \"%s\"\n"
+"إلى المهملات؟"
 
 #: ../src/eog-window.c:3345
 #, c-format
@@ -1133,12 +1136,24 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
-msgstr[0] "هل تريد فعلًا نقل الصورة المحدّدة إلى المهملات؟"
-msgstr[1] "هل تريد فعلًا نقل الصورة المحدّدة إلى المهملات؟"
-msgstr[2] "هل تريد فعلًا نقل الصورتان المحدّدتان إلى المهملات؟"
-msgstr[3] "هل تريد فعلًا نقل %i صور محددة إلى المهملات؟"
-msgstr[4] "هل تريد فعلًا نقل %i صورة محددة إلى المهملات؟"
-msgstr[5] "هل تريد فعلًا نقل %i صور محددة إلى المهملات؟"
+msgstr[0] ""
+"هل تريد فعلًا نقل الصورة المحدّدة\n"
+"إلى المهملات؟"
+msgstr[1] ""
+"هل تريد فعلًا نقل الصورة المحدّدة\n"
+"إلى المهملات؟"
+msgstr[2] ""
+"هل تريد فعلًا نقل الصورتان\n"
+"المحدّدتان إلى المهملات؟"
+msgstr[3] ""
+"هل تريد فعلًا نقل %d صور\n"
+"محددة إلى المهملات؟"
+msgstr[4] ""
+"هل تريد فعلًا نقل %d صورة\n"
+"محددة إلى المهملات؟"
+msgstr[5] ""
+"هل تريد فعلًا نقل %d صور\n"
+"محددة إلى المهملات؟"
 
 #: ../src/eog-window.c:3355
 msgid ""
@@ -1150,7 +1165,7 @@ msgstr ""
 
 #: ../src/eog-window.c:3372 ../src/eog-window.c:3863 ../src/eog-window.c:3887
 msgid "Move to _Trash"
-msgstr "انقل إلى  ال_مهملات"
+msgstr "انقل إلى ال_مهملات"
 
 #: ../src/eog-window.c:3374
 msgid "_Do not ask again during this session"
