@@ -174,6 +174,10 @@ static void view_on_drag_data_get_cb (GtkWidget *widget,
 				      GtkSelectionData *data, guint info,
 				      guint time, gpointer user_data);
 static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
+static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
+                                                  gint *y, gint *width,
+                                                  gint *height);
+
 
 #define EOG_SCROLL_VIEW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SCROLL_VIEW, EogScrollViewPrivate))
@@ -1791,21 +1795,8 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	if (priv->pixbuf == NULL)
 		return TRUE;
 
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
-
-	/* Compute image offsets with respect to the window */
-
-	if (scaled_width <= allocation.width)
-		xofs = (allocation.width - scaled_width) / 2;
-	else
-		xofs = -priv->xofs;
-
-	if (scaled_height <= allocation.height)
-		yofs = (allocation.height - scaled_height) / 2;
-	else
-		yofs = -priv->yofs;
+	eog_scroll_view_get_image_coords (view, &xofs, &yofs,
+	                                  &scaled_width, &scaled_height);
 
 	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n",
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
@@ -3101,4 +3092,89 @@ eog_scroll_view_get_zoom_mode (EogScrollView *view)
 			      EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
 	return view->priv->zoom_mode;
+}
+
+static gboolean
+eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
+                                  gint *width, gint *height)
+{
+	EogScrollViewPrivate *priv = view->priv;
+	GtkAllocation allocation;
+	gint scaled_width, scaled_height, xofs, yofs;
+
+	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+
+	if (G_LIKELY (width))
+		*width = scaled_width;
+	if (G_LIKELY (height))
+		*height = scaled_height;
+
+	/* If only width and height are needed stop here. */
+	if (x == NULL && y == NULL)
+		return TRUE;
+
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
+
+	/* Compute image offsets with respect to the window */
+
+	if (scaled_width <= allocation.width)
+		xofs = (allocation.width - scaled_width) / 2;
+	else
+		xofs = -priv->xofs;
+
+	if (scaled_height <= allocation.height)
+		yofs = (allocation.height - scaled_height) / 2;
+	else
+		yofs = -priv->yofs;
+
+	if (G_LIKELY (x))
+		*x = xofs;
+	if (G_LIKELY (y))
+		*y = yofs;
+
+	return TRUE;
+}
+
+/**
+ * eog_scroll_view_event_is_over_image:
+ * @view: An #EogScrollView that has an image loaded.
+ * @ev: A #GdkEvent which must have window-relative coordinates.
+ *
+ * Tells if @ev's originates from inside the image area. @view must be
+ * realized and have an image set for this to work.
+ *
+ * It only works with #GdkEvent<!-- -->s that supply coordinate data,
+ * i.e. #GdkEventButton.
+ *
+ * Returns: %TRUE if @ev originates from over the image, %FALSE otherwise.
+ */
+gboolean
+eog_scroll_view_event_is_over_image (EogScrollView *view, const GdkEvent *ev)
+{
+	EogScrollViewPrivate *priv;
+	GdkWindow *window;
+	gdouble evx, evy;
+	gint x, y, width, height;
+
+	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
+	g_return_val_if_fail (gtk_widget_get_realized(GTK_WIDGET(view)), FALSE);
+	g_return_val_if_fail (ev != NULL, FALSE);
+
+	priv = view->priv;
+	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
+
+	if (G_UNLIKELY (priv->pixbuf == NULL 
+	    || window != ((GdkEventAny*) ev)->window))
+		return FALSE;
+
+	if (G_UNLIKELY (!gdk_event_get_coords (ev, &evx, &evy)))
+		return FALSE;
+
+	if (!eog_scroll_view_get_image_coords (view, &x, &y, &width, &height))
+		return FALSE;
+
+	if (evx < x || evy < y || evx > (x + width) || evy > (y + height))
+		return FALSE;
+
+	return TRUE;
 }

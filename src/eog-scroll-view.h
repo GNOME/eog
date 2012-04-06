@@ -94,6 +94,9 @@ gboolean eog_scroll_view_get_zoom_is_max  (EogScrollView *view);
 void     eog_scroll_view_show_cursor      (EogScrollView *view);
 void     eog_scroll_view_hide_cursor      (EogScrollView *view);
 
+gboolean eog_scroll_view_event_is_over_image	(EogScrollView *view,
+						 const GdkEvent *ev);
+
 G_END_DECLS
 
 #endif /* _EOG_SCROLL_VIEW_H_ */
