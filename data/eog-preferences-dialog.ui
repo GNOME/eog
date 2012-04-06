@@ -461,17 +461,17 @@
                             <property name="can_focus">False</property>
                             <property name="spacing">6</property>
                             <child>
-                              <object class="GtkHBox" id="seconds_hbox">
+                              <object class="GtkBox" id="seconds_box">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="spacing">6</property>
+                                <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkLabel" id="label36">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes" context="PrefDlgSlideSwitchPrefix" comments="I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.">_Switch image after:</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes" comments="I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.">_Time between images:</property>
                                     <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">seconds_spin</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -480,14 +480,21 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="seconds_spin">
+                                  <object class="GtkAlignment" id="alignment6">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">•</property>
-                                    <property name="invisible_char_set">True</property>
-                                    <property name="adjustment">adjustment1</property>
-                                    <property name="climb_rate">1</property>
-                                    <property name="numeric">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="left_padding">16</property>
+                                    <child>
+                                      <object class="GtkScale" id="seconds_scale">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="adjustment">adjustment1</property>
+                                        <property name="show_fill_level">True</property>
+                                        <property name="fill_level">100</property>
+                                        <property name="round_digits">0</property>
+                                        <property name="digits">0</property>
+                                      </object>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -495,22 +502,10 @@
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
-                                <child>
-                                  <object class="GtkLabel" id="label18">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes" context="PrefDlgSlideSwitchPostfix" comments="I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.">seconds</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>

@@ -106,6 +106,15 @@ pd_transp_radio_toggle_cb (GtkWidget *widget, gpointer data)
 			     GPOINTER_TO_INT (value));
 }
 
+static gchar*
+pd_seconds_scale_format_value_cb (GtkScale *scale, gdouble value, gpointer ptr)
+{
+	gulong int_val = (gulong) value;
+
+	return g_strdup_printf (ngettext("%lu second", "%lu seconds", int_val),
+	                        int_val);
+}
+
 static void
 eog_preferences_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
@@ -138,9 +147,10 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *color_button;
 	GtkWidget *upscale_check;
 	GtkWidget *loop_check;
-	GtkWidget *seconds_spin;
+	GtkWidget *seconds_scale;
 	GtkWidget *plugin_manager;
 	GtkWidget *plugin_manager_container;
+	GtkAdjustment *scale_adjustment;
 	GObject *object;
 
 	object = G_OBJECT_CLASS (eog_preferences_dialog_parent_class)->constructor
@@ -168,7 +178,7 @@ eog_preferences_dialog_constructor (GType type,
 			         "color_button", &color_button,
 			         "upscale_check", &upscale_check,
 			         "loop_check", &loop_check,
-			         "seconds_spin", &seconds_spin,
+			         "seconds_scale", &seconds_scale,
 			         "plugin_manager_container", &plugin_manager_container,
 			         NULL);
 
@@ -221,6 +231,10 @@ eog_preferences_dialog_constructor (GType type,
 			  G_CALLBACK (pd_transp_radio_toggle_cb),
 			  priv->view_settings);
 
+	g_signal_connect (G_OBJECT (seconds_scale), "format-value",
+			  G_CALLBACK (pd_seconds_scale_format_value_cb),
+			  NULL);
+
 	switch (g_settings_get_enum (priv->view_settings,
 				     EOG_CONF_VIEW_TRANSPARENCY))
 	{
@@ -252,8 +266,10 @@ eog_preferences_dialog_constructor (GType type,
 	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_LOOP,
 			 loop_check, "active", G_SETTINGS_BIND_DEFAULT);
 
+	scale_adjustment = gtk_range_get_adjustment (GTK_RANGE (seconds_scale));
+
 	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_SECONDS,
-			 seconds_spin, "value", G_SETTINGS_BIND_DEFAULT);
+			 scale_adjustment, "value", G_SETTINGS_BIND_DEFAULT);
 
         plugin_manager = peas_gtk_plugin_manager_new (NULL);
 
