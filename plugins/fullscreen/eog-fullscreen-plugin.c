@@ -27,10 +27,16 @@ enum {
 };
 
 static gboolean
-on_button_press (GtkWidget *button, GdkEventButton *event, EogWindow *window)
+on_button_press (GtkWidget *widget, GdkEventButton *event, EogWindow *window)
 {
+	EogScrollView *view = EOG_SCROLL_VIEW (widget);
+
 	if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
 		EogWindowMode mode = eog_window_get_mode (window);
+		GdkEvent *ev = (GdkEvent*) event;
+
+		if(!eog_scroll_view_event_is_over_image (view, ev))
+			return FALSE;
 
 		if (mode == EOG_WINDOW_MODE_SLIDESHOW ||
 		    mode == EOG_WINDOW_MODE_FULLSCREEN)
