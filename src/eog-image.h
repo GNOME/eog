@@ -210,8 +210,12 @@ gboolean          eog_image_start_animation          (EogImage *img);
 #ifdef HAVE_RSVG
 gboolean          eog_image_is_svg                   (EogImage *img);
 RsvgHandle       *eog_image_get_svg                  (EogImage *img);
-EogTransform     *eog_image_get_transform            (EogImage *img);
 #endif
+
+EogTransform     *eog_image_get_transform            (EogImage *img);
+EogTransform     *eog_image_get_autorotate_transform (EogImage *img);
+
+gboolean          eog_image_is_jpeg                  (EogImage *img);
 
 void              eog_image_file_changed             (EogImage *img);
 

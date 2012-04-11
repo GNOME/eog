@@ -2510,6 +2510,8 @@ eog_image_get_svg (EogImage *img)
 
 	return img->priv->svg;
 }
+#endif
+
 
 EogTransform *
 eog_image_get_transform (EogImage *img)
@@ -2519,7 +2521,13 @@ eog_image_get_transform (EogImage *img)
 	return img->priv->trans;
 }
 
-#endif
+EogTransform*
+eog_image_get_autorotate_transform (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	return img->priv->trans_autorotate;
+}
 
 /**
  * eog_image_file_changed:
@@ -2564,4 +2572,12 @@ eog_image_is_file_writable (EogImage *img)
 	is_writable = check_if_file_is_writable (img->priv->file);
 
 	return is_writable;
+}
+
+gboolean
+eog_image_is_jpeg (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	return ((img->priv->file_type != NULL) && (g_ascii_strcasecmp (img->priv->file_type, EOG_FILE_FORMAT_JPEG) == 0));
 }
