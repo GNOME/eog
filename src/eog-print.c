@@ -317,6 +317,7 @@ eog_print_operation_new (EogImage *image,
 {
 	GtkPrintOperation *print;
 	EogPrintData *data;
+	gint width, height;
 
 	eog_debug (DEBUG_PRINTING);
 
@@ -329,6 +330,19 @@ eog_print_operation_new (EogImage *image,
 	data->scale_factor = 100;
 	data->image = g_object_ref (image);
 	data->unit = GTK_UNIT_INCH;
+
+	eog_image_get_size (image, &width, &height);
+
+	if (page_setup == NULL)
+		page_setup = gtk_page_setup_new ();
+
+	if (height >= width) {
+		gtk_page_setup_set_orientation (page_setup,
+						GTK_PAGE_ORIENTATION_PORTRAIT);
+	} else {
+		gtk_page_setup_set_orientation (page_setup,
+						GTK_PAGE_ORIENTATION_LANDSCAPE);
+	}
 
 	gtk_print_operation_set_print_settings (print, print_settings);
 	gtk_print_operation_set_default_page_setup (print,
