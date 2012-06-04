@@ -5700,3 +5700,11 @@ eog_window_reload_image (EogWindow *window)
 	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_CURRENT);
 }
+
+gboolean
+eog_window_was_initialized (const EogWindow *window)
+{
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+
+	return window->priv->status == EOG_WINDOW_STATUS_NORMAL;
+}
