@@ -124,6 +124,7 @@ void          eog_window_open_file_list	(EogWindow       *window,
 					 GSList          *file_list);
 
 gboolean      eog_window_is_empty 	(EogWindow       *window);
+gboolean      eog_window_was_initialized (const EogWindow *window);
 
 void          eog_window_reload_image (EogWindow *window);
 EogDialog    *eog_window_get_properties_dialog (EogWindow *window);
