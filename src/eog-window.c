@@ -5702,9 +5702,9 @@ eog_window_reload_image (EogWindow *window)
 }
 
 gboolean
-eog_window_was_initialized (const EogWindow *window)
+eog_window_is_not_initializing (const EogWindow *window)
 {
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
-	return window->priv->status == EOG_WINDOW_STATUS_NORMAL;
+	return window->priv->status != EOG_WINDOW_STATUS_INIT;
 }
