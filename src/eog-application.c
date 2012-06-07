@@ -217,7 +217,8 @@ eog_application_get_empty_window (EogApplication *application)
 		EogWindow *window = EOG_WINDOW (l->data);
 
 		/* Make sure the window is empty and not initializing */
-		if (eog_window_is_empty (window) && eog_window_was_initialized (window)) {
+		if (eog_window_is_empty (window) &&
+		    eog_window_is_not_initializing (window)) {
 			empty_window = window;
 			break;
 		}
