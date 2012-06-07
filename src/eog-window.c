@@ -2442,36 +2442,17 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 static void
 eog_window_cmd_close_window (GtkAction *action, gpointer user_data)
 {
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	if (priv->save_job != NULL) {
-		eog_window_finish_saving (window);
-	}
-
-	if (!eog_window_unsaved_images_confirm (window)) {
-		gtk_widget_destroy (GTK_WIDGET (user_data));
-	}
+	eog_window_close (EOG_WINDOW (user_data));
 }
 
 static void
 eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 {
-	EogWindow *window;
-	GObject *pref_dlg;
-
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	window = EOG_WINDOW (user_data);
-
-	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window));
-
-	eog_dialog_show (EOG_DIALOG (pref_dlg));
+	eog_window_show_preferences_dialog (EOG_WINDOW (user_data));
 }
 
 #define EOG_TB_EDITOR_DLG_RESET_RESPONSE 128
@@ -2605,54 +2586,10 @@ eog_window_cmd_help (GtkAction *action, gpointer user_data)
 static void
 eog_window_cmd_about (GtkAction *action, gpointer user_data)
 {
-	EogWindow *window;
-
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	static const char *authors[] = {
-		"Claudio Saavedra <csaavedra@igalia.com> (maintainer)",
-		"Felix Riemann <friemann@gnome.org> (maintainer)",
-		"",
-		"Lucas Rocha <lucasr@gnome.org>",
-		"Tim Gerla <tim+gnomebugs@gerla.net>",
-		"Philip Van Hoof <pvanhoof@gnome.org>",
-                "Paolo Borelli <pborelli@katamail.com>",
-		"Jens Finke <jens@triq.net>",
-		"Martin Baulig <martin@home-of-linux.org>",
-		"Arik Devens <arik@gnome.org>",
-		"Michael Meeks <mmeeks@gnu.org>",
-		"Federico Mena-Quintero <federico@gnu.org>",
-		"Lutz M\xc3\xbcller <urc8@rz.uni-karlsruhe.de>",
-		NULL
-	};
+	eog_window_show_about_dialog (EOG_WINDOW (user_data));
 
-	static const char *documenters[] = {
-		"Eliot Landrum <eliot@landrum.cx>",
-		"Federico Mena-Quintero <federico@gnu.org>",
-		"Sun GNOME Documentation Team <gdocteam@sun.com>",
-		"Tiffany Antopolski <tiffany@antopolski.com>",
-		NULL
-	};
-
-	const char *translators;
-
-	translators = _("translator-credits");
-
-	window = EOG_WINDOW (user_data);
-
-	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "program-name", _("Image Viewer"),
-			       "version", VERSION,
-			       "copyright", "Copyright \xc2\xa9 2000-2010 Free Software Foundation, Inc.",
-			       "comments",_("The GNOME image viewer."),
-			       "authors", authors,
-			       "documenters", documenters,
-			       "translator-credits", translators,
-			       "website", "http://projects.gnome.org/eog/",
-			       "logo-icon-name", "eog",
-			       "wrap-license", TRUE,
-			       "license-type", GTK_LICENSE_GPL_2_0,
-			       NULL);
 }
 
 static void
@@ -5736,4 +5673,79 @@ eog_window_is_not_initializing (const EogWindow *window)
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
 	return window->priv->status != EOG_WINDOW_STATUS_INIT;
+}
+
+void
+eog_window_show_about_dialog (EogWindow *window)
+{
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	static const char *authors[] = {
+		"Claudio Saavedra <csaavedra@igalia.com> (maintainer)",
+		"Felix Riemann <friemann@gnome.org> (maintainer)",
+		"",
+		"Lucas Rocha <lucasr@gnome.org>",
+		"Tim Gerla <tim+gnomebugs@gerla.net>",
+		"Philip Van Hoof <pvanhoof@gnome.org>",
+                "Paolo Borelli <pborelli@katamail.com>",
+		"Jens Finke <jens@triq.net>",
+		"Martin Baulig <martin@home-of-linux.org>",
+		"Arik Devens <arik@gnome.org>",
+		"Michael Meeks <mmeeks@gnu.org>",
+		"Federico Mena-Quintero <federico@gnu.org>",
+		"Lutz M\xc3\xbcller <urc8@rz.uni-karlsruhe.de>",
+		NULL
+	};
+
+	static const char *documenters[] = {
+		"Eliot Landrum <eliot@landrum.cx>",
+		"Federico Mena-Quintero <federico@gnu.org>",
+		"Sun GNOME Documentation Team <gdocteam@sun.com>",
+		"Tiffany Antopolski <tiffany@antopolski.com>",
+		NULL
+	};
+
+	gtk_show_about_dialog (GTK_WINDOW (window),
+			       "program-name", _("Image Viewer"),
+			       "version", VERSION,
+			       "copyright", "Copyright \xc2\xa9 2000-2010 Free Software Foundation, Inc.",
+			       "comments",_("The GNOME image viewer."),
+			       "authors", authors,
+			       "documenters", documenters,
+			       "translator-credits", _("translator-credits"),
+			       "website", "http://projects.gnome.org/eog/",
+			       "logo-icon-name", "eog",
+			       "wrap-license", TRUE,
+			       "license-type", GTK_LICENSE_GPL_2_0,
+			       NULL);
+}
+
+void
+eog_window_show_preferences_dialog (EogWindow *window)
+{
+	GObject *pref_dlg;
+
+	g_return_if_fail (window != NULL);
+
+	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window));
+
+	eog_dialog_show (EOG_DIALOG (pref_dlg));
+}
+
+void
+eog_window_close (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	if (priv->save_job != NULL) {
+		eog_window_finish_saving (window);
+	}
+
+	if (!eog_window_unsaved_images_confirm (window)) {
+		gtk_widget_destroy (GTK_WIDGET (window));
+	}
 }

@@ -23,6 +23,7 @@ uidir = $(pkgdatadir)
 ui_DATA = eog-image-properties-dialog.ui \
 	eog-multiple-save-as-dialog.ui \
 	eog-preferences-dialog.ui \
+	eog-app-menu.xml \
 	eog-ui.xml \
 	eog-toolbar.xml
 

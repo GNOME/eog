@@ -128,6 +128,12 @@ gboolean      eog_window_is_not_initializing (const EogWindow *window);
 
 void          eog_window_reload_image (EogWindow *window);
 EogDialog    *eog_window_get_properties_dialog (EogWindow *window);
+
+void          eog_window_show_about_dialog (EogWindow    *window);
+void          eog_window_show_preferences_dialog (EogWindow *window);
+
+void          eog_window_close          (EogWindow *window);
+
 G_END_DECLS
 
 #endif

@@ -58,6 +58,8 @@ struct _EogApplication {
 
 	TotemScrsaver    *scr_saver;
 	EogStartupFlags   flags;
+
+	GSettings        *ui_settings;
 };
 
 struct _EogApplicationClass {

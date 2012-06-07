@@ -26,6 +26,7 @@
 #include "config.h"
 #endif
 
+#include "eog-config-keys.h"
 #include "eog-image.h"
 #include "eog-session.h"
 #include "eog-window.h"
@@ -50,6 +51,183 @@ static void eog_application_save_accelerators (void);
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
 
 G_DEFINE_TYPE (EogApplication, eog_application, GTK_TYPE_APPLICATION);
+
+static EogWindow*
+get_focus_window (GtkApplication *application)
+{
+	GList *windows;
+	GtkWindow *window = NULL;
+
+	/* the windows are ordered with the last focused first */
+	windows = gtk_application_get_windows (application);
+
+	if (windows != NULL) {
+		window = g_list_nth_data (windows, 0);
+	}
+
+	return EOG_WINDOW (window);
+}
+
+static void
+action_about (GSimpleAction *action,
+	      GVariant      *parameter,
+	      gpointer       user_data)
+{
+	GtkApplication *application = GTK_APPLICATION (user_data);
+
+	eog_window_show_about_dialog (get_focus_window (application));
+}
+
+static void
+action_help (GSimpleAction *action,
+	     GVariant      *parameter,
+	     gpointer       user_data)
+{
+	GtkApplication *application = GTK_APPLICATION (user_data);
+
+	eog_util_show_help ("preferences",
+	                    GTK_WINDOW (get_focus_window (application)));
+}
+
+static void
+action_preferences (GSimpleAction *action,
+	            GVariant      *parameter,
+	            gpointer       user_data)
+{
+	GtkApplication *application = GTK_APPLICATION (user_data);
+
+	eog_window_show_preferences_dialog (get_focus_window (application));
+}
+
+static void
+action_toggle_state (GSimpleAction *action,
+                     GVariant *parameter,
+                     gpointer user_data)
+{
+	GVariant *state;
+	gboolean new_state;
+
+	state = g_action_get_state (G_ACTION (action));
+	new_state = !g_variant_get_boolean (state);
+	g_action_change_state (G_ACTION (action),
+	                       g_variant_new_boolean (new_state));
+	g_variant_unref (state);
+}
+
+static void
+action_quit (GSimpleAction *action,
+             GVariant      *parameter,
+             gpointer       user_data)
+{
+	GList *windows;
+
+	windows = gtk_application_get_windows (GTK_APPLICATION (user_data));
+
+	g_list_foreach (windows, (GFunc) eog_window_close, NULL);
+}
+
+static GActionEntry app_entries[] = {
+	{ "toolbar", action_toggle_state, NULL, "true", NULL },
+	{ "view-statusbar", action_toggle_state, NULL, "true", NULL },
+	{ "view-gallery", action_toggle_state, NULL, "true",  NULL },
+	{ "view-sidebar", action_toggle_state, NULL, "true",  NULL },
+	{ "preferences", action_preferences, NULL, NULL, NULL },
+	{ "about", action_about, NULL, NULL, NULL },
+	{ "help", action_help, NULL, NULL, NULL },
+	{ "quit", action_quit, NULL, NULL, NULL },
+};
+
+static gboolean
+_settings_map_get_bool_variant (GValue   *value,
+                               GVariant *variant,
+                               gpointer  user_data)
+{
+	g_return_val_if_fail (g_variant_is_of_type (variant,
+	                                            G_VARIANT_TYPE_BOOLEAN),
+	                      FALSE);
+
+	g_value_set_variant (value, variant);
+
+	return TRUE;
+}
+
+static GVariant*
+_settings_map_set_variant (const GValue       *value,
+                           const GVariantType *expected_type,
+                           gpointer            user_data)
+{
+	g_return_val_if_fail (g_variant_is_of_type (g_value_get_variant (value), expected_type), NULL);
+
+	return g_value_dup_variant (value);
+}
+
+static void
+eog_application_init_app_menu (EogApplication *application)
+{
+	GtkBuilder *builder;
+	GError *error = NULL;
+	GAction *action;
+
+	g_action_map_add_action_entries (G_ACTION_MAP (application),
+					 app_entries, G_N_ELEMENTS (app_entries),
+					 application);
+
+	builder = gtk_builder_new ();
+	gtk_builder_add_from_file (builder, EOG_DATA_DIR"/eog-app-menu.xml", &error);
+
+	if (error == NULL) {
+		gtk_application_set_app_menu (GTK_APPLICATION (application),
+					      G_MENU_MODEL (gtk_builder_get_object (builder,
+		                                                                    "app-menu")));
+	} else {
+		g_critical ("Unable to add the application menu: %s\n", error->message);
+		g_error_free (error);
+	}
+
+	action = g_action_map_lookup_action (G_ACTION_MAP (application),
+	                                     "view-gallery");
+	g_settings_bind_with_mapping (application->ui_settings,
+	                              EOG_CONF_UI_IMAGE_GALLERY, action,
+	                              "state", G_SETTINGS_BIND_DEFAULT,
+	                              _settings_map_get_bool_variant,
+	                              _settings_map_set_variant,
+	                              NULL, NULL);
+
+	action = g_action_map_lookup_action (G_ACTION_MAP (application),
+	                                     "toolbar");
+	g_settings_bind_with_mapping (application->ui_settings,
+	                              EOG_CONF_UI_TOOLBAR, action, "state",
+                                      G_SETTINGS_BIND_DEFAULT,
+	                              _settings_map_get_bool_variant,
+	                              _settings_map_set_variant,
+	                              NULL, NULL);
+	action = g_action_map_lookup_action (G_ACTION_MAP (application),
+	                                     "view-sidebar");
+	g_settings_bind_with_mapping (application->ui_settings,
+	                              EOG_CONF_UI_SIDEBAR, action, "state",
+                                      G_SETTINGS_BIND_DEFAULT,
+	                              _settings_map_get_bool_variant,
+	                              _settings_map_set_variant,
+	                              NULL, NULL);
+	action = g_action_map_lookup_action (G_ACTION_MAP (application),
+	                                     "view-statusbar");
+	g_settings_bind_with_mapping (application->ui_settings,
+	                              EOG_CONF_UI_STATUSBAR, action, "state",
+                                      G_SETTINGS_BIND_DEFAULT,
+	                              _settings_map_get_bool_variant,
+	                              _settings_map_set_variant,
+	                              NULL, NULL);
+
+	g_object_unref (builder);
+}
+
+static void
+eog_application_startup (GApplication *application)
+{
+	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
+
+	eog_application_init_app_menu (EOG_APPLICATION (application));
+}
 
 static void
 eog_application_activate (GApplication *application)
@@ -92,6 +270,9 @@ eog_application_finalize (GObject *object)
 		g_object_unref (application->plugin_engine);
 		application->plugin_engine = NULL;
 	}
+
+	g_clear_object (&application->ui_settings);
+
 	eog_application_save_accelerators ();
 }
 
@@ -142,6 +323,7 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 
 	object_class->finalize = eog_application_finalize;
 
+	application_class->startup = eog_application_startup;
 	application_class->activate = eog_application_activate;
 	application_class->open = eog_application_open;
 	application_class->add_platform_data = eog_application_add_platform_data;
@@ -158,6 +340,8 @@ eog_application_init (EogApplication *eog_application)
 	eog_application->toolbars_model = egg_toolbars_model_new ();
 	eog_application->plugin_engine = eog_plugin_engine_new ();
 	eog_application->flags = 0;
+
+	eog_application->ui_settings = g_settings_new (EOG_CONF_UI);
 
 	egg_toolbars_model_load_names (eog_application->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
