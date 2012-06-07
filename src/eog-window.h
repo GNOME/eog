@@ -84,13 +84,13 @@ typedef enum {
 } EogStartupFlags;
 
 struct _EogWindow {
-	GtkWindow win;
+	GtkApplicationWindow win;
 
 	EogWindowPrivate *priv;
 };
 
 struct _EogWindowClass {
-	GtkWindowClass parent_class;
+	GtkApplicationWindowClass parent_class;
 
 	void (* prepared) (EogWindow *window);
 };

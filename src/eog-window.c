@@ -85,7 +85,7 @@
 #define EOG_WINDOW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_WINDOW, EogWindowPrivate))
 
-G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
+G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define EOG_WINDOW_MIN_WIDTH  440
 #define EOG_WINDOW_MIN_HEIGHT 350
@@ -5349,6 +5349,8 @@ eog_window_new (EogStartupFlags flags)
 
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW,
 					   "type", GTK_WINDOW_TOPLEVEL,
+	                                   "application", EOG_APP,
+	                                   "show-menubar", FALSE,
 					   "startup-flags", flags,
 					   NULL));
 
