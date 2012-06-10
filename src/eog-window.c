@@ -1333,6 +1333,17 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
 		gtk_action_group_set_sensitive (priv->actions_image, TRUE);
 
+		/* Make sure the window is really realized
+		 *  before displaying the image. The ScrollView needs that.  */
+        	if (!gtk_widget_get_realized (GTK_WIDGET (window))) {
+			gint width = -1, height = -1;
+
+			eog_image_get_size (job->image, &width, &height);
+			eog_window_obtain_desired_size (job->image, width,
+			                                height, window);
+
+		}
+
 		eog_window_display_image (window, job->image);
 	} else {
 		GtkWidget *message_area;
