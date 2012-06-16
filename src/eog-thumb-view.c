@@ -38,18 +38,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+enum {
+  PROP_0,
+  PROP_ORIENTATION
+};
+
 #define EOG_THUMB_VIEW_SPACING 0
 
 #define EOG_THUMB_VIEW_GET_PRIVATE(object)				\
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_THUMB_VIEW, EogThumbViewPrivate))
 
-G_DEFINE_TYPE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW);
+static void eog_thumb_view_init (EogThumbView *thumbview);
 
 static EogImage* eog_thumb_view_get_image_from_path (EogThumbView      *thumbview,
 						     GtkTreePath       *path);
 
 static void      eog_thumb_view_popup_menu          (EogThumbView      *widget,
 						     GdkEventButton    *event);
+
+G_DEFINE_TYPE_WITH_CODE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW,
+			G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL));
+
 static gboolean
 thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 			       gint        x,
@@ -75,6 +84,8 @@ struct _EogThumbViewPrivate {
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
 	GtkCellRenderer *pixbuf_cell;
 	gint visible_range_changed_id;
+
+	GtkOrientation orientation;
 };
 
 /* Drag 'n Drop */
@@ -157,12 +168,56 @@ eog_thumb_view_dispose (GObject *object)
 }
 
 static void
+eog_thumb_view_get_property (GObject    *object,
+			     guint       prop_id,
+			     GValue     *value,
+			     GParamSpec *pspec)
+{
+	EogThumbView *view = EOG_THUMB_VIEW (object);
+
+	switch (prop_id)
+	{
+	case PROP_ORIENTATION:
+		g_value_set_enum (value, view->priv->orientation);
+		break;
+
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+eog_thumb_view_set_property (GObject      *object,
+			     guint         prop_id,
+			     const GValue *value,
+			     GParamSpec   *pspec)
+{
+	EogThumbView *view = EOG_THUMB_VIEW (object);
+
+	switch (prop_id)
+	{
+	case PROP_ORIENTATION:
+		view->priv->orientation = g_value_get_enum (value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
 eog_thumb_view_class_init (EogThumbViewClass *class)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (class);
 
 	gobject_class->constructed = eog_thumb_view_constructed;
 	gobject_class->dispose = eog_thumb_view_dispose;
+	gobject_class->get_property = eog_thumb_view_get_property;
+	gobject_class->set_property = eog_thumb_view_set_property;
+
+	g_object_class_override_property (gobject_class, PROP_ORIENTATION,
+	                                  "orientation");
 
 	g_type_class_add_private (class, sizeof (EogThumbViewPrivate));
 }
