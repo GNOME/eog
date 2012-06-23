@@ -549,8 +549,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 	switch (mode)
 	{
 	case EOG_THUMB_NAV_MODE_ONE_ROW:
-		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview),
-					   G_MAXINT);
+		gtk_orientable_set_orientation (GTK_ORIENTABLE(priv->thumbview),
+		                                GTK_ORIENTATION_HORIZONTAL);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, -1);
 		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
@@ -565,6 +565,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		break;
 
 	case EOG_THUMB_NAV_MODE_ONE_COLUMN:
+		gtk_orientable_set_orientation (GTK_ORIENTABLE(priv->thumbview),
+		                                GTK_ORIENTATION_VERTICAL);
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 1);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, -1);
@@ -581,6 +583,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		break;
 
 	case EOG_THUMB_NAV_MODE_MULTIPLE_ROWS:
+		gtk_orientable_set_orientation (GTK_ORIENTABLE(priv->thumbview),
+		                                GTK_ORIENTATION_VERTICAL);
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, 220);
@@ -597,6 +601,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		break;
 
 	case EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS:
+		gtk_orientable_set_orientation (GTK_ORIENTABLE(priv->thumbview),
+		                                GTK_ORIENTATION_VERTICAL);
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, 230, -1);

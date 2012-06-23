@@ -55,6 +55,7 @@ static EogImage* eog_thumb_view_get_image_from_path (EogThumbView      *thumbvie
 
 static void      eog_thumb_view_popup_menu          (EogThumbView      *widget,
 						     GdkEventButton    *event);
+static void      eog_thumb_view_update_columns      (EogThumbView *view);
 
 G_DEFINE_TYPE_WITH_CODE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW,
 			G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL));
@@ -86,6 +87,9 @@ struct _EogThumbViewPrivate {
 	gint visible_range_changed_id;
 
 	GtkOrientation orientation;
+	gint n_images;
+	gulong image_add_id;
+	gulong image_removed_id;
 };
 
 /* Drag 'n Drop */
@@ -158,10 +162,23 @@ static void
 eog_thumb_view_dispose (GObject *object)
 {
 	EogThumbViewPrivate *priv = EOG_THUMB_VIEW (object)->priv;
+	GtkTreeModel *model;
 
 	if (priv->visible_range_changed_id != 0) {
 		g_source_remove (priv->visible_range_changed_id);
 		priv->visible_range_changed_id = 0;
+	}
+
+	model = gtk_icon_view_get_model (GTK_ICON_VIEW (object));
+
+	if (model && priv->image_add_id != 0) {
+		g_signal_handler_disconnect (model, priv->image_add_id);
+		priv->image_add_id = 0;
+	}
+
+	if (model && priv->image_removed_id) {
+		g_signal_handler_disconnect (model, priv->image_removed_id);
+		priv->image_removed_id = 0;
 	}
 
 	G_OBJECT_CLASS (eog_thumb_view_parent_class)->dispose (object);
@@ -199,6 +216,7 @@ eog_thumb_view_set_property (GObject      *object,
 	{
 	case PROP_ORIENTATION:
 		view->priv->orientation = g_value_get_enum (value);
+		eog_thumb_view_update_columns (view);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -622,6 +640,9 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumbview);
 
 	thumbview->priv->visible_range_changed_id = 0;
+	thumbview->priv->image_add_id = 0;
+	thumbview->priv->image_removed_id = 0;
+
 }
 
 /**
@@ -641,6 +662,43 @@ eog_thumb_view_new (void)
 	return GTK_WIDGET (thumbview);
 }
 
+static void
+eog_thumb_view_update_columns (EogThumbView *view)
+{
+	EogThumbViewPrivate *priv;
+
+	g_return_if_fail (EOG_IS_THUMB_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
+			gtk_icon_view_set_columns (GTK_ICON_VIEW (view),
+			                           priv->n_images);
+}
+
+static void
+eog_thumb_view_row_inserted_cb (GtkTreeModel    *tree_model,
+                                GtkTreePath     *path,
+                                GtkTreeIter     *iter,
+                                EogThumbView    *view)
+{
+	EogThumbViewPrivate *priv = view->priv;
+
+	priv->n_images++;
+	eog_thumb_view_update_columns (view);
+}
+
+static void
+eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
+                               GtkTreePath     *path,
+                               EogThumbView    *view)
+{
+	EogThumbViewPrivate *priv = view->priv;
+
+	priv->n_images--;
+	eog_thumb_view_update_columns (view);
+}
+
 /**
  * eog_thumb_view_set_model:
  * @thumbview: A #EogThumbView.
@@ -654,13 +712,44 @@ void
 eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 {
 	gint index;
+	EogThumbViewPrivate *priv;
+	GtkTreeModel *existing;
 
 	g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 
+	priv = thumbview->priv;
+
+	existing = gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview));
+
+	if (existing != NULL) {
+		if (priv->image_add_id != 0) {
+			g_signal_handler_disconnect (existing,
+			                             priv->image_add_id);
+		}
+		if (priv->image_removed_id != 0) {
+			g_signal_handler_disconnect (existing,
+			                             priv->image_removed_id);
+
+		}
+	}
+
+	priv->image_add_id = g_signal_connect (G_OBJECT (store), "row-inserted",
+	                            G_CALLBACK (eog_thumb_view_row_inserted_cb),
+	                            thumbview);
+	priv->image_removed_id = g_signal_connect (G_OBJECT (store),
+	                             "row-deleted",
+	                             G_CALLBACK (eog_thumb_view_row_deleted_cb),
+	                             thumbview);
+
+	thumbview->priv->n_images = eog_list_store_length (store);
+
 	index = eog_list_store_get_initial_pos (store);
 
-	gtk_icon_view_set_model (GTK_ICON_VIEW (thumbview), GTK_TREE_MODEL (store));
+	gtk_icon_view_set_model (GTK_ICON_VIEW (thumbview),
+	                         GTK_TREE_MODEL (store));
+
+	eog_thumb_view_update_columns (thumbview);
 
 	if (index >= 0) {
 		GtkTreePath *path = gtk_tree_path_new_from_indices (index, -1);
