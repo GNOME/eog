@@ -89,7 +89,7 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	gtk_widget_set_margin_left (priv->progressbar, 2);
 	gtk_widget_set_margin_right (priv->progressbar, 2);
 	gtk_widget_set_margin_top (priv->progressbar, 1);
-	gtk_widget_set_margin_bottom (priv->progressbar, 1);
+	gtk_widget_set_margin_bottom (priv->progressbar, 0);
 
 	gtk_widget_set_size_request (priv->progressbar, -1, 10);
 
