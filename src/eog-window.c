@@ -4008,37 +4008,37 @@ set_action_properties (EogWindow      *window,
 	GtkAction *action;
 	EogWindowPrivate *priv = window->priv;
 
-        action = gtk_action_group_get_action (gallery_group, "GoPrevious");
-        g_object_set (action, "short_label", _("Previous"), NULL);
-        g_object_set (action, "is-important", TRUE, NULL);
+	action = gtk_action_group_get_action (gallery_group, "GoPrevious");
+	g_object_set (action, "short_label", _("Previous"), NULL);
+	g_object_set (action, "is-important", TRUE, NULL);
 
-        action = gtk_action_group_get_action (gallery_group, "GoNext");
-        g_object_set (action, "short_label", _("Next"), NULL);
-        g_object_set (action, "is-important", TRUE, NULL);
+	action = gtk_action_group_get_action (gallery_group, "GoNext");
+	g_object_set (action, "short_label", _("Next"), NULL);
+	g_object_set (action, "is-important", TRUE, NULL);
 
-        action = gtk_action_group_get_action (image_group, "EditRotate90");
-        g_object_set (action, "short_label", _("Right"), NULL);
+	action = gtk_action_group_get_action (image_group, "EditRotate90");
+	g_object_set (action, "short_label", _("Right"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "EditRotate270");
-        g_object_set (action, "short_label", _("Left"), NULL);
+	action = gtk_action_group_get_action (image_group, "EditRotate270");
+	g_object_set (action, "short_label", _("Left"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "ImageOpenContainingFolder");
-        g_object_set (action, "short_label", _("Show Folder"), NULL);
+	action = gtk_action_group_get_action (image_group, "ImageOpenContainingFolder");
+	g_object_set (action, "short_label", _("Show Folder"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "ViewZoomIn");
-        g_object_set (action, "short_label", _("In"), NULL);
+	action = gtk_action_group_get_action (image_group, "ViewZoomIn");
+	g_object_set (action, "short_label", _("In"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "ViewZoomOut");
-        g_object_set (action, "short_label", _("Out"), NULL);
+	action = gtk_action_group_get_action (image_group, "ViewZoomOut");
+	g_object_set (action, "short_label", _("Out"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "ViewZoomNormal");
-        g_object_set (action, "short_label", _("Normal"), NULL);
+	action = gtk_action_group_get_action (image_group, "ViewZoomNormal");
+	g_object_set (action, "short_label", _("Normal"), NULL);
 
-        action = gtk_action_group_get_action (image_group, "ViewZoomFit");
-        g_object_set (action, "short_label", _("Fit"), NULL);
+	action = gtk_action_group_get_action (image_group, "ViewZoomFit");
+	g_object_set (action, "short_label", _("Fit"), NULL);
 
-        action = gtk_action_group_get_action (window_group, "ViewImageGallery");
-        g_object_set (action, "short_label", _("Gallery"), NULL);
+	action = gtk_action_group_get_action (window_group, "ViewImageGallery");
+	g_object_set (action, "short_label", _("Gallery"), NULL);
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY, action,
 	                 "active", G_SETTINGS_BIND_GET);
 
@@ -4054,8 +4054,8 @@ set_action_properties (EogWindow      *window,
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_TOOLBAR, action,
 	                 "active", G_SETTINGS_BIND_GET);
 
-        action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
-        g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
+	action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
+	g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
 
 	/* Only allow editing the toolbar if it is visible */
 	action = gtk_action_group_get_action (window_group, "ViewToolbar");
@@ -4063,13 +4063,13 @@ set_action_properties (EogWindow      *window,
 		GtkAction *tbedit_action;
 
 		tbedit_action = gtk_action_group_get_action (window_group,
-							     "EditToolbar");
+		                                             "EditToolbar");
 
 		if (G_LIKELY (tbedit_action != NULL)) {
 			// The binding should free itself when the actions do
 			g_object_bind_property (action, "active",
-						tbedit_action, "sensitive",
-						G_BINDING_SYNC_CREATE);
+			                        tbedit_action, "sensitive",
+			                        G_BINDING_SYNC_CREATE);
 		} else {
 			g_warn_if_reached ();
 		}
