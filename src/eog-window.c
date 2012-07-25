@@ -4000,11 +4000,13 @@ disconnect_proxy_cb (GtkUIManager *manager,
 }
 
 static void
-set_action_properties (GtkActionGroup *window_group,
-		       GtkActionGroup *image_group,
-		       GtkActionGroup *gallery_group)
+set_action_properties (EogWindow      *window,
+                       GtkActionGroup *window_group,
+                       GtkActionGroup *image_group,
+                       GtkActionGroup *gallery_group)
 {
-        GtkAction *action;
+	GtkAction *action;
+	EogWindowPrivate *priv = window->priv;
 
         action = gtk_action_group_get_action (gallery_group, "GoPrevious");
         g_object_set (action, "short_label", _("Previous"), NULL);
@@ -4037,6 +4039,20 @@ set_action_properties (GtkActionGroup *window_group,
 
         action = gtk_action_group_get_action (window_group, "ViewImageGallery");
         g_object_set (action, "short_label", _("Gallery"), NULL);
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewSidebar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SIDEBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewStatusbar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_STATUSBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewToolbar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_TOOLBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
 
         action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
         g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
@@ -4493,7 +4509,7 @@ eog_window_construct_ui (EogWindow *window)
 					     G_N_ELEMENTS (toggle_entries_gallery),
 					     window);
 
-	set_action_properties (priv->actions_window,
+	set_action_properties (window, priv->actions_window,
 			       priv->actions_image,
 			       priv->actions_gallery);
 
