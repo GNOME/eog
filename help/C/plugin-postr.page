@@ -1,0 +1,57 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="plugin-postr">
+
+  <info>
+   <link type="guide" xref="index#plugins"/>
+   <desc>You need to install the Flickr Uploader to be able to send photos to online Flickr photo albums.</desc>
+
+   <revision pkgversion="3.2" version="0.1" date="2011-09-06" status="final"/>
+   <credit type="author">
+     <name>Tiffany Antopolski</name>
+     <email>tiffany.antopolski@gmail.com</email>
+   </credit>
+   <license>
+     <p>Creative Commons Share Alike 3.0</p>
+   </license>
+
+  </info>
+
+<title>Upload photos to <app>Flickr</app></title>
+
+<p><em>Flickr</em> is a photo album service that lets you share pictures with 
+people online. You can upload photos to Flickr directly from the image 
+viewer.</p>
+
+<p>In order to be able to use the <app>Flickr Uploader</app>, you will
+need to install the <app>Postr</app> application using your Linux 
+distribution's <app>package manager</app>. Once it is installed, you can 
+upload photos to Flickr:</p>
+
+<steps>
+ <item>
+  <p>The first time you upload a photo, the <app>Flickr Uploader</app> will 
+ask you to log into Flickr. The website will ask you to authorize 
+<app>Postr</app> to access your account.</p>
+ </item>
+ <item>
+  <p>Back in the image viewer, click <guiseq><gui>Image</gui><gui>Open 
+  With</gui><gui>Flickr Uploader</gui></guiseq>.</p>
+ </item>
+ <item>
+  <p>Click <gui>Upload</gui>.</p>
+ </item>
+</steps>
+
+<section id="tools-plugin">
+ <title>Add a <gui>Tools</gui> menu item</title>
+ <p>You can add a shortcut button for uploading pictures to Flickr.</p>
+ <p>To do this, make sure that <link xref="plugins">eog-plugins</link> is 
+ installed. Then, click <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>, 
+ go to the <gui>Plugins</gui> tab and check <gui>Upload to Flickr</gui>.</p>
+ <p>This will give you a convenient <guiseq><gui>Tools</gui><gui>Upload to
+Flickr</gui></guiseq> menu item.</p>
+ <media type="image" src="figures/plugin-tools-flickr.png" style="floatend"/>
+</section>
+
+</page>
