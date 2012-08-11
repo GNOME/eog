@@ -12,6 +12,10 @@
     <name>Tiffany Antopolski</name>
     <email>tiffany@antopolski.com</email>
     </credit>
+    <credit type="editor">
+      <name>Fabiana Simões</name>
+      <email>fabianapsimoes@gmail.com</email>
+    </credit>
     <license>
       <p>Creative Commons Share Alike 3.0</p>
     </license>
@@ -21,7 +25,7 @@
 <title>The command line</title>
 
 <p>
-To start the <app>image viewer</app> from the
+To start the <app>Image Viewer</app> from the
 <app>Terminal</app>, type
 <cmd>eog</cmd>.</p>
 <p>
@@ -29,21 +33,16 @@ You can open a specific file by typing the filename after the <cmd>eog</cmd> com
 </p>
 <screen>eog image.jpeg</screen>
 <p>
-You can open multiple images by typing the filenames after the
-<cmd>eog</cmd> command, separating the filenames by a space:
+You can open a specific folder by typing the folder name after the <cmd>eog</cmd> command:
 </p>
-<screen>eog image1.jpeg image2.jpeg</screen>
-
-<p>To see all the images opened in the instance, you may wish to <link 
+<screen>eog folder</screen>
+<p>To see all the images in a folder at once, you may wish to <link 
 xref="view#image-gallery">browse
 the image gallery</link>.</p>
+
 <section id="fullscreen">
     <title>Open an image in fullscreen mode</title>
     <screen>eog --fullscreen image.jpeg</screen>
-</section>
-<section id="slide-show">
-    <title>Open images in slideshow mode</title>
-    <screen>eog --slide-show Pictures/</screen>
 </section>
 <section id="disable-gallery">
     <title>Open image with gallery disabled</title>
@@ -52,5 +51,9 @@ the image gallery</link>.</p>
 <section id="new-instance">
     <title>Open image in a new instance</title>
     <screen>eog --new-instance image.jpeg</screen>
+</section>
+<section id="slide-show">
+    <title>Open a folder in slideshow mode</title>
+    <screen>eog --slide-show Pictures/</screen>
 </section>
 </page>
