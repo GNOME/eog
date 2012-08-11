@@ -1,6 +1,6 @@
 <page xmlns="http://projectmallard.org/1.0/"
       xmlns:e="http://projectmallard.org/experimental/"
-      xmlns:if="http://projectmallard.org/experimental/if/"
+      xmlns:if="http://projectmallard.org/if/1.0/"
       type="topic" style="task"
       id="plugins">
 
@@ -33,7 +33,7 @@ the image viewer. Plugins add additional features, like the ones listed below.</
   distribution's <em>package manager</em>.</p>
 
   <if:choose>
-    <if:when test="if:supports('action:install')">
+    <if:when test="action:install">
       <p><link action="install:eog-plugins" href="http://ftp.gnome.org/pub/gnome/sources/eog-plugins" style="button">install eog-plugins</link></p>
     </if:when>
   </if:choose>
