@@ -18,6 +18,7 @@ MARSHAL_OUTPUT = 	\
 	eog-marshal.c
 
 NOINST_H_FILES =			\
+	eog-application-internal.h	\
 	eog-close-confirmation-dialog.h	\
 	eog-config-keys.h		\
 	eog-error-message-area.h	\

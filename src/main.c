@@ -35,6 +35,7 @@
 #include "eog-thumbnail.h"
 #include "eog-job-queue.h"
 #include "eog-application.h"
+#include "eog-application-internal.h"
 #include "eog-plugin-engine.h"
 #include "eog-util.h"
 
@@ -180,7 +181,7 @@ main (int argc, char **argv)
 	              "gtk-application-prefer-dark-theme", TRUE,
 	              NULL);
 
-	EOG_APP->flags = flags;
+	EOG_APP->priv->flags = flags;
 	if (force_new_instance) {
 		GApplicationFlags app_flags = g_application_get_flags (G_APPLICATION (EOG_APP));
 		app_flags |= G_APPLICATION_NON_UNIQUE;

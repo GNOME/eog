@@ -25,16 +25,12 @@
 #ifndef __EOG_APPLICATION_H__
 #define __EOG_APPLICATION_H__
 
-#include "eog-window.h"
-#include "egg-toolbars-model.h"
-#include "eog-plugin-engine.h"
-
-#include "totem-scrsaver.h"
 
 #include <glib.h>
 #include <glib-object.h>
 
-#include <libpeas/peas-extension-set.h>
+#include <gtk/gtk.h>
+#include "eog-window.h"
 
 G_BEGIN_DECLS
 
@@ -54,16 +50,7 @@ typedef struct _EogApplicationPrivate EogApplicationPrivate;
 struct _EogApplication {
 	GtkApplication base_instance;
 
-	EggToolbarsModel *toolbars_model;
-	gchar            *toolbars_file;
-	EogPluginEngine  *plugin_engine;
-
-	TotemScrsaver    *scr_saver;
-	EogStartupFlags   flags;
-
-	GSettings        *ui_settings;
-
-	PeasExtensionSet *extensions;
+	EogApplicationPrivate *priv;
 };
 
 struct _EogApplicationClass {
@@ -96,12 +83,6 @@ gboolean          eog_application_open_uris           (EogApplication *applicati
 						       guint           timestamp,
 						       EogStartupFlags flags,
 						       GError        **error);
-
-EggToolbarsModel *eog_application_get_toolbars_model  (EogApplication *application);
-
-void              eog_application_save_toolbars_model (EogApplication *application);
-
-void		  eog_application_reset_toolbars_model (EogApplication *app);
 
 void              eog_application_screensaver_enable  (EogApplication *application);
 

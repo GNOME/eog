@@ -32,6 +32,7 @@
 #include "eog-window.h"
 #include "eog-application.h"
 #include "eog-application-activatable.h"
+#include "eog-application-internal.h"
 #include "eog-util.h"
 
 #include "totem-scrsaver.h"
@@ -165,6 +166,7 @@ _settings_map_set_variant (const GValue       *value,
 static void
 eog_application_init_app_menu (EogApplication *application)
 {
+	EogApplicationPrivate *priv = application->priv;
 	GtkBuilder *builder;
 	GError *error = NULL;
 	GAction *action;
@@ -187,7 +189,7 @@ eog_application_init_app_menu (EogApplication *application)
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "view-gallery");
-	g_settings_bind_with_mapping (application->ui_settings,
+	g_settings_bind_with_mapping (priv->ui_settings,
 	                              EOG_CONF_UI_IMAGE_GALLERY, action,
 	                              "state", G_SETTINGS_BIND_DEFAULT,
 	                              _settings_map_get_bool_variant,
@@ -196,7 +198,7 @@ eog_application_init_app_menu (EogApplication *application)
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "toolbar");
-	g_settings_bind_with_mapping (application->ui_settings,
+	g_settings_bind_with_mapping (priv->ui_settings,
 	                              EOG_CONF_UI_TOOLBAR, action, "state",
                                       G_SETTINGS_BIND_DEFAULT,
 	                              _settings_map_get_bool_variant,
@@ -204,7 +206,7 @@ eog_application_init_app_menu (EogApplication *application)
 	                              NULL, NULL);
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "view-sidebar");
-	g_settings_bind_with_mapping (application->ui_settings,
+	g_settings_bind_with_mapping (priv->ui_settings,
 	                              EOG_CONF_UI_SIDEBAR, action, "state",
                                       G_SETTINGS_BIND_DEFAULT,
 	                              _settings_map_get_bool_variant,
@@ -212,7 +214,7 @@ eog_application_init_app_menu (EogApplication *application)
 	                              NULL, NULL);
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "view-statusbar");
-	g_settings_bind_with_mapping (application->ui_settings,
+	g_settings_bind_with_mapping (priv->ui_settings,
 	                              EOG_CONF_UI_STATUSBAR, action, "state",
                                       G_SETTINGS_BIND_DEFAULT,
 	                              _settings_map_get_bool_variant,
@@ -235,7 +237,7 @@ eog_application_activate (GApplication *application)
 {
 	eog_application_open_window (EOG_APPLICATION (application),
 				     GDK_CURRENT_TIME,
-				     EOG_APPLICATION (application)->flags,
+				     EOG_APPLICATION (application)->priv->flags,
 				     NULL);
 }
 
@@ -252,7 +254,7 @@ eog_application_open (GApplication *application,
 
 	eog_application_open_file_list (EOG_APPLICATION (application),
 					list, GDK_CURRENT_TIME,
-					EOG_APPLICATION (application)->flags,
+					EOG_APPLICATION (application)->priv->flags,
 					NULL);
 }
 
@@ -260,22 +262,23 @@ static void
 eog_application_finalize (GObject *object)
 {
 	EogApplication *application = EOG_APPLICATION (object);
+	EogApplicationPrivate *priv = application->priv;
 
-	if (application->toolbars_model) {
-		g_object_unref (application->toolbars_model);
-		application->toolbars_model = NULL;
-		g_free (application->toolbars_file);
-		application->toolbars_file = NULL;
+	if (priv->toolbars_model) {
+		g_object_unref (priv->toolbars_model);
+		priv->toolbars_model = NULL;
+		g_free (priv->toolbars_file);
+		priv->toolbars_file = NULL;
 	}
 
-	g_clear_object (&application->extensions);
+	g_clear_object (&priv->extensions);
 
-	if (application->plugin_engine) {
-		g_object_unref (application->plugin_engine);
-		application->plugin_engine = NULL;
+	if (priv->plugin_engine) {
+		g_object_unref (priv->plugin_engine);
+		priv->plugin_engine = NULL;
 	}
 
-	g_clear_object (&application->ui_settings);
+	g_clear_object (&priv->ui_settings);
 
 	eog_application_save_accelerators ();
 }
@@ -289,10 +292,10 @@ eog_application_add_platform_data (GApplication *application,
 	G_APPLICATION_CLASS (eog_application_parent_class)->add_platform_data (application,
 									       builder);
 
-	if (app->flags) {
+	if (app->priv->flags) {
 		g_variant_builder_add (builder, "{sv}",
 				       "eog-application-startup-flags",
-				       g_variant_new_byte (app->flags));
+		                       g_variant_new_byte (app->priv->flags));
 	}
 }
 
@@ -304,11 +307,11 @@ eog_application_before_emit (GApplication *application,
 	const gchar *key;
 	GVariant *value;
 
-	EOG_APPLICATION (application)->flags = 0;
+	EOG_APPLICATION (application)->priv->flags = 0;
 	g_variant_iter_init (&iter, platform_data);
 	while (g_variant_iter_loop (&iter, "{&sv}", &key, &value)) {
 		if (strcmp (key, "eog-application-startup-flags") == 0) {
-			EOG_APPLICATION (application)->flags = g_variant_get_byte (value);
+			EOG_APPLICATION (application)->priv->flags = g_variant_get_byte (value);
 		}
 	}
 
@@ -321,6 +324,9 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 {
 	GApplicationClass *application_class;
 	GObjectClass *object_class;
+
+	g_type_class_add_private (eog_application_class,
+	                          sizeof (EogApplicationPrivate));
 
 	application_class = (GApplicationClass *) eog_application_class;
 	object_class = (GObjectClass *) eog_application_class;
@@ -355,44 +361,48 @@ on_extension_removed (PeasExtensionSet *set,
 static void
 eog_application_init (EogApplication *eog_application)
 {
+	EogApplicationPrivate *priv;
 	const gchar *dot_dir = eog_util_dot_dir ();
 
 	eog_session_init (eog_application);
 
-	eog_application->toolbars_model = egg_toolbars_model_new ();
-	eog_application->plugin_engine = eog_plugin_engine_new ();
-	eog_application->flags = 0;
+	eog_application->priv = EOG_APPLICATION_GET_PRIVATE (eog_application);
+	priv = eog_application->priv;
 
-	eog_application->ui_settings = g_settings_new (EOG_CONF_UI);
+	priv->toolbars_model = egg_toolbars_model_new ();
+	priv->plugin_engine = eog_plugin_engine_new ();
+	priv->flags = 0;
 
-	egg_toolbars_model_load_names (eog_application->toolbars_model,
+	priv->ui_settings = g_settings_new (EOG_CONF_UI);
+
+	egg_toolbars_model_load_names (priv->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
 
 	if (G_LIKELY (dot_dir != NULL))
-		eog_application->toolbars_file = g_build_filename
+		priv->toolbars_file = g_build_filename
 			(dot_dir, "eog_toolbar.xml", NULL);
 
-	if (!dot_dir || !egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
-					       eog_application->toolbars_file)) {
+	if (!dot_dir || !egg_toolbars_model_load_toolbars (priv->toolbars_model,
+							priv->toolbars_file)) {
 
-		egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
+		egg_toolbars_model_load_toolbars (priv->toolbars_model,
 						  EOG_DATA_DIR "/eog-toolbar.xml");
 	}
 
-	egg_toolbars_model_set_flags (eog_application->toolbars_model, 0,
+	egg_toolbars_model_set_flags (priv->toolbars_model, 0,
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 
 	eog_application_load_accelerators ();
 
-	eog_application->extensions = peas_extension_set_new (
-	                           PEAS_ENGINE (eog_application->plugin_engine),
+	priv->extensions = peas_extension_set_new (
+	                           PEAS_ENGINE (priv->plugin_engine),
 	                           EOG_TYPE_APPLICATION_ACTIVATABLE,
 	                           "app",  EOG_APPLICATION (eog_application),
 	                           NULL);
-	peas_extension_set_call (eog_application->extensions, "activate");
-	g_signal_connect (eog_application->extensions, "extension-added",
+	peas_extension_set_call (priv->extensions, "activate");
+	g_signal_connect (priv->extensions, "extension-added",
 	                  G_CALLBACK (on_extension_added), eog_application);
-	g_signal_connect (eog_application->extensions, "extension-removed",
+	g_signal_connect (priv->extensions, "extension-removed",
 	                  G_CALLBACK (on_extension_removed), eog_application);
 }
 
@@ -678,7 +688,7 @@ eog_application_get_toolbars_model (EogApplication *application)
 {
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
 
-	return application->toolbars_model;
+	return application->priv->toolbars_model;
 }
 
 /**
@@ -690,9 +700,9 @@ eog_application_get_toolbars_model (EogApplication *application)
 void
 eog_application_save_toolbars_model (EogApplication *application)
 {
-	if (G_LIKELY(application->toolbars_file != NULL))
-        	egg_toolbars_model_save_toolbars (application->toolbars_model,
-				 	          application->toolbars_file,
+	if (G_LIKELY(application->priv->toolbars_file != NULL))
+		egg_toolbars_model_save_toolbars (application->priv->toolbars_model,
+		                                  application->priv->toolbars_file,
 						  "1.0");
 }
 
@@ -705,17 +715,20 @@ eog_application_save_toolbars_model (EogApplication *application)
 void
 eog_application_reset_toolbars_model (EogApplication *app)
 {
+	EogApplicationPrivate *priv;
 	g_return_if_fail (EOG_IS_APPLICATION (app));
 
-	g_object_unref (app->toolbars_model);
+	priv = app->priv;
 
-	app->toolbars_model = egg_toolbars_model_new ();
+	g_object_unref (app->priv->toolbars_model);
 
-	egg_toolbars_model_load_names (app->toolbars_model,
+	priv->toolbars_model = egg_toolbars_model_new ();
+
+	egg_toolbars_model_load_names (priv->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
-	egg_toolbars_model_load_toolbars (app->toolbars_model,
+	egg_toolbars_model_load_toolbars (priv->toolbars_model,
 					  EOG_DATA_DIR "/eog-toolbar.xml");
-	egg_toolbars_model_set_flags (app->toolbars_model, 0,
+	egg_toolbars_model_set_flags (priv->toolbars_model, 0,
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 }
 
@@ -729,8 +742,8 @@ eog_application_reset_toolbars_model (EogApplication *app)
 void
 eog_application_screensaver_enable (EogApplication *application)
 {
-        if (application->scr_saver)
-                totem_scrsaver_enable (application->scr_saver);
+	if (application->priv->scr_saver)
+		totem_scrsaver_enable (application->priv->scr_saver);
 }
 
 /**
@@ -743,8 +756,8 @@ eog_application_screensaver_enable (EogApplication *application)
 void
 eog_application_screensaver_disable (EogApplication *application)
 {
-        if (application->scr_saver)
-                totem_scrsaver_disable (application->scr_saver);
+	if (application->priv->scr_saver)
+		totem_scrsaver_disable (application->priv->scr_saver);
 }
 
 static void

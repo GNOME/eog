@@ -44,6 +44,7 @@
 #include "eog-print.h"
 #include "eog-error-message-area.h"
 #include "eog-application.h"
+#include "eog-application-internal.h"
 #include "eog-thumb-nav.h"
 #include "eog-config-keys.h"
 #include "eog-job-queue.h"
@@ -4738,12 +4739,12 @@ eog_window_dispose (GObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
-	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
+	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
 
 	if (priv->extensions != NULL) {
 		g_object_unref (priv->extensions);
 		priv->extensions = NULL;
-		peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
+		peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
 	}
 
 	if (priv->store != NULL) {
@@ -4855,7 +4856,7 @@ eog_window_dispose (GObject *object)
 		priv->page_setup = NULL;
 	}
 
-	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->plugin_engine));
+	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
 }
@@ -5193,7 +5194,7 @@ eog_window_constructor (GType type,
 
 	eog_window_construct_ui (EOG_WINDOW (object));
 
-	priv->extensions = peas_extension_set_new (PEAS_ENGINE (EOG_APP->plugin_engine),
+	priv->extensions = peas_extension_set_new (PEAS_ENGINE (EOG_APP->priv->plugin_engine),
 						   EOG_TYPE_WINDOW_ACTIVATABLE,
 						   "window",
 						   EOG_WINDOW (object), NULL);
