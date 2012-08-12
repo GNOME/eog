@@ -31,6 +31,7 @@
 #include "eog-session.h"
 #include "eog-window.h"
 #include "eog-application.h"
+#include "eog-application-activatable.h"
 #include "eog-util.h"
 
 #include "totem-scrsaver.h"
@@ -266,6 +267,9 @@ eog_application_finalize (GObject *object)
 		g_free (application->toolbars_file);
 		application->toolbars_file = NULL;
 	}
+
+	g_clear_object (&application->extensions);
+
 	if (application->plugin_engine) {
 		g_object_unref (application->plugin_engine);
 		application->plugin_engine = NULL;
@@ -331,6 +335,24 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 }
 
 static void
+on_extension_added (PeasExtensionSet *set,
+                    PeasPluginInfo   *info,
+                    PeasExtension    *exten,
+                    EogApplication   *app)
+{
+	eog_application_activatable_activate (EOG_APPLICATION_ACTIVATABLE (exten));
+}
+
+static void
+on_extension_removed (PeasExtensionSet *set,
+                      PeasPluginInfo   *info,
+                      PeasExtension    *exten,
+                      EogApplication   *app)
+{
+	eog_application_activatable_deactivate (EOG_APPLICATION_ACTIVATABLE (exten));
+}
+
+static void
 eog_application_init (EogApplication *eog_application)
 {
 	const gchar *dot_dir = eog_util_dot_dir ();
@@ -361,6 +383,17 @@ eog_application_init (EogApplication *eog_application)
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 
 	eog_application_load_accelerators ();
+
+	eog_application->extensions = peas_extension_set_new (
+	                           PEAS_ENGINE (eog_application->plugin_engine),
+	                           EOG_TYPE_APPLICATION_ACTIVATABLE,
+	                           "app",  EOG_APPLICATION (eog_application),
+	                           NULL);
+	peas_extension_set_call (eog_application->extensions, "activate");
+	g_signal_connect (eog_application->extensions, "extension-added",
+	                  G_CALLBACK (on_extension_added), eog_application);
+	g_signal_connect (eog_application->extensions, "extension-removed",
+	                  G_CALLBACK (on_extension_removed), eog_application);
 }
 
 /**

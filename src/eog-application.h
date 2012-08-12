@@ -34,6 +34,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <libpeas/peas-extension-set.h>
+
 G_BEGIN_DECLS
 
 typedef struct _EogApplication EogApplication;
@@ -60,6 +62,8 @@ struct _EogApplication {
 	EogStartupFlags   flags;
 
 	GSettings        *ui_settings;
+
+	PeasExtensionSet *extensions;
 };
 
 struct _EogApplicationClass {

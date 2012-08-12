@@ -41,6 +41,7 @@ NOINST_H_FILES =			\
 
 INST_H_FILES =				\
 	eog-application.h		\
+	eog-application-activatable.h	\
 	eog-clipboard-handler.h		\
 	eog-debug.h			\
 	eog-dialog.h			\
@@ -64,6 +65,7 @@ INST_H_FILES =				\
 
 libeog_c_files = 			\
 	eog-application.c		\
+	eog-application-activatable.c	\
 	eog-clipboard-handler.c		\
 	eog-close-confirmation-dialog.c \
 	eog-debug.c			\
