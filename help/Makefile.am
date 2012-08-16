@@ -1,10 +1,8 @@
-include $(top_srcdir)/gnome-doc-utils.make
-dist-hook: doc-dist-hook
+@YELP_HELP_RULES@
 
-DOC_ID = eog
-DOC_INCLUDES = legal.xml
+HELP_ID = eog
 
-DOC_FIGURES = \
+HELP_MEDIA = \
 	figures/eog-logo.png			\
 	figures/eog-toolbar-editor.png		\
 	figures/eog-trail.png			\
@@ -19,7 +17,7 @@ DOC_FIGURES = \
 	figures/prefs-plugins.png		\
 	figures/slideshow-prefs.png
 
-DOC_PAGES = \
+HELP_FILES = \
 	bug-filing.page				\
 	commandline.page			\
 	copy-paste.page				\
@@ -34,6 +32,7 @@ DOC_PAGES = \
 	formats-view.page			\
 	index.page				\
 	introduction.page			\
+	legal.xml				\
 	license.page				\
 	open.page				\
 	plugin-exif-digital.page		\
@@ -56,6 +55,6 @@ DOC_PAGES = \
 	view.page				\
 	zoom.page
 
-DOC_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pl pt_BR ru sl sv te th uk zh_CN zh_TW
+HELP_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pl pt_BR ru sl sv te th uk zh_CN zh_TW
 
 -include $(top_srcdir)/git.mk

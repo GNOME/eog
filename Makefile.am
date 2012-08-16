@@ -9,19 +9,14 @@ EXTRA_DIST = 			\
 	MAINTAINERS		\
 	ChangeLog-2.6		\
 	ChangeLog-2.18		\
-	ChangeLog.pre-git	\
-	gnome-doc-utils.make
+	ChangeLog.pre-git
 
 DISTCLEANFILES =                \
         intltool-extract        \
         intltool-merge          \
-        intltool-update         \
-	gnome-doc-utils.make
+        intltool-update
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper --enable-gtk-doc
-
-# Ignore scrollkeeper issues for now.  @#*$& scrollkeeper
-distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper | grep -v /share/gnome/help/ | grep -v \.omf
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
 MAINTAINERCLEANFILES = \
 	$(srcdir)/aclocal.m4 \
@@ -33,9 +28,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/install-sh \
 	$(srcdir)/ltmain.sh \
 	$(srcdir)/missing \
-	$(srcdir)/mkinstalldirs \
-	$(srcdir)/omf.make \
-	$(srcdir)/xmldocs.make
+	$(srcdir)/mkinstalldirs
 
 -include $(top_srcdir)/git.mk
 

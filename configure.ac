@@ -40,6 +40,8 @@ AM_PROG_CC_C_O
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
+PKG_PROG_PKG_CONFIG
+
 GTK_DOC_CHECK(1.9)
 
 AC_CHECK_FUNCS(strptime)
@@ -73,11 +75,9 @@ AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
 
 # ***************
-# gnome-doc-utils
+# User documentation
 # ***************
-
-PKG_PROG_PKG_CONFIG
-GNOME_DOC_INIT
+YELP_HELP_INIT
 
 # **********
 # GNOME Libs

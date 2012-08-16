@@ -51,9 +51,9 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 	gchar *uri = NULL;
 
 	if (section)
-		uri = g_strdup_printf ("ghelp:eog?%s", section);
+		uri = g_strdup_printf ("help:eog/%s", section);
 
-	gtk_show_uri (NULL, ((uri != NULL) ? uri : "ghelp:eog"),
+	gtk_show_uri (NULL, ((uri != NULL) ? uri : "help:eog"),
 		      gtk_get_current_event_time (), &error);
 
 	g_free (uri);
