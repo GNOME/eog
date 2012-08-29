@@ -4891,22 +4891,25 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	GtkContainer *tbcontainer = GTK_CONTAINER ((EOG_WINDOW (widget)->priv->toolbar));
 	gint result = FALSE;
 	gboolean handle_selection = FALSE;
+	GdkModifierType modifiers;
+
+	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
 	case GDK_KEY_space:
-		if (event->state & GDK_CONTROL_MASK) {
+		if ((event->state & modifiers) == GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
 			break;
 		}
 	case GDK_KEY_Return:
 		if (gtk_container_get_focus_child (tbcontainer) == NULL) {
 			/* Image properties dialog case */
-			if (event->state & GDK_MOD1_MASK) {
+			if ((event->state & modifiers) == GDK_MOD1_MASK) {
 				result = FALSE;
 				break;
 			}
 
-			if (event->state & GDK_SHIFT_MASK) {
+			if ((event->state & modifiers) == GDK_SHIFT_MASK) {
 				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			} else {
 				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
@@ -4936,7 +4939,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 	case GDK_KEY_Left:
-		if (event->state & GDK_MOD1_MASK) {
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
 			/* Alt+Left moves to previous image */
 			if (is_rtl) { /* move to next in RTL mode */
 				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
@@ -4967,7 +4970,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			break;
 		}
 	case GDK_KEY_Right:
-		if (event->state & GDK_MOD1_MASK) {
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
 			/* Alt+Right moves to next image */
 			if (is_rtl) { /* move to previous in RTL mode */
 				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
