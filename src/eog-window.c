@@ -5,7 +5,7 @@
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
  * Based on code by:
- * 	- Federico Mena-Quintero <federico@gnu.org>
+ * 	- Federico Mena-Quintero <federico@gnome.org>
  *	- Jens Finke <jens@gnome.org>
  * Based on evince code (shell/ev-window.c) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
@@ -5662,14 +5662,14 @@ eog_window_show_about_dialog (EogWindow *window)
 		"Martin Baulig <martin@home-of-linux.org>",
 		"Arik Devens <arik@gnome.org>",
 		"Michael Meeks <mmeeks@gnu.org>",
-		"Federico Mena-Quintero <federico@gnu.org>",
+		"Federico Mena-Quintero <federico@gnome.org>",
 		"Lutz M\xc3\xbcller <urc8@rz.uni-karlsruhe.de>",
 		NULL
 	};
 
 	static const char *documenters[] = {
 		"Eliot Landrum <eliot@landrum.cx>",
-		"Federico Mena-Quintero <federico@gnu.org>",
+		"Federico Mena-Quintero <federico@gnome.org>",
 		"Sun GNOME Documentation Team <gdocteam@sun.com>",
 		"Tiffany Antopolski <tiffany@antopolski.com>",
 		NULL

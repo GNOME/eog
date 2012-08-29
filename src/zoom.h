@@ -2,7 +2,7 @@
  *
  * Copyright (C) 2000 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gnu.org>
+ * Author: Federico Mena-Quintero <federico@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

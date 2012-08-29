@@ -5,7 +5,7 @@
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
  * Based on code by:
- * 	- Federico Mena-Quintero <federico@gnu.org>
+ * 	- Federico Mena-Quintero <federico@gnome.org>
  *	- Jens Finke <jens@gnome.org>
  * Based on evince code (shell/ev-window.c) by:
  * 	- Martin Kretzschmar <martink@gnome.org>

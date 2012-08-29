@@ -2,7 +2,7 @@
  *
  * Copyright (C) 2000-2009 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gnu.org>
+ * Author: Federico Mena-Quintero <federico@gnome.org>
  *
  * Portions based on code from libart_lgpl by Raph Levien.
  *
