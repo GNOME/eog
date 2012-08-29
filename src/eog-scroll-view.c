@@ -1405,6 +1405,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	double zoom;
 	gboolean do_scroll;
 	int xofs, yofs;
+	GdkModifierType modifiers;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -1416,56 +1417,65 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
-	/* EogScrollView doesn't handle/have any Alt+Key combos */
-	if (event->state & GDK_MOD1_MASK) {
-		return FALSE;
-	}
+	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
 	case GDK_KEY_Up:
-		do_scroll = TRUE;
-		xofs = 0;
-		yofs = -SCROLL_STEP_SIZE;
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
+			do_scroll = TRUE;
+			xofs = 0;
+			yofs = -SCROLL_STEP_SIZE;
+		}
 		break;
 
 	case GDK_KEY_Page_Up:
-		do_scroll = TRUE;
-		if (event->state & GDK_CONTROL_MASK) {
-			xofs = -(allocation.width * 3) / 4;
-			yofs = 0;
-		} else {
-			xofs = 0;
-			yofs = -(allocation.height * 3) / 4;
+		if ((event->state & GDK_MOD1_MASK) != 0) {
+			do_scroll = TRUE;
+			if (event->state & GDK_CONTROL_MASK) {
+				xofs = -(allocation.width * 3) / 4;
+				yofs = 0;
+			} else {
+				xofs = 0;
+				yofs = -(allocation.height * 3) / 4;
+			}
 		}
 		break;
 
 	case GDK_KEY_Down:
-		do_scroll = TRUE;
-		xofs = 0;
-		yofs = SCROLL_STEP_SIZE;
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
+			do_scroll = TRUE;
+			xofs = 0;
+			yofs = SCROLL_STEP_SIZE;
+		}
 		break;
 
 	case GDK_KEY_Page_Down:
-		do_scroll = TRUE;
-		if (event->state & GDK_CONTROL_MASK) {
-			xofs = (allocation.width * 3) / 4;
-			yofs = 0;
-		} else {
-			xofs = 0;
-			yofs = (allocation.height * 3) / 4;
+		if ((event->state & GDK_MOD1_MASK) != 0) {
+			do_scroll = TRUE;
+			if (event->state & GDK_CONTROL_MASK) {
+				xofs = (allocation.width * 3) / 4;
+				yofs = 0;
+			} else {
+				xofs = 0;
+				yofs = (allocation.height * 3) / 4;
+			}
 		}
 		break;
 
 	case GDK_KEY_Left:
-		do_scroll = TRUE;
-		xofs = -SCROLL_STEP_SIZE;
-		yofs = 0;
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
+			do_scroll = TRUE;
+			xofs = -SCROLL_STEP_SIZE;
+			yofs = 0;
+		}
 		break;
 
 	case GDK_KEY_Right:
-		do_scroll = TRUE;
-		xofs = SCROLL_STEP_SIZE;
-		yofs = 0;
+		if ((event->state & modifiers) == GDK_MOD1_MASK) {
+			do_scroll = TRUE;
+			xofs = SCROLL_STEP_SIZE;
+			yofs = 0;
+		}
 		break;
 
 	case GDK_KEY_plus:

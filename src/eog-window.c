@@ -4939,91 +4939,57 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 	case GDK_KEY_Left:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			/* Alt+Left moves to previous image */
+	case GDK_KEY_Up:
+		if ((event->state & modifiers) == 0) {
+			/* Left and Up move to previous image */
 			if (is_rtl) { /* move to next in RTL mode */
 				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
 			} else {
 				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			}
 			result = TRUE;
-			break;
-		} /* else fall-trough is intended */
-	case GDK_KEY_Up:
-		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			/* break to let scrollview handle the key */
-			break;
 		}
-		if (gtk_container_get_focus_child (tbcontainer) != NULL)
-			break;
-		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-			if (is_rtl && event->keyval == GDK_KEY_Left) {
-				/* handle RTL fall-through,
-				 * need to behave like GDK_Down then */
-				eog_window_cmd_go_next (NULL,
-							EOG_WINDOW (widget));
-			} else {
-				eog_window_cmd_go_prev (NULL,
-							EOG_WINDOW (widget));
-			}
-			result = TRUE;
-			break;
-		}
+		break;
 	case GDK_KEY_Right:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			/* Alt+Right moves to next image */
+	case GDK_KEY_Down:
+		if ((event->state & modifiers) == 0) {
+			/* Right and Down move to next image */
 			if (is_rtl) { /* move to previous in RTL mode */
 				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			} else {
 				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
 			}
 			result = TRUE;
-			break;
-		} /* else fall-trough is intended */
-	case GDK_KEY_Down:
-		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			/* break to let scrollview handle the key */
-			break;
 		}
-		if (gtk_container_get_focus_child (tbcontainer) != NULL)
-			break;
-		if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-			if (is_rtl && event->keyval == GDK_KEY_Right) {
-				/* handle RTL fall-through,
-				 * need to behave like GDK_Up then */
-				eog_window_cmd_go_prev (NULL,
-							EOG_WINDOW (widget));
-			} else {
-				eog_window_cmd_go_next (NULL,
-							EOG_WINDOW (widget));
-			}
-			result = TRUE;
-			break;
-		}
+		break;
 	case GDK_KEY_Page_Up:
-		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-				/* If the iconview is not visible skip to the
-				 * previous image manually as it won't handle
-				 * the keypress then. */
-				eog_window_cmd_go_prev (NULL,
-							EOG_WINDOW (widget));
-				result = TRUE;
-			} else
-				handle_selection = TRUE;
+		if ((event->state & modifiers) == 0) {
+			if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+				if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
+					/* If the iconview is not visible skip to the
+					 * previous image manually as it won't handle
+					 * the keypress then. */
+					eog_window_cmd_go_prev (NULL,
+								EOG_WINDOW (widget));
+					result = TRUE;
+				} else
+					handle_selection = TRUE;
+			}
 		}
 		break;
 	case GDK_KEY_Page_Down:
-		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
-				/* If the iconview is not visible skip to the
-				 * next image manually as it won't handle
-				 * the keypress then. */
-				eog_window_cmd_go_next (NULL,
-							EOG_WINDOW (widget));
-				result = TRUE;
-			} else
-				handle_selection = TRUE;
+		if ((event->state & modifiers) == 0) {
+			if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+				if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
+					/* If the iconview is not visible skip to the
+					 * next image manually as it won't handle
+					 * the keypress then. */
+					eog_window_cmd_go_next (NULL,
+								EOG_WINDOW (widget));
+					result = TRUE;
+				} else
+					handle_selection = TRUE;
+			}
 		}
 		break;
 	}
