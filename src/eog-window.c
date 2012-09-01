@@ -3851,10 +3851,10 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 };
 
 static const GtkActionEntry action_entries_gallery[] = {
-	{ "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left",
+	{ "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "Left",
 	  N_("Go to the previous image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_prev) },
-	{ "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<Alt>Right",
+	{ "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "Right",
 	  N_("Go to the next image of the gallery"),
 	  G_CALLBACK (eog_window_cmd_go_next) },
 	{ "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<Alt>Home",
