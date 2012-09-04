@@ -2201,6 +2201,33 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 }
 
 static void
+set_basename_for_print_settings (GtkPrintSettings *print_settings, EogWindow *window)
+{
+	GFile *file;
+	GFileInfo *info;
+	const char *basename;
+
+	file = eog_image_get_file (window->priv->image);
+	info = g_file_query_info (file,
+				  G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+				  G_FILE_QUERY_INFO_NONE,
+				  NULL,
+				  NULL);
+	if (info)
+		basename = g_file_info_get_display_name (info);
+	else
+		basename = NULL;
+
+	if (basename)
+		gtk_print_settings_set (print_settings, GTK_PRINT_SETTINGS_OUTPUT_BASENAME, basename);
+
+	if (info)
+		g_object_unref (info);
+
+	g_object_unref (file);
+}
+
+static void
 eog_window_print (EogWindow *window)
 {
 	GtkWidget *dialog;
@@ -2214,6 +2241,7 @@ eog_window_print (EogWindow *window)
 	eog_debug (DEBUG_PRINTING);
 
 	print_settings = eog_print_get_print_settings ();
+	set_basename_for_print_settings (print_settings, window);
 
 	/* Make sure the window stays valid while printing */
 	g_object_ref (window);
