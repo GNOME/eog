@@ -30,7 +30,7 @@
 #include "eog-debug.h"
 
 #ifdef HAVE_RSVG
-#include <librsvg/rsvg-cairo.h>
+#include <librsvg/rsvg.h>
 #endif
 
 #define EOG_PRINT_SETTINGS_FILE "eog-print-settings.ini"

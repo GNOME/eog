@@ -67,7 +67,6 @@
 
 #ifdef HAVE_RSVG
 #include <librsvg/rsvg.h>
-#include <librsvg/librsvg-features.h>
 #endif
 
 #define EOG_IMAGE_GET_PRIVATE(object) \
