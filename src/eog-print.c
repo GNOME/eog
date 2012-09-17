@@ -513,7 +513,9 @@ eog_print_set_print_settings (GtkPrintSettings *print_settings)
 	if (key_file == NULL) {
 		key_file = g_key_file_new ();
 	}
-
+	/* Override copies settings as we don't want to save
+	 * this for the next time eog is used. */
+	gtk_print_settings_set_n_copies (print_settings, 1);
 	gtk_print_settings_to_key_file (print_settings, key_file, EOG_PRINT_SETTINGS_GROUP);
 	eog_print_save_key_file (key_file);
 
