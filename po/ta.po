@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 17:20+0530\n"
-"PO-Revision-Date: 2012-02-29 17:25+0530\n"
+"POT-Creation-Date: 2012-09-19 16:50+0530\n"
+"PO-Revision-Date: 2012-09-19 16:52+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -36,32 +36,32 @@ msgstr ""
 #. * produce duplicates, but don't worry about it. If your language
 #. * normally has a mnemonic at the start, please use the _. If not,
 #. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:988
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:992
 #, c-format
 msgid "Show “_%s”"
 msgstr "“_%s”ஐ காட்டு "
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1481
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
 msgid "_Move on Toolbar"
 msgstr "(_M)  கருவிப்பட்டி மீது நகர்த்து"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1482
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1486
 msgid "Move the selected item on the toolbar"
 msgstr "தேர்வு செய்யப்பட்ட உருப்படியை கருவிப்பட்டைக்கு நகர்த்து"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1483
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1487
 msgid "_Remove from Toolbar"
 msgstr "(_R) கருவிப்பட்டையிலிருந்து நீக்கு"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1484
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1488
 msgid "Remove the selected item from the toolbar"
 msgstr "தேர்ந்தெடுக்கப்பட்ட உருப்படியை கருவிப்பட்டையிலிருந்து நீக்குக"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1489
 msgid "_Delete Toolbar"
 msgstr "(_D) கருவிப்பட்டி ஐ நீக்குக"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1486
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1490
 msgid "Remove the selected toolbar"
 msgstr "தேர்ந்தெடுக்கப்பட்ட கருவிப்பட்டையை நீக்கு"
 
@@ -73,9 +73,14 @@ msgstr "பிரிப்பான்"
 msgid "Browse and rotate images"
 msgstr "பிம்பங்களை உலாவு சுழற்று"
 
-#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:2647 ../src/main.c:171
+#: ../data/eog.desktop.in.in.h:2 ../src/eog-window.c:5679 ../src/main.c:173
 msgid "Image Viewer"
 msgstr "பிம்ப காட்டி"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#: ../data/eog.desktop.in.in.h:4
+msgid "Picture;Slideshow;Graphics;"
+msgstr "படங்கள்;லைட்ஷோ;வரகலை;"
 
 #: ../data/eog-image-properties-dialog.ui.h:1
 #: ../src/eog-metadata-sidebar.c:528
@@ -151,7 +156,7 @@ msgstr "உயரம்:"
 msgid "ISO Speed Rating:"
 msgstr "ISO வேக அளவு:"
 
-#: ../data/eog-image-properties-dialog.ui.h:16 ../src/eog-window.c:4627
+#: ../data/eog-image-properties-dialog.ui.h:16 ../src/eog-window.c:4578
 msgid "Image Properties"
 msgstr "பிம்ப பண்புகள்"
 
@@ -301,49 +306,42 @@ msgstr "பிம்ப அளவு மாற்றம்"
 msgid "Plugins"
 msgstr "சொருகுபொருள்கள்"
 
-#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:14
-msgctxt "PrefDlgSlideSwitchPostfix"
-msgid "seconds"
-msgstr "நொடிகள்"
-
-#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:16
-msgctxt "PrefDlgSlideSwitchPrefix"
-msgid "_Switch image after:"
-msgstr "(_S) இதற்குப் பிறகு பிம்பத்தை மாற்று:"
-
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:13
 msgid "Preferences"
 msgstr "விருப்பங்கள்"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:14
 msgid "Sequence"
 msgstr "வரிசைமுறை"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:15
 msgid "Slideshow"
 msgstr "படவில்லை காட்சி"
 
-#: ../data/eog-preferences-dialog.ui.h:20
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "Smooth images when zoomed-_in"
 msgstr "(_i) படத்தை அணுகி பார்க்கும் போது பிம்பத்தை சீராக்கு"
 
-#: ../data/eog-preferences-dialog.ui.h:21
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "Smooth images when zoomed-_out"
 msgstr "(_o) படத்தை விலகி பார்க்கும் போது பிம்பத்தை சீராக்கு"
 
-#: ../data/eog-preferences-dialog.ui.h:22
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "Transparent Parts"
 msgstr "ஊடு தெரியும் பகுதிகள்"
 
-#: ../data/eog-preferences-dialog.ui.h:23
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "_Automatic orientation"
 msgstr "(_A) தானியங்கி ஆற்றுப்படுத்தல்"
 
-#: ../data/eog-preferences-dialog.ui.h:24
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Loop sequence"
 msgstr "(_L) லூப் வரிசைமுறை"
+
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#: ../data/eog-preferences-dialog.ui.h:22
+msgid "_Time between images:"
+msgstr "_T பிம்பங்களுக்கு இடையில் நேரம்:"
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:1
 msgid ""
@@ -631,14 +629,14 @@ msgstr "நீங்கள் சேமிக்கவில்லையென�
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "பிம்பம் \"%s\" க்கான மாற்றங்களை மூடும் முன் சேமிக்கலாமா?"
 
-#: ../src/eog-close-confirmation-dialog.c:643
+#: ../src/eog-close-confirmation-dialog.c:642
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] "%d பிம்பம் சேமிக்கப்படாமல் உள்ளது. மூடுவதற்கு முன் மாற்றங்களை சேமிக்க வேண்டுமா?"
 msgstr[1] "%d பிம்பங்கள் சேமிக்கப்படாமல் உள்ளன. மூடுவதற்கு முன் மாற்றங்களை சேமிக்க வேண்டுமா?"
 
-#: ../src/eog-close-confirmation-dialog.c:660
+#: ../src/eog-close-confirmation-dialog.c:659
 msgid "S_elect the images you want to save:"
 msgstr "_e சேமிக்க விரும்பும் பிம்பங்களை தேர்வு செய்க:"
 
@@ -651,11 +649,11 @@ msgstr "நீங்கள் சேமிக்கவில்லையென�
 msgid "_Cancel"
 msgstr "_C நீக்கு"
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:836
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:837
 msgid "_Reload"
 msgstr "(_R) மீளேற்று"
 
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3847
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3782
 msgid "Save _As…"
 msgstr "(_A) இப்படி சேமி..."
 
@@ -743,18 +741,18 @@ msgid "South"
 msgstr "தெற்கு"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:119 ../src/eog-exif-util.c:159
+#: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:153
+#: ../src/eog-exif-util.c:154
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:250
+#: ../src/eog-exif-util.c:251
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (lens)"
@@ -762,7 +760,7 @@ msgstr "%.1f (lens)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:261
+#: ../src/eog-exif-util.c:262
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35மிமி பிலிம்)"
@@ -800,65 +798,65 @@ msgstr "ஆதரவுள்ள பிம்ப கோப்புகள்"
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:296 ../src/eog-metadata-sidebar.c:235
 #: ../src/eog-metadata-sidebar.c:239 ../src/eog-properties-dialog.c:138
-#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:446
+#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:519
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "பிக்ஸல்"
 msgstr[1] "பிக்ஸல்"
 
-#: ../src/eog-file-chooser.c:447
+#: ../src/eog-file-chooser.c:466
 msgid "Open Image"
 msgstr "பிம்பத்தை திற"
 
-#: ../src/eog-file-chooser.c:455
+#: ../src/eog-file-chooser.c:474
 msgid "Save Image"
 msgstr "பிம்பத்தை சேமி"
 
-#: ../src/eog-file-chooser.c:463
+#: ../src/eog-file-chooser.c:482
 msgid "Open Folder"
 msgstr "அடைவை திறக்கவும்"
 
-#: ../src/eog-image.c:616
+#: ../src/eog-image.c:615
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "ஏற்றப்படாத பிம்பத்தை மாற்றுதல்."
 
-#: ../src/eog-image.c:644
+#: ../src/eog-image.c:643
 #, c-format
 msgid "Transformation failed."
 msgstr "உருமாற்றுதல் தோல்வியுற்றது."
 
-#: ../src/eog-image.c:1105
+#: ../src/eog-image.c:1104
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "இந்த கோப்பு வடிவத்திற்கு EXIF துணையில்லை."
 
-#: ../src/eog-image.c:1254
+#: ../src/eog-image.c:1253
 #, c-format
 msgid "Image loading failed."
 msgstr "பிம்ப ஏற்றம் தோல்வியுற்றது."
 
-#: ../src/eog-image.c:1835 ../src/eog-image.c:1955
+#: ../src/eog-image.c:1834 ../src/eog-image.c:1954
 #, c-format
 msgid "No image loaded."
 msgstr "பிம்பம் ஏதும் ஏற்றப்படவில்லை."
 
-#: ../src/eog-image.c:1843 ../src/eog-image.c:1964
+#: ../src/eog-image.c:1842 ../src/eog-image.c:1963
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "இந்த கோப்பினை சேமிக்க உங்களுக்குத் தேவையான அனுமதிகள் இல்லை."
 
-#: ../src/eog-image.c:1853 ../src/eog-image.c:1975
+#: ../src/eog-image.c:1852 ../src/eog-image.c:1974
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "தற்காலிக கோப்பு உருவாக்கம் தோல்வியில் முடிந்தது"
 
-#: ../src/eog-image-jpeg.c:373
+#: ../src/eog-image-jpeg.c:375
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "இதனை சேமிப்பதற்கு தற்காலிக கோப்பு படைக்கமுடியவில்லை: %s"
 
-#: ../src/eog-image-jpeg.c:392
+#: ../src/eog-image-jpeg.c:394
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG கோப்பை ஏற்றுவதற்கு நினைவகத்தை ஒதுக்கி வைக்க முடியவில்லை"
@@ -872,11 +870,18 @@ msgid "File size:"
 msgstr "கோப்பின் அளவு:"
 
 #: ../src/eog-metadata-sidebar.c:517 ../src/eog-properties-dialog.c:674
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3786
 msgid "Show the folder which contains this file in the file manager"
 msgstr "கோப்பு மேலாளரில் இந்த  கோப்பு இருக்கும் அடைவை காட்டவும்."
 
-#: ../src/eog-print.c:219
+#: ../src/eog-preferences-dialog.c:114
+#, c-format
+msgid "%lu second"
+msgid_plural "%lu seconds"
+msgstr[0] "%lu நொடி"
+msgstr[1] "%lu நொடிகள்"
+
+#: ../src/eog-print.c:371
 msgid "Image Settings"
 msgstr "பிம்ப அமைப்பு"
 
@@ -987,7 +992,7 @@ msgstr "இருப்பது போலவே"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:474
+#: ../src/eog-thumb-view.c:547
 msgid "Taken on"
 msgstr "எடுக்கப்பட்ட தேதி"
 
@@ -1010,21 +1015,21 @@ msgstr " (தவறான யூனிகோட்)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:530
+#: ../src/eog-window.c:531
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i பிக்ஸல்  %s    %i%%"
 msgstr[1] "%i x %i பிக்ஸல்கள்  %s    %i%%"
 
-#: ../src/eog-window.c:838 ../src/eog-window.c:2795
+#: ../src/eog-window.c:839 ../src/eog-window.c:2730
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr " _d மறை"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:848
+#: ../src/eog-window.c:849
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1033,7 +1038,7 @@ msgstr ""
 " பிம்பம்  \"%s\" வெளியார்ந்த நிரலால் மாற்றப்பட்டது\n"
 " அதை மீண்டும் ஏற்ற விருப்பமா? "
 
-#: ../src/eog-window.c:1012
+#: ../src/eog-window.c:1013
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "தேர்ந்தெடுத்த பிம்பத்தை திறக்க \"%s\"  ஐ பயன்படுத்துக"
@@ -1043,17 +1048,17 @@ msgstr "தேர்ந்தெடுத்த பிம்பத்தை த�
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1168
+#: ../src/eog-window.c:1169
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "\"%s\" பிம்பம் சேமிக்கப்படுகின்றது  (%u/%u)"
 
-#: ../src/eog-window.c:1539
+#: ../src/eog-window.c:1551
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "பிம்பம்  திறக்கப்படுகின்றது \"%s\" "
 
-#: ../src/eog-window.c:2216
+#: ../src/eog-window.c:2214
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1062,35 +1067,27 @@ msgstr ""
 "கோப்பை அச்சிடும் போது பிழை:\n"
 "%s"
 
-#: ../src/eog-window.c:2534
+#: ../src/eog-window.c:2513
 msgid "Toolbar Editor"
 msgstr "கருவிப்பட்டி திருத்தி"
 
-#: ../src/eog-window.c:2537
+#: ../src/eog-window.c:2516
 msgid "_Reset to Default"
 msgstr "முன்னிருப்புக்கு்மீமீ ட்ட(_R)ரை "
 
-#: ../src/eog-window.c:2642
-msgid "translator-credits"
-msgstr "I. Felix, ifelix25@gmail.com"
-
-#: ../src/eog-window.c:2650
-msgid "The GNOME image viewer."
-msgstr "க்னோம் பிம்ப காட்டி"
-
-#: ../src/eog-window.c:2742 ../src/eog-window.c:2757
+#: ../src/eog-window.c:2677 ../src/eog-window.c:2692
 msgid "Error launching System Settings: "
 msgstr "கணினி அமைப்புகளை துவக்கும்போது பிழை: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2793
+#: ../src/eog-window.c:2728
 msgid "_Open Background Preferences"
 msgstr "_O பின்னணி விருப்பங்களை திற "
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2809
+#: ../src/eog-window.c:2744
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1099,11 +1096,11 @@ msgstr ""
 "பிம்பம்  \"%s\" மேல்மேசை   பின்னணியாக  வைக்கப்பட்டுள்ள து\n"
 " அதன் தோற்றத்தை   மாற்ற விருப்பமா? "
 
-#: ../src/eog-window.c:3276
+#: ../src/eog-window.c:3211
 msgid "Saving image locally…"
 msgstr "படத்தை உள்ளமைவாக சேமிக்கிறது"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3291
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1112,14 +1109,14 @@ msgstr ""
 "நீங்கள் நிச்சயமாக\n"
 "\"%s\" ஐ குப்பைக்கு நகர்த்த வேண்டுமா?"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3294
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "ஒரு குப்பை \"%s\"க்கு தேட முடியவில்லை. இந்த படத்தை நிரந்தரமாக நீக்க வேண்டுமா?"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3299
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1134,7 +1131,7 @@ msgstr[1] ""
 "நீங்கள் தேர்ந்தெடுத்த பிம்பங்கள்\n"
 "%d ஐ குப்பை தொட்டிக்கு நகர்த்த வேண்டுமா?"
 
-#: ../src/eog-window.c:3369
+#: ../src/eog-window.c:3304
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1142,420 +1139,432 @@ msgstr ""
 "சில தேர்ந்தெடுக்கப்பட்ட படங்களை குப்பைக்கு நகர்த்த முடியவில்லை அவை நிரந்தரமாக நீக்கப்படும். "
 "அதனை செய்ய வேண்டுமா?"
 
-#: ../src/eog-window.c:3386 ../src/eog-window.c:3877 ../src/eog-window.c:3901
+#: ../src/eog-window.c:3321 ../src/eog-window.c:3812 ../src/eog-window.c:3836
 msgid "Move to _Trash"
 msgstr "_T குப்பைக்கு நகர்த்து"
 
-#: ../src/eog-window.c:3388
+#: ../src/eog-window.c:3323
 msgid "_Do not ask again during this session"
 msgstr "(_D) மீண்டும் இந்த அமர்வில் கேட்காதே"
 
-#: ../src/eog-window.c:3433 ../src/eog-window.c:3447
+#: ../src/eog-window.c:3368 ../src/eog-window.c:3382
 #, c-format
 msgid "Couldn't access trash."
 msgstr "குப்பை தொட்டியை அணுக முடியவில்லை"
 
-#: ../src/eog-window.c:3455
+#: ../src/eog-window.c:3390
 #, c-format
 msgid "Couldn't delete file"
 msgstr "கோப்பினை சேமிக்க முடியவில்லை"
 
-#: ../src/eog-window.c:3551
+#: ../src/eog-window.c:3486
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "பிம்பத்தை நீக்கும் போது பிழை %s"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3733
 msgid "_Image"
 msgstr "_I பிம்பம்"
 
-#: ../src/eog-window.c:3799
+#: ../src/eog-window.c:3734
 msgid "_Edit"
 msgstr "_E திருத்து"
 
-#: ../src/eog-window.c:3800
+#: ../src/eog-window.c:3735
 msgid "_View"
 msgstr "_V பார்வை"
 
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3736
 msgid "_Go"
 msgstr "_G செல்க"
 
-#: ../src/eog-window.c:3802
+#: ../src/eog-window.c:3737
 msgid "_Tools"
 msgstr "_T கருவிகள்"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3738
 msgid "_Help"
 msgstr "_H உதவி"
 
-#: ../src/eog-window.c:3805
+#: ../src/eog-window.c:3740
 msgid "_Open…"
 msgstr "(_O) திற"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3741
 msgid "Open a file"
 msgstr "ஓர் கோப்பை திறக்கவும்"
 
-#: ../src/eog-window.c:3808
+#: ../src/eog-window.c:3743
 msgid "_Close"
 msgstr "_C மூடு"
 
-#: ../src/eog-window.c:3809
+#: ../src/eog-window.c:3744
 msgid "Close window"
 msgstr "சாளரத்தை மூடு"
 
-#: ../src/eog-window.c:3811
+#: ../src/eog-window.c:3746
 msgid "T_oolbar"
 msgstr "_o கருவிப்பட்டி"
 
-#: ../src/eog-window.c:3812
+#: ../src/eog-window.c:3747
 msgid "Edit the application toolbar"
 msgstr "பயன்பாட்டு கருவிப்பட்டையை திருத்துக"
 
-#: ../src/eog-window.c:3814
+#: ../src/eog-window.c:3749
 msgid "Prefere_nces"
 msgstr "_n விருப்பங்கள்"
 
-#: ../src/eog-window.c:3815
+#: ../src/eog-window.c:3750
 msgid "Preferences for Image Viewer"
 msgstr "இமேஜ் வ்யூவர் க்கு விருப்பங்கள்"
 
-#: ../src/eog-window.c:3817
+#: ../src/eog-window.c:3752
 msgid "_Contents"
 msgstr "_C உள்ளடக்கங்கள்"
 
-#: ../src/eog-window.c:3818
+#: ../src/eog-window.c:3753
 msgid "Help on this application"
 msgstr "இந்த செயல்பாட்டுக்கான உதவி"
 
-#: ../src/eog-window.c:3820
+#: ../src/eog-window.c:3755
 msgid "_About"
 msgstr "_A பற்றி"
 
-#: ../src/eog-window.c:3821
+#: ../src/eog-window.c:3756
 msgid "About this application"
 msgstr "இந்த பயன்பாடு பற்றி"
 
-#: ../src/eog-window.c:3826
+#: ../src/eog-window.c:3761
 msgid "_Toolbar"
 msgstr "_T கருவிப்பட்டி"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3762
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "நடப்பு சாளரத்தில் கருவிப்பட்டையின் தெரிதலை மாற்றுகிறது"
 
-#: ../src/eog-window.c:3829
+#: ../src/eog-window.c:3764
 msgid "_Statusbar"
 msgstr "_S நிலைப்பட்டை"
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3765
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "நடப்பு சாளரத்தில் நிலைப்பட்டையின் தெரிதலை மாற்றுகிறது"
 
-#: ../src/eog-window.c:3832
+#: ../src/eog-window.c:3767
 msgid "_Image Gallery"
 msgstr "_I பிம்ப சேகரிப்பு "
 
-#: ../src/eog-window.c:3833
+#: ../src/eog-window.c:3768
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "நடப்பு சாளரத்தில் பிம்ப சேகரிப்பு பலக தெரிதலை மாற்றுகிறது"
 
-#: ../src/eog-window.c:3835
+#: ../src/eog-window.c:3770
 msgid "Side _Pane"
 msgstr "பக்க பலகம் (_P)"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3771
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "நடப்பு சாளரத்தில் நிலைப்பட்டையின் தெரிதலை மாற்றுகிறது"
 
-#: ../src/eog-window.c:3841
+#: ../src/eog-window.c:3776
 msgid "_Save"
 msgstr "_S சேமிக்கவும்"
 
-#: ../src/eog-window.c:3842
+#: ../src/eog-window.c:3777
 msgid "Save changes in currently selected images"
 msgstr "தேர்ந்தெடுத்த பிம்பத்தில் மாற்றங்களை சேமிக்கவும் "
 
-#: ../src/eog-window.c:3844
+#: ../src/eog-window.c:3779
 msgid "Open _with"
 msgstr "_w இதனுடன் திறக்க"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3780
 msgid "Open the selected image with a different application"
 msgstr "தேர்ந்தெடுக்கப்பட்ட படத்தை வேறு ஒரு பயன்பாட்டால் திற"
 
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3783
 msgid "Save the selected images with a different name"
 msgstr "தேர்ந்தெடுக்கப்பட்ட படத்தை வேறு ஒரு பெயரால் சேமி"
 
-#: ../src/eog-window.c:3850
+#: ../src/eog-window.c:3785
 msgid "Show Containing _Folder"
 msgstr "_F அடக்கிய அடைவை காட்டவும்"
 
-#: ../src/eog-window.c:3853
+#: ../src/eog-window.c:3788
 msgid "_Print…"
 msgstr "_P அச்சிடு."
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3789
 msgid "Print the selected image"
 msgstr "தேர்ந்தெடுத்த பிம்பத்தை அச்சிடவும்"
 
-#: ../src/eog-window.c:3856
+#: ../src/eog-window.c:3791
 msgid "Prope_rties"
 msgstr "_r பண்புகள்"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3792
 msgid "Show the properties and metadata of the selected image"
 msgstr "தேர்ந்தெடுக்கப்பட்ட படத்தின் பண்புகள் மற்றும்  மெடாதரவையும் காட்டுக"
 
-#: ../src/eog-window.c:3859
+#: ../src/eog-window.c:3794
 msgid "_Undo"
 msgstr "_U தவிர்"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3795
 msgid "Undo the last change in the image"
 msgstr "படத்தில் கடைசி மாற்றத்தை செயல்நீக்கு"
 
-#: ../src/eog-window.c:3862
+#: ../src/eog-window.c:3797
 msgid "Flip _Horizontal"
 msgstr "(_H) கிடைதிசையாக திருப்புக"
 
-#: ../src/eog-window.c:3863
+#: ../src/eog-window.c:3798
 msgid "Mirror the image horizontally"
 msgstr "படத்தை கிடையில் கண்ணாடி பிம்பம் போல் காட்டு"
 
-#: ../src/eog-window.c:3865
+#: ../src/eog-window.c:3800
 msgid "Flip _Vertical"
 msgstr "(_V) செங்குத்தாக திருப்புக"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3801
 msgid "Mirror the image vertically"
 msgstr "படத்தை செங்குத்தில் கண்ணாடி பிம்பம் போல் காட்டு"
 
-#: ../src/eog-window.c:3868
+#: ../src/eog-window.c:3803
 msgid "_Rotate Clockwise"
 msgstr "(_R) நேர்திசையில் சுழற்றவும்"
 
-#: ../src/eog-window.c:3869
+#: ../src/eog-window.c:3804
 msgid "Rotate the image 90 degrees to the right"
 msgstr "படத்தை 90 பாகைகள் வலமாக சுற்றுக"
 
-#: ../src/eog-window.c:3871
+#: ../src/eog-window.c:3806
 msgid "Rotate Counterc_lockwise"
 msgstr "(_l) எதிர்திசையில் சுழற்றவும்"
 
-#: ../src/eog-window.c:3872
+#: ../src/eog-window.c:3807
 msgid "Rotate the image 90 degrees to the left"
 msgstr "படத்தை 90 பாகைகள் இடமாக சுற்றுக"
 
-#: ../src/eog-window.c:3874
+#: ../src/eog-window.c:3809
 msgid "Set as _Desktop Background"
 msgstr "பணிமேடை பின்னணியாக அமை (_D)"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:3810
 msgid "Set the selected image as the desktop background"
 msgstr "தேர்வு செய்யப்பட்ட படத்தை பணிமேடை பின்னணியாக்கு"
 
-#: ../src/eog-window.c:3878
+#: ../src/eog-window.c:3813
 msgid "Move the selected image to the trash folder"
 msgstr "தேர்வு செய்யப்பட்ட உருப்படியை குப்பை அடைவுக்கு நகர்த்து"
 
-#: ../src/eog-window.c:3880
+#: ../src/eog-window.c:3815
 msgid "_Copy"
 msgstr "நகல் (_C)"
 
-#: ../src/eog-window.c:3881
+#: ../src/eog-window.c:3816
 msgid "Copy the selected image to the clipboard"
 msgstr "தேர்வு செய்யப்பட்ட பிம்பத்தை ஒட்டுப்பலகைக்கு படியெடு"
 
-#: ../src/eog-window.c:3883 ../src/eog-window.c:3892 ../src/eog-window.c:3895
+#: ../src/eog-window.c:3818 ../src/eog-window.c:3827 ../src/eog-window.c:3830
 msgid "_Zoom In"
 msgstr "(_Z) அணுகிப் பார்"
 
-#: ../src/eog-window.c:3884 ../src/eog-window.c:3893
+#: ../src/eog-window.c:3819 ../src/eog-window.c:3828
 msgid "Enlarge the image"
 msgstr "படத்தை பெரிதாக்கு"
 
-#: ../src/eog-window.c:3886 ../src/eog-window.c:3898
+#: ../src/eog-window.c:3821 ../src/eog-window.c:3833
 msgid "Zoom _Out"
 msgstr "(_O) விலகிப் பார்"
 
-#: ../src/eog-window.c:3887 ../src/eog-window.c:3896 ../src/eog-window.c:3899
+#: ../src/eog-window.c:3822 ../src/eog-window.c:3831 ../src/eog-window.c:3834
 msgid "Shrink the image"
 msgstr "படத்தை சுருக்கவும் "
 
-#: ../src/eog-window.c:3889
+#: ../src/eog-window.c:3824
 msgid "_Normal Size"
 msgstr "(_N) இயல்பான அளவு"
 
-#: ../src/eog-window.c:3890
+#: ../src/eog-window.c:3825
 msgid "Show the image at its normal size"
 msgstr "படத்தை இயல்பான அளவில் காட்டு"
 
-#: ../src/eog-window.c:3907
+#: ../src/eog-window.c:3842
 msgid "_Fullscreen"
 msgstr "(_F) முழுத்திரையில்"
 
-#: ../src/eog-window.c:3908
+#: ../src/eog-window.c:3843
 msgid "Show the current image in fullscreen mode"
 msgstr "இப்போதைய படத்தை முழுத்திரை பாங்கில் காட்டுக"
 
-#: ../src/eog-window.c:3910
+#: ../src/eog-window.c:3845
 msgid "Pause Slideshow"
 msgstr "படவில்லை காட்சியை தாமதி"
 
-#: ../src/eog-window.c:3911
+#: ../src/eog-window.c:3846
 msgid "Pause or resume the slideshow"
 msgstr "படவில்லை காட்சியை தாமதி / மீள்துவக்கு"
 
-#: ../src/eog-window.c:3913
+#: ../src/eog-window.c:3848
 msgid "_Best Fit"
 msgstr "(_B) நல்ல பொருத்தம்"
 
-#: ../src/eog-window.c:3914
+#: ../src/eog-window.c:3849
 msgid "Fit the image to the window"
 msgstr "படத்தை சாளரத்தில் பொருத்தவும்"
 
-#: ../src/eog-window.c:3919 ../src/eog-window.c:3934
+#: ../src/eog-window.c:3854 ../src/eog-window.c:3869
 msgid "_Previous Image"
 msgstr "(_P) முந்தைய பிம்பம்"
 
-#: ../src/eog-window.c:3920
+#: ../src/eog-window.c:3855
 msgid "Go to the previous image of the gallery"
 msgstr "பட சேகரிப்பில் முந்தைய படத்துக்கு போ"
 
-#: ../src/eog-window.c:3922
+#: ../src/eog-window.c:3857
 msgid "_Next Image"
 msgstr "(_N) அடுத்த பிம்பம்"
 
-#: ../src/eog-window.c:3923
+#: ../src/eog-window.c:3858
 msgid "Go to the next image of the gallery"
 msgstr "பட சேகரிப்பில் அடுத்த படத்துக்கு போ"
 
-#: ../src/eog-window.c:3925 ../src/eog-window.c:3937
+#: ../src/eog-window.c:3860 ../src/eog-window.c:3872
 msgid "_First Image"
 msgstr "(_F) ஆரம்ப பிம்பம்"
 
-#: ../src/eog-window.c:3926
+#: ../src/eog-window.c:3861
 msgid "Go to the first image of the gallery"
 msgstr "பட சேகரிப்பில் முதல் படத்துக்கு போ"
 
-#: ../src/eog-window.c:3928 ../src/eog-window.c:3940
+#: ../src/eog-window.c:3863 ../src/eog-window.c:3875
 msgid "_Last Image"
 msgstr "(_L) கடைசி பிம்பம்"
 
-#: ../src/eog-window.c:3929
+#: ../src/eog-window.c:3864
 msgid "Go to the last image of the gallery"
 msgstr "பட சேகரிப்பில் கடைசி படத்துக்கு போ"
 
-#: ../src/eog-window.c:3931
+#: ../src/eog-window.c:3866
 msgid "_Random Image"
 msgstr "_R  குறிப்பில்லா பிம்பம்"
 
-#: ../src/eog-window.c:3932
+#: ../src/eog-window.c:3867
 msgid "Go to a random image of the gallery"
 msgstr "பட சேகரிப்பில் குறிப்பில்லாது ஒரு படத்துக்கு போ"
 
-#: ../src/eog-window.c:3946
+#: ../src/eog-window.c:3881
 msgid "S_lideshow"
 msgstr "_l படவில்லை காட்சி"
 
-#: ../src/eog-window.c:3947
+#: ../src/eog-window.c:3882
 msgid "Start a slideshow view of the images"
 msgstr "பட வரிசை காட்சி ஒன்றை துவக்கு"
 
-#: ../src/eog-window.c:4013
+#: ../src/eog-window.c:3950
 msgid "Previous"
 msgstr "முந்தைய"
 
-#: ../src/eog-window.c:4017
+#: ../src/eog-window.c:3954
 msgid "Next"
 msgstr "அடுத்து"
 
-#: ../src/eog-window.c:4021
+#: ../src/eog-window.c:3958
 msgid "Right"
 msgstr "வலது"
 
-#: ../src/eog-window.c:4024
+#: ../src/eog-window.c:3961
 msgid "Left"
 msgstr "இடது"
 
-#: ../src/eog-window.c:4027
+#: ../src/eog-window.c:3964
 msgid "Show Folder"
 msgstr "அடைவை     காட்டவும்"
 
-#: ../src/eog-window.c:4030
+#: ../src/eog-window.c:3967
 msgid "In"
 msgstr "உள்ளே"
 
-#: ../src/eog-window.c:4033
+#: ../src/eog-window.c:3970
 msgid "Out"
 msgstr "வெளியே"
 
-#: ../src/eog-window.c:4036
+#: ../src/eog-window.c:3973
 msgid "Normal"
 msgstr "இயல்பான"
 
-#: ../src/eog-window.c:4039
+#: ../src/eog-window.c:3976
 msgid "Fit"
 msgstr "பொருத்து"
 
-#: ../src/eog-window.c:4042
+#: ../src/eog-window.c:3979
 msgid "Gallery"
 msgstr "பிம்ப சேகரிப்பு "
 
-#: ../src/eog-window.c:4045
+#: ../src/eog-window.c:3996
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "குப்பை"
 
-#: ../src/eog-window.c:4411
+#: ../src/eog-window.c:4362
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "%s ஐ பயன்படுத்தி பிம்பத்தை திருத்துக"
 
-#: ../src/eog-window.c:4413
+#: ../src/eog-window.c:4364
 msgid "Edit Image"
 msgstr "பிம்பத்தை திருத்துக"
 
-#: ../src/main.c:66
+#: ../src/eog-window.c:5682
+msgid "The GNOME image viewer."
+msgstr "க்னோம் பிம்ப காட்டி"
+
+#: ../src/eog-window.c:5685
+msgid "translator-credits"
+msgstr "I. Felix, ifelix25@gmail.com"
+
+#: ../src/main.c:71
 msgid "GNOME Image Viewer"
 msgstr "க்னோம் பிம்ப காட்டி"
 
-#: ../src/main.c:73
+#: ../src/main.c:78
 msgid "Open in fullscreen mode"
 msgstr "முழுத்திரை பாங்கில் திறக்கவும்."
 
-#: ../src/main.c:74
+#: ../src/main.c:79
 msgid "Disable image gallery"
 msgstr "பிம்ப சேகரிப்பை செயல் நீக்கு"
 
-#: ../src/main.c:75
+#: ../src/main.c:80
 msgid "Open in slideshow mode"
 msgstr "பட வில்லை காட்சி பாங்கில் திற"
 
-#: ../src/main.c:76
+#: ../src/main.c:81
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "இருப்பில் உள்ளதை பயனாக்குவது தவிர்த்து புதியது துவக்கு "
 
-#: ../src/main.c:77
+#: ../src/main.c:82
 msgid "Open in a single window, if multiple windows are open the first one is used"
 msgstr "ஒற்றை சாளரத்தில் திறக்கவும், பல சாளரங்கள் திறந்து இருப்பின் முதலாவது பயனாகும்"
 
-#: ../src/main.c:79
+#: ../src/main.c:84
 msgid "Show the application's version"
 msgstr "இப்பயன்பாட்டின் பதிப்பைக் காட்டு"
 
-#: ../src/main.c:111
+#: ../src/main.c:116
 msgid "[FILE…]"
 msgstr "[FILE...]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:124
+#: ../src/main.c:129
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "'%s --help' என்பதை இயக்கி இருக்கும் கட்டளை வரி விருப்பங்களை பட்டியலிடவும்."
+
+#~ msgctxt "PrefDlgSlideSwitchPrefix"
+#~ msgid "_Switch image after:"
+#~ msgstr "(_S) இதற்குப் பிறகு பிம்பத்தை மாற்று:"
 
 #~ msgid "Eye of GNOME Preferences"
 #~ msgstr "ஐ ஆப் க்னோம் விருப்பங்கள்"
