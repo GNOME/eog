@@ -119,6 +119,13 @@ else
 fi
 
 # ***************
+# libm (required)
+# ***************
+
+AC_CHECK_LIBM
+AC_SUBST(LIBM)
+
+# ***************
 # ZLIB (required)
 # ***************
 

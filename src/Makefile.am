@@ -150,7 +150,8 @@ libeog_la_CFLAGS =						\
 	$(WARN_CFLAGS)
 
 libeog_la_LIBADD = \
-	$(EOG_LIBS)
+	$(EOG_LIBS) \
+	$(LIBM)
 
 if HAVE_LCMS
 libeog_la_CFLAGS += 	\
