@@ -88,7 +88,6 @@ INCLUDES= \
 	-I$(top_srcdir)/plugins \
 	-I$(top_srcdir)/jpegutils				\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
-	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	$(EOG_CFLAGS)
 
 if ENABLE_JPEG
@@ -98,7 +97,6 @@ endif
 GTKDOC_LIBS=\
 	$(top_builddir)/src/libeog.la 	\
 	$(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la \
-	$(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la \
 	$(BINDING_LIBS)			\
 	$(LIBJPEG)			\
 	$(X_LIBS)			\
