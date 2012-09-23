@@ -35,8 +35,6 @@
 #include "eog-application-internal.h"
 #include "eog-util.h"
 
-#include "totem-scrsaver.h"
-
 #include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -730,34 +728,6 @@ eog_application_reset_toolbars_model (EogApplication *app)
 					  EOG_DATA_DIR "/eog-toolbar.xml");
 	egg_toolbars_model_set_flags (priv->toolbars_model, 0,
 				      EGG_TB_MODEL_NOT_REMOVABLE);
-}
-
-/**
- * eog_application_screensaver_enable:
- * @application: an #EogApplication.
- *
- * Enables the screensaver. Usually necessary after a call to
- * eog_application_screensaver_disable().
- **/
-void
-eog_application_screensaver_enable (EogApplication *application)
-{
-	if (application->priv->scr_saver)
-		totem_scrsaver_enable (application->priv->scr_saver);
-}
-
-/**
- * eog_application_screensaver_disable:
- * @application: an #EogApplication.
- *
- * Disables the screensaver. Useful when the application is in fullscreen or
- * similar mode.
- **/
-void
-eog_application_screensaver_disable (EogApplication *application)
-{
-	if (application->priv->scr_saver)
-		totem_scrsaver_disable (application->priv->scr_saver);
 }
 
 static void

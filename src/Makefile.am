@@ -4,8 +4,6 @@ endif
 
 toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
-screensaver_LIB = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
-
 noinst_LTLIBRARIES = libeog.la
 
 bin_PROGRAMS = eog
@@ -136,7 +134,6 @@ endif HAVE_EXEMPI
 libeog_la_CPPFLAGS =						\
 	-I$(top_srcdir)/jpegutils				\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
-	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
@@ -167,7 +164,6 @@ eog_SOURCES = main.c
 
 eog_CFLAGS = 							\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
-	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	$(EOG_CFLAGS)						\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"                \
@@ -178,7 +174,6 @@ eog_LDADD = 				\
 	$(EOG_LIBS)			\
 	$(LIBJPEG)			\
 	$(toolbar_LIB)			\
-	$(screensaver_LIB)		\
 	$(jpeg_LIB)			\
 	$(INTROSPECTION_LIBS)
 

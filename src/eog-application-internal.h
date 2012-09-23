@@ -35,8 +35,6 @@
 #include "egg-toolbars-model.h"
 #include "eog-window.h"
 
-#include "totem-scrsaver.h"
-
 G_BEGIN_DECLS
 
 struct _EogApplicationPrivate {
@@ -44,7 +42,6 @@ struct _EogApplicationPrivate {
 	gchar            *toolbars_file;
 	EogPluginEngine  *plugin_engine;
 
-	TotemScrsaver    *scr_saver;
 	EogStartupFlags   flags;
 
 	GSettings        *ui_settings;

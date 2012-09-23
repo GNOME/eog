@@ -84,10 +84,6 @@ gboolean          eog_application_open_uris           (EogApplication *applicati
 						       EogStartupFlags flags,
 						       GError        **error);
 
-void              eog_application_screensaver_enable  (EogApplication *application);
-
-void              eog_application_screensaver_disable (EogApplication *application);
-
 G_END_DECLS
 
 #endif /* __EOG_APPLICATION_H__ */

@@ -161,6 +161,8 @@ struct _EogWindowPrivate {
 	gint                 slideshow_switch_timeout;
 	GSource             *slideshow_switch_source;
 
+	guint                fullscreen_idle_inhibit_cookie;
+
         guint		     recent_menu_id;
 
         EogJob              *load_job;
@@ -2020,6 +2022,37 @@ update_ui_visibility (EogWindow *window)
 }
 
 static void
+eog_window_inhibit_screensaver (EogWindow *window)
+{
+	EogWindowPrivate *priv = window->priv;
+
+	g_return_if_fail (priv->fullscreen_idle_inhibit_cookie == 0);
+
+	eog_debug (DEBUG_WINDOW);
+
+	window->priv->fullscreen_idle_inhibit_cookie =
+		gtk_application_inhibit (GTK_APPLICATION (EOG_APP),
+		                         GTK_WINDOW (window),
+		                         GTK_APPLICATION_INHIBIT_IDLE,
+		                         _("Viewing a slideshow"));
+}
+
+static void
+eog_window_uninhibit_screensaver (EogWindow *window)
+{
+	EogWindowPrivate *priv = window->priv;
+
+	if (G_UNLIKELY (priv->fullscreen_idle_inhibit_cookie == 0))
+		return;
+
+	eog_debug (DEBUG_WINDOW);
+
+	gtk_application_uninhibit (GTK_APPLICATION (EOG_APP),
+	                           priv->fullscreen_idle_inhibit_cookie);
+	priv->fullscreen_idle_inhibit_cookie = 0;
+}
+
+static void
 eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 {
 	EogWindowPrivate *priv;
@@ -2098,7 +2131,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	gtk_window_fullscreen (GTK_WINDOW (window));
 	eog_window_update_fullscreen_popup (window);
 
-	eog_application_screensaver_disable (EOG_APP);
+	eog_window_inhibit_screensaver (window);
 
 	/* Update both actions as we could've already been in one those modes */
 	eog_window_update_slideshow_action (window);
@@ -2164,7 +2197,7 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 
 	eog_scroll_view_show_cursor (EOG_SCROLL_VIEW (priv->view));
 
-	eog_application_screensaver_enable (EOG_APP);
+	eog_window_uninhibit_screensaver (window);
 }
 
 static void
@@ -4693,6 +4726,7 @@ eog_window_init (EogWindow *window)
 	window->priv->slideshow_loop = FALSE;
 	window->priv->slideshow_switch_timeout = 0;
 	window->priv->slideshow_switch_source = NULL;
+	window->priv->fullscreen_idle_inhibit_cookie = 0;
 
 	gtk_window_set_geometry_hints (GTK_WINDOW (window),
 				       GTK_WIDGET (window),
@@ -4802,6 +4836,7 @@ eog_window_dispose (GObject *object)
 	}
 
 	slideshow_clear_timeout (window);
+	eog_window_uninhibit_screensaver (window);
 
 	g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_default (),
 					      G_CALLBACK (eog_window_recent_manager_changed_cb),
