@@ -456,7 +456,7 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	char b[1024];
 	const gint key = ifd << 16 | entry->tag;
 
-	/* This should optimize away if comparision is correct */
+	/* This should optimize away if comparison is correct */
 	g_warn_if_fail (EXIF_IFD_COUNT <= G_MAXUINT16);
 
 	view = EOG_EXIF_DETAILS (data);

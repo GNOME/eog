@@ -341,7 +341,7 @@ static void migrate_config_folder (const gchar* new_dir)
 
 	dir_file = g_file_new_for_path (old_dir);
 	if (!g_file_delete (dir_file, NULL, &error)) {
-		g_warning ("An error occured while deleting the old config folder %s: %s\n", old_dir, error->message);
+		g_warning ("An error occurred while deleting the old config folder %s: %s\n", old_dir, error->message);
 		g_error_free (error);
 	}
 	g_object_unref (dir_file);

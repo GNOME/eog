@@ -76,7 +76,7 @@ eog_pixbuf_get_common_suffix (GdkPixbufFormat *format)
 	extensions = gdk_pixbuf_format_get_extensions (format);
 	if (extensions[0] == NULL) return NULL;
 
-	/* try to find 3-char suffix first, use the last occurence */
+	/* try to find 3-char suffix first, use the last occurrence */
 	for (i = 0; extensions [i] != NULL; i++) {
 		if (strlen (extensions[i]) <= 3) {
 			g_free (result);
