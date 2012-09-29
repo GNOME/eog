@@ -101,7 +101,7 @@ eog_metadata_reader_get_icc_profile (EogMetadataReader *emr)
 #endif
 
 /* Default vfunc that simply clears the output if not overriden by the
-   implementing class. This mimics the old behavour of get_exif_chunk(). */
+   implementing class. This mimics the old behaviour of get_exif_chunk(). */
 static void
 _eog_metadata_reader_default_get_raw_exif (EogMetadataReader *emr,
 					   guchar **data, guint *length)

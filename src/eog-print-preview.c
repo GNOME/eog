@@ -394,7 +394,7 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
  * EogPrintPreview::image-scaled:
  * @preview: the object which received the signal
  *
- * The ::image-scaled signal is emmited when the scale of the image is changed.
+ * The ::image-scaled signal is emitted when the scale of the image is changed.
  */
 	preview_signals [SIGNAL_IMAGE_SCALED] =
 		g_signal_new ("image_scaled",
