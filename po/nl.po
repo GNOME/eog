@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-16 23:00+0100\n"
-"PO-Revision-Date: 2012-02-04 15:27+0100\n"
+"POT-Creation-Date: 2012-10-06 14:59+0200\n"
+"PO-Revision-Date: 2012-10-06 14:59+0200\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -65,12 +65,51 @@ msgstr "De geselecteerde werkbalk verwijderen"
 msgid "Separator"
 msgstr "Scheider"
 
+#: ../data/eog-app-menu.xml.h:1 ../src/eog-window.c:3735
+msgid "_View"
+msgstr "Beel_d"
+
+#: ../data/eog-app-menu.xml.h:2 ../src/eog-window.c:3761
+msgid "_Toolbar"
+msgstr "_Werkbalk"
+
+#: ../data/eog-app-menu.xml.h:3 ../src/eog-window.c:3764
+msgid "_Statusbar"
+msgstr "_Statusbalk"
+
+#: ../data/eog-app-menu.xml.h:4 ../src/eog-window.c:3767
+msgid "_Image Gallery"
+msgstr "_Afbeeldingenoverzicht"
+
+#: ../data/eog-app-menu.xml.h:5 ../src/eog-window.c:3770
+msgid "Side _Pane"
+msgstr "_Zijbalk"
+
+#: ../data/eog-app-menu.xml.h:6 ../src/eog-window.c:3749
+msgid "Prefere_nces"
+msgstr "_Voorkeuren"
+
+#: ../data/eog-app-menu.xml.h:7 ../src/eog-window.c:3738
+msgid "_Help"
+msgstr "_Hulp"
+
 # eigenlijk moet de naam erbij want er zijn meer van dit soort
 # programma's: bv. Gthumb afbeeldingviewer
 # viewer ipv weergave om constistent te blijven met evince documentviewer
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-window.c:2633 ../src/main.c:176
+#: ../data/eog-app-menu.xml.h:8
+msgid "_About Image Viewer"
+msgstr "_Over afbeeldingviewer"
+
+#: ../data/eog-app-menu.xml.h:9
+msgid "_Quit"
+msgstr "_Afsluiten"
+
+# eigenlijk moet de naam erbij want er zijn meer van dit soort
+# programma's: bv. Gthumb afbeeldingviewer
+# viewer ipv weergave om constistent te blijven met evince documentviewer
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-window.c:5679 ../src/main.c:173
 msgid "Image Viewer"
-msgstr "EOG Afbeeldingviewer"
+msgstr "Afbeeldingviewer"
 
 #: ../data/eog.desktop.in.in.h:2
 msgid "Browse and rotate images"
@@ -81,7 +120,7 @@ msgstr "Afbeeldingen doorbladeren en roteren"
 msgid "Picture;Slideshow;Graphics;"
 msgstr "Afbeelding;Presentatie;Grafisch;Plaatje;"
 
-#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4613
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4578
 msgid "Image Properties"
 msgstr "Afbeeldingseigenschappen"
 
@@ -327,27 +366,20 @@ msgstr "Afbeeldingen uit_rekken om passend te maken"
 msgid "Sequence"
 msgstr "Reeks"
 
-#. I18N: This sentence will be displayed before a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
 #: ../data/eog-preferences-dialog.ui.h:19
-msgctxt "PrefDlgSlideSwitchPrefix"
-msgid "_Switch image after:"
-msgstr "Afbeelding _wisselen na:"
+msgid "_Time between images:"
+msgstr "_Tijd tussen afbeeldingen:"
 
-#. I18N: This sentence will be displayed after a GtkSpinButton to select a number of seconds in eog's preferences dialog. The context is applied to avoid ambiguity with possible similar translations. See bug 654548 for details.
-#: ../data/eog-preferences-dialog.ui.h:21
-msgctxt "PrefDlgSlideSwitchPostfix"
-msgid "seconds"
-msgstr "seconden"
-
-#: ../data/eog-preferences-dialog.ui.h:22
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Loop sequence"
 msgstr "Reeks _herhalen"
 
-#: ../data/eog-preferences-dialog.ui.h:23
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "Slideshow"
 msgstr "Diavoorstelling"
 
-#: ../data/eog-preferences-dialog.ui.h:24
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "Plugins"
 msgstr "Plugins"
 
@@ -660,7 +692,7 @@ msgstr "Als u niet opslaat, gaan uw wijzigingen verloren."
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "Wijzigingen aan afbeelding ‘%s’ opslaan alvorens te sluiten?"
 
-#: ../src/eog-close-confirmation-dialog.c:643
+#: ../src/eog-close-confirmation-dialog.c:642
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -672,7 +704,7 @@ msgstr[1] ""
 "Er zijn %d afbeeldingen met niet opgeslagen wijzigingen. Wijzigingen opslaan "
 "alvorens te sluiten?"
 
-#: ../src/eog-close-confirmation-dialog.c:660
+#: ../src/eog-close-confirmation-dialog.c:659
 msgid "S_elect the images you want to save:"
 msgstr "S_electeer de afbeeldingen die u wilt opslaan:"
 
@@ -686,11 +718,11 @@ msgid "_Cancel"
 msgstr "_Annuleren"
 
 # opnieuw laden/herladen
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:836
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:837
 msgid "_Reload"
 msgstr "_Herladen"
 
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3833
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:3782
 msgid "Save _As…"
 msgstr "Opslaan _als…"
 
@@ -780,18 +812,18 @@ msgstr "Zuid"
 
 # a=verkorte weekdag, d=dag vd maand, B=maand, Y=4tallig jaar X=tijd volgens locale
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:119 ../src/eog-exif-util.c:159
+#: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:153
+#: ../src/eog-exif-util.c:154
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:250
+#: ../src/eog-exif-util.c:251
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (lens)"
@@ -799,7 +831,7 @@ msgstr "%.1f (lens)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:261
+#: ../src/eog-exif-util.c:262
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm-film)"
@@ -837,7 +869,7 @@ msgstr "Ondersteunde afbeeldingen"
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:296 ../src/eog-metadata-sidebar.c:235
 #: ../src/eog-metadata-sidebar.c:239 ../src/eog-properties-dialog.c:138
-#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:446
+#: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:519
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "beeldpunt"
@@ -855,47 +887,47 @@ msgstr "Afbeelding opslaan"
 msgid "Open Folder"
 msgstr "Map openen"
 
-#: ../src/eog-image.c:616
+#: ../src/eog-image.c:615
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformatie bij ongeladen afbeelding."
 
-#: ../src/eog-image.c:644
+#: ../src/eog-image.c:643
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformatie mislukt."
 
-#: ../src/eog-image.c:1105
+#: ../src/eog-image.c:1104
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF wordt niet ondersteund voor dit bestandsformaat."
 
-#: ../src/eog-image.c:1254
+#: ../src/eog-image.c:1253
 #, c-format
 msgid "Image loading failed."
 msgstr "Laden van afbeelding mislukt."
 
-#: ../src/eog-image.c:1835 ../src/eog-image.c:1955
+#: ../src/eog-image.c:1834 ../src/eog-image.c:1954
 #, c-format
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: ../src/eog-image.c:1843 ../src/eog-image.c:1964
+#: ../src/eog-image.c:1842 ../src/eog-image.c:1963
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "U heeft onvoldoende rechten om het bestand op te slaan."
 
-#: ../src/eog-image.c:1853 ../src/eog-image.c:1975
+#: ../src/eog-image.c:1852 ../src/eog-image.c:1974
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Het aanmaken van een tijdelijk bestand is mislukt."
 
-#: ../src/eog-image-jpeg.c:373
+#: ../src/eog-image-jpeg.c:375
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Kon tijdelijk bestand voor opslaan van %s niet aanmaken."
 
-#: ../src/eog-image-jpeg.c:392
+#: ../src/eog-image-jpeg.c:394
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Allocatie van geheugen voor JPEG-bestand is mislukt"
@@ -909,11 +941,18 @@ msgid "File size:"
 msgstr "Bestandsgrootte:"
 
 #: ../src/eog-metadata-sidebar.c:517 ../src/eog-properties-dialog.c:674
-#: ../src/eog-window.c:3837
+#: ../src/eog-window.c:3786
 msgid "Show the folder which contains this file in the file manager"
 msgstr "De map die dit bestand bevat openen in bestandsbeheer"
 
-#: ../src/eog-print.c:219
+#: ../src/eog-preferences-dialog.c:114
+#, c-format
+msgid "%lu second"
+msgid_plural "%lu seconds"
+msgstr[0] "%lu seconde"
+msgstr[1] "%lu seconden"
+
+#: ../src/eog-print.c:371
 msgid "Image Settings"
 msgstr "Afbeeldingsinstellingen"
 
@@ -1024,7 +1063,7 @@ msgstr "zoals het is"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:474
+#: ../src/eog-thumb-view.c:547
 msgid "Taken on"
 msgstr "Genomen op"
 
@@ -1047,21 +1086,21 @@ msgstr " (ongeldige Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:530
+#: ../src/eog-window.c:531
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pixel  %s    %i%%"
 msgstr[1] "%i × %i pixels  %s    %i%%"
 
-#: ../src/eog-window.c:838 ../src/eog-window.c:2781
+#: ../src/eog-window.c:839 ../src/eog-window.c:2730
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Ver_bergen"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:848
+#: ../src/eog-window.c:849
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1070,7 +1109,7 @@ msgstr ""
 "De afbeelding ‘%s’ is door een andere toepassing aangepast.\n"
 "Wilt u de afbeelding herladen?"
 
-#: ../src/eog-window.c:1012
+#: ../src/eog-window.c:1013
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
@@ -1080,17 +1119,17 @@ msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1168
+#: ../src/eog-window.c:1169
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Afbeelding ‘%s’ opslaan… (%u/%u)"
 
-#: ../src/eog-window.c:1539
+#: ../src/eog-window.c:1551
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Afbeelding  ‘%s’ openen"
 
-#: ../src/eog-window.c:2202
+#: ../src/eog-window.c:2214
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1099,42 +1138,27 @@ msgstr ""
 "Fout bij afdrukken van het bestand:\n"
 "%s"
 
-#: ../src/eog-window.c:2520
+#: ../src/eog-window.c:2513
 msgid "Toolbar Editor"
 msgstr "Werkbalk-editor"
 
-#: ../src/eog-window.c:2523
+#: ../src/eog-window.c:2516
 msgid "_Reset to Default"
 msgstr "_Terugzetten naar standaardinstellingen%s"
 
-#: ../src/eog-window.c:2628
-msgid "translator-credits"
-msgstr ""
-"Wouter Bolsterlee\n"
-"Tino Meinen\n"
-"Michiel Sikkes\n"
-"Vincent van Adrighem\n"
-"Dennis Smit\n"
-"Reinout van Schouwen\n"
-"Kijk voor meer informatie op http://nl.gnome.org/"
-
-#: ../src/eog-window.c:2636
-msgid "The GNOME image viewer."
-msgstr "Eye of Gnome afbeeldingsweergave"
-
-#: ../src/eog-window.c:2728 ../src/eog-window.c:2743
+#: ../src/eog-window.c:2677 ../src/eog-window.c:2692
 msgid "Error launching System Settings: "
 msgstr "Fout bij het opstarten van systeeminstellingen: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2779
+#: ../src/eog-window.c:2728
 msgid "_Open Background Preferences"
 msgstr "Achtergrondvoorkeuren _openen"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2795
+#: ../src/eog-window.c:2744
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1143,11 +1167,11 @@ msgstr ""
 "De afbeelding ‘%s’ is als bureaubladachtergrond ingesteld.\n"
 "Wilt u de weergaveopties wijzigen?"
 
-#: ../src/eog-window.c:3262
+#: ../src/eog-window.c:3211
 msgid "Saving image locally…"
 msgstr "Afbeelding lokaal opslaan…"
 
-#: ../src/eog-window.c:3342
+#: ../src/eog-window.c:3291
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1156,7 +1180,7 @@ msgstr ""
 "Weet u zeker dat u ‘%s’ naar\n"
 "de prullenbak wilt verplaatsen?"
 
-#: ../src/eog-window.c:3345
+#: ../src/eog-window.c:3294
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1165,7 +1189,7 @@ msgstr ""
 "Er kon geen prullenbak voor ‘%s’ gevonden worden. Weet u zeker dat u deze "
 "afbeelding voorgoed wilt verwijderen?"
 
-#: ../src/eog-window.c:3350
+#: ../src/eog-window.c:3299
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1180,7 +1204,7 @@ msgstr[1] ""
 "Weet u zeker dat u de %d geselecteerde\n"
 "afbeeldingen naar de prullenbak wilt verplaatsen?"
 
-#: ../src/eog-window.c:3355
+#: ../src/eog-window.c:3304
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1189,385 +1213,372 @@ msgstr ""
 "worden en zullen voorgoed verwijderd worden. Weet u zeker dat u wilt "
 "doorgaan?"
 
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3863 ../src/eog-window.c:3887
+#: ../src/eog-window.c:3321 ../src/eog-window.c:3812 ../src/eog-window.c:3836
 msgid "Move to _Trash"
 msgstr "In _prullenbak gooien"
 
-#: ../src/eog-window.c:3374
+#: ../src/eog-window.c:3323
 msgid "_Do not ask again during this session"
 msgstr "_Niet nogmaals vragen tijdens deze sessie"
 
 # benaderen/toegang krijgen/bereiken
-#: ../src/eog-window.c:3419 ../src/eog-window.c:3433
+#: ../src/eog-window.c:3368 ../src/eog-window.c:3382
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kan de prullenbak niet bereiken."
 
-#: ../src/eog-window.c:3441
+#: ../src/eog-window.c:3390
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Kon bestand niet verwijderen."
 
-#: ../src/eog-window.c:3537
+#: ../src/eog-window.c:3486
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fout bij het verwijderen van afbeelding %s"
 
-#: ../src/eog-window.c:3784
+#: ../src/eog-window.c:3733
 msgid "_Image"
 msgstr "_Afbeelding"
 
-#: ../src/eog-window.c:3785
+#: ../src/eog-window.c:3734
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: ../src/eog-window.c:3786
-msgid "_View"
-msgstr "Beel_d"
-
-#: ../src/eog-window.c:3787
+#: ../src/eog-window.c:3736
 msgid "_Go"
 msgstr "_Ga naar"
 
-#: ../src/eog-window.c:3788
+#: ../src/eog-window.c:3737
 msgid "_Tools"
 msgstr "E_xtra"
 
-#: ../src/eog-window.c:3789
-msgid "_Help"
-msgstr "_Hulp"
-
-#: ../src/eog-window.c:3791
+#: ../src/eog-window.c:3740
 msgid "_Open…"
 msgstr "_Openen"
 
-#: ../src/eog-window.c:3792
+#: ../src/eog-window.c:3741
 msgid "Open a file"
 msgstr "Bestand openen"
 
-#: ../src/eog-window.c:3794
+#: ../src/eog-window.c:3743
 msgid "_Close"
 msgstr "Sl_uiten"
 
-#: ../src/eog-window.c:3795
+#: ../src/eog-window.c:3744
 msgid "Close window"
 msgstr "Venster sluiten"
 
-#: ../src/eog-window.c:3797
+#: ../src/eog-window.c:3746
 msgid "T_oolbar"
 msgstr "_Werkbalk"
 
-#: ../src/eog-window.c:3798
+#: ../src/eog-window.c:3747
 msgid "Edit the application toolbar"
 msgstr "De werkbalk bewerken"
 
-#: ../src/eog-window.c:3800
-msgid "Prefere_nces"
-msgstr "_Voorkeuren"
-
-#: ../src/eog-window.c:3801
+#: ../src/eog-window.c:3750
 msgid "Preferences for Image Viewer"
 msgstr "Voorkeuren voor afbeeldingviewer"
 
-#: ../src/eog-window.c:3803
+#: ../src/eog-window.c:3752
 msgid "_Contents"
 msgstr "In_houd"
 
-#: ../src/eog-window.c:3804
+#: ../src/eog-window.c:3753
 msgid "Help on this application"
 msgstr "Hulp voor dit programma"
 
-#: ../src/eog-window.c:3806
+#: ../src/eog-window.c:3755
 msgid "_About"
 msgstr "I_nfo"
 
-#: ../src/eog-window.c:3807
+#: ../src/eog-window.c:3756
 msgid "About this application"
 msgstr "Info over deze toepassing"
 
-#: ../src/eog-window.c:3812
-msgid "_Toolbar"
-msgstr "_Werkbalk"
-
-#: ../src/eog-window.c:3813
+#: ../src/eog-window.c:3762
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "De werkbalk van het huidige venster tonen of verbergen"
 
-#: ../src/eog-window.c:3815
-msgid "_Statusbar"
-msgstr "_Statusbalk"
-
-#: ../src/eog-window.c:3816
+#: ../src/eog-window.c:3765
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "De statusbalk van het huidige venster tonen of verbergen"
 
-#: ../src/eog-window.c:3818
-msgid "_Image Gallery"
-msgstr "_Afbeeldingenoverzicht"
-
-#: ../src/eog-window.c:3819
+#: ../src/eog-window.c:3768
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Afbeeldingenoverzicht in het huidige venster tonen of verbergen"
 
-#: ../src/eog-window.c:3821
-msgid "Side _Pane"
-msgstr "_Zijbalk"
-
 # informatiebalk/zijbalk
-#: ../src/eog-window.c:3822
+#: ../src/eog-window.c:3771
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "De zijbalk in het huidige venster tonen of verbergen"
 
-#: ../src/eog-window.c:3827
+#: ../src/eog-window.c:3776
 msgid "_Save"
 msgstr "Op_slaan"
 
-#: ../src/eog-window.c:3828
+#: ../src/eog-window.c:3777
 msgid "Save changes in currently selected images"
 msgstr "Wijzigingen in de geselecteerde afbeeldingen opslaan"
 
-#: ../src/eog-window.c:3830
+#: ../src/eog-window.c:3779
 msgid "Open _with"
 msgstr "Openen _met"
 
-#: ../src/eog-window.c:3831
+#: ../src/eog-window.c:3780
 msgid "Open the selected image with a different application"
 msgstr "De geselecteerde afbeelding openen met en andere toepassing"
 
-#: ../src/eog-window.c:3834
+#: ../src/eog-window.c:3783
 msgid "Save the selected images with a different name"
 msgstr "De geselecteerde afbeeldingen opslaan onder een andere naam"
 
-#: ../src/eog-window.c:3836
+#: ../src/eog-window.c:3785
 msgid "Show Containing _Folder"
 msgstr "Bovenliggende _map tonen"
 
-#: ../src/eog-window.c:3839
+#: ../src/eog-window.c:3788
 msgid "_Print…"
 msgstr "Af_drukken…"
 
-#: ../src/eog-window.c:3840
+#: ../src/eog-window.c:3789
 msgid "Print the selected image"
 msgstr "De geselecteerde afbeelding afdrukken"
 
-#: ../src/eog-window.c:3842
+#: ../src/eog-window.c:3791
 msgid "Prope_rties"
 msgstr "_Eigenschappen"
 
-#: ../src/eog-window.c:3843
+#: ../src/eog-window.c:3792
 msgid "Show the properties and metadata of the selected image"
 msgstr "De eigenschappen en metadata van de geselecteerde afbeelding tonen"
 
-#: ../src/eog-window.c:3845
+#: ../src/eog-window.c:3794
 msgid "_Undo"
 msgstr "_Ongedaan maken"
 
-#: ../src/eog-window.c:3846
+#: ../src/eog-window.c:3795
 msgid "Undo the last change in the image"
 msgstr "De laatste wijziging in de afbeelding ongedaan maken"
 
-#: ../src/eog-window.c:3848
+#: ../src/eog-window.c:3797
 msgid "Flip _Horizontal"
 msgstr "_Horizontaal spiegelen"
 
-#: ../src/eog-window.c:3849
+#: ../src/eog-window.c:3798
 msgid "Mirror the image horizontally"
 msgstr "De afbeelding horizontaal spiegelen"
 
-#: ../src/eog-window.c:3851
+#: ../src/eog-window.c:3800
 msgid "Flip _Vertical"
 msgstr "_Verticaal spiegelen"
 
-#: ../src/eog-window.c:3852
+#: ../src/eog-window.c:3801
 msgid "Mirror the image vertically"
 msgstr "De afbeelding verticaal spiegelen"
 
-#: ../src/eog-window.c:3854
+#: ../src/eog-window.c:3803
 msgid "_Rotate Clockwise"
 msgstr "_Met de klok mee draaien"
 
-#: ../src/eog-window.c:3855
+#: ../src/eog-window.c:3804
 msgid "Rotate the image 90 degrees to the right"
 msgstr "De afbeelding 90 graden rechtsom draaien"
 
-#: ../src/eog-window.c:3857
+#: ../src/eog-window.c:3806
 msgid "Rotate Counterc_lockwise"
 msgstr "_Tegen de klok in draaien"
 
-#: ../src/eog-window.c:3858
+#: ../src/eog-window.c:3807
 msgid "Rotate the image 90 degrees to the left"
 msgstr "De afbeelding 90 graden linksom draaien"
 
-#: ../src/eog-window.c:3860
+#: ../src/eog-window.c:3809
 msgid "Set as _Desktop Background"
 msgstr "Als _achtergrond instellen"
 
-#: ../src/eog-window.c:3861
+#: ../src/eog-window.c:3810
 msgid "Set the selected image as the desktop background"
 msgstr ""
 "De geselecteerde afbeelding als achtergrond van het bureaublad instellen"
 
-#: ../src/eog-window.c:3864
+#: ../src/eog-window.c:3813
 msgid "Move the selected image to the trash folder"
 msgstr "De geselecteerde afbeelding naar de prullenbak verplaatsen"
 
-#: ../src/eog-window.c:3866
+#: ../src/eog-window.c:3815
 msgid "_Copy"
 msgstr "_Kopiëren"
 
-#: ../src/eog-window.c:3867
+#: ../src/eog-window.c:3816
 msgid "Copy the selected image to the clipboard"
 msgstr "Het geselecteerde item naar het klembord kopiëren"
 
-#: ../src/eog-window.c:3869 ../src/eog-window.c:3878 ../src/eog-window.c:3881
+#: ../src/eog-window.c:3818 ../src/eog-window.c:3827 ../src/eog-window.c:3830
 msgid "_Zoom In"
 msgstr "_Inzoomen"
 
-#: ../src/eog-window.c:3870 ../src/eog-window.c:3879
+#: ../src/eog-window.c:3819 ../src/eog-window.c:3828
 msgid "Enlarge the image"
 msgstr "Afbeelding vergroten"
 
-#: ../src/eog-window.c:3872 ../src/eog-window.c:3884
+#: ../src/eog-window.c:3821 ../src/eog-window.c:3833
 msgid "Zoom _Out"
 msgstr "_Uitzoomen"
 
-#: ../src/eog-window.c:3873 ../src/eog-window.c:3882 ../src/eog-window.c:3885
+#: ../src/eog-window.c:3822 ../src/eog-window.c:3831 ../src/eog-window.c:3834
 msgid "Shrink the image"
 msgstr "Afbeelding verkleinen"
 
-#: ../src/eog-window.c:3875
+#: ../src/eog-window.c:3824
 msgid "_Normal Size"
 msgstr "_Normale afmetingen"
 
-#: ../src/eog-window.c:3876
+#: ../src/eog-window.c:3825
 msgid "Show the image at its normal size"
 msgstr "Afbeelding weergeven op de normale grootte"
 
-#: ../src/eog-window.c:3893
+#: ../src/eog-window.c:3842
 msgid "_Fullscreen"
 msgstr "Scherm_vullend"
 
-#: ../src/eog-window.c:3894
+#: ../src/eog-window.c:3843
 msgid "Show the current image in fullscreen mode"
 msgstr "Huidige afbeelding weergeven in volledig scherm-modus"
 
-#: ../src/eog-window.c:3896
+#: ../src/eog-window.c:3845
 msgid "Pause Slideshow"
 msgstr "Diavoorstelling pauzeren"
 
-#: ../src/eog-window.c:3897
+#: ../src/eog-window.c:3846
 msgid "Pause or resume the slideshow"
 msgstr "De diavoorstelling pauzeren of hervatten"
 
-#: ../src/eog-window.c:3899
+#: ../src/eog-window.c:3848
 msgid "_Best Fit"
 msgstr "_Passend"
 
-#: ../src/eog-window.c:3900
+#: ../src/eog-window.c:3849
 msgid "Fit the image to the window"
 msgstr "Afbeeldingsgrootte aanpassen aan het venster"
 
-#: ../src/eog-window.c:3905 ../src/eog-window.c:3920
+#: ../src/eog-window.c:3854 ../src/eog-window.c:3869
 msgid "_Previous Image"
 msgstr "Vo_rige afbeelding"
 
-#: ../src/eog-window.c:3906
+#: ../src/eog-window.c:3855
 msgid "Go to the previous image of the gallery"
 msgstr "Naar de vorige afbeelding in het overzicht gaan"
 
-#: ../src/eog-window.c:3908
+#: ../src/eog-window.c:3857
 msgid "_Next Image"
 msgstr "V_olgende afbeelding"
 
-#: ../src/eog-window.c:3909
+#: ../src/eog-window.c:3858
 msgid "Go to the next image of the gallery"
 msgstr "Naar de volgende afbeelding in het overzicht gaan"
 
-#: ../src/eog-window.c:3911 ../src/eog-window.c:3923
+#: ../src/eog-window.c:3860 ../src/eog-window.c:3872
 msgid "_First Image"
 msgstr "_Eerste afbeelding"
 
-#: ../src/eog-window.c:3912
+#: ../src/eog-window.c:3861
 msgid "Go to the first image of the gallery"
 msgstr "Naar de eerste afbeelding in het overzicht gaan"
 
-#: ../src/eog-window.c:3914 ../src/eog-window.c:3926
+#: ../src/eog-window.c:3863 ../src/eog-window.c:3875
 msgid "_Last Image"
 msgstr "_Laatste afbeelding"
 
-#: ../src/eog-window.c:3915
+#: ../src/eog-window.c:3864
 msgid "Go to the last image of the gallery"
 msgstr "Naar de laatste afbeelding in het overzicht gaan"
 
-#: ../src/eog-window.c:3917
+#: ../src/eog-window.c:3866
 msgid "_Random Image"
 msgstr "_Willekeurige afbeelding"
 
-#: ../src/eog-window.c:3918
+#: ../src/eog-window.c:3867
 msgid "Go to a random image of the gallery"
 msgstr "Naar een willekeurige afbeelding in het overzicht gaan"
 
-#: ../src/eog-window.c:3932
+#: ../src/eog-window.c:3881
 msgid "S_lideshow"
 msgstr "_Diavoorstelling"
 
-#: ../src/eog-window.c:3933
+#: ../src/eog-window.c:3882
 msgid "Start a slideshow view of the images"
 msgstr "Diavoorstelling van de afbeeldingen starten"
 
-#: ../src/eog-window.c:3999
+#: ../src/eog-window.c:3950
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../src/eog-window.c:4003
+#: ../src/eog-window.c:3954
 msgid "Next"
 msgstr "Volgende"
 
-#: ../src/eog-window.c:4007
+#: ../src/eog-window.c:3958
 msgid "Right"
 msgstr "Rechts"
 
-#: ../src/eog-window.c:4010
+#: ../src/eog-window.c:3961
 msgid "Left"
 msgstr "Links"
 
-#: ../src/eog-window.c:4013
+#: ../src/eog-window.c:3964
 msgid "Show Folder"
 msgstr "Map weergeven"
 
-#: ../src/eog-window.c:4016
+#: ../src/eog-window.c:3967
 msgid "In"
 msgstr "In"
 
-#: ../src/eog-window.c:4019
+#: ../src/eog-window.c:3970
 msgid "Out"
 msgstr "Uit"
 
-#: ../src/eog-window.c:4022
+#: ../src/eog-window.c:3973
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:3976
 msgid "Fit"
 msgstr "Passend maken"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:3979
 msgid "Gallery"
 msgstr "Overzicht"
 
-#: ../src/eog-window.c:4031
+#: ../src/eog-window.c:3996
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "In prullenbak gooien"
 
-#: ../src/eog-window.c:4397
+#: ../src/eog-window.c:4362
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Huidige afbeelding bewerken met %s"
 
-#: ../src/eog-window.c:4399
+#: ../src/eog-window.c:4364
 msgid "Edit Image"
 msgstr "Afbeelding bewerken"
+
+#: ../src/eog-window.c:5682
+msgid "The GNOME image viewer."
+msgstr "Eye of Gnome afbeeldingsweergave"
+
+#: ../src/eog-window.c:5685
+msgid "translator-credits"
+msgstr ""
+"Wouter Bolsterlee\n"
+"Tino Meinen\n"
+"Michiel Sikkes\n"
+"Vincent van Adrighem\n"
+"Dennis Smit\n"
+"Reinout van Schouwen\n"
+"Kijk voor meer informatie op http://nl.gnome.org/"
 
 #: ../src/main.c:71
 msgid "GNOME Image Viewer"
@@ -1611,6 +1622,10 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Voer ‘%s --help’ uit om een volledige lisjt van alle opdrachtregelopties te "
 "zien."
+
+#~ msgctxt "PrefDlgSlideSwitchPrefix"
+#~ msgid "_Switch image after:"
+#~ msgstr "Afbeelding _wisselen na:"
 
 # Voorkeuren Eye of GNOME
 #~ msgid "Eye of GNOME Preferences"
