@@ -227,9 +227,15 @@ eog_application_init_app_menu (EogApplication *application)
 static void
 eog_application_startup (GApplication *application)
 {
+	EogApplication *app = EOG_APPLICATION (application);
+
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
-	eog_application_init_app_menu (EOG_APPLICATION (application));
+	eog_application_init_app_menu (app);
+	app->priv->scr_saver = totem_scrsaver_new();
+	g_object_set (app->priv->scr_saver,
+	              "reason", "Running in fullscren mode",
+	              NULL);
 }
 
 static void
@@ -277,6 +283,8 @@ eog_application_finalize (GObject *object)
 		g_object_unref (priv->plugin_engine);
 		priv->plugin_engine = NULL;
 	}
+
+	g_clear_object (&priv->scr_saver);
 
 	g_clear_object (&priv->ui_settings);
 
