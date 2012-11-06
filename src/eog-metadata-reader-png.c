@@ -472,7 +472,7 @@ eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
 	priv = emr->priv;
 
 	if (priv->xmp_chunk != NULL) {
-		xmp = xmp_new (priv->xmp_chunk+EOG_XMP_OFFSET,
+		xmp = xmp_new ((const char*)priv->xmp_chunk+EOG_XMP_OFFSET,
 			       priv->xmp_len-EOG_XMP_OFFSET);
 	}
 
@@ -483,7 +483,7 @@ eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
 #ifdef HAVE_LCMS
 
 #define EXTRACT_DOUBLE_UINT_BLOCK_OFFSET(chunk,offset,divider) \
-		(double)(GUINT32_FROM_BE(*((guint32*)((chunk)+((offset)*4))))/(double)(divider))
+		(double)(GUINT32_FROM_BE(*((((guint32*)chunk + offset))))/(double)(divider))
 
 /* This is the amount of memory the inflate output buffer gets increased by
  * while decompressing the ICC profile */
@@ -523,7 +523,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		++offset; //offset now points to the start of the deflated data
 
 		/* Prepare the zlib data structure for decompression */
-		zstr.next_in = priv->icc_chunk + offset;
+		zstr.next_in = (guchar*)priv->icc_chunk + offset;
 		zstr.avail_in = priv->icc_len - offset;
 		if (inflateInit (&zstr) != Z_OK) {
 			return NULL;
@@ -551,7 +551,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 				}
 				outbuf = g_realloc(outbuf, new_size);
 				zstr.avail_out = EOG_ICC_INFLATE_BUFFER_STEP;
-				zstr.next_out = outbuf + zstr.total_out;
+				zstr.next_out = (Bytef*)outbuf + zstr.total_out;
 			}
 			z_ret = inflate (&zstr, Z_SYNC_FLUSH);
 		} while (z_ret == Z_OK);

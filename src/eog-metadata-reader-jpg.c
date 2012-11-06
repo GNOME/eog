@@ -488,7 +488,7 @@ eog_metadata_reader_jpg_get_xmp_data (EogMetadataReaderJpg *emr )
 	priv = emr->priv;
 
 	if (priv->xmp_chunk != NULL) {
-		xmp = xmp_new (priv->xmp_chunk+EOG_XMP_OFFSET,
+		xmp = xmp_new (((const char*)priv->xmp_chunk)+EOG_XMP_OFFSET,
 			       priv->xmp_len-EOG_XMP_OFFSET);
 	}
 
@@ -513,7 +513,9 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 	priv = emr->priv;
 
 	if (priv->icc_chunk) {
-		profile = cmsOpenProfileFromMem(priv->icc_chunk + 14, priv->icc_len - 14);
+		profile = cmsOpenProfileFromMem(
+		                            ((const char*)priv->icc_chunk) + 14,
+		                            priv->icc_len - 14);
 
 		if (profile) {
 			eog_debug_message (DEBUG_LCMS, "JPEG has ICC profile");
