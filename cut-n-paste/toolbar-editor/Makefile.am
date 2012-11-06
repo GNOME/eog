@@ -19,10 +19,6 @@ libtoolbareditor_la_SOURCES = 	\
 	$(EGGSOURCES)		\
 	$(EGGHEADERS)
 
-libtoolbareditor_la_CPPFLAGS = \
-	-I$(top_builddir)/lib/egg		\
-	$(AM_CPPFLAGS)
-
 libtoolbareditor_la_LIBADD = $(LIBXML2_LIBS)
 
 libtoolbareditor_la_CFLAGS = \
