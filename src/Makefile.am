@@ -158,7 +158,7 @@ libeog_la_LIBADD += \
 	$(X11_LIBS)
 endif
 
-libeog_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
+libeog_la_LDFLAGS = -export-dynamic -no-undefined
 
 eog_SOURCES = main.c
 
@@ -177,7 +177,7 @@ eog_LDADD = 				\
 	$(jpeg_LIB)			\
 	$(INTROSPECTION_LIBS)
 
-eog_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
+eog_LDFLAGS = -export-dynamic -no-undefined
 
 BUILT_SOURCES = 			\
 	eog-enum-types.c		\
