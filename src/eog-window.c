@@ -2203,28 +2203,15 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 static void
 set_basename_for_print_settings (GtkPrintSettings *print_settings, EogWindow *window)
 {
-	GFile *file;
-	GFileInfo *info;
-	const char *basename;
+	const char *basename = NULL;
 
-	file = eog_image_get_file (window->priv->image);
-	info = g_file_query_info (file,
-				  G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-				  G_FILE_QUERY_INFO_NONE,
-				  NULL,
-				  NULL);
-	if (info)
-		basename = g_file_info_get_display_name (info);
-	else
-		basename = NULL;
+	if(G_LIKELY (window->priv->image != NULL))
+		basename = eog_image_get_caption (window->priv->image);
 
-	if (basename)
-		gtk_print_settings_set (print_settings, GTK_PRINT_SETTINGS_OUTPUT_BASENAME, basename);
-
-	if (info)
-		g_object_unref (info);
-
-	g_object_unref (file);
+	if (G_LIKELY(basename))
+		gtk_print_settings_set (print_settings,
+		                        GTK_PRINT_SETTINGS_OUTPUT_BASENAME,
+		                        basename);
 }
 
 static void
