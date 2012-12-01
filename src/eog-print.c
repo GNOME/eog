@@ -516,6 +516,8 @@ eog_print_set_print_settings (GtkPrintSettings *print_settings)
 	/* Override copies settings as we don't want to save
 	 * this for the next time eog is used. */
 	gtk_print_settings_set_n_copies (print_settings, 1);
+	/* Unset output-uri as it would break setting output-base-name */
+	gtk_print_settings_set (print_settings, GTK_PRINT_SETTINGS_OUTPUT_URI, NULL);
 	gtk_print_settings_to_key_file (print_settings, key_file, EOG_PRINT_SETTINGS_GROUP);
 	eog_print_save_key_file (key_file);
 
