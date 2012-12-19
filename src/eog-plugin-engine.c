@@ -36,7 +36,6 @@
 #include <gio/gio.h>
 #include <girepository.h>
 
-#define USER_EOG_PLUGINS_LOCATION "plugins/"
 #define EOG_PLUGIN_DATA_DIR EOG_DATA_DIR G_DIR_SEPARATOR_S "plugins"
 
 G_DEFINE_TYPE (EogPluginEngine, eog_plugin_engine, PEAS_TYPE_ENGINE)
@@ -127,8 +126,8 @@ eog_plugin_engine_new (void)
 
 	peas_engine_enable_loader (PEAS_ENGINE (engine), "python");
 
-	user_plugin_path = g_build_filename (eog_util_dot_dir (),
-					     USER_EOG_PLUGINS_LOCATION, NULL);
+	user_plugin_path = g_build_filename (g_get_user_data_dir (),
+					     "eog", "plugins", NULL);
 	/* Find per-user plugins */
 	peas_engine_add_search_path (PEAS_ENGINE (engine),
 				     user_plugin_path, user_plugin_path);
