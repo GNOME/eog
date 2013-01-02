@@ -1480,19 +1480,25 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_KEY_plus:
 	case GDK_KEY_equal:
 	case GDK_KEY_KP_Add:
-		do_zoom = TRUE;
-		zoom = priv->zoom * priv->zoom_multiplier;
+		if (!(event->state & modifiers)) {
+			do_zoom = TRUE;
+			zoom = priv->zoom * priv->zoom_multiplier;
+		}
 		break;
 
 	case GDK_KEY_minus:
 	case GDK_KEY_KP_Subtract:
-		do_zoom = TRUE;
-		zoom = priv->zoom / priv->zoom_multiplier;
+		if (!(event->state & modifiers)) {
+			do_zoom = TRUE;
+			zoom = priv->zoom / priv->zoom_multiplier;
+		}
 		break;
 
 	case GDK_KEY_1:
-		do_zoom = TRUE;
-		zoom = 1.0;
+		if (!(event->state & modifiers)) {
+			do_zoom = TRUE;
+			zoom = 1.0;
+		}
 		break;
 
 	default:
@@ -1514,6 +1520,9 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 	if (do_scroll)
 		scroll_by (view, xofs, yofs);
+
+	if(!do_scroll && !do_zoom)
+		return FALSE;
 
 	return TRUE;
 }
