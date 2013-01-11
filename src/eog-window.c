@@ -4986,8 +4986,6 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_run_fullscreen (EOG_WINDOW (widget), !slideshow);
 		}
 		break;
-	case GDK_KEY_Q:
-	case GDK_KEY_q:
 	case GDK_KEY_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
