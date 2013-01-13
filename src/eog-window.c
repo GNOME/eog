@@ -4664,7 +4664,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 
-	priv->thumbview = eog_thumb_view_new ();
+	priv->thumbview = g_object_ref (eog_thumb_view_new ());
 
 	/* giving shape to the view */
 	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 4);
@@ -4904,6 +4904,16 @@ eog_window_dispose (GObject *object)
 	if (priv->page_setup != NULL) {
 		g_object_unref (priv->page_setup);
 		priv->page_setup = NULL;
+	}
+
+	if (priv->thumbview)
+	{
+		/* Disconnect so we don't get any unwanted callbacks
+		 * when the thumb view is disposed. */
+		g_signal_handlers_disconnect_by_func (priv->thumbview,
+		                 G_CALLBACK (handle_image_selection_changed_cb),
+		                 window);
+		g_clear_object (&priv->thumbview);
 	}
 
 	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
