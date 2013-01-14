@@ -86,6 +86,7 @@ eog_plugin_engine_new (void)
 	EogPluginEngine *engine;
 	gchar *user_plugin_path;
 	gchar *private_path;
+	const gchar * const * system_data_dirs;
 	GError *error = NULL;
 
 	private_path = g_build_filename (LIBDIR, "eog",
@@ -129,9 +130,32 @@ eog_plugin_engine_new (void)
 	user_plugin_path = g_build_filename (g_get_user_data_dir (),
 					     "eog", "plugins", NULL);
 	/* Find per-user plugins */
+	eog_debug_message (DEBUG_PLUGINS,
+	                   "Adding XDG_DATA_HOME (%s) to plugins search path",
+	                   user_plugin_path);
 	peas_engine_add_search_path (PEAS_ENGINE (engine),
 				     user_plugin_path, user_plugin_path);
+
+	system_data_dirs = g_get_system_data_dirs();
+
+	while (*system_data_dirs != NULL)
+	{
+		gchar *plugin_path;
+
+		plugin_path = g_build_filename (*system_data_dirs,
+		                                 "eog", "plugins", NULL);
+		eog_debug_message (DEBUG_PLUGINS,
+		                "Adding XDG_DATA_DIR %s to plugins search path",
+		                plugin_path);
+		peas_engine_add_search_path (PEAS_ENGINE (engine),
+		                             plugin_path, plugin_path);
+		g_free (plugin_path);
+		++system_data_dirs;
+	}
+
 	/* Find system-wide plugins */
+	eog_debug_message (DEBUG_PLUGINS, "Adding system plugin dir ("
+	                   EOG_PLUGIN_DIR ")to plugins search path");
 	peas_engine_add_search_path (PEAS_ENGINE (engine),
 				     EOG_PLUGIN_DIR, EOG_PLUGIN_DATA_DIR);
 
