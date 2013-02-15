@@ -1,11 +1,11 @@
 /* Eye Of Gnome - Jobs
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2013 The Free Software Foundation
  *
- * Author: Lucas Rocha <lucasr@gnome.org>
+ * Author: Javier Sánchez <jsanchez@deskblue.com>
  *
- * Based on evince code (shell/ev-jobs.c) by:
- * 	- Martin Kretzschmar <martink@gnome.org>
+ * Based on code (libview/ev-jobs.h) by:
+ *      - Carlos Garcia Campos <carlosgc@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,60 +22,218 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "eog-uri-converter.h"
+#include "eog-debug.h"
 #include "eog-jobs.h"
-#include "eog-job-queue.h"
-#include "eog-image.h"
-#include "eog-transform.h"
-#include "eog-list-store.h"
 #include "eog-thumbnail.h"
 #include "eog-pixbuf-util.h"
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gio/gio.h>
 
-#define EOG_JOB_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_JOB, EogJobPrivate))
-
-G_DEFINE_TYPE (EogJob, eog_job, G_TYPE_OBJECT);
+G_DEFINE_ABSTRACT_TYPE (EogJob, eog_job, G_TYPE_OBJECT);
+G_DEFINE_TYPE (EogJobCopy,      eog_job_copy,      EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobLoad,      eog_job_load,      EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobModel,     eog_job_model,     EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobSave,      eog_job_save,      EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobSaveAs,    eog_job_save_as,   EOG_TYPE_JOB_SAVE);
 G_DEFINE_TYPE (EogJobThumbnail, eog_job_thumbnail, EOG_TYPE_JOB);
-G_DEFINE_TYPE (EogJobLoad, eog_job_load, EOG_TYPE_JOB);
-G_DEFINE_TYPE (EogJobModel, eog_job_model, EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobTransform, eog_job_transform, EOG_TYPE_JOB);
-G_DEFINE_TYPE (EogJobSave, eog_job_save, EOG_TYPE_JOB);
-G_DEFINE_TYPE (EogJobSaveAs, eog_job_save_as, EOG_TYPE_JOB_SAVE);
-G_DEFINE_TYPE (EogJobCopy, eog_job_copy, EOG_TYPE_JOB);
 
-enum
-{
-	SIGNAL_FINISHED,
-	SIGNAL_PROGRESS,
-	SIGNAL_LAST_SIGNAL
+/* signals */
+enum {
+	PROGRESS,
+	CANCELLED,
+	FINISHED,
+	LAST_SIGNAL
 };
 
-static guint job_signals[SIGNAL_LAST_SIGNAL];
+static guint job_signals[LAST_SIGNAL];
 
-static void eog_job_copy_run      (EogJob *ejob);
-static void eog_job_load_run 	  (EogJob *ejob);
-static void eog_job_model_run     (EogJob *ejob);
-static void eog_job_save_run      (EogJob *job);
-static void eog_job_save_as_run   (EogJob *job);
-static void eog_job_thumbnail_run (EogJob *ejob);
-static void eog_job_transform_run (EogJob *ejob);
+/* notify signal funcs */
+static void     notify_progress              (EogJob               *job);
+static void     notify_cancelled             (EogJob               *job);
+static void     notify_finished              (EogJob               *job);
 
-static void eog_job_init (EogJob *job)
+/* gobject vfuncs */
+static void     eog_job_class_init           (EogJobClass          *class);
+static void     eog_job_init                 (EogJob               *job);
+static void     eog_job_dispose              (GObject              *object);
+
+static void     eog_job_copy_class_init      (EogJobCopyClass      *class);
+static void     eog_job_copy_init            (EogJobCopy           *job);
+static void     eog_job_copy_dispose         (GObject              *object);
+
+static void     eog_job_load_class_init      (EogJobLoadClass      *class);
+static void     eog_job_load_init            (EogJobLoad           *job);
+static void     eog_job_load_dispose         (GObject              *object);
+
+static void     eog_job_model_class_init     (EogJobModelClass     *class);
+static void     eog_job_model_init           (EogJobModel          *job);
+static void     eog_job_model_dispose        (GObject              *object);
+
+static void     eog_job_save_class_init      (EogJobSaveClass      *class);
+static void     eog_job_save_init            (EogJobSave           *job);
+static void     eog_job_save_dispose         (GObject              *object);
+
+static void     eog_job_save_as_class_init   (EogJobSaveAsClass    *class);
+static void     eog_job_save_as_init         (EogJobSaveAs         *job);
+static void     eog_job_save_as_dispose      (GObject              *object);
+
+static void     eog_job_thumbnail_class_init (EogJobThumbnailClass *class);
+static void     eog_job_thumbnail_init       (EogJobThumbnail      *job);
+static void     eog_job_thumbnail_dispose    (GObject              *object);
+
+static void     eog_job_transform_class_init (EogJobTransformClass *class);
+static void     eog_job_transform_init       (EogJobTransform      *job);
+static void     eog_job_transform_dispose    (GObject              *object);
+
+/* vfuncs */
+static void     eog_job_run_unimplemented    (EogJob               *job);
+static void     eog_job_copy_run             (EogJob               *job);
+static void     eog_job_load_run             (EogJob               *job);
+static void     eog_job_model_run            (EogJob               *job);
+static void     eog_job_save_run             (EogJob               *job);
+static void     eog_job_save_as_run          (EogJob               *job);
+static void     eog_job_thumbnail_run        (EogJob               *job);
+static void     eog_job_transform_run        (EogJob               *job);
+
+/* callbacks */
+static void eog_job_copy_progress_callback (goffset  current_num_bytes,
+					    goffset  total_num_bytes,
+					    gpointer user_data);
+
+static void eog_job_save_progress_callback (EogImage *image,
+					    gfloat    progress,
+					    gpointer  data);
+
+/* --------------------------- notify signal funcs --------------------------- */
+static void
+notify_progress (EogJob *job)
 {
-	/* NOTE: We need to allocate the mutex here so the ABI stays the same when it used to use g_mutex_new */
-	job->mutex = g_malloc (sizeof (GMutex));
-	g_mutex_init (job->mutex);
-	job->progress = 0.0;
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job update its progress to -> %1.2f",
+			   EOG_GET_TYPE_NAME (job),
+			   job,
+			   job->progress);
+
+	/* notify progress */
+	g_signal_emit (job,
+		       job_signals[PROGRESS],
+		       0,
+		       job->progress);
 }
 
 static void
-eog_job_dispose (GObject *object)
+notify_cancelled (EogJob *job)
+{
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CANCELLED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	/* notify cancelation */
+	g_signal_emit (job,
+		       job_signals[CANCELLED],
+		       0);
+}
+
+static void
+notify_finished (EogJob *job)
+{
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was FINISHED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	/* notify job finalization */
+	g_signal_emit (job,
+		       job_signals[FINISHED],
+		       0);
+}
+
+/* --------------------------------- EogJob ---------------------------------- */
+static void
+eog_job_class_init (EogJobClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+
+	g_object_class->dispose = eog_job_dispose;
+	class->run              = eog_job_run_unimplemented;
+
+	/* signals */
+	job_signals [PROGRESS] =
+		g_signal_new ("progress",
+			      EOG_TYPE_JOB,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogJobClass, progress),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__FLOAT,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_FLOAT);
+
+	job_signals [CANCELLED] =
+		g_signal_new ("cancelled",
+			      EOG_TYPE_JOB,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogJobClass, cancelled),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+
+	job_signals [FINISHED] =
+		g_signal_new ("finished",
+			      EOG_TYPE_JOB,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogJobClass, finished),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+}
+
+static
+void eog_job_init (EogJob *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->cancellable = g_cancellable_new ();
+	job->error       = NULL;
+
+	job->progress    = 0.0;
+	job->cancelled   = FALSE;
+	job->finished    = FALSE;
+
+	/* NOTE: we need to allocate the mutex here so the ABI stays
+	   the same when it used to use g_mutex_new */
+	job->mutex = g_malloc (sizeof (GMutex));
+	g_mutex_init (job->mutex);
+}
+
+static
+void eog_job_dispose (GObject *object)
 {
 	EogJob *job;
 
+	g_return_if_fail (EOG_IS_JOB (object));
+
 	job = EOG_JOB (object);
+
+	/* free all public and private members */
+	if (job->cancellable) {
+		g_object_unref (job->cancellable);
+		job->cancellable = NULL;
+	}
 
 	if (job->error) {
 		g_error_free (job->error);
@@ -84,65 +242,20 @@ eog_job_dispose (GObject *object)
 
 	if (job->mutex) {
 		g_mutex_clear (job->mutex);
-		g_free (job->mutex);
+		g_free        (job->mutex);
 	}
 
-	(* G_OBJECT_CLASS (eog_job_parent_class)->dispose) (object);
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_parent_class)->dispose (object);
 }
 
 static void
-eog_job_run_default (EogJob *job)
+eog_job_run_unimplemented (EogJob *job)
 {
 	g_critical ("Class \"%s\" does not implement the required run action",
 		    G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (job)));
 }
 
-static void
-eog_job_class_init (EogJobClass *class)
-{
-	GObjectClass *oclass;
-
-	oclass = G_OBJECT_CLASS (class);
-
-	oclass->dispose = eog_job_dispose;
-
-	class->run = eog_job_run_default;
-
-	job_signals [SIGNAL_FINISHED] =
-		g_signal_new ("finished",
-			      EOG_TYPE_JOB,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogJobClass, finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-
-	job_signals [SIGNAL_PROGRESS] =
-		g_signal_new ("progress",
-			      EOG_TYPE_JOB,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogJobClass, progress),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__FLOAT,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_FLOAT);
-}
-
-void
-eog_job_finished (EogJob *job)
-{
-	g_return_if_fail (EOG_IS_JOB (job));
-
-	g_signal_emit (job, job_signals[SIGNAL_FINISHED], 0);
-}
-
-/**
- * eog_job_run:
- * @job: the job to execute.
- *
- * Executes the job passed as @job. Usually there is no need to call this
- * on your own. Jobs should be executed by using the EogJobQueue.
- **/
 void
 eog_job_run (EogJob *job)
 {
@@ -151,216 +264,360 @@ eog_job_run (EogJob *job)
 	g_return_if_fail (EOG_IS_JOB (job));
 
 	class = EOG_JOB_GET_CLASS (job);
-	if (class->run)
-		class->run (job);
-	else
-		eog_job_run_default (job);
-}
-static gboolean
-notify_progress (gpointer data)
-{
-	EogJob *job = EOG_JOB (data);
-
-	g_signal_emit (job, job_signals[SIGNAL_PROGRESS], 0, job->progress);
-
-	return FALSE;
+	class->run (job);
 }
 
 void
-eog_job_set_progress (EogJob *job, float progress)
+eog_job_cancel (EogJob *job)
+{
+	g_return_if_fail (EOG_IS_JOB (job));
+
+	g_object_ref (job);
+
+	/* check if job was cancelled previously */
+	if (job->cancelled)
+		return;
+
+	/* check if job finished previously */
+        if (job->finished)
+		return;
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "CANCELLING a %s (%p)",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* cancel job */
+	job->cancelled = TRUE;
+	g_cancellable_cancel (job->cancellable);
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job cancellation */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_cancelled,
+			 job,
+			 g_object_unref);
+}
+
+gfloat
+eog_job_get_progress (EogJob *job)
+{
+	g_return_val_if_fail (EOG_IS_JOB (job), 0.0);
+
+	return job->progress;
+}
+
+void
+eog_job_set_progress (EogJob *job,
+		      gfloat  progress)
 {
 	g_return_if_fail (EOG_IS_JOB (job));
 	g_return_if_fail (progress >= 0.0 && progress <= 1.0);
 
+	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
+
 	job->progress = progress;
+
+	/* --- leave critical section --- */
 	g_mutex_unlock (job->mutex);
 
-	g_idle_add (notify_progress, job);
+	/* notify progress */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_progress,
+			 job,
+			 NULL);
 }
 
-static void eog_job_thumbnail_init (EogJobThumbnail *job) { /* Do Nothing */ }
+gboolean
+eog_job_is_cancelled (EogJob *job)
+{
+	g_return_val_if_fail (EOG_IS_JOB (job), TRUE);
 
+	return job->cancelled;
+}
+
+gboolean
+eog_job_is_finished (EogJob *job)
+{
+	g_return_val_if_fail (EOG_IS_JOB (job), TRUE);
+
+	return job->finished;
+}
+
+/* ------------------------------- EogJobCopy -------------------------------- */
 static void
-eog_job_thumbnail_dispose (GObject *object)
+eog_job_copy_class_init (EogJobCopyClass *class)
 {
-	EogJobThumbnail *job;
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
 
-	job = EOG_JOB_THUMBNAIL (object);
-
-	if (job->image) {
-		g_object_unref (job->image);
-		job->image = NULL;
-	}
-
-	if (job->thumbnail) {
-		g_object_unref (job->thumbnail);
-		job->thumbnail = NULL;
-	}
-
-	(* G_OBJECT_CLASS (eog_job_thumbnail_parent_class)->dispose) (object);
+	g_object_class->dispose = eog_job_copy_dispose;
+	eog_job_class->run      = eog_job_copy_run;
 }
 
-static void
-eog_job_thumbnail_class_init (EogJobThumbnailClass *class)
+static
+void eog_job_copy_init (EogJobCopy *job)
 {
-	GObjectClass *oclass;
-
-	oclass = G_OBJECT_CLASS (class);
-
-	oclass->dispose = eog_job_thumbnail_dispose;
-
-	EOG_JOB_CLASS (class)->run = eog_job_thumbnail_run;
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->images           = NULL;
+	job->destination      = NULL;
+	job->current_position = 0;
 }
 
-EogJob *
-eog_job_thumbnail_new (EogImage *image)
+static
+void eog_job_copy_dispose (GObject *object)
 {
-	EogJobThumbnail *job;
+	EogJobCopy *job;
 
-	job = g_object_new (EOG_TYPE_JOB_THUMBNAIL, NULL);
+	g_return_if_fail (EOG_IS_JOB_COPY (object));
 
-	if (image) {
-		job->image = g_object_ref (image);
+	job = EOG_JOB_COPY (object);
+
+	/* free all public and private members */
+	if (job->images) {
+		g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
+		g_list_free    (job->images);
+		job->images = NULL;
 	}
 
-	return EOG_JOB (job);
-}
-
-static void
-eog_job_thumbnail_run (EogJob *ejob)
-{
-	gchar *orig_width, *orig_height;
-	gint width, height;
-	GdkPixbuf *pixbuf;
-	EogJobThumbnail *job;
-
-	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (ejob));
-
-	job = EOG_JOB_THUMBNAIL (ejob);
-
-	if (ejob->error) {
-	        g_error_free (ejob->error);
-		ejob->error = NULL;
+	if (job->destination) {
+		g_free (job->destination);
+		job->destination = NULL;
 	}
 
-	job->thumbnail = eog_thumbnail_load (job->image,
-					     &ejob->error);
-
-	if (!job->thumbnail) {
-		ejob->finished = TRUE;
-		return;
-	}
-
-	orig_width = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Width"));
-	orig_height = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Height"));
-
-	pixbuf = eog_thumbnail_fit_to_size (job->thumbnail, EOG_LIST_STORE_THUMB_SIZE);
-	g_object_unref (job->thumbnail);
-	job->thumbnail = eog_thumbnail_add_frame (pixbuf);
-	g_object_unref (pixbuf);
-
-	if (orig_width) {
-		sscanf (orig_width, "%i", &width);
-		g_object_set_data (G_OBJECT (job->thumbnail),
-				   EOG_THUMBNAIL_ORIGINAL_WIDTH,
-				   GINT_TO_POINTER (width));
-		g_free (orig_width);
-	}
-	if (orig_height) {
-		sscanf (orig_height, "%i", &height);
-		g_object_set_data (G_OBJECT (job->thumbnail),
-				   EOG_THUMBNAIL_ORIGINAL_HEIGHT,
-				   GINT_TO_POINTER (height));
-		g_free (orig_height);
-	}
-
-	if (ejob->error) {
-		g_warning ("%s", ejob->error->message);
-	}
-
-	ejob->finished = TRUE;
-}
-
-static void eog_job_load_init (EogJobLoad *job) { /* Do Nothing */ }
-
-static void
-eog_job_load_dispose (GObject *object)
-{
-	EogJobLoad *job;
-
-	job = EOG_JOB_LOAD (object);
-
-	if (job->image) {
-		g_object_unref (job->image);
-		job->image = NULL;
-	}
-
-	(* G_OBJECT_CLASS (eog_job_load_parent_class)->dispose) (object);
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_copy_parent_class)->dispose (object);
 }
 
 static void
-eog_job_load_class_init (EogJobLoadClass *class)
+eog_job_copy_progress_callback (goffset  current_num_bytes,
+				goffset  total_num_bytes,
+				gpointer user_data)
 {
-	GObjectClass *oclass;
+	gfloat      progress;
+	guint       n_images;
+	EogJobCopy *job;
 
-	oclass = G_OBJECT_CLASS (class);
+	job = EOG_JOB_COPY (user_data);
 
-	oclass->dispose = eog_job_load_dispose;
-	EOG_JOB_CLASS (class)->run = eog_job_load_run;
-}
+	n_images = g_list_length (job->images);
 
-EogJob *
-eog_job_load_new (EogImage *image, EogImageData data)
-{
-	EogJobLoad *job;
+	progress = ((current_num_bytes / (gfloat) total_num_bytes) + job->current_position) / n_images;
 
-	job = g_object_new (EOG_TYPE_JOB_LOAD, NULL);
-
-	if (image) {
-		job->image = g_object_ref (image);
-	}
-	job->data = data;
-
-	return EOG_JOB (job);
+	eog_job_set_progress (EOG_JOB (job), progress);
 }
 
 static void
-eog_job_load_run (EogJob *job)
+eog_job_copy_run (EogJob *job)
 {
-	g_return_if_fail (EOG_IS_JOB_LOAD (job));
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_COPY (job));
 
+	g_object_ref (job);
+
+	/* clean previous errors */
 	if (job->error) {
 	        g_error_free (job->error);
 		job->error = NULL;
 	}
 
-	eog_image_load (EOG_IMAGE (EOG_JOB_LOAD (job)->image),
-			EOG_JOB_LOAD (job)->data,
-			job,
-			&job->error);
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
 
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
 	job->finished = TRUE;
-}
 
-static void eog_job_model_init (EogJobModel *job) { /* Do Nothing */ }
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
 
-static void
-eog_job_model_class_init (EogJobModelClass *class)
-{
-	EOG_JOB_CLASS (class)->run = eog_job_model_run;
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
 }
 
 EogJob *
-eog_job_model_new (GSList *file_list)
+eog_job_copy_new (GList       *images,
+		  const gchar *destination)
+{
+	EogJobCopy *job;
+
+	job = g_object_new (EOG_TYPE_JOB_COPY, NULL);
+
+	if (images)
+		job->images = images;
+
+	if (destination)
+		job->destination = g_strdup (destination);
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobLoad -------------------------------- */
+static void
+eog_job_load_class_init (EogJobLoadClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_load_dispose;
+	eog_job_class->run      = eog_job_load_run;
+}
+
+static
+void eog_job_load_init (EogJobLoad *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->image = NULL;
+	job->data  = EOG_IMAGE_DATA_ALL;
+}
+
+static
+void eog_job_load_dispose (GObject *object)
+{
+	EogJobLoad *job;
+
+	g_return_if_fail (EOG_IS_JOB_LOAD (object));
+
+	job = EOG_JOB_LOAD (object);
+
+	/* free all public and private members */
+	if (job->image) {
+		g_object_unref (job->image);
+		job->image = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_load_parent_class)->dispose (object);
+}
+
+static void
+eog_job_load_run (EogJob *job)
+{
+	EogJobLoad *job_load;
+
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_LOAD (job));
+
+	job_load = EOG_JOB_LOAD (g_object_ref (job));
+
+	/* clean previous errors */
+	if (job->error) {
+	        g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* load image from file */
+	eog_image_load (job_load->image,
+			job_load->data,
+			job,
+			&job->error);
+
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
+}
+
+EogJob *
+eog_job_load_new (EogImage     *image,
+		  EogImageData  data)
+{
+	EogJobLoad *job;
+
+	job = g_object_new (EOG_TYPE_JOB_LOAD, NULL);
+
+	if (image)
+		job->image = g_object_ref (image);
+
+	job->data = data;
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobModel -------------------------------- */
+static void
+eog_job_model_class_init (EogJobModelClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_model_dispose;
+	eog_job_class->run      = eog_job_model_run;
+}
+
+static
+void eog_job_model_init (EogJobModel *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->store     = NULL;
+	job->file_list = NULL;
+}
+
+static
+void eog_job_model_dispose (GObject *object)
 {
 	EogJobModel *job;
 
-	job = g_object_new (EOG_TYPE_JOB_MODEL, NULL);
+	g_return_if_fail (EOG_IS_JOB_MODEL (object));
 
-	job->file_list = file_list;
+	job = EOG_JOB_MODEL (object);
 
-	return EOG_JOB (job);
+	/* free all public and private members */
+	if (job->store) {
+		g_object_unref (job->store);
+		job->store = NULL;
+	}
+
+	if (job->file_list) {
+		// g_slist_foreach (job->file_list, (GFunc) g_object_unref, NULL);
+		// g_slist_free (job->file_list);
+		job->file_list = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_model_parent_class)->dispose (object);
 }
 
 static void
@@ -418,79 +675,478 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 }
 
 static void
-eog_job_model_run (EogJob *ejob)
+eog_job_model_run (EogJob *job)
 {
-	GList *filtered_list = NULL;
-	GList *error_list = NULL;
-	EogJobModel *job;
+	EogJobModel *job_model;
+	GList       *filtered_list;
+	GList       *error_list;
 
-	g_return_if_fail (EOG_IS_JOB_MODEL (ejob));
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_MODEL (job));
 
-	job = EOG_JOB_MODEL (ejob);
+	job_model     = EOG_JOB_MODEL (g_object_ref (job));
+	filtered_list = NULL;
+	error_list    = NULL;
 
-	filter_files (job->file_list, &filtered_list, &error_list);
+	filter_files (job_model->file_list,
+		      &filtered_list,
+		      &error_list);
 
-	job->store = EOG_LIST_STORE (eog_list_store_new ());
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
 
-	eog_list_store_add_files (job->store, filtered_list);
+	/* create a list store */
+	job_model->store = EOG_LIST_STORE (eog_list_store_new ());
+	eog_list_store_add_files (job_model->store, filtered_list);
 
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* free lists*/
 	g_list_foreach (filtered_list, (GFunc) g_object_unref, NULL);
 	g_list_free (filtered_list);
 
 	g_list_foreach (error_list, (GFunc) g_free, NULL);
 	g_list_free (error_list);
 
-	ejob->finished = TRUE;
-}
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
 
-static void eog_job_transform_init (EogJobTransform *job) { /* Do Nothing */ }
+	/* job finished */
+	job->finished = TRUE;
 
-static void
-eog_job_transform_dispose (GObject *object)
-{
-	EogJobTransform *job;
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
 
-	job = EOG_JOB_TRANSFORM (object);
-
-	if (job->trans) {
-		g_object_unref (job->trans);
-		job->trans = NULL;
-	}
-
-	g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
-	g_list_free (job->images);
-
-	(* G_OBJECT_CLASS (eog_job_transform_parent_class)->dispose) (object);
-}
-
-static void
-eog_job_transform_class_init (EogJobTransformClass *class)
-{
-	GObjectClass *oclass;
-
-	oclass = G_OBJECT_CLASS (class);
-
-	oclass->dispose = eog_job_transform_dispose;
-
-	EOG_JOB_CLASS (class)->run = eog_job_transform_run;
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
 }
 
 EogJob *
-eog_job_transform_new (GList *images, EogTransform *trans)
+eog_job_model_new (GSList *file_list)
+{
+	EogJobModel *job;
+
+	job = g_object_new (EOG_TYPE_JOB_MODEL, NULL);
+
+	if (file_list != NULL)
+		job->file_list = file_list;
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobSave -------------------------------- */
+static void
+eog_job_save_class_init (EogJobSaveClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_save_dispose;
+	eog_job_class->run      = eog_job_save_run;
+}
+
+static
+void eog_job_save_init (EogJobSave *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->images           = NULL;
+	job->current_position = 0;
+	job->current_image    = NULL;
+}
+
+static
+void eog_job_save_dispose (GObject *object)
+{
+	EogJobSave *job;
+
+	g_return_if_fail (EOG_IS_JOB_SAVE (object));
+
+	job = EOG_JOB_SAVE (object);
+
+	/* free all public and private members */
+	if (job->images) {
+		g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
+		g_list_free (job->images);
+		job->images = NULL;
+	}
+
+	if (job->current_image) {
+		g_object_unref (job->current_image);
+		job->current_image = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_save_parent_class)->dispose (object);
+}
+
+static void
+eog_job_save_progress_callback (EogImage *image,
+				gfloat    progress,
+				gpointer  data)
+{
+	EogJobSave *job;
+	guint       n_images;
+	gfloat      job_progress;
+
+	job = EOG_JOB_SAVE (data);
+
+	n_images     = g_list_length (job->images);
+	job_progress = (job->current_position / (gfloat) n_images) + (progress / n_images);
+
+	eog_job_set_progress (EOG_JOB (job), job_progress);
+}
+
+static void
+eog_job_save_run (EogJob *job)
+{
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_SAVE (job));
+
+	g_object_ref (job);
+
+	/* clean previous errors */
+	if (job->error) {
+	        g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
+}
+
+EogJob *
+eog_job_save_new (GList *images)
+{
+	EogJobSave *job;
+
+	job = g_object_new (EOG_TYPE_JOB_SAVE, NULL);
+
+	if (images)
+		job->images = images;
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobSaveAs -------------------------------- */
+static void
+eog_job_save_as_class_init (EogJobSaveAsClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_save_as_dispose;
+	eog_job_class->run      = eog_job_save_as_run;
+}
+
+static
+void eog_job_save_as_init (EogJobSaveAs *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->converter = NULL;
+	job->file      = NULL;
+}
+
+static
+void eog_job_save_as_dispose (GObject *object)
+{
+	EogJobSaveAs *job;
+
+	g_return_if_fail (EOG_IS_JOB_SAVE_AS (object));
+
+	job = EOG_JOB_SAVE_AS (object);
+
+	/* free all public and private members */
+	if (job->converter != NULL) {
+		g_object_unref (job->converter);
+		job->converter = NULL;
+	}
+
+	if (job->file != NULL) {
+		g_object_unref (job->file);
+		job->file = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_save_as_parent_class)->dispose (object);
+}
+
+static void
+eog_job_save_as_run (EogJob *job)
+{
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_SAVE_AS (job));
+
+	g_object_ref (job);
+
+	/* clean previous errors */
+	if (job->error) {
+	        g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
+}
+
+EogJob *
+eog_job_save_as_new (GList           *images,
+		     EogURIConverter *converter,
+		     GFile           *file)
+{
+	EogJobSaveAs *job;
+
+	job = g_object_new (EOG_TYPE_JOB_SAVE_AS, NULL);
+
+	if (images)
+		EOG_JOB_SAVE(job)->images = images;
+
+	if (converter)
+		job->converter = g_object_ref (converter);
+
+	if (file)
+		job->file = g_object_ref (file);
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobThumbnail -------------------------------- */
+static void
+eog_job_thumbnail_class_init (EogJobThumbnailClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_thumbnail_dispose;
+	eog_job_class->run      = eog_job_thumbnail_run;
+}
+
+static
+void eog_job_thumbnail_init (EogJobThumbnail *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->image     = NULL;
+	job->thumbnail = NULL;
+}
+
+static
+void eog_job_thumbnail_dispose (GObject *object)
+{
+	EogJobThumbnail *job;
+
+	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (object));
+
+	job = EOG_JOB_THUMBNAIL (object);
+
+	/* free all public and private members */
+	if (job->image) {
+		g_object_unref (job->image);
+		job->image = NULL;
+	}
+
+	if (job->thumbnail) {
+		g_object_unref (job->thumbnail);
+		job->thumbnail = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_thumbnail_parent_class)->dispose (object);
+}
+
+static void
+eog_job_thumbnail_run (EogJob *job)
+{
+	EogJobThumbnail *job_thumbnail;
+	gchar           *original_width;
+	gchar           *original_height;
+	gint             width;
+	gint             height;
+	GdkPixbuf       *pixbuf;
+
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
+
+	job_thumbnail = EOG_JOB_THUMBNAIL (g_object_ref (job));
+
+	/* clean previous errors */
+	if (job->error) {
+	        g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* try to load the image thumbnail from cache */
+	job_thumbnail->thumbnail = eog_thumbnail_load (job_thumbnail->image,
+						       &job->error);
+
+	if (!job_thumbnail->thumbnail) {
+		job->finished = TRUE;
+		return;
+	}
+
+	/* create the image thumbnail */
+	original_width  = g_strdup (gdk_pixbuf_get_option (job_thumbnail->thumbnail, "tEXt::Thumb::Image::Width"));
+	original_height = g_strdup (gdk_pixbuf_get_option (job_thumbnail->thumbnail, "tEXt::Thumb::Image::Height"));
+
+	pixbuf = eog_thumbnail_fit_to_size (job_thumbnail->thumbnail,
+					    EOG_LIST_STORE_THUMB_SIZE);
+
+	g_object_unref (job_thumbnail->thumbnail);
+	job_thumbnail->thumbnail = eog_thumbnail_add_frame (pixbuf);
+	g_object_unref (pixbuf);
+
+	if (original_width) {
+		sscanf (original_width, "%i", &width);
+		g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
+				   EOG_THUMBNAIL_ORIGINAL_WIDTH,
+				   GINT_TO_POINTER (width));
+		g_free (original_width);
+	}
+
+	if (original_height) {
+		sscanf (original_height, "%i", &height);
+		g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
+				   EOG_THUMBNAIL_ORIGINAL_HEIGHT,
+				   GINT_TO_POINTER (height));
+		g_free (original_height);
+	}
+
+	/* show info for debugging */
+	if (job->error)
+		g_warning ("%s", job->error->message);
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
+}
+
+EogJob *
+eog_job_thumbnail_new (EogImage *image)
+{
+	EogJobThumbnail *job;
+
+	job = g_object_new (EOG_TYPE_JOB_THUMBNAIL, NULL);
+
+	if (image)
+		job->image = g_object_ref (image);
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
+/* ------------------------------- EogJobTransform -------------------------------- */
+static void
+eog_job_transform_class_init (EogJobTransformClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_transform_dispose;
+	eog_job_class->run      = eog_job_transform_run;
+}
+
+static
+void eog_job_transform_init (EogJobTransform *job)
+{
+	/* initialize all public and private members to reasonable
+	   default values. */
+	job->images    = NULL;
+	job->transform = NULL;
+}
+
+static
+void eog_job_transform_dispose (GObject *object)
 {
 	EogJobTransform *job;
 
-	job = g_object_new (EOG_TYPE_JOB_TRANSFORM, NULL);
+	g_return_if_fail (EOG_IS_JOB_TRANSFORM (object));
 
-	if (trans) {
-		job->trans = g_object_ref (trans);
-	} else {
-		job->trans = NULL;
+	job = EOG_JOB_TRANSFORM (object);
+
+	/* free all public and private members */
+	if (job->transform) {
+		g_object_unref (job->transform);
+		job->transform = NULL;
 	}
 
-	job->images = images;
+	if (job->images) {
+		g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
+		g_list_free (job->images);
+	}
 
-	return EOG_JOB (job);
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_transform_parent_class)->dispose (object);
 }
 
 static gboolean
@@ -504,396 +1160,59 @@ eog_job_transform_image_modified (gpointer data)
 	return FALSE;
 }
 
-void
-eog_job_transform_run (EogJob *ejob)
+static void
+eog_job_transform_run (EogJob *job)
+{
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_TRANSFORM (job));
+
+	g_object_ref (job);
+
+	/* clean previous errors */
+	if (job->error) {
+	        g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+			 (GSourceFunc) notify_finished,
+			 job,
+			 g_object_unref);
+}
+
+EogJob *
+eog_job_transform_new (GList        *images,
+		       EogTransform *transform)
 {
 	EogJobTransform *job;
-	GList *it;
 
-	g_return_if_fail (EOG_IS_JOB_TRANSFORM (ejob));
+	job = g_object_new (EOG_TYPE_JOB_TRANSFORM, NULL);
 
-	job = EOG_JOB_TRANSFORM (ejob);
+	if (images)
+		job->images = images;
 
-	if (ejob->error) {
-	        g_error_free (ejob->error);
-		ejob->error = NULL;
-	}
+	if (transform)
+		job->transform = g_object_ref (transform);
 
-	for (it = job->images; it != NULL; it = it->next) {
-		EogImage *image = EOG_IMAGE (it->data);
-
-		if (job->trans == NULL) {
-			eog_image_undo (image);
-		} else {
-			eog_image_transform (image, job->trans, ejob);
-		}
-
-		if (eog_image_is_modified (image) || job->trans == NULL) {
-			g_object_ref (image);
-			g_idle_add (eog_job_transform_image_modified, image);
-		}
-	}
-
-	ejob->finished = TRUE;
-}
-
-static void eog_job_save_init (EogJobSave *job) { /* do nothing */ }
-
-static void
-eog_job_save_dispose (GObject *object)
-{
-	EogJobSave *job;
-
-	job = EOG_JOB_SAVE (object);
-
-	if (job->images) {
-		g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
-		g_list_free (job->images);
-		job->images = NULL;
-	}
-
-	(* G_OBJECT_CLASS (eog_job_save_parent_class)->dispose) (object);
-}
-
-static void
-eog_job_save_class_init (EogJobSaveClass *class)
-{
-	G_OBJECT_CLASS (class)->dispose = eog_job_save_dispose;
-	EOG_JOB_CLASS (class)->run = eog_job_save_run;
-}
-
-EogJob *
-eog_job_save_new (GList *images)
-{
-	EogJobSave *job;
-
-	job = g_object_new (EOG_TYPE_JOB_SAVE, NULL);
-
-	job->images = images;
-	job->current_image = NULL;
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
 
 	return EOG_JOB (job);
-}
-
-static void
-save_progress_handler (EogImage *image, gfloat progress, gpointer data)
-{
-	EogJobSave *job = EOG_JOB_SAVE (data);
-	guint n_images = g_list_length (job->images);
-	gfloat job_progress;
-
-	job_progress = (job->current_pos / (gfloat) n_images) + (progress / n_images);
-
-	eog_job_set_progress (EOG_JOB (job), job_progress);
-}
-
-static void
-eog_job_save_run (EogJob *ejob)
-{
-	EogJobSave *job;
-	GList *it;
-
-	g_return_if_fail (EOG_IS_JOB_SAVE (ejob));
-
-	job = EOG_JOB_SAVE (ejob);
-
-	job->current_pos = 0;
-
-	for (it = job->images; it != NULL; it = it->next, job->current_pos++) {
-		EogImage *image = EOG_IMAGE (it->data);
-		EogImageSaveInfo *save_info = NULL;
-		gulong handler_id = 0;
-		gboolean success = FALSE;
-
-		job->current_image = image;
-
-		/* Make sure the image doesn't go away while saving */
-		eog_image_data_ref (image);
-
-		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			EogImageMetadataStatus m_status;
-			gint data2load = 0;
-
-			m_status = eog_image_get_metadata_status (image);
-			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
-				// Queue full read in this case
-				data2load = EOG_IMAGE_DATA_ALL;
-			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
-			{
-				// Load only if we haven't read it yet
-				data2load = EOG_IMAGE_DATA_EXIF
-						| EOG_IMAGE_DATA_XMP;
-			}
-
-			if (data2load != 0) {
-				eog_image_load (image,
-						data2load,
-						NULL,
-						&ejob->error);
-			}
-		}
-
-		handler_id = g_signal_connect (G_OBJECT (image),
-					       "save-progress",
-				               G_CALLBACK (save_progress_handler),
-					       job);
-
-		save_info = eog_image_save_info_new_from_image (image);
-
-		success = eog_image_save_by_info (image,
-						  save_info,
-						  &ejob->error);
-
-		if (save_info)
-			g_object_unref (save_info);
-
-		if (handler_id != 0)
-			g_signal_handler_disconnect (G_OBJECT (image), handler_id);
-
-		eog_image_data_unref (image);
-
-		if (!success) break;
-	}
-
-	ejob->finished = TRUE;
-}
-
-static void eog_job_save_as_init (EogJobSaveAs *job) { /* do nothing */ }
-
-static void eog_job_save_as_dispose (GObject *object)
-{
-	EogJobSaveAs *job = EOG_JOB_SAVE_AS (object);
-
-	if (job->converter != NULL) {
-		g_object_unref (job->converter);
-		job->converter = NULL;
-	}
-
-	if (job->file != NULL) {
-		g_object_unref (job->file);
-		job->file = NULL;
-	}
-
-	(* G_OBJECT_CLASS (eog_job_save_as_parent_class)->dispose) (object);
-}
-
-static void
-eog_job_save_as_class_init (EogJobSaveAsClass *class)
-{
-	G_OBJECT_CLASS (class)->dispose = eog_job_save_as_dispose;
-	EOG_JOB_CLASS (class)->run = eog_job_save_as_run;
-}
-
-EogJob *
-eog_job_save_as_new (GList *images, EogURIConverter *converter, GFile *file)
-{
-	EogJobSaveAs *job;
-
-	g_assert (converter != NULL || g_list_length (images) == 1);
-
-	job = g_object_new (EOG_TYPE_JOB_SAVE_AS, NULL);
-
-	EOG_JOB_SAVE(job)->images = images;
-
-	job->converter = converter ? g_object_ref (converter) : NULL;
-	job->file = file ? g_object_ref (file) : NULL;
-
-	return EOG_JOB (job);
-}
-
-static void
-eog_job_save_as_run (EogJob *ejob)
-{
-	EogJobSave *job;
-	EogJobSaveAs *saveas_job;
-	GList *it;
-	guint n_images;
-
-	g_return_if_fail (EOG_IS_JOB_SAVE_AS (ejob));
-
-	job = EOG_JOB_SAVE (ejob);
-
-	n_images = g_list_length (job->images);
-
-	saveas_job = EOG_JOB_SAVE_AS (job);
-
-	job->current_pos = 0;
-
-	for (it = job->images; it != NULL; it = it->next, job->current_pos++) {
-		GdkPixbufFormat *format;
-		EogImageSaveInfo *src_info, *dest_info;
-		EogImage *image = EOG_IMAGE (it->data);
-		gboolean success = FALSE;
-		gulong handler_id = 0;
-
-		job->current_image = image;
-
-		eog_image_data_ref (image);
-
-		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			EogImageMetadataStatus m_status;
-			gint data2load = 0;
-
-			m_status = eog_image_get_metadata_status (image);
-			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
-				// Queue full read in this case
-				data2load = EOG_IMAGE_DATA_ALL;
-			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
-			{
-				// Load only if we haven't read it yet
-				data2load = EOG_IMAGE_DATA_EXIF
-						| EOG_IMAGE_DATA_XMP;
-			}
-
-			if (data2load != 0) {
-				eog_image_load (image,
-						data2load,
-						NULL,
-						&ejob->error);
-			}
-		}
-
-
-		g_assert (ejob->error == NULL);
-
-		handler_id = g_signal_connect (G_OBJECT (image),
-					       "save-progress",
-				               G_CALLBACK (save_progress_handler),
-					       job);
-
-		src_info = eog_image_save_info_new_from_image (image);
-
-		if (n_images == 1) {
-			g_assert (saveas_job->file != NULL);
-
-			format = eog_pixbuf_get_format (saveas_job->file);
-
-			dest_info = eog_image_save_info_new_from_file (saveas_job->file,
-								       format);
-
-		/* SaveAsDialog has already secured permission to overwrite */
-			if (dest_info->exists) {
-				dest_info->overwrite = TRUE;
-			}
-		} else {
-			GFile *dest_file;
-			gboolean result;
-
-			result = eog_uri_converter_do (saveas_job->converter,
-						       image,
-						       &dest_file,
-						       &format,
-						       NULL);
-
-			g_assert (result);
-
-			dest_info = eog_image_save_info_new_from_file (dest_file,
-								       format);
-		}
-
-		success = eog_image_save_as_by_info (image,
-						     src_info,
-						     dest_info,
-						     &ejob->error);
-
-		if (src_info)
-			g_object_unref (src_info);
-
-		if (dest_info)
-			g_object_unref (dest_info);
-
-		if (handler_id != 0)
-			g_signal_handler_disconnect (G_OBJECT (image), handler_id);
-
-		eog_image_data_unref (image);
-
-		if (!success)
-			break;
-	}
-
-	ejob->finished = TRUE;
-}
-
-static void eog_job_copy_init (EogJobCopy *job) { /* do nothing */};
-
-static void
-eog_job_copy_dispose (GObject *object)
-{
-	EogJobCopy *job = EOG_JOB_COPY (object);
-
-	if (job->dest) {
-		g_free (job->dest);
-		job->dest = NULL;
-	}
-
-	(* G_OBJECT_CLASS (eog_job_copy_parent_class)->dispose) (object);
-}
-
-static void
-eog_job_copy_class_init (EogJobCopyClass *class)
-{
-	G_OBJECT_CLASS (class)->dispose = eog_job_copy_dispose;
-	EOG_JOB_CLASS (class)->run = eog_job_copy_run;
-}
-
-EogJob *
-eog_job_copy_new (GList *images, const gchar *dest)
-{
-	EogJobCopy *job;
-
-	g_assert (images != NULL && dest != NULL);
-
-	job = g_object_new (EOG_TYPE_JOB_COPY, NULL);
-
-	job->images = images;
-	job->dest = g_strdup (dest);
-
-	return EOG_JOB (job);
-}
-
-static void
-eog_job_copy_progress_callback (goffset current_num_bytes,
-				goffset total_num_bytes,
-				gpointer user_data)
-{
-	gfloat job_progress;
-	guint n_images;
-	EogJobCopy *job;
-
-	job = EOG_JOB_COPY (user_data);
-	n_images = g_list_length (job->images);
-
-	job_progress =  ((current_num_bytes / (gfloat) total_num_bytes) + job->current_pos)/n_images;
-
-	eog_job_set_progress (EOG_JOB (job), job_progress);
-}
-
-void
-eog_job_copy_run (EogJob *ejob)
-{
-	EogJobCopy *job;
-	GList *it;
-	GFile *src, *dest;
-	gchar *filename, *dest_filename;
-
-	g_return_if_fail (EOG_IS_JOB_COPY (ejob));
-
-	job = EOG_JOB_COPY (ejob);
-	job->current_pos = 0;
-
-	for (it = job->images; it != NULL; it = g_list_next (it), job->current_pos++) {
-		src = (GFile *) it->data;
-		filename = g_file_get_basename (src);
-		dest_filename = g_build_filename (job->dest, filename, NULL);
-		dest = g_file_new_for_path (dest_filename);
-
-		g_file_copy (src, dest,
-			     G_FILE_COPY_OVERWRITE, NULL,
-			     eog_job_copy_progress_callback, job,
-			     &ejob->error);
-		g_free (filename);
-		g_free (dest_filename);
-	}
-
-	ejob->finished = TRUE;
 }

@@ -24,7 +24,7 @@
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
 #include "eog-image.h"
-#include "eog-job-queue.h"
+#include "eog-job-scheduler.h"
 #include "eog-jobs.h"
 
 #include <string.h>
@@ -812,7 +812,7 @@ eog_list_store_remove_thumbnail_job (EogListStore *store,
 
 	if (job != NULL) {
 		g_mutex_lock (&store->priv->mutex);
-		eog_job_queue_remove_job (job);
+		eog_job_cancel (job);
 		gtk_list_store_set (GTK_LIST_STORE (store), iter,
 				    EOG_LIST_STORE_EOG_JOB, NULL,
 				    -1);
@@ -849,7 +849,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 	gtk_list_store_set (GTK_LIST_STORE (store), iter,
 			    EOG_LIST_STORE_EOG_JOB, job,
 			    -1);
-	eog_job_queue_add_job (job);
+	eog_job_scheduler_add_job (job);
 	g_mutex_unlock (&store->priv->mutex);
 	g_object_unref (job);
 	g_object_unref (image);

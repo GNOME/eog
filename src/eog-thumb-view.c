@@ -26,7 +26,7 @@
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
 #include "eog-image.h"
-#include "eog-job-queue.h"
+#include "eog-job-scheduler.h"
 
 #ifdef HAVE_EXIF
 #include "eog-exif-util.h"
@@ -615,7 +615,7 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 		g_signal_connect (G_OBJECT (job), "finished",
 				  G_CALLBACK (on_data_loaded_cb),
 				  widget);
-		eog_job_queue_add_job (job);
+		eog_job_scheduler_add_job (job);
 		g_object_unref (image);
 		g_object_unref (job);
 		return FALSE;

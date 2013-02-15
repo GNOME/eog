@@ -30,6 +30,8 @@
 
 #include <glib.h>
 
+#define EOG_GET_TYPE_NAME(instance) g_type_name_from_instance ((gpointer)instance)
+
 typedef enum {
 	EOG_DEBUG_NO_DEBUG     = 0,
 	EOG_DEBUG_WINDOW       = 1 << 0,

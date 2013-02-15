@@ -47,7 +47,7 @@
 #include "eog-application-internal.h"
 #include "eog-thumb-nav.h"
 #include "eog-config-keys.h"
-#include "eog-job-queue.h"
+#include "eog-job-scheduler.h"
 #include "eog-jobs.h"
 #include "eog-util.h"
 #include "eog-save-as-dialog-helper.h"
@@ -1106,7 +1106,7 @@ eog_window_clear_load_job (EogWindow *window)
 
 	if (priv->load_job != NULL) {
 		if (!priv->load_job->finished)
-			eog_job_queue_remove_job (priv->load_job);
+			eog_job_cancel (priv->load_job);
 
 		g_signal_handlers_disconnect_by_func (priv->load_job,
 						      eog_job_progress_cb,
@@ -1172,7 +1172,7 @@ eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data)
 		 * - the total number of images queued for saving */
 		status_message = g_strdup_printf (_("Saving image \"%s\" (%u/%u)"),
 					          str_image,
-						  job->current_pos + 1,
+						  job->current_position + 1,
 						  n_images);
 		g_free (str_image);
 
@@ -1413,7 +1413,7 @@ eog_window_clear_transform_job (EogWindow *window)
 
 	if (priv->transform_job != NULL) {
 		if (!priv->transform_job->finished)
-			eog_job_queue_remove_job (priv->transform_job);
+			eog_job_cancel (priv->transform_job);
 
 		g_signal_handlers_disconnect_by_func (priv->transform_job,
 						      eog_job_transform_cb,
@@ -1477,7 +1477,7 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 			  G_CALLBACK (eog_job_progress_cb),
 			  window);
 
-	eog_job_queue_add_job (priv->transform_job);
+	eog_job_scheduler_add_job (priv->transform_job);
 }
 
 static void
@@ -1546,7 +1546,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 			  G_CALLBACK (eog_job_progress_cb),
 			  window);
 
-	eog_job_queue_add_job (priv->load_job);
+	eog_job_scheduler_add_job (priv->load_job);
 
 	str_image = eog_image_get_uri_for_display (image);
 
@@ -2407,7 +2407,7 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 					  G_CALLBACK (eog_job_close_save_cb),
 					  window);
 
-			eog_job_queue_add_job (priv->save_job);
+			eog_job_scheduler_add_job (priv->save_job);
 		}
 
 		break;
@@ -2883,14 +2883,14 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 
 	/* Create source GFile */
 	basename = g_file_get_basename (job->images->data);
-	filepath = g_build_filename (job->dest, basename, NULL);
+	filepath = g_build_filename (job->destination, basename, NULL);
 	source_file = g_file_new_for_path (filepath);
 	g_free (filepath);
 
 	/* Create destination GFile */
 	extension = eog_util_filename_get_extension (basename);
 	filename = g_strdup_printf  ("%s.%s", EOG_WALLPAPER_FILENAME, extension);
-	filepath = g_build_filename (job->dest, filename, NULL);
+	filepath = g_build_filename (job->destination, filename, NULL);
 	dest_file = g_file_new_for_path (filepath);
 	g_free (filename);
 	g_free (extension);
@@ -2970,7 +2970,7 @@ eog_window_cmd_save (GtkAction *action, gpointer user_data)
 	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
 
 	if (eog_window_save_images (window, images)) {
-		eog_job_queue_add_job (priv->save_job);
+		eog_job_scheduler_add_job (priv->save_job);
 	}
 }
 
@@ -3095,7 +3095,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 			  G_CALLBACK (eog_job_save_progress_cb),
 			  window);
 
-	eog_job_queue_add_job (priv->save_job);
+	eog_job_scheduler_add_job (priv->save_job);
 }
 
 static void
@@ -3268,7 +3268,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 				  "progress",
 				  G_CALLBACK (eog_job_progress_cb),
 				  window);
-		eog_job_queue_add_job (priv->copy_job);
+		eog_job_scheduler_add_job (priv->copy_job);
 
 		g_object_unref (file);
 		g_free (filename);
@@ -5720,7 +5720,7 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 			  G_CALLBACK (eog_job_model_cb),
 			  window);
 
-	eog_job_queue_add_job (job);
+	eog_job_scheduler_add_job (job);
 	g_object_unref (job);
 }
 

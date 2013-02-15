@@ -33,7 +33,7 @@
 #include "eog-session.h"
 #include "eog-debug.h"
 #include "eog-thumbnail.h"
-#include "eog-job-queue.h"
+#include "eog-job-scheduler.h"
 #include "eog-application.h"
 #include "eog-application-internal.h"
 #include "eog-plugin-engine.h"
@@ -145,7 +145,7 @@ main (int argc, char **argv)
  	xmp_init();
 #endif
 	eog_debug_init ();
-	eog_job_queue_init ();
+	eog_job_scheduler_init ();
 	gdk_threads_init ();
 	eog_thumbnail_init ();
 

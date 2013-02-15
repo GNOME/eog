@@ -48,7 +48,7 @@ INST_H_FILES =				\
 	eog-file-chooser.h		\
 	eog-image.h			\
 	eog-image-save-info.h		\
-	eog-job-queue.h			\
+	eog-job-scheduler.h		\
 	eog-jobs.h			\
 	eog-list-store.h		\
 	eog-properties-dialog.h		\
@@ -74,7 +74,7 @@ libeog_c_files = 			\
 	eog-image.c			\
 	eog-image-jpeg.c		\
 	eog-image-save-info.c		\
-	eog-job-queue.c			\
+	eog-job-scheduler.c		\
 	eog-jobs.c			\
 	eog-list-store.c		\
 	eog-metadata-sidebar.c		\

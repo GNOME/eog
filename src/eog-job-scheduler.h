@@ -1,11 +1,11 @@
-/* Eye Of Gnome - Jobs Queue
+/* Eye Of Gnome - Jobs scheduler
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2013 The Free Software Foundation
  *
- * Author: Lucas Rocha <lucasr@gnome.org>
+ * Author: Javier Sánchez <jsanchez@deskblue.com>
  *
- * Based on evince code (shell/ev-job-queue.h) by:
- * 	- Martin Kretzschmar <martink@gnome.org>
+ * Based on code (ev-job-scheduler.h) by:
+ *      - Carlos Garcia Campos <carlosgc@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,21 +22,28 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_JOB_QUEUE_H__
-#define __EOG_JOB_QUEUE_H__
+#ifndef __EOG_JOB_SCHEDULER_H__
+#define __EOG_JOB_SCHEDULER_H__
 
 #include "eog-jobs.h"
 
-#include <gtk/gtk.h>
-
 G_BEGIN_DECLS
 
-void     eog_job_queue_init       (void);
+typedef enum {
+	EOG_JOB_PRIORITY_HIGH,
+	EOG_JOB_PRIORITY_MEDIUM,
+	EOG_JOB_PRIORITY_LOW,
+	EOG_JOB_N_PRIORITIES
+} EogJobPriority;
 
-void     eog_job_queue_add_job    (EogJob    *job);
+/* initialization */
+void eog_job_scheduler_init                  (void);
 
-gboolean eog_job_queue_remove_job (EogJob    *job);
+/* jobs management */
+void eog_job_scheduler_add_job               (EogJob         *job);
+void eog_job_scheduler_add_job_with_priority (EogJob         *job,
+					      EogJobPriority  priority);
 
 G_END_DECLS
 
-#endif /* __EOG_JOB_QUEUE_H__ */
+#endif /* __EOG_JOB_SCHEDULER_H__ */

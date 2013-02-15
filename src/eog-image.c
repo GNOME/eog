@@ -1088,7 +1088,11 @@ eog_image_real_load (EogImage *img,
 
 		bytes_read_total += bytes_read;
 
-		if (job != NULL) {
+		/* check that load job wasn't cancelled */
+		if (eog_job_is_cancelled (job)) {
+			eog_image_cancel_load (img);
+			continue;
+		} else {
 			float progress = (float) bytes_read_total / (float) priv->bytes;
 			eog_job_set_progress (job, progress);
 		}
