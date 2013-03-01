@@ -5714,9 +5714,9 @@ eog_window_show_about_dialog (EogWindow *window)
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	static const char *authors[] = {
-		"Claudio Saavedra <csaavedra@igalia.com> (maintainer)",
 		"Felix Riemann <friemann@gnome.org> (maintainer)",
 		"",
+		"Claudio Saavedra <csaavedra@igalia.com>",
 		"Lucas Rocha <lucasr@gnome.org>",
 		"Tim Gerla <tim+gnomebugs@gerla.net>",
 		"Philip Van Hoof <pvanhoof@gnome.org>",
