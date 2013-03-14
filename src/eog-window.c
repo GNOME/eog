@@ -74,12 +74,10 @@
 #include <libpeas/peas-extension-set.h>
 #include <libpeas/peas-activatable.h>
 
-#if HAVE_LCMS
+#if defined(HAVE_LCMS) && defined(GDK_WINDOWING_X11)
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
-#endif
 #include <lcms2.h>
 #endif
 
@@ -392,10 +390,11 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 	}
 }
 
-#ifdef HAVE_LCMS
+#if defined(HAVE_LCMS) && defined(GDK_WINDOWING_X11)
 static cmsHPROFILE *
 eog_window_get_display_profile (GtkWidget *window)
 {
+	GdkScreen *screen;
 	Display *dpy;
 	Atom icc_atom, type;
 	int format;
@@ -406,9 +405,12 @@ eog_window_get_display_profile (GtkWidget *window)
 	int result;
 	cmsHPROFILE *profile = NULL;
 	char *atom_name;
-	GdkScreen *screen;
 
 	screen = gtk_widget_get_screen (window);
+
+        if (!GDK_IS_X11_SCREEN (screen))
+                return NULL;
+
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
 	if (gdk_screen_get_number (screen) > 0)
@@ -4757,7 +4759,7 @@ eog_window_init (EogWindow *window)
 	window->priv->mode = EOG_WINDOW_MODE_UNKNOWN;
 	window->priv->status = EOG_WINDOW_STATUS_UNKNOWN;
 
-#ifdef HAVE_LCMS
+#if defined(HAVE_LCMS) && defined(GDK_WINDOWING_X11)
 	window->priv->display_profile =
 		eog_window_get_display_profile (GTK_WIDGET (window));
 #endif
