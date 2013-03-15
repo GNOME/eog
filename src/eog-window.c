@@ -3312,6 +3312,237 @@ eog_window_all_images_trasheable (GList *images)
 	return can_trash;
 }
 
+static gint
+show_force_image_delete_confirm_dialog (EogWindow *window,
+					GList     *images)
+{
+	static gboolean dont_ask_again_force_delete = FALSE;
+
+	GtkWidget *dialog;
+	GtkWidget *dont_ask_again_button;
+	EogImage  *image;
+	gchar     *prompt;
+	guint      n_images;
+	gint       response;
+
+	/* assume agreement, if the user doesn't want to be asked and deletion is available */
+	if (dont_ask_again_force_delete)
+		return GTK_RESPONSE_OK;
+
+	/* retrieve the selected images count */
+	n_images = g_list_length (images);
+
+	/* make the dialog prompt message */
+	if (n_images == 1) {
+		image = EOG_IMAGE (images->data);
+
+		prompt = g_strdup_printf (_("Are you sure you want to remove\n\"%s\" permanently?"),
+					  eog_image_get_caption (image));
+	} else {
+		prompt = g_strdup_printf (ngettext ("Are you sure you want to remove\n"
+						    "the selected image permanently?",
+						    "Are you sure you want to remove\n"
+						    "the %d selected images permanently?",
+						    n_images),
+					  n_images);
+	}
+
+	/* create the dialog */
+	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
+						     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						     GTK_MESSAGE_WARNING,
+						     GTK_BUTTONS_NONE,
+						     "<span weight=\"bold\" size=\"larger\">%s</span>",
+						     prompt);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+					 GTK_RESPONSE_OK);
+
+	/* add buttons to the dialog */
+	if (n_images == 1) {
+		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
+	} else {
+		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_YES   , GTK_RESPONSE_OK);
+	}
+
+	/* add 'dont ask again' button */
+	dont_ask_again_button = gtk_check_button_new_with_mnemonic (_("_Do not ask again during this session"));
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dont_ask_again_button),
+				      FALSE);
+
+	gtk_box_pack_end (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+			  dont_ask_again_button,
+			  TRUE,
+			  TRUE,
+			  0);
+
+	/* show dialog and get user response */
+	gtk_widget_show_all (dialog);
+	response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+	/* only update the 'dont ask again' property if the user has accepted */
+	if (response == GTK_RESPONSE_OK)
+		dont_ask_again_force_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dont_ask_again_button));
+
+	/* free resources */
+	g_free (prompt);
+	gtk_widget_destroy (dialog);
+
+	return response;
+}
+
+static gboolean
+force_image_delete_real (EogImage  *image,
+			 GError   **error)
+{
+	GFile     *file;
+	GFileInfo *file_info;
+	gboolean   can_delete;
+	gboolean   result;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+
+	/* retrieve image file */
+	file = eog_image_get_file (image);
+
+	if (file == NULL) {
+		g_set_error (error,
+			     EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_IO,
+			     _("Couldn't retrieve image file"));
+
+		return FALSE;
+	}
+
+	/* retrieve some image file information */
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE,
+				       0,
+				       NULL,
+				       NULL);
+
+	if (file_info == NULL) {
+		g_set_error (error,
+			     EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_IO,
+			     _("Couldn't retrieve image file information"));
+
+		/* free resources */
+		g_object_unref (file);
+
+		return FALSE;
+	}
+
+	/* check that image file can be deleted */
+	can_delete = g_file_info_get_attribute_boolean (file_info,
+							G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE);
+
+	if (!can_delete) {
+		g_set_error (error,
+			     EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_IO,
+			     _("Couldn't delete file"));
+
+		/* free resources */
+		g_object_unref (file_info);
+		g_object_unref (file);
+
+		return FALSE;
+	}
+
+	/* delete image file */
+	result = g_file_delete (file,
+				NULL,
+				error);
+
+	/* free resources */
+	g_object_unref (file_info);
+        g_object_unref (file);
+
+	return result;
+}
+
+static void
+eog_window_force_image_delete (EogWindow *window,
+			       GList     *images)
+{
+	GList    *item;
+	gint      current_position;
+	EogImage *current_image;
+	gboolean  success;
+
+	g_return_if_fail (EOG_WINDOW (window));
+
+	current_position = eog_list_store_get_pos_by_image (window->priv->store,
+							    EOG_IMAGE (images->data));
+
+	/* force delete of each image of the list */
+	for (item = images; item != NULL; item = item->next) {
+		GError   *error;
+		EogImage *image;
+
+		error = NULL;
+		image = EOG_IMAGE (item->data);
+
+		success = force_image_delete_real (image, &error);
+
+		if (!success) {
+			GtkWidget *dialog;
+			gchar     *header;
+
+			/* set dialog error message */
+			header = g_strdup_printf (_("Error on deleting image %s"),
+						  eog_image_get_caption (image));
+
+			/* create dialog */
+			dialog = gtk_message_dialog_new (GTK_WINDOW (window),
+							 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							 GTK_MESSAGE_ERROR,
+							 GTK_BUTTONS_OK,
+							 "%s", header);
+
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+								  "%s",
+								  error->message);
+
+			/* show dialog */
+			gtk_dialog_run (GTK_DIALOG (dialog));
+
+			/* free resources */
+			gtk_widget_destroy (dialog);
+			g_free (header);
+
+			return;
+		}
+
+		/* remove image from store */
+		eog_list_store_remove_image (window->priv->store, image);
+	}
+
+	/* free list */
+	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_list_free    (images);
+
+	/* select image at previously saved position */
+	current_position = MIN (current_position,
+				eog_list_store_length (window->priv->store) - 1);
+
+	if (current_position >= 0) {
+		current_image = eog_list_store_get_image_by_pos (window->priv->store,
+								 current_position);
+
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview),
+						  current_image,
+						  TRUE);
+
+		if (current_image != NULL)
+			g_object_unref (current_image);
+	}
+}
+
 static int
 show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean can_trash)
 {
@@ -4958,6 +5189,21 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
+	case GDK_KEY_Delete:
+		if ((event->state & modifiers) == GDK_SHIFT_MASK) {
+			EogWindow *window;
+			GList     *images;
+			gint       result;
+
+			window = EOG_WINDOW (widget);
+			images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (window->priv->thumbview));
+			result = show_force_image_delete_confirm_dialog (window, images);
+
+			if (result == GTK_RESPONSE_OK)
+				eog_window_force_image_delete (window, images);
+		}
+
+		break;
 	case GDK_KEY_space:
 		if ((event->state & modifiers) == GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
