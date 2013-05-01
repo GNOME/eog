@@ -3543,6 +3543,21 @@ eog_window_force_image_delete (EogWindow *window,
 	}
 }
 
+static void
+eog_window_cmd_delete (GtkAction *action, gpointer user_data)
+{
+	EogWindow *window;
+	GList     *images;
+	gint       result;
+
+	window = EOG_WINDOW (user_data);
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (window->priv->thumbview));
+	result = show_force_image_delete_confirm_dialog (window, images);
+
+	if (result == GTK_RESPONSE_OK)
+		eog_window_force_image_delete (window, images);
+}
+
 static int
 show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean can_trash)
 {
@@ -4093,6 +4108,9 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditMoveToTrash", "user-trash", N_("Move to _Trash"), NULL,
 	  N_("Move the selected image to the trash folder"),
 	  G_CALLBACK (eog_window_cmd_move_to_trash) },
+	{ "EditDelete", "edit-delete", N_("Delete Image"), "<shift>Delete",
+	  N_("Delete the selected image"),
+	  G_CALLBACK (eog_window_cmd_delete) },
 	{ "EditCopyImage", "edit-copy", N_("_Copy"), "<control>C",
 	  N_("Copy the selected image to the clipboard"),
 	  G_CALLBACK (eog_window_cmd_copy_image) },
@@ -5189,21 +5207,6 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
-	case GDK_KEY_Delete:
-		if ((event->state & modifiers) == GDK_SHIFT_MASK) {
-			EogWindow *window;
-			GList     *images;
-			gint       result;
-
-			window = EOG_WINDOW (widget);
-			images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (window->priv->thumbview));
-			result = show_force_image_delete_confirm_dialog (window, images);
-
-			if (result == GTK_RESPONSE_OK)
-				eog_window_force_image_delete (window, images);
-		}
-
-		break;
 	case GDK_KEY_space:
 		if ((event->state & modifiers) == GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
