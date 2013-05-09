@@ -1244,13 +1244,11 @@ eog_window_obtain_desired_size (EogImage  *image,
 		if ((img_width + deco_width > screen_width) ||
 		    (img_height + deco_height > screen_height))
 		{
-			double factor;
+			double width_factor, height_factor, factor;
 
-			if (img_width > img_height) {
-				factor = (screen_width * 0.75 - deco_width) / (double) img_width;
-			} else {
-				factor = (screen_height * 0.75 - deco_height) / (double) img_height;
-			}
+			width_factor = (screen_width * 0.75 - deco_width) / (double) img_width;
+			height_factor = (screen_height * 0.75 - deco_height) / (double) img_height;
+			factor = MIN (width_factor, height_factor);
 
 			img_width = img_width * factor;
 			img_height = img_height * factor;
