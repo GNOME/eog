@@ -585,8 +585,7 @@ eog_metadata_sidebar_constructed (GObject *object)
 
 	/* This can only happen after all construct properties for
 	 * GtkScrolledWindow are set/handled. */
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (object),
-					       priv->grid);
+	gtk_container_add (GTK_CONTAINER (object), priv->grid);
 	gtk_widget_show (GTK_WIDGET (object));
 
 	G_OBJECT_CLASS (eog_metadata_sidebar_parent_class)->constructed (object);
