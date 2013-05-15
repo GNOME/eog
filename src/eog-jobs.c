@@ -49,9 +49,9 @@ enum {
 static guint job_signals[LAST_SIGNAL];
 
 /* notify signal funcs */
-static void     notify_progress              (EogJob               *job);
-static void     notify_cancelled             (EogJob               *job);
-static void     notify_finished              (EogJob               *job);
+static gboolean notify_progress              (EogJob               *job);
+static gboolean notify_cancelled             (EogJob               *job);
+static gboolean notify_finished              (EogJob               *job);
 
 /* gobject vfuncs */
 static void     eog_job_class_init           (EogJobClass          *class);
@@ -106,12 +106,12 @@ static void eog_job_save_progress_callback (EogImage *image,
 					    gpointer  data);
 
 /* --------------------------- notify signal funcs --------------------------- */
-static void
+static gboolean
 notify_progress (EogJob *job)
 {
 	/* check if the current job was previously cancelled */
 	if (eog_job_is_cancelled (job))
-		return;
+		return FALSE;
 
 	/* show info for debugging */
 	eog_debug_message (DEBUG_JOBS,
@@ -125,9 +125,10 @@ notify_progress (EogJob *job)
 		       job_signals[PROGRESS],
 		       0,
 		       job->progress);
+	return FALSE;
 }
 
-static void
+static gboolean
 notify_cancelled (EogJob *job)
 {
 	/* show info for debugging */
@@ -140,9 +141,11 @@ notify_cancelled (EogJob *job)
 	g_signal_emit (job,
 		       job_signals[CANCELLED],
 		       0);
+
+	return FALSE;
 }
 
-static void
+static gboolean
 notify_finished (EogJob *job)
 {
 	/* show info for debugging */
@@ -155,6 +158,7 @@ notify_finished (EogJob *job)
 	g_signal_emit (job,
 		       job_signals[FINISHED],
 		       0);
+	return FALSE;
 }
 
 /* --------------------------------- EogJob ---------------------------------- */
@@ -320,6 +324,8 @@ eog_job_set_progress (EogJob *job,
 	g_return_if_fail (EOG_IS_JOB (job));
 	g_return_if_fail (progress >= 0.0 && progress <= 1.0);
 
+	g_object_ref (job);
+
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
 
@@ -332,7 +338,7 @@ eog_job_set_progress (EogJob *job,
 	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
 			 (GSourceFunc) notify_progress,
 			 job,
-			 NULL);
+			 g_object_unref);
 }
 
 gboolean
