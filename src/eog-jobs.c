@@ -424,10 +424,13 @@ eog_job_copy_progress_callback (goffset  current_num_bytes,
 static void
 eog_job_copy_run (EogJob *job)
 {
+	EogJobCopy *copyjob;
+	GList *it;
+
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_COPY (job));
 
-	g_object_ref (job);
+	copyjob = EOG_JOB_COPY (g_object_ref (job));
 
 	/* clean previous errors */
 	if (job->error) {
@@ -437,7 +440,30 @@ eog_job_copy_run (EogJob *job)
 
 	/* check if the current job was previously cancelled */
 	if (eog_job_is_cancelled (job))
+	{
+		g_object_unref (job);
 		return;
+	}
+
+	copyjob->current_position = 0;
+
+	for (it = copyjob->images; it != NULL; it = g_list_next (it), copyjob->current_position++) {
+		GFile *src, *dest;
+		gchar *filename, *dest_filename;
+
+		src = (GFile *) it->data;
+		filename = g_file_get_basename (src);
+		dest_filename = g_build_filename (copyjob->destination, filename, NULL);
+		dest = g_file_new_for_path (dest_filename);
+
+		g_file_copy (src, dest,
+					 G_FILE_COPY_OVERWRITE, NULL,
+					 eog_job_copy_progress_callback, job,
+					 &job->error);
+		g_object_unref (dest);
+		g_free (filename);
+		g_free (dest_filename);
+	}
 
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);

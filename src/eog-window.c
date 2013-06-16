@@ -2924,8 +2924,6 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 
 	g_object_unref (source_file);
 	g_object_unref (dest_file);
-	g_object_unref (G_OBJECT (job->images->data));
-	g_list_free (job->images);
 	g_object_unref (job);
 }
 
