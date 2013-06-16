@@ -842,6 +842,9 @@ eog_job_save_progress_callback (EogImage *image,
 static void
 eog_job_save_run (EogJob *job)
 {
+	EogJobSave *save_job;
+	GList *it;
+
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_SAVE (job));
 
@@ -856,6 +859,67 @@ eog_job_save_run (EogJob *job)
 	/* check if the current job was previously cancelled */
 	if (eog_job_is_cancelled (job))
 		return;
+
+	save_job = EOG_JOB_SAVE (job);
+
+	save_job->current_position = 0;
+
+	for (it = save_job->images; it != NULL; it = it->next, save_job->current_position++) {
+		EogImage *image = EOG_IMAGE (it->data);
+		EogImageSaveInfo *save_info = NULL;
+		gulong handler_id = 0;
+		gboolean success = FALSE;
+
+		save_job->current_image = image;
+
+		/* Make sure the image doesn't go away while saving */
+		eog_image_data_ref (image);
+
+		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+			EogImageMetadataStatus m_status;
+			gint data2load = 0;
+
+			m_status = eog_image_get_metadata_status (image);
+			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
+				// Queue full read in this case
+				data2load = EOG_IMAGE_DATA_ALL;
+			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
+			{
+				// Load only if we haven't read it yet
+				data2load = EOG_IMAGE_DATA_EXIF
+						| EOG_IMAGE_DATA_XMP;
+			}
+
+			if (data2load != 0) {
+				eog_image_load (image,
+						data2load,
+						NULL,
+						&job->error);
+			}
+		}
+
+		handler_id = g_signal_connect (G_OBJECT (image),
+						   "save-progress",
+							   G_CALLBACK (eog_job_save_progress_callback),
+						   job);
+
+		save_info = eog_image_save_info_new_from_image (image);
+
+		success = eog_image_save_by_info (image,
+						  save_info,
+						  &job->error);
+
+		if (save_info)
+			g_object_unref (save_info);
+
+		if (handler_id != 0)
+			g_signal_handler_disconnect (G_OBJECT (image), handler_id);
+
+		eog_image_data_unref (image);
+
+		if (!success)
+			break;
+	}
 
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
@@ -939,10 +1003,13 @@ void eog_job_save_as_dispose (GObject *object)
 static void
 eog_job_save_as_run (EogJob *job)
 {
+	EogJobSave *save_job;
+	EogJobSaveAs *saveas_job;
+	GList *it;
+	guint n_images;
+
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_SAVE_AS (job));
-
-	g_object_ref (job);
 
 	/* clean previous errors */
 	if (job->error) {
@@ -953,6 +1020,104 @@ eog_job_save_as_run (EogJob *job)
 	/* check if the current job was previously cancelled */
 	if (eog_job_is_cancelled (job))
 		return;
+
+	save_job = EOG_JOB_SAVE (g_object_ref (job));
+	saveas_job = EOG_JOB_SAVE_AS (job);
+
+	save_job->current_position = 0;
+	n_images = g_list_length (save_job->images);
+
+	for (it = save_job->images; it != NULL; it = it->next, save_job->current_position++) {
+		GdkPixbufFormat *format;
+		EogImageSaveInfo *src_info, *dest_info;
+		EogImage *image = EOG_IMAGE (it->data);
+		gboolean success = FALSE;
+		gulong handler_id = 0;
+
+		save_job->current_image = image;
+
+		eog_image_data_ref (image);
+
+		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+			EogImageMetadataStatus m_status;
+			gint data2load = 0;
+
+			m_status = eog_image_get_metadata_status (image);
+			if (!eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
+				// Queue full read in this case
+				data2load = EOG_IMAGE_DATA_ALL;
+			} else if (m_status == EOG_IMAGE_METADATA_NOT_READ)
+			{
+				// Load only if we haven't read it yet
+				data2load = EOG_IMAGE_DATA_EXIF
+						| EOG_IMAGE_DATA_XMP;
+			}
+
+			if (data2load != 0) {
+				eog_image_load (image,
+						data2load,
+						NULL,
+						&job->error);
+			}
+		}
+
+
+		g_assert (job->error == NULL);
+
+		handler_id = g_signal_connect (G_OBJECT (image),
+						   "save-progress",
+							   G_CALLBACK (eog_job_save_progress_callback),
+						   job);
+
+		src_info = eog_image_save_info_new_from_image (image);
+
+		if (n_images == 1) {
+			g_assert (saveas_job->file != NULL);
+
+			format = eog_pixbuf_get_format (saveas_job->file);
+
+			dest_info = eog_image_save_info_new_from_file (saveas_job->file,
+									   format);
+
+		/* SaveAsDialog has already secured permission to overwrite */
+			if (dest_info->exists) {
+				dest_info->overwrite = TRUE;
+			}
+		} else {
+			GFile *dest_file;
+			gboolean result;
+
+			result = eog_uri_converter_do (saveas_job->converter,
+							   image,
+							   &dest_file,
+							   &format,
+							   NULL);
+
+			g_assert (result);
+
+			dest_info = eog_image_save_info_new_from_file (dest_file,
+									   format);
+		}
+
+		success = eog_image_save_as_by_info (image,
+							 src_info,
+							 dest_info,
+							 &job->error);
+
+		if (src_info)
+			g_object_unref (src_info);
+
+		if (dest_info)
+			g_object_unref (dest_info);
+
+		if (handler_id != 0)
+			g_signal_handler_disconnect (G_OBJECT (image), handler_id);
+
+		eog_image_data_unref (image);
+
+		if (!success)
+			break;
+	}
 
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
