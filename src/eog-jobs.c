@@ -1169,10 +1169,13 @@ eog_job_transform_image_modified (gpointer data)
 static void
 eog_job_transform_run (EogJob *job)
 {
+	EogJobTransform *transjob;
+	GList *it;
+
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_TRANSFORM (job));
 
-	g_object_ref (job);
+	transjob = EOG_JOB_TRANSFORM (g_object_ref (job));
 
 	/* clean previous errors */
 	if (job->error) {
@@ -1182,7 +1185,31 @@ eog_job_transform_run (EogJob *job)
 
 	/* check if the current job was previously cancelled */
 	if (eog_job_is_cancelled (job))
+	{
+		g_object_unref (transjob);
 		return;
+	}
+
+	for (it = transjob->images; it != NULL; it = it->next) {
+		EogImage *image = EOG_IMAGE (it->data);
+
+		if (transjob->transform == NULL) {
+			eog_image_undo (image);
+		} else {
+			eog_image_transform (image, transjob->transform, job);
+		}
+
+		if (eog_image_is_modified (image) || transjob->transform == NULL) {
+			g_object_ref (image);
+			g_idle_add (eog_job_transform_image_modified, image);
+		}
+
+		if (G_UNLIKELY (eog_job_is_cancelled (job)))
+		{
+			g_object_unref (transjob);
+			return;
+		}
+	}
 
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
