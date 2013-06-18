@@ -3548,10 +3548,13 @@ eog_window_cmd_delete (GtkAction *action, gpointer user_data)
 
 	window = EOG_WINDOW (user_data);
 	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (window->priv->thumbview));
-	result = show_force_image_delete_confirm_dialog (window, images);
+	if (G_LIKELY (g_list_length (images) > 0))
+	{
+		result = show_force_image_delete_confirm_dialog (window, images);
 
-	if (result == GTK_RESPONSE_OK)
-		eog_window_force_image_delete (window, images);
+		if (result == GTK_RESPONSE_OK)
+			eog_window_force_image_delete (window, images);
+	}
 }
 
 static int
