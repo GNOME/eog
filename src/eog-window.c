@@ -4104,7 +4104,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditMoveToTrash", "user-trash", N_("Move to _Trash"), NULL,
 	  N_("Move the selected image to the trash folder"),
 	  G_CALLBACK (eog_window_cmd_move_to_trash) },
-	{ "EditDelete", "edit-delete", N_("Delete Image"), "<shift>Delete",
+	{ "EditDelete", "edit-delete", N_("_Delete Image"), "<shift>Delete",
 	  N_("Delete the selected image"),
 	  G_CALLBACK (eog_window_cmd_delete) },
 	{ "EditCopyImage", "edit-copy", N_("_Copy"), "<control>C",
