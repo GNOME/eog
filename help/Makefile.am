@@ -11,7 +11,6 @@ HELP_MEDIA = \
 	figures/multiple-rename-count.png	\
 	figures/plugins-all.png			\
 	figures/plugin-send-by-mail.png		\
-	figures/plugin-tools-flickr.png		\
 	figures/prefs-plugins-date.png		\
 	figures/prefs-plugins-fullscreen.png	\
 	figures/prefs-plugins.png		\
@@ -39,7 +38,6 @@ HELP_FILES = \
 	plugin-fullscreen-background.page	\
 	plugin-fullscreen-double-click.page	\
 	plugin-picasa.page			\
-	plugin-postr.page			\
 	plugin-python-console.page		\
 	plugin-send-by-mail.page		\
 	plugin-slideshow-shuffle.page		\
