@@ -34,7 +34,6 @@ NOINST_H_FILES =			\
 	eog-print-preview.h             \
 	eog-save-as-dialog-helper.h	\
 	eog-session.h			\
-	eog-uri-converter.h		\
 	eog-util.h			\
 	zoom.h
 
@@ -59,6 +58,7 @@ INST_H_FILES =				\
 	eog-thumb-nav.h			\
 	eog-thumb-view.h		\
 	eog-transform.h			\
+	eog-uri-converter.h		\
 	eog-window-activatable.h	\
 	eog-window.h
 
