@@ -2,7 +2,6 @@
 #define _EOG_URI_CONVERTER_H_
 
 #include <glib-object.h>
-#include <glib/gi18n.h>
 #include "eog-image.h"
 
 G_BEGIN_DECLS
