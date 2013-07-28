@@ -41,10 +41,6 @@
 #include <lcms2.h>
 #endif
 
-#ifdef HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
-
 #ifdef HAVE_RSVG
 #include <librsvg/rsvg.h>
 #endif

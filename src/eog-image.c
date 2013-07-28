@@ -58,6 +58,10 @@
 #include <libexif/exif-loader.h>
 #endif
 
+#ifdef HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
+
 #ifdef HAVE_LCMS
 #include <lcms2.h>
 #ifndef EXIF_TAG_GAMMA

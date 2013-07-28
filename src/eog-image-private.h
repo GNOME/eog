@@ -23,8 +23,13 @@
 #define __EOG_IMAGE_PRIVATE_H__
 
 #include "eog-image.h"
+
 #ifdef HAVE_RSVG
 #include <librsvg/rsvg.h>
+#endif
+
+#ifdef HAVE_EXEMPI
+#include <exempi/xmp.h>
 #endif
 
 G_BEGIN_DECLS
