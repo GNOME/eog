@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.15.2 on Thu Aug  8 20:39:12 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires gtk+ 3.6 -->
   <object class="GtkDialog" id="eog_image_properties_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -20,11 +21,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="previous_button">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkAlignment" id="alignment2">
                     <property name="visible">True</property>
@@ -32,7 +33,7 @@
                     <property name="xscale">0</property>
                     <property name="yscale">0</property>
                     <child>
-                      <object class="GtkHBox" id="hbox21">
+                      <object class="GtkBox" id="hbox21">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">2</property>
@@ -74,11 +75,11 @@
             </child>
             <child>
               <object class="GtkButton" id="next_button">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
@@ -86,7 +87,7 @@
                     <property name="xscale">0</property>
                     <property name="yscale">0</property>
                     <child>
-                      <object class="GtkHBox" id="hbox20">
+                      <object class="GtkBox" id="hbox20">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">2</property>
@@ -129,11 +130,11 @@
             <child>
               <object class="GtkButton" id="close_button">
                 <property name="label">gtk-close</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -156,14 +157,15 @@
             <property name="can_focus">True</property>
             <property name="border_width">5</property>
             <child>
-              <object class="GtkHBox" id="general_box">
+              <object class="GtkBox" id="general_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkVBox" id="vbox27">
+                  <object class="GtkBox" id="vbox27">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">10</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkImage" id="thumbnail_image">
                         <property name="width_request">100</property>
@@ -375,10 +377,10 @@
                         <child>
                           <object class="GtkButton" id="folder_button">
                             <property name="label">button</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -409,23 +411,26 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="exif_box">
+              <object class="GtkBox" id="exif_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkHBox" id="hbox22">
+                  <object class="GtkBox" id="hbox22">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">10</property>
                     <property name="spacing">7</property>
                     <child>
-                      <object class="GtkVBox" id="vbox38">
+                      <object class="GtkBox" id="vbox38">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkVBox" id="vbox31">
+                          <object class="GtkBox" id="vbox31">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="label88">
@@ -565,9 +570,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="xmp_box">
+                          <object class="GtkBox" id="xmp_box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="label111">
@@ -664,13 +670,15 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkVBox" id="vbox40">
+                      <object class="GtkBox" id="vbox40">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkVBox" id="vbox32">
+                          <object class="GtkBox" id="vbox32">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="exif_aperture_label">
@@ -802,9 +810,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="xmp_box_label">
+                          <object class="GtkBox" id="xmp_box_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="xmp_description_label">
@@ -946,9 +955,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="metadata_details_box">
+              <object class="GtkBox" id="metadata_details_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <placeholder/>
                 </child>
