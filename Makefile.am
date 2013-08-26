@@ -4,6 +4,8 @@ endif
 
 SUBDIRS = $(jpeg_DIRS) cut-n-paste src plugins po help data doc
 
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+
 EXTRA_DIST = 			\
 	HACKING			\
 	MAINTAINERS		\
