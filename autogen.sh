@@ -17,11 +17,6 @@ which gnome-autogen.sh || {
     exit 1
 }
 
-gtkdocize || {
-    echo "You are missing gtk-doc. Please install it"
-    exit 1
-}
-
 REQUIRED_AUTOCONF_VERSION=2.59
 REQUIRED_AUTOMAKE_VERSION=1.11
 REQUIRED_INTLTOOL_VERSION=0.40.0
