@@ -3356,11 +3356,11 @@ show_force_image_delete_confirm_dialog (EogWindow *window,
 
 	/* add buttons to the dialog */
 	if (n_images == 1) {
-		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Cancel"), GTK_RESPONSE_CANCEL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Delete"), GTK_RESPONSE_OK);
 	} else {
-		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_YES   , GTK_RESPONSE_OK);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Cancel"), GTK_RESPONSE_CANCEL);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Yes")   , GTK_RESPONSE_OK);
 	}
 
 	/* add 'dont ask again' button */
@@ -3610,7 +3610,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 						  prompt);
 	g_free (prompt);
 
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("_Cancel"), GTK_RESPONSE_CANCEL);
 
 	if (can_trash) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to _Trash"), GTK_RESPONSE_OK);
@@ -3621,9 +3621,9 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 		gtk_box_pack_end (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), dontask_cbutton, TRUE, TRUE, 0);
 	} else {
 		if (n_images == 1) {
-			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
+			gtk_dialog_add_button (GTK_DIALOG (dlg), _("_Delete"), GTK_RESPONSE_OK);
 		} else {
-			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_YES, GTK_RESPONSE_OK);
+			gtk_dialog_add_button (GTK_DIALOG (dlg), _("_Yes"), GTK_RESPONSE_OK);
 		}
 	}
 
