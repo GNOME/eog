@@ -3364,7 +3364,7 @@ show_force_image_delete_confirm_dialog (EogWindow *window,
 	}
 
 	/* add 'dont ask again' button */
-	dont_ask_again_button = gtk_check_button_new_with_mnemonic (_("_Do not ask again during this session"));
+	dont_ask_again_button = gtk_check_button_new_with_mnemonic (_("Do _not ask again during this session"));
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dont_ask_again_button),
 				      FALSE);
@@ -3615,7 +3615,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	if (can_trash) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to _Trash"), GTK_RESPONSE_OK);
 
-		dontask_cbutton = gtk_check_button_new_with_mnemonic (_("_Do not ask again during this session"));
+		dontask_cbutton = gtk_check_button_new_with_mnemonic (_("Do _not ask again during this session"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dontask_cbutton), FALSE);
 
 		gtk_box_pack_end (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), dontask_cbutton, TRUE, TRUE, 0);
