@@ -419,8 +419,8 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 	img = EOG_IMAGE (dlg->priv->unsaved_images->data);
 
 	/* Image */
-	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING,
-					  GTK_ICON_SIZE_DIALOG);
+	image = gtk_image_new_from_icon_name ("dialog-warning",
+	                                      GTK_ICON_SIZE_DIALOG);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 
 	/* Primary label */

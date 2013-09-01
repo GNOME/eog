@@ -43,7 +43,7 @@ typedef enum {
 
 static void
 set_message_area_text_and_icon (GtkInfoBar   *message_area,
-				const gchar  *icon_stock_id,
+				const gchar  *icon_name,
 				const gchar  *primary_text,
 				const gchar  *secondary_text)
 {
@@ -58,7 +58,7 @@ set_message_area_text_and_icon (GtkInfoBar   *message_area,
 	hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
 	gtk_widget_show (hbox_content);
 
-	image = gtk_image_new_from_stock (icon_stock_id, GTK_ICON_SIZE_DIALOG);
+	image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
 	gtk_widget_show (image);
 	gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
@@ -135,7 +135,7 @@ create_error_message_area (const gchar                 *primary_text,
 
 	/* set text and icon */
 	set_message_area_text_and_icon (GTK_INFO_BAR (message_area),
-					GTK_STOCK_DIALOG_ERROR,
+					"dialog-error",
 					primary_text,
 					secondary_text);
 
