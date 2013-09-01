@@ -70,7 +70,7 @@ static const gchar * const ui_definition =
 static const GtkActionEntry action_entries[] =
 {
 	{ "EogPluginRunReload",
-	  GTK_STOCK_REFRESH,
+	  "view-refresh",
 	  N_("Reload Image"),
 	  "R",
 	  N_("Reload current image"),
