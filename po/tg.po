@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Tajik Gnome\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-06-18 16:55+0000\n"
-"PO-Revision-Date: 2013-07-19 11:35+0500\n"
+"POT-Creation-Date: 2013-09-01 10:38+0000\n"
+"PO-Revision-Date: 2013-09-02 15:23+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: <>\n"
 "Language: Tajik\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Bookmarks: -1,246,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
@@ -695,7 +695,8 @@ msgstr "Интихоб кардани _тасвирҳое, ки мехоҳед �
 msgid "If you don't save, all your changes will be lost."
 msgstr "Агар шумо захира накунед, тамоми тағйироти шумо гум мешаванд."
 
-#: ../src/eog-error-message-area.c:119
+#: ../src/eog-error-message-area.c:119 ../src/eog-window.c:3359
+#: ../src/eog-window.c:3362 ../src/eog-window.c:3613
 msgid "_Cancel"
 msgstr "_Бекор кардан"
 
@@ -866,37 +867,37 @@ msgstr "Захира кардани тасвир"
 msgid "Open Folder"
 msgstr "Кушодани ҷузвдон"
 
-#: ../src/eog-image.c:615
+#: ../src/eog-image.c:619
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Табдилдиҳии тасвири гирифташуда."
 
-#: ../src/eog-image.c:643
+#: ../src/eog-image.c:647
 #, c-format
 msgid "Transformation failed."
 msgstr "Табдилдиҳӣ қатъ шудааст."
 
-#: ../src/eog-image.c:1112
+#: ../src/eog-image.c:1116
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Барои ин формати файл EXIF дастгирӣ намешавад."
 
-#: ../src/eog-image.c:1261
+#: ../src/eog-image.c:1265
 #, c-format
 msgid "Image loading failed."
 msgstr "Боркунии тасвир қатъ шуд."
 
-#: ../src/eog-image.c:1842 ../src/eog-image.c:1962
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
 #, c-format
 msgid "No image loaded."
 msgstr "Ягон тасвир бор нашудааст."
 
-#: ../src/eog-image.c:1850 ../src/eog-image.c:1971
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Шумо барои захира кардани файл иҷозатҳои кофӣ надоред."
 
-#: ../src/eog-image.c:1860 ../src/eog-image.c:1982
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Эҷодкунии файли муваққатӣ қатъ шудааст."
@@ -1023,7 +1024,7 @@ msgstr "Дюйм"
 msgid "Preview"
 msgstr "Пешнамоиш"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "чӣ хеле ки ҳаст"
 
@@ -1046,7 +1047,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Санаи гирифтани сурат"
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:985
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Ақалан ду номи файл баробаранд."
@@ -1178,10 +1179,20 @@ msgstr[1] ""
 "Шумо мутмаин ҳастед, ки мехоҳед %d тасвири\n"
 "интихобшударо бебозгашт нест кунед?"
 
+#: ../src/eog-window.c:3360 ../src/eog-window.c:3624
+#| msgid "_Delete Image"
+msgid "_Delete"
+msgstr "_Нест кардан"
+
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3626
+msgid "_Yes"
+msgstr "_Ҳа"
+
 #. add 'dont ask again' button
 #: ../src/eog-window.c:3367 ../src/eog-window.c:3618
-msgid "_Do not ask again during this session"
-msgstr "_Дар давоми ин ҷаласа дигар напурсед"
+#| msgid "_Do not ask again during this session"
+msgid "Do _not ask again during this session"
+msgstr "Дар _давоми ин ҷаласа дигар напурсед"
 
 #: ../src/eog-window.c:3411
 #, c-format
@@ -1424,7 +1435,6 @@ msgid "Move the selected image to the trash folder"
 msgstr "Интиқол додани тасвири интихобшуда ба сабад"
 
 #: ../src/eog-window.c:4110
-#| msgid "Delete Image"
 msgid "_Delete Image"
 msgstr "_Нест кардани тасвир"
 
