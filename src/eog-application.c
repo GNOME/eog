@@ -27,8 +27,11 @@
 #endif
 
 #include "eog-config-keys.h"
+#include "eog-debug.h"
 #include "eog-image.h"
+#include "eog-job-scheduler.h"
 #include "eog-session.h"
+#include "eog-thumbnail.h"
 #include "eog-window.h"
 #include "eog-application.h"
 #include "eog-application-activatable.h"
@@ -42,7 +45,13 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
+#if HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
+
 #define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
+
+#define EOG_CSS_FILE_PATH EOG_DATA_DIR G_DIR_SEPARATOR_S "eog.css"
 
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
@@ -222,9 +231,59 @@ eog_application_init_app_menu (EogApplication *application)
 static void
 eog_application_startup (GApplication *application)
 {
+	EogApplication *app = EOG_APPLICATION (application);
+	GError *error = NULL;
+	GtkSettings *settings;
+	GtkCssProvider *provider;
+
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
-	eog_application_init_app_menu (EOG_APPLICATION (application));
+#ifdef HAVE_EXEMPI
+	xmp_init();
+#endif
+	eog_debug_init ();
+	eog_job_scheduler_init ();
+	eog_thumbnail_init ();
+
+	/* Load special style properties for EogThumbView's scrollbar */
+	provider = gtk_css_provider_new ();
+	if (G_UNLIKELY (!gtk_css_provider_load_from_path(provider,
+							 EOG_CSS_FILE_PATH,
+							 &error)))
+	{
+		g_critical ("Could not load CSS data: %s", error->message);
+		g_clear_error (&error);
+	} else {
+		gtk_style_context_add_provider_for_screen (
+				gdk_screen_get_default(),
+				GTK_STYLE_PROVIDER (provider),
+				GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	}
+	g_object_unref (provider);
+
+	/* Add application specific icons to search path */
+	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
+                                           EOG_DATA_DIR G_DIR_SEPARATOR_S "icons");
+
+	gtk_window_set_default_icon_name ("eog");
+	g_set_application_name (_("Image Viewer"));
+
+	settings = gtk_settings_get_default ();
+	g_object_set (G_OBJECT (settings),
+	              "gtk-application-prefer-dark-theme", TRUE,
+	              NULL);
+
+	eog_application_init_app_menu (app);
+}
+
+static void
+eog_application_shutdown (GApplication *application)
+{
+#ifdef HAVE_EXEMPI
+	xmp_terminate();
+#endif
+
+	G_APPLICATION_CLASS (eog_application_parent_class)->shutdown (application);
 }
 
 static void
@@ -326,6 +385,7 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 	object_class->finalize = eog_application_finalize;
 
 	application_class->startup = eog_application_startup;
+	application_class->shutdown = eog_application_shutdown;
 	application_class->activate = eog_application_activate;
 	application_class->open = eog_application_open;
 	application_class->add_platform_data = eog_application_add_platform_data;
