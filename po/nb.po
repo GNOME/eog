@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.9.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-20 10:19+0200\n"
-"PO-Revision-Date: 2013-06-20 10:20+0200\n"
+"POT-Creation-Date: 2013-09-08 11:25+0200\n"
+"PO-Revision-Date: 2013-09-08 11:25+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -684,7 +684,8 @@ msgstr "V_elg bildene du vil lagre:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Hvis du ikke lagrer vil alle endringene dine gå tapt."
 
-#: ../src/eog-error-message-area.c:119
+#: ../src/eog-error-message-area.c:119 ../src/eog-window.c:3359
+#: ../src/eog-window.c:3362 ../src/eog-window.c:3613
 msgid "_Cancel"
 msgstr "A_vbryt"
 
@@ -855,37 +856,37 @@ msgstr "Lagre bilde"
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
-#: ../src/eog-image.c:615
+#: ../src/eog-image.c:619
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformasjon på bilde som ikke er lastet."
 
-#: ../src/eog-image.c:643
+#: ../src/eog-image.c:647
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformasjon feilet."
 
-#: ../src/eog-image.c:1112
+#: ../src/eog-image.c:1116
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke støttet for dette filformatet."
 
-#: ../src/eog-image.c:1261
+#: ../src/eog-image.c:1265
 #, c-format
 msgid "Image loading failed."
 msgstr "Lasting av bilde feilet."
 
-#: ../src/eog-image.c:1842 ../src/eog-image.c:1962
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
 #, c-format
 msgid "No image loaded."
 msgstr "Ingen bilder lastet."
 
-#: ../src/eog-image.c:1850 ../src/eog-image.c:1971
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har ikke tilstrekkelige rettigheter til å lagre filen."
 
-#: ../src/eog-image.c:1860 ../src/eog-image.c:1982
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oppretting av midlertidig fil feilet."
@@ -1012,7 +1013,7 @@ msgstr "Tommer"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "som det er"
 
@@ -1035,7 +1036,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Tatt"
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:985
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Minst to filnavn er like."
@@ -1167,9 +1168,17 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "fjerne %d valgte bilder permanent?"
 
+#: ../src/eog-window.c:3360 ../src/eog-window.c:3624
+msgid "_Delete"
+msgstr "_Slett"
+
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3626
+msgid "_Yes"
+msgstr "_Ja"
+
 #. add 'dont ask again' button
 #: ../src/eog-window.c:3367 ../src/eog-window.c:3618
-msgid "_Do not ask again during this session"
+msgid "Do _not ask again during this session"
 msgstr "Ikke spør i_gjen under denne økten"
 
 #: ../src/eog-window.c:3411
