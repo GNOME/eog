@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-07-08 11:36+0000\n"
-"PO-Revision-Date: 2013-07-08 21:56+0100\n"
+"POT-Creation-Date: 2013-09-08 09:25+0000\n"
+"PO-Revision-Date: 2013-09-08 20:00+0100\n"
 "Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -721,7 +721,8 @@ msgstr "_Wählen Sie die Bilder, die Sie speichern möchten:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Alle Änderungen werden verloren gehen, wenn Sie nicht speichern."
 
-#: ../src/eog-error-message-area.c:119
+#: ../src/eog-error-message-area.c:119 ../src/eog-window.c:3359
+#: ../src/eog-window.c:3362 ../src/eog-window.c:3613
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -892,37 +893,37 @@ msgstr "Bild speichern"
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
-#: ../src/eog-image.c:615
+#: ../src/eog-image.c:619
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformation auf nicht geladenem Bild."
 
-#: ../src/eog-image.c:643
+#: ../src/eog-image.c:647
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformation ist gescheitert."
 
-#: ../src/eog-image.c:1112
+#: ../src/eog-image.c:1116
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF wird für dieses Dateiformat nicht unterstützt."
 
-#: ../src/eog-image.c:1261
+#: ../src/eog-image.c:1265
 #, c-format
 msgid "Image loading failed."
 msgstr "Laden des Bildes ist gescheitert."
 
-#: ../src/eog-image.c:1842 ../src/eog-image.c:1962
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
 #, c-format
 msgid "No image loaded."
 msgstr "Kein Bild geöffnet."
 
-#: ../src/eog-image.c:1850 ../src/eog-image.c:1971
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Sie haben nicht die notwendigen Schreibrechte zum Speichern der Datei."
 
-#: ../src/eog-image.c:1860 ../src/eog-image.c:1982
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Erzeugung temporärer Datei gescheitert."
@@ -1049,7 +1050,7 @@ msgstr "Zoll"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "wie bisher"
 
@@ -1072,7 +1073,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Aufgenommen am"
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:985
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Mindestens zwei Dateinamen sind gleich."
@@ -1204,10 +1205,18 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich unwiderruflich gelöscht werden?"
 
+#: ../src/eog-window.c:3360 ../src/eog-window.c:3624
+msgid "_Delete"
+msgstr "_Löschen"
+
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3626
+msgid "_Yes"
+msgstr "_Ja"
+
 #. add 'dont ask again' button
 #: ../src/eog-window.c:3367 ../src/eog-window.c:3618
-msgid "_Do not ask again during this session"
-msgstr "Während _der laufenden Sitzung nicht erneut fragen"
+msgid "Do _not ask again during this session"
+msgstr "Während der laufenden Sitzung _nicht erneut fragen"
 
 #: ../src/eog-window.c:3411
 #, c-format
