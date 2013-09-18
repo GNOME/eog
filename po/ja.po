@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-06-18 16:55+0000\n"
-"PO-Revision-Date: 2013-06-19 12:57+0900\n"
+"POT-Creation-Date: 2013-09-13 20:09+0000\n"
+"PO-Revision-Date: 2013-09-18 22:14+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -604,7 +604,8 @@ msgstr "保存したい画像を選んでください(_E):"
 msgid "If you don't save, all your changes will be lost."
 msgstr "保存をしないと変更はすべて失われます。"
 
-#: ../src/eog-error-message-area.c:119
+#: ../src/eog-error-message-area.c:119 ../src/eog-window.c:3359
+#: ../src/eog-window.c:3362 ../src/eog-window.c:3613
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
@@ -774,37 +775,37 @@ msgstr "画像の保存"
 msgid "Open Folder"
 msgstr "フォルダーの選択"
 
-#: ../src/eog-image.c:615
+#: ../src/eog-image.c:619
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "読み込んでいない画像で変換します。"
 
-#: ../src/eog-image.c:643
+#: ../src/eog-image.c:647
 #, c-format
 msgid "Transformation failed."
 msgstr "変換に失敗しました。"
 
-#: ../src/eog-image.c:1112
+#: ../src/eog-image.c:1116
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "このファイル形式では EXIF をサポートしていません。"
 
-#: ../src/eog-image.c:1261
+#: ../src/eog-image.c:1265
 #, c-format
 msgid "Image loading failed."
 msgstr "画像の読み込みに失敗しました。"
 
-#: ../src/eog-image.c:1842 ../src/eog-image.c:1962
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
 #, c-format
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: ../src/eog-image.c:1850 ../src/eog-image.c:1971
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "ファイルを保存するのに必要な権限がありません。"
 
-#: ../src/eog-image.c:1860 ../src/eog-image.c:1982
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "作業用ファイルの生成に失敗しました。"
@@ -930,7 +931,7 @@ msgstr "インチ"
 msgid "Preview"
 msgstr "プレビュー"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "変更しない"
 
@@ -953,7 +954,7 @@ msgstr "%d / %Id"
 msgid "Taken on"
 msgstr "撮影日: "
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:985
 #, c-format
 msgid "At least two file names are equal."
 msgstr "同じ名前のファイルです。"
@@ -1081,10 +1082,18 @@ msgstr[0] ""
 "本当に、選択した %d個の\n"
 "画像を完全に削除しますか?"
 
+#: ../src/eog-window.c:3360 ../src/eog-window.c:3624
+msgid "_Delete"
+msgstr "削除(_D)"
+
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3626
+msgid "_Yes"
+msgstr "はい(_Y)"
+
 #. add 'dont ask again' button
 #: ../src/eog-window.c:3367 ../src/eog-window.c:3618
-msgid "_Do not ask again during this session"
-msgstr "このセッション中は二度と確認しない(_D)"
+msgid "Do _not ask again during this session"
+msgstr "このセッション中は再度確認しない(_N)"
 
 #: ../src/eog-window.c:3411
 #, c-format
