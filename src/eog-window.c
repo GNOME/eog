@@ -2034,6 +2034,7 @@ eog_window_inhibit_screensaver (EogWindow *window)
 		gtk_application_inhibit (GTK_APPLICATION (EOG_APP),
 		                         GTK_WINDOW (window),
 		                         GTK_APPLICATION_INHIBIT_IDLE,
+	/* L10N: This the reason why the screensaver is inhibited. */
 		                         _("Viewing a slideshow"));
 }
 
