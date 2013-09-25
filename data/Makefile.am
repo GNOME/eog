@@ -8,6 +8,11 @@ DESKTOP_FILES= $(DESKTOP_IN_FILES:.desktop.in.in=.desktop)
 desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
 
+@INTLTOOL_XML_NOMERGE_RULE@
+appdatadir = $(datadir)/appdata
+dist_appdata_DATA = $(appdata_in_files:.xml.in=.xml)
+appdata_in_files = eog.appdata.xml.in
+
 gsettings_ENUM_NAMESPACE = org.gnome.eog
 gsettings_ENUM_FILES = $(top_srcdir)/src/eog-scroll-view.h	\
                        $(top_srcdir)/src/eog-window.h
@@ -38,6 +43,9 @@ EXTRA_DIST =			\
         $(ui_DATA)		\
         $(DESKTOP_IN_FILES)	\
 	eog.convert
+
+CLEANFILES = 			\
+	eog.appdata.xml
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
