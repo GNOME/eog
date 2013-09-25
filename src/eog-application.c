@@ -85,7 +85,7 @@ action_help (GSimpleAction *action,
 {
 	GtkApplication *application = GTK_APPLICATION (user_data);
 
-	eog_util_show_help ("preferences",
+	eog_util_show_help (NULL,
 	                    GTK_WINDOW (get_focus_window (application)));
 }
 
