@@ -64,10 +64,7 @@ struct _EogSidebarPrivate {
 	GtkTreeModel *page_model;
 };
 
-G_DEFINE_TYPE (EogSidebar, eog_sidebar, GTK_TYPE_BOX)
-
-#define EOG_SIDEBAR_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SIDEBAR, EogSidebarPrivate))
+G_DEFINE_TYPE_WITH_PRIVATE (EogSidebar, eog_sidebar, GTK_TYPE_BOX)
 
 static void
 eog_sidebar_destroy (GtkWidget *object)
@@ -184,8 +181,6 @@ eog_sidebar_class_init (EogSidebarClass *eog_sidebar_class)
 
 	g_object_class = G_OBJECT_CLASS (eog_sidebar_class);
 	widget_class = GTK_WIDGET_CLASS (eog_sidebar_class);
-
-	g_type_class_add_private (g_object_class, sizeof (EogSidebarPrivate));
 
 	widget_class->destroy = eog_sidebar_destroy;
 	g_object_class->get_property = eog_sidebar_get_property;
@@ -373,7 +368,7 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (eog_sidebar),
 					GTK_ORIENTATION_VERTICAL);
 
-	eog_sidebar->priv = EOG_SIDEBAR_GET_PRIVATE (eog_sidebar);
+	eog_sidebar->priv = eog_sidebar_get_instance_private (eog_sidebar);
 
 	/* data model */
 	eog_sidebar->priv->page_model = (GtkTreeModel *)
