@@ -178,10 +178,7 @@ static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
                                                   gint *height);
 
 
-#define EOG_SCROLL_VIEW_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SCROLL_VIEW, EogScrollViewPrivate))
-
-G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
+G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
 
 
 /*===================================
@@ -2459,7 +2456,7 @@ eog_scroll_view_init (EogScrollView *view)
 	GSettings *settings;
 	EogScrollViewPrivate *priv;
 
-	priv = view->priv = EOG_SCROLL_VIEW_GET_PRIVATE (view);
+	priv = view->priv = eog_scroll_view_get_instance_private (view);
 	settings = g_settings_new (EOG_CONF_VIEW);
 
 	priv->zoom = 1.0;
@@ -2849,8 +2846,6 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
 	widget_class->style_set = eog_scroll_view_style_set;
-
-	g_type_class_add_private (klass, sizeof (EogScrollViewPrivate));
 }
 
 static void
