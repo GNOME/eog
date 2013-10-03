@@ -424,8 +424,8 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 			  G_CALLBACK (eog_sidebar_close_clicked_cb),
 			  eog_sidebar);
 
-	image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-					  GTK_ICON_SIZE_MENU);
+	image = gtk_image_new_from_icon_name ("window-close",
+					      GTK_ICON_SIZE_MENU);
 	gtk_container_add (GTK_CONTAINER (close_button), image);
 	gtk_widget_show (image);
 
@@ -481,7 +481,7 @@ eog_sidebar_add_page (EogSidebar   *eog_sidebar,
 	index = gtk_notebook_append_page (GTK_NOTEBOOK (eog_sidebar->priv->notebook),
 					  main_widget, NULL);
 
-	menu_item = gtk_image_menu_item_new_with_label (title);
+	menu_item = gtk_menu_item_new_with_label (title);
 
 	g_signal_connect (menu_item, "activate",
 			  G_CALLBACK (eog_sidebar_menu_item_activate_cb),
