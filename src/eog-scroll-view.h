@@ -18,13 +18,13 @@ typedef struct _EogScrollViewPrivate EogScrollViewPrivate;
 
 
 struct _EogScrollView {
-	GtkTable  widget;
+	GtkGrid  base_instance;
 
 	EogScrollViewPrivate *priv;
 };
 
 struct _EogScrollViewClass {
-	GtkTableClass parent_class;
+	GtkGridClass parent_class;
 
 	void (* zoom_changed) (EogScrollView *view, double zoom);
 };

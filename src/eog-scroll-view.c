@@ -178,7 +178,7 @@ static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
                                                   gint *height);
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
+G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_GRID)
 
 
 /*===================================
@@ -2536,21 +2536,17 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
 			  G_CALLBACK (view_on_drag_begin_cb), view);
 
-	gtk_table_attach (GTK_TABLE (view), priv->display,
-			  0, 1, 0, 1,
-			  GTK_EXPAND | GTK_FILL,
-			  GTK_EXPAND | GTK_FILL,
-			  0,0);
-	gtk_table_attach (GTK_TABLE (view), priv->hbar,
-			  0, 1, 1, 2,
-			  GTK_FILL,
-			  GTK_FILL,
-			  0, 0);
-	gtk_table_attach (GTK_TABLE (view), priv->vbar,
-			  1, 2, 0, 1,
-			  GTK_FILL, GTK_FILL,
-			  0, 0);
-	
+	gtk_grid_attach (GTK_GRID (view), priv->display,
+			 0, 0, 1, 1);
+	gtk_widget_set_hexpand (priv->display, TRUE);
+	gtk_widget_set_vexpand (priv->display, TRUE);
+	gtk_grid_attach (GTK_GRID (view), priv->hbar,
+			 0, 1, 1, 1);
+	gtk_widget_set_hexpand (priv->hbar, TRUE);
+	gtk_grid_attach (GTK_GRID (view), priv->vbar,
+			 1, 0, 1, 1);
+	gtk_widget_set_vexpand (priv->vbar, TRUE);
+
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
 			 "use-background-color", G_SETTINGS_BIND_DEFAULT);
 	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_BACKGROUND_COLOR,
@@ -2905,9 +2901,8 @@ eog_scroll_view_new (void)
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
 			       "can-focus", TRUE,
-			       "n_rows", 2,
-			       "n_columns", 2,
-			       "homogeneous", FALSE,
+			       "row-homogeneous", FALSE,
+			       "column-homogeneous", FALSE,
 			       NULL);
 
 	return widget;
