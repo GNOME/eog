@@ -40,10 +40,6 @@ static char *last_dir[] = { NULL, NULL, NULL, NULL };
 
 #define FILE_FORMAT_KEY "file-format"
 
-#define EOG_FILE_CHOOSER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), \
-					     EOG_TYPE_FILE_CHOOSER,		    \
-					     EogFileChooserPrivate))
-
 struct _EogFileChooserPrivate
 {
 	GnomeDesktopThumbnailFactory *thumb_factory;
@@ -54,7 +50,7 @@ struct _EogFileChooserPrivate
 	GtkWidget *creator_label;
 };
 
-G_DEFINE_TYPE(EogFileChooser, eog_file_chooser, GTK_TYPE_FILE_CHOOSER_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (EogFileChooser, eog_file_chooser, GTK_TYPE_FILE_CHOOSER_DIALOG)
 
 static void
 eog_file_chooser_finalize (GObject *object)
@@ -75,14 +71,12 @@ eog_file_chooser_class_init (EogFileChooserClass *klass)
 	GObjectClass *object_class = (GObjectClass *) klass;
 
 	object_class->finalize = eog_file_chooser_finalize;
-
-	g_type_class_add_private (object_class, sizeof (EogFileChooserPrivate));
 }
 
 static void
 eog_file_chooser_init (EogFileChooser *chooser)
 {
-	chooser->priv = EOG_FILE_CHOOSER_GET_PRIVATE (chooser);
+	chooser->priv = eog_file_chooser_get_instance_private (chooser);
 }
 
 static void
