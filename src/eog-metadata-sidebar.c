@@ -101,10 +101,7 @@ struct _EogMetadataSidebarPrivate {
 #endif
 };
 
-#define EOG_METADATA_SIDEBAR_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_METADATA_SIDEBAR, EogMetadataSidebarPrivate))
-
-G_DEFINE_TYPE(EogMetadataSidebar, eog_metadata_sidebar, GTK_TYPE_SCROLLED_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE(EogMetadataSidebar, eog_metadata_sidebar, GTK_TYPE_SCROLLED_WINDOW)
 
 static GtkWidget*
 _gtk_grid_append_title_line (GtkGrid *grid, GtkWidget *sibling,
@@ -485,7 +482,7 @@ eog_metadata_sidebar_init (EogMetadataSidebar *sidebar)
 	EogMetadataSidebarPrivate *priv;
 	GtkWidget *label;
 
-	priv = sidebar->priv = EOG_METADATA_SIDEBAR_GET_PRIVATE (sidebar);
+	priv = sidebar->priv = eog_metadata_sidebar_get_instance_private (sidebar);
 	priv->grid = gtk_grid_new ();
 	g_object_set (G_OBJECT (priv->grid),
 	              "row-spacing", 6,
@@ -647,8 +644,6 @@ static void
 eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 {
 	GObjectClass *g_obj_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof(EogMetadataSidebarPrivate));
 
 	g_obj_class->constructed = eog_metadata_sidebar_constructed;
 	g_obj_class->get_property = eog_metadata_sidebar_get_property;
