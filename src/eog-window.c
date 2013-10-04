@@ -81,11 +81,6 @@
 #include <lcms2.h>
 #endif
 
-#define EOG_WINDOW_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_WINDOW, EogWindowPrivate))
-
-G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_APPLICATION_WINDOW);
-
 #define EOG_WINDOW_MIN_WIDTH  440
 #define EOG_WINDOW_MIN_HEIGHT 350
 
@@ -193,6 +188,8 @@ struct _EogWindowPrivate {
         cmsHPROFILE         *display_profile;
 #endif
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogWindow, eog_window, GTK_TYPE_APPLICATION_WINDOW);
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
@@ -4977,7 +4974,7 @@ eog_window_init (EogWindow *window)
 	hints.min_width  = EOG_WINDOW_MIN_WIDTH;
 	hints.min_height = EOG_WINDOW_MIN_HEIGHT;
 
-	priv = window->priv = EOG_WINDOW_GET_PRIVATE (window);
+	priv = window->priv = eog_window_get_instance_private (window);
 
 	priv->fullscreen_settings = g_settings_new (EOG_CONF_FULLSCREEN);
 	priv->ui_settings = g_settings_new (EOG_CONF_UI);
@@ -5562,8 +5559,6 @@ eog_window_class_init (EogWindowClass *class)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-
-	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
 }
 
 /**
