@@ -37,11 +37,6 @@
 #include <gtk/gtk.h>
 #include <libpeas-gtk/peas-gtk-plugin-manager.h>
 
-#define EOG_PREFERENCES_DIALOG_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_PREFERENCES_DIALOG, EogPreferencesDialogPrivate))
-
-G_DEFINE_TYPE (EogPreferencesDialog, eog_preferences_dialog, EOG_TYPE_DIALOG);
-
 #define GCONF_OBJECT_KEY	"GCONF_KEY"
 #define GCONF_OBJECT_VALUE	"GCONF_VALUE"
 
@@ -51,6 +46,8 @@ struct _EogPreferencesDialogPrivate {
 };
 
 static GObject *instance = NULL;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogPreferencesDialog, eog_preferences_dialog, EOG_TYPE_DIALOG);
 
 static gboolean
 pd_string_to_color_mapping (GValue   *value,
@@ -292,14 +289,12 @@ eog_preferences_dialog_class_init (EogPreferencesDialogClass *class)
 	GObjectClass *g_object_class = (GObjectClass *) class;
 
 	g_object_class->constructor = eog_preferences_dialog_constructor;
-
-	g_type_class_add_private (g_object_class, sizeof (EogPreferencesDialogPrivate));
 }
 
 static void
 eog_preferences_dialog_init (EogPreferencesDialog *pref_dlg)
 {
-	pref_dlg->priv = EOG_PREFERENCES_DIALOG_GET_PRIVATE (pref_dlg);
+	pref_dlg->priv = eog_preferences_dialog_get_instance_private (pref_dlg);
 }
 
 GObject *
