@@ -29,11 +29,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#define EOG_DIALOG_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_DIALOG, EogDialogPrivate))
-
-G_DEFINE_TYPE (EogDialog, eog_dialog, G_TYPE_OBJECT);
-
 enum {
         PROP_0,
         PROP_PARENT_WINDOW,
@@ -44,6 +39,8 @@ struct _EogDialogPrivate {
 	GtkBuilder  *xml;
 	GtkWindow   *parent;
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogDialog, eog_dialog, G_TYPE_OBJECT)
 
 static void
 eog_dialog_construct_impl (EogDialog   *dialog,
@@ -171,14 +168,12 @@ eog_dialog_class_init (EogDialogClass *class)
 							      G_PARAM_STATIC_NAME |
 							      G_PARAM_STATIC_NICK |
 							      G_PARAM_STATIC_BLURB));
-
-	g_type_class_add_private (g_object_class, sizeof (EogDialogPrivate));
 }
 
 static void
 eog_dialog_init (EogDialog *dialog)
 {
-	dialog->priv = EOG_DIALOG_GET_PRIVATE (dialog);
+	dialog->priv = eog_dialog_get_instance_private (dialog);
 
 	dialog->priv->dlg = NULL;
 	dialog->priv->xml = NULL;
