@@ -38,11 +38,11 @@
 
 #define EOG_PLUGIN_DATA_DIR EOG_DATA_DIR G_DIR_SEPARATOR_S "plugins"
 
-G_DEFINE_TYPE (EogPluginEngine, eog_plugin_engine, PEAS_TYPE_ENGINE)
-
 struct _EogPluginEnginePrivate {
     GSettings *plugins_settings;
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogPluginEngine, eog_plugin_engine, PEAS_TYPE_ENGINE);
 
 static void
 eog_plugin_engine_dispose (GObject *object)
@@ -63,8 +63,6 @@ eog_plugin_engine_class_init (EogPluginEngineClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  g_type_class_add_private (klass, sizeof (EogPluginEnginePrivate));
-
   object_class->dispose = eog_plugin_engine_dispose;
 }
 
@@ -73,9 +71,7 @@ eog_plugin_engine_init (EogPluginEngine *engine)
 {
 	eog_debug (DEBUG_PLUGINS);
 
-	engine->priv = G_TYPE_INSTANCE_GET_PRIVATE (engine,
-						    EOG_TYPE_PLUGIN_ENGINE,
-						    EogPluginEnginePrivate);
+	engine->priv = eog_plugin_engine_get_instance_private (engine);
 
 	engine->priv->plugins_settings = g_settings_new ("org.gnome.eog.plugins");
 }
