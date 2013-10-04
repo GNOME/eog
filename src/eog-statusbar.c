@@ -30,23 +30,18 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#define EOG_STATUSBAR_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_STATUSBAR, EogStatusbarPrivate))
-
-G_DEFINE_TYPE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
-
 struct _EogStatusbarPrivate
 {
 	GtkWidget *progressbar;
 	GtkWidget *img_num_label;
 };
 
+G_DEFINE_TYPE_WITH_PRIVATE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
+
 static void
 eog_statusbar_class_init (EogStatusbarClass *klass)
 {
-	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (g_object_class, sizeof (EogStatusbarPrivate));
+    /* empty */
 }
 
 static void
@@ -55,7 +50,7 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	EogStatusbarPrivate *priv;
 	GtkWidget *vbox;
 
-	statusbar->priv = EOG_STATUSBAR_GET_PRIVATE (statusbar);
+	statusbar->priv = eog_statusbar_get_instance_private (statusbar);
 	priv = statusbar->priv;
 
 	priv->img_num_label = gtk_label_new (NULL);
