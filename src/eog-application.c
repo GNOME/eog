@@ -47,10 +47,7 @@
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
 
-#define EOG_APPLICATION_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
-
-G_DEFINE_TYPE (EogApplication, eog_application, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE_WITH_PRIVATE (EogApplication, eog_application, GTK_TYPE_APPLICATION);
 
 static EogWindow*
 get_focus_window (GtkApplication *application)
@@ -323,9 +320,6 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 	GApplicationClass *application_class;
 	GObjectClass *object_class;
 
-	g_type_class_add_private (eog_application_class,
-	                          sizeof (EogApplicationPrivate));
-
 	application_class = (GApplicationClass *) eog_application_class;
 	object_class = (GObjectClass *) eog_application_class;
 
@@ -364,7 +358,7 @@ eog_application_init (EogApplication *eog_application)
 
 	eog_session_init (eog_application);
 
-	eog_application->priv = EOG_APPLICATION_GET_PRIVATE (eog_application);
+	eog_application->priv = eog_application_get_instance_private (eog_application);
 	priv = eog_application->priv;
 
 	priv->toolbars_model = egg_toolbars_model_new ();
