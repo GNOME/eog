@@ -85,16 +85,14 @@ struct _EogMetadataReaderPngPrivate {
 	gboolean   hasIHDR;
 };
 
-#define EOG_METADATA_READER_PNG_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_METADATA_READER_PNG, EogMetadataReaderPngPrivate))
-
 static void
 eog_metadata_reader_png_init_emr_iface (gpointer g_iface, gpointer iface_data);
 
 G_DEFINE_TYPE_WITH_CODE (EogMetadataReaderPng, eog_metadata_reader_png,
 			 G_TYPE_OBJECT,
 			 G_IMPLEMENT_INTERFACE (EOG_TYPE_METADATA_READER,
-			 		eog_metadata_reader_png_init_emr_iface))
+					eog_metadata_reader_png_init_emr_iface) \
+			 G_ADD_PRIVATE(EogMetadataReaderPng))
 
 static void
 eog_metadata_reader_png_dispose (GObject *object)
@@ -121,11 +119,11 @@ eog_metadata_reader_png_dispose (GObject *object)
 }
 
 static void
-eog_metadata_reader_png_init (EogMetadataReaderPng *obj)
+eog_metadata_reader_png_init (EogMetadataReaderPng *emr)
 {
 	EogMetadataReaderPngPrivate *priv;
 
-	priv = obj->priv =  EOG_METADATA_READER_PNG_GET_PRIVATE (obj);
+	priv = emr->priv =  eog_metadata_reader_png_get_instance_private (emr);
 	priv->icc_chunk = NULL;
 	priv->icc_len = 0;
 	priv->xmp_chunk = NULL;
@@ -148,8 +146,6 @@ eog_metadata_reader_png_class_init (EogMetadataReaderPngClass *klass)
 	GObjectClass *object_class = (GObjectClass*) klass;
 
 	object_class->dispose = eog_metadata_reader_png_dispose;
-
-	g_type_class_add_private (klass, sizeof (EogMetadataReaderPngPrivate));
 }
 
 static gboolean

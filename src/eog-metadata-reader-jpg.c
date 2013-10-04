@@ -86,9 +86,6 @@ struct _EogMetadataReaderJpgPrivate {
 	int      bytes_read;
 };
 
-#define EOG_METADATA_READER_JPG_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_METADATA_READER_JPG, EogMetadataReaderJpgPrivate))
-
 static void
 eog_metadata_reader_jpg_init_emr_iface (gpointer g_iface, gpointer iface_data);
 
@@ -96,7 +93,8 @@ eog_metadata_reader_jpg_init_emr_iface (gpointer g_iface, gpointer iface_data);
 G_DEFINE_TYPE_WITH_CODE (EogMetadataReaderJpg, eog_metadata_reader_jpg,
 			 G_TYPE_OBJECT,
 			 G_IMPLEMENT_INTERFACE (EOG_TYPE_METADATA_READER,
-			 		eog_metadata_reader_jpg_init_emr_iface))
+					eog_metadata_reader_jpg_init_emr_iface) \
+			 G_ADD_PRIVATE (EogMetadataReaderJpg))
 
 
 static void
@@ -128,11 +126,11 @@ eog_metadata_reader_jpg_dispose (GObject *object)
 }
 
 static void
-eog_metadata_reader_jpg_init (EogMetadataReaderJpg *obj)
+eog_metadata_reader_jpg_init (EogMetadataReaderJpg *emr)
 {
 	EogMetadataReaderJpgPrivate *priv;
 
-	priv = obj->priv =  EOG_METADATA_READER_JPG_GET_PRIVATE (obj);
+	priv = emr->priv =  eog_metadata_reader_jpg_get_instance_private (emr);
 	priv->exif_chunk = NULL;
 	priv->exif_len = 0;
 	priv->iptc_chunk = NULL;
@@ -147,8 +145,6 @@ eog_metadata_reader_jpg_class_init (EogMetadataReaderJpgClass *klass)
 	GObjectClass *object_class = (GObjectClass*) klass;
 
 	object_class->dispose = eog_metadata_reader_jpg_dispose;
-
-	g_type_class_add_private (klass, sizeof (EogMetadataReaderJpgPrivate));
 }
 
 static gboolean
