@@ -29,11 +29,6 @@
 
 #include <string.h>
 
-#define EOG_LIST_STORE_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_LIST_STORE, EogListStorePrivate))
-
-G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
-
 struct _EogListStorePrivate {
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
@@ -41,6 +36,8 @@ struct _EogListStorePrivate {
 	GdkPixbuf *missing_image; /* Missing image icon */
 	GMutex mutex;             /* Mutex for saving the jobs in the model */
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
@@ -90,8 +87,6 @@ eog_list_store_class_init (EogListStoreClass *klass)
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
-
-	g_type_class_add_private (object_class, sizeof (EogListStorePrivate));
 }
 
 /*
@@ -161,7 +156,7 @@ eog_list_store_init (EogListStore *self)
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
 
-	self->priv = EOG_LIST_STORE_GET_PRIVATE (self);
+	self->priv = eog_list_store_get_instance_private (self);
 
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
