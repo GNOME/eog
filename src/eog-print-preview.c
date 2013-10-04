@@ -26,11 +26,6 @@
 #include "eog-image.h"
 #include "eog-print-preview.h"
 
-#define EOG_PRINT_PREVIEW_GET_PRIVATE(object)				\
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_PRINT_PREVIEW, EogPrintPreviewPrivate))
-
-G_DEFINE_TYPE (EogPrintPreview, eog_print_preview, GTK_TYPE_ASPECT_FRAME)
-
 struct _EogPrintPreviewPrivate {
 	GtkWidget *area;
 	GdkPixbuf *image;
@@ -95,6 +90,8 @@ enum {
 	PROP_PAGE_TOP_MARGIN,
 	PROP_PAGE_BOTTOM_MARGIN
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogPrintPreview, eog_print_preview, GTK_TYPE_ASPECT_FRAME)
 
 static void eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr);
 static void eog_print_preview_finalize (GObject *object);
@@ -402,8 +399,6 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 			      G_SIGNAL_RUN_FIRST, 0, NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID, G_TYPE_NONE,
 			      0, NULL);
-
-	g_type_class_add_private (klass, sizeof (EogPrintPreviewPrivate));
 }
 
 static void
@@ -437,7 +432,7 @@ eog_print_preview_init (EogPrintPreview *preview)
 	EogPrintPreviewPrivate *priv;
 	gfloat ratio;
 
-	priv = preview->priv = EOG_PRINT_PREVIEW_GET_PRIVATE (preview);
+	priv = preview->priv = eog_print_preview_get_instance_private (preview);
 
 	priv->area = GTK_WIDGET (gtk_drawing_area_new ());
 
