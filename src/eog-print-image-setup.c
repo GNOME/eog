@@ -48,11 +48,6 @@
  * interactively.
  */
 
-#define EOG_PRINT_IMAGE_SETUP_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_PRINT_IMAGE_SETUP, EogPrintImageSetupPrivate))
-
-G_DEFINE_TYPE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_GRID);
-
 struct _EogPrintImageSetupPrivate {
 	GtkWidget *left;
 	GtkWidget *right;
@@ -114,6 +109,7 @@ static void on_bottom_value_changed (GtkSpinButton *spinbutton, gpointer user_da
 static void on_width_value_changed  (GtkSpinButton *spinbutton, gpointer user_data);
 static void on_height_value_changed (GtkSpinButton *spinbutton, gpointer user_data);
 
+G_DEFINE_TYPE_WITH_PRIVATE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_GRID);
 
 static void
 block_handlers (EogPrintImageSetup *setup)
@@ -914,8 +910,6 @@ eog_print_image_setup_class_init (EogPrintImageSetupClass *class)
 							      _("The information for the page where the image will be printed"),
 							      GTK_TYPE_PAGE_SETUP,
 							      G_PARAM_READWRITE));
-
-	g_type_class_add_private (class, sizeof (EogPrintImageSetupPrivate));
 }
 
 static void
@@ -932,7 +926,7 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	gchar *locale_scale = NULL;
 #endif
 
-	priv = setup->priv = EOG_PRINT_IMAGE_SETUP_GET_PRIVATE (setup);
+	priv = setup->priv = eog_print_image_setup_get_instance_private (setup);
 
 	priv->image = NULL;
 
