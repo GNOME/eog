@@ -52,10 +52,7 @@ static void eog_uri_converter_get_property (GObject    *object,
 					    GValue     *value,
 					    GParamSpec *pspec);
 
-#define EOG_URI_CONVERTER_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_URI_CONVERTER, EogURIConverterPrivate))
-
-G_DEFINE_TYPE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
 
 static void
 free_token (gpointer data)
@@ -98,11 +95,11 @@ eog_uri_converter_dispose (GObject *object)
 }
 
 static void
-eog_uri_converter_init (EogURIConverter *obj)
+eog_uri_converter_init (EogURIConverter *conv)
 {
 	EogURIConverterPrivate *priv;
 
-	priv = obj->priv = EOG_URI_CONVERTER_GET_PRIVATE (obj);
+	priv = conv->priv = eog_uri_converter_get_instance_private (conv);
 
 	priv->convert_spaces   = FALSE;
 	priv->space_character  = '_';
@@ -162,8 +159,6 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
 				  G_MAXUINT,
 				  1,
 				  G_PARAM_WRITABLE));
-
-	g_type_class_add_private (klass, sizeof (EogURIConverterPrivate));
 }
 
 GQuark
