@@ -73,10 +73,7 @@
 #include <librsvg/rsvg.h>
 #endif
 
-#define EOG_IMAGE_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_IMAGE, EogImagePrivate))
-
-G_DEFINE_TYPE (EogImage, eog_image, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, G_TYPE_OBJECT)
 
 enum {
 	SIGNAL_CHANGED,
@@ -294,14 +291,12 @@ eog_image_class_init (EogImageClass *klass)
 						     NULL, NULL,
 						     g_cclosure_marshal_VOID__VOID,
 						     G_TYPE_NONE, 0);
-
-	g_type_class_add_private (object_class, sizeof (EogImagePrivate));
 }
 
 static void
 eog_image_init (EogImage *img)
 {
-	img->priv = EOG_IMAGE_GET_PRIVATE (img);
+	img->priv = eog_image_get_instance_private (img);
 
 	img->priv->file = NULL;
 	img->priv->image = NULL;
