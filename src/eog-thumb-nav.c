@@ -33,11 +33,6 @@
 #include <math.h>
 #include <string.h>
 
-#define EOG_THUMB_NAV_GET_PRIVATE(object) \
-	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_THUMB_NAV, EogThumbNavPrivate))
-
-G_DEFINE_TYPE (EogThumbNav, eog_thumb_nav, GTK_TYPE_BOX);
-
 #define EOG_THUMB_NAV_SCROLL_INC      20
 #define EOG_THUMB_NAV_SCROLL_MOVE     20
 #define EOG_THUMB_NAV_SCROLL_TIMEOUT  20
@@ -64,6 +59,8 @@ struct _EogThumbNavPrivate {
 	GtkWidget        *thumbview;
 	GtkAdjustment    *adj;
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (EogThumbNav, eog_thumb_nav, GTK_TYPE_BOX);
 
 static gboolean
 eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
@@ -123,7 +120,7 @@ eog_thumb_nav_adj_changed (GtkAdjustment *adj, gpointer user_data)
 	gboolean ltr;
 
 	nav = EOG_THUMB_NAV (user_data);
-	priv = EOG_THUMB_NAV_GET_PRIVATE (nav);
+	priv = eog_thumb_nav_get_instance_private (nav);
 	ltr = gtk_widget_get_direction (priv->sw) == GTK_TEXT_DIR_LTR;
 
 	gtk_widget_set_sensitive (ltr ? priv->button_right : priv->button_left,
@@ -140,7 +137,7 @@ eog_thumb_nav_adj_value_changed (GtkAdjustment *adj, gpointer user_data)
 	gboolean ltr;
 
 	nav = EOG_THUMB_NAV (user_data);
-	priv = EOG_THUMB_NAV_GET_PRIVATE (nav);
+	priv = eog_thumb_nav_get_instance_private (nav);
 	ltr = gtk_widget_get_direction (priv->sw) == GTK_TEXT_DIR_LTR;
 
 	gtk_widget_set_sensitive (ltr ? priv->button_left : priv->button_right,
@@ -335,8 +332,6 @@ eog_thumb_nav_class_init (EogThumbNavClass *class)
 							   EOG_THUMB_NAV_MODE_MULTIPLE_ROWS,
 							   EOG_THUMB_NAV_MODE_ONE_ROW,
 	                                                   (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-	g_type_class_add_private (g_object_class, sizeof (EogThumbNavPrivate));
 }
 
 static void
@@ -348,7 +343,7 @@ eog_thumb_nav_init (EogThumbNav *nav)
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (nav),
 					GTK_ORIENTATION_HORIZONTAL);
 
-	nav->priv = EOG_THUMB_NAV_GET_PRIVATE (nav);
+	nav->priv = eog_thumb_nav_get_instance_private (nav);
 
 	priv = nav->priv;
 
