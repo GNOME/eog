@@ -39,10 +39,6 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-#if HAVE_RSVG
-#include <librsvg/rsvg.h>
-#endif
-
 static EogStartupFlags flags;
 
 static gboolean fullscreen = FALSE;
@@ -138,8 +134,5 @@ main (int argc, char **argv)
 	g_application_run (G_APPLICATION (EOG_APP), argc, argv);
 	g_object_unref (EOG_APP);
 
-#ifdef HAVE_EXEMPI
-	xmp_terminate();
-#endif
 	return 0;
 }
