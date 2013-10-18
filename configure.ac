@@ -44,7 +44,7 @@ AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
 PKG_PROG_PKG_CONFIG
 
-GTK_DOC_CHECK(1.9)
+GTK_DOC_CHECK(1.16)
 
 AC_CHECK_FUNCS(strptime)
 
@@ -360,7 +360,7 @@ data/icons/scalable/Makefile
 doc/Makefile
 doc/reference/Makefile
 doc/reference/version.xml
-doc/reference/eog-docs.sgml
+doc/reference/eog-docs.xml
 plugins/Makefile
 ])
 
