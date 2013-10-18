@@ -1,4 +1,4 @@
-INCLUDES = $(EOG_CFLAGS) \
+AM_CPPFLAGS = $(EOG_CFLAGS) \
 	$(EXIF_CFLAGS)
 
 noinst_LTLIBRARIES = libeog-jpegutils.la
