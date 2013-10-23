@@ -1212,9 +1212,14 @@ eog_window_obtain_desired_size (EogImage  *image,
 		gtk_widget_realize (window->priv->view);
 	}
 
+	eog_debug_message (DEBUG_WINDOW, "Initial Image Size: %d x %d", img_width, img_height);
+
 	gtk_widget_get_allocation (window->priv->view, &allocation);
 	view_width  = allocation.width;
 	view_height = allocation.height;
+
+	eog_debug_message (DEBUG_WINDOW, "Initial View Size: %d x %d", view_width, view_height);
+
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (window))) {
 		gtk_widget_realize (GTK_WIDGET (window));
@@ -1223,6 +1228,9 @@ eog_window_obtain_desired_size (EogImage  *image,
 	gtk_widget_get_allocation (GTK_WIDGET (window), &allocation);
 	window_width  = allocation.width;
 	window_height = allocation.height;
+
+	eog_debug_message (DEBUG_WINDOW, "Initial Window Size: %d x %d", window_width, window_height);
+
 
 	screen = gtk_window_get_screen (GTK_WINDOW (window));
 
@@ -1234,8 +1242,12 @@ eog_window_obtain_desired_size (EogImage  *image,
 	screen_width  = monitor.width;
 	screen_height = monitor.height;
 
+	eog_debug_message (DEBUG_WINDOW, "Screen Size: %d x %d", screen_width, screen_height);
+
 	deco_width = window_width - view_width;
 	deco_height = window_height - view_height;
+
+	eog_debug_message (DEBUG_WINDOW, "Decoration Size: %d x %d", deco_width, deco_height);
 
 	if (img_width > 0 && img_height > 0) {
 		if ((img_width + deco_width > screen_width) ||
@@ -1246,6 +1258,9 @@ eog_window_obtain_desired_size (EogImage  *image,
 			width_factor = (screen_width * 0.85 - deco_width) / (double) img_width;
 			height_factor = (screen_height * 0.85 - deco_height) / (double) img_height;
 			factor = MIN (width_factor, height_factor);
+
+			eog_debug_message (DEBUG_WINDOW, "Scaling Factor: %.2lf", factor);
+
 
 			img_width = img_width * factor;
 			img_height = img_height * factor;
