@@ -14,13 +14,14 @@
 # Pierros Papadeas <ppapadeas@gmail.com>, 2008.
 # Michael Kotsarinis <mk73628@gmail.com>, 2011.
 # Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2012, 2013.
+# Efstathios Iosifidis <iosifidis@opensuse.org>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog-HEAD-po-el-4121\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&ke"
 "ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-01 17:48+0000\n"
-"PO-Revision-Date: 2013-06-05 08:21+0300\n"
+"POT-Creation-Date: 2013-10-15 17:34+0000\n"
+"PO-Revision-Date: 2013-10-24 09:41+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
@@ -106,7 +107,7 @@ msgstr "Π_ερί της Εφαρμογής προβολής εικόνων"
 
 #: ../data/eog-app-menu.xml.h:9
 msgid "_Quit"
-msgstr "_Έξοδος"
+msgstr "Έ_ξοδος"
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-window.c:5993 ../src/main.c:173
 msgid "Image Viewer"
@@ -307,12 +308,10 @@ msgid "Image Enhancements"
 msgstr "Βελτιώσεις εικόνας"
 
 #: ../data/eog-preferences-dialog.ui.h:3
-#| msgid "Smooth images when zoomed-_out"
 msgid "Smooth images when zoomed _out"
 msgstr "Εξομάλυνση εικόνων κατά τη σ_μίκρυνση"
 
 #: ../data/eog-preferences-dialog.ui.h:4
-#| msgid "Smooth images when zoomed-_in"
 msgid "Smooth images when zoomed _in"
 msgstr "Εξομάλυνση εικόνων κατά τη μεγέ_θυνση"
 
@@ -326,7 +325,7 @@ msgstr "Παρασκήνιο"
 
 #: ../data/eog-preferences-dialog.ui.h:7
 msgid "As custom color:"
-msgstr "Ως προσαρμοσμένο χ_ρώμα:"
+msgstr "Ως προσαρμοσμένο χρώμα:"
 
 #: ../data/eog-preferences-dialog.ui.h:8
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:3
@@ -618,7 +617,7 @@ msgstr ""
 "Αν ενεργοποιηθεί η λεπτομερής λίστα μεταδεδομένων στον διάλογο ιδιοτήτων θα "
 "μεταφερθεί σε δική της σελίδα στον διάλογο. Αυτό θα κάνει τον διάλογο πιο "
 "χρηστικό σε μικρές οθόνες π.χ. σε netbooks. Αν απενεργοποιηθεί, η προβολή θα "
-"ενσωματωθεί μέσα στην σελίδα «Μεταδεδομένα»."
+"ενσωματωθεί μέσα στην σελίδα \"Μεταδεδομένα\"."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:41
 msgid "External program to use for editing images"
@@ -630,9 +629,9 @@ msgid ""
 "for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
 "to the empty string to disable this feature."
 msgstr ""
-"Το όνομα αρχείου της επιφάνειας εργασίας (συμπεριλαμβανομένου του «."
-"desktop») της εφαρμογής που θα χρησιμοποιηθεί για την επεξεργασία εικόνων "
-"(όταν το κουμπί της εργαλειοθήκης «Επεξεργασία εικόνας» είναι πατημένο). "
+"Το όνομα αρχείου της επιφάνειας εργασίας (συμπεριλαμβανομένου του "
+"\".desktop\") της εφαρμογής που θα χρησιμοποιηθεί για την επεξεργασία εικόνων "
+"(όταν το κουμπί της εργαλειοθήκης \"Επεξεργασία εικόνας\" είναι πατημένο). "
 "Ορίστε το σε κενό αλφαριθμητικό για να το απενεργοποιήσετε."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:43
@@ -713,7 +712,8 @@ msgstr "_Επιλέξτε τις εικόνες που θέλετε να απο�
 msgid "If you don't save, all your changes will be lost."
 msgstr "Αν δεν αποθηκεύσετε, όλες οι αλλαγές σας θα χαθούν."
 
-#: ../src/eog-error-message-area.c:119
+#: ../src/eog-error-message-area.c:119 ../src/eog-window.c:3360
+#: ../src/eog-window.c:3363 ../src/eog-window.c:3614
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
@@ -870,8 +870,8 @@ msgstr "Υποστηριζόμενα αρχεία εικόνας"
 #: ../src/eog-properties-dialog.c:140 ../src/eog-thumb-view.c:519
 msgid "pixel"
 msgid_plural "pixels"
-msgstr[0] "εικονοστοιχείο (pixel)"
-msgstr[1] "εικονοστοιχεία (pixel)"
+msgstr[0] "εικονοστοιχείο"
+msgstr[1] "εικονοστοιχεία"
 
 #
 #: ../src/eog-file-chooser.c:466
@@ -888,37 +888,37 @@ msgstr "Αποθήκευση εικόνας"
 msgid "Open Folder"
 msgstr "Άνοιγμα φακέλου"
 
-#: ../src/eog-image.c:615
+#: ../src/eog-image.c:619
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Μετατροπή σε μια μη φορτωμένη εικόνα."
 
-#: ../src/eog-image.c:643
+#: ../src/eog-image.c:647
 #, c-format
 msgid "Transformation failed."
 msgstr "Αποτυχία μετατροπής."
 
-#: ../src/eog-image.c:1104
+#: ../src/eog-image.c:1116
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Δεν υποστηρίζεται το EXIF στο τύπο αρχείου."
 
-#: ../src/eog-image.c:1253
+#: ../src/eog-image.c:1265
 #, c-format
 msgid "Image loading failed."
 msgstr "Αποτυχία φόρτωσης εικόνας."
 
-#: ../src/eog-image.c:1834 ../src/eog-image.c:1954
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
 #, c-format
 msgid "No image loaded."
 msgstr "Δεν έχει φορτωθεί εικόνα."
 
-#: ../src/eog-image.c:1842 ../src/eog-image.c:1963
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Δεν έχετε τα κατάλληλα δικαιώματα για να αποθηκεύσετε το αρχείο."
 
-#: ../src/eog-image.c:1852 ../src/eog-image.c:1974
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Η δημιουργία προσωρινού αρχείου απέτυχε."
@@ -1046,7 +1046,7 @@ msgstr "Ίντσες"
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "όπως είναι"
 
@@ -1069,7 +1069,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Λήφθηκε"
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:985
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Τουλάχιστον δύο ονόματα αρχείων είναι ίσα."
@@ -1097,7 +1097,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i εικονοστοιχείο  %s    %i%%"
 msgstr[1] "%i × %i εικονοστοιχεία  %s    %i%%"
 
-#: ../src/eog-window.c:843 ../src/eog-window.c:2780
+#: ../src/eog-window.c:843 ../src/eog-window.c:2779
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Από_κρυψη"
@@ -1110,7 +1110,7 @@ msgid ""
 "The image \"%s\" has been modified by an external application.\n"
 "Would you like to reload it?"
 msgstr ""
-"Η εικόνα «%s» τροποποιήθηκε από μια εξωτερική εφαρμογή.\n"
+"Η εικόνα \"%s\" τροποποιήθηκε από μια εξωτερική εφαρμογή.\n"
 "Θα θέλατε να τη ανανεώσετε;"
 
 #: ../src/eog-window.c:1017
@@ -1130,16 +1130,17 @@ msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Αποθήκευση εικόνας \"%s\" (%u/%u)"
 
 #
-#: ../src/eog-window.c:1555
+#: ../src/eog-window.c:1553
 #, c-format
 msgid "Opening image \"%s\""
-msgstr "Άνοιγμα εικόνας «%s»"
+msgstr "Άνοιγμα εικόνας \"%s\""
 
-#: ../src/eog-window.c:2039
+#. L10N: This the reason why the screensaver is inhibited.
+#: ../src/eog-window.c:2038
 msgid "Viewing a slideshow"
 msgstr "Εμφάνιση προβολής διαφανειών"
 
-#: ../src/eog-window.c:2264
+#: ../src/eog-window.c:2263
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1148,27 +1149,27 @@ msgstr ""
 "Σφάλμα κατά την εκτύπωση αρχείου:\n"
 "%s"
 
-#: ../src/eog-window.c:2563
+#: ../src/eog-window.c:2562
 msgid "Toolbar Editor"
 msgstr "Επεξεργασία εργαλειοθήκης"
 
-#: ../src/eog-window.c:2566
+#: ../src/eog-window.c:2565
 msgid "_Reset to Default"
 msgstr "_Επαναφορά στις προεπιλογές"
 
-#: ../src/eog-window.c:2727 ../src/eog-window.c:2742
+#: ../src/eog-window.c:2726 ../src/eog-window.c:2741
 msgid "Error launching System Settings: "
-msgstr "Σφάλμα κατά την εκκίνηση των ρυθμίσεων συστήματος:"
+msgstr "Σφάλμα κατά την εκκίνηση των ρυθμίσεων συστήματος: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2778
+#: ../src/eog-window.c:2777
 msgid "_Open Background Preferences"
 msgstr "Άνοι_γμα προτιμήσεων παρασκηνίου"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2794
+#: ../src/eog-window.c:2793
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1177,15 +1178,12 @@ msgstr ""
 "Η εικόνα \"%s\" ορίστηκε ως παρασκήνιο επιφάνειας εργασίας.\n"
 "Θα θέλατε να αλλάξετε την εμφάνισή της;"
 
-#: ../src/eog-window.c:3261
+#: ../src/eog-window.c:3258
 msgid "Saving image locally…"
 msgstr "Αποθήκευση εικόνας τοπικά…"
 
-#: ../src/eog-window.c:3339
+#: ../src/eog-window.c:3336
 #, c-format
-#| msgid ""
-#| "Are you sure you want to move\n"
-#| "\"%s\" to the trash?"
 msgid ""
 "Are you sure you want to remove\n"
 "\"%s\" permanently?"
@@ -1193,14 +1191,8 @@ msgstr ""
 "Είστε σίγουροι ότι θέλετε να διαγράψετε\n"
 "το \"%s\" μόνιμα;"
 
-#: ../src/eog-window.c:3342
+#: ../src/eog-window.c:3339
 #, c-format
-#| msgid ""
-#| "Are you sure you want to move\n"
-#| "the selected image to the trash?"
-#| msgid_plural ""
-#| "Are you sure you want to move\n"
-#| "the %d selected images to the trash?"
 msgid ""
 "Are you sure you want to remove\n"
 "the selected image permanently?"
@@ -1214,30 +1206,36 @@ msgstr[1] ""
 "Είστε σίγουροι ότι θέλετε να διαγράψετε\n"
 "τις %d επιλεγμένες εικόνες μόνιμα;"
 
-#. add 'dont ask again' button
-#: ../src/eog-window.c:3371 ../src/eog-window.c:3619
-msgid "_Do not ask again during this session"
-msgstr "Να _μη γίνει ξανά ερώτηση κατά τη διάρκεια αυτής της συνεδρίας"
+#: ../src/eog-window.c:3361 ../src/eog-window.c:3625
+msgid "_Delete"
+msgstr "_Διαγραφή"
 
-#: ../src/eog-window.c:3415
+#: ../src/eog-window.c:3364 ../src/eog-window.c:3627
+msgid "_Yes"
+msgstr "_Ναι"
+
+#. add 'dont ask again' button
+#: ../src/eog-window.c:3368 ../src/eog-window.c:3619
+msgid "Do _not ask again during this session"
+msgstr "Να _μη γίνει ερώτηση ξανά, κατά τη διάρκεια αυτής της συνεδρίας"
+
+#: ../src/eog-window.c:3412
 #, c-format
-#| msgid "Couldn't delete file"
 msgid "Couldn't retrieve image file"
 msgstr "Αδύνατη η ανάκτηση αρχείου εικόνας"
 
-#: ../src/eog-window.c:3431
+#: ../src/eog-window.c:3428
 #, c-format
-#| msgid "Couldn't create temporary file for saving: %s"
 msgid "Couldn't retrieve image file information"
 msgstr "Αδύνατη η ανάκτηση πληροφοριών αρχείου εικόνας"
 
-#: ../src/eog-window.c:3447 ../src/eog-window.c:3686
+#: ../src/eog-window.c:3444 ../src/eog-window.c:3686
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Αδυναμία διαγραφής αρχείου"
 
 #. set dialog error message
-#: ../src/eog-window.c:3497 ../src/eog-window.c:3782
+#: ../src/eog-window.c:3494 ../src/eog-window.c:3782
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Σφάλμα κατά τη διαγραφή εικόνας %s"
@@ -1461,12 +1459,10 @@ msgid "Move the selected image to the trash folder"
 msgstr "Μετακίνηση της επιλεγμένης εικόνας στα απορρίμματα"
 
 #: ../src/eog-window.c:4111
-#| msgid "_Next Image"
-msgid "Delete Image"
-msgstr "Διαγραφή εικόνας"
+msgid "_Delete Image"
+msgstr "_Διαγραφή Εικόνας"
 
 #: ../src/eog-window.c:4112
-#| msgid "Print the selected image"
 msgid "Delete the selected image"
 msgstr "Διαγραφή της επιλεγμένης εικόνας"
 
@@ -1642,6 +1638,7 @@ msgstr ""
 " Κώστας Παπαδήμας <pkst@gnome.org>\n"
 " Πιερρός Παπαδέας <ppapadeas@gmail.com>\n"
 " Μιχάλης Κοτσαρίνης <mk73628@gmail.com>\n"
+" Ευστάθιος Ιωσηφίδης <iosifidis@opensuse.org>\n"
 "\n"
 "Για περισσότερα δείτε http://www.gnome.gr/"
 
