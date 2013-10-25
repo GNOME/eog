@@ -130,6 +130,7 @@ struct _EogWindowPrivate {
 	EogWindowStatus      status;
 
         GtkUIManager        *ui_mgr;
+        GtkWidget           *overlay;
         GtkWidget           *box;
         GtkWidget           *layout;
         GtkWidget           *cbox;
@@ -1700,45 +1701,15 @@ eog_window_update_pause_slideshow_action (EogWindow *window)
 		(action, G_CALLBACK (eog_window_cmd_pause_slideshow), window);
 }
 
-static void
-eog_window_update_fullscreen_popup (EogWindow *window)
-{
-	GtkWidget *popup = window->priv->fullscreen_popup;
-	GdkRectangle screen_rect;
-	GdkScreen *screen;
-
-	g_return_if_fail (popup != NULL);
-
-	if (gtk_widget_get_window (GTK_WIDGET (window)) == NULL) return;
-
-	screen = gtk_widget_get_screen (GTK_WIDGET (window));
-
-	gdk_screen_get_monitor_geometry (screen,
-			gdk_screen_get_monitor_at_window
-                        (screen,
-                         gtk_widget_get_window (GTK_WIDGET (window))),
-                         &screen_rect);
-
-	gtk_widget_set_size_request (popup,
-				     screen_rect.width,
-				     -1);
-
-	gtk_window_move (GTK_WINDOW (popup), screen_rect.x, screen_rect.y);
-}
-
-static void
-screen_size_changed_cb (GdkScreen *screen, EogWindow *window)
-{
-	eog_window_update_fullscreen_popup (window);
-}
-
 static gboolean
 fullscreen_timeout_cb (gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 
-	gtk_widget_hide (window->priv->fullscreen_popup);
+	eog_debug (DEBUG_WINDOW);
 
+	gtk_revealer_set_reveal_child (
+		    GTK_REVEALER (window->priv->fullscreen_popup), FALSE);
 	eog_scroll_view_hide_cursor (EOG_SCROLL_VIEW (window->priv->view));
 
 	fullscreen_clear_timeout (window);
@@ -1853,6 +1824,9 @@ show_fullscreen_popup (EogWindow *window)
 		gtk_widget_show_all (GTK_WIDGET (window->priv->fullscreen_popup));
 	}
 
+	gtk_revealer_set_reveal_child (
+		    GTK_REVEALER (window->priv->fullscreen_popup), TRUE);
+
 	fullscreen_set_timeout (window);
 }
 
@@ -1929,18 +1903,20 @@ eog_window_get_exit_fullscreen_button (EogWindow *window)
 static GtkWidget *
 eog_window_create_fullscreen_popup (EogWindow *window)
 {
-	GtkWidget *popup;
+	GtkWidget *revealer;
 	GtkWidget *hbox;
 	GtkWidget *button;
 	GtkWidget *toolbar;
-	GdkScreen *screen;
 
 	eog_debug (DEBUG_WINDOW);
 
-	popup = gtk_window_new (GTK_WINDOW_POPUP);
+	revealer = gtk_revealer_new();
+	gtk_widget_add_events (revealer, GDK_ENTER_NOTIFY_MASK);
 
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_container_add (GTK_CONTAINER (popup), hbox);
+	gtk_widget_set_valign (revealer, GTK_ALIGN_START);
+	gtk_widget_set_halign (revealer, GTK_ALIGN_FILL);
+	gtk_container_add (GTK_CONTAINER (revealer), hbox);
 
 	toolbar = gtk_ui_manager_get_widget (window->priv->ui_mgr,
 					     "/FullscreenToolbar");
@@ -1951,22 +1927,13 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 	button = eog_window_get_exit_fullscreen_button (window);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
-	gtk_window_set_resizable (GTK_WINDOW (popup), FALSE);
-
-	screen = gtk_widget_get_screen (GTK_WIDGET (window));
-
-	g_signal_connect_object (screen, "size-changed",
-			         G_CALLBACK (screen_size_changed_cb),
-				 window, 0);
-
-	g_signal_connect (popup,
+	/* Disable timer when the pointer enters the toolbar window. */
+	g_signal_connect (revealer,
 			  "enter-notify-event",
 			  G_CALLBACK (fullscreen_leave_notify_cb),
 			  window);
 
-	gtk_window_set_screen (GTK_WINDOW (popup), screen);
-
-	return popup;
+	return revealer;
 }
 
 static void
@@ -2092,8 +2059,12 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	}
 
 	if (window->priv->fullscreen_popup == NULL)
+	{
 		priv->fullscreen_popup
 			= eog_window_create_fullscreen_popup (window);
+		gtk_overlay_add_overlay (GTK_OVERLAY(priv->overlay),
+					 priv->fullscreen_popup);
+	}
 
 	update_ui_visibility (window);
 
@@ -2147,7 +2118,6 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 			  &(gtk_widget_get_style (GTK_WIDGET (window))->black));
 
 	gtk_window_fullscreen (GTK_WINDOW (window));
-	eog_window_update_fullscreen_popup (window);
 
 	eog_window_inhibit_screensaver (window);
 
@@ -2173,6 +2143,7 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	priv->mode = EOG_WINDOW_MODE_NORMAL;
 
 	fullscreen_clear_timeout (window);
+	gtk_revealer_set_reveal_child (GTK_REVEALER(window->priv->fullscreen_popup), FALSE);
 
 	if (slideshow) {
 		slideshow_clear_timeout (window);
@@ -4887,8 +4858,11 @@ eog_window_construct_ui (EogWindow *window)
 				"page-removed",
 				G_CALLBACK (eog_window_sidebar_page_removed),
 				window);
+	priv->overlay = gtk_overlay_new();
 
  	priv->view = eog_scroll_view_new ();
+
+	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->view);
 
 	eog_sidebar_add_page (EOG_SIDEBAR (priv->sidebar),
 			      _("Image Properties"),
@@ -4924,7 +4898,7 @@ eog_window_construct_ui (EogWindow *window)
 			 FALSE);
 
 	gtk_paned_pack2 (GTK_PANED (hpaned),
-			 priv->view,
+			 priv->overlay,
 			 TRUE,
 			 FALSE);
 
