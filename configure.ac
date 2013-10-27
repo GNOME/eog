@@ -66,7 +66,7 @@ fi
 # ***********
 
 AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.40.0])
+IT_PROG_INTLTOOL([0.50.1])
 
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
@@ -344,7 +344,7 @@ po/Makefile.in
 data/Makefile
 data/eog.pc
 data/eog.desktop.in
-data/org.gnome.eog.gschema.xml.in
+data/org.gnome.eog.gschema.xml
 data/pixmaps/Makefile
 data/icons/Makefile
 data/icons/16x16/Makefile
