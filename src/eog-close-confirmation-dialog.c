@@ -170,19 +170,19 @@ add_buttons (EogCloseConfirmationDialog	       *dlg,
 
 	if (buttons & EOG_CLOSE_CONFIRMATION_DIALOG_CANCEL_BUTTON) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg),
-				       GTK_STOCK_CANCEL,
+				       _("_Cancel"),
 				       EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CANCEL);
 	}
 
 	if (buttons & EOG_CLOSE_CONFIRMATION_DIALOG_SAVE_BUTTON) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg),
-				       GTK_STOCK_SAVE,
+				       _("_Save"),
 				       EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVE);
 	}
 
 	if (buttons & EOG_CLOSE_CONFIRMATION_DIALOG_SAVEAS_BUTTON) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg),
-				       GTK_STOCK_SAVE_AS,
+				       _("Save _As"),
 				       EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVEAS);
 	}
 
@@ -617,8 +617,8 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 			    hbox, TRUE, TRUE, 0);
 
 	/* Image */
-	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING,
-					  GTK_ICON_SIZE_DIALOG);
+	image = gtk_image_new_from_icon_name ("dialog-warning",
+					      GTK_ICON_SIZE_DIALOG);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 
