@@ -413,7 +413,7 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 	img = EOG_IMAGE (dlg->priv->unsaved_images->data);
 
 	/* Image */
-	image = gtk_image_new_from_icon_name ("dialog-warning",
+	image = gtk_image_new_from_icon_name ("dialog-warning-symbolic",
 	                                      GTK_ICON_SIZE_DIALOG);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 
@@ -617,7 +617,7 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 			    hbox, TRUE, TRUE, 0);
 
 	/* Image */
-	image = gtk_image_new_from_icon_name ("dialog-warning",
+	image = gtk_image_new_from_icon_name ("dialog-warning-symbolic",
 					      GTK_ICON_SIZE_DIALOG);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
