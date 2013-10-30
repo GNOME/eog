@@ -70,7 +70,7 @@ if !HAVE_EXIF
 if !HAVE_EXEMPI
 IGNORE_HFILES +=			\
 	eog-exif-util.h			\
-	eog-exif-details.h
+	eog-metadata-details.h
 endif
 endif
 

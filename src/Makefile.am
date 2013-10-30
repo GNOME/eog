@@ -111,24 +111,24 @@ libeog_la_SOURCES =			\
 
 if HAVE_EXIF
 INST_H_FILES +=				\
-	eog-exif-details.h		\
+	eog-metadata-details.h		\
 	eog-exif-util.h
 
 libeog_c_files +=			\
-	eog-exif-details.c		\
+	eog-metadata-details.c		\
 	eog-exif-util.c
 endif
 
 if HAVE_EXEMPI
-# We need to make sure eog-exif-details.h
+# We need to make sure eog-metadata-details.h
 # is only listed once in INST_H_FILES
 # or the build will break with automake-1.11
 if !HAVE_EXIF
 INST_H_FILES +=				\
-	eog-exif-details.h
+	eog-metadata-details.h
 endif !HAVE_EXIF
 libeog_la_SOURCES +=			\
-	eog-exif-details.c
+	eog-metadata-details.c
 endif HAVE_EXEMPI
 
 libeog_la_CPPFLAGS =						\
