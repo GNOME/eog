@@ -56,15 +56,19 @@ struct _EogMetadataDetailsClass {
 	GtkTreeViewClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType               eog_metadata_details_get_type    (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget          *eog_metadata_details_new         (void);
 
 #if HAVE_EXIF
+G_GNUC_INTERNAL
 void                eog_metadata_details_update      (EogMetadataDetails *details,
 						      ExifData       *data);
 #endif
 #if HAVE_EXEMPI
+G_GNUC_INTERNAL
 void                eog_metadata_details_xmp_update  (EogMetadataDetails *view,
 						      XmpPtr          xmp_data);
 #endif
