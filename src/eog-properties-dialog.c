@@ -684,6 +684,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 
 	priv->metadata_details = eog_metadata_details_new ();
 	gtk_widget_set_size_request (priv->metadata_details, -1, 170);
+	gtk_widget_set_vexpand (priv->metadata_details, TRUE);
 	gtk_container_set_border_width (GTK_CONTAINER (sw), 6);
 
 	gtk_container_add (GTK_CONTAINER (sw), priv->metadata_details);
