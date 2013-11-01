@@ -690,6 +690,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	priv->exif_details = eog_exif_details_new ();
 	gtk_widget_set_size_request (priv->exif_details, -1, 170);
 	gtk_container_set_border_width (GTK_CONTAINER (sw), 6);
+	gtk_widget_set_vexpand (priv->exif_details, TRUE);
 
 	gtk_container_add (GTK_CONTAINER (sw), priv->exif_details);
 	gtk_widget_show_all (sw);
