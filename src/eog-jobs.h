@@ -100,7 +100,11 @@ G_BEGIN_DECLS
 typedef struct _EogURIConverter EogURIConverter;
 #endif
 
+#ifndef __EOG_JOB_DECLR__
+#define __EOG_JOB_DECLR__
 typedef struct _EogJob               EogJob;
+#endif
+
 typedef struct _EogJobClass          EogJobClass;
 
 typedef struct _EogJobCopy           EogJobCopy;
