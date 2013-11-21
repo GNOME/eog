@@ -4164,6 +4164,54 @@ static const GtkActionEntry action_entries_gallery[] = {
 	  G_CALLBACK (eog_window_cmd_go_last) },
 };
 
+static void
+eog_window_action_go_prev (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_prev (NULL, user_data);
+}
+
+static void
+eog_window_action_go_next (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_next (NULL, user_data);
+}
+
+static void
+eog_window_action_go_first (GSimpleAction *action,
+                            GVariant      *parameter,
+                            gpointer       user_data)
+{
+	eog_window_cmd_go_first (NULL, user_data);
+}
+
+static void
+eog_window_action_go_last (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_last (NULL, user_data);
+}
+
+static void
+eog_window_action_go_random (GSimpleAction *action,
+                             GVariant      *parameter,
+                             gpointer       user_data)
+{
+	eog_window_cmd_go_random (NULL, user_data);
+}
+
+static const GActionEntry window_actions[] = {
+	{ "go-previous", eog_window_action_go_prev },
+	{ "go-next",     eog_window_action_go_next },
+	{ "go-first",    eog_window_action_go_first },
+	{ "go-last",     eog_window_action_go_last },
+	{ "go-random",   eog_window_action_go_random }
+};
+
 static const GtkToggleActionEntry toggle_entries_gallery[] = {
 	{ "ViewSlideshow", "slideshow-play", N_("S_lideshow"), "F5",
 	  N_("Start a slideshow view of the images"),
@@ -5014,6 +5062,10 @@ eog_window_init (EogWindow *window)
 	window->priv->page_setup = NULL;
 
 	gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (EOG_APP));
+
+	g_action_map_add_action_entries (G_ACTION_MAP (window),
+	                                 window_actions, G_N_ELEMENTS (window_actions),
+	                                 window);
 }
 
 static void
