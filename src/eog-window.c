@@ -2040,6 +2040,7 @@ eog_window_uninhibit_screensaver (EogWindow *window)
 static void
 eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 {
+	static const GdkRGBA black = { 0., 0., 0., 1.};
 	EogWindowPrivate *priv;
 	GtkWidget *menubar;
 	gboolean upscale;
@@ -2115,7 +2116,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	gtk_widget_grab_focus (priv->view);
 
 	eog_scroll_view_override_bg_color (EOG_SCROLL_VIEW (window->priv->view),
-			  &(gtk_widget_get_style (GTK_WIDGET (window))->black));
+					   &black);
 
 	gtk_window_fullscreen (GTK_WINDOW (window));
 
@@ -2175,7 +2176,6 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 
 	eog_scroll_view_override_bg_color (EOG_SCROLL_VIEW (window->priv->view),
 					   NULL);
-	gtk_widget_set_style (gtk_widget_get_parent (window->priv->view), NULL);
 	gtk_window_unfullscreen (GTK_WINDOW (window));
 
 	if (slideshow) {
