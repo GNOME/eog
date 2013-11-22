@@ -50,15 +50,15 @@ static GObject *instance = NULL;
 G_DEFINE_TYPE_WITH_PRIVATE (EogPreferencesDialog, eog_preferences_dialog, EOG_TYPE_DIALOG);
 
 static gboolean
-pd_string_to_color_mapping (GValue   *value,
-			    GVariant *variant,
-			    gpointer  user_data)
+pd_string_to_rgba_mapping (GValue   *value,
+			   GVariant *variant,
+			   gpointer  user_data)
 {
-	GdkColor color;
+	GdkRGBA color;
 
 	g_return_val_if_fail (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING), FALSE);
 
-	if (gdk_color_parse (g_variant_get_string (variant, NULL), &color)) {
+	if (gdk_rgba_parse (&color, g_variant_get_string (variant, NULL))) {
 		g_value_set_boxed (value, &color);
 		return TRUE;
 	}
@@ -67,22 +67,20 @@ pd_string_to_color_mapping (GValue   *value,
 }
 
 static GVariant*
-pd_color_to_string_mapping (const GValue       *value,
-			    const GVariantType *expected_type,
-			    gpointer            user_data)
+pd_rgba_to_string_mapping (const GValue       *value,
+			   const GVariantType *expected_type,
+			   gpointer            user_data)
 {
 	GVariant *variant = NULL;
-	GdkColor *color;
+	GdkRGBA *color;
 	gchar *hex_val;
 
-	g_return_val_if_fail (G_VALUE_TYPE (value) == GDK_TYPE_COLOR, NULL);
+	g_return_val_if_fail (G_VALUE_TYPE (value) == GDK_TYPE_RGBA, NULL);
 	g_return_val_if_fail (g_variant_type_equal (expected_type, G_VARIANT_TYPE_STRING), NULL);
 
 	color = g_value_get_boxed (value);
-	hex_val = g_strdup_printf ("#%02X%02X%02X",
-				   color->red / 256,
-				   color->green / 256,
-				   color->blue / 256);
+	hex_val = gdk_rgba_to_string(color);
+
 	variant = g_variant_new_string (hex_val);
 	g_free (hex_val);
 
@@ -195,10 +193,10 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_settings_bind_with_mapping (priv->view_settings,
 				      EOG_CONF_VIEW_BACKGROUND_COLOR,
-				      bg_color_button, "color",
+				      bg_color_button, "rgba",
 				      G_SETTINGS_BIND_DEFAULT,
-				      pd_string_to_color_mapping,
-				      pd_color_to_string_mapping,
+				      pd_string_to_rgba_mapping,
+				      pd_rgba_to_string_mapping,
 				      NULL, NULL);
 
 	g_object_set_data (G_OBJECT (color_radio),
@@ -251,10 +249,10 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_settings_bind_with_mapping (priv->view_settings,
 				      EOG_CONF_VIEW_TRANS_COLOR,
-				      color_button, "color",
+				      color_button, "rgba",
 				      G_SETTINGS_BIND_DEFAULT,
-				      pd_string_to_color_mapping,
-				      pd_color_to_string_mapping,
+				      pd_string_to_rgba_mapping,
+				      pd_rgba_to_string_mapping,
 				      NULL, NULL);
 
 	g_settings_bind (priv->fullscreen_settings, EOG_CONF_FULLSCREEN_UPSCALE,
