@@ -31,11 +31,11 @@
 #define MIN_ZOOM_FACTOR 0.02
 
 #define CHECK_MEDIUM 8
-#define CHECK_BLACK 0x00000000
-#define CHECK_DARK 0x00555555
-#define CHECK_GRAY 0x00808080
-#define CHECK_LIGHT 0x00cccccc
-#define CHECK_WHITE 0x00ffffff
+#define CHECK_BLACK "#000000"
+#define CHECK_DARK "#555555"
+#define CHECK_GRAY "#808080"
+#define CHECK_LIGHT "#cccccc"
+#define CHECK_WHITE "#ffffff"
 
 /* Default increment for zooming.  The current zoom factor is multiplied or
  * divided by this amount on every zooming step.  For consistency, you should
@@ -150,14 +150,14 @@ struct _EogScrollViewPrivate {
 
 	/* how to indicate transparency in images */
 	EogTransparencyStyle transp_style;
-	guint32 transp_color;
+	GdkRGBA transp_color;
 
 	/* the type of the cursor we are currently showing */
 	EogScrollViewCursor cursor;
 
 	gboolean  use_bg_color;
-	GdkColor *background_color;
-	GdkColor *override_bg_color;
+	GdkRGBA *background_color;
+	GdkRGBA *override_bg_color;
 
 	cairo_surface_t *background_surface;
 };
@@ -176,6 +176,7 @@ static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
 static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
                                                   gint *y, gint *width,
                                                   gint *height);
+static gboolean _eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b);
 
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_GRID)
@@ -588,7 +589,7 @@ paint_background (EogScrollView *view, EogIRect *r, EogIRect *rect)
 #endif
 
 static void
-get_transparency_params (EogScrollView *view, int *size, guint32 *color1, guint32 *color2)
+get_transparency_params (EogScrollView *view, int *size, GdkRGBA *color1, GdkRGBA *color2)
 {
 	EogScrollViewPrivate *priv;
 
@@ -597,16 +598,15 @@ get_transparency_params (EogScrollView *view, int *size, guint32 *color1, guint3
 	/* Compute transparency parameters */
 	switch (priv->transp_style) {
 	case EOG_TRANSP_BACKGROUND: {
-		GdkColor color = gtk_widget_get_style (GTK_WIDGET (priv->display))->bg[GTK_STATE_NORMAL];
-
-		*color1 = *color2 = (((color.red & 0xff00) << 8)
-				       | (color.green & 0xff00)
-				       | ((color.blue & 0xff00) >> 8));
-		break; }
+		/* Simply return fully transparent color */
+		color1->red = color1->green = color1->blue = color1->alpha = 0.0;
+		color2->red = color2->green = color2->blue = color2->alpha = 0.0;
+		break;
+	}
 
 	case EOG_TRANSP_CHECKED:
-		*color1 = CHECK_GRAY;
-		*color2 = CHECK_LIGHT;
+		g_warn_if_fail (gdk_rgba_parse (color1, CHECK_GRAY));
+		g_warn_if_fail (gdk_rgba_parse (color2, CHECK_LIGHT));
 		break;
 
 	case EOG_TRANSP_COLOR:
@@ -625,29 +625,25 @@ static cairo_surface_t *
 create_background_surface (EogScrollView *view)
 {
 	int check_size;
-	guint32 check_1 = 0;
-	guint32 check_2 = 0;
+	GdkRGBA check_1;
+	GdkRGBA check_2;
 	cairo_surface_t *surface;
 
 	get_transparency_params (view, &check_size, &check_1, &check_2);
 	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
-						     CAIRO_CONTENT_COLOR,
+						     CAIRO_CONTENT_COLOR_ALPHA,
 						     check_size * 2, check_size * 2);
 	cairo_t* cr = cairo_create (surface);
-	cairo_set_source_rgba (cr,
-			       ((check_1 & 0xff0000) >> 16) / 255.,
-			       ((check_1 & 0x00ff00) >> 8)  / 255.,
-			       (check_1 & 0x0000ff)         / 255.,
-			       1.);
+
+	/* Use source operator to make fully transparent work */
+	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+
+	gdk_cairo_set_source_rgba(cr, &check_1);
 	cairo_rectangle (cr, 0, 0, check_size, check_size);
 	cairo_rectangle (cr, check_size, check_size, check_size, check_size);
 	cairo_fill (cr);
 
-	cairo_set_source_rgba (cr,
-			       ((check_2 & 0xff0000) >> 16) / 255.,
-			       ((check_2 & 0x00ff00) >> 8)  / 255.,
-			       (check_2 & 0x0000ff)         / 255.,
-			       1.);
+	gdk_cairo_set_source_rgba(cr, &check_2);
 	cairo_rectangle (cr, 0, check_size, check_size, check_size);
 	cairo_rectangle (cr, check_size, 0, check_size, check_size);
 	cairo_fill (cr);
@@ -2134,25 +2130,16 @@ _transp_background_changed (EogScrollView *view)
 }
 
 void
-eog_scroll_view_set_transparency_color (EogScrollView *view, GdkColor *color)
+eog_scroll_view_set_transparency_color (EogScrollView *view, GdkRGBA *color)
 {
-	guint32 col = 0;
-	guint32 red, green, blue;
 	EogScrollViewPrivate *priv;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	priv = view->priv;
 
-	if (color != NULL) {
-		red = (color->red >> 8) << 16;
-		green = (color->green >> 8) << 8;
-		blue = (color->blue >> 8);
-		col = red + green + blue;
-	}
-
-	if (priv->transp_color != col) {
-		priv->transp_color = col;
+	if (!_eog_gdk_rgba_equal0 (&priv->transp_color, color)) {
+		priv->transp_color = *color;
 		if (priv->transp_style == EOG_TRANSP_COLOR)
 			_transp_background_changed (view);
 
@@ -2411,15 +2398,15 @@ eog_scroll_view_scrollbars_visible (EogScrollView *view)
   ---------------------------------*/
 
 static gboolean
-sv_string_to_color_mapping (GValue   *value,
+sv_string_to_rgba_mapping (GValue   *value,
 			    GVariant *variant,
 			    gpointer  user_data)
 {
-	GdkColor color;
+	GdkRGBA color;
 
 	g_return_val_if_fail (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING), FALSE);
 
-	if (gdk_color_parse (g_variant_get_string (variant, NULL), &color)) {
+	if (gdk_rgba_parse (&color, g_variant_get_string (variant, NULL))) {
 		g_value_set_boxed (value, &color);
 		return TRUE;
 	}
@@ -2428,22 +2415,19 @@ sv_string_to_color_mapping (GValue   *value,
 }
 
 static GVariant*
-sv_color_to_string_mapping (const GValue       *value,
+sv_rgba_to_string_mapping (const GValue       *value,
 			    const GVariantType *expected_type,
 			    gpointer            user_data)
 {
 	GVariant *variant = NULL;
-	GdkColor *color;
+	GdkRGBA *color;
 	gchar *hex_val;
 
-	g_return_val_if_fail (G_VALUE_TYPE (value) == GDK_TYPE_COLOR, NULL);
+	g_return_val_if_fail (G_VALUE_TYPE (value) == GDK_TYPE_RGBA, NULL);
 	g_return_val_if_fail (g_variant_type_equal (expected_type, G_VARIANT_TYPE_STRING), NULL);
 
 	color = g_value_get_boxed (value);
-	hex_val = g_strdup_printf ("#%02X%02X%02X",
-				   color->red / 256,
-				   color->green / 256,
-				   color->blue / 256);
+	hex_val = gdk_rgba_to_string(color);
 	variant = g_variant_new_string (hex_val);
 	g_free (hex_val);
 
@@ -2473,7 +2457,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->surface = NULL;
 	/* priv->progressive_state = PROGRESSIVE_NONE; */
 	priv->transp_style = EOG_TRANSP_BACKGROUND;
-	priv->transp_color = 0;
+	g_warn_if_fail (gdk_rgba_parse(&priv->transp_color, CHECK_BLACK));
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 	priv->menu = NULL;
 	priv->override_bg_color = NULL;
@@ -2552,13 +2536,13 @@ eog_scroll_view_init (EogScrollView *view)
 	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_BACKGROUND_COLOR,
 				      view, "background-color",
 				      G_SETTINGS_BIND_DEFAULT,
-				      sv_string_to_color_mapping,
-				      sv_color_to_string_mapping, NULL, NULL);
+				      sv_string_to_rgba_mapping,
+				      sv_rgba_to_string_mapping, NULL, NULL);
 	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_TRANS_COLOR,
 				      view, "transparency-color",
 				      G_SETTINGS_BIND_GET,
-				      sv_string_to_color_mapping,
-				      sv_color_to_string_mapping, NULL, NULL);
+				      sv_string_to_rgba_mapping,
+				      sv_rgba_to_string_mapping, NULL, NULL);
 	g_settings_bind (settings, EOG_CONF_VIEW_TRANSPARENCY, view,
 			 "transparency-style", G_SETTINGS_BIND_GET);
 	g_settings_bind (settings, EOG_CONF_VIEW_EXTRAPOLATE, view,
@@ -2593,12 +2577,12 @@ eog_scroll_view_dispose (GObject *object)
 	}
 
 	if (priv->background_color != NULL) {
-		gdk_color_free (priv->background_color);
+		gdk_rgba_free (priv->background_color);
 		priv->background_color = NULL;
 	}
 
 	if (priv->override_bg_color != NULL) {
-		gdk_color_free (priv->override_bg_color);
+		gdk_rgba_free (priv->override_bg_color);
 		priv->override_bg_color = NULL;
 	}
 
@@ -2686,7 +2670,7 @@ eog_scroll_view_set_property (GObject *object, guint property_id,
 		break;
 	case PROP_BACKGROUND_COLOR:
 	{
-		const GdkColor *color = g_value_get_boxed (value);
+		const GdkRGBA *color = g_value_get_boxed (value);
 		eog_scroll_view_set_background_color (view, color);
 		break;
 	}
@@ -2758,7 +2742,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	g_object_class_install_property (
 		gobject_class, PROP_BACKGROUND_COLOR,
 		g_param_spec_boxed ("background-color", NULL, NULL,
-				    GDK_TYPE_COLOR,
+				    GDK_TYPE_RGBA,
 				    G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	g_object_class_install_property (
@@ -2808,7 +2792,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	g_object_class_install_property (
 		gobject_class, PROP_TRANSP_COLOR,
 		g_param_spec_boxed ("transparency-color", NULL, NULL,
-				    GDK_TYPE_COLOR,
+				    GDK_TYPE_RGBA,
 				    G_PARAM_WRITABLE | G_PARAM_STATIC_NAME));
 	
 	/**
@@ -2961,26 +2945,26 @@ eog_scroll_view_set_popup (EogScrollView *view,
 }
 
 static gboolean
-_eog_gdk_color_equal0 (const GdkColor *a, const GdkColor *b)
+_eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b)
 {
 	if (a == NULL || b == NULL)
 		return (a == b);
 
-	return gdk_color_equal (a, b);
+	return gdk_rgba_equal (a, b);
 }
 
 static gboolean
-_eog_replace_gdk_color (GdkColor **dest, const GdkColor *new)
+_eog_replace_gdk_rgba (GdkRGBA **dest, const GdkRGBA *src)
 {
-	GdkColor *old = *dest;
+	GdkRGBA *old = *dest;
 
-	if (_eog_gdk_color_equal0 (old, new))
+	if (_eog_gdk_rgba_equal0 (old, src))
 		return FALSE;
 
 	if (old != NULL)
-		gdk_color_free (old);
+		gdk_rgba_free (old);
 
-	*dest = (new) ? gdk_color_copy (new) : NULL;
+	*dest = (src) ? gdk_rgba_copy (src) : NULL;
 
 	return TRUE;
 }
@@ -2988,7 +2972,7 @@ _eog_replace_gdk_color (GdkColor **dest, const GdkColor *new)
 static void
 _eog_scroll_view_update_bg_color (EogScrollView *view)
 {
-	const GdkColor *selected;
+	const GdkRGBA *selected;
 	EogScrollViewPrivate *priv = view->priv;
 
 	if (priv->override_bg_color)
@@ -3006,28 +2990,29 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 		priv->background_surface = NULL;
 	}
 
-	gtk_widget_modify_bg (GTK_WIDGET (priv->display),
+	/*gtk_widget_modify_bg (GTK_WIDGET (priv->display),
 			      GTK_STATE_NORMAL,
-			      selected);
+			      selected);*/
+	gtk_widget_override_background_color(GTK_WIDGET (priv->display), GTK_STATE_FLAG_NORMAL, selected);
 }
 
 void
 eog_scroll_view_set_background_color (EogScrollView *view,
-				      const GdkColor *color)
+				      const GdkRGBA *color)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	if (_eog_replace_gdk_color (&view->priv->background_color, color))
+	if (_eog_replace_gdk_rgba (&view->priv->background_color, color))
 		_eog_scroll_view_update_bg_color (view);
 }
 
 void
 eog_scroll_view_override_bg_color (EogScrollView *view,
-				   const GdkColor *color)
+				   const GdkRGBA *color)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	if (_eog_replace_gdk_color (&view->priv->override_bg_color, color))
+	if (_eog_replace_gdk_rgba (&view->priv->override_bg_color, color))
 		_eog_scroll_view_update_bg_color (view);
 }
 
