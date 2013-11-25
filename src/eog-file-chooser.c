@@ -454,24 +454,24 @@ eog_file_chooser_new (GtkFileChooserAction action)
 	switch (action) {
 	case GTK_FILE_CHOOSER_ACTION_OPEN:
 		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+					_("_Cancel"), GTK_RESPONSE_CANCEL,
+					_("_Open"), GTK_RESPONSE_OK,
 					NULL);
 		title = _("Open Image");
 		break;
 
 	case GTK_FILE_CHOOSER_ACTION_SAVE:
 		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					GTK_STOCK_SAVE, GTK_RESPONSE_OK,
+					_("_Cancel"), GTK_RESPONSE_CANCEL,
+					_("_Save"), GTK_RESPONSE_OK,
 					NULL);
 		title = _("Save Image");
 		break;
 
 	case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
 		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+					_("_Cancel"), GTK_RESPONSE_CANCEL,
+					_("_Open"), GTK_RESPONSE_OK,
 					NULL);
 		title = _("Open Folder");
 		break;
