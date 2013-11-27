@@ -4204,12 +4204,98 @@ eog_window_action_go_random (GSimpleAction *action,
 	eog_window_cmd_go_random (NULL, user_data);
 }
 
+static void
+eog_window_action_rotate_90 (GSimpleAction *action,
+                             GVariant      *parameter,
+                             gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+
+	eog_window_cmd_rotate_90 (NULL, user_data);
+}
+
+static void
+eog_window_action_rotate_270 (GSimpleAction *action,
+                              GVariant      *parameter,
+                              gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+
+	eog_window_cmd_rotate_270 (NULL, user_data);
+}
+
+static void
+eog_window_action_zoom_in (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+	eog_window_cmd_zoom_in (NULL, user_data);
+}
+
+static void
+eog_window_action_zoom_out (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+	eog_window_cmd_zoom_out (NULL, user_data);
+}
+
+static void
+eog_window_action_zoom_best_fit (GSimpleAction *action,
+                                 GVariant      *parameter,
+                                 gpointer       user_data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	if (priv->view) {
+		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
+		                               EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	}
+}
+
+static void
+eog_window_action_set_zoom (GSimpleAction *action,
+                            GVariant      *parameter,
+                            gpointer       user_data)
+{
+	EogWindow *window;
+	double zoom;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	g_return_if_fail (g_variant_is_of_type (parameter, G_VARIANT_TYPE_DOUBLE));
+
+	window = EOG_WINDOW (user_data);
+
+	zoom = g_variant_get_double (parameter);
+
+	eog_debug_message (DEBUG_WINDOW, "Set zoom factor to %.4lf", zoom);
+
+	if (window->priv->view) {
+		eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (window->priv->view),
+		                          zoom);
+	}
+}
+
 static const GActionEntry window_actions[] = {
 	{ "go-previous", eog_window_action_go_prev },
 	{ "go-next",     eog_window_action_go_next },
 	{ "go-first",    eog_window_action_go_first },
 	{ "go-last",     eog_window_action_go_last },
-	{ "go-random",   eog_window_action_go_random }
+	{ "go-random",   eog_window_action_go_random },
+	{ "rotate-right", eog_window_action_rotate_90 },
+	{ "rotate-left", eog_window_action_rotate_270 },
+	{ "zoom-in",     eog_window_action_zoom_in },
+	{ "zoom-out",    eog_window_action_zoom_out },
+	{ "zoom-fit",    eog_window_action_zoom_best_fit },
+	{ "zoom-set",    eog_window_action_set_zoom, "d" },
 };
 
 static const GtkToggleActionEntry toggle_entries_gallery[] = {
