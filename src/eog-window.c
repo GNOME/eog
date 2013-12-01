@@ -479,6 +479,7 @@ static void
 update_image_pos (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+	GAction* action;
 	gint pos = -1, n_images = 0;
 
 	priv = window->priv;
@@ -493,6 +494,13 @@ update_image_pos (EogWindow *window)
 	eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar),
 					pos + 1,
 					n_images);
+
+	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	                                     "current-image");
+
+	g_return_if_fail (action != NULL);
+	g_simple_action_set_state (G_SIMPLE_ACTION (action),
+	                           g_variant_new ("(ii)", pos + 1, n_images));
 
 }
 
@@ -4284,6 +4292,15 @@ eog_window_action_set_zoom (GSimpleAction *action,
 	}
 }
 
+static void
+readonly_state_handler (GSimpleAction *action,
+                        GVariant      *value,
+                        gpointer       user_data)
+{
+	g_warning ("The state of action \"%s\" is read-only! Ignoring request!",
+	           g_action_get_name (G_ACTION (action)));
+}
+
 static const GActionEntry window_actions[] = {
 	{ "go-previous", eog_window_action_go_prev },
 	{ "go-next",     eog_window_action_go_next },
@@ -4296,6 +4313,7 @@ static const GActionEntry window_actions[] = {
 	{ "zoom-out",    eog_window_action_zoom_out },
 	{ "zoom-fit",    eog_window_action_zoom_best_fit },
 	{ "zoom-set",    eog_window_action_set_zoom, "d" },
+	{ "current-image", NULL, NULL, "@(ii) (0, 0)", readonly_state_handler }
 };
 
 static const GtkToggleActionEntry toggle_entries_gallery[] = {
@@ -5096,6 +5114,7 @@ eog_window_init (EogWindow *window)
 {
 	GdkGeometry hints;
 	EogWindowPrivate *priv;
+	GAction* action;
 
 	eog_debug (DEBUG_WINDOW);
 
@@ -5152,6 +5171,11 @@ eog_window_init (EogWindow *window)
 	g_action_map_add_action_entries (G_ACTION_MAP (window),
 	                                 window_actions, G_N_ELEMENTS (window_actions),
 	                                 window);
+
+	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	                                     "current-image");
+	if (G_LIKELY (action != NULL))
+		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 }
 
 static void
