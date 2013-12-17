@@ -310,8 +310,7 @@ eog_image_init (EogImage *img)
 	img->priv->file_is_changed = FALSE;
 	g_mutex_init (&img->priv->status_mutex);
 	img->priv->status = EOG_IMAGE_STATUS_UNKNOWN;
-        img->priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
-	img->priv->is_monitored = FALSE;
+	img->priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
 	img->priv->undo_stack = NULL;
 	img->priv->trans = NULL;
 	img->priv->trans_autorotate = NULL;
