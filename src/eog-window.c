@@ -6148,7 +6148,7 @@ eog_window_show_about_dialog (EogWindow *window)
 			       "authors", authors,
 			       "documenters", documenters,
 			       "translator-credits", _("translator-credits"),
-			       "website", "http://projects.gnome.org/eog/",
+			       "website", "https://wiki.gnome.org/Apps/EyeOfGnome",
 			       "logo-icon-name", "eog",
 			       "wrap-license", TRUE,
 			       "license-type", GTK_LICENSE_GPL_2_0,
