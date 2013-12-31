@@ -1814,6 +1814,7 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 
 	/* Paint the background */
 	cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
+	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
 			 scaled_width, scaled_height);
