@@ -122,7 +122,6 @@ main (int argc, char **argv)
 	g_option_context_free (ctx);
 
 	set_startup_flags ();
-	gdk_threads_init ();
 
 	EOG_APP->priv->flags = flags;
 	if (force_new_instance) {
