@@ -121,7 +121,7 @@ eog_plugin_engine_new (void)
 	engine = EOG_PLUGIN_ENGINE (g_object_new (EOG_TYPE_PLUGIN_ENGINE,
 						  NULL));
 
-	peas_engine_enable_loader (PEAS_ENGINE (engine), "python");
+	peas_engine_enable_loader (PEAS_ENGINE (engine), "python3");
 
 	user_plugin_path = g_build_filename (g_get_user_data_dir (),
 					     "eog", "plugins", NULL);
