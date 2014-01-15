@@ -2711,12 +2711,21 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 {
 	if (response == GTK_RESPONSE_YES) {
 		GAppInfo *app_info;
+		gchar *path;
 		GError *error = NULL;
 
-		app_info = g_app_info_create_from_commandline ("gnome-control-center background",
-							       "System Settings",
-							       G_APP_INFO_CREATE_NONE,
-							       &error);
+		path = g_find_program_in_path ("unity-control-center");
+		if (path && g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0)
+			app_info = g_app_info_create_from_commandline ("unity-control-center appearance",
+								       "System Settings",
+								       G_APP_INFO_CREATE_NONE,
+								       &error);
+		else
+			app_info = g_app_info_create_from_commandline ("gnome-control-center background",
+								       "System Settings",
+								       G_APP_INFO_CREATE_NONE,
+								       &error);
+		g_free (path);
 
 		if (error != NULL) {
 			g_warning ("%s%s", _("Error launching System Settings: "),
