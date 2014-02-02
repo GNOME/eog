@@ -23,22 +23,23 @@
 # Flamarion Jorge <jorge.flamarion@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2013.
 # Rafael Ferreira <rafael.f.f1@gmail.com>, 2013.
+# Fábio Nogueira <deb-user-ba@ubuntu.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-12-01 14:20+0000\n"
-"PO-Revision-Date: 2013-11-28 19:43-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2014-01-04 20:10+0000\n"
+"PO-Revision-Date: 2014-01-21 14:56-0300\n"
+"Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. Translaters: This string is for a toggle to display a toolbar.
 #. * The name of the toolbar is automatically computed from the widgets
@@ -109,9 +110,9 @@ msgstr "_Preferências"
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: ../data/eog-app-menu.xml.h:8
-msgid "_About Image Viewer"
-msgstr "_Sobre o visualizador de imagens"
+#: ../data/eog-app-menu.xml.h:8 ../src/eog-window.c:4047
+msgid "_About"
+msgstr "_Sobre"
 
 #: ../data/eog-app-menu.xml.h:9
 msgid "_Quit"
@@ -920,37 +921,37 @@ msgstr "Salvar imagem"
 msgid "Open Folder"
 msgstr "Abrir pasta"
 
-#: ../src/eog-image.c:614
+#: ../src/eog-image.c:613
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformação em imagem não carregada."
 
-#: ../src/eog-image.c:642
+#: ../src/eog-image.c:641
 #, c-format
 msgid "Transformation failed."
 msgstr "Falha na transformação."
 
-#: ../src/eog-image.c:1111
+#: ../src/eog-image.c:1110
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Não há suporte a EXIF para este formato de arquivo."
 
-#: ../src/eog-image.c:1260
+#: ../src/eog-image.c:1259
 #, c-format
 msgid "Image loading failed."
 msgstr "Falha ao carregar imagem."
 
-#: ../src/eog-image.c:1841 ../src/eog-image.c:1961
+#: ../src/eog-image.c:1840 ../src/eog-image.c:1960
 #, c-format
 msgid "No image loaded."
 msgstr "Nenhuma imagem carregada."
 
-#: ../src/eog-image.c:1849 ../src/eog-image.c:1970
+#: ../src/eog-image.c:1848 ../src/eog-image.c:1969
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Você não possui as permissões necessárias para salvar o arquivo."
 
-#: ../src/eog-image.c:1859 ../src/eog-image.c:1981
+#: ../src/eog-image.c:1858 ../src/eog-image.c:1980
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Falha ao criar arquivo temporário."
@@ -1373,10 +1374,6 @@ msgstr "S_umário"
 msgid "Help on this application"
 msgstr "Ajuda deste aplicativo"
 
-#: ../src/eog-window.c:4047
-msgid "_About"
-msgstr "_Sobre"
-
 #: ../src/eog-window.c:4048
 msgid "About this application"
 msgstr "Sobre este aplicativo"
@@ -1675,7 +1672,7 @@ msgstr ""
 "Vladimir Melo <vmelo@gnome.org>\n"
 "César Veiga <tombs@linuxmail.org>\n"
 "Krix Apolinário <krixapolinario@gmail.com>\n"
-"André Gondim <In Memorian>\n"
+"André Gondim (In memoriam)<In Memorian>\n"
 "Fábio Nogueira <fnogueira@gnome.org>"
 
 #: ../src/main.c:56
@@ -1720,6 +1717,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Execute \"%s --help\" para ver a lista completa das opções disponíveis na "
 "linha de comandos."
+
+#~ msgid "_About Image Viewer"
+#~ msgstr "_Sobre o visualizador de imagens"
 
 #~ msgid "Set as _Desktop Background"
 #~ msgstr "Definir como plano de fun_do da área de trabalho"
