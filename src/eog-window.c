@@ -4384,12 +4384,17 @@ set_action_properties (EogWindow      *window,
 {
 	GtkAction *action;
 	EogWindowPrivate *priv = window->priv;
+	gboolean rtl;
+
+	rtl = gtk_widget_get_direction (GTK_WIDGET (window)) == GTK_TEXT_DIR_RTL;
 
 	action = gtk_action_group_get_action (gallery_group, "GoPrevious");
+	g_object_set (action, "icon-name", rtl ? "go-previous-rtl" : "go-previous", NULL);
 	g_object_set (action, "short_label", _("Previous"), NULL);
 	g_object_set (action, "is-important", TRUE, NULL);
 
 	action = gtk_action_group_get_action (gallery_group, "GoNext");
+	g_object_set (action, "icon-name", rtl ? "go-next-rtl" : "go-next", NULL);
 	g_object_set (action, "short_label", _("Next"), NULL);
 	g_object_set (action, "is-important", TRUE, NULL);
 
