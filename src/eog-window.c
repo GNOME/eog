@@ -4398,6 +4398,9 @@ set_action_properties (EogWindow      *window,
 	g_object_set (action, "short_label", _("Next"), NULL);
 	g_object_set (action, "is-important", TRUE, NULL);
 
+	action = gtk_action_group_get_action (image_group, "EditUndo");
+	g_object_set (action, "icon-name", rtl ? "edit-undo-rtl" : "edit-undo", NULL);
+
 	action = gtk_action_group_get_action (image_group, "EditRotate90");
 	g_object_set (action, "short_label", _("Right"), NULL);
 
