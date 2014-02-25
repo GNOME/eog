@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-02-08 04:37+0000\n"
-"PO-Revision-Date: 2014-02-25 17:08+0630\n"
+"PO-Revision-Date: 2014-02-25 17:36+0630\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <maajhe-sanganak@freelists.org>\n"
 "Language: mr\n"
@@ -109,7 +109,7 @@ msgstr "प्रतिमाचे संचार व गोल फिरव�
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
 msgid "Picture;Slideshow;Graphics;"
-msgstr ""
+msgstr "Picture;Slideshow;Graphics;"
 
 #: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4626
 msgid "Image Properties"
@@ -417,6 +417,8 @@ msgid ""
 "background-color key is not set, the color is determined by the active GTK+ "
 "theme instead."
 msgstr ""
+"प्रतिमाच्या मागील क्षेत्र भरण्याकरिता वापरलेले रंग. use-background-color कि "
+"सेट न केल्यास, रंग त्याऐवजी सक्रीय GTK+ संयोजनाद्वारे ओळखले जाते."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:5
 msgid "Interpolate Image"
@@ -520,6 +522,9 @@ msgid ""
 "fill the area behind the image. If it is not set, the current GTK+ theme "
 "will determine the fill color."
 msgstr ""
+"हे सक्रीय असल्यास, background-color कितर्फे सेट केलेल्या रंगाचा वापर प्रतिमा "
+"मागील क्षेत्र रंगवण्याकरिता वापरले जाईल. सेट केले नसल्यास, सध्याचे GTK+ "
+"रंग-रूप भरण्योजोगी रंग ठरवेल."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:20
 msgid "Loop through the image sequence"
@@ -602,7 +607,7 @@ msgstr "प्रतिमा संग्रह पट्टल स्क्र
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:34
 msgid "Close main window without asking to save changes."
-msgstr ""
+msgstr "बदल साठवण्याकरिता न विचारता मुख्य पटल बंद करा."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:35
 msgid "Trash images without asking"
@@ -684,6 +689,9 @@ msgid ""
 "for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
 "to the empty string to disable this feature."
 msgstr ""
+"प्रतिमा (\"प्रतिमा संपादित करा\" साधनपट्टी बटन क्लिक केल्यावर) संपादित "
+"करण्यासाठी वापरण्याजोगी ॲप्लिकेशनचे डेस्कटॉप फाइल नाव (\".desktop\" "
+"समाविष्टीत). हे गुणधर्म बंद करण्यासाठी रिकाम्या स्ट्रिंगकरिता सेट करा."
 
 #: ../data/org.gnome.eog.gschema.xml.in.in.h:43
 msgid "Active plugins"
@@ -737,29 +745,29 @@ msgstr "प्रश्णचिन्ह"
 
 #: ../src/eog-close-confirmation-dialog.c:398
 msgid "If you don't save, your changes will be lost."
-msgstr ""
+msgstr "न साठवल्यास, बदल गमवाल."
 
 #: ../src/eog-close-confirmation-dialog.c:435
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
-msgstr ""
+msgstr "बंद करण्यापूर्वी प्रतिमा \"%s\" करिता बदल साठवायचे?"
 
 #: ../src/eog-close-confirmation-dialog.c:642
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d images with unsaved changes. Save changes before closing?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d प्रतिमासह न साठवलेले बदल आढळले. बंद करण्यापूर्वी बदल साठवायचे?"
+msgstr[1] "%d प्रतिमांसह न साठवलेले बदल आढळले. बंद करण्यापूर्वी बदल साठवायचे?"
 
 #: ../src/eog-close-confirmation-dialog.c:659
 msgid "S_elect the images you want to save:"
-msgstr ""
+msgstr "साठवण्याजोगी प्रतिमा नीवडा (_e):"
 
 #. Secondary label
 #: ../src/eog-close-confirmation-dialog.c:678
 msgid "If you don't save, all your changes will be lost."
-msgstr ""
+msgstr "न साठवल्यास, तुम्ही सर्व बदल गमवाल."
 
 #: ../src/eog-error-message-area.c:119
 msgid "_Cancel"
@@ -809,7 +817,7 @@ msgstr "प्रतिमा निवड विषयक नियम"
 
 #: ../src/eog-exif-details.c:72
 msgid "GPS Data"
-msgstr ""
+msgstr "GPS डाटा"
 
 #: ../src/eog-exif-details.c:73
 msgid "Maker Note"
@@ -845,19 +853,19 @@ msgstr "मूल्य"
 
 #: ../src/eog-exif-details.c:422
 msgid "North"
-msgstr ""
+msgstr "उत्तर"
 
 #: ../src/eog-exif-details.c:425
 msgid "East"
-msgstr ""
+msgstr "पूर्व"
 
 #: ../src/eog-exif-details.c:428
 msgid "West"
-msgstr ""
+msgstr "पश्चिम"
 
 #: ../src/eog-exif-details.c:431
 msgid "South"
-msgstr ""
+msgstr "दक्षिण"
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
@@ -916,7 +924,7 @@ msgstr "सर्व फाइल्स"
 
 #: ../src/eog-file-chooser.c:224
 msgid "Supported image files"
-msgstr ""
+msgstr "समर्थीत प्रतिमा फाइल्स"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:296 ../src/eog-metadata-sidebar.c:235
@@ -968,7 +976,7 @@ msgstr "प्रतिमा दाखल केले नाही."
 #: ../src/eog-image.c:1842 ../src/eog-image.c:1963
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
-msgstr ""
+msgstr "फाइल साठवण्याकरिता तुमच्याकडे आवश्यक परवानगी नाही."
 
 #: ../src/eog-image.c:1852 ../src/eog-image.c:1974
 #, c-format
@@ -991,12 +999,12 @@ msgstr "अपरिचीत"
 
 #: ../src/eog-metadata-sidebar.c:506
 msgid "File size:"
-msgstr ""
+msgstr "फाइल आकार:"
 
 #: ../src/eog-metadata-sidebar.c:517 ../src/eog-properties-dialog.c:674
 #: ../src/eog-window.c:3834
 msgid "Show the folder which contains this file in the file manager"
-msgstr ""
+msgstr "फाइल व्यवस्थापकामध्ये ही फाइल समाविष्टीत असलेले फोल्डर दाखवा"
 
 #: ../src/eog-preferences-dialog.c:114
 #, c-format
@@ -1154,7 +1162,7 @@ msgstr[1] "%i × %i पिक्सेल्स  %s    %i%%"
 #: ../src/eog-window.c:843 ../src/eog-window.c:2778
 msgctxt "MessageArea"
 msgid "Hi_de"
-msgstr ""
+msgstr "लपवा (_d)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
@@ -1164,6 +1172,8 @@ msgid ""
 "The image \"%s\" has been modified by an external application.\n"
 "Would you like to reload it?"
 msgstr ""
+"प्रतिमा \"%s\" यास बाहेरील ॲप्लिकेशनतर्फे संपादित केले आहे.\n"
+"तुम्हाला पुन्हा लोड करायला आवडेल?"
 
 #: ../src/eog-window.c:1017
 #, c-format
@@ -1210,13 +1220,13 @@ msgstr "मुलभूत करीता पुनःनिर्धारी�
 
 #: ../src/eog-window.c:2725 ../src/eog-window.c:2740
 msgid "Error launching System Settings: "
-msgstr ""
+msgstr "प्रणाली सेटिंग्ज सुरू करतेवेळी त्रुटी: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
 #: ../src/eog-window.c:2776
 msgid "_Open Background Preferences"
-msgstr ""
+msgstr "पार्श्वभूमी प्राधान्यता उघडा (_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
@@ -1226,6 +1236,8 @@ msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
 "Would you like to modify its appearance?"
 msgstr ""
+"प्रतिमा \"%s\" यास डेस्कटॉप पार्श्वभूमी म्हणून ठरवले आहे.\n"
+"त्याचे रूप संपादित करायला आवडेल?"
 
 #: ../src/eog-window.c:3259
 #| msgid "Saving image locally..."
@@ -1397,7 +1409,7 @@ msgstr "निवडलेली प्रतिमा अन्य नावा
 
 #: ../src/eog-window.c:3833
 msgid "Show Containing _Folder"
-msgstr ""
+msgstr "समाविष्टीत फोल्डर दाखवा (_F)"
 
 #: ../src/eog-window.c:3836
 #| msgid "_Print..."
@@ -1458,7 +1470,7 @@ msgstr "प्रतिमा 90 डीग्री डाव्या बाज
 
 #: ../src/eog-window.c:3857
 msgid "Set as Wa_llpaper"
-msgstr ""
+msgstr "वॉलपेपर म्हणून ठरवा (_l)"
 
 #: ../src/eog-window.c:3858
 #| msgid "Set the selected image as the desktop background"
@@ -1518,7 +1530,7 @@ msgstr "स्लाईडप्रदर्शन थांबवा"
 
 #: ../src/eog-window.c:3894
 msgid "Pause or resume the slideshow"
-msgstr ""
+msgstr "स्लाईडशो थांबवा किंवा पुन्हा सुरू करा"
 
 #: ../src/eog-window.c:3896
 #| msgid "Best _Fit"
@@ -1678,6 +1690,7 @@ msgstr "वर्तमान घटना पुन्हा वापरण्
 msgid ""
 "Open in a single window, if multiple windows are open the first one is used"
 msgstr ""
+"एका पटलात उघडा, एकापेक्षाजास्त पटल खुले असल्यास पहिल्याचा वापर केला जातो"
 
 #: ../src/main.c:84
 #| msgid "Edit the application toolbar"
