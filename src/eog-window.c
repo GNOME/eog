@@ -141,7 +141,7 @@ struct _EogWindowPrivate {
         GtkWidget           *nav;
 	GtkWidget           *message_area;
 	GtkWidget           *toolbar;
-	GObject             *properties_dlg;
+	GtkWidget           *properties_dlg;
 
         GtkActionGroup      *actions_window;
         GtkActionGroup      *actions_image;
@@ -3132,7 +3132,7 @@ eog_window_cmd_print (GtkAction *action, gpointer user_data)
 	eog_window_print (window);
 }
 
-EogDialog*
+GtkWidget*
 eog_window_get_properties_dialog (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -3165,17 +3165,17 @@ eog_window_get_properties_dialog (EogWindow *window)
 				 G_SETTINGS_BIND_GET);
 	}
 
-	return EOG_DIALOG (priv->properties_dlg);
+	return priv->properties_dlg;
 }
 
 static void
 eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	EogDialog *dialog;
+	GtkWidget *dialog;
 
 	dialog = eog_window_get_properties_dialog (window);
-	eog_dialog_show (dialog);
+	gtk_widget_show (dialog);
 }
 
 static void

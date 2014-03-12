@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Wed Oct 30 19:22:06 2013 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.8 -->
-  <object class="GtkDialog" id="eog_image_properties_dialog">
+  <requires lib="gtk+" version="3.10"/>
+  <template class="EogPropertiesDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Image Properties</property>
@@ -156,6 +156,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">5</property>
+            <signal name="switch-page" handler="eog_properties_dialog_page_switch" object="EogPropertiesDialog" swapped="no"/>
             <child>
               <object class="GtkBox" id="general_box">
                 <property name="visible">True</property>
@@ -381,6 +382,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <signal name="clicked" handler="pd_folder_button_clicked_cb" object="EogPropertiesDialog" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -927,6 +929,7 @@
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
+                        <signal name="notify::expanded" handler="pd_exif_details_activated_cb" object="EogPropertiesDialog" after="yes" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -992,5 +995,5 @@
       <action-widget response="0">next_button</action-widget>
       <action-widget response="-7">close_button</action-widget>
     </action-widgets>
-  </object>
+  </template>
 </interface>

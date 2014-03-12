@@ -441,7 +441,7 @@ static void
 _details_button_clicked_cb (GtkButton *button, gpointer user_data)
 {
 	EogMetadataSidebarPrivate *priv = EOG_METADATA_SIDEBAR(user_data)->priv;
-	EogDialog *dlg;
+	GtkWidget *dlg;
 
 	g_return_if_fail (priv->parent_window != NULL);
 
@@ -450,7 +450,7 @@ _details_button_clicked_cb (GtkButton *button, gpointer user_data)
 	g_return_if_fail (dlg != NULL);
 	eog_properties_dialog_set_page (EOG_PROPERTIES_DIALOG (dlg),
 					EOG_PROPERTIES_DIALOG_PAGE_DETAILS);
-	eog_dialog_show (dlg);
+	gtk_widget_show (dlg);
 }
 #endif
 
