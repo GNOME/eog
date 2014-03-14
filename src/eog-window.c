@@ -4911,9 +4911,9 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_gallery, 0);
 
-	if (!gtk_ui_manager_add_ui_from_file (priv->ui_mgr,
-					      EOG_DATA_DIR"/eog-ui.xml",
-					      &error)) {
+	if (!gtk_ui_manager_add_ui_from_resource (priv->ui_mgr,
+						  "/org/gnome/eog/ui/eog-ui.xml",
+						  &error)) {
                 g_warning ("building menus failed: %s", error->message);
                 g_error_free (error);
         }

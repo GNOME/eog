@@ -180,7 +180,9 @@ eog_application_init_app_menu (EogApplication *application)
 					 application);
 
 	builder = gtk_builder_new ();
-	gtk_builder_add_from_file (builder, EOG_DATA_DIR"/eog-app-menu.xml", &error);
+	gtk_builder_add_from_resource (builder,
+				       "/org/gnome/eog/ui/eog-app-menu.xml",
+				       &error);
 
 	if (error == NULL) {
 		gtk_application_set_app_menu (GTK_APPLICATION (application),
@@ -233,6 +235,7 @@ eog_application_startup (GApplication *application)
 {
 	EogApplication *app = EOG_APPLICATION (application);
 	GError *error = NULL;
+	GFile *css_file;
 	GtkSettings *settings;
 	GtkCssProvider *provider;
 
@@ -246,9 +249,10 @@ eog_application_startup (GApplication *application)
 	eog_thumbnail_init ();
 
 	/* Load special style properties for EogThumbView's scrollbar */
+	css_file = g_file_new_for_uri ("resource:///org/gnome/eog/ui/eog.css");
 	provider = gtk_css_provider_new ();
-	if (G_UNLIKELY (!gtk_css_provider_load_from_path(provider,
-							 EOG_CSS_FILE_PATH,
+	if (G_UNLIKELY (!gtk_css_provider_load_from_file(provider,
+							 css_file,
 							 &error)))
 	{
 		g_critical ("Could not load CSS data: %s", error->message);

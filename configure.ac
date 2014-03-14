@@ -37,6 +37,7 @@ LT_INIT([disable-static])
 
 AC_PROG_CC
 AM_PROG_CC_C_O
+AC_PATH_PROG([GLIB_COMPILE_RESOURCES], [glib-compile-resources])
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 

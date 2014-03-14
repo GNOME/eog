@@ -557,11 +557,8 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 							      FALSE,
 							      G_PARAM_READWRITE |
 							      G_PARAM_STATIC_STRINGS));
-	gchar* data;
-	gsize data_size;
-	g_file_get_contents(g_build_filename (EOG_DATA_DIR, "eog-image-properties-dialog.ui", NULL), &data, &data_size, NULL);
-	GBytes *bytes = g_bytes_new_static(data, data_size);
-	gtk_widget_class_set_template((GtkWidgetClass *) klass, bytes);
+
+	gtk_widget_class_set_template_from_resource ((GtkWidgetClass *) klass, "/org/gnome/eog/ui/eog-image-properties-dialog.ui");
 
 	GtkWidgetClass *wklass = (GtkWidgetClass*) klass;
 	gtk_widget_class_bind_template_child_private(wklass,

@@ -162,7 +162,7 @@ endif
 
 libeog_la_LDFLAGS = -export-dynamic -no-undefined
 
-eog_SOURCES = main.c
+eog_SOURCES = eog-resources.c main.c
 
 eog_CFLAGS = 							\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
@@ -184,7 +184,12 @@ eog_LDFLAGS = -export-dynamic -no-undefined
 BUILT_SOURCES = 			\
 	eog-enum-types.c		\
 	eog-enum-types.h		\
+	eog-resources.c			\
 	$(MARSHAL_OUTPUT)
+
+eog-resources.c: eog.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/data --generate-dependencies eog.gresource.xml)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) "$<" --target=$@ \
+         --sourcedir=$(top_srcdir)/data --c-name _eog --generate-source
 
 eog-enum-types.h: eog-enum-types.h.template $(INST_H_FILES) $(GLIB_MKENUMS)
 	$(AM_V_GEN)(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.h.template $(INST_H_FILES)) > $@
@@ -199,6 +204,7 @@ eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
 	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
 
 EXTRA_DIST = 				\
+	eog.gresource.xml		\
 	eog-enum-types.h.template	\
 	eog-enum-types.c.template	\
 	eog-marshal.list

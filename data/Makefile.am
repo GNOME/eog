@@ -24,23 +24,21 @@ gsettingsconvertdir = $(datadir)/GConf/gsettings
 gsettingsconvert_DATA = eog.convert
 
 uidir = $(pkgdatadir)
-ui_DATA = eog-image-properties-dialog.ui \
+ui_DATA = \
 	eog-multiple-save-as-dialog.ui \
 	eog-preferences-dialog.ui \
-	eog-app-menu.xml \
-	eog-ui.xml \
 	eog-toolbar.xml
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
 
-styledir = $(pkgdatadir)
-style_DATA = eog.css
-
 EXTRA_DIST =			\
-        $(style_DATA)		\
-        $(ui_DATA)		\
-        $(DESKTOP_IN_FILES)	\
+	$(ui_DATA)		\
+	eog.css			\
+	eog-app-menu.xml	\
+	eog-image-properties-dialog.ui	\
+	eog-ui.xml		\
+	$(DESKTOP_IN_FILES)	\
 	$(appdata_in_files)	\
 	eog.convert
 
