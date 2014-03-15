@@ -2847,8 +2847,8 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 	/* check if job contains any error */
 	if (EOG_JOB (job)->error == NULL) {
 		update_status_bar (window);
-                gtk_window_set_title (GTK_WINDOW (window),
-                                      eog_image_get_caption (job->current_image));
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->current_image));
 
 		gtk_action_set_sensitive (action_save, FALSE);
 	} else {
