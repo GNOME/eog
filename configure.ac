@@ -324,6 +324,11 @@ fi
 
 GLIB_GSETTINGS
 
+# ***************
+# Installed tests
+# ***************
+BEHAVE_INSTALLED_TESTS
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile

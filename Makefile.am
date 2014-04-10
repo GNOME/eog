@@ -32,6 +32,10 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/missing \
 	$(srcdir)/mkinstalldirs
 
+@BEHAVE_INSTALLED_TESTS_RULE@
+INSTALLED_TESTS=about undo sidepane fullscreen wallpaper
+INSTALLED_TESTS_TYPE=session-exclusive
+
 -include $(top_srcdir)/git.mk
 
 # This is the last commit before the ChangeLog was converted
