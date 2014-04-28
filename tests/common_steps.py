@@ -227,12 +227,12 @@ def select_file_in_dialog(context, name):
         home_folder.click()
     else:
         context.app.dialog.childNamed('File System').click()
-    location_button = context.app.dialog.child('Type a file name')
-    if not pyatspi.STATE_ARMED in location_button.getState().getStates():
+    location_button = context.app.dialog.child('Enter Location')
+    if not pyatspi.STATE_SELECTED in location_button.getState().getStates():
         location_button.click()
 
     context.app.dialog.childLabelled('Location:').set_text_contents(name)
-    sleep(0.1)
+    sleep(0.2)
     context.app.dialog.childLabelled('Location:').grab_focus()
     keyCombo('<Enter>')
     assert wait_until(lambda x: x.dead, context.app.dialog), "Dialog was not closed"
