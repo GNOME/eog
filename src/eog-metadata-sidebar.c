@@ -32,7 +32,6 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "eog-dialog.h"
 #include "eog-image.h"
 #include "eog-metadata-sidebar.h"
 #include "eog-properties-dialog.h"

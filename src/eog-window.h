@@ -30,7 +30,6 @@
 
 #include "eog-list-store.h"
 #include "eog-image.h"
-#include "eog-dialog.h"
 
 #include <glib.h>
 #include <glib-object.h>

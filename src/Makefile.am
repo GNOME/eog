@@ -42,7 +42,6 @@ INST_H_FILES =				\
 	eog-application-activatable.h	\
 	eog-clipboard-handler.h		\
 	eog-debug.h			\
-	eog-dialog.h			\
 	eog-enums.h			\
 	eog-file-chooser.h		\
 	eog-image.h			\
@@ -68,7 +67,6 @@ libeog_c_files = 			\
 	eog-clipboard-handler.c		\
 	eog-close-confirmation-dialog.c \
 	eog-debug.c			\
-	eog-dialog.c			\
 	eog-error-message-area.c	\
 	eog-file-chooser.c		\
 	eog-image.c			\
