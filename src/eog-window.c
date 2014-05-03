@@ -6177,13 +6177,13 @@ eog_window_show_about_dialog (EogWindow *window)
 void
 eog_window_show_preferences_dialog (EogWindow *window)
 {
-	GObject *pref_dlg;
+	GtkWidget *pref_dlg;
 
 	g_return_if_fail (window != NULL);
 
 	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window));
 
-	eog_dialog_show (EOG_DIALOG (pref_dlg));
+	gtk_widget_show (pref_dlg);
 }
 
 void

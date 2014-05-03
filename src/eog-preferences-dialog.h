@@ -22,7 +22,6 @@
 #ifndef __EOG_PREFERENCES_DIALOG_H__
 #define __EOG_PREFERENCES_DIALOG_H__
 
-#include "eog-dialog.h"
 #include "eog-image.h"
 #include "eog-thumb-view.h"
 
@@ -44,20 +43,20 @@ typedef struct _EogPreferencesDialogPrivate EogPreferencesDialogPrivate;
 #define EOG_PREFERENCES_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_PREFERENCES_DIALOG, EogPreferencesDialogClass))
 
 struct _EogPreferencesDialog {
-	EogDialog dialog;
+	GtkDialog dialog;
 
 	EogPreferencesDialogPrivate *priv;
 };
 
 struct _EogPreferencesDialogClass {
-	EogDialogClass parent_class;
+	GtkDialogClass parent_class;
 };
 
 G_GNUC_INTERNAL
 GType	    eog_preferences_dialog_get_type	  (void) G_GNUC_CONST;
 
 G_GNUC_INTERNAL
-GObject    *eog_preferences_dialog_get_instance	  (GtkWindow   *parent);
+GtkWidget  *eog_preferences_dialog_get_instance	  (GtkWindow   *parent);
 
 G_END_DECLS
 
