@@ -25,7 +25,6 @@ gsettingsconvert_DATA = eog.convert
 
 uidir = $(pkgdatadir)
 ui_DATA = \
-	eog-multiple-save-as-dialog.ui \
 	eog-toolbar.xml
 
 pkgconfigdir = $(libdir)/pkgconfig
@@ -36,6 +35,7 @@ EXTRA_DIST =			\
 	eog.css			\
 	eog-app-menu.xml	\
 	eog-image-properties-dialog.ui	\
+	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \
 	eog-ui.xml		\
 	$(DESKTOP_IN_FILES)	\
