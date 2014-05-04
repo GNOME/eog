@@ -229,6 +229,24 @@ eog_application_init_app_menu (EogApplication *application)
 }
 
 static void
+on_extension_added (PeasExtensionSet *set,
+		    PeasPluginInfo   *info,
+		    PeasExtension    *exten,
+		    EogApplication   *app)
+{
+	eog_application_activatable_activate (EOG_APPLICATION_ACTIVATABLE (exten));
+}
+
+static void
+on_extension_removed (PeasExtensionSet *set,
+		      PeasPluginInfo   *info,
+		      PeasExtension    *exten,
+		      EogApplication   *app)
+{
+	eog_application_activatable_deactivate (EOG_APPLICATION_ACTIVATABLE (exten));
+}
+
+static void
 eog_application_startup (GApplication *application)
 {
 	EogApplication *app = EOG_APPLICATION (application);
@@ -274,6 +292,17 @@ eog_application_startup (GApplication *application)
 	              NULL);
 
 	eog_application_init_app_menu (app);
+
+	app->priv->extensions = peas_extension_set_new (
+				   PEAS_ENGINE (app->priv->plugin_engine),
+				   EOG_TYPE_APPLICATION_ACTIVATABLE,
+				   "app", app, NULL);
+	g_signal_connect (app->priv->extensions, "extension-added",
+			  G_CALLBACK (on_extension_added), app);
+	g_signal_connect (app->priv->extensions, "extension-removed",
+			  G_CALLBACK (on_extension_removed), app);
+
+	peas_extension_set_call (app->priv->extensions, "activate");
 }
 
 static void
@@ -393,24 +422,6 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 }
 
 static void
-on_extension_added (PeasExtensionSet *set,
-                    PeasPluginInfo   *info,
-                    PeasExtension    *exten,
-                    EogApplication   *app)
-{
-	eog_application_activatable_activate (EOG_APPLICATION_ACTIVATABLE (exten));
-}
-
-static void
-on_extension_removed (PeasExtensionSet *set,
-                      PeasPluginInfo   *info,
-                      PeasExtension    *exten,
-                      EogApplication   *app)
-{
-	eog_application_activatable_deactivate (EOG_APPLICATION_ACTIVATABLE (exten));
-}
-
-static void
 eog_application_init (EogApplication *eog_application)
 {
 	EogApplicationPrivate *priv;
@@ -445,17 +456,6 @@ eog_application_init (EogApplication *eog_application)
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 
 	eog_application_load_accelerators ();
-
-	priv->extensions = peas_extension_set_new (
-	                           PEAS_ENGINE (priv->plugin_engine),
-	                           EOG_TYPE_APPLICATION_ACTIVATABLE,
-	                           "app",  EOG_APPLICATION (eog_application),
-	                           NULL);
-	peas_extension_set_call (priv->extensions, "activate");
-	g_signal_connect (priv->extensions, "extension-added",
-	                  G_CALLBACK (on_extension_added), eog_application);
-	g_signal_connect (priv->extensions, "extension-removed",
-	                  G_CALLBACK (on_extension_removed), eog_application);
 }
 
 /**
