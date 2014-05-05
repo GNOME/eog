@@ -55,6 +55,7 @@ typedef enum {
 /* Signal IDs */
 enum {
 	SIGNAL_ZOOM_CHANGED,
+	SIGNAL_ROTATION_CHANGED,
 	SIGNAL_LAST
 };
 static gint view_signals [SIGNAL_LAST];
@@ -64,6 +65,14 @@ typedef enum {
 	EOG_SCROLL_VIEW_CURSOR_HIDDEN,
 	EOG_SCROLL_VIEW_CURSOR_DRAG
 } EogScrollViewCursor;
+
+typedef enum {
+	EOG_ROTATION_0,
+	EOG_ROTATION_90,
+	EOG_ROTATION_180,
+	EOG_ROTATION_270,
+	N_EOG_ROTATIONS
+} EogRotationState;
 
 /* Drag 'n Drop */
 static GtkTargetEntry target_table[] = {
@@ -162,7 +171,9 @@ struct _EogScrollViewPrivate {
 	cairo_surface_t *background_surface;
 
 	GtkGesture *zoom_gesture;
+	GtkGesture *rotate_gesture;
 	gdouble initial_zoom;
+	EogRotationState rotate_state;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -1968,6 +1979,105 @@ zoom_gesture_end_cb (GtkGestureZoom   *gesture,
         eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
 }
 
+static void
+rotate_gesture_begin_cb (GtkGesture       *gesture,
+			 GdkEventSequence *sequence,
+			 EogScrollView    *view)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+	priv->rotate_state = EOG_TRANSFORM_NONE;
+}
+
+static gboolean
+scroll_view_check_angle (gdouble angle,
+			 gdouble min,
+			 gdouble max,
+			 gdouble threshold)
+{
+	if (min < max) {
+		return (angle > min - threshold &&
+			angle < max + threshold);
+	} else {
+		return (angle < max + threshold ||
+			angle > min - threshold);
+	}
+}
+
+static EogRotationState
+scroll_view_get_rotate_state (EogScrollView *view,
+			      gdouble        delta)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+
+#define THRESHOLD (G_PI / 16)
+	switch (priv->rotate_state) {
+	case EOG_ROTATION_0:
+		if (scroll_view_check_angle (delta, G_PI * 7 / 4,
+					     G_PI / 4, THRESHOLD))
+			return priv->rotate_state;
+		break;
+	case EOG_ROTATION_90:
+		if (scroll_view_check_angle (delta, G_PI / 4,
+					     G_PI * 3 / 4, THRESHOLD))
+			return priv->rotate_state;
+		break;
+	case EOG_ROTATION_180:
+		if (scroll_view_check_angle (delta, G_PI * 3 / 4,
+					     G_PI * 5 / 4, THRESHOLD))
+			return priv->rotate_state;
+		break;
+	case EOG_ROTATION_270:
+		if (scroll_view_check_angle (delta, G_PI * 5 / 4,
+					     G_PI * 7 / 4, THRESHOLD))
+			return priv->rotate_state;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+#undef THRESHOLD
+
+	if (scroll_view_check_angle (delta, G_PI / 4, G_PI * 3 / 4, 0))
+		return EOG_ROTATION_90;
+	else if (scroll_view_check_angle (delta, G_PI * 3 / 4, G_PI * 5 / 4, 0))
+		return EOG_ROTATION_180;
+	else if (scroll_view_check_angle (delta, G_PI * 5 / 4, G_PI * 7 / 4, 0))
+		return EOG_ROTATION_270;
+
+	return EOG_ROTATION_0;
+}
+
+static void
+rotate_gesture_angle_changed_cb (GtkGestureRotate *rotate,
+				 gdouble           angle,
+				 gdouble           delta,
+				 EogScrollView    *view)
+{
+	EogRotationState rotate_state;
+	EogScrollViewPrivate *priv;
+	gint angle_diffs [N_EOG_ROTATIONS][N_EOG_ROTATIONS] = {
+		{ 0,   90,  180, 270 },
+		{ 270, 0,   90,  180 },
+		{ 180, 270, 0,   90 },
+		{ 90,  180, 270, 0 }
+	};
+	gint rotate_angle;
+
+	priv = view->priv;
+	rotate_state = scroll_view_get_rotate_state (view, delta);
+
+	if (priv->rotate_state == rotate_state)
+		return;
+
+	rotate_angle = angle_diffs[priv->rotate_state][rotate_state];
+	g_signal_emit (view, view_signals [SIGNAL_ROTATION_CHANGED], 0, (gdouble) rotate_angle);
+	priv->rotate_state = rotate_state;
+}
+
 /*==================================
 
    image loading callbacks
@@ -2632,6 +2742,15 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (zoom_gesture_end_cb), view);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->zoom_gesture),
 						    GTK_PHASE_CAPTURE);
+
+	priv->rotate_gesture = gtk_gesture_rotate_new (GTK_WIDGET (view));
+	gtk_gesture_group (priv->rotate_gesture, priv->zoom_gesture);
+	g_signal_connect (priv->rotate_gesture, "angle-changed",
+			  G_CALLBACK (rotate_gesture_angle_changed_cb), view);
+	g_signal_connect (priv->rotate_gesture, "begin",
+			  G_CALLBACK (rotate_gesture_begin_cb), view);
+	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->rotate_gesture),
+						    GTK_PHASE_CAPTURE);
 }
 
 static void
@@ -2677,6 +2796,11 @@ eog_scroll_view_dispose (GObject *object)
 	if (priv->zoom_gesture) {
 		g_object_unref (priv->zoom_gesture);
 		priv->zoom_gesture = NULL;
+	}
+
+	if (priv->rotate_gesture) {
+		g_object_unref (priv->rotate_gesture);
+		priv->rotate_gesture = NULL;
 	}
 
 	G_OBJECT_CLASS (eog_scroll_view_parent_class)->dispose (object);
@@ -2905,6 +3029,15 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      EOG_TYPE_SCROLL_VIEW,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__DOUBLE,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_DOUBLE);
+	view_signals [SIGNAL_ROTATION_CHANGED] =
+		g_signal_new ("rotation-changed",
+			      EOG_TYPE_SCROLL_VIEW,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogScrollViewClass, rotation_changed),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__DOUBLE,
 			      G_TYPE_NONE, 1,
