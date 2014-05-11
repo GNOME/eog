@@ -59,18 +59,27 @@ EXTRA_HFILES=
 # Header files or dirs to ignore when scanning. Use base file/dir names
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h private_code
 IGNORE_HFILES= \
+	eog-application-service.h \
+	eog-close-confirmation-dialog.h \
+	eog-enum-types.h \
 	eog-image-private.h \
 	eog-image-jpeg.h \
 	eog-marshal.h \
-	eog-application-service.h \
-	eog-enum-types.h \
-	eog-module.h
+	eog-metadata-details.h \
+	eog-metadata-reader.h \
+	eog-metadata-reader-jpg.h \
+	eog-metadata-reader-png.h \
+	eog-metadata-sidebar.h \
+	eog-module.h \
+	eog-plugin-engine.h \
+	eog-preferences-dialog.h \
+	eog-print-image-setup.h \
+	eog-print-preview.h
 
 if !HAVE_EXIF
 if !HAVE_EXEMPI
 IGNORE_HFILES +=			\
-	eog-exif-util.h			\
-	eog-metadata-details.h
+	eog-exif-util.h
 endif
 endif
 

@@ -23,14 +23,18 @@ fullscreen_libfullscreen_la_SOURCES = \
 	fullscreen/eog-fullscreen-plugin.h  \
 	fullscreen/eog-fullscreen-plugin.c
 
-fullscreen_libfullscreen_la_LIBADD = $(EOG_LIBS)
+fullscreen_libfullscreen_la_LIBADD = \
+	$(top_builddir)/src/libeog.la	\
+	$(EOG_LIBS)
 
 # Reload plugin
 reload_libreload_la_SOURCES = \
 	reload/eog-reload-plugin.h  \
 	reload/eog-reload-plugin.c
 
-reload_libreload_la_LIBADD = $(EOG_LIBS)
+reload_libreload_la_LIBADD = \
+	$(top_builddir)/src/libeog.la	\
+	$(EOG_LIBS)
 
 # Statusbar Date Plugin
 if HAVE_EXIF
@@ -40,7 +44,10 @@ statusbar_date_libstatusbar_date_la_SOURCES = \
 	statusbar-date/eog-statusbar-date-plugin.h  \
 	statusbar-date/eog-statusbar-date-plugin.c
 
-statusbar_date_libstatusbar_date_la_LIBADD = $(EOG_LIBS)
+statusbar_date_libstatusbar_date_la_LIBADD = \
+	$(top_builddir)/src/libeog.la	\
+	$(EOG_LIBS)
+
 plugins_in_files += statusbar-date/statusbar-date.plugin.desktop.in
 endif
 

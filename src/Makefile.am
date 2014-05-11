@@ -4,11 +4,11 @@ endif
 
 toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
-noinst_LTLIBRARIES = libeog.la
+pkglib_LTLIBRARIES = libeog.la
 
 bin_PROGRAMS = eog
 
-headerdir = $(prefix)/include/eog-@EOG_API_VERSION@/eog
+headerdir = $(includedir)/eog-@EOG_API_VERSION@/eog
 header_DATA = $(INST_H_FILES)
 
 MARSHAL_OUTPUT = 	\
@@ -120,15 +120,16 @@ libeog_c_files +=			\
 endif
 
 if HAVE_EXEMPI
-# We need to make sure eog-metadata-details.h
-# is only listed once in INST_H_FILES
+# We need to make sure eog-metadata-details
+# is only listed once
 # or the build will break with automake-1.11
 if !HAVE_EXIF
 NOINST_H_FILES +=				\
 	eog-metadata-details.h
-endif !HAVE_EXIF
+
 libeog_la_SOURCES +=			\
 	eog-metadata-details.c
+endif !HAVE_EXIF
 endif HAVE_EXEMPI
 
 libeog_la_CPPFLAGS =						\
@@ -147,7 +148,10 @@ libeog_la_CFLAGS =						\
 	$(WARN_CFLAGS)
 
 libeog_la_LIBADD = \
-	$(EOG_LIBS) \
+	$(EOG_LIBS)	\
+	$(toolbar_LIB)	\
+	$(jpeg_LIB)	\
+	$(LIBJPEG)	\
 	$(LIBM)
 
 if HAVE_LCMS
@@ -158,9 +162,9 @@ libeog_la_LIBADD += \
 	$(X11_LIBS)
 endif
 
-libeog_la_LDFLAGS = -export-dynamic -no-undefined
+libeog_la_LDFLAGS = -avoid-version -export-dynamic -no-undefined
 
-eog_SOURCES = eog-resources.c main.c
+eog_SOURCES = main.c
 
 eog_CFLAGS = 							\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
@@ -172,9 +176,6 @@ eog_CFLAGS = 							\
 eog_LDADD = 				\
 	libeog.la			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)			\
-	$(toolbar_LIB)			\
-	$(jpeg_LIB)			\
 	$(INTROSPECTION_LIBS)
 
 eog_LDFLAGS = -export-dynamic -no-undefined
