@@ -162,7 +162,7 @@ libeog_la_LIBADD += \
 	$(X11_LIBS)
 endif
 
-libeog_la_LDFLAGS = -avoid-version -export-dynamic -no-undefined
+libeog_la_LDFLAGS = -avoid-version -export-dynamic -no-undefined -export-symbols-regex "^eog_.*"
 
 eog_SOURCES = main.c
 
