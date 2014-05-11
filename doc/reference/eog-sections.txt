@@ -235,20 +235,13 @@ EOG_JOB_COPY
 EOG_JOB_COPY_CLASS
 <TITLE>EogJob</TITLE>
 EogJob
-<TITLE>EogJobThumbnail</TITLE>
 EogJobThumbnail
-<TITLE>EogJobLoad</TITLE>
 EogJobLoad
-<TITLE>EogJobModel</TITLE>
 EogJobModel
-<TITLE>EogJobTransform</TITLE>
 EogJobTransform
 EogJobSaveResponse
-<TITLE>EogJobSave</TITLE>
 EogJobSave
-<TITLE>EogJobSaveAs</TITLE>
 EogJobSaveAs
-<TITLE>EogJobCopy</TITLE>
 EogJobCopy
 eog_job_finished
 eog_job_run
@@ -510,34 +503,20 @@ EOG_STATUSBAR_GET_CLASS
 </SECTION>
 
 <SECTION>
-<FILE>eog-exif-details</FILE>
-<TITLE>EogExifDetails</TITLE>
-EogExifDetails
-eog_exif_details_new
-eog_exif_details_update
-eog_exif_details_xmp_update
+<FILE>eog-metadata-details</FILE>
+<TITLE>EogMetadataDetails</TITLE>
+EogMetadataDetails
+eog_metadata_details_new
+eog_metadata_details_update
+eog_metadata_details_xmp_update
 <SUBSECTION Standard>
-EOG_EXIF_DETAILS
-EOG_IS_EXIF_DETAILS
-EOG_TYPE_EXIF_DETAILS
-eog_exif_details_get_type
-EOG_EXIF_DETAILS_CLASS
-EOG_IS_EXIF_DETAILS_CLASS
-EOG_EXIF_DETAILS_GET_CLASS
-</SECTION>
-
-<SECTION>
-<FILE>eog-metadata-reader-jpg</FILE>
-<TITLE>EogMetadataReaderJpg</TITLE>
-EogMetadataReaderJpg
-<SUBSECTION Standard>
-EOG_METADATA_READER_JPG
-EOG_IS_METADATA_READER_JPG
-EOG_TYPE_METADATA_READER_JPG
-eog_metadata_reader_jpg_get_type
-EOG_METADATA_READER_JPG_CLASS
-EOG_IS_METADATA_READER_JPG_CLASS
-EOG_METADATA_READER_JPG_GET_CLASS
+EOG_METADATA_DETAILS
+EOG_IS_METADATA_DETAILS
+EOG_TYPE_METADATA_DETAILS
+eog_metadata_details_get_type
+EOG_METADATA_DETAILS_CLASS
+EOG_IS_METADATA_DETAILS_CLASS
+EOG_METADATA_DETAILS_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -609,10 +588,11 @@ eog_debug_message
 </SECTION>
 
 <SECTION>
-<FILE>eog-job-queue</FILE>
-eog_job_queue_init
-eog_job_queue_add_job
-eog_job_queue_remove_job
+<FILE>eog-job-scheduler</FILE>
+<TITLE>EogJobScheduler</TITLE>
+eog_job_scheduler_init
+eog_job_scheduler_add_job
+eog_job_scheduler_add_job_with_priority
 </SECTION>
 
 <SECTION>
@@ -734,6 +714,7 @@ eog_util_filename_get_extension
 
 <SECTION>
 <FILE>eog-clipboard-handler</FILE>
+<TITLE>EogClipboardHandler</TITLE>
 EogClipboardHandler
 eog_clipboard_handler_new
 eog_clipboard_handler_copy_to_clipboard
