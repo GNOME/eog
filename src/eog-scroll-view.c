@@ -56,6 +56,8 @@ typedef enum {
 enum {
 	SIGNAL_ZOOM_CHANGED,
 	SIGNAL_ROTATION_CHANGED,
+	SIGNAL_NEXT_IMAGE,
+	SIGNAL_PREVIOUS_IMAGE,
 	SIGNAL_LAST
 };
 static gint view_signals [SIGNAL_LAST];
@@ -73,6 +75,12 @@ typedef enum {
 	EOG_ROTATION_270,
 	N_EOG_ROTATIONS
 } EogRotationState;
+
+typedef enum {
+	EOG_PAN_ACTION_NONE,
+	EOG_PAN_ACTION_NEXT,
+	EOG_PAN_ACTION_PREV
+} EogPanAction;
 
 /* Drag 'n Drop */
 static GtkTargetEntry target_table[] = {
@@ -170,10 +178,12 @@ struct _EogScrollViewPrivate {
 
 	cairo_surface_t *background_surface;
 
+	GtkGesture *pan_gesture;
 	GtkGesture *zoom_gesture;
 	GtkGesture *rotate_gesture;
 	gdouble initial_zoom;
 	EogRotationState rotate_state;
+	EogPanAction pan_action;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -1990,6 +2000,56 @@ rotate_gesture_begin_cb (GtkGesture       *gesture,
 	priv->rotate_state = EOG_TRANSFORM_NONE;
 }
 
+static void
+pan_gesture_pan_cb (GtkGesturePan   *gesture,
+		    GtkPanDirection  direction,
+		    gdouble          offset,
+		    EogScrollView   *view)
+{
+	EogScrollViewPrivate *priv;
+
+	if (eog_scroll_view_scrollbars_visible (view)) {
+		gtk_gesture_set_state (GTK_GESTURE (gesture),
+				       GTK_EVENT_SEQUENCE_DENIED);
+		return;
+	}
+
+#define PAN_ACTION_DISTANCE 200
+
+	priv = view->priv;
+	priv->pan_action = EOG_PAN_ACTION_NONE;
+	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+
+	if (offset > PAN_ACTION_DISTANCE) {
+		if (direction == GTK_PAN_DIRECTION_LEFT ||
+		    gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL)
+			priv->pan_action = EOG_PAN_ACTION_NEXT;
+		else
+			priv->pan_action = EOG_PAN_ACTION_PREV;
+	}
+#undef PAN_ACTION_DISTANCE
+}
+
+static void
+pan_gesture_end_cb (GtkGesture       *gesture,
+		    GdkEventSequence *sequence,
+		    EogScrollView    *view)
+{
+	EogScrollViewPrivate *priv;
+
+	if (!gtk_gesture_handles_sequence (gesture, sequence))
+		return;
+
+	priv = view->priv;
+
+	if (priv->pan_action == EOG_PAN_ACTION_PREV)
+		g_signal_emit (view, view_signals [SIGNAL_PREVIOUS_IMAGE], 0);
+	else if (priv->pan_action == EOG_PAN_ACTION_NEXT)
+		g_signal_emit (view, view_signals [SIGNAL_NEXT_IMAGE], 0);
+
+	priv->pan_action = EOG_PAN_ACTION_NONE;
+}
+
 static gboolean
 scroll_view_check_angle (gdouble angle,
 			 gdouble min,
@@ -2751,6 +2811,17 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (rotate_gesture_begin_cb), view);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->rotate_gesture),
 						    GTK_PHASE_CAPTURE);
+
+	priv->pan_gesture = gtk_gesture_pan_new (GTK_WIDGET (view),
+						 GTK_ORIENTATION_HORIZONTAL);
+	g_signal_connect (priv->pan_gesture, "pan",
+			  G_CALLBACK (pan_gesture_pan_cb), view);
+	g_signal_connect (priv->pan_gesture, "end",
+			  G_CALLBACK (pan_gesture_end_cb), view);
+	gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (priv->pan_gesture), 
+					   TRUE);
+	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->pan_gesture),
+						    GTK_PHASE_CAPTURE);
 }
 
 static void
@@ -2801,6 +2872,11 @@ eog_scroll_view_dispose (GObject *object)
 	if (priv->rotate_gesture) {
 		g_object_unref (priv->rotate_gesture);
 		priv->rotate_gesture = NULL;
+	}
+
+	if (priv->pan_gesture) {
+		g_object_unref (priv->pan_gesture);
+		priv->pan_gesture = NULL;
 	}
 
 	G_OBJECT_CLASS (eog_scroll_view_parent_class)->dispose (object);
@@ -3042,6 +3118,23 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      g_cclosure_marshal_VOID__DOUBLE,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_DOUBLE);
+
+	view_signals [SIGNAL_NEXT_IMAGE] =
+		g_signal_new ("next-image",
+			      EOG_TYPE_SCROLL_VIEW,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogScrollViewClass, next_image),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+	view_signals [SIGNAL_PREVIOUS_IMAGE] =
+		g_signal_new ("previous-image",
+			      EOG_TYPE_SCROLL_VIEW,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogScrollViewClass, previous_image),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
 	widget_class->style_set = eog_scroll_view_style_set;
