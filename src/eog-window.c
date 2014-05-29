@@ -865,9 +865,9 @@ image_file_changed_cb (EogImage *img, EogWindow *window)
 
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
-	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
+	gtk_widget_set_valign (image, GTK_ALIGN_START);
 	gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_widget_set_halign (label, GTK_ALIGN_START);
 	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar))), hbox, TRUE, TRUE, 0);
 	gtk_widget_show_all (hbox);
 	gtk_widget_show (info_bar);
@@ -2807,9 +2807,9 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
-	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
+	gtk_widget_set_valign (image, GTK_ALIGN_START);
 	gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_widget_set_halign (label, GTK_ALIGN_START);
 	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar))), hbox, TRUE, TRUE, 0);
 	gtk_widget_show_all (hbox);
 	gtk_widget_show (info_bar);
