@@ -78,10 +78,9 @@ uninstall-am: uninstall-tests-hook
 META_DIRECTORY=${DESTDIR}${datadir}/installed-tests/${PACKAGE}
 EXEC_DIRECTORY=${DESTDIR}${pkglibexecdir}/installed-tests
 
-BEHAVE_FEATURES=$(wildcard $(srcdir)/tests/*.feature)
-BEHAVE_STEP_DEFINITION=$(wildcard $(srcdir)/tests/steps/*.py)
-BEHAVE_COMMON_FILES=$(srcdir)/tests/environment.py $(srcdir)/tests/common_steps.py $(srcdir)/tests/gnome-logo.png
-
+BEHAVE_FEATURES=$(notdir $(wildcard tests/*.feature))
+BEHAVE_STEP_DEFINITION=$(notdir $(wildcard /tests/steps/*.py))
+BEHAVE_COMMON_FILES=environment.py common_steps.py gnome-logo.png
 FINAL_TEST_ENVIRONMENT=
 ifneq ($(INSTALLED_TESTS_ENVIRONMENT),)
       FINAL_TEST_ENVIRONMENT="env $(INSTALLED_TESTS_ENVIRONMENT)"
@@ -90,14 +89,14 @@ endif
 installed-tests-exec-hook:
 	@$(MKDIR_P) $(EXEC_DIRECTORY);
 	@for feature in $(BEHAVE_FEATURES); do											\
-	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $$feature $(EXEC_DIRECTORY);\
+	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $(srcdir)/tests/$$feature $(EXEC_DIRECTORY);\
 	done
 	@for common_file in $(BEHAVE_COMMON_FILES); do										\
-	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $$common_file $(EXEC_DIRECTORY);\
+	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $(srcdir)/tests/$$common_file $(EXEC_DIRECTORY);\
 	done
 	@$(MKDIR_P) $(EXEC_DIRECTORY)/steps;
 	@for step_definition in $(BEHAVE_STEP_DEFINITION); do									\
-	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $$step_definition $(EXEC_DIRECTORY)/steps;\
+	    $(LIBTOOL) --mode=install $(INSTALL) --mode=777 $(srcdir)/tests/$$step_definition $(EXEC_DIRECTORY)/steps;\
 	done
 
 
@@ -106,7 +105,7 @@ installed-tests-data-hook:
 	@for test in $(INSTALLED_TESTS); do							\
 	    echo "Installing $$test.test to $(META_DIRECTORY)";					\
 	    echo m4_escape([[Test]]) > $(META_DIRECTORY)/$$test.test;				\
-	    echo "Exec=behave $(pkglibexecdir)/installed-tests -t $$test -k -f plain"	\
+	    echo "Exec=behave $(pkglibexecdir)/installed-tests -t $$test -k -f html -o $$test.html -f plain"	\
 	                                           >> $(META_DIRECTORY)/$$test.test;		\
 	    echo "Type=$(INSTALLED_TESTS_TYPE)" >> $(META_DIRECTORY)/$$test.test;		\
 	done
@@ -135,3 +134,4 @@ endif
   AC_SUBST([BEHAVE_INSTALLED_TESTS_RULE])
   m4_ifdef([_AM_SUBST_NOTMAKE], [_AM_SUBST_NOTMAKE([BEHAVE_INSTALLED_TESTS_RULE])])
 ])
+

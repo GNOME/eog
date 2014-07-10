@@ -11,14 +11,15 @@ EXTRA_DIST = 			\
 	MAINTAINERS		\
 	ChangeLog-2.6		\
 	ChangeLog-2.18		\
-	ChangeLog.pre-git
+	ChangeLog.pre-git	\
+	tests
 
 DISTCLEANFILES =                \
         intltool-extract        \
         intltool-merge          \
         intltool-update
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-installed-tests
 
 MAINTAINERCLEANFILES = \
 	$(srcdir)/aclocal.m4 \
