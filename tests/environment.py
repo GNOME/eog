@@ -7,6 +7,8 @@ if not isA11yEnabled():
 
 from common_steps import App, cleanup
 from dogtail.config import config
+from os import system, makedirs
+from shutil import copyfile
 
 
 def before_all(context):
@@ -21,8 +23,41 @@ def before_all(context):
 
         context.app_class = App('eog')
 
+        context.screenshot_counter = 0
+        context.save_screenshots = False
     except Exception as e:
         print("Error in before_all: %s" % e.message)
+
+
+def before_tag(context, tag):
+    # Copy screenshots
+    if tag == 'screenshot':
+        context.save_screenshots = True
+        context.screenshot_dir = "../eog_screenshots"
+        makedirs(context.screenshot_dir)
+
+
+def after_step(context, step):
+    try:
+        if hasattr(context, "embed"):
+            # Embed screenshot if HTML report is used
+            system("dbus-send --session --type=method_call " +
+                   "--dest='org.gnome.Shell.Screenshot' " +
+                   "'/org/gnome/Shell/Screenshot' " +
+                   "org.gnome.Shell.Screenshot.Screenshot " +
+                   "boolean:true boolean:false string:/tmp/screenshot.png")
+            if context.save_screenshots:
+                # Don't embed screenshot if this is a screenshot tour page
+                name = "%s/screenshot_%s_%02d.png" % (
+                    context.screenshot_dir, context.current_locale, context.screenshot_counter)
+
+                copyfile("/tmp/screenshot.png", name)
+                context.screenshot_counter += 1
+            else:
+                context.embed('image/png', open("/tmp/screenshot.png", 'r').read())
+    except Exception as e:
+        print("Error in after_step: %s" % str(e))
+
 
 def before_scenario(context, scenario):
     """ Cleanup previous settings and make sure we have test files in /tmp """

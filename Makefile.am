@@ -34,7 +34,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/mkinstalldirs
 
 @BEHAVE_INSTALLED_TESTS_RULE@
-INSTALLED_TESTS=about undo sidepane fullscreen wallpaper
+INSTALLED_TESTS=about undo sidepane fullscreen wallpaper screenshot
 INSTALLED_TESTS_TYPE=session-exclusive
 
 -include $(top_srcdir)/git.mk
