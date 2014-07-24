@@ -5,7 +5,7 @@ if isA11yEnabled() is False:
 
 from time import time, sleep
 from functools import wraps
-from os import strerror, errno, kill, system, path, getcwd
+from os import strerror, errno, kill, system, path, getcwd, environ
 from signal import signal, alarm, SIGALRM, SIGKILL
 from subprocess import Popen
 from behave import step
@@ -15,6 +15,7 @@ from dogtail.rawinput import keyCombo, absoluteMotion, pressKey
 from dogtail.tree import root
 from dogtail.utils import run
 from dogtail.predicate import GenericPredicate
+from dogtail import i18n
 import pyatspi
 
 
@@ -206,7 +207,7 @@ def select_folder_in_dialog(context, name):
 
 @step(u'file select dialog with name "{name}" is displayed')
 def has_files_select_dialog_with_name(context, name):
-    context.app.dialog = context.app.child(name=name,
+    context.app.dialog = context.app.child(name=translate(name),
                                            roleName='file chooser')
 
 
@@ -215,31 +216,56 @@ def has_files_select_dialog(context):
     context.execute_steps(
         u'Then file select dialog with name "Select Files" is displayed')
 
+
 @step(u'In file select dialog select "{name}"')
 def select_file_in_dialog(context, name):
     # Find an appropriate button to click
     # It will be either 'Home' or 'File System'
 
-    home_folder = context.app.dialog.findChild(GenericPredicate(name='Home'),
+    home_folder = context.app.dialog.findChild(GenericPredicate(name=translate('Home')),
                                                retry=False,
                                                requireResult=False)
     if home_folder:
         home_folder.click()
     else:
-        context.app.dialog.childNamed('File System').click()
-    location_button = context.app.dialog.child('Enter Location')
+        context.app.dialog.childNamed(translate('File System')).click()
+    location_button = context.app.dialog.child(translate('Enter Location'))
     if not pyatspi.STATE_SELECTED in location_button.getState().getStates():
         location_button.click()
 
-    context.app.dialog.childLabelled('Location:').set_text_contents(name)
+    location_text = context.app.dialog.child(roleName='text')
+    location_text.set_text_contents(name)
     sleep(0.2)
-    context.app.dialog.childLabelled('Location:').grab_focus()
+    location_text.grab_focus()
     keyCombo('<Enter>')
     assert wait_until(lambda x: x.dead, context.app.dialog), "Dialog was not closed"
 
 
 @step(u'In file save dialog save file to "{path}" clicking "{button}"')
 def file_save_to_path(context, path, button):
-    context.app.dialog.childLabelled('Name:').set_text_contents(path)
+    context.app.dialog.childLabelled(translate('Name:')).set_text_contents(path)
     context.app.dialog.childNamed(button).click()
     assert wait_until(lambda x: x.dead, context.app.dialog), "Dialog was not closed"
+
+
+@step(u'Set locale to "{locale}"')
+def set_locale_to(context, locale):
+    environ['LANG'] = locale
+    i18n.translationDbs = []
+    i18n.loadTranslationsFromPackageMoFiles('eog')
+    i18n.loadTranslationsFromPackageMoFiles('gtk30')
+
+    context.current_locale = locale
+    context.screenshot_counter = 0
+
+
+def translate(string):
+    translation = i18n.translate(string)
+    if translation == []:
+        translation = string
+    else:
+        if len(translation) > 1:
+            print("Options for '%s'" % string)
+            print(translation)
+        translation = translation[-1].decode('utf-8')
+    return translation
