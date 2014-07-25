@@ -45,7 +45,7 @@ def after_step(context, step):
                    "--dest='org.gnome.Shell.Screenshot' " +
                    "'/org/gnome/Shell/Screenshot' " +
                    "org.gnome.Shell.Screenshot.Screenshot " +
-                   "boolean:true boolean:false string:/tmp/screenshot.png")
+                   "boolean:false boolean:false string:/tmp/screenshot.png")
             if context.save_screenshots:
                 # Don't embed screenshot if this is a screenshot tour page
                 name = "%s/screenshot_%s_%02d.png" % (
