@@ -30,11 +30,14 @@ def before_all(context):
 
 
 def before_tag(context, tag):
-    # Copy screenshots
-    if tag == 'screenshot':
-        context.save_screenshots = True
-        context.screenshot_dir = "../eog_screenshots"
-        makedirs(context.screenshot_dir)
+    try:
+        # Copy screenshots
+        if 'screenshot' in tag:
+            context.save_screenshots = True
+            context.screenshot_dir = "../eog_screenshots"
+            makedirs(context.screenshot_dir)
+    except Exception as e:
+        print("Error in before_tag: %s" % str(e))
 
 
 def after_step(context, step):
