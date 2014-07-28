@@ -43,27 +43,11 @@ Feature: Screenshot tour
      | zh_CN  |
      | it_IT  |
      | da_DK  |
-
-    @screenshot_tour3
-    Scenario Outline: Main dialogs
-     * Set locale to "<locale>"
-     * Make sure that eog is running
-     * Select and close "Image" menu
-     * Select and close "Edit" menu
-     * Select and close "View" menu
-     * Select and close "Go" menu
-     * Select and close "Help" menu
-     * Open "/tmp/gnome-logo.png" via menu
-     * Open context menu for current image
-
-    Examples:
-     | locale |
      | de_DE  |
-     | ca_ES  |
-     | sr_RS  |
-     | sr_RS@latin |
-
 
      # Error selecting translations
      #| pt_BR  |
      #| zh_TW  |
+     #| ca_ES  |
+     #| sr_RS  |
+     #| sr_RS@latin |
