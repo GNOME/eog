@@ -54,7 +54,9 @@
 enum {
         PROP_0,
         PROP_THUMBVIEW,
-        PROP_NETBOOK_MODE
+        PROP_NETBOOK_MODE,
+        PROP_NEXT_ACTION,
+        PROP_PREV_ACTION
 };
 
 struct _EogPropertiesDialogPrivate {
@@ -477,6 +479,16 @@ eog_properties_dialog_set_property (GObject      *object,
 			eog_properties_dialog_set_netbook_mode (prop_dlg,
 						   g_value_get_boolean (value));
 			break;
+		case PROP_NEXT_ACTION:
+			gtk_activatable_set_related_action (GTK_ACTIVATABLE (prop_dlg->priv->next_button),
+							    g_value_get_object(value));
+			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->next_button), TRUE);
+			break;
+		case PROP_PREV_ACTION:
+			gtk_activatable_set_related_action (GTK_ACTIVATABLE (prop_dlg->priv->previous_button),
+							    g_value_get_object(value));
+			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->previous_button), TRUE);
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id,
 							   pspec);
@@ -557,6 +569,28 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 							      FALSE,
 							      G_PARAM_READWRITE |
 							      G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property (g_object_class,
+					 PROP_NEXT_ACTION,
+					 g_param_spec_object ("next-action",
+							      "Next Action",
+							      "Action for Next button",
+							      GTK_TYPE_ACTION,
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_NAME |
+							      G_PARAM_STATIC_NICK |
+							      G_PARAM_STATIC_BLURB));
+	g_object_class_install_property (g_object_class,
+					 PROP_PREV_ACTION,
+					 g_param_spec_object ("prev-action",
+							      "Prev Action",
+							      "Action for Prev button",
+							      GTK_TYPE_ACTION,
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_NAME |
+							      G_PARAM_STATIC_NICK |
+							      G_PARAM_STATIC_BLURB));
 
 	gtk_widget_class_set_template_from_resource ((GtkWidgetClass *) klass, "/org/gnome/eog/ui/eog-image-properties-dialog.ui");
 
@@ -776,15 +810,13 @@ eog_properties_dialog_new (GtkWindow    *parent,
 
 	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG,
 			     	 "thumbview", thumbview,
+				 "next-action", next_image_action,
+				 "prev-action", previous_image_action,
 			     	 NULL);
 
 	if (parent) {
 		gtk_window_set_transient_for (GTK_WINDOW (prop_dlg), parent);
 	}
-
-	gtk_activatable_set_related_action (GTK_ACTIVATABLE (EOG_PROPERTIES_DIALOG (prop_dlg)->priv->next_button), next_image_action);
-
-	gtk_activatable_set_related_action (GTK_ACTIVATABLE (EOG_PROPERTIES_DIALOG (prop_dlg)->priv->previous_button), previous_image_action);
 
 	return GTK_WIDGET (prop_dlg);
 }
