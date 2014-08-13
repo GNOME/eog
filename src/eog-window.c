@@ -4833,6 +4833,14 @@ eog_window_add_open_editor_action (EogWindow *window)
 }
 
 static void
+eog_window_view_rotation_changed_cb (EogScrollView *view,
+				     gdouble        degrees,
+				     EogWindow     *window)
+{
+	apply_transformation (window, eog_transform_rotate_new (degrees));
+}
+
+static void
 eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -5032,6 +5040,10 @@ eog_window_construct_ui (EogWindow *window)
 	priv->overlay = gtk_overlay_new();
 
  	priv->view = eog_scroll_view_new ();
+	g_signal_connect (priv->view,
+			  "rotation-changed",
+			  G_CALLBACK (eog_window_view_rotation_changed_cb),
+			  window);
 
 	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->view);
 
