@@ -27,6 +27,9 @@ struct _EogScrollViewClass {
 	GtkGridClass parent_class;
 
 	void (* zoom_changed) (EogScrollView *view, double zoom);
+	void (* rotation_changed) (EogScrollView *view, double degrees);
+	void (* next_image) (EogScrollView *view);
+	void (* previous_image) (EogScrollView *view);
 };
 
 /**

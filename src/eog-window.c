@@ -4833,6 +4833,28 @@ eog_window_add_open_editor_action (EogWindow *window)
 }
 
 static void
+eog_window_view_rotation_changed_cb (EogScrollView *view,
+				     gdouble        degrees,
+				     EogWindow     *window)
+{
+	apply_transformation (window, eog_transform_rotate_new (degrees));
+}
+
+static void
+eog_window_view_next_image_cb (EogScrollView *view,
+			       EogWindow     *window)
+{
+	eog_window_cmd_go_next (NULL, window);
+}
+
+static void
+eog_window_view_previous_image_cb (EogScrollView *view,
+				   EogWindow     *window)
+{
+	eog_window_cmd_go_prev (NULL, window);
+}
+
+static void
 eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -5032,6 +5054,18 @@ eog_window_construct_ui (EogWindow *window)
 	priv->overlay = gtk_overlay_new();
 
  	priv->view = eog_scroll_view_new ();
+	g_signal_connect (priv->view,
+			  "rotation-changed",
+			  G_CALLBACK (eog_window_view_rotation_changed_cb),
+			  window);
+	g_signal_connect (priv->view,
+			  "next-image",
+			  G_CALLBACK (eog_window_view_next_image_cb),
+			  window);
+	g_signal_connect (priv->view,
+			  "previous-image",
+			  G_CALLBACK (eog_window_view_previous_image_cb),
+			  window);
 
 	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->view);
 
