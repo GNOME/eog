@@ -40,7 +40,6 @@ Feature: Screenshot tour
      | pl_PL  |
      | fr_FR  |
      | sl_SI  |
-     | zh_CN  |
      | it_IT  |
      | da_DK  |
      | de_DE  |
@@ -51,3 +50,6 @@ Feature: Screenshot tour
      #| ca_ES  |
      #| sr_RS  |
      #| sr_RS@latin |
+
+     # Missing fonts:
+     # | zh_CN  |
