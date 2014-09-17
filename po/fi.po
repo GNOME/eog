@@ -10,15 +10,15 @@
 # Lauri Nurmi <lanurmi@iki.fi>, 2003-2004.
 # Tommi Vainikainen <thv@iki.fi>, 2009-2011.
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2011.
-# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-12-09 22:47+0000\n"
-"PO-Revision-Date: 2013-12-11 22:27+0200\n"
+"POT-Creation-Date: 2014-09-17 03:28+0000\n"
+"PO-Revision-Date: 2014-09-17 15:37+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -69,36 +69,36 @@ msgstr "Poista valittu työkalupalkki"
 msgid "Separator"
 msgstr "Erotin"
 
-#: ../data/eog-app-menu.xml.h:1 ../src/eog-window.c:4027
+#: ../data/eog-app-menu.xml.h:1 ../src/eog-window.c:4038
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../data/eog-app-menu.xml.h:2 ../src/eog-window.c:4053
+#: ../data/eog-app-menu.xml.h:2 ../src/eog-window.c:4064
 msgid "_Toolbar"
 msgstr "_Työkalupalkki"
 
-#: ../data/eog-app-menu.xml.h:3 ../src/eog-window.c:4056
+#: ../data/eog-app-menu.xml.h:3 ../src/eog-window.c:4067
 msgid "_Statusbar"
 msgstr "T_ilarivi"
 
-#: ../data/eog-app-menu.xml.h:4 ../src/eog-window.c:4059
+#: ../data/eog-app-menu.xml.h:4 ../src/eog-window.c:4070
 msgid "_Image Gallery"
 msgstr "_Kuvakokoelmana"
 
-#: ../data/eog-app-menu.xml.h:5 ../src/eog-window.c:4062
+#: ../data/eog-app-menu.xml.h:5 ../src/eog-window.c:4073
 msgid "Side _Pane"
 msgstr "Sivu_paneeli"
 
-#: ../data/eog-app-menu.xml.h:6 ../src/eog-window.c:4041
+#: ../data/eog-app-menu.xml.h:6 ../src/eog-window.c:4052
 msgid "Prefere_nces"
 msgstr "_Asetukset"
 
-#: ../data/eog-app-menu.xml.h:7 ../src/eog-window.c:2565
-#: ../src/eog-window.c:4030
+#: ../data/eog-app-menu.xml.h:7 ../data/eog-preferences-dialog.ui.h:2
+#: ../src/eog-window.c:2565 ../src/eog-window.c:4041
 msgid "_Help"
 msgstr "O_hje"
 
-#: ../data/eog-app-menu.xml.h:8 ../src/eog-window.c:4047
+#: ../data/eog-app-menu.xml.h:8 ../src/eog-window.c:4058
 msgid "_About"
 msgstr "_Tietoja"
 
@@ -112,6 +112,9 @@ msgid ""
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
+"Gnomen kuvakatselin on Gnome-työpöydän virallinen kuvakatselusovellus, joka "
+"mukautuu työpöydän ulkoasuun. Kuvatselin tukee lukuisia kuvatiedostomuotoja. "
+"Kuvia on mahdollista katsella yksittäin tai suurissa kokoelmissa."
 
 #: ../data/eog.appdata.xml.in.h:2
 msgid ""
@@ -120,9 +123,13 @@ msgid ""
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
+"Kuvakatselimen avulla kuvia voi katsella esimerkiksi koko näytön tilassa "
+"diaesityksenä tai asettaa kuvia työpöydän taustakuvaksi. Sovellus lukee "
+"kameran kuviin asettamat tunnistetiedot, joten kuvat ovat automaattisesti "
+"aina \"oikein päin\"."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:269
-#: ../src/eog-window.c:6144
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:291
+#: ../src/eog-window.c:6197
 msgid "Image Viewer"
 msgstr "Kuvakatselin"
 
@@ -135,7 +142,7 @@ msgstr "Selaa ja kierrä kuvia"
 msgid "Picture;Slideshow;Graphics;"
 msgstr "Kuva;Kuvaesitys;Grafiikka;"
 
-#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:5020
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:5073
 msgid "Image Properties"
 msgstr "Kuvan ominaisuudet"
 
@@ -148,111 +155,117 @@ msgid "_Next"
 msgstr "_Seuraava"
 
 #: ../data/eog-image-properties-dialog.ui.h:4
-#: ../src/eog-metadata-sidebar.c:495
+#: ../data/eog-preferences-dialog.ui.h:3 ../src/eog-window.c:2563
+#: ../src/eog-window.c:4046
+msgid "_Close"
+msgstr "_Sulje"
+
+#: ../data/eog-image-properties-dialog.ui.h:5
+#: ../src/eog-metadata-sidebar.c:496
 msgid "Name:"
 msgstr "Nimi:"
 
-#: ../data/eog-image-properties-dialog.ui.h:5
-#: ../src/eog-metadata-sidebar.c:497
+#: ../data/eog-image-properties-dialog.ui.h:6
+#: ../src/eog-metadata-sidebar.c:498
 msgid "Width:"
 msgstr "Leveys:"
 
-#: ../data/eog-image-properties-dialog.ui.h:6
-#: ../src/eog-metadata-sidebar.c:499
+#: ../data/eog-image-properties-dialog.ui.h:7
+#: ../src/eog-metadata-sidebar.c:500
 msgid "Height:"
 msgstr "Korkeus:"
 
-#: ../data/eog-image-properties-dialog.ui.h:7
-#: ../src/eog-metadata-sidebar.c:501
+#: ../data/eog-image-properties-dialog.ui.h:8
+#: ../src/eog-metadata-sidebar.c:502
 msgid "Type:"
 msgstr "Tyyppi:"
 
-#: ../data/eog-image-properties-dialog.ui.h:8
+#: ../data/eog-image-properties-dialog.ui.h:9
 msgid "Bytes:"
 msgstr "Tavuja:"
 
-#: ../data/eog-image-properties-dialog.ui.h:9
-#: ../src/eog-metadata-sidebar.c:505
+#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../src/eog-metadata-sidebar.c:506
 msgid "Folder:"
 msgstr "Kansio:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10
-#: ../src/eog-metadata-sidebar.c:493
+#: ../data/eog-image-properties-dialog.ui.h:11
+#: ../src/eog-metadata-sidebar.c:494
 msgid "General"
 msgstr "Yleinen"
 
-#: ../data/eog-image-properties-dialog.ui.h:11
-#: ../src/eog-metadata-sidebar.c:530
+#: ../data/eog-image-properties-dialog.ui.h:12
+#: ../src/eog-metadata-sidebar.c:531
 msgid "Aperture Value:"
 msgstr "Aukon koko:"
 
-#: ../data/eog-image-properties-dialog.ui.h:12
-#: ../src/eog-metadata-sidebar.c:533
+#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../src/eog-metadata-sidebar.c:534
 msgid "Exposure Time:"
 msgstr "Valotusaika:"
 
-#: ../data/eog-image-properties-dialog.ui.h:13
-#: ../src/eog-metadata-sidebar.c:536
+#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../src/eog-metadata-sidebar.c:537
 msgid "Focal Length:"
 msgstr "Polttoväli:"
 
-#: ../data/eog-image-properties-dialog.ui.h:14
-#: ../src/eog-metadata-sidebar.c:538
+#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../src/eog-metadata-sidebar.c:539
 msgid "Flash:"
 msgstr "Salama:"
 
-#: ../data/eog-image-properties-dialog.ui.h:15
-#: ../src/eog-metadata-sidebar.c:542
+#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../src/eog-metadata-sidebar.c:543
 msgid "ISO Speed Rating:"
 msgstr "ISO-nopeusluokka:"
 
-#: ../data/eog-image-properties-dialog.ui.h:16
-#: ../src/eog-metadata-sidebar.c:545
+#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../src/eog-metadata-sidebar.c:546
 msgid "Metering Mode:"
 msgstr "Mittaustila:"
 
-#: ../data/eog-image-properties-dialog.ui.h:17
-#: ../src/eog-metadata-sidebar.c:548
+#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../src/eog-metadata-sidebar.c:549
 msgid "Camera Model:"
 msgstr "Kameran malli:"
 
-#: ../data/eog-image-properties-dialog.ui.h:18
-#: ../src/eog-metadata-sidebar.c:550
+#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../src/eog-metadata-sidebar.c:551
 msgid "Date/Time:"
 msgstr "Päiväys/aika:"
 
-#: ../data/eog-image-properties-dialog.ui.h:19
-#: ../src/eog-metadata-sidebar.c:555
+#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../src/eog-metadata-sidebar.c:556
 msgid "Description:"
 msgstr "Kuvaus:"
 
-#: ../data/eog-image-properties-dialog.ui.h:20
-#: ../src/eog-metadata-sidebar.c:558
+#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../src/eog-metadata-sidebar.c:559
 msgid "Location:"
 msgstr "Sijainti:"
 
-#: ../data/eog-image-properties-dialog.ui.h:21
-#: ../src/eog-metadata-sidebar.c:561
+#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../src/eog-metadata-sidebar.c:562
 msgid "Keywords:"
 msgstr "Avainsanat:"
 
-#: ../data/eog-image-properties-dialog.ui.h:22
-#: ../src/eog-metadata-sidebar.c:563
+#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../src/eog-metadata-sidebar.c:564
 msgid "Author:"
 msgstr "Tekijä:"
 
-#: ../data/eog-image-properties-dialog.ui.h:23
-#: ../src/eog-metadata-sidebar.c:566
+#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../src/eog-metadata-sidebar.c:567
 msgid "Copyright:"
 msgstr "Tekijänoikeudet:"
 
-#: ../data/eog-image-properties-dialog.ui.h:24
-#: ../src/eog-metadata-sidebar.c:569
+#: ../data/eog-image-properties-dialog.ui.h:25
+#: ../src/eog-metadata-sidebar.c:570
 msgid "Details"
 msgstr "Yksityiskohdat"
 
-#: ../data/eog-image-properties-dialog.ui.h:25
-#: ../src/eog-metadata-sidebar.c:526
+#: ../data/eog-image-properties-dialog.ui.h:26
+#: ../src/eog-metadata-sidebar.c:527
 msgid "Metadata"
 msgstr "Metatiedot"
 
@@ -260,53 +273,66 @@ msgstr "Metatiedot"
 msgid "Save As"
 msgstr "Tallenna nimellä"
 
+#: ../data/eog-multiple-save-as-dialog.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:172
+#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
+#: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
+#: ../src/eog-window.c:3367 ../src/eog-window.c:3370 ../src/eog-window.c:3621
+msgid "_Cancel"
+msgstr "_Peru"
+
 #: ../data/eog-multiple-save-as-dialog.ui.h:3
+#: ../src/eog-close-confirmation-dialog.c:184
+msgid "Save _As"
+msgstr "Tallenna _nimellä"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
 #, no-c-format
 msgid "<b>%f:</b> original filename"
 msgstr "<b>%f:</b> alkuperäinen tiedostonimi"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:5
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
 #, no-c-format
 msgid "<b>%n:</b> counter"
 msgstr "<b>%n:</b> laskuri"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:6
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
 msgid "_Filename format:"
 msgstr "Tie_dostonimen muoto:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:7
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
 msgid "_Destination folder:"
 msgstr "_Kohdekansio:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:8
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
 msgid "Choose a folder"
 msgstr "Valitse kansio"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:9
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
 msgid "File Path Specifications"
 msgstr "Tiedoston polun määrittelyt"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:10
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
 msgid "_Start counter at:"
 msgstr "Aloita lasku_ri kohdasta:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:11
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
 msgid "_Replace spaces with underscores"
 msgstr "Vaihda välily_önnit alaviivoiksi"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:12
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
 msgid "Options"
 msgstr "Asetukset"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:13
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
 msgid "Rename from:"
 msgstr "Vanha nimi:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:14
+#: ../data/eog-multiple-save-as-dialog.ui.h:16
 msgid "To:"
 msgstr "Uusi nimi:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:15
+#: ../data/eog-multiple-save-as-dialog.ui.h:17
 msgid "File Name Preview"
 msgstr "Tiedostonimen esikatselu"
 
@@ -314,85 +340,85 @@ msgstr "Tiedostonimen esikatselu"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../data/eog-preferences-dialog.ui.h:2
+#: ../data/eog-preferences-dialog.ui.h:4
 msgid "Image Enhancements"
 msgstr "Kuvan parannukset"
 
-#: ../data/eog-preferences-dialog.ui.h:3
+#: ../data/eog-preferences-dialog.ui.h:5
 msgid "Smooth images when zoomed _out"
 msgstr "Pehmennä kuvat l_oitonnettaessa"
 
-#: ../data/eog-preferences-dialog.ui.h:4
+#: ../data/eog-preferences-dialog.ui.h:6
 msgid "Smooth images when zoomed _in"
 msgstr "Pehmennä kuvat _lähennettäessä"
 
-#: ../data/eog-preferences-dialog.ui.h:5
+#: ../data/eog-preferences-dialog.ui.h:7
 msgid "_Automatic orientation"
 msgstr "_Automaattinen asento"
 
-#: ../data/eog-preferences-dialog.ui.h:6
+#: ../data/eog-preferences-dialog.ui.h:8
 msgid "Background"
 msgstr "Tausta"
 
-#: ../data/eog-preferences-dialog.ui.h:7
+#: ../data/eog-preferences-dialog.ui.h:9
 msgid "As custom color:"
 msgstr "Mukautettuna värinä:"
 
-#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/eog-preferences-dialog.ui.h:10
 #: ../data/org.gnome.eog.gschema.xml.in.h:3
 msgid "Background Color"
 msgstr "Taustaväri"
 
-#: ../data/eog-preferences-dialog.ui.h:9
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "Transparent Parts"
 msgstr "Läpinäkyvät osat"
 
-#: ../data/eog-preferences-dialog.ui.h:10
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "As check _pattern"
 msgstr "Tausta_ruudukkona"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:13
 msgid "As custom c_olor:"
 msgstr "_Mukautettuna värinä:"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:14
 msgid "Color for Transparent Areas"
 msgstr "Väri läpinäkyville alueille"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:15
 msgid "As _background"
 msgstr "Tausta_värinä"
 
-#: ../data/eog-preferences-dialog.ui.h:14
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "Image View"
 msgstr "Kuvanäkymä"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "Image Zoom"
 msgstr "Kuvan suurennos"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "E_xpand images to fit screen"
 msgstr "_Sovita kuvat näytön kokoon"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "Sequence"
 msgstr "Jakso"
 
 #. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Time between images:"
 msgstr "K_uvien vaihdon viive:"
 
-#: ../data/eog-preferences-dialog.ui.h:20
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "_Loop sequence"
 msgstr "_Kiertävä esitys"
 
-#: ../data/eog-preferences-dialog.ui.h:21
+#: ../data/eog-preferences-dialog.ui.h:23
 msgid "Slideshow"
 msgstr "Diaesitys"
 
-#: ../data/eog-preferences-dialog.ui.h:22
+#: ../data/eog-preferences-dialog.ui.h:24
 msgid "Plugins"
 msgstr "Liitännäiset"
 
@@ -679,40 +705,29 @@ msgstr "Päiväys tilarivillä"
 msgid "Shows the image date in the window statusbar"
 msgstr "Näyttää kuvan päiväyksen ikkunan tilarivillä"
 
-#: ../src/eog-close-confirmation-dialog.c:167
+#: ../src/eog-close-confirmation-dialog.c:166
 msgid "Close _without Saving"
 msgstr "Sulje _ilman tallentamista"
 
-#: ../src/eog-close-confirmation-dialog.c:173
-#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:457
-#: ../src/eog-file-chooser.c:465 ../src/eog-file-chooser.c:473
-#: ../src/eog-window.c:3356 ../src/eog-window.c:3359 ../src/eog-window.c:3610
-msgid "_Cancel"
-msgstr "_Peru"
-
-#: ../src/eog-close-confirmation-dialog.c:179 ../src/eog-file-chooser.c:466
-#: ../src/eog-window.c:4068
+#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+#: ../src/eog-window.c:4079
 msgid "_Save"
 msgstr "_Tallenna"
 
-#: ../src/eog-close-confirmation-dialog.c:185
-msgid "Save _As"
-msgstr "Tallenna _nimellä"
-
-#: ../src/eog-close-confirmation-dialog.c:213
+#: ../src/eog-close-confirmation-dialog.c:212
 msgid "Question"
 msgstr "Kysymys"
 
-#: ../src/eog-close-confirmation-dialog.c:392
+#: ../src/eog-close-confirmation-dialog.c:391
 msgid "If you don't save, your changes will be lost."
 msgstr "Ellet tallenna, muutoksesi häviävät."
 
-#: ../src/eog-close-confirmation-dialog.c:429
+#: ../src/eog-close-confirmation-dialog.c:428
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "Tallenna muutokset kuvaa ”%s” ennen sulkemista?"
 
-#: ../src/eog-close-confirmation-dialog.c:636
+#: ../src/eog-close-confirmation-dialog.c:635
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -724,12 +739,12 @@ msgstr[1] ""
 "Tallentamattomia muutoksia on %d kuvassa. Tallennetaanko muutokset ennen "
 "sulkemista?"
 
-#: ../src/eog-close-confirmation-dialog.c:653
+#: ../src/eog-close-confirmation-dialog.c:652
 msgid "S_elect the images you want to save:"
 msgstr "_Valitse kuvat, jotka haluat tallentaa:"
 
 #. Secondary label
-#: ../src/eog-close-confirmation-dialog.c:672
+#: ../src/eog-close-confirmation-dialog.c:671
 msgid "If you don't save, all your changes will be lost."
 msgstr "Ellet tallenna, kaikki muutoksesi häviävät."
 
@@ -737,7 +752,7 @@ msgstr "Ellet tallenna, kaikki muutoksesi häviävät."
 msgid "_Reload"
 msgstr "_Lataa uudestaan"
 
-#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:4074
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:4085
 msgid "Save _As…"
 msgstr "Tallenn_a nimellä…"
 
@@ -760,67 +775,67 @@ msgstr "Lähteestä ”%s” ei löytynyt kuvia."
 msgid "The given locations contain no images."
 msgstr "Annetuissa paikoissa ei ole kuvia."
 
-#: ../src/eog-metadata-details.c:64
+#: ../src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Kamera"
 
-#: ../src/eog-metadata-details.c:65
+#: ../src/eog-metadata-details.c:66
 msgid "Image Data"
 msgstr "Kuvan tiedot"
 
-#: ../src/eog-metadata-details.c:66
+#: ../src/eog-metadata-details.c:67
 msgid "Image Taking Conditions"
 msgstr "Kuvan ottohetken olosuhteet"
 
-#: ../src/eog-metadata-details.c:67
+#: ../src/eog-metadata-details.c:68
 msgid "GPS Data"
 msgstr "GPS-tiedot"
 
-#: ../src/eog-metadata-details.c:68
+#: ../src/eog-metadata-details.c:69
 msgid "Maker Note"
 msgstr "Tekijän huomio"
 
-#: ../src/eog-metadata-details.c:69
+#: ../src/eog-metadata-details.c:70
 msgid "Other"
 msgstr "Muut"
 
-#: ../src/eog-metadata-details.c:71
+#: ../src/eog-metadata-details.c:72
 msgid "XMP Exif"
 msgstr "XMP - Exif"
 
-#: ../src/eog-metadata-details.c:72
+#: ../src/eog-metadata-details.c:73
 msgid "XMP IPTC"
 msgstr "XMP - IPTC"
 
-#: ../src/eog-metadata-details.c:73
+#: ../src/eog-metadata-details.c:74
 msgid "XMP Rights Management"
 msgstr "XMP-oikeuksienhallinta"
 
-#: ../src/eog-metadata-details.c:74
+#: ../src/eog-metadata-details.c:75
 msgid "XMP Other"
 msgstr "XMP - muut"
 
-#: ../src/eog-metadata-details.c:250
+#: ../src/eog-metadata-details.c:251
 msgid "Tag"
 msgstr "Tägi"
 
-#: ../src/eog-metadata-details.c:257
+#: ../src/eog-metadata-details.c:258
 msgid "Value"
 msgstr "Arvo"
 
-#: ../src/eog-metadata-details.c:417
+#: ../src/eog-metadata-details.c:436
 msgid "North"
 msgstr "pohjoista"
 
-#: ../src/eog-metadata-details.c:420
+#: ../src/eog-metadata-details.c:439
 msgid "East"
 msgstr "itäistä"
 
-#: ../src/eog-metadata-details.c:423
+#: ../src/eog-metadata-details.c:442
 msgid "West"
 msgstr "läntistä"
 
-#: ../src/eog-metadata-details.c:426
+#: ../src/eog-metadata-details.c:445
 msgid "South"
 msgstr "eteläistä"
 
@@ -849,11 +864,11 @@ msgstr "%.1f (aukko)"
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm filmi)"
 
-#: ../src/eog-file-chooser.c:120
+#: ../src/eog-file-chooser.c:119
 msgid "File format is unknown or unsupported"
 msgstr "Tiedostomuoto on tuntematon tai ei ole tuettu"
 
-#: ../src/eog-file-chooser.c:125
+#: ../src/eog-file-chooser.c:124
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
@@ -861,109 +876,108 @@ msgstr ""
 "Kuvakatselin ei voinut määrittää tiedostonimen perusteella tuettua ja "
 "kirjoitettavissa olevaa tiedostomuotoa."
 
-#: ../src/eog-file-chooser.c:126
+#: ../src/eog-file-chooser.c:125
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Kokeile jotain muuta tiedostopäätettä, kuten .png tai .jpg"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:161
+#: ../src/eog-file-chooser.c:160
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: ../src/eog-file-chooser.c:213
+#: ../src/eog-file-chooser.c:212
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/eog-file-chooser.c:218
+#: ../src/eog-file-chooser.c:217
 msgid "Supported image files"
 msgstr "Tuetut kuvatiedostot"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:290 ../src/eog-metadata-sidebar.c:232
-#: ../src/eog-metadata-sidebar.c:236 ../src/eog-properties-dialog.c:135
-#: ../src/eog-properties-dialog.c:137 ../src/eog-thumb-view.c:515
+#: ../src/eog-file-chooser.c:289 ../src/eog-metadata-sidebar.c:233
+#: ../src/eog-metadata-sidebar.c:237 ../src/eog-properties-dialog.c:136
+#: ../src/eog-properties-dialog.c:138 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pikseli"
 msgstr[1] "pikseliä"
 
-#: ../src/eog-file-chooser.c:458 ../src/eog-file-chooser.c:474
-#| msgid "_Open…"
+#: ../src/eog-file-chooser.c:457 ../src/eog-file-chooser.c:473
 msgid "_Open"
 msgstr "_Avaa"
 
-#: ../src/eog-file-chooser.c:460
+#: ../src/eog-file-chooser.c:459
 msgid "Open Image"
 msgstr "Avaa kuva"
 
-#: ../src/eog-file-chooser.c:468
+#: ../src/eog-file-chooser.c:467
 msgid "Save Image"
 msgstr "Tallenna kuva"
 
-#: ../src/eog-file-chooser.c:476
+#: ../src/eog-file-chooser.c:475
 msgid "Open Folder"
 msgstr "Avaa kansio"
 
-#: ../src/eog-image.c:614
+#: ../src/eog-image.c:613
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Muunnos lataamattomalle kuvalle."
 
-#: ../src/eog-image.c:642
+#: ../src/eog-image.c:641
 #, c-format
 msgid "Transformation failed."
 msgstr "Muunnos epäonnistui."
 
-#: ../src/eog-image.c:1111
+#: ../src/eog-image.c:1138
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF ei ole tuettu tässä tiedostomuodossa."
 
-#: ../src/eog-image.c:1260
+#: ../src/eog-image.c:1287
 #, c-format
 msgid "Image loading failed."
 msgstr "Kuvan lataus epäonnistui."
 
-#: ../src/eog-image.c:1841 ../src/eog-image.c:1961
+#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
 #, c-format
 msgid "No image loaded."
 msgstr "Ei kuvaa ladattuna."
 
-#: ../src/eog-image.c:1849 ../src/eog-image.c:1970
+#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Sinulla ei ole tarvittavia oikeuksia tallentaa tiedostoa."
 
-#: ../src/eog-image.c:1859 ../src/eog-image.c:1981
+#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Väliaikaistiedoston luonti epäonnistui."
 
-#: ../src/eog-image-jpeg.c:375
+#: ../src/eog-image-jpeg.c:374
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Väliaikaistiedoston luominen tallentamista varten epäonnistui: %s"
 
-#: ../src/eog-image-jpeg.c:394
+#: ../src/eog-image-jpeg.c:393
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG:in lataamiseksi ei saatu jaettua riittävästi muistia"
 
-#: ../src/eog-metadata-sidebar.c:245 ../src/eog-properties-dialog.c:152
+#: ../src/eog-metadata-sidebar.c:246 ../src/eog-properties-dialog.c:153
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../src/eog-metadata-sidebar.c:503
+#: ../src/eog-metadata-sidebar.c:504
 msgid "File size:"
 msgstr "Tiedoston koko:"
 
-#: ../src/eog-metadata-sidebar.c:519 ../src/eog-properties-dialog.c:669
-#: ../src/eog-window.c:4078
+#: ../src/eog-metadata-sidebar.c:520 ../src/eog-properties-dialog.c:737
+#: ../src/eog-window.c:4089
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Näytä tiedostonhallinnassa kansio joka sisältää tämän tiedoston"
 
-#: ../src/eog-preferences-dialog.c:109
+#: ../src/eog-preferences-dialog.c:125
 #, c-format
 msgid "%lu second"
 msgid_plural "%lu seconds"
@@ -974,91 +988,91 @@ msgstr[1] "%lu sekuntia"
 msgid "Image Settings"
 msgstr "Kuvan asetukset"
 
-#: ../src/eog-print-image-setup.c:902
+#: ../src/eog-print-image-setup.c:897
 msgid "Image"
 msgstr "Kuva"
 
-#: ../src/eog-print-image-setup.c:903
+#: ../src/eog-print-image-setup.c:898
 msgid "The image whose printing properties will be set up"
 msgstr "Kuva, jonka tulostusominaisuudet asetetaan"
 
-#: ../src/eog-print-image-setup.c:909
+#: ../src/eog-print-image-setup.c:904
 msgid "Page Setup"
 msgstr "Sivun asetukset"
 
-#: ../src/eog-print-image-setup.c:910
+#: ../src/eog-print-image-setup.c:905
 msgid "The information for the page where the image will be printed"
 msgstr "Tulostussivun asetukset"
 
-#: ../src/eog-print-image-setup.c:936
+#: ../src/eog-print-image-setup.c:931
 msgid "Position"
 msgstr "Sijainti"
 
-#: ../src/eog-print-image-setup.c:940
+#: ../src/eog-print-image-setup.c:935
 msgid "_Left:"
 msgstr "_Vasen:"
 
-#: ../src/eog-print-image-setup.c:942
+#: ../src/eog-print-image-setup.c:937
 msgid "_Right:"
 msgstr "_Oikea:"
 
-#: ../src/eog-print-image-setup.c:943
+#: ../src/eog-print-image-setup.c:938
 msgid "_Top:"
 msgstr "_Ylhäällä:"
 
-#: ../src/eog-print-image-setup.c:944
+#: ../src/eog-print-image-setup.c:939
 msgid "_Bottom:"
 msgstr "_Alhaalla:"
 
-#: ../src/eog-print-image-setup.c:947
+#: ../src/eog-print-image-setup.c:942
 msgid "C_enter:"
 msgstr "_Keskellä:"
 
-#: ../src/eog-print-image-setup.c:952
+#: ../src/eog-print-image-setup.c:947
 msgid "None"
 msgstr "Ei mitään"
 
-#: ../src/eog-print-image-setup.c:954
+#: ../src/eog-print-image-setup.c:949
 msgid "Horizontal"
 msgstr "Pystysuunnassa"
 
-#: ../src/eog-print-image-setup.c:956
+#: ../src/eog-print-image-setup.c:951
 msgid "Vertical"
 msgstr "Vaakasuunnassa"
 
-#: ../src/eog-print-image-setup.c:958
+#: ../src/eog-print-image-setup.c:953
 msgid "Both"
 msgstr "Molemmat"
 
-#: ../src/eog-print-image-setup.c:974
+#: ../src/eog-print-image-setup.c:969
 msgid "Size"
 msgstr "Koko"
 
-#: ../src/eog-print-image-setup.c:977
+#: ../src/eog-print-image-setup.c:972
 msgid "_Width:"
 msgstr "_Leveys:"
 
-#: ../src/eog-print-image-setup.c:979
+#: ../src/eog-print-image-setup.c:974
 msgid "_Height:"
 msgstr "_Korkeus:"
 
-#: ../src/eog-print-image-setup.c:982
+#: ../src/eog-print-image-setup.c:977
 msgid "_Scaling:"
 msgstr "_Skaalaus:"
 
-#: ../src/eog-print-image-setup.c:993
+#: ../src/eog-print-image-setup.c:988
 msgid "_Unit:"
 msgstr "_Yksikkö:"
 
-#: ../src/eog-print-image-setup.c:998
+#: ../src/eog-print-image-setup.c:993
 msgid "Millimeters"
 msgstr "millimetri"
 
-#: ../src/eog-print-image-setup.c:1000
+#: ../src/eog-print-image-setup.c:995
 msgid "Inches"
 msgstr "tuuma"
 
-#: ../src/eog-print-image-setup.c:1029
+#: ../src/eog-print-image-setup.c:1024
 msgid "Preview"
 msgstr "Esikatselu"
 
@@ -1111,7 +1125,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pikseli  %s    %i %%"
 msgstr[1] "%i × %i pikseliä  %s    %i %%"
 
-#: ../src/eog-window.c:849 ../src/eog-window.c:2775
+#: ../src/eog-window.c:849 ../src/eog-window.c:2784
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Piilota"
@@ -1173,23 +1187,19 @@ msgstr "Työkalupalkin muokkain"
 msgid "_Reset to Default"
 msgstr "_Palauta oletus"
 
-#: ../src/eog-window.c:2563 ../src/eog-window.c:4035
-msgid "_Close"
-msgstr "_Sulje"
-
-#: ../src/eog-window.c:2722 ../src/eog-window.c:2737
+#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
 msgid "Error launching System Settings: "
 msgstr "Virhe käynnistettäessä järjestelmäasetuksia: "
 
 #. I18N: When setting mnemonics for these strings, watch out to not
 #. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2773
+#: ../src/eog-window.c:2782
 msgid "_Open Background Preferences"
 msgstr "_Avaa taustan asetukset"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2789
+#: ../src/eog-window.c:2798
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1198,11 +1208,11 @@ msgstr ""
 "Kuva ”%s” on asetettu työpöydän taustakuvaksi.\n"
 "Haluatko muokata sitä?"
 
-#: ../src/eog-window.c:3254
+#: ../src/eog-window.c:3265
 msgid "Saving image locally…"
 msgstr "Tallennetaan kuvaa paikallisesti…"
 
-#: ../src/eog-window.c:3332
+#: ../src/eog-window.c:3343
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1211,7 +1221,7 @@ msgstr ""
 "Haluatko varmasti poistaa kuvan\n"
 "”%s” pysyvästi?"
 
-#: ../src/eog-window.c:3335
+#: ../src/eog-window.c:3346
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1226,41 +1236,41 @@ msgstr[1] ""
 "Haluatko varmasti poistaa\n"
 "%d valittua kuvaa pysyvästi?"
 
-#: ../src/eog-window.c:3357 ../src/eog-window.c:3621
+#: ../src/eog-window.c:3368 ../src/eog-window.c:3632
 msgid "_Delete"
 msgstr "_Poista"
 
-#: ../src/eog-window.c:3360 ../src/eog-window.c:3623
+#: ../src/eog-window.c:3371 ../src/eog-window.c:3634
 msgid "_Yes"
 msgstr "_Kyllä"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3364 ../src/eog-window.c:3615
+#: ../src/eog-window.c:3375 ../src/eog-window.c:3626
 msgid "Do _not ask again during this session"
 msgstr "_Älä kysy uudestaan tällä käyttökerralla"
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3419
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Kuvatiedoston noutaminen ei onnistunut"
 
-#: ../src/eog-window.c:3424
+#: ../src/eog-window.c:3435
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Kuvan tietojen noutaminen ei onnistunut"
 
-#: ../src/eog-window.c:3440 ../src/eog-window.c:3682
+#: ../src/eog-window.c:3451 ../src/eog-window.c:3693
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Tiedostoa ei voitu poistaa"
 
 #. set dialog error message
-#: ../src/eog-window.c:3490 ../src/eog-window.c:3778
+#: ../src/eog-window.c:3501 ../src/eog-window.c:3789
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Virhe poistettaessa kuvaa %s"
 
-#: ../src/eog-window.c:3583
+#: ../src/eog-window.c:3594
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1269,7 +1279,7 @@ msgstr ""
 "Haluatko varmasti siirtää kuvan\n"
 "”%s” roskakoriin?"
 
-#: ../src/eog-window.c:3586
+#: ../src/eog-window.c:3597
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1278,7 +1288,7 @@ msgstr ""
 "Roskakoria kohteelle ”%s” ei löytynyt. Haluatko poistaa tämän kuvan "
 "pysyvästi?"
 
-#: ../src/eog-window.c:3591
+#: ../src/eog-window.c:3602
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1293,7 +1303,7 @@ msgstr[1] ""
 "Haluatko varmasti siirtää\n"
 "%d valittua kuvaa roskakoriin?"
 
-#: ../src/eog-window.c:3596
+#: ../src/eog-window.c:3607
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1301,342 +1311,342 @@ msgstr ""
 "Joitain kuvista ei voi siirtää roskakoriin ja siksi ne poistetaan pysyvästi. "
 "Haluatko varmasti jatkaa?"
 
-#: ../src/eog-window.c:3613 ../src/eog-window.c:4104 ../src/eog-window.c:4131
+#: ../src/eog-window.c:3624 ../src/eog-window.c:4115 ../src/eog-window.c:4142
 msgid "Move to _Trash"
 msgstr "Siirrä _roskakoriin"
 
-#: ../src/eog-window.c:3660 ../src/eog-window.c:3674
+#: ../src/eog-window.c:3671 ../src/eog-window.c:3685
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Roskakoria ei voitu avata."
 
-#: ../src/eog-window.c:4025
+#: ../src/eog-window.c:4036
 msgid "_Image"
 msgstr "_Kuva"
 
-#: ../src/eog-window.c:4026
+#: ../src/eog-window.c:4037
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../src/eog-window.c:4028
+#: ../src/eog-window.c:4039
 msgid "_Go"
 msgstr "_Siirry"
 
-#: ../src/eog-window.c:4029
+#: ../src/eog-window.c:4040
 msgid "_Tools"
 msgstr "_Työkalut"
 
-#: ../src/eog-window.c:4032
+#: ../src/eog-window.c:4043
 msgid "_Open…"
 msgstr "_Avaa…"
 
-#: ../src/eog-window.c:4033
+#: ../src/eog-window.c:4044
 msgid "Open a file"
 msgstr "Avaa tiedosto"
 
-#: ../src/eog-window.c:4036
+#: ../src/eog-window.c:4047
 msgid "Close window"
 msgstr "Sulje ikkuna"
 
-#: ../src/eog-window.c:4038
+#: ../src/eog-window.c:4049
 msgid "T_oolbar"
 msgstr "_Työkalupalkki"
 
-#: ../src/eog-window.c:4039
+#: ../src/eog-window.c:4050
 msgid "Edit the application toolbar"
 msgstr "Muokkaa ohjelman työkalupalkkia"
 
-#: ../src/eog-window.c:4042
+#: ../src/eog-window.c:4053
 msgid "Preferences for Image Viewer"
 msgstr "Kuvakatselimen asetukset"
 
-#: ../src/eog-window.c:4044
+#: ../src/eog-window.c:4055
 msgid "_Contents"
 msgstr "S_isältö"
 
-#: ../src/eog-window.c:4045
+#: ../src/eog-window.c:4056
 msgid "Help on this application"
 msgstr "Ohjeita tämän ohjelman käyttöön"
 
-#: ../src/eog-window.c:4048
+#: ../src/eog-window.c:4059
 msgid "About this application"
 msgstr "Tietoja sovelluksesta"
 
-#: ../src/eog-window.c:4054
+#: ../src/eog-window.c:4065
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Määrittää, näytetäänkö työkalupalkki nykyisessä ikkunassa"
 
-#: ../src/eog-window.c:4057
+#: ../src/eog-window.c:4068
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Määrittää, näytetäänkö tilarivi nykyisessä ikkunassa"
 
-#: ../src/eog-window.c:4060
+#: ../src/eog-window.c:4071
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Muuttaa kuvakokoelmapaneelin näkyvyyttä nykyisessä ikkunassa"
 
-#: ../src/eog-window.c:4063
+#: ../src/eog-window.c:4074
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Määrittää, näytetäänkö nykyisessä ikkunassa sivupaneeli"
 
-#: ../src/eog-window.c:4069
+#: ../src/eog-window.c:4080
 msgid "Save changes in currently selected images"
 msgstr "Tallenna muutokset valittuihin kuviin"
 
-#: ../src/eog-window.c:4071
+#: ../src/eog-window.c:4082
 msgid "Open _with"
 msgstr "Avaa _ohjelmalla"
 
-#: ../src/eog-window.c:4072
+#: ../src/eog-window.c:4083
 msgid "Open the selected image with a different application"
 msgstr "Avaa valittu kuva toisella ohjelmalla"
 
-#: ../src/eog-window.c:4075
+#: ../src/eog-window.c:4086
 msgid "Save the selected images with a different name"
 msgstr "Tallenna valittu kuva toisella nimellä"
 
-#: ../src/eog-window.c:4077
+#: ../src/eog-window.c:4088
 msgid "Show Containing _Folder"
 msgstr "Näytä sisältävä _kansio"
 
-#: ../src/eog-window.c:4080
+#: ../src/eog-window.c:4091
 msgid "_Print…"
 msgstr "_Tulosta…"
 
-#: ../src/eog-window.c:4081
+#: ../src/eog-window.c:4092
 msgid "Print the selected image"
 msgstr "Tulosta valittu kuva"
 
-#: ../src/eog-window.c:4083
+#: ../src/eog-window.c:4094
 msgid "Prope_rties"
 msgstr "_Ominaisuudet"
 
-#: ../src/eog-window.c:4084
+#: ../src/eog-window.c:4095
 msgid "Show the properties and metadata of the selected image"
 msgstr "Näytä valitun kuvan ominaisuudet ja metatiedot"
 
-#: ../src/eog-window.c:4086
+#: ../src/eog-window.c:4097
 msgid "_Undo"
 msgstr "K_umoa"
 
-#: ../src/eog-window.c:4087
+#: ../src/eog-window.c:4098
 msgid "Undo the last change in the image"
 msgstr "Peru viimeinen muutos kuvaan"
 
-#: ../src/eog-window.c:4089
+#: ../src/eog-window.c:4100
 msgid "Flip _Horizontal"
 msgstr "Peilaa _vaakasuunnassa"
 
-#: ../src/eog-window.c:4090
+#: ../src/eog-window.c:4101
 msgid "Mirror the image horizontally"
 msgstr "Peilaa kuva vaakasuunnassa"
 
-#: ../src/eog-window.c:4092
+#: ../src/eog-window.c:4103
 msgid "Flip _Vertical"
 msgstr "Peilaa _pystysuunnassa"
 
-#: ../src/eog-window.c:4093
+#: ../src/eog-window.c:4104
 msgid "Mirror the image vertically"
 msgstr "Peilaa kuva pystysuunnassa"
 
-#: ../src/eog-window.c:4095
+#: ../src/eog-window.c:4106
 msgid "_Rotate Clockwise"
 msgstr "Kierrä _myötäpäivään"
 
-#: ../src/eog-window.c:4096
+#: ../src/eog-window.c:4107
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Kierrä kuvaa 90 astetta myötäpäivään"
 
-#: ../src/eog-window.c:4098
+#: ../src/eog-window.c:4109
 msgid "Rotate Counterc_lockwise"
 msgstr "Kierrä va_stapäivään"
 
-#: ../src/eog-window.c:4099
+#: ../src/eog-window.c:4110
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Kierrä kuvaa 90 astetta vastapäivään"
 
-#: ../src/eog-window.c:4101
+#: ../src/eog-window.c:4112
 msgid "Set as Wa_llpaper"
 msgstr "Ase_ta taustakuvaksi"
 
-#: ../src/eog-window.c:4102
+#: ../src/eog-window.c:4113
 msgid "Set the selected image as the wallpaper"
 msgstr "Aseta valittu kuva työpöydän taustakuvaksi"
 
-#: ../src/eog-window.c:4105
+#: ../src/eog-window.c:4116
 msgid "Move the selected image to the trash folder"
 msgstr "Siirrä valittu kuva roskakoriin"
 
-#: ../src/eog-window.c:4107
+#: ../src/eog-window.c:4118
 msgid "_Delete Image"
 msgstr "_Poista kuva"
 
-#: ../src/eog-window.c:4108
+#: ../src/eog-window.c:4119
 msgid "Delete the selected image"
 msgstr "Poista valittu kuva"
 
-#: ../src/eog-window.c:4110
+#: ../src/eog-window.c:4121
 msgid "_Copy"
 msgstr "_Kopioi"
 
-#: ../src/eog-window.c:4111
+#: ../src/eog-window.c:4122
 msgid "Copy the selected image to the clipboard"
 msgstr "Kopioi valittu kuva leikepöydälle"
 
-#: ../src/eog-window.c:4113 ../src/eog-window.c:4122 ../src/eog-window.c:4125
+#: ../src/eog-window.c:4124 ../src/eog-window.c:4133 ../src/eog-window.c:4136
 msgid "_Zoom In"
 msgstr "_Lähennä"
 
-#: ../src/eog-window.c:4114 ../src/eog-window.c:4123
+#: ../src/eog-window.c:4125 ../src/eog-window.c:4134
 msgid "Enlarge the image"
 msgstr "Suurenna kuvaa"
 
-#: ../src/eog-window.c:4116 ../src/eog-window.c:4128
+#: ../src/eog-window.c:4127 ../src/eog-window.c:4139
 msgid "Zoom _Out"
 msgstr "L_oitonna"
 
-#: ../src/eog-window.c:4117 ../src/eog-window.c:4126 ../src/eog-window.c:4129
+#: ../src/eog-window.c:4128 ../src/eog-window.c:4137 ../src/eog-window.c:4140
 msgid "Shrink the image"
 msgstr "Pienennä kuvaa"
 
-#: ../src/eog-window.c:4119
+#: ../src/eog-window.c:4130
 msgid "_Normal Size"
 msgstr "_Normaalikoko"
 
-#: ../src/eog-window.c:4120
+#: ../src/eog-window.c:4131
 msgid "Show the image at its normal size"
 msgstr "Näytä kuva normaalikoossa"
 
-#: ../src/eog-window.c:4137
+#: ../src/eog-window.c:4148
 msgid "_Fullscreen"
 msgstr "Koko nä_yttö"
 
-#: ../src/eog-window.c:4138
+#: ../src/eog-window.c:4149
 msgid "Show the current image in fullscreen mode"
 msgstr "Näytä valittu kuva koko näytön tilassa"
 
-#: ../src/eog-window.c:4140
+#: ../src/eog-window.c:4151
 msgid "Pause Slideshow"
 msgstr "Pidä tauko diaesityksessä"
 
-#: ../src/eog-window.c:4141
+#: ../src/eog-window.c:4152
 msgid "Pause or resume the slideshow"
 msgstr "Pidä tauko tai jatka diaesitystä"
 
-#: ../src/eog-window.c:4143
+#: ../src/eog-window.c:4154
 msgid "_Best Fit"
 msgstr "_Paras sovitus"
 
-#: ../src/eog-window.c:4144
+#: ../src/eog-window.c:4155
 msgid "Fit the image to the window"
 msgstr "Sovita kuva ikkunaan"
 
-#: ../src/eog-window.c:4149 ../src/eog-window.c:4164
+#: ../src/eog-window.c:4160 ../src/eog-window.c:4175
 msgid "_Previous Image"
 msgstr "_Edellinen kuva"
 
-#: ../src/eog-window.c:4150
+#: ../src/eog-window.c:4161
 msgid "Go to the previous image of the gallery"
 msgstr "Siirry kokoelman edelliseen kuvaan"
 
-#: ../src/eog-window.c:4152
+#: ../src/eog-window.c:4163
 msgid "_Next Image"
 msgstr "_Seuraava kuva"
 
-#: ../src/eog-window.c:4153
+#: ../src/eog-window.c:4164
 msgid "Go to the next image of the gallery"
 msgstr "Siirry kokoelman seuraavaan kuvaan"
 
-#: ../src/eog-window.c:4155 ../src/eog-window.c:4167
+#: ../src/eog-window.c:4166 ../src/eog-window.c:4178
 msgid "_First Image"
 msgstr "Ensi_mmäinen kuva"
 
-#: ../src/eog-window.c:4156
+#: ../src/eog-window.c:4167
 msgid "Go to the first image of the gallery"
 msgstr "Siirry kokoelman ensimmäiseen kuvaan"
 
-#: ../src/eog-window.c:4158 ../src/eog-window.c:4170
+#: ../src/eog-window.c:4169 ../src/eog-window.c:4181
 msgid "_Last Image"
 msgstr "_Viimeinen kuva"
 
-#: ../src/eog-window.c:4159
+#: ../src/eog-window.c:4170
 msgid "Go to the last image of the gallery"
 msgstr "Siirry kokoelman viimeiseen kuvaan"
 
-#: ../src/eog-window.c:4161
+#: ../src/eog-window.c:4172
 msgid "_Random Image"
 msgstr "_Satunnainen kuva"
 
-#: ../src/eog-window.c:4162
+#: ../src/eog-window.c:4173
 msgid "Go to a random image of the gallery"
 msgstr "Siirry satunnaiseen kuvaan kokoelmassa"
 
-#: ../src/eog-window.c:4320
+#: ../src/eog-window.c:4331
 msgid "S_lideshow"
 msgstr "_Diaesitys"
 
-#: ../src/eog-window.c:4321
+#: ../src/eog-window.c:4332
 msgid "Start a slideshow view of the images"
 msgstr "Aloita diaesitys kuvista"
 
-#: ../src/eog-window.c:4389
+#: ../src/eog-window.c:4404
 msgid "Previous"
 msgstr "Edellinen"
 
-#: ../src/eog-window.c:4393
+#: ../src/eog-window.c:4409
 msgid "Next"
 msgstr "Seuraava"
 
-#: ../src/eog-window.c:4397
+#: ../src/eog-window.c:4416
 msgid "Right"
 msgstr "Oikea"
 
-#: ../src/eog-window.c:4400
+#: ../src/eog-window.c:4419
 msgid "Left"
 msgstr "Vasen"
 
-#: ../src/eog-window.c:4403
+#: ../src/eog-window.c:4422
 msgid "Show Folder"
 msgstr "Avaa kansio"
 
-#: ../src/eog-window.c:4406
+#: ../src/eog-window.c:4425
 msgid "In"
 msgstr "Lähennä"
 
-#: ../src/eog-window.c:4409
+#: ../src/eog-window.c:4428
 msgid "Out"
 msgstr "Loitonna"
 
-#: ../src/eog-window.c:4412
+#: ../src/eog-window.c:4431
 msgid "Normal"
 msgstr "Normaali"
 
-#: ../src/eog-window.c:4415
+#: ../src/eog-window.c:4434
 msgid "Fit"
 msgstr "Sovita"
 
-#: ../src/eog-window.c:4418
+#: ../src/eog-window.c:4437
 msgid "Gallery"
 msgstr "Kokoelma"
 
-#: ../src/eog-window.c:4435
+#: ../src/eog-window.c:4454
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Roskakori"
 
-#: ../src/eog-window.c:4801
+#: ../src/eog-window.c:4820
 #, c-format
 msgid "Edit the current image using %s"
 msgstr "Muokkaa nykyistä kuvaa sovelluksella %s"
 
-#: ../src/eog-window.c:4803
+#: ../src/eog-window.c:4822
 msgid "Edit Image"
 msgstr "Muokkaa kuvaa"
 
-#: ../src/eog-window.c:6147
+#: ../src/eog-window.c:6200
 msgid "The GNOME image viewer."
 msgstr "Gnomen kuvakatselin."
 
-#: ../src/eog-window.c:6150
+#: ../src/eog-window.c:6203
 msgid "translator-credits"
 msgstr ""
 "Jiri Grönroos, 2012\n"
