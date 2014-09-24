@@ -96,6 +96,9 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *xmp_keywords_label;
 	GtkWidget      *xmp_creator_label;
 	GtkWidget      *xmp_rights_label;
+#else
+	GtkWidget      *xmp_box;
+	GtkWidget      *xmp_box_label;
 #endif
 #if HAVE_METADATA
 	GtkWidget      *metadata_box;
@@ -707,9 +710,6 @@ static void
 eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 {
 	EogPropertiesDialogPrivate *priv;
-#ifndef HAVE_EXEMPI
-	GtkWidget *xmp_box, *xmp_box_label;
-#endif
 #if HAVE_METADATA
 	GtkWidget *sw;
 #endif
@@ -770,8 +770,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	}
 
 #ifndef HAVE_EXEMPI
-	gtk_widget_hide (xmp_box);
-	gtk_widget_hide (xmp_box_label);
+	gtk_widget_hide (priv->xmp_box);
+	gtk_widget_hide (priv->xmp_box_label);
 #endif
 
 #else
