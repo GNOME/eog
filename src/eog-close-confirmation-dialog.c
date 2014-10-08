@@ -421,6 +421,15 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 	gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
 	gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
 	gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
+	gtk_widget_set_valign (primary_label, GTK_ALIGN_START);
+	gtk_label_set_max_width_chars(GTK_LABEL (primary_label), 72);
+	/* Allow fallback to char-based wrapping as filenames
+	 * don't need to have "words". */
+	gtk_label_set_line_wrap_mode(GTK_LABEL (primary_label),
+				     PANGO_WRAP_WORD_CHAR);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+	gtk_misc_set_alignment(GTK_MISC (primary_label), 0.0, 0.5);
+G_GNUC_END_IGNORE_DEPRECATIONS
 	gtk_label_set_selectable (GTK_LABEL (primary_label), TRUE);
 
 	image_name = eog_image_get_caption (img);
@@ -439,6 +448,10 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 	secondary_label = gtk_label_new (str);
 	g_free (str);
 	gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
+	gtk_label_set_max_width_chars(GTK_LABEL (secondary_label), 72);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+	gtk_misc_set_alignment(GTK_MISC (secondary_label), 0.0, 0.5);
+G_GNUC_END_IGNORE_DEPRECATIONS
 	gtk_widget_set_halign (secondary_label, GTK_ALIGN_START);
 	gtk_label_set_selectable (GTK_LABEL (secondary_label), TRUE);
 
@@ -449,11 +462,11 @@ build_single_img_dialog (EogCloseConfirmationDialog *dlg)
 
 	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
 
-	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
-	gtk_box_pack_start (GTK_BOX (vbox), primary_label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
 
-	gtk_box_pack_start (GTK_BOX (vbox), secondary_label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), secondary_label, TRUE, TRUE, 0);
 
 	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))),
 			    hbox,
