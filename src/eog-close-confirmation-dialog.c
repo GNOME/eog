@@ -642,6 +642,10 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 	gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
 	gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
 	gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
+	gtk_label_set_max_width_chars (GTK_LABEL (primary_label), 72);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+	gtk_misc_set_alignment(GTK_MISC (primary_label), 0.0, 0.5);
+G_GNUC_END_IGNORE_DEPRECATIONS
 	gtk_label_set_selectable (GTK_LABEL (primary_label), TRUE);
 
 	str = g_strdup_printf (
@@ -657,10 +661,10 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 
 	gtk_label_set_markup (GTK_LABEL (primary_label), markup_str);
 	g_free (markup_str);
-	gtk_box_pack_start (GTK_BOX (vbox), primary_label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
 
 	vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-	gtk_box_pack_start (GTK_BOX (vbox), vbox2, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), vbox2, TRUE, TRUE, 0);
 
 	select_label = gtk_label_new_with_mnemonic (_("S_elect the images you want to save:"));
 
@@ -686,7 +690,11 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 
 	gtk_box_pack_start (GTK_BOX (vbox2), secondary_label, FALSE, FALSE, 0);
 	gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
+	gtk_label_set_max_width_chars (GTK_LABEL (secondary_label), 72);
 	gtk_widget_set_halign (secondary_label, GTK_ALIGN_START);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+	gtk_misc_set_alignment(GTK_MISC (select_label), 0.0, 0.5);
+G_GNUC_END_IGNORE_DEPRECATIONS
 	gtk_label_set_selectable (GTK_LABEL (secondary_label), TRUE);
 
 	gtk_label_set_mnemonic_widget (GTK_LABEL (select_label), treeview);
