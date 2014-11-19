@@ -106,12 +106,14 @@ eog_debug_message (EogDebug   section,
 {
 	if (G_UNLIKELY (debug & section))
 	{
-#ifdef ENABLE_PROFILING
-		gdouble seconds;
-#endif
-
 		va_list args;
 		gchar *msg;
+
+#ifdef ENABLE_PROFILING
+		gdouble seconds;
+
+		g_return_if_fail (timer != NULL);
+#endif
 
 		g_return_if_fail (format != NULL);
 
@@ -120,8 +122,6 @@ eog_debug_message (EogDebug   section,
 		va_end (args);
 
 #ifdef ENABLE_PROFILING
-		g_return_if_fail (timer != NULL);
-
 		seconds = g_timer_elapsed (timer, NULL);
 		g_print ("[%f (%f)] %s:%d (%s) %s\n",
 			 seconds, seconds - last,  file, line, function, msg);

@@ -113,6 +113,7 @@ _gtk_grid_append_title_line (GtkGrid *grid, GtkWidget *sibling,
 
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
+	g_free (markup);
 
 	gtk_grid_attach_next_to (grid, label, sibling, GTK_POS_BOTTOM,  2, 1);
 	return label;
