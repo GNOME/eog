@@ -144,6 +144,10 @@ eog_preferences_dialog_class_init (EogPreferencesDialogClass *klass)
 {
 	GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
 
+	/* This should make sure the libpeas-gtk dependency isn't
+	 * dropped by aggressive linkers (#739618) */
+	g_type_ensure (PEAS_GTK_TYPE_PLUGIN_MANAGER);
+
 	gtk_widget_class_set_template_from_resource (widget_class,
 						     "/org/gnome/eog/ui/eog-preferences-dialog.ui");
 	gtk_widget_class_bind_template_child_private (widget_class,
