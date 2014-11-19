@@ -490,6 +490,7 @@ thumbview_get_tooltip_string (EogImage *image)
 				       0, NULL, NULL);
 	g_object_unref (file);
 	if (file_info == NULL) {
+		g_free(bytes);
 		return NULL;
 	}
 
