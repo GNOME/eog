@@ -305,7 +305,6 @@ static void migrate_config_folder (const gchar* new_dir)
 	GFile *dir_file = NULL;
 	gsize i;
 	static const gchar *old_files[] = { "eog-print-settings.ini",
-					    "eog_toolbar.xml",
 					    NULL };
 
 	if(!g_file_test (old_dir, G_FILE_TEST_IS_DIR)) {
