@@ -1030,14 +1030,6 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/MainMenu/Image/ImageOpenWith/Applications Placeholder",
-                                name,
-                                name,
-                                GTK_UI_MANAGER_MENUITEM,
-                                FALSE);
-
-                gtk_ui_manager_add_ui (priv->ui_mgr,
-                                priv->open_with_menu_id,
                                 "/ThumbnailPopup/ImageOpenWith/Applications Placeholder",
                                 name,
                                 name,
@@ -1050,15 +1042,6 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
-
-                path = g_strdup_printf ("/MainMenu/Image/ImageOpenWith/Applications Placeholder/%s", name);
-
-                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
-
-                /* Only force displaying the icon if it is an application icon */
-                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
-
-                g_free (path);
 
                 path = g_strdup_printf ("/ThumbnailPopup/ImageOpenWith/Applications Placeholder/%s", name);
 
@@ -2030,7 +2013,6 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 {
 	static const GdkRGBA black = { 0., 0., 0., 1.};
 	EogWindowPrivate *priv;
-	GtkWidget *menubar;
 	gboolean upscale;
 
 	eog_debug (DEBUG_WINDOW);
@@ -2056,10 +2038,6 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	}
 
 	update_ui_visibility (window);
-
-	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
-	g_assert (GTK_IS_WIDGET (menubar));
-	gtk_widget_hide (menubar);
 
 	g_signal_connect (priv->view,
 			  "motion-notify-event",
@@ -2120,7 +2098,6 @@ static void
 eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 {
 	EogWindowPrivate *priv;
-	GtkWidget *menubar;
 
 	eog_debug (DEBUG_WINDOW);
 
@@ -2155,10 +2132,6 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 					      window);
 
 	update_ui_visibility (window);
-
-	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
-	g_assert (GTK_IS_WIDGET (menubar));
-	gtk_widget_show (menubar);
 
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), FALSE);
 
@@ -2647,8 +2620,6 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	g_object_unref (settings);
 	g_free (uri);
 
-	/* I18N: When setting mnemonics for these strings, watch out to not
-	   clash with mnemonics from eog's menubar */
 	info_bar = gtk_info_bar_new_with_buttons (_("_Open Background Preferences"),
 						  GTK_RESPONSE_YES,
 						  C_("MessageArea","Hi_de"),
@@ -4052,60 +4023,6 @@ static const GActionEntry window_actions[] = {
 };
 
 static void
-menu_item_select_cb (GtkMenuItem *proxy, EogWindow *window)
-{
-	GAction *action;
-	char *message;
-
-	action = gtk_activatable_get_related_action (GTK_ACTIVATABLE (proxy));
-
-	g_return_if_fail (action != NULL);
-
-	g_object_get (G_OBJECT (action), "tooltip", &message, NULL);
-
-	if (message) {
-		gtk_statusbar_push (GTK_STATUSBAR (window->priv->statusbar),
-				    window->priv->tip_message_cid, message);
-		g_free (message);
-	}
-}
-
-static void
-menu_item_deselect_cb (GtkMenuItem *proxy, EogWindow *window)
-{
-	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
-			   window->priv->tip_message_cid);
-}
-
-static void
-connect_proxy_cb (GtkUIManager *manager,
-                  GAction *action,
-                  GtkWidget *proxy,
-                  EogWindow *window)
-{
-	if (GTK_IS_MENU_ITEM (proxy)) {
-		g_signal_connect (proxy, "select",
-				  G_CALLBACK (menu_item_select_cb), window);
-		g_signal_connect (proxy, "deselect",
-				  G_CALLBACK (menu_item_deselect_cb), window);
-	}
-}
-
-static void
-disconnect_proxy_cb (GtkUIManager *manager,
-                     GAction *action,
-                     GtkWidget *proxy,
-                     EogWindow *window)
-{
-	if (GTK_IS_MENU_ITEM (proxy)) {
-		g_signal_handlers_disconnect_by_func
-			(proxy, G_CALLBACK (menu_item_select_cb), window);
-		g_signal_handlers_disconnect_by_func
-			(proxy, G_CALLBACK (menu_item_deselect_cb), window);
-	}
-}
-
-static void
 eog_window_ui_settings_changed_cb (GSettings *settings,
 								   gchar     *key,
 								   gpointer   user_data)
@@ -4237,10 +4154,11 @@ eog_window_update_recent_files_menu (EogWindow *window)
 
 		g_object_unref (action);
 
-		gtk_ui_manager_add_ui (priv->ui_mgr, priv->recent_menu_id,
+		/* TODO: replace this with code for the new UI. */
+		/*gtk_ui_manager_add_ui (priv->ui_mgr, priv->recent_menu_id,
 				       "/MainMenu/Image/RecentDocuments",
 				       action_name, action_name,
-				       GTK_UI_MANAGER_AUTO, FALSE);
+				       GTK_UI_MANAGER_AUTO, FALSE);*/
 
 		g_free (action_name);
 	}
@@ -4439,11 +4357,9 @@ eog_window_construct_ui (EogWindow *window)
 
 	GError *error = NULL;
 
-	GtkWidget *menubar;
 	GtkWidget *thumb_popup;
 	GtkWidget *view_popup;
 	GtkWidget *hpaned;
-	GtkWidget *menuitem;
 	GAction *action = NULL;
 
 
@@ -4462,36 +4378,6 @@ eog_window_construct_ui (EogWindow *window)
                 g_warning ("building menus failed: %s", error->message);
                 g_error_free (error);
         }
-
-	g_signal_connect (priv->ui_mgr, "connect_proxy",
-			  G_CALLBACK (connect_proxy_cb), window);
-	g_signal_connect (priv->ui_mgr, "disconnect_proxy",
-			  G_CALLBACK (disconnect_proxy_cb), window);
-
-	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
-	g_assert (GTK_IS_WIDGET (menubar));
-	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
-	gtk_widget_show (menubar);
-
-	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Edit/EditFlipHorizontal");
-	gtk_image_menu_item_set_always_show_image (
-			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
-
-	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Edit/EditFlipVertical");
-	gtk_image_menu_item_set_always_show_image (
-			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
-
-	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Edit/EditRotate90");
-	gtk_image_menu_item_set_always_show_image (
-			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
-
-	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
-			"/MainMenu/Edit/EditRotate270");
-	gtk_image_menu_item_set_always_show_image (
-			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
 	/*gtk_window_add_accel_group (GTK_WINDOW (window),
 				    gtk_ui_manager_get_accel_group (priv->ui_mgr));*/
@@ -5280,7 +5166,6 @@ eog_window_new (EogStartupFlags flags)
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW,
 					   "type", GTK_WINDOW_TOPLEVEL,
 	                                   "application", EOG_APP,
-	                                   "show-menubar", FALSE,
 					   "startup-flags", flags,
 					   NULL));
 
