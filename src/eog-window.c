@@ -4397,7 +4397,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	GError *error = NULL;
 
-	GtkWidget *thumb_popup;
 	GtkWidget *view_popup;
 	GtkWidget *hpaned;
 	GAction *action = NULL;
@@ -4564,9 +4563,11 @@ eog_window_construct_ui (EogWindow *window)
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SCROLL_BUTTONS,
 			 priv->nav, "show-buttons", G_SETTINGS_BIND_GET);
 
-	thumb_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
+	// Reuse ScrollView's menu model for the thumbnail menu
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview),
-					    GTK_MENU (thumb_popup));
+					    GTK_MENU (view_popup));
+
+	g_object_unref (view_popup);
 
 	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 
