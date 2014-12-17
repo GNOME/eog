@@ -59,6 +59,10 @@
 
 #include "eog-enum-types.h"
 
+#include "egg-toolbar-editor.h"
+#include "egg-editable-toolbar.h"
+#include "egg-toolbars-model.h"
+
 #include <glib.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
@@ -136,6 +140,7 @@ struct _EogWindowPrivate {
         GtkWidget           *statusbar;
         GtkWidget           *nav;
 	GtkWidget           *message_area;
+	GtkWidget           *toolbar;
 	GtkWidget           *properties_dlg;
 
 	GSimpleActionGroup  *actions_recent;
@@ -1955,6 +1960,14 @@ update_ui_visibility (EogWindow *window)
 			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
 
 	visible = g_settings_get_boolean (priv->ui_settings,
+					  EOG_CONF_UI_TOOLBAR);
+	visible = visible && !fullscreen_mode;
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
+	g_assert (action != NULL);
+	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+	g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
+
+	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_STATUSBAR);
 	visible = visible && !fullscreen_mode;
 	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
@@ -2487,6 +2500,123 @@ eog_window_action_preferences (GSimpleAction *action,
 	eog_window_show_preferences_dialog (EOG_WINDOW (user_data));
 }
 
+#define EOG_TB_EDITOR_DLG_RESET_RESPONSE 128
+
+static void
+eog_window_action_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
+{
+	EogWindow *window = EOG_WINDOW (data);
+
+	if (response == EOG_TB_EDITOR_DLG_RESET_RESPONSE) {
+		EggToolbarsModel *model;
+		EggToolbarEditor *editor;
+
+		editor = g_object_get_data (G_OBJECT (dialog),
+					    "EggToolbarEditor");
+
+		g_return_if_fail (editor != NULL);
+
+        	egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+
+		eog_application_reset_toolbars_model (EOG_APP);
+		model = eog_application_get_toolbars_model (EOG_APP);
+		egg_editable_toolbar_set_model
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), model);
+		egg_toolbar_editor_set_model (editor, model);
+
+		/* Toolbar would be uneditable now otherwise */
+		egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+	} else if (response == GTK_RESPONSE_HELP) {
+		eog_util_show_help ("toolbar#modify", NULL);
+	} else {
+        	egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+
+		eog_application_save_toolbars_model (EOG_APP);
+
+		// Destroying the dialog will also make the previously
+		// disabled action sensitive again through the GBindings
+        	gtk_widget_destroy (GTK_WIDGET (dialog));
+	}
+}
+
+static void
+eog_window_action_edit_toolbar (GSimpleAction *action,
+								GVariant      *variant,
+								gpointer       user_data)
+{
+	EogWindow *window;
+	GtkWidget *dialog;
+	GtkWidget *editor;
+	GAction *tb_action;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+
+	dialog = gtk_dialog_new_with_buttons (_("Toolbar Editor"),
+					      GTK_WINDOW (window),
+				              GTK_DIALOG_DESTROY_WITH_PARENT,
+					      _("_Reset to Default"),
+					      EOG_TB_EDITOR_DLG_RESET_RESPONSE,
+					      _("_Close"),
+					      GTK_RESPONSE_CLOSE,
+					      _("_Help"),
+					      GTK_RESPONSE_HELP,
+					      NULL);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+					 GTK_RESPONSE_CLOSE);
+
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
+
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 500, 400);
+
+	editor = egg_toolbar_editor_new (window->priv->ui_mgr,
+					 eog_application_get_toolbars_model (EOG_APP));
+
+	gtk_container_set_border_width (GTK_CONTAINER (editor), 5);
+
+	gtk_box_set_spacing (GTK_BOX (EGG_TOOLBAR_EDITOR (editor)), 5);
+	// Use as much vertical space as available
+	gtk_widget_set_vexpand (GTK_WIDGET (editor), TRUE);
+
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), editor);
+
+	egg_editable_toolbar_set_edit_mode
+		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+
+	g_object_set_data (G_OBJECT (dialog), "EggToolbarEditor", editor);
+
+	g_signal_connect (dialog,
+                          "response",
+			  G_CALLBACK (eog_window_action_edit_toolbar_cb),
+			  window);
+
+	gtk_widget_show_all (dialog);
+
+	tb_action = g_action_map_lookup_action (G_ACTION_MAP (window),
+						"ViewToolbar");
+	/* Bind sensitivity of ViewToolbar action to the dialog's visibility.
+	 * This will make it sensitive again once the dialog goes away.
+	 */
+	if(tb_action)
+		g_object_bind_property (dialog, "visible",
+					tb_action, "enabled",
+					G_BINDING_SYNC_CREATE |
+					G_BINDING_INVERT_BOOLEAN);
+	/* Do the same for the EditToolbar action to avoid spawning
+	 * additional (useless) editor windows. */
+	g_object_bind_property (dialog, "visible",
+				action, "enabled",
+				G_BINDING_SYNC_CREATE |
+				G_BINDING_INVERT_BOOLEAN);
+}
+
 static void
 eog_window_action_help (GSimpleAction *action,
 						GVariant      *variant,
@@ -2530,7 +2660,14 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 
 	visible = g_variant_get_boolean (state);
 
-	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewStatusbar") == 0) {
+	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewToolbar") == 0) {
+		g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
+
+		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
+			g_settings_set_boolean (priv->ui_settings,
+						EOG_CONF_UI_TOOLBAR, visible);
+
+	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
@@ -4016,6 +4153,7 @@ static const GActionEntry window_actions[] = {
 	{ "ImagePrint",                eog_window_action_print },
 	{ "ImageProperties",           eog_window_action_properties },
 	{ "ImageSetAsWallpaper",       eog_window_action_wallpaper },
+	{ "EditToolbar",               eog_window_action_edit_toolbar },
 	{ "EditPreferences",           eog_window_action_preferences },
 	{ "HelpManual",                eog_window_action_help },
 	{ "HelpAbout",                 eog_window_action_about },
@@ -4042,6 +4180,7 @@ static const GActionEntry window_actions[] = {
 
 	/* Stateful actions. */
 	{ "current-image",    NULL, NULL, "@(ii) (0, 0)", readonly_state_handler },
+	{ "ViewToolbar",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "ViewStatusbar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "ViewImageGallery", NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "ViewSidebar",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
@@ -4105,6 +4244,19 @@ disconnect_proxy_cb (GtkUIManager *manager,
 	}
 }
 
+static gboolean
+_sync_map_get_bool_variant (GBinding *binding, const GValue *source,
+						    GValue *target, gpointer user_data)
+{
+	GVariant *variant;
+
+	variant = g_value_dup_variant (source);
+	g_value_set_boolean (target, g_variant_get_boolean (variant));
+
+	g_variant_unref (variant);
+	return TRUE;
+}
+
 static void
 eog_window_ui_settings_changed_cb (GSettings *settings,
 								   gchar     *key,
@@ -4124,6 +4276,8 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar");
 	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_STATUSBAR) == 0) {
 		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
+	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_TOOLBAR) == 0) {
+		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
 	}
 
 	g_assert (action != NULL);
@@ -4135,6 +4289,36 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 
 	if (g_variant_get_boolean (new_state) != g_variant_get_boolean (old_state))
 		g_action_change_state (action, new_state);
+}
+
+static void
+set_action_properties (EogWindow *window)
+{
+	GAction *action;
+	EogWindowPrivate *priv = window->priv;
+
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
+
+	/* Only allow editing the toolbar if it is visible */
+	if (G_LIKELY (action != NULL)) {
+		GAction *tbedit_action;
+
+		tbedit_action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		                                             "EditToolbar");
+
+		if (G_LIKELY (tbedit_action != NULL)) {
+			// The binding should free itself when the actions do
+			g_object_bind_property_full (action, "state",
+			                        tbedit_action, "enabled",
+			                        G_BINDING_SYNC_CREATE,
+									_sync_map_get_bool_variant,
+									NULL, NULL, NULL);
+		} else {
+			g_warn_if_reached ();
+		}
+	} else {
+		g_warn_if_reached ();
+	}
 }
 
 static gint
@@ -4388,7 +4572,16 @@ get_appinfo_for_editor (EogWindow *window)
 	/* We want this function to always return the same thing, not
 	 * just for performance reasons, but because if someone edits
 	 * GConf while eog is running, the application could get into an
-	 * inconsistent state.
+	 * inconsistent state.  If the editor exists once, it gets added
+	 * to the "available" list of the EggToolbarsModel (for which
+	 * there is no API to remove it).  If later the editor no longer
+	 * existed when constructing a new window, we'd be unable to
+	 * construct a GAction for the editor for that window, causing
+	 * assertion failures when viewing the "Edit Toolbars" dialog
+	 * (item is available, but can't find the GAction for it).
+	 *
+	 * By ensuring we keep the GAppInfo around, we avoid the
+	 * possibility of that situation occurring.
 	 */
 	static GDesktopAppInfo *app_info = NULL;
 	static gboolean initialised;
@@ -4408,6 +4601,66 @@ get_appinfo_for_editor (EogWindow *window)
 	}
 
 	return (GAppInfo *) app_info;
+}
+
+static void
+eog_window_open_editor (GAction *action,
+                        EogWindow *window)
+{
+	GdkAppLaunchContext *context;
+	GAppInfo *app_info;
+	GList files;
+
+	app_info = get_appinfo_for_editor (window);
+
+	if (app_info == NULL)
+		return;
+
+	context = gdk_display_get_app_launch_context (
+	  gtk_widget_get_display (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_screen (context,
+	  gtk_widget_get_screen (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_icon (context,
+	  g_app_info_get_icon (app_info));
+	gdk_app_launch_context_set_timestamp (context,
+	  gtk_get_current_event_time ());
+
+	{
+		GList f = { eog_image_get_file (window->priv->image) };
+		files = f;
+	}
+
+	g_app_info_launch (app_info, &files,
+                           G_APP_LAUNCH_CONTEXT (context), NULL);
+
+	g_object_unref (files.data);
+	g_object_unref (context);
+}
+
+static void
+eog_window_add_open_editor_action (EogWindow *window)
+{
+        EggToolbarsModel *model;
+	GAppInfo *app_info;
+	GSimpleAction *action;
+
+	app_info = get_appinfo_for_editor (window);
+
+	if (app_info == NULL)
+		return;
+
+	model = eog_application_get_toolbars_model (EOG_APP);
+	egg_toolbars_model_set_name_flags (model, "OpenEditor",
+	                                   EGG_TB_MODEL_NAME_KNOWN);
+
+	action = g_simple_action_new ("OpenEditor", NULL);
+
+	g_signal_connect (action, "activate",
+	                  G_CALLBACK (eog_window_open_editor), window);
+
+	g_action_map_add_action (G_ACTION_MAP (window), G_ACTION (action));
+
+	g_object_unref (action);
 }
 
 static void
@@ -4456,6 +4709,10 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (priv->box);
 	priv->ui_mgr = gtk_ui_manager_new ();
 
+	eog_window_add_open_editor_action (window);
+
+	set_action_properties (window);
+
 	if (!gtk_ui_manager_add_ui_from_resource (priv->ui_mgr,
 						  "/org/gnome/eog/ui/eog-ui.xml",
 						  &error)) {
@@ -4492,6 +4749,25 @@ eog_window_construct_ui (EogWindow *window)
 			"/MainMenu/Edit/EditRotate270");
 	gtk_image_menu_item_set_always_show_image (
 			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
+
+	priv->toolbar = GTK_WIDGET
+		(g_object_new (EGG_TYPE_EDITABLE_TOOLBAR,
+			       "ui-manager", priv->ui_mgr,
+			       "model", eog_application_get_toolbars_model (EOG_APP),
+			       NULL));
+	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (priv->toolbar)),
+				     GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
+
+	egg_editable_toolbar_show (EGG_EDITABLE_TOOLBAR (priv->toolbar),
+				   "Toolbar");
+
+	gtk_box_pack_start (GTK_BOX (priv->box),
+			    priv->toolbar,
+			    FALSE,
+			    FALSE,
+			    0);
+
+	gtk_widget_show (priv->toolbar);
 
 	/*gtk_window_add_accel_group (GTK_WINDOW (window),
 				    gtk_ui_manager_get_accel_group (priv->ui_mgr));*/
@@ -4900,6 +5176,7 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 static gint
 eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
+	GtkContainer *tbcontainer = GTK_CONTAINER ((EOG_WINDOW (widget)->priv->toolbar));
 	gint result = FALSE;
 	gboolean handle_selection = FALSE;
 	GdkModifierType modifiers;
@@ -4913,18 +5190,20 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			break;
 		}
 	case GDK_KEY_Return:
-		/* Image properties dialog case */
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			result = FALSE;
-			break;
-		}
+		if (gtk_container_get_focus_child (tbcontainer) == NULL) {
+			/* Image properties dialog case */
+			if ((event->state & modifiers) == GDK_MOD1_MASK) {
+				result = FALSE;
+				break;
+			}
 
-		if ((event->state & modifiers) == GDK_SHIFT_MASK) {
-			eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
-		} else {
-			eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+			if ((event->state & modifiers) == GDK_SHIFT_MASK) {
+				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
+			} else {
+				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+			}
+			result = TRUE;
 		}
-		result = TRUE;
 		break;
 	case GDK_KEY_p:
 	case GDK_KEY_P:
@@ -5011,8 +5290,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 					   (GdkEvent *) event);
 	}
 
-	/* If we still haven't handled the event, give the scrollview a chance to do it.  */
-	if (result == FALSE &&
+	/* If the focus is not in the toolbar and we still haven't handled the
+	   event, give the scrollview a chance to do it.  */
+	if (!gtk_container_get_focus_child (tbcontainer) && result == FALSE &&
 		gtk_widget_get_realized (GTK_WIDGET (EOG_WINDOW (widget)->priv->view))) {
 			result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->view),
 						   (GdkEvent *) event);

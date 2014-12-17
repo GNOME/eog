@@ -54,6 +54,7 @@
 #define EOG_CONF_FULLSCREEN_UPSCALE		"upscale"
 #define EOG_CONF_FULLSCREEN_SECONDS		"seconds"
 
+#define EOG_CONF_UI_TOOLBAR			"toolbar"
 #define EOG_CONF_UI_STATUSBAR			"statusbar"
 #define EOG_CONF_UI_IMAGE_GALLERY		"image-gallery"
 #define EOG_CONF_UI_IMAGE_GALLERY_POSITION	"image-gallery-position"
