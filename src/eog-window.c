@@ -4034,7 +4034,6 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 	GAction *action = NULL;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
-	g_warn_if_reached();
 
 	window = EOG_WINDOW (user_data);
 	if (g_ascii_strcasecmp (key, EOG_CONF_UI_IMAGE_GALLERY) == 0) {
@@ -4051,8 +4050,6 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 	g_assert (new_state != NULL);
 
 	old_state = g_action_get_state (action);
-
-	g_print("change: %s\n", key);
 
 	if (g_variant_get_boolean (new_state) != g_variant_get_boolean (old_state))
 		g_action_change_state (action, new_state);
@@ -4621,7 +4618,7 @@ eog_window_init (EogWindow *window)
 	 * not trigger the state changed handler since the state is updated directly
 	 * via the "state" property. Requesting a state change via this callback,
 	 * however, works. */
-	g_signal_connect (priv->ui_settings, "changed::image-gallery",
+	g_signal_connect (priv->ui_settings, "changed",
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
 					  window);
 
