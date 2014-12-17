@@ -263,6 +263,13 @@ AC_SUBST(LIBJPEG)
 AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
 AM_CONDITIONAL(HAVE_LIBJPEG_80, test "x$have_libjpeg_80" = xyes)
 
+# ************************************
+# libXML2 (required for toolbareditor)
+# ************************************
+
+LIBXML2_REQUIRED=2.0
+PKG_CHECK_MODULES(LIBXML2, [libxml-2.0 >= $LIBXML2_REQUIRED])
+
 # ***************
 # RSVG (optional for scaling svg image)
 # ***************
@@ -327,6 +334,8 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 jpegutils/Makefile
+cut-n-paste/Makefile
+cut-n-paste/toolbar-editor/Makefile
 help/Makefile
 po/Makefile.in
 data/Makefile

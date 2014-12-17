@@ -9,6 +9,15 @@ Feature: Smoke tests
     Then Website link to wiki is displayed
      And GPL 2.0 link is displayed
 
+  @undo @undo_via_toolbar
+  Scenario: Undo via toolbar
+    * Open "/tmp/gnome-logo.png" via menu
+    Then image size is 199x76
+    * Rotate the image clockwise
+    Then image size is 76x199
+    * Select "Edit -> Undo" menu
+    Then image size is 199x76
+
   @undo @undo_via_shortcut
   Scenario: Undo via shortcut
     * Open "/tmp/gnome-logo.png" via menu

@@ -70,6 +70,10 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.eog.ui" path="/org/gnome/eog/ui/">
+    <key name="toolbar" type="b">
+      <default>true</default>
+      <summary>Show/Hide the window toolbar.</summary>
+    </key>
     <key name="statusbar" type="b">
       <default>true</default>
       <summary>Show/Hide the window statusbar.</summary>
@@ -116,7 +120,7 @@
     <key name="external-editor" type="s">
       <default>''</default>
       <summary>External program to use for editing images</summary>
-      <description>The desktop file name (including the ".desktop") of the application to use for editing images (when the "Edit Image" button is clicked). Set to the empty string to disable this feature.</description>
+      <description>The desktop file name (including the ".desktop") of the application to use for editing images (when the "Edit Image" toolbar button is clicked). Set to the empty string to disable this feature.</description>
     </key>
   </schema>
   <schema id="org.gnome.eog.plugins" path="/org/gnome/eog/plugins/">

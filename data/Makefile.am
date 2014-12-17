@@ -23,10 +23,15 @@ gsettings_SCHEMAS = org.gnome.eog.gschema.xml
 gsettingsconvertdir = $(datadir)/GConf/gsettings
 gsettingsconvert_DATA = eog.convert
 
+uidir = $(pkgdatadir)
+ui_DATA = \
+	eog-toolbar.xml
+
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
 
 EXTRA_DIST =			\
+	$(ui_DATA)		\
 	eog.css			\
 	eog-app-menu.xml	\
 	eog-image-properties-dialog.ui	\
