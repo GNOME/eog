@@ -2851,6 +2851,7 @@ eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 		g_object_unref (image_file);
 	}
 
+	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(window));
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_hide (dialog);
 
@@ -4400,6 +4401,8 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *view_popup;
 	GtkWidget *hpaned;
 	GAction *action = NULL;
+	GtkBuilder *builder;
+	GObject *builder_object;
 
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -4520,9 +4523,14 @@ eog_window_construct_ui (EogWindow *window)
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_ZOOM_MULTIPLIER,
 			 priv->view, "zoom-multiplier", G_SETTINGS_BIND_GET);
 
-	view_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ViewPopup");
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-view-popup.ui");
+	builder_object = gtk_builder_get_object (builder, "view-popup-menu");
+	view_popup = gtk_menu_new_from_model (G_MENU_MODEL(builder_object));
+
 	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
 				   GTK_MENU (view_popup));
+
+	g_clear_object (&builder);
 
 	gtk_paned_pack1 (GTK_PANED (hpaned),
 			 priv->sidebar,

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface>
+  <menu id="view-popup-menu">
+    <section>
+      <submenu>
+        <attribute name="label" translatable="yes">Open _with</attribute>
+        <section id="open-with-placeholder"/>
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Save</attribute>
+        <attribute name="action">win.ImageSave</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Save _As…</attribute>
+        <attribute name="action">win.ImageSaveAs</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Print…</attribute>
+        <attribute name="action">win.ImagePrint</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Copy</attribute>
+        <attribute name="action">win.EditCopyImage</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Move to _Trash</attribute>
+        <attribute name="action">win.EditMoveToTrash</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Prope_rties</attribute>
+        <attribute name="action">win.ImageProperties</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Set as Wa_llpaper</attribute>
+        <attribute name="action">win.ImageSetAsWallpaper</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Show Containing _Folder</attribute>
+        <attribute name="action">win.ImageOpenContainingFolder</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
