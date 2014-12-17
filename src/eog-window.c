@@ -143,7 +143,10 @@ struct _EogWindowPrivate {
 	GtkWidget           *toolbar;
 	GtkWidget           *properties_dlg;
 
-	GSimpleActionGroup  *actions_recent;
+        GtkActionGroup      *actions_window;
+        GtkActionGroup      *actions_image;
+        GtkActionGroup      *actions_gallery;
+        GtkActionGroup      *actions_recent;
 
 	GtkWidget           *fullscreen_popup;
 	GSource             *fullscreen_timeout_source;
@@ -172,7 +175,7 @@ struct _EogWindowPrivate {
 	EogWindowGalleryPos  gallery_position;
 	gboolean             gallery_resizable;
 
-	GSimpleActionGroup  *actions_open_with;
+        GtkActionGroup      *actions_open_with;
 	guint                open_with_menu_id;
 
 	gboolean	     save_disabled;
@@ -189,12 +192,12 @@ struct _EogWindowPrivate {
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogWindow, eog_window, GTK_TYPE_APPLICATION_WINDOW);
 
-static void eog_window_action_toggle_fullscreen (GSimpleAction *action, GVariant *state, gpointer user_data);
+static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
-static void eog_window_action_save (GSimpleAction *action, GVariant *variant, gpointer user_data);
-static void eog_window_action_save_as (GSimpleAction *action, GVariant *variant, gpointer user_data);
-static void eog_window_action_toggle_slideshow (GSimpleAction *action, GVariant *state, gpointer user_data);
-static void eog_window_action_pause_slideshow (GSimpleAction *action, GVariant *variant, gpointer user_data);
+static void eog_window_cmd_save (GtkAction *action, gpointer user_data);
+static void eog_window_cmd_save_as (GtkAction *action, gpointer user_data);
+static void eog_window_cmd_slideshow (GtkAction *action, gpointer user_data);
+static void eog_window_cmd_pause_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_job_load_cb (EogJobLoad *job, gpointer data);
 static void eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer data);
@@ -203,7 +206,7 @@ static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 static void fullscreen_set_timeout (EogWindow *window);
 static void fullscreen_clear_timeout (EogWindow *window);
 static void update_action_groups_state (EogWindow *window);
-static void open_with_launch_application_cb (GAction *action, gpointer callback_data);
+static void open_with_launch_application_cb (GtkAction *action, gpointer callback_data);
 static void eog_window_update_openwith_menu (EogWindow *window, EogImage *image);
 static void eog_window_list_store_image_added (GtkTreeModel *tree_model,
 					       GtkTreePath  *path,
@@ -236,7 +239,7 @@ _eog_zoom_shrink_to_boolean (GBinding *binding, const GValue *source,
 	gboolean is_fit;
 
 	is_fit = (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT);
-	g_value_set_variant (target, g_variant_new_boolean (is_fit));
+	g_value_set_boolean (target, is_fit);
 
 	return TRUE;
 }
@@ -352,7 +355,7 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 	EogWindowPrivate *priv;
 	EogWindow *window;
 	gboolean save_disabled = FALSE;
-	GAction *action_save, *action_save_as;
+	GtkAction *action_save, *action_save_as;
 
 	eog_debug (DEBUG_PREFERENCES);
 
@@ -366,23 +369,21 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 	priv->save_disabled = save_disabled;
 
 	action_save =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSave");
+		gtk_action_group_get_action (priv->actions_image, "ImageSave");
 	action_save_as =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSaveAs");
+		gtk_action_group_get_action (priv->actions_image, "ImageSaveAs");
 
 	if (priv->save_disabled) {
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), FALSE);
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save_as), FALSE);
+		gtk_action_set_sensitive (action_save, FALSE);
+		gtk_action_set_sensitive (action_save_as, FALSE);
 	} else {
 		EogImage *image = eog_window_get_image (window);
 
 		if (EOG_IS_IMAGE (image)) {
-			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save),
+			gtk_action_set_sensitive (action_save,
 						  eog_image_is_modified (image));
 
-			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save_as), TRUE);
+			gtk_action_set_sensitive (action_save_as, TRUE);
 		}
 	}
 }
@@ -587,11 +588,11 @@ static void
 update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	GAction *action_gallery;
-	GAction *action_sidebar;
-	GAction *action_fscreen;
-	GAction *action_sshow;
-	GAction *action_print;
+	GtkAction *action_gallery;
+	GtkAction *action_sidebar;
+	GtkAction *action_fscreen;
+	GtkAction *action_sshow;
+	GtkAction *action_print;
 	gboolean print_disabled = FALSE;
 	gboolean show_image_gallery = FALSE;
 	gint n_images = 0;
@@ -603,23 +604,23 @@ update_action_groups_state (EogWindow *window)
 	priv = window->priv;
 
 	action_gallery =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_window,
 					     "ViewImageGallery");
 
 	action_sidebar =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_window,
 					     "ViewSidebar");
 
 	action_fscreen =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_image,
 					     "ViewFullscreen");
 
 	action_sshow =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_gallery,
 					     "ViewSlideshow");
 
 	action_print =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_image,
 					     "ImagePrint");
 
 	g_assert (action_gallery != NULL);
@@ -635,12 +636,12 @@ update_action_groups_state (EogWindow *window)
 	if (n_images == 0) {
 		gtk_widget_hide (priv->layout);
 
-		/*gtk_action_group_set_sensitive (window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
-		gtk_action_group_set_sensitive (priv->actions_gallery,  FALSE);*/
+		gtk_action_group_set_sensitive (priv->actions_gallery,  FALSE);
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_fscreen), FALSE);
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), FALSE);
+		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_sshow,   FALSE);
 
 		/* If there are no images on model, initialization
  		   stops here. */
@@ -669,23 +670,23 @@ update_action_groups_state (EogWindow *window)
 		if (show_image_gallery)
 			gtk_widget_show (priv->nav);
 
-		g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
-								   g_variant_new_boolean (show_image_gallery));
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_gallery),
+					      show_image_gallery);
 
-		/*gtk_action_group_set_sensitive (window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);*/
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_fscreen), TRUE);
+		gtk_action_set_sensitive (action_fscreen, TRUE);
 
 		if (n_images == 1) {
-			/*gtk_action_group_set_sensitive (priv->actions_gallery,
-							FALSE);*/
-			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_gallery), FALSE);
-			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), FALSE);
+			gtk_action_group_set_sensitive (priv->actions_gallery,
+							FALSE);
+			gtk_action_set_sensitive (action_gallery, FALSE);
+			gtk_action_set_sensitive (action_sshow, FALSE);
 		} else {
-			/*gtk_action_group_set_sensitive (priv->actions_gallery,
-							TRUE);*/
-			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), TRUE);
+			gtk_action_group_set_sensitive (priv->actions_gallery,
+							TRUE);
+			gtk_action_set_sensitive (action_sshow, TRUE);
 		}
 
 		if (show_image_gallery)
@@ -698,11 +699,11 @@ update_action_groups_state (EogWindow *window)
 						EOG_CONF_DESKTOP_CAN_PRINT);
 
 	if (print_disabled) {
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_print), FALSE);
+		gtk_action_set_sensitive (action_print, FALSE);
 	}
 
 	if (eog_sidebar_is_empty (EOG_SIDEBAR (priv->sidebar))) {
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sidebar), FALSE);
+		gtk_action_set_sensitive (action_sidebar, FALSE);
 		gtk_widget_hide (priv->sidebar);
 	}
 }
@@ -711,7 +712,7 @@ static void
 update_selection_ui_visibility (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	GAction *wallpaper_action;
+	GtkAction *wallpaper_action;
 	gint n_selected;
 
 	priv = window->priv;
@@ -719,13 +720,13 @@ update_selection_ui_visibility (EogWindow *window)
 	n_selected = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
 
 	wallpaper_action =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (priv->actions_image,
 					     "ImageSetAsWallpaper");
 
 	if (n_selected == 1) {
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (wallpaper_action), TRUE);
+		gtk_action_set_sensitive (wallpaper_action, TRUE);
 	} else {
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (wallpaper_action), FALSE);
+		gtk_action_set_sensitive (wallpaper_action, FALSE);
 	}
 }
 
@@ -921,7 +922,7 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 }
 
 static void
-open_with_launch_application_cb (GAction *action, gpointer data) {
+open_with_launch_application_cb (GtkAction *action, gpointer data) {
 	EogImage *image;
 	GAppInfo *app;
 	GFile *file;
@@ -948,8 +949,9 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 	GFile *file;
 	GFileInfo *file_info;
 	GList *iter;
+	gchar *label, *tip;
 	const gchar *mime_type;
-	GSimpleAction *action;
+	GtkAction *action;
 	EogWindowPrivate *priv;
         GList *apps;
         guint action_id = 0;
@@ -995,7 +997,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         if (!apps)
                 return;
 
-        priv->actions_open_with = g_simple_action_group_new ();
+        priv->actions_open_with = gtk_action_group_new ("OpenWithActions");
         gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_open_with, -1);
 
         priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
@@ -1017,9 +1019,20 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
 
-                action = g_simple_action_new (name, NULL);
+                label = g_strdup (g_app_info_get_name (app));
+                tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), g_app_info_get_name (app));
+
+                action = gtk_action_new (name, label, tip, NULL);
 
 		app_icon = g_app_info_get_icon (app);
+		if (G_LIKELY (app_icon != NULL)) {
+			g_object_ref (app_icon);
+                	gtk_action_set_gicon (action, app_icon);
+                	g_object_unref (app_icon);
+		}
+
+                g_free (label);
+                g_free (tip);
 
                 g_object_set_data_full (G_OBJECT (action), "app", app,
                                         (GDestroyNotify) g_object_unref);
@@ -1029,8 +1042,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                                   G_CALLBACK (open_with_launch_application_cb),
                                   image);
 
-                g_action_map_add_action (G_ACTION_MAP (priv->actions_open_with),
-										 G_ACTION (action));
+                gtk_action_group_add_action (priv->actions_open_with, action);
                 g_object_unref (action);
 
                 gtk_ui_manager_add_ui (priv->ui_mgr,
@@ -1086,10 +1098,10 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
         g_list_free (apps);
 
-        action = G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (window),
-                                              "OpenEditor"));
+        action = gtk_action_group_get_action (window->priv->actions_image,
+                                              "OpenEditor");
         if (action != NULL) {
-                g_simple_action_set_enabled (action, edit_button_active);
+                gtk_action_set_sensitive (action, edit_button_active);
         }
 }
 
@@ -1279,7 +1291,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 					gint              response_id,
 					EogWindow        *window)
 {
-	GAction *action_save_as;
+	GtkAction *action_save_as;
 
 	g_return_if_fail (GTK_IS_INFO_BAR (message_area));
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -1298,10 +1310,9 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 		break;
 	case EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS:
 		/* trigger save as command for current image */
-		action_save_as =
-			g_action_map_lookup_action (G_ACTION_MAP (window),
+		action_save_as = gtk_action_group_get_action (window->priv->actions_image,
 							      "ImageSaveAs");
-		eog_window_action_save_as (G_SIMPLE_ACTION (action_save_as), NULL, window);
+		eog_window_cmd_save_as (action_save_as, window);
 		break;
 	}
 }
@@ -1311,7 +1322,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
-	GAction *action_undo, *action_save;
+	GtkAction *action_undo, *action_save;
 
         g_return_if_fail (EOG_IS_WINDOW (data));
 
@@ -1344,7 +1355,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 						 priv->display_profile);
 #endif
 
-		/*gtk_action_group_set_sensitive (priv->actions_image, TRUE);*/
+		gtk_action_group_set_sensitive (priv->actions_image, TRUE);
 
 		/* Make sure the window is really realized
 		 *  before displaying the image. The ScrollView needs that.  */
@@ -1391,7 +1402,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 			g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 		}
 
-		/*gtk_action_group_set_sensitive (priv->actions_image, FALSE);*/
+		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
 	}
 
 	eog_window_clear_load_job (window);
@@ -1405,17 +1416,13 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 			 window);
 	}
 
-	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
-											  "ImageSave");
-	action_undo = g_action_map_lookup_action (G_ACTION_MAP (window),
-											  "EditUndo");
+	action_save = gtk_action_group_get_action (priv->actions_image, "ImageSave");
+	action_undo = gtk_action_group_get_action (priv->actions_image, "EditUndo");
 
 	/* Set Save and Undo sensitive according to image state.
 	 * Respect lockdown in case of Save.*/
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save),
-			(!priv->save_disabled && eog_image_is_modified (job->image)));
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_undo),
-			eog_image_is_modified (job->image));
+	gtk_action_set_sensitive (action_save, (!priv->save_disabled && eog_image_is_modified (job->image)));
+	gtk_action_set_sensitive (action_undo, eog_image_is_modified (job->image));
 
 	g_object_unref (job->image);
 }
@@ -1441,7 +1448,7 @@ static void
 eog_job_transform_cb (EogJobTransform *job, gpointer data)
 {
 	EogWindow *window;
-	GAction *action_undo, *action_save;
+	GtkAction *action_undo, *action_save;
 	EogImage *image;
 
         g_return_if_fail (EOG_IS_WINDOW (data));
@@ -1451,21 +1458,17 @@ eog_job_transform_cb (EogJobTransform *job, gpointer data)
 	eog_window_clear_transform_job (window);
 
 	action_undo =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"EditUndo");
+		gtk_action_group_get_action (window->priv->actions_image, "EditUndo");
 	action_save =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSave");
+		gtk_action_group_get_action (window->priv->actions_image, "ImageSave");
 
 	image = eog_window_get_image (window);
 
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_undo),
-								 eog_image_is_modified (image));
+	gtk_action_set_sensitive (action_undo, eog_image_is_modified (image));
 
 	if (!window->priv->save_disabled)
 	{
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save),
-									 eog_image_is_modified (image));
+		gtk_action_set_sensitive (action_save, eog_image_is_modified (image));
 	}
 }
 
@@ -1583,8 +1586,8 @@ static void
 view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 {
 	EogWindow *window;
-	GAction *action_zoom_in;
-	GAction *action_zoom_out;
+	GtkAction *action_zoom_in;
+	GtkAction *action_zoom_out;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -1593,21 +1596,21 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	update_status_bar (window);
 
 	action_zoom_in =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (window->priv->actions_image,
 					     "ViewZoomIn");
 
 	action_zoom_out =
-		g_action_map_lookup_action (G_ACTION_MAP (window),
+		gtk_action_group_get_action (window->priv->actions_image,
 					     "ViewZoomOut");
 
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_in),
+	gtk_action_set_sensitive (action_zoom_in,
 			!eog_scroll_view_get_zoom_is_max (EOG_SCROLL_VIEW (window->priv->view)));
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_out),
+	gtk_action_set_sensitive (action_zoom_out,
 			!eog_scroll_view_get_zoom_is_min (EOG_SCROLL_VIEW (window->priv->view)));
 }
 
 static void
-eog_window_open_recent_cb (GAction *action, EogWindow *window)
+eog_window_open_recent_cb (GtkAction *action, EogWindow *window)
 {
 	GtkRecentInfo *info;
 	const gchar *uri;
@@ -1655,55 +1658,55 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 static void
 eog_window_update_fullscreen_action (EogWindow *window)
 {
-	GAction *action;
+	GtkAction *action;
 
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (window->priv->actions_image,
 					      "ViewFullscreen");
 
 	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_fullscreen), window);
+		(action, G_CALLBACK (eog_window_cmd_fullscreen), window);
 
-	g_simple_action_set_state (G_SIMPLE_ACTION (action),
-			g_variant_new_boolean (window->priv->mode == EOG_WINDOW_MODE_FULLSCREEN));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      window->priv->mode == EOG_WINDOW_MODE_FULLSCREEN);
 
 	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_fullscreen), window);
+		(action, G_CALLBACK (eog_window_cmd_fullscreen), window);
 }
 
 static void
 eog_window_update_slideshow_action (EogWindow *window)
 {
-	GAction *action;
+	GtkAction *action;
 
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (window->priv->actions_gallery,
 					      "ViewSlideshow");
 
 	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_slideshow), window);
+		(action, G_CALLBACK (eog_window_cmd_slideshow), window);
 
-	g_simple_action_set_state (G_SIMPLE_ACTION (action),
-			g_variant_new_boolean (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW);
 
 	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_slideshow), window);
+		(action, G_CALLBACK (eog_window_cmd_slideshow), window);
 }
 
 static void
 eog_window_update_pause_slideshow_action (EogWindow *window)
 {
-	GAction *action;
+	GtkAction *action;
 
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (window->priv->actions_image,
 					      "PauseSlideshow");
 
 	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_pause_slideshow), window);
+		(action, G_CALLBACK (eog_window_cmd_pause_slideshow), window);
 
-	g_simple_action_set_state (G_SIMPLE_ACTION (action),
-			g_variant_new_boolean (window->priv->mode != EOG_WINDOW_MODE_SLIDESHOW));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      window->priv->mode != EOG_WINDOW_MODE_SLIDESHOW);
 
 	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_pause_slideshow), window);
+		(action, G_CALLBACK (eog_window_cmd_pause_slideshow), window);
 }
 
 static gboolean
@@ -1870,20 +1873,20 @@ fullscreen_leave_notify_cb (GtkWidget *widget,
 static void
 exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 {
-	GAction *action;
+	GtkAction *action;
 
 	eog_debug (DEBUG_WINDOW);
 
 	if (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action = gtk_action_group_get_action (window->priv->actions_gallery,
 						      "ViewSlideshow");
 	} else {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action = gtk_action_group_get_action (window->priv->actions_image,
 						      "ViewFullscreen");
 	}
 	g_return_if_fail (action != NULL);
 
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (FALSE));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
 }
 
 static GtkWidget *
@@ -1946,7 +1949,8 @@ update_ui_visibility (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 
-	GAction *action;
+	GtkAction *action;
+	GtkWidget *menubar;
 
 	gboolean fullscreen_mode, visible;
 
@@ -1959,29 +1963,32 @@ update_ui_visibility (EogWindow *window)
 	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
 			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
 
+	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
+	g_assert (GTK_IS_WIDGET (menubar));
+
 	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_TOOLBAR);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ToolbarToggle");
 	g_assert (action != NULL);
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 
 	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_STATUSBAR);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/StatusbarToggle");
 	g_assert (action != NULL);
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = g_settings_get_boolean (priv->ui_settings,
 						  EOG_CONF_UI_IMAGE_GALLERY);
 		visible = visible && priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery");
+		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageGalleryToggle");
 		g_assert (action != NULL);
-		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 		if (visible) {
 			gtk_widget_show (priv->nav);
 		} else {
@@ -1992,9 +1999,9 @@ update_ui_visibility (EogWindow *window)
 	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_SIDEBAR);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar");
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/SidebarToggle");
 	g_assert (action != NULL);
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	if (visible) {
 		gtk_widget_show (priv->sidebar);
 	} else {
@@ -2271,9 +2278,7 @@ eog_window_print (EogWindow *window)
 }
 
 static void
-eog_window_action_file_open (GSimpleAction *action,
-							 GVariant      *parameter,
-							 gpointer       user_data)
+eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -2327,7 +2332,7 @@ static void
 eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	GAction *action_save;
+	GtkAction *action_save;
 
 	g_signal_handlers_disconnect_by_func (job,
 					      eog_job_close_save_cb,
@@ -2338,7 +2343,7 @@ eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 	window->priv->save_job = NULL;
 
 	/* recover save action from actions group */
-	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action_save = gtk_action_group_get_action (window->priv->actions_image,
 						   "ImageSave");
 
 	/* check if job contains any error */
@@ -2373,7 +2378,7 @@ eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 
 		update_status_bar (window);
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), TRUE);
+		gtk_action_set_sensitive (action_save, TRUE);
 	}
 }
 
@@ -2384,7 +2389,7 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 {
 	GList            *selected_images;
 	EogWindowPrivate *priv;
-	GAction          *action_save_as;
+	GtkAction        *action_save_as;
 
 	priv = window->priv;
 
@@ -2412,9 +2417,9 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 						  g_list_first (selected_images)->data,
 						  TRUE);
 
-		action_save_as = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action_save_as = gtk_action_group_get_action (priv->actions_image,
 							      "ImageSaveAs");
-		eog_window_action_save_as (G_SIMPLE_ACTION (action_save_as), NULL, window);
+		eog_window_cmd_save_as (action_save_as, window);
 		break;
 
 	case EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CLOSE:
@@ -2481,9 +2486,7 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 }
 
 static void
-eog_window_action_close_window (GSimpleAction *action,
-								GVariant      *variant,
-								gpointer       user_data)
+eog_window_cmd_close_window (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2491,9 +2494,7 @@ eog_window_action_close_window (GSimpleAction *action,
 }
 
 static void
-eog_window_action_preferences (GSimpleAction *action,
-							   GVariant      *variant,
-							   gpointer       user_data)
+eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2503,7 +2504,7 @@ eog_window_action_preferences (GSimpleAction *action,
 #define EOG_TB_EDITOR_DLG_RESET_RESPONSE 128
 
 static void
-eog_window_action_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
+eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 
@@ -2543,14 +2544,12 @@ eog_window_action_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer da
 }
 
 static void
-eog_window_action_edit_toolbar (GSimpleAction *action,
-								GVariant      *variant,
-								gpointer       user_data)
+eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 {
 	EogWindow *window;
 	GtkWidget *dialog;
 	GtkWidget *editor;
-	GAction *tb_action;
+	GtkAction *tb_action;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2594,33 +2593,32 @@ eog_window_action_edit_toolbar (GSimpleAction *action,
 
 	g_signal_connect (dialog,
                           "response",
-			  G_CALLBACK (eog_window_action_edit_toolbar_cb),
+			  G_CALLBACK (eog_window_cmd_edit_toolbar_cb),
 			  window);
 
 	gtk_widget_show_all (dialog);
 
-	tb_action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	tb_action = gtk_action_group_get_action (window->priv->actions_window,
 						"ViewToolbar");
 	/* Bind sensitivity of ViewToolbar action to the dialog's visibility.
 	 * This will make it sensitive again once the dialog goes away.
 	 */
 	if(tb_action)
 		g_object_bind_property (dialog, "visible",
-					tb_action, "enabled",
+					tb_action, "sensitive",
 					G_BINDING_SYNC_CREATE |
 					G_BINDING_INVERT_BOOLEAN);
 	/* Do the same for the EditToolbar action to avoid spawning
 	 * additional (useless) editor windows. */
 	g_object_bind_property (dialog, "visible",
-				action, "enabled",
+				action, "sensitive",
 				G_BINDING_SYNC_CREATE |
 				G_BINDING_INVERT_BOOLEAN);
+
 }
 
 static void
-eog_window_action_help (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+eog_window_cmd_help (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 
@@ -2632,19 +2630,16 @@ eog_window_action_help (GSimpleAction *action,
 }
 
 static void
-eog_window_action_about (GSimpleAction *action,
-						 GVariant      *variant,
-						 gpointer       user_data)
+eog_window_cmd_about (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_window_show_about_dialog (EOG_WINDOW (user_data));
+
 }
 
 static void
-eog_window_action_show_hide_bar (GSimpleAction *action,
-								 GVariant      *state,
-								 gpointer       user_data)
+eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -2658,23 +2653,23 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 	if (priv->mode != EOG_WINDOW_MODE_NORMAL &&
             priv->mode != EOG_WINDOW_MODE_FULLSCREEN) return;
 
-	visible = g_variant_get_boolean (state);
+	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
-	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewToolbar") == 0) {
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewToolbar") == 0) {
 		g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
 			g_settings_set_boolean (priv->ui_settings,
 						EOG_CONF_UI_TOOLBAR, visible);
 
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewStatusbar") == 0) {
+	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
 			g_settings_set_boolean (priv->ui_settings,
 						EOG_CONF_UI_STATUSBAR, visible);
 
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewImageGallery") == 0) {
+	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageGallery") == 0) {
 		if (visible) {
 			/* Make sure the focus widget is realized to
 			 * avoid warnings on keypress events */
@@ -2700,7 +2695,7 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 		g_settings_set_boolean (priv->ui_settings,
 					EOG_CONF_UI_IMAGE_GALLERY, visible);
 
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewSidebar") == 0) {
+	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewSidebar") == 0) {
 		if (visible) {
 			gtk_widget_show (priv->sidebar);
 		} else {
@@ -2709,8 +2704,6 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR,
 					visible);
 	}
-
-	g_simple_action_set_state (action, state);
 }
 
 static void
@@ -2833,7 +2826,7 @@ static void
 eog_job_save_cb (EogJobSave *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	GAction *action_save;
+	GtkAction *action_save;
 
 	g_signal_handlers_disconnect_by_func (job,
 					      eog_job_save_cb,
@@ -2848,7 +2841,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 	window->priv->save_job = NULL;
 
 	/* recover save action from actions group */
-	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action_save = gtk_action_group_get_action (window->priv->actions_image,
 						   "ImageSave");
 
 	/* check if job contains any error */
@@ -2857,7 +2850,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 		gtk_window_set_title (GTK_WINDOW (window),
 				      eog_image_get_caption (job->current_image));
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), FALSE);
+		gtk_action_set_sensitive (action_save, FALSE);
 	} else {
 		GtkWidget *message_area;
 
@@ -2883,7 +2876,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 
 		update_status_bar (window);
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), TRUE);
+		gtk_action_set_sensitive (action_save, TRUE);
 	}
 }
 
@@ -2892,7 +2885,7 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	gchar *filepath, *basename, *filename, *extension;
-	GAction *action;
+	GtkAction *action;
 	GFile *source_file, *dest_file;
 	GTimeVal mtime;
 
@@ -2931,9 +2924,9 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
 			   window->priv->copy_file_cid);
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (window->priv->actions_image,
 					      "ImageSetAsWallpaper");
-	g_simple_action_set_enabled (G_SIMPLE_ACTION (action), TRUE);
+	gtk_action_set_sensitive (action, TRUE);
 
 	window->priv->copy_job = NULL;
 
@@ -2968,9 +2961,7 @@ eog_window_save_images (EogWindow *window, GList *images)
 }
 
 static void
-eog_window_action_save (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+eog_window_cmd_save (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 	EogWindow *window;
@@ -3032,9 +3023,7 @@ eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 }
 
 static void
-eog_window_action_save_as (GSimpleAction *action,
-						   GVariant      *variant,
-						   gpointer       user_data)
+eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 {
         EogWindowPrivate *priv;
         EogWindow *window;
@@ -3116,9 +3105,7 @@ eog_window_action_save_as (GSimpleAction *action,
 }
 
 static void
-eog_window_action_open_containing_folder (GSimpleAction *action,
-										  GVariant      *variant,
-										  gpointer       user_data)
+eog_window_cmd_open_containing_folder (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 	GFile *file;
@@ -3138,9 +3125,7 @@ eog_window_action_open_containing_folder (GSimpleAction *action,
 }
 
 static void
-eog_window_action_print (GSimpleAction *action,
-						 GVariant      *variant,
-						 gpointer       user_data)
+eog_window_cmd_print (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 
@@ -3157,14 +3142,14 @@ eog_window_get_properties_dialog (EogWindow *window)
 	priv = window->priv;
 
 	if (priv->properties_dlg == NULL) {
-		GAction *next_image_action, *previous_image_action;
+		GtkAction *next_image_action, *previous_image_action;
 
 		next_image_action =
-			g_action_map_lookup_action (G_ACTION_MAP (window),
+			gtk_action_group_get_action (priv->actions_gallery,
 						     "GoNext");
 
 		previous_image_action =
-			g_action_map_lookup_action (G_ACTION_MAP (window),
+			gtk_action_group_get_action (priv->actions_gallery,
 						     "GoPrevious");
 		priv->properties_dlg =
 			eog_properties_dialog_new (GTK_WINDOW (window),
@@ -3184,9 +3169,7 @@ eog_window_get_properties_dialog (EogWindow *window)
 }
 
 static void
-eog_window_action_properties (GSimpleAction *action,
-							  GVariant      *variant,
-							  gpointer       user_data)
+eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	GtkWidget *dialog;
@@ -3196,9 +3179,7 @@ eog_window_action_properties (GSimpleAction *action,
 }
 
 static void
-eog_window_action_undo (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+eog_window_cmd_undo (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3206,9 +3187,7 @@ eog_window_action_undo (GSimpleAction *action,
 }
 
 static void
-eog_window_action_flip_horizontal (GSimpleAction *action,
-								   GVariant      *variant,
-								   gpointer       user_data)
+eog_window_cmd_flip_horizontal (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3217,9 +3196,7 @@ eog_window_action_flip_horizontal (GSimpleAction *action,
 }
 
 static void
-eog_window_action_flip_vertical (GSimpleAction *action,
-								 GVariant      *variant,
-								 gpointer      user_data)
+eog_window_cmd_flip_vertical (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3228,9 +3205,7 @@ eog_window_action_flip_vertical (GSimpleAction *action,
 }
 
 static void
-eog_window_action_rotate_90 (GSimpleAction *action,
-                             GVariant      *parameter,
-                             gpointer       user_data)
+eog_window_cmd_rotate_90 (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3239,9 +3214,7 @@ eog_window_action_rotate_90 (GSimpleAction *action,
 }
 
 static void
-eog_window_action_rotate_270 (GSimpleAction *action,
-                              GVariant      *parameter,
-                              gpointer       user_data)
+eog_window_cmd_rotate_270 (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3250,9 +3223,7 @@ eog_window_action_rotate_270 (GSimpleAction *action,
 }
 
 static void
-eog_window_action_wallpaper (GSimpleAction *action,
-							 GVariant      *variant,
-							 gpointer       user_data)
+eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -3281,11 +3252,11 @@ eog_window_action_wallpaper (GSimpleAction *action,
 	if (filename == NULL || !eog_util_file_is_persistent (file))
 	{
 		GList *files = NULL;
-		GAction *action;
+		GtkAction *action;
 
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action = gtk_action_group_get_action (window->priv->actions_image,
 						      "ImageSetAsWallpaper");
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
+		gtk_action_set_sensitive (action, FALSE);
 
 		priv->copy_file_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
 								    "copy_file_cid");
@@ -3577,9 +3548,7 @@ eog_window_force_image_delete (EogWindow *window,
 }
 
 static void
-eog_window_action_delete (GSimpleAction *action,
-						  GVariant      *variant,
-						  gpointer       user_data)
+eog_window_cmd_delete (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	GList     *images;
@@ -3731,9 +3700,7 @@ move_to_trash_real (EogImage *image, GError **error)
 }
 
 static void
-eog_window_action_copy_image (GSimpleAction *action,
-							  GVariant      *variant,
-							  gpointer       user_data)
+eog_window_cmd_copy_image (GtkAction *action, gpointer user_data)
 {
 	GtkClipboard *clipboard;
 	EogWindow *window;
@@ -3758,9 +3725,7 @@ eog_window_action_copy_image (GSimpleAction *action,
 }
 
 static void
-eog_window_action_move_to_trash (GSimpleAction *action,
-								 GVariant      *variant,
-								 gpointer       user_data)
+eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 {
 	GList *images;
 	GList *it;
@@ -3794,7 +3759,7 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 
 	can_trash = eog_window_all_images_trasheable (images);
 
-	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "Delete") == 0 ||
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0 ||
 	    can_trash == FALSE) {
 		response = show_move_to_trash_confirm_dialog (window, images, can_trash);
 
@@ -3862,9 +3827,7 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 }
 
 static void
-eog_window_action_toggle_fullscreen (GSimpleAction *action,
-									 GVariant      *state,
-									 gpointer       user_data)
+eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	gboolean fullscreen;
@@ -3875,7 +3838,7 @@ eog_window_action_toggle_fullscreen (GSimpleAction *action,
 
 	window = EOG_WINDOW (user_data);
 
-	fullscreen = g_variant_get_boolean (state);
+	fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
 	if (fullscreen) {
 		eog_window_run_fullscreen (window, FALSE);
@@ -3885,9 +3848,7 @@ eog_window_action_toggle_fullscreen (GSimpleAction *action,
 }
 
 static void
-eog_window_action_toggle_slideshow (GSimpleAction *action,
-									GVariant      *state,
-									gpointer       user_data)
+eog_window_cmd_slideshow (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	gboolean slideshow;
@@ -3898,7 +3859,7 @@ eog_window_action_toggle_slideshow (GSimpleAction *action,
 
 	window = EOG_WINDOW (user_data);
 
-	slideshow = g_variant_get_boolean (state);
+	slideshow = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
 	if (slideshow) {
 		eog_window_run_fullscreen (window, TRUE);
@@ -3908,9 +3869,7 @@ eog_window_action_toggle_slideshow (GSimpleAction *action,
 }
 
 static void
-eog_window_action_pause_slideshow (GSimpleAction *action,
-								   GVariant      *variant,
-								   gpointer       user_data)
+eog_window_cmd_pause_slideshow (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	gboolean slideshow;
@@ -3930,9 +3889,7 @@ eog_window_action_pause_slideshow (GSimpleAction *action,
 }
 
 static void
-eog_window_action_zoom_in (GSimpleAction *action,
-                           GVariant      *parameter,
-                           gpointer       user_data)
+eog_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -3948,9 +3905,7 @@ eog_window_action_zoom_in (GSimpleAction *action,
 }
 
 static void
-eog_window_action_zoom_out (GSimpleAction *action,
-                           GVariant      *parameter,
-                           gpointer       user_data)
+eog_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -3966,9 +3921,7 @@ eog_window_action_zoom_out (GSimpleAction *action,
 }
 
 static void
-eog_window_action_zoom_normal (GSimpleAction *action,
-							   GVariant      *variant,
-							   gpointer       user_data)
+eog_window_cmd_zoom_normal (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -3984,9 +3937,7 @@ eog_window_action_zoom_normal (GSimpleAction *action,
 }
 
 static void
-eog_window_action_toggle_zoom_fit (GSimpleAction *action,
-								   GVariant      *state,
-								   gpointer       user_data)
+eog_window_cmd_zoom_fit (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 	EogZoomMode mode;
@@ -3997,7 +3948,7 @@ eog_window_action_toggle_zoom_fit (GSimpleAction *action,
 
 	priv = EOG_WINDOW (user_data)->priv;
 
-	mode = g_variant_get_boolean (state)
+	mode = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))
 	       ? EOG_ZOOM_MODE_SHRINK_TO_FIT : EOG_ZOOM_MODE_FREE;
 
 	if (priv->view) {
@@ -4007,9 +3958,7 @@ eog_window_action_toggle_zoom_fit (GSimpleAction *action,
 }
 
 static void
-eog_window_action_go_prev (GSimpleAction *action,
-                           GVariant      *parameter,
-                           gpointer       user_data)
+eog_window_cmd_go_prev (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -4024,9 +3973,7 @@ eog_window_action_go_prev (GSimpleAction *action,
 }
 
 static void
-eog_window_action_go_next (GSimpleAction *action,
-                           GVariant      *parameter,
-                           gpointer       user_data)
+eog_window_cmd_go_next (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -4041,9 +3988,7 @@ eog_window_action_go_next (GSimpleAction *action,
 }
 
 static void
-eog_window_action_go_first (GSimpleAction *action,
-                            GVariant      *parameter,
-                            gpointer       user_data)
+eog_window_cmd_go_first (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -4058,9 +4003,7 @@ eog_window_action_go_first (GSimpleAction *action,
 }
 
 static void
-eog_window_action_go_last (GSimpleAction *action,
-                           GVariant      *parameter,
-                           gpointer       user_data)
+eog_window_cmd_go_last (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -4075,9 +4018,7 @@ eog_window_action_go_last (GSimpleAction *action,
 }
 
 static void
-eog_window_action_go_random (GSimpleAction *action,
-                             GVariant      *parameter,
-                             gpointer       user_data)
+eog_window_cmd_go_random (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -4089,6 +4030,235 @@ eog_window_action_go_random (GSimpleAction *action,
 
 	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_RANDOM);
+}
+
+static const GtkActionEntry action_entries_window[] = {
+	{ "Image", NULL, N_("_Image") },
+	{ "Edit",  NULL, N_("_Edit") },
+	{ "View",  NULL, N_("_View") },
+	{ "Go",    NULL, N_("_Go") },
+	{ "Tools", NULL, N_("_Tools") },
+	{ "Help",  NULL, N_("_Help") },
+
+	{ "ImageOpen", "document-open",  N_("_Open…"), "<control>O",
+	  N_("Open a file"),
+	  G_CALLBACK (eog_window_cmd_file_open) },
+	{ "ImageClose", "window-close", N_("_Close"), "<control>W",
+	  N_("Close window"),
+	  G_CALLBACK (eog_window_cmd_close_window) },
+	{ "EditToolbar", NULL, N_("T_oolbar"), NULL,
+	  N_("Edit the application toolbar"),
+	  G_CALLBACK (eog_window_cmd_edit_toolbar) },
+	{ "EditPreferences", "preferences-desktop", N_("Prefere_nces"), NULL,
+	  N_("Preferences for Image Viewer"),
+	  G_CALLBACK (eog_window_cmd_preferences) },
+	{ "HelpManual", "help-browser", N_("_Contents"), "F1",
+	  N_("Help on this application"),
+	  G_CALLBACK (eog_window_cmd_help) },
+	{ "HelpAbout", "help-about", N_("_About"), NULL,
+	  N_("About this application"),
+	  G_CALLBACK (eog_window_cmd_about) }
+};
+
+static const GtkToggleActionEntry toggle_entries_window[] = {
+	{ "ViewToolbar", NULL, N_("_Toolbar"), NULL,
+	  N_("Changes the visibility of the toolbar in the current window"),
+	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
+	{ "ViewStatusbar", NULL, N_("_Statusbar"), NULL,
+	  N_("Changes the visibility of the statusbar in the current window"),
+	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
+	{ "ViewImageGallery", "eog-image-gallery", N_("_Image Gallery"), "F9",
+	  N_("Changes the visibility of the image gallery pane in the current window"),
+	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
+	{ "ViewSidebar", NULL, N_("Side _Pane"), "<control>F9",
+	  N_("Changes the visibility of the side pane in the current window"),
+	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
+};
+
+static const GtkActionEntry action_entries_image[] = {
+	{ "ImageSave", "document-save", N_("_Save"), "<control>s",
+	  N_("Save changes in currently selected images"),
+	  G_CALLBACK (eog_window_cmd_save) },
+	{ "ImageOpenWith", NULL, N_("Open _with"), NULL,
+	  N_("Open the selected image with a different application"),
+	  NULL},
+	{ "ImageSaveAs", "document-save-as", N_("Save _As…"), "<control><shift>s",
+	  N_("Save the selected images with a different name"),
+	  G_CALLBACK (eog_window_cmd_save_as) },
+	{ "ImageOpenContainingFolder", "folder", N_("Show Containing _Folder"), NULL,
+	  N_("Show the folder which contains this file in the file manager"),
+	  G_CALLBACK (eog_window_cmd_open_containing_folder) },
+	{ "ImagePrint", "document-print", N_("_Print…"), "<control>p",
+	  N_("Print the selected image"),
+	  G_CALLBACK (eog_window_cmd_print) },
+	{ "ImageProperties", "document-properties", N_("Prope_rties"), "<alt>Return",
+	  N_("Show the properties and metadata of the selected image"),
+	  G_CALLBACK (eog_window_cmd_properties) },
+	{ "EditUndo", "edit-undo", N_("_Undo"), "<control>z",
+	  N_("Undo the last change in the image"),
+	  G_CALLBACK (eog_window_cmd_undo) },
+	{ "EditFlipHorizontal", "object-flip-horizontal", N_("Flip _Horizontal"), NULL,
+	  N_("Mirror the image horizontally"),
+	  G_CALLBACK (eog_window_cmd_flip_horizontal) },
+	{ "EditFlipVertical", "object-flip-vertical", N_("Flip _Vertical"), NULL,
+	  N_("Mirror the image vertically"),
+	  G_CALLBACK (eog_window_cmd_flip_vertical) },
+	{ "EditRotate90",  "object-rotate-right",  N_("_Rotate Clockwise"), "<control>r",
+	  N_("Rotate the image 90 degrees to the right"),
+	  G_CALLBACK (eog_window_cmd_rotate_90) },
+	{ "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), "<ctrl><shift>r",
+	  N_("Rotate the image 90 degrees to the left"),
+	  G_CALLBACK (eog_window_cmd_rotate_270) },
+	{ "ImageSetAsWallpaper", NULL, N_("Set as Wa_llpaper"),
+	  "<control>F8", N_("Set the selected image as the wallpaper"),
+	  G_CALLBACK (eog_window_cmd_wallpaper) },
+	{ "EditMoveToTrash", "user-trash", N_("Move to _Trash"), NULL,
+	  N_("Move the selected image to the trash folder"),
+	  G_CALLBACK (eog_window_cmd_move_to_trash) },
+	{ "EditDelete", "edit-delete", N_("_Delete Image"), "<shift>Delete",
+	  N_("Delete the selected image"),
+	  G_CALLBACK (eog_window_cmd_delete) },
+	{ "EditCopyImage", "edit-copy", N_("_Copy"), "<control>C",
+	  N_("Copy the selected image to the clipboard"),
+	  G_CALLBACK (eog_window_cmd_copy_image) },
+	{ "ViewZoomIn", "zoom-in", N_("_Zoom In"), "<control>plus",
+	  N_("Enlarge the image"),
+	  G_CALLBACK (eog_window_cmd_zoom_in) },
+	{ "ViewZoomOut", "zoom-out", N_("Zoom _Out"), "<control>minus",
+	  N_("Shrink the image"),
+	  G_CALLBACK (eog_window_cmd_zoom_out) },
+	{ "ViewZoomNormal", "zoom-original", N_("_Normal Size"), "<control>0",
+	  N_("Show the image at its normal size"),
+	  G_CALLBACK (eog_window_cmd_zoom_normal) },
+	{ "ControlEqual", "zoom-in", N_("_Zoom In"), "<control>equal",
+	  N_("Enlarge the image"),
+	  G_CALLBACK (eog_window_cmd_zoom_in) },
+	{ "ControlKpAdd", "zoom-in", N_("_Zoom In"), "<control>KP_Add",
+	  N_("Shrink the image"),
+	  G_CALLBACK (eog_window_cmd_zoom_in) },
+	{ "ControlKpSub", "zoom-in", N_("Zoom _Out"), "<control>KP_Subtract",
+	  N_("Shrink the image"),
+	  G_CALLBACK (eog_window_cmd_zoom_out) },
+	{ "Delete", NULL, N_("Move to _Trash"), "Delete",
+	  NULL,
+	  G_CALLBACK (eog_window_cmd_move_to_trash) },
+};
+
+static const GtkToggleActionEntry toggle_entries_image[] = {
+	{ "ViewFullscreen", "view-fullscreen", N_("_Fullscreen"), "F11",
+	  N_("Show the current image in fullscreen mode"),
+	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
+	{ "PauseSlideshow", "media-playback-pause", N_("Pause Slideshow"),
+	  NULL, N_("Pause or resume the slideshow"),
+	  G_CALLBACK (eog_window_cmd_pause_slideshow), FALSE },
+	{ "ViewZoomFit", "zoom-fit-best", N_("_Best Fit"), "F",
+	  N_("Fit the image to the window"),
+	  G_CALLBACK (eog_window_cmd_zoom_fit) },
+};
+
+static const GtkActionEntry action_entries_gallery[] = {
+	{ "GoPrevious", "go-previous", N_("_Previous Image"), "Left",
+	  N_("Go to the previous image of the gallery"),
+	  G_CALLBACK (eog_window_cmd_go_prev) },
+	{ "GoNext", "go-next", N_("_Next Image"), "Right",
+	  N_("Go to the next image of the gallery"),
+	  G_CALLBACK (eog_window_cmd_go_next) },
+	{ "GoFirst", "go-first", N_("_First Image"), "<Alt>Home",
+	  N_("Go to the first image of the gallery"),
+	  G_CALLBACK (eog_window_cmd_go_first) },
+	{ "GoLast", "go-last", N_("_Last Image"), "<Alt>End",
+	  N_("Go to the last image of the gallery"),
+	  G_CALLBACK (eog_window_cmd_go_last) },
+	{ "GoRandom", NULL, N_("_Random Image"), "<control>M",
+	  N_("Go to a random image of the gallery"),
+	  G_CALLBACK (eog_window_cmd_go_random) },
+	{ "BackSpace", NULL, N_("_Previous Image"), "BackSpace",
+	  NULL,
+	  G_CALLBACK (eog_window_cmd_go_prev) },
+	{ "Home", NULL, N_("_First Image"), "Home",
+	  NULL,
+	  G_CALLBACK (eog_window_cmd_go_first) },
+	{ "End", NULL, N_("_Last Image"), "End",
+	  NULL,
+	  G_CALLBACK (eog_window_cmd_go_last) },
+};
+
+static void
+eog_window_action_go_prev (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_prev (NULL, user_data);
+}
+
+static void
+eog_window_action_go_next (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_next (NULL, user_data);
+}
+
+static void
+eog_window_action_go_first (GSimpleAction *action,
+                            GVariant      *parameter,
+                            gpointer       user_data)
+{
+	eog_window_cmd_go_first (NULL, user_data);
+}
+
+static void
+eog_window_action_go_last (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_window_cmd_go_last (NULL, user_data);
+}
+
+static void
+eog_window_action_go_random (GSimpleAction *action,
+                             GVariant      *parameter,
+                             gpointer       user_data)
+{
+	eog_window_cmd_go_random (NULL, user_data);
+}
+
+static void
+eog_window_action_rotate_90 (GSimpleAction *action,
+                             GVariant      *parameter,
+                             gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+
+	eog_window_cmd_rotate_90 (NULL, user_data);
+}
+
+static void
+eog_window_action_rotate_270 (GSimpleAction *action,
+                              GVariant      *parameter,
+                              gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+
+	eog_window_cmd_rotate_270 (NULL, user_data);
+}
+
+static void
+eog_window_action_zoom_in (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+	eog_window_cmd_zoom_in (NULL, user_data);
+}
+
+static void
+eog_window_action_zoom_out (GSimpleAction *action,
+                           GVariant      *parameter,
+                           gpointer       user_data)
+{
+	eog_debug (DEBUG_WINDOW);
+	eog_window_cmd_zoom_out (NULL, user_data);
 }
 
 static void
@@ -4143,57 +4313,30 @@ readonly_state_handler (GSimpleAction *action,
 }
 
 static const GActionEntry window_actions[] = {
-	/* Stateless actions on the window. */
-	{ "ImageOpen",                 eog_window_action_file_open },
-	{ "ImageOpenWith",             NULL },
-	{ "ImageOpenContainingFolder", eog_window_action_open_containing_folder },
-	{ "ImageSave",                 eog_window_action_save },
-	{ "ImageSaveAs",               eog_window_action_save_as },
-	{ "ImageClose",                eog_window_action_close_window },
-	{ "ImagePrint",                eog_window_action_print },
-	{ "ImageProperties",           eog_window_action_properties },
-	{ "ImageSetAsWallpaper",       eog_window_action_wallpaper },
-	{ "EditToolbar",               eog_window_action_edit_toolbar },
-	{ "EditPreferences",           eog_window_action_preferences },
-	{ "HelpManual",                eog_window_action_help },
-	{ "HelpAbout",                 eog_window_action_about },
+	{ "go-previous", eog_window_action_go_prev },
+	{ "go-next",     eog_window_action_go_next },
+	{ "go-first",    eog_window_action_go_first },
+	{ "go-last",     eog_window_action_go_last },
+	{ "go-random",   eog_window_action_go_random },
+	{ "rotate-right", eog_window_action_rotate_90 },
+	{ "rotate-left", eog_window_action_rotate_270 },
+	{ "zoom-in",     eog_window_action_zoom_in },
+	{ "zoom-out",    eog_window_action_zoom_out },
+	{ "zoom-fit",    eog_window_action_zoom_best_fit },
+	{ "zoom-set",    eog_window_action_set_zoom, "d" },
+	{ "current-image", NULL, NULL, "@(ii) (0, 0)", readonly_state_handler }
+};
 
-	/* Stateless actions on the image. */
-	{ "GoPrevious",         eog_window_action_go_prev },
-	{ "GoNext",             eog_window_action_go_next },
-	{ "GoFirst",            eog_window_action_go_first },
-	{ "GoLast",             eog_window_action_go_last },
-	{ "GoRandom",           eog_window_action_go_random },
-	{ "EditRotate90",       eog_window_action_rotate_90 },
-	{ "EditRotate270",      eog_window_action_rotate_270 },
-	{ "EditFlipHorizontal", eog_window_action_flip_horizontal },
-	{ "EditFlipVertical",   eog_window_action_flip_vertical },
-	{ "EditMoveToTrash",    eog_window_action_move_to_trash },
-	{ "EditDelete",         eog_window_action_delete },
-	{ "EditCopyImage",      eog_window_action_copy_image },
-	{ "EditUndo",           eog_window_action_undo },
-	{ "ViewZoomIn",         eog_window_action_zoom_in },
-	{ "ViewZoomOut",        eog_window_action_zoom_out },
-	{ "ViewZoomFit",        eog_window_action_zoom_best_fit },
-	{ "ViewZoomNormal",     eog_window_action_zoom_normal },
-	{ "ViewZoomSet",        eog_window_action_set_zoom, "d" },
-
-	/* Stateful actions. */
-	{ "current-image",    NULL, NULL, "@(ii) (0, 0)", readonly_state_handler },
-	{ "ViewToolbar",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewStatusbar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewImageGallery", NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewSidebar",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewSlideshow",    NULL, NULL, "false", eog_window_action_toggle_slideshow },
-	{ "ViewFullscreen",   NULL, NULL, "false", eog_window_action_toggle_fullscreen },
-	{ "PauseSlideshow",   NULL, NULL, "false", eog_window_action_pause_slideshow },
-	{ "ViewZoomFit",      NULL, NULL, "true",  eog_window_action_toggle_zoom_fit },
+static const GtkToggleActionEntry toggle_entries_gallery[] = {
+	{ "ViewSlideshow", "slideshow-play", N_("S_lideshow"), "F5",
+	  N_("Start a slideshow view of the images"),
+	  G_CALLBACK (eog_window_cmd_slideshow), FALSE },
 };
 
 static void
 menu_item_select_cb (GtkMenuItem *proxy, EogWindow *window)
 {
-	GAction *action;
+	GtkAction *action;
 	char *message;
 
 	action = gtk_activatable_get_related_action (GTK_ACTIVATABLE (proxy));
@@ -4218,7 +4361,7 @@ menu_item_deselect_cb (GtkMenuItem *proxy, EogWindow *window)
 
 static void
 connect_proxy_cb (GtkUIManager *manager,
-                  GAction *action,
+                  GtkAction *action,
                   GtkWidget *proxy,
                   EogWindow *window)
 {
@@ -4232,7 +4375,7 @@ connect_proxy_cb (GtkUIManager *manager,
 
 static void
 disconnect_proxy_cb (GtkUIManager *manager,
-                     GAction *action,
+                     GtkAction *action,
                      GtkWidget *proxy,
                      EogWindow *window)
 {
@@ -4244,75 +4387,85 @@ disconnect_proxy_cb (GtkUIManager *manager,
 	}
 }
 
-static gboolean
-_sync_map_get_bool_variant (GBinding *binding, const GValue *source,
-						    GValue *target, gpointer user_data)
-{
-	GVariant *variant;
-
-	variant = g_value_dup_variant (source);
-	g_value_set_boolean (target, g_variant_get_boolean (variant));
-
-	g_variant_unref (variant);
-	return TRUE;
-}
-
 static void
-eog_window_ui_settings_changed_cb (GSettings *settings,
-								   gchar     *key,
-								   gpointer   user_data)
+set_action_properties (EogWindow      *window,
+                       GtkActionGroup *window_group,
+                       GtkActionGroup *image_group,
+                       GtkActionGroup *gallery_group)
 {
-	EogWindow *window;
-	GVariant *new_state = NULL;
-	GVariant *old_state;
-	GAction *action = NULL;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	window = EOG_WINDOW (user_data);
-	if (g_ascii_strcasecmp (key, EOG_CONF_UI_IMAGE_GALLERY) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery");
-	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_SIDEBAR) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar");
-	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_STATUSBAR) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
-	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_TOOLBAR) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
-	}
-
-	g_assert (action != NULL);
-
-	new_state = g_settings_get_value (settings, key);
-	g_assert (new_state != NULL);
-
-	old_state = g_action_get_state (action);
-
-	if (g_variant_get_boolean (new_state) != g_variant_get_boolean (old_state))
-		g_action_change_state (action, new_state);
-}
-
-static void
-set_action_properties (EogWindow *window)
-{
-	GAction *action;
+	GtkAction *action;
 	EogWindowPrivate *priv = window->priv;
+	gboolean rtl;
 
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewToolbar");
+	rtl = gtk_widget_get_direction (GTK_WIDGET (window)) == GTK_TEXT_DIR_RTL;
+
+	action = gtk_action_group_get_action (gallery_group, "GoPrevious");
+	g_object_set (action, "icon-name", rtl ? "go-previous-rtl" : "go-previous", NULL);
+	g_object_set (action, "short_label", _("Previous"), NULL);
+	g_object_set (action, "is-important", TRUE, NULL);
+
+	action = gtk_action_group_get_action (gallery_group, "GoNext");
+	g_object_set (action, "icon-name", rtl ? "go-next-rtl" : "go-next", NULL);
+	g_object_set (action, "short_label", _("Next"), NULL);
+	g_object_set (action, "is-important", TRUE, NULL);
+
+	action = gtk_action_group_get_action (image_group, "EditUndo");
+	g_object_set (action, "icon-name", rtl ? "edit-undo-rtl" : "edit-undo", NULL);
+
+	action = gtk_action_group_get_action (image_group, "EditRotate90");
+	g_object_set (action, "short_label", _("Right"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "EditRotate270");
+	g_object_set (action, "short_label", _("Left"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "ImageOpenContainingFolder");
+	g_object_set (action, "short_label", _("Show Folder"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "ViewZoomIn");
+	g_object_set (action, "short_label", _("In"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "ViewZoomOut");
+	g_object_set (action, "short_label", _("Out"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "ViewZoomNormal");
+	g_object_set (action, "short_label", _("Normal"), NULL);
+
+	action = gtk_action_group_get_action (image_group, "ViewZoomFit");
+	g_object_set (action, "short_label", _("Fit"), NULL);
+
+	action = gtk_action_group_get_action (window_group, "ViewImageGallery");
+	g_object_set (action, "short_label", _("Gallery"), NULL);
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewSidebar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SIDEBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewStatusbar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_STATUSBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (window_group, "ViewToolbar");
+	g_settings_bind (priv->ui_settings, EOG_CONF_UI_TOOLBAR, action,
+	                 "active", G_SETTINGS_BIND_GET);
+
+	action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
+	g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
 
 	/* Only allow editing the toolbar if it is visible */
+	action = gtk_action_group_get_action (window_group, "ViewToolbar");
 	if (G_LIKELY (action != NULL)) {
-		GAction *tbedit_action;
+		GtkAction *tbedit_action;
 
-		tbedit_action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		tbedit_action = gtk_action_group_get_action (window_group,
 		                                             "EditToolbar");
 
 		if (G_LIKELY (tbedit_action != NULL)) {
 			// The binding should free itself when the actions do
-			g_object_bind_property_full (action, "state",
-			                        tbedit_action, "enabled",
-			                        G_BINDING_SYNC_CREATE,
-									_sync_map_get_bool_variant,
-									NULL, NULL, NULL);
+			g_object_bind_property (action, "active",
+			                        tbedit_action, "sensitive",
+			                        G_BINDING_SYNC_CREATE);
 		} else {
 			g_warn_if_reached ();
 		}
@@ -4363,10 +4516,7 @@ static void
 eog_window_update_recent_files_menu (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	GAction *action;
-	gchar **action_names, *action_name;
-	guint i;
-	GList *li = NULL, *items = NULL;
+	GList *actions = NULL, *li = NULL, *items = NULL;
 	guint count_recent = 0;
 
 	priv = window->priv;
@@ -4374,20 +4524,18 @@ eog_window_update_recent_files_menu (EogWindow *window)
 	if (priv->recent_menu_id != 0)
 		gtk_ui_manager_remove_ui (priv->ui_mgr, priv->recent_menu_id);
 
-	action_names = g_action_group_list_actions (G_ACTION_GROUP (priv->actions_recent));
+	actions = gtk_action_group_list_actions (priv->actions_recent);
 
-	for (i = 0; i < g_strv_length (action_names); i++) {
-		action_name = action_names[i];
-		action = g_action_map_lookup_action (G_ACTION_MAP (priv->actions_recent), action_name);
-		g_signal_handlers_disconnect_by_func (action,
+	for (li = actions; li != NULL; li = li->next) {
+		g_signal_handlers_disconnect_by_func (GTK_ACTION (li->data),
 						      G_CALLBACK(eog_window_open_recent_cb),
 						      window);
 
-		g_action_map_remove_action (G_ACTION_MAP (priv->actions_recent),
-						action_name);
+		gtk_action_group_remove_action (priv->actions_recent,
+						GTK_ACTION (li->data));
 	}
 
-	g_strfreev (action_names);
+	g_list_free (actions);
 
 	priv->recent_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
 	items = gtk_recent_manager_get_items (gtk_recent_manager_get_default());
@@ -4395,7 +4543,11 @@ eog_window_update_recent_files_menu (EogWindow *window)
 
 	for (li = items; li != NULL && count_recent < EOG_RECENT_FILES_LIMIT; li = li->next) {
 		gchar *action_name;
-		GSimpleAction *action;
+		gchar *label;
+		gchar *tip;
+		gchar **display_name;
+		gchar *label_filename;
+		GtkAction *action;
 		GtkRecentInfo *info = li->data;
 
 		/* Sorting moves non-EOG files to the end of the list.
@@ -4406,18 +4558,37 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		count_recent++;
 
 		action_name = g_strdup_printf ("recent-info-%d", count_recent);
+		display_name = g_strsplit (gtk_recent_info_get_display_name (info), "_", -1);
+		label_filename = g_strjoinv ("__", display_name);
+		label = g_strdup_printf ("%s_%d. %s",
+				(is_rtl ? "\xE2\x80\x8F" : ""), count_recent, label_filename);
+		g_free (label_filename);
+		g_strfreev (display_name);
 
-		action = g_simple_action_new (action_name, NULL);
+		tip = gtk_recent_info_get_uri_display (info);
+
+		/* This is a workaround for a bug (#351945) regarding
+		 * gtk_recent_info_get_uri_display() and remote URIs.
+		 * gnome_vfs_format_uri_for_display is sufficient here
+		 * since the password gets stripped when adding the
+		 * file to the recently used list. */
+		if (tip == NULL)
+			tip = g_uri_unescape_string (gtk_recent_info_get_uri (info), NULL);
+
+		action = gtk_action_new (action_name, label, tip, NULL);
+		gtk_action_set_always_show_image (action, TRUE);
 
 		g_object_set_data_full (G_OBJECT (action), "gtk-recent-info",
 					gtk_recent_info_ref (info),
 					(GDestroyNotify) gtk_recent_info_unref);
 
+		g_object_set (G_OBJECT (action), "icon-name", "image-x-generic", NULL);
+
 		g_signal_connect (action, "activate",
 				  G_CALLBACK (eog_window_open_recent_cb),
 				  window);
 
-		g_action_map_add_action (G_ACTION_MAP (priv->actions_recent), G_ACTION (action));
+		gtk_action_group_add_action (priv->actions_recent, action);
 
 		g_object_unref (action);
 
@@ -4427,6 +4598,8 @@ eog_window_update_recent_files_menu (EogWindow *window)
 				       GTK_UI_MANAGER_AUTO, FALSE);
 
 		g_free (action_name);
+		g_free (label);
+		g_free (tip);
 	}
 
 	g_list_foreach (items, (GFunc) gtk_recent_info_unref, NULL);
@@ -4491,21 +4664,16 @@ eog_window_set_drag_dest (EogWindow *window)
 static void
 eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
 {
-	GAction *action;
-	GVariant *state;
+	GtkAction *action;
 	gboolean visible;
-	gboolean active;
 
 	visible = gtk_widget_get_visible (window->priv->sidebar);
 
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (window->priv->actions_window,
 					      "ViewSidebar");
 
-	state = g_action_get_state (action);
-	active = g_variant_get_boolean (state);
-	if (active != visible)
-		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
-	g_variant_unref (state);
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)) != visible)
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 
 	/* Focus the image */
 	if (!visible && window->priv->image != NULL)
@@ -4518,39 +4686,34 @@ eog_window_sidebar_page_added (EogSidebar  *sidebar,
 			       EogWindow   *window)
 {
 	if (eog_sidebar_get_n_pages (sidebar) == 1) {
-		GAction *action;
-		GVariant *state;
+		GtkAction *action;
 		gboolean show;
 
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action = gtk_action_group_get_action (window->priv->actions_window,
 						      "ViewSidebar");
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), TRUE);
+		gtk_action_set_sensitive (action, TRUE);
 
-		state = g_action_get_state (action);
-		show = g_variant_get_boolean (state);
+		show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
 		if (show)
 			gtk_widget_show (GTK_WIDGET (sidebar));
-
-		g_variant_unref (state);
 	}
 }
-
 static void
 eog_window_sidebar_page_removed (EogSidebar  *sidebar,
 			         GtkWidget   *main_widget,
 			         EogWindow   *window)
 {
 	if (eog_sidebar_is_empty (sidebar)) {
-		GAction *action;
+		GtkAction *action;
 
 		gtk_widget_hide (GTK_WIDGET (sidebar));
 
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
+		action = gtk_action_group_get_action (window->priv->actions_window,
 						      "ViewSidebar");
 
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
+		gtk_action_set_sensitive (action, FALSE);
 	}
 }
 
@@ -4576,9 +4739,9 @@ get_appinfo_for_editor (EogWindow *window)
 	 * to the "available" list of the EggToolbarsModel (for which
 	 * there is no API to remove it).  If later the editor no longer
 	 * existed when constructing a new window, we'd be unable to
-	 * construct a GAction for the editor for that window, causing
+	 * construct a GtkAction for the editor for that window, causing
 	 * assertion failures when viewing the "Edit Toolbars" dialog
-	 * (item is available, but can't find the GAction for it).
+	 * (item is available, but can't find the GtkAction for it).
 	 *
 	 * By ensuring we keep the GAppInfo around, we avoid the
 	 * possibility of that situation occurring.
@@ -4604,7 +4767,7 @@ get_appinfo_for_editor (EogWindow *window)
 }
 
 static void
-eog_window_open_editor (GAction *action,
+eog_window_open_editor (GtkAction *action,
                         EogWindow *window)
 {
 	GdkAppLaunchContext *context;
@@ -4642,7 +4805,8 @@ eog_window_add_open_editor_action (EogWindow *window)
 {
         EggToolbarsModel *model;
 	GAppInfo *app_info;
-	GSimpleAction *action;
+	GtkAction *action;
+        gchar *tooltip;
 
 	app_info = get_appinfo_for_editor (window);
 
@@ -4653,14 +4817,19 @@ eog_window_add_open_editor_action (EogWindow *window)
 	egg_toolbars_model_set_name_flags (model, "OpenEditor",
 	                                   EGG_TB_MODEL_NAME_KNOWN);
 
-	action = g_simple_action_new ("OpenEditor", NULL);
+	tooltip = g_strdup_printf (_("Edit the current image using %s"),
+	                           g_app_info_get_name (app_info));
+	action = gtk_action_new ("OpenEditor", _("Edit Image"), tooltip, NULL);
+	gtk_action_set_gicon (action, g_app_info_get_icon (app_info));
+	gtk_action_set_is_important (action, TRUE);
 
 	g_signal_connect (action, "activate",
 	                  G_CALLBACK (eog_window_open_editor), window);
 
-	g_action_map_add_action (G_ACTION_MAP (window), G_ACTION (action));
+	gtk_action_group_add_action (window->priv->actions_image, action);
 
 	g_object_unref (action);
+	g_free (tooltip);
 }
 
 static void
@@ -4675,14 +4844,14 @@ static void
 eog_window_view_next_image_cb (EogScrollView *view,
 			       EogWindow     *window)
 {
-	eog_window_action_go_next (NULL, NULL, window);
+	eog_window_cmd_go_next (NULL, window);
 }
 
 static void
 eog_window_view_previous_image_cb (EogScrollView *view,
 				   EogWindow     *window)
 {
-	eog_window_action_go_prev (NULL, NULL, window);
+	eog_window_cmd_go_prev (NULL, window);
 }
 
 static void
@@ -4697,7 +4866,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *view_popup;
 	GtkWidget *hpaned;
 	GtkWidget *menuitem;
-	GAction *action = NULL;
+	GtkAction *action = NULL;
 
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -4709,9 +4878,60 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (priv->box);
 	priv->ui_mgr = gtk_ui_manager_new ();
 
+	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
+
+	gtk_action_group_set_translation_domain (priv->actions_window,
+						 GETTEXT_PACKAGE);
+
+	gtk_action_group_add_actions (priv->actions_window,
+				      action_entries_window,
+				      G_N_ELEMENTS (action_entries_window),
+				      window);
+
+	gtk_action_group_add_toggle_actions (priv->actions_window,
+					     toggle_entries_window,
+					     G_N_ELEMENTS (toggle_entries_window),
+					     window);
+
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_window, 0);
+
+	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
+	gtk_action_group_set_translation_domain (priv->actions_image,
+						 GETTEXT_PACKAGE);
+
+	gtk_action_group_add_actions (priv->actions_image,
+				      action_entries_image,
+				      G_N_ELEMENTS (action_entries_image),
+				      window);
+
 	eog_window_add_open_editor_action (window);
 
-	set_action_properties (window);
+	gtk_action_group_add_toggle_actions (priv->actions_image,
+					     toggle_entries_image,
+					     G_N_ELEMENTS (toggle_entries_image),
+					     window);
+
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
+
+	priv->actions_gallery = gtk_action_group_new ("MenuActionsGallery");
+	gtk_action_group_set_translation_domain (priv->actions_gallery,
+						 GETTEXT_PACKAGE);
+
+	gtk_action_group_add_actions (priv->actions_gallery,
+				      action_entries_gallery,
+				      G_N_ELEMENTS (action_entries_gallery),
+				      window);
+
+	gtk_action_group_add_toggle_actions (priv->actions_gallery,
+					     toggle_entries_gallery,
+					     G_N_ELEMENTS (toggle_entries_gallery),
+					     window);
+
+	set_action_properties (window, priv->actions_window,
+			       priv->actions_image,
+			       priv->actions_gallery);
+
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_gallery, 0);
 
 	if (!gtk_ui_manager_add_ui_from_resource (priv->ui_mgr,
 						  "/org/gnome/eog/ui/eog-ui.xml",
@@ -4769,10 +4989,12 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_widget_show (priv->toolbar);
 
-	/*gtk_window_add_accel_group (GTK_WINDOW (window),
-				    gtk_ui_manager_get_accel_group (priv->ui_mgr));*/
+	gtk_window_add_accel_group (GTK_WINDOW (window),
+				    gtk_ui_manager_get_accel_group (priv->ui_mgr));
 
-	priv->actions_recent = g_simple_action_group_new ();
+	priv->actions_recent = gtk_action_group_new ("RecentFilesActions");
+	gtk_action_group_set_translation_domain (priv->actions_recent,
+						 GETTEXT_PACKAGE);
 
 	g_signal_connect (gtk_recent_manager_get_default (), "changed",
 			  G_CALLBACK (eog_window_recent_manager_changed_cb),
@@ -4856,12 +5078,12 @@ eog_window_construct_ui (EogWindow *window)
 			  "zoom_changed",
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
+	action = gtk_action_group_get_action (priv->actions_image,
 					      "ViewZoomFit");
 	if (action != NULL) {
 		/* Binding will be destroyed when the objects finalize */
 		g_object_bind_property_full (priv->view, "zoom-mode",
-					     action, "state",
+					     action, "active",
 					     G_BINDING_SYNC_CREATE,
 					     _eog_zoom_shrink_to_boolean,
 					     NULL, NULL, NULL);
@@ -4959,14 +5181,6 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 	priv->lockdown_settings = g_settings_new (EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA);
 
-	/* Creating a binding between the ui settings and the related GActions does
-	 * not trigger the state changed handler since the state is updated directly
-	 * via the "state" property. Requesting a state change via this callback,
-	 * however, works. */
-	g_signal_connect (priv->ui_settings, "changed",
-					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  window);
-
 	window->priv->store = NULL;
 	window->priv->image = NULL;
 
@@ -5059,6 +5273,21 @@ eog_window_dispose (GObject *object)
 						      window);
 		g_object_unref (priv->image);
 		priv->image = NULL;
+	}
+
+	if (priv->actions_window != NULL) {
+		g_object_unref (priv->actions_window);
+		priv->actions_window = NULL;
+	}
+
+	if (priv->actions_image != NULL) {
+		g_object_unref (priv->actions_image);
+		priv->actions_image = NULL;
+	}
+
+	if (priv->actions_gallery != NULL) {
+		g_object_unref (priv->actions_gallery);
+		priv->actions_gallery = NULL;
 	}
 
 	if (priv->actions_recent != NULL) {
@@ -5198,9 +5427,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			}
 
 			if ((event->state & modifiers) == GDK_SHIFT_MASK) {
-				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			} else {
-				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
 			}
 			result = TRUE;
 		}
@@ -5220,7 +5449,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		} else if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), TRUE);
 		} else {
-			eog_window_action_close_window (NULL, NULL, EOG_WINDOW (widget));
+			eog_window_cmd_close_window (NULL, EOG_WINDOW (widget));
 			return TRUE;
 		}
 		break;
@@ -5229,9 +5458,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if ((event->state & modifiers) == 0) {
 			/* Left and Up move to previous image */
 			if (is_rtl) { /* move to next in RTL mode */
-				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
 			} else {
-				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			}
 			result = TRUE;
 		}
@@ -5241,9 +5470,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if ((event->state & modifiers) == 0) {
 			/* Right and Down move to next image */
 			if (is_rtl) { /* move to previous in RTL mode */
-				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			} else {
-				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
 			}
 			result = TRUE;
 		}
@@ -5255,7 +5484,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 					/* If the iconview is not visible skip to the
 					 * previous image manually as it won't handle
 					 * the keypress then. */
-					eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
+					eog_window_cmd_go_prev (NULL,
+								EOG_WINDOW (widget));
 					result = TRUE;
 				} else
 					handle_selection = TRUE;
@@ -5269,7 +5499,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 					/* If the iconview is not visible skip to the
 					 * next image manually as it won't handle
 					 * the keypress then. */
-					eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
+					eog_window_cmd_go_next (NULL,
+								EOG_WINDOW (widget));
 					result = TRUE;
 				} else
 					handle_selection = TRUE;
