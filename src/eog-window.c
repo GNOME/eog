@@ -362,10 +362,10 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 
 	action_save =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSave");
+									"save");
 	action_save_as =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSaveAs");
+									"save-as");
 
 	if (priv->save_disabled) {
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), FALSE);
@@ -599,23 +599,23 @@ update_action_groups_state (EogWindow *window)
 
 	action_gallery =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewImageGallery");
+					     "view-gallery");
 
 	action_sidebar =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewSidebar");
+					     "view-sidebar");
 
 	action_fscreen =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewFullscreen");
+					     "view-fullscreen");
 
 	action_sshow =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewSlideshow");
+					     "view-slideshow");
 
 	action_print =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ImagePrint");
+					     "print");
 
 	g_assert (action_gallery != NULL);
 	g_assert (action_sidebar != NULL);
@@ -715,7 +715,7 @@ update_selection_ui_visibility (EogWindow *window)
 
 	wallpaper_action =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ImageSetAsWallpaper");
+					     "set-wallpaper");
 
 	if (n_selected == 1) {
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (wallpaper_action), TRUE);
@@ -1033,20 +1033,20 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/ThumbnailPopup/ImageOpenWith/Applications Placeholder",
+                                "/ThumbnailPopup/open-with/Applications Placeholder",
                                 name,
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
                 gtk_ui_manager_add_ui (priv->ui_mgr,
                                 priv->open_with_menu_id,
-                                "/ViewPopup/ImageOpenWith/Applications Placeholder",
+                                "/ViewPopup/open-with/Applications Placeholder",
                                 name,
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
 
-                path = g_strdup_printf ("/ThumbnailPopup/ImageOpenWith/Applications Placeholder/%s", name);
+                path = g_strdup_printf ("/ThumbnailPopup/open-with/Applications Placeholder/%s", name);
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1055,7 +1055,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_free (path);
 
-                path = g_strdup_printf ("/ViewPopup/ImageOpenWith/Applications Placeholder/%s", name);
+                path = g_strdup_printf ("/ViewPopup/open-with/Applications Placeholder/%s", name);
 
                 menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
 
@@ -1282,7 +1282,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 		/* trigger save as command for current image */
 		action_save_as =
 			g_action_map_lookup_action (G_ACTION_MAP (window),
-							      "ImageSaveAs");
+							      "save-as");
 		eog_window_action_save_as (G_SIMPLE_ACTION (action_save_as), NULL, window);
 		break;
 	}
@@ -1388,9 +1388,9 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	}
 
 	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
-											  "ImageSave");
+											  "save");
 	action_undo = g_action_map_lookup_action (G_ACTION_MAP (window),
-											  "EditUndo");
+											  "undo");
 
 	/* Set Save and Undo sensitive according to image state.
 	 * Respect lockdown in case of Save.*/
@@ -1434,10 +1434,10 @@ eog_job_transform_cb (EogJobTransform *job, gpointer data)
 
 	action_undo =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"EditUndo");
+									"undo");
 	action_save =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-									"ImageSave");
+									"save");
 
 	image = eog_window_get_image (window);
 
@@ -1576,11 +1576,11 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 
 	action_zoom_in =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewZoomIn");
+					     "zoom-in");
 
 	action_zoom_out =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "ViewZoomOut");
+					     "zoom-out");
 
 	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_in),
 			!eog_scroll_view_get_zoom_is_max (EOG_SCROLL_VIEW (window->priv->view)));
@@ -1642,7 +1642,7 @@ eog_window_update_fullscreen_action (EogWindow *window)
 	GAction *action;
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "ViewFullscreen");
+					      "view-fullscreen");
 
 	g_signal_handlers_block_by_func
 		(action, G_CALLBACK (eog_window_action_toggle_fullscreen), window);
@@ -1660,7 +1660,7 @@ eog_window_update_slideshow_action (EogWindow *window)
 	GAction *action;
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "ViewSlideshow");
+					      "view-slideshow");
 
 	g_signal_handlers_block_by_func
 		(action, G_CALLBACK (eog_window_action_toggle_slideshow), window);
@@ -1678,7 +1678,7 @@ eog_window_update_pause_slideshow_action (EogWindow *window)
 	GAction *action;
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "PauseSlideshow");
+					      "pause-slideshow");
 
 	g_signal_handlers_block_by_func
 		(action, G_CALLBACK (eog_window_action_pause_slideshow), window);
@@ -1860,10 +1860,10 @@ exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 
 	if (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "ViewSlideshow");
+						      "view-slideshow");
 	} else {
 		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "ViewFullscreen");
+						      "view-fullscreen");
 	}
 	g_return_if_fail (action != NULL);
 
@@ -1949,7 +1949,7 @@ update_ui_visibility (EogWindow *window)
 	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_STATUSBAR);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar");
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
@@ -1958,7 +1958,7 @@ update_ui_visibility (EogWindow *window)
 		visible = g_settings_get_boolean (priv->ui_settings,
 						  EOG_CONF_UI_IMAGE_GALLERY);
 		visible = visible && priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery");
+		action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery");
 		g_assert (action != NULL);
 		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
 		if (visible) {
@@ -1971,7 +1971,7 @@ update_ui_visibility (EogWindow *window)
 	visible = g_settings_get_boolean (priv->ui_settings,
 					  EOG_CONF_UI_SIDEBAR);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar");
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar");
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
 	if (visible) {
@@ -2308,7 +2308,7 @@ eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 
 	/* recover save action from actions group */
 	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
-						   "ImageSave");
+						   "save");
 
 	/* check if job contains any error */
 	if (EOG_JOB (job)->error == NULL) {
@@ -2382,7 +2382,7 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 						  TRUE);
 
 		action_save_as = g_action_map_lookup_action (G_ACTION_MAP (window),
-							      "ImageSaveAs");
+							      "save-as");
 		eog_window_action_save_as (G_SIMPLE_ACTION (action_save_as), NULL, window);
 		break;
 
@@ -2512,14 +2512,14 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 
 	visible = g_variant_get_boolean (state);
 
-	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewStatusbar") == 0) {
+	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-statusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
 			g_settings_set_boolean (priv->ui_settings,
 						EOG_CONF_UI_STATUSBAR, visible);
 
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewImageGallery") == 0) {
+	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-gallery") == 0) {
 		if (visible) {
 			/* Make sure the focus widget is realized to
 			 * avoid warnings on keypress events */
@@ -2545,7 +2545,7 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 		g_settings_set_boolean (priv->ui_settings,
 					EOG_CONF_UI_IMAGE_GALLERY, visible);
 
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "ViewSidebar") == 0) {
+	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-sidebar") == 0) {
 		if (visible) {
 			gtk_widget_show (priv->sidebar);
 		} else {
@@ -2692,7 +2692,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 
 	/* recover save action from actions group */
 	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
-						   "ImageSave");
+						   "save");
 
 	/* check if job contains any error */
 	if (EOG_JOB (job)->error == NULL) {
@@ -2775,7 +2775,7 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
 			   window->priv->copy_file_cid);
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "ImageSetAsWallpaper");
+					      "set-wallpaper");
 	g_simple_action_set_enabled (G_SIMPLE_ACTION (action), TRUE);
 
 	window->priv->copy_job = NULL;
@@ -3005,11 +3005,11 @@ eog_window_get_properties_dialog (EogWindow *window)
 
 		next_image_action =
 			g_action_map_lookup_action (G_ACTION_MAP (window),
-						     "GoNext");
+						     "go-next");
 
 		previous_image_action =
 			g_action_map_lookup_action (G_ACTION_MAP (window),
-						     "GoPrevious");
+						     "go-previous");
 		priv->properties_dlg =
 			eog_properties_dialog_new (GTK_WINDOW (window),
 						   EOG_THUMB_VIEW (priv->thumbview),
@@ -3128,7 +3128,7 @@ eog_window_action_wallpaper (GSimpleAction *action,
 		GAction *action;
 
 		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "ImageSetAsWallpaper");
+						      "set-wallpaper");
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
 		priv->copy_file_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
@@ -3988,48 +3988,48 @@ readonly_state_handler (GSimpleAction *action,
 
 static const GActionEntry window_actions[] = {
 	/* Stateless actions on the window. */
-	{ "ImageOpen",                 eog_window_action_file_open },
-	{ "ImageOpenWith",             NULL },
-	{ "ImageOpenContainingFolder", eog_window_action_open_containing_folder },
-	{ "ImageSave",                 eog_window_action_save },
-	{ "ImageSaveAs",               eog_window_action_save_as },
-	{ "ImageClose",                eog_window_action_close_window },
-	{ "ImagePrint",                eog_window_action_print },
-	{ "ImageProperties",           eog_window_action_properties },
-	{ "ImageSetAsWallpaper",       eog_window_action_wallpaper },
-	{ "EditPreferences",           eog_window_action_preferences },
-	{ "HelpManual",                eog_window_action_help },
-	{ "HelpAbout",                 eog_window_action_about },
+	{ "open",          eog_window_action_file_open },
+	{ "open-with",     NULL },
+	{ "open-folder",   eog_window_action_open_containing_folder },
+	{ "save",          eog_window_action_save },
+	{ "save-as",       eog_window_action_save_as },
+	{ "close",         eog_window_action_close_window },
+	{ "print",         eog_window_action_print },
+	{ "properties",    eog_window_action_properties },
+	{ "set-wallpaper", eog_window_action_wallpaper },
+	{ "preferences",   eog_window_action_preferences },
+	{ "manual",        eog_window_action_help },
+	{ "about",         eog_window_action_about },
 
 	/* Stateless actions on the image. */
-	{ "GoPrevious",         eog_window_action_go_prev },
-	{ "GoNext",             eog_window_action_go_next },
-	{ "GoFirst",            eog_window_action_go_first },
-	{ "GoLast",             eog_window_action_go_last },
-	{ "GoRandom",           eog_window_action_go_random },
-	{ "EditRotate90",       eog_window_action_rotate_90 },
-	{ "EditRotate270",      eog_window_action_rotate_270 },
-	{ "EditFlipHorizontal", eog_window_action_flip_horizontal },
-	{ "EditFlipVertical",   eog_window_action_flip_vertical },
-	{ "EditMoveToTrash",    eog_window_action_move_to_trash },
-	{ "EditDelete",         eog_window_action_delete },
-	{ "EditCopyImage",      eog_window_action_copy_image },
-	{ "EditUndo",           eog_window_action_undo },
-	{ "ViewZoomIn",         eog_window_action_zoom_in },
-	{ "ViewZoomOut",        eog_window_action_zoom_out },
-	{ "ViewZoomFit",        eog_window_action_zoom_best_fit },
-	{ "ViewZoomNormal",     eog_window_action_zoom_normal },
-	{ "ViewZoomSet",        eog_window_action_set_zoom, "d" },
+	{ "go-previous",     eog_window_action_go_prev },
+	{ "go-next",         eog_window_action_go_next },
+	{ "go-first",        eog_window_action_go_first },
+	{ "go-last",         eog_window_action_go_last },
+	{ "go-random",       eog_window_action_go_random },
+	{ "rotate-90",       eog_window_action_rotate_90 },
+	{ "rotate-270",      eog_window_action_rotate_270 },
+	{ "flip-horizontal", eog_window_action_flip_horizontal },
+	{ "flip-vertical",   eog_window_action_flip_vertical },
+	{ "move-trash",      eog_window_action_move_to_trash },
+	{ "delete",          eog_window_action_delete },
+	{ "copy",            eog_window_action_copy_image },
+	{ "undo",            eog_window_action_undo },
+	{ "zoom-in",         eog_window_action_zoom_in },
+	{ "zoom-out",        eog_window_action_zoom_out },
+	{ "zoom-fit",        eog_window_action_zoom_best_fit },
+	{ "zoom-normal",     eog_window_action_zoom_normal },
+	{ "zoom-set",        eog_window_action_set_zoom, "d" },
 
 	/* Stateful actions. */
-	{ "current-image",    NULL, NULL, "@(ii) (0, 0)", readonly_state_handler },
-	{ "ViewStatusbar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewImageGallery", NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewSidebar",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "ViewSlideshow",    NULL, NULL, "false", eog_window_action_toggle_slideshow },
-	{ "ViewFullscreen",   NULL, NULL, "false", eog_window_action_toggle_fullscreen },
-	{ "PauseSlideshow",   NULL, NULL, "false", eog_window_action_pause_slideshow },
-	{ "ViewZoomFit",      NULL, NULL, "true",  eog_window_action_toggle_zoom_fit },
+	{ "current-image",   NULL, NULL, "@(ii) (0, 0)", readonly_state_handler },
+	{ "view-statusbar",  NULL, NULL, "true",  eog_window_action_show_hide_bar },
+	{ "view-gallery",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
+	{ "view-sidebar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
+	{ "view-slideshow",  NULL, NULL, "false", eog_window_action_toggle_slideshow },
+	{ "view-fullscreen", NULL, NULL, "false", eog_window_action_toggle_fullscreen },
+	{ "pause-slideshow", NULL, NULL, "false", eog_window_action_pause_slideshow },
+	{ "toggle-zoom-fit", NULL, NULL, "true",  eog_window_action_toggle_zoom_fit },
 };
 
 static void
@@ -4235,7 +4235,7 @@ eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
 	visible = gtk_widget_get_visible (window->priv->sidebar);
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "ViewSidebar");
+					      "view-sidebar");
 
 	state = g_action_get_state (action);
 	active = g_variant_get_boolean (state);
@@ -4259,7 +4259,7 @@ eog_window_sidebar_page_added (EogSidebar  *sidebar,
 		gboolean show;
 
 		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "ViewSidebar");
+						      "view-sidebar");
 
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), TRUE);
 
@@ -4284,7 +4284,7 @@ eog_window_sidebar_page_removed (EogSidebar  *sidebar,
 		gtk_widget_hide (GTK_WIDGET (sidebar));
 
 		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "ViewSidebar");
+						      "view-sidebar");
 
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 	}
@@ -4497,7 +4497,7 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "ViewZoomFit");
+					      "toggle-zoom-fit");
 	if (action != NULL) {
 		/* Binding will be destroyed when the objects finalize */
 		g_object_bind_property_full (priv->view, "zoom-mode",
@@ -4658,15 +4658,15 @@ eog_window_init (EogWindow *window)
 	 * however, works. */
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_IMAGE_GALLERY,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery"));
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery"));
 
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar"));
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar"));
 	
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar"));
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"));
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
