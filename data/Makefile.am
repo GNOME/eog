@@ -33,7 +33,7 @@ EXTRA_DIST =			\
 	eog-image-properties-dialog.ui	\
 	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \
-	eog-view-popup.ui	\
+	popup-menus.ui	\
 	$(DESKTOP_IN_FILES)	\
 	$(appdata_in_files)	\
 	eog.convert

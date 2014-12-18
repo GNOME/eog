@@ -4396,15 +4396,11 @@ static void
 eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-
-	GError *error = NULL;
-
-	GtkWidget *view_popup;
+	GtkWidget *popup;
 	GtkWidget *hpaned;
 	GAction *action = NULL;
 	GtkBuilder *builder;
 	GObject *builder_object;
-
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -4519,14 +4515,14 @@ eog_window_construct_ui (EogWindow *window)
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_ZOOM_MULTIPLIER,
 			 priv->view, "zoom-multiplier", G_SETTINGS_BIND_GET);
 
-	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-view-popup.ui");
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/popup-menus.ui");
 	builder_object = gtk_builder_get_object (builder, "view-popup-menu");
-	view_popup = gtk_menu_new_from_model (G_MENU_MODEL(builder_object));
+	popup = gtk_menu_new_from_model (G_MENU_MODEL(builder_object));
 
 	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
-				   GTK_MENU (view_popup));
+				   GTK_MENU (popup));
 
-	g_clear_object (&builder);
+	g_object_unref (popup);
 
 	gtk_paned_pack1 (GTK_PANED (hpaned),
 			 priv->sidebar,
@@ -4560,11 +4556,13 @@ eog_window_construct_ui (EogWindow *window)
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SCROLL_BUTTONS,
 			 priv->nav, "show-buttons", G_SETTINGS_BIND_GET);
 
-	// Reuse ScrollView's menu model for the thumbnail menu
+	builder_object = gtk_builder_get_object (builder, "thumbnail-popup");
+	popup = gtk_menu_new_from_model (G_MENU_MODEL(builder_object));
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview),
-					    GTK_MENU (view_popup));
+					    GTK_MENU (popup));
 
-	g_object_unref (view_popup);
+	g_object_unref (popup);
+	g_clear_object (&builder);
 
 	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 
