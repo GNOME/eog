@@ -1861,7 +1861,7 @@ exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 	}
 	g_return_if_fail (action != NULL);
 
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (FALSE));
+	g_action_change_state (action, g_variant_new_boolean (FALSE));
 }
 
 static GtkWidget *
@@ -1890,6 +1890,7 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 	GtkWidget *hbox;
 	GtkWidget *button;
 	GtkWidget *toolbar;
+	GtkBuilder *builder;
 
 	eog_debug (DEBUG_WINDOW);
 
@@ -1901,14 +1902,16 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 	gtk_widget_set_halign (revealer, GTK_ALIGN_FILL);
 	gtk_container_add (GTK_CONTAINER (revealer), hbox);
 
-	toolbar = gtk_ui_manager_get_widget (window->priv->ui_mgr,
-					     "/FullscreenToolbar");
-	g_assert (GTK_IS_WIDGET (toolbar));
-	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/fullscreen-toolbar.ui");
+	toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_toolbar"));
+	g_assert (GTK_IS_TOOLBAR (toolbar));
+
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, TRUE, TRUE, 0);
 
+	g_object_unref (builder);
+
 	button = eog_window_get_exit_fullscreen_button (window);
-	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	/* Disable timer when the pointer enters the toolbar window. */
 	g_signal_connect (revealer,
