@@ -4037,23 +4037,13 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 								   gchar     *key,
 								   gpointer   user_data)
 {
-	EogWindow *window;
 	GVariant *new_state = NULL;
 	GVariant *old_state;
-	GAction *action = NULL;
+	GAction *action;
 
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	g_return_if_fail (G_IS_ACTION (user_data));
 
-	window = EOG_WINDOW (user_data);
-	if (g_ascii_strcasecmp (key, EOG_CONF_UI_IMAGE_GALLERY) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery");
-	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_SIDEBAR) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar");
-	} else if (g_ascii_strcasecmp (key, EOG_CONF_UI_STATUSBAR) == 0) {
-		action = g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar");
-	}
-
-	g_assert (action != NULL);
+	action = G_ACTION (user_data);
 
 	new_state = g_settings_get_value (settings, key);
 	g_assert (new_state != NULL);
@@ -4618,14 +4608,6 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 	priv->lockdown_settings = g_settings_new (EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA);
 
-	/* Creating a binding between the ui settings and the related GActions does
-	 * not trigger the state changed handler since the state is updated directly
-	 * via the "state" property. Requesting a state change via this callback,
-	 * however, works. */
-	g_signal_connect (priv->ui_settings, "changed",
-					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  window);
-
 	window->priv->store = NULL;
 	window->priv->image = NULL;
 
@@ -4669,6 +4651,22 @@ eog_window_init (EogWindow *window)
 	g_action_map_add_action_entries (G_ACTION_MAP (window),
 	                                 window_actions, G_N_ELEMENTS (window_actions),
 	                                 window);
+
+	/* Creating a binding between the ui settings and the related GActions does
+	 * not trigger the state changed handler since the state is updated directly
+	 * via the "state" property. Requesting a state change via these callbacks,
+	 * however, works. */
+	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_IMAGE_GALLERY,
+					  G_CALLBACK (eog_window_ui_settings_changed_cb),
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewImageGallery"));
+
+	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
+					  G_CALLBACK (eog_window_ui_settings_changed_cb),
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewSidebar"));
+	
+	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
+					  G_CALLBACK (eog_window_ui_settings_changed_cb),
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "ViewStatusbar"));
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
