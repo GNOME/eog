@@ -27,12 +27,13 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
 
 EXTRA_DIST =			\
+	fullscreen-toolbar.ui	\
 	eog.css			\
 	eog-app-menu.xml	\
 	eog-image-properties-dialog.ui	\
 	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \
-	eog-ui.xml		\
+	eog-view-popup.ui	\
 	$(DESKTOP_IN_FILES)	\
 	$(appdata_in_files)	\
 	eog.convert
