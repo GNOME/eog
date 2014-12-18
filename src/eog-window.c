@@ -938,6 +938,7 @@ open_with_launch_application_cb (GAction *action, gpointer data) {
 static void
 eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 {
+#if 0
 	gboolean edit_button_active;
 	GAppInfo *editor_app;
 	GFile *file;
@@ -1069,6 +1070,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         if (action != NULL) {
                 g_simple_action_set_enabled (action, edit_button_active);
         }
+#endif
 }
 
 static void
@@ -4413,13 +4415,6 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (priv->box);
 	priv->ui_mgr = gtk_ui_manager_new ();
 
-	if (!gtk_ui_manager_add_ui_from_resource (priv->ui_mgr,
-						  "/org/gnome/eog/ui/eog-ui.xml",
-						  &error)) {
-                g_warning ("building menus failed: %s", error->message);
-                g_error_free (error);
-        }
-
 	/*gtk_window_add_accel_group (GTK_WINDOW (window),
 				    gtk_ui_manager_get_accel_group (priv->ui_mgr));*/
 
@@ -4429,9 +4424,11 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (eog_window_recent_manager_changed_cb),
 			  window);
 
+#if 0
 	eog_window_update_recent_files_menu (window);
 
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_recent, 0);
+#endif
 
 	priv->cbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
