@@ -2513,7 +2513,8 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 	visible = g_variant_get_boolean (state);
 
 	if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-statusbar") == 0) {
-		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+		gtk_widget_set_visible (priv->statusbar, visible);
+		g_simple_action_set_state (action, state);
 
 		if (priv->mode == EOG_WINDOW_MODE_NORMAL)
 			g_settings_set_boolean (priv->ui_settings,
@@ -2542,20 +2543,16 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 			if (gtk_widget_get_realized (priv->view))
 				gtk_widget_grab_focus (priv->view);
 		}
+		g_simple_action_set_state (action, state);
 		g_settings_set_boolean (priv->ui_settings,
 					EOG_CONF_UI_IMAGE_GALLERY, visible);
 
 	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-sidebar") == 0) {
-		if (visible) {
-			gtk_widget_show (priv->sidebar);
-		} else {
-			gtk_widget_hide (priv->sidebar);
-		}
+		gtk_widget_set_visible (priv->sidebar, visible);
+		g_simple_action_set_state (action, state);
 		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR,
 					visible);
 	}
-
-	g_simple_action_set_state (action, state);
 }
 
 static void
@@ -4240,7 +4237,8 @@ eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
 	state = g_action_get_state (action);
 	active = g_variant_get_boolean (state);
 	if (active != visible)
-		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+		g_action_change_state (action,
+				       g_variant_new_boolean (visible));
 	g_variant_unref (state);
 
 	/* Focus the image */
