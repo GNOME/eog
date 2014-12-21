@@ -224,34 +224,52 @@ eog_application_init_app_menu (EogApplication *application)
 static void
 eog_application_init_accelerators (GtkApplication *application)
 {
-	gtk_application_set_accels_for_action (application, "win.open", (const gchar*[]) {"<Ctrl>o", NULL});
-	gtk_application_set_accels_for_action (application, "win.save", (const gchar*[]) {"<Ctrl>s", NULL});
-	gtk_application_set_accels_for_action (application, "win.save-as", (const gchar*[]) {"<Ctrl><shift>s", NULL});
-	gtk_application_set_accels_for_action (application, "win.close", (const gchar*[]) {"<Ctrl>w", NULL});
-	gtk_application_set_accels_for_action (application, "win.print", (const gchar*[]) {"<Ctrl>p", NULL});
-	gtk_application_set_accels_for_action (application, "win.properties", (const gchar*[]) {"<Alt>Return", NULL});
-	gtk_application_set_accels_for_action (application, "win.set-wallpaper", (const gchar*[]) {"<Ctrl>F8", NULL});
-	gtk_application_set_accels_for_action (application, "win.manual", (const gchar*[]) {"F1", NULL});
-	
-	gtk_application_set_accels_for_action (application, "win.go-previous", (const gchar*[]) {"Left", "BackSpace", NULL});
-	gtk_application_set_accels_for_action (application, "win.go-next", (const gchar*[]) {"Right", NULL});
-	gtk_application_set_accels_for_action (application, "win.go-first", (const gchar*[]) {"<Alt>Home", "Home", NULL});
-	gtk_application_set_accels_for_action (application, "win.go-last", (const gchar*[]) {"<Alt>End", "End", NULL});
-	gtk_application_set_accels_for_action (application, "win.go-random", (const gchar*[]) {"<Ctrl>m", NULL});
-	gtk_application_set_accels_for_action (application, "win.rotate-90", (const gchar*[]) {"<Ctrl>r", NULL});
-	gtk_application_set_accels_for_action (application, "win.rotate-270", (const gchar*[]) {"<Ctrl><Shift>r", NULL});
-	gtk_application_set_accels_for_action (application, "win.move-trash", (const gchar*[]) {"Delete", NULL});
-	gtk_application_set_accels_for_action (application, "win.delete", (const gchar*[]) {"<Shift>Delete", NULL});
-	gtk_application_set_accels_for_action (application, "win.copy", (const gchar*[]) {"<Ctrl>c", NULL});
-	gtk_application_set_accels_for_action (application, "win.undo", (const gchar*[]) {"<Ctrl>z", NULL});
-	gtk_application_set_accels_for_action (application, "win.zoom-in", (const gchar*[]) {"<Ctrl>equal", "<Ctrl>KP_Add", "<Ctrl>plus", NULL});
-	gtk_application_set_accels_for_action (application, "win.zoom-out", (const gchar*[]) {"<Ctrl>minus", "<Ctrl>KP_Subtract", NULL});
-	gtk_application_set_accels_for_action (application, "win.zoom-normal", (const gchar*[]) {"<Ctrl>0", NULL});
+	/* Based on a simular construct in Evince (src/ev-application.c).
+	 * Setting multiple accelerators at once for an action
+	 * is not very straight forward in a static way.
+	 *
+	 * This gchar* array simulates an action<->accels mapping.
+	 * Enter the action name followed by the accelerator strings
+	 * and terminate the entry with a NULL-string. */
+	static const gchar * const accelmap[] = {
+		"win.open",		"<Ctrl>o", NULL ,
+		"win.save",		"<Ctrl>s", NULL ,
+		"win.print",		"<Ctrl>p", NULL,
+		"win.properties",	"<Alt>Return", NULL,
+		"win.set-wallpaper",	"<Ctrl>F8", NULL,
+		"win.manual",		"F1", NULL,
 
-	gtk_application_set_accels_for_action (application, "win.view-gallery", (const gchar*[]) {"F9", NULL});
-	gtk_application_set_accels_for_action (application, "win.view-sidebar", (const gchar*[]) {"<Ctrl>F9", NULL});
-	gtk_application_set_accels_for_action (application, "win.view-fullscreen", (const gchar*[]) {"F11", NULL});
-	gtk_application_set_accels_for_action (application, "win.toggle-zoom-fit", (const gchar*[]) {"F", NULL});
+		"win.go-previous",	"Left", "BackSpace", NULL,
+		"win.go-next",		"Right", NULL,
+		"win.go-first",		"<Alt>Home", "Home", NULL,
+		"win.go-last",		"<Alt>End", "End", NULL,
+		"win.go-random",	"<Ctrl>m", NULL,
+		"win.rotate-90",	"<Ctrl>r", NULL,
+		"win.rotate-270",	"<Ctrl><Shift>r", NULL,
+		"win.move-trash",	"Delete", NULL,
+		"win.delete",		"<Shift>Delete", NULL,
+		"win.copy",		"<Ctrl>c", NULL,
+		"win.undo",		"<Ctrl>z", NULL,
+		"win.zoom-in",		"<Ctrl>equal", "<Ctrl>KP_Add",
+					"<Ctrl>plus", NULL,
+		"win.zoom-out",		"<Ctrl>minus",
+					"<Ctrl>KP_Subtract", NULL,
+		"win.zoom-normal",	"<Ctrl>0", NULL,
+
+		"win.view-gallery",	"F9", NULL,
+		"win.view-sidebar",	"<Ctrl>F9", NULL,
+		"win.view-fullscreen",	"F11", NULL,
+		"win.toggle-zoom-fit",	"F", NULL,
+
+		NULL /* Terminating NULL */
+	};
+
+	const gchar * const *it = accelmap;
+
+	for (it = accelmap; it[0]; it += g_strv_length ((gchar **)it) + 1) {
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+						       it[0], &it[1]);
+	}
 }
 
 static void
