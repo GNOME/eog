@@ -234,6 +234,7 @@ eog_application_init_accelerators (GtkApplication *application)
 	static const gchar * const accelmap[] = {
 		"win.open",		"<Ctrl>o", NULL ,
 		"win.save",		"<Ctrl>s", NULL ,
+		"win.save-as",		"<Ctrl><shift>s", NULL,
 		"win.print",		"<Ctrl>p", NULL,
 		"win.properties",	"<Alt>Return", NULL,
 		"win.set-wallpaper",	"<Ctrl>F8", NULL,
