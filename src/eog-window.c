@@ -3933,25 +3933,6 @@ eog_window_action_go_random (GSimpleAction *action,
 }
 
 static void
-eog_window_action_zoom_best_fit (GSimpleAction *action,
-                                 GVariant      *parameter,
-                                 gpointer       user_data)
-{
-	EogWindowPrivate *priv;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	eog_debug (DEBUG_WINDOW);
-
-	priv = EOG_WINDOW (user_data)->priv;
-
-	if (priv->view) {
-		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
-		                               EOG_ZOOM_MODE_SHRINK_TO_FIT);
-	}
-}
-
-static void
 eog_window_action_set_zoom (GSimpleAction *action,
                             GVariant      *parameter,
                             gpointer       user_data)
@@ -4014,7 +3995,6 @@ static const GActionEntry window_actions[] = {
 	{ "undo",            eog_window_action_undo },
 	{ "zoom-in",         eog_window_action_zoom_in },
 	{ "zoom-out",        eog_window_action_zoom_out },
-	{ "zoom-fit",        eog_window_action_zoom_best_fit },
 	{ "zoom-normal",     eog_window_action_zoom_normal },
 	{ "zoom-set",        eog_window_action_set_zoom, "d" },
 
