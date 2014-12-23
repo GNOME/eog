@@ -2972,20 +2972,11 @@ eog_window_get_properties_dialog (EogWindow *window)
 	priv = window->priv;
 
 	if (priv->properties_dlg == NULL) {
-		GAction *next_image_action, *previous_image_action;
-
-		next_image_action =
-			g_action_map_lookup_action (G_ACTION_MAP (window),
-						     "go-next");
-
-		previous_image_action =
-			g_action_map_lookup_action (G_ACTION_MAP (window),
-						     "go-previous");
 		priv->properties_dlg =
 			eog_properties_dialog_new (GTK_WINDOW (window),
 						   EOG_THUMB_VIEW (priv->thumbview),
-						   next_image_action,
-						   previous_image_action);
+						   "win.go-next",
+						   "win.go-previous");
 
 		eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
 					      priv->image);

@@ -483,13 +483,13 @@ eog_properties_dialog_set_property (GObject      *object,
 						   g_value_get_boolean (value));
 			break;
 		case PROP_NEXT_ACTION:
-			gtk_activatable_set_related_action (GTK_ACTIVATABLE (prop_dlg->priv->next_button),
-							    g_value_get_object(value));
+			gtk_actionable_set_action_name (GTK_ACTIONABLE (prop_dlg->priv->next_button),
+							    g_value_get_string (value));
 			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->next_button), TRUE);
 			break;
 		case PROP_PREV_ACTION:
-			gtk_activatable_set_related_action (GTK_ACTIVATABLE (prop_dlg->priv->previous_button),
-							    g_value_get_object(value));
+			gtk_actionable_set_action_name (GTK_ACTIONABLE (prop_dlg->priv->previous_button),
+							    g_value_get_string (value));
 			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->previous_button), TRUE);
 			break;
 		default:
@@ -574,10 +574,10 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 							      G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
 					 PROP_NEXT_ACTION,
-					 g_param_spec_object ("next-action",
+					 g_param_spec_string ("next-action",
 							      "Next Action",
 							      "Action for Next button",
-							      GTK_TYPE_ACTION,
+							      "win.go-next",
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_NAME |
@@ -585,10 +585,10 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 							      G_PARAM_STATIC_BLURB));
 	g_object_class_install_property (g_object_class,
 					 PROP_PREV_ACTION,
-					 g_param_spec_object ("prev-action",
+					 g_param_spec_string ("prev-action",
 							      "Prev Action",
 							      "Action for Prev button",
-							      GTK_TYPE_ACTION,
+							      "win.go-previous",
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_NAME |
@@ -798,15 +798,15 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 GtkWidget *
 eog_properties_dialog_new (GtkWindow    *parent,
 			   EogThumbView *thumbview,
-			   GtkAction    *next_image_action,
-			   GtkAction    *previous_image_action)
+			   const gchar  *next_image_action,
+			   const gchar  *previous_image_action)
 {
 	GObject *prop_dlg;
 
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 	g_return_val_if_fail (EOG_IS_THUMB_VIEW (thumbview), NULL);
-	g_return_val_if_fail (GTK_IS_ACTION (next_image_action), NULL);
-	g_return_val_if_fail (GTK_IS_ACTION (previous_image_action), NULL);
+	g_return_val_if_fail (next_image_action != NULL, NULL);
+	g_return_val_if_fail (previous_image_action != NULL, NULL);
 
 	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG,
 			     	 "thumbview", thumbview,
