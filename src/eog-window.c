@@ -2018,7 +2018,9 @@ eog_window_inhibit_screensaver (EogWindow *window)
 {
 	EogWindowPrivate *priv = window->priv;
 
-	g_return_if_fail (priv->fullscreen_idle_inhibit_cookie == 0);
+	/* Already inhibited */
+	if (G_UNLIKELY (priv->fullscreen_idle_inhibit_cookie != 0))
+		return;
 
 	eog_debug (DEBUG_WINDOW);
 
