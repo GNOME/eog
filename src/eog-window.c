@@ -1644,14 +1644,8 @@ eog_window_update_fullscreen_action (EogWindow *window)
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 					      "view-fullscreen");
 
-	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_fullscreen), window);
-
 	g_simple_action_set_state (G_SIMPLE_ACTION (action),
 			g_variant_new_boolean (window->priv->mode == EOG_WINDOW_MODE_FULLSCREEN));
-
-	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_fullscreen), window);
 }
 
 static void
@@ -1662,14 +1656,8 @@ eog_window_update_slideshow_action (EogWindow *window)
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 					      "view-slideshow");
 
-	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_slideshow), window);
-
 	g_simple_action_set_state (G_SIMPLE_ACTION (action),
 			g_variant_new_boolean (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW));
-
-	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_toggle_slideshow), window);
 }
 
 static void
@@ -1680,14 +1668,8 @@ eog_window_update_pause_slideshow_action (EogWindow *window)
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 					      "pause-slideshow");
 
-	g_signal_handlers_block_by_func
-		(action, G_CALLBACK (eog_window_action_pause_slideshow), window);
-
 	g_simple_action_set_state (G_SIMPLE_ACTION (action),
 			g_variant_new_boolean (window->priv->mode != EOG_WINDOW_MODE_SLIDESHOW));
-
-	g_signal_handlers_unblock_by_func
-		(action, G_CALLBACK (eog_window_action_pause_slideshow), window);
 }
 
 static gboolean
