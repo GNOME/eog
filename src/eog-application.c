@@ -260,6 +260,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.view-gallery",	"F9", NULL,
 		"win.view-sidebar",	"<Ctrl>F9", NULL,
 		"win.view-fullscreen",	"F11", NULL,
+		"win.view-slideshow",	"F5", NULL,
 		"win.toggle-zoom-fit",	"F", NULL,
 
 		NULL /* Terminating NULL */
