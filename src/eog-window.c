@@ -1952,7 +1952,7 @@ update_ui_visibility (EogWindow *window)
 	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar");
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
-	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+	gtk_widget_set_visible (priv->statusbar, visible);
 
 	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = g_settings_get_boolean (priv->ui_settings,
@@ -1961,11 +1961,7 @@ update_ui_visibility (EogWindow *window)
 		action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery");
 		g_assert (action != NULL);
 		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
-		if (visible) {
-			gtk_widget_show (priv->nav);
-		} else {
-			gtk_widget_hide (priv->nav);
-		}
+		gtk_widget_set_visible (priv->nav, visible);
 	}
 
 	visible = g_settings_get_boolean (priv->ui_settings,
@@ -1974,11 +1970,7 @@ update_ui_visibility (EogWindow *window)
 	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar");
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
-	if (visible) {
-		gtk_widget_show (priv->sidebar);
-	} else {
-		gtk_widget_hide (priv->sidebar);
-	}
+	gtk_widget_set_visible (priv->sidebar, visible);
 
 	if (priv->fullscreen_popup != NULL) {
 		gtk_widget_hide (priv->fullscreen_popup);
