@@ -484,12 +484,12 @@ eog_properties_dialog_set_property (GObject      *object,
 			break;
 		case PROP_NEXT_ACTION:
 			gtk_actionable_set_action_name (GTK_ACTIONABLE (prop_dlg->priv->next_button),
-							    g_value_get_string (value));
+							g_value_get_string (value));
 			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->next_button), TRUE);
 			break;
 		case PROP_PREV_ACTION:
 			gtk_actionable_set_action_name (GTK_ACTIONABLE (prop_dlg->priv->previous_button),
-							    g_value_get_string (value));
+							g_value_get_string (value));
 			gtk_button_set_always_show_image(GTK_BUTTON(prop_dlg->priv->previous_button), TRUE);
 			break;
 		default:
@@ -515,6 +515,20 @@ eog_properties_dialog_get_property (GObject    *object,
 			g_value_set_boolean (value,
 					     prop_dlg->priv->netbook_mode);
 			break;
+		case PROP_NEXT_ACTION:
+		{
+			const gchar* action = gtk_actionable_get_action_name (
+						      GTK_ACTIONABLE (prop_dlg->priv->next_button));
+			g_value_set_string (value, action);
+			break;
+		}
+		case PROP_PREV_ACTION:
+		{
+			const gchar* action = gtk_actionable_get_action_name (
+						      GTK_ACTIONABLE (prop_dlg->priv->previous_button));
+			g_value_set_string (value, action);
+			break;
+		}
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id,
 							   pspec);
@@ -562,9 +576,7 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 							      EOG_TYPE_THUMB_VIEW,
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_NAME |
-							      G_PARAM_STATIC_NICK |
-							      G_PARAM_STATIC_BLURB));
+							      G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class, PROP_NETBOOK_MODE,
 					 g_param_spec_boolean ("netbook-mode",
 					 		      "Netbook Mode",
@@ -577,23 +589,19 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 					 g_param_spec_string ("next-action",
 							      "Next Action",
 							      "Action for Next button",
-							      "win.go-next",
+							      NULL,
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_NAME |
-							      G_PARAM_STATIC_NICK |
-							      G_PARAM_STATIC_BLURB));
+							      G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
 					 PROP_PREV_ACTION,
 					 g_param_spec_string ("prev-action",
 							      "Prev Action",
 							      "Action for Prev button",
-							      "win.go-previous",
+							      NULL,
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_NAME |
-							      G_PARAM_STATIC_NICK |
-							      G_PARAM_STATIC_BLURB));
+							      G_PARAM_STATIC_STRINGS));
 
 	gtk_widget_class_set_template_from_resource ((GtkWidgetClass *) klass, "/org/gnome/eog/ui/eog-image-properties-dialog.ui");
 
@@ -786,12 +794,13 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 
 /**
  * eog_properties_dialog_new:
- * @parent: 
+ * @parent: the dialog's parent window
  * @thumbview: 
  * @next_image_action: 
  * @previous_image_action: 
  *
- * 
+ * If %parent implements #GActionMap its actions will be automatically
+ * inserted in the "win" namespace.
  *
  * Returns: (transfer full) (type EogPropertiesDialog): a new #EogPropertiesDialog
  **/
@@ -805,8 +814,6 @@ eog_properties_dialog_new (GtkWindow    *parent,
 
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 	g_return_val_if_fail (EOG_IS_THUMB_VIEW (thumbview), NULL);
-	g_return_val_if_fail (next_image_action != NULL, NULL);
-	g_return_val_if_fail (previous_image_action != NULL, NULL);
 
 	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG,
 			     	 "thumbview", thumbview,
@@ -814,8 +821,12 @@ eog_properties_dialog_new (GtkWindow    *parent,
 				 "prev-action", previous_image_action,
 			     	 NULL);
 
-	if (parent) {
-		gtk_window_set_transient_for (GTK_WINDOW (prop_dlg), parent);
+	gtk_window_set_transient_for (GTK_WINDOW (prop_dlg), parent);
+
+	if (G_LIKELY (G_IS_ACTION_GROUP (parent))) {
+		gtk_widget_insert_action_group (GTK_WIDGET (prop_dlg),
+						"win",
+						G_ACTION_GROUP (parent));
 	}
 
 	return GTK_WIDGET (prop_dlg);
