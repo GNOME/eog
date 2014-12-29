@@ -579,6 +579,85 @@ eog_window_set_message_area (EogWindow *window,
 }
 
 static void
+_eog_window_enable_action_group (GActionMap   *map,
+								 const gchar **group,
+								 gboolean      enable)
+{
+	GAction *action;
+	const gchar **it = group;
+
+	for (it = group; *it != NULL; it++) {
+		action = g_action_map_lookup_action (map, *it);
+		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enable);
+	}
+}
+
+static void
+_eog_window_enable_window_actions (EogWindow *window, gboolean enable)
+{
+	static const gchar *window_actions[] = {
+		"open",
+		"close",
+		"preferences",
+		"manual",
+		"about",
+		NULL,
+	};
+
+	_eog_window_enable_action_group (G_ACTION_MAP (window),
+									 window_actions,
+									 enable);
+}
+
+static void
+_eog_window_enable_image_actions (EogWindow *window, gboolean enable)
+{
+	static const gchar *image_actions[] = {
+		"save",
+		"open-with",
+		"save-as",
+		"open-folder",
+		"print",
+		"properties",
+		"undo",
+		"flip-horizontal",
+		"flip-vertical",
+		"rotate-90",
+		"rotate-270",
+		"set-wallpaper",
+		"move-trash",
+		"delete",
+		"copy",
+		"zoom-in",
+		"zoom-out",
+		"zoom-normal",
+		NULL,
+	};
+
+	_eog_window_enable_action_group (G_ACTION_MAP (window),
+									 image_actions,
+									 enable);
+}
+
+static void
+_eog_window_enable_gallery_actions (EogWindow *window, gboolean enable)
+{
+
+	static const gchar *gallery_actions[] = {
+		"go-previous",
+		"go-next",
+		"go-first",
+		"go-last",
+		"go-random",
+		NULL,
+	};
+
+	_eog_window_enable_action_group (G_ACTION_MAP (window),
+									 gallery_actions,
+									 enable);
+}
+
+static void
 update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -630,9 +709,9 @@ update_action_groups_state (EogWindow *window)
 	if (n_images == 0) {
 		gtk_widget_hide (priv->layout);
 
-		/*gtk_action_group_set_sensitive (window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
-		gtk_action_group_set_sensitive (priv->actions_gallery,  FALSE);*/
+		_eog_window_enable_window_actions (window, TRUE);
+		_eog_window_enable_image_actions (window, FALSE);
+		_eog_window_enable_gallery_actions (window, FALSE);
 
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_fscreen), FALSE);
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), FALSE);
@@ -667,19 +746,17 @@ update_action_groups_state (EogWindow *window)
 		g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
 								   g_variant_new_boolean (show_image_gallery));
 
-		/*gtk_action_group_set_sensitive (window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);*/
+		_eog_window_enable_window_actions (window, TRUE);
+		_eog_window_enable_image_actions (window, TRUE);
 
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_fscreen), TRUE);
 
 		if (n_images == 1) {
-			/*gtk_action_group_set_sensitive (priv->actions_gallery,
-							FALSE);*/
+			_eog_window_enable_gallery_actions (window, FALSE);
 			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_gallery), FALSE);
 			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), FALSE);
 		} else {
-			/*gtk_action_group_set_sensitive (priv->actions_gallery,
-							TRUE);*/
+			_eog_window_enable_gallery_actions (window, TRUE);
 			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), TRUE);
 		}
 
@@ -1326,7 +1403,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 						 priv->display_profile);
 #endif
 
-		/*gtk_action_group_set_sensitive (priv->actions_image, TRUE);*/
+		_eog_window_enable_image_actions (window, TRUE);
 
 		/* Make sure the window is really realized
 		 *  before displaying the image. The ScrollView needs that.  */
@@ -1373,7 +1450,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 			g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 		}
 
-		/*gtk_action_group_set_sensitive (priv->actions_image, FALSE);*/
+		_eog_window_enable_image_actions (window, FALSE);
 	}
 
 	eog_window_clear_load_job (window);
