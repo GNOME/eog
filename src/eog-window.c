@@ -588,7 +588,10 @@ _eog_window_enable_action_group (GActionMap   *map,
 
 	for (it = group; *it != NULL; it++) {
 		action = g_action_map_lookup_action (map, *it);
-		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enable);
+		if (G_LIKELY (action))
+			g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enable);
+		else
+			g_warning ("Action not found in action group: %s", *it);
 	}
 }
 
@@ -601,6 +604,10 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 		"preferences",
 		"manual",
 		"about",
+		"view-gallery",
+		"view-sidebar",
+		"view-statusbar",
+		"view-fullscreen",
 		NULL
 	};
 
