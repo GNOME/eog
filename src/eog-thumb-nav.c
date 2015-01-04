@@ -354,7 +354,7 @@ eog_thumb_nav_init (EogThumbNav *nav)
         priv->button_left = gtk_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (priv->button_left), GTK_RELIEF_NONE);
 
-	arrow = gtk_arrow_new (GTK_ARROW_LEFT, GTK_SHADOW_ETCHED_IN);
+	arrow = gtk_image_new_from_icon_name ("pan-start-symbolic", GTK_ICON_SIZE_BUTTON);
 	gtk_container_add (GTK_CONTAINER (priv->button_left), arrow);
 
 	gtk_widget_set_size_request (GTK_WIDGET (priv->button_left), 25, 0);
@@ -410,7 +410,7 @@ eog_thumb_nav_init (EogThumbNav *nav)
         priv->button_right = gtk_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (priv->button_right), GTK_RELIEF_NONE);
 
-	arrow = gtk_arrow_new (GTK_ARROW_RIGHT, GTK_SHADOW_NONE);
+	arrow = gtk_image_new_from_icon_name ("pan-end-symbolic", GTK_ICON_SIZE_BUTTON);
 	gtk_container_add (GTK_CONTAINER (priv->button_right), arrow);
 
 	gtk_widget_set_size_request (GTK_WIDGET (priv->button_right), 25, 0);
