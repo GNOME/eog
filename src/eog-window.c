@@ -580,8 +580,8 @@ eog_window_set_message_area (EogWindow *window,
 
 static void
 _eog_window_enable_action_group (GActionMap   *map,
-								 const gchar **group,
-								 gboolean      enable)
+				 const gchar **group,
+				 gboolean      enable)
 {
 	GAction *action;
 	const gchar **it = group;
@@ -601,12 +601,12 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 		"preferences",
 		"manual",
 		"about",
-		NULL,
+		NULL
 	};
 
 	_eog_window_enable_action_group (G_ACTION_MAP (window),
-									 window_actions,
-									 enable);
+					 window_actions,
+					 enable);
 }
 
 static void
@@ -631,12 +631,12 @@ _eog_window_enable_image_actions (EogWindow *window, gboolean enable)
 		"zoom-in",
 		"zoom-out",
 		"zoom-normal",
-		NULL,
+		NULL
 	};
 
 	_eog_window_enable_action_group (G_ACTION_MAP (window),
-									 image_actions,
-									 enable);
+					 image_actions,
+					 enable);
 }
 
 static void
@@ -649,12 +649,12 @@ _eog_window_enable_gallery_actions (EogWindow *window, gboolean enable)
 		"go-first",
 		"go-last",
 		"go-random",
-		NULL,
+		NULL
 	};
 
 	_eog_window_enable_action_group (G_ACTION_MAP (window),
-									 gallery_actions,
-									 enable);
+					 gallery_actions,
+					 enable);
 }
 
 static void
@@ -744,7 +744,7 @@ update_action_groups_state (EogWindow *window)
 			gtk_widget_show (priv->nav);
 
 		g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
-								   g_variant_new_boolean (show_image_gallery));
+					   g_variant_new_boolean (show_image_gallery));
 
 		_eog_window_enable_window_actions (window, TRUE);
 		_eog_window_enable_image_actions (window, TRUE);
