@@ -1,9 +1,6 @@
 size = scalable
 actioniconsdir = $(pkgdatadir)/icons/hicolor/$(size)/actions
-appiconsdir = $(datadir)/icons/hicolor/$(size)/apps
 
-dist_appicons_DATA = \
-	apps/eog.svg
 dist_actionicons_DATA = \
 	actions/eog-plugin.svg	  	\
 	actions/eog-image-gallery.svg  \
