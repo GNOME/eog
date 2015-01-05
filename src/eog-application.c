@@ -51,28 +51,10 @@
 
 #define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
 
-#define EOG_CSS_FILE_PATH EOG_DATA_DIR G_DIR_SEPARATOR_S "eog.css"
-
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogApplication, eog_application, GTK_TYPE_APPLICATION);
-
-static EogWindow*
-get_focus_window (GtkApplication *application)
-{
-	GList *windows;
-	GtkWindow *window = NULL;
-
-	/* the windows are ordered with the last focused first */
-	windows = gtk_application_get_windows (application);
-
-	if (windows != NULL) {
-		window = g_list_nth_data (windows, 0);
-	}
-
-	return EOG_WINDOW (window);
-}
+G_DEFINE_TYPE_WITH_PRIVATE (EogApplication, eog_application, GTK_TYPE_APPLICATION)
 
 static void
 action_about (GSimpleAction *action,
@@ -80,8 +62,11 @@ action_about (GSimpleAction *action,
 	      gpointer       user_data)
 {
 	GtkApplication *application = GTK_APPLICATION (user_data);
+	GtkWindow *window = gtk_application_get_active_window (application);
 
-	eog_window_show_about_dialog (get_focus_window (application));
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	eog_window_show_about_dialog (EOG_WINDOW (window));
 }
 
 static void
@@ -90,9 +75,11 @@ action_help (GSimpleAction *action,
 	     gpointer       user_data)
 {
 	GtkApplication *application = GTK_APPLICATION (user_data);
+	GtkWindow *window = gtk_application_get_active_window (application);
 
-	eog_util_show_help (NULL,
-	                    GTK_WINDOW (get_focus_window (application)));
+	g_return_if_fail (window != NULL);
+
+	eog_util_show_help (NULL, window);
 }
 
 static void
@@ -101,8 +88,11 @@ action_preferences (GSimpleAction *action,
 	            gpointer       user_data)
 {
 	GtkApplication *application = GTK_APPLICATION (user_data);
+	GtkWindow *window = gtk_application_get_active_window (application);
 
-	eog_window_show_preferences_dialog (get_focus_window (application));
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	eog_window_show_preferences_dialog (EOG_WINDOW (window));
 }
 
 static void
