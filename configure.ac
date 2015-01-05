@@ -43,7 +43,7 @@ AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
 PKG_PROG_PKG_CONFIG
 
-GTK_DOC_CHECK(1.16)
+GTK_DOC_CHECK([1.16], [--flavour no-tmpl])
 
 AC_CHECK_FUNCS(strptime)
 
