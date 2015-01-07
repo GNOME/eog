@@ -33,6 +33,7 @@ EXTRA_DIST =			\
 	eog-image-properties-dialog.ui	\
 	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \
+	metadata-sidebar.ui	\
 	popup-menus.ui		\
 	$(DESKTOP_IN_FILES)	\
 	$(appdata_in_files)	\
