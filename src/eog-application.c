@@ -123,7 +123,6 @@ action_quit (GSimpleAction *action,
 }
 
 static GActionEntry app_entries[] = {
-	{ "toolbar", action_toggle_state, NULL, "true", NULL },
 	{ "view-statusbar", action_toggle_state, NULL, "true", NULL },
 	{ "view-gallery", action_toggle_state, NULL, "true",  NULL },
 	{ "view-sidebar", action_toggle_state, NULL, "true",  NULL },
@@ -193,14 +192,6 @@ eog_application_init_app_menu (EogApplication *application)
 	                              NULL, NULL);
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
-	                                     "toolbar");
-	g_settings_bind_with_mapping (priv->ui_settings,
-	                              EOG_CONF_UI_TOOLBAR, action, "state",
-                                      G_SETTINGS_BIND_DEFAULT,
-	                              _settings_map_get_bool_variant,
-	                              _settings_map_set_variant,
-	                              NULL, NULL);
-	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "view-sidebar");
 	g_settings_bind_with_mapping (priv->ui_settings,
 	                              EOG_CONF_UI_SIDEBAR, action, "state",
@@ -218,6 +209,59 @@ eog_application_init_app_menu (EogApplication *application)
 	                              NULL, NULL);
 
 	g_object_unref (builder);
+}
+
+static void
+eog_application_init_accelerators (GtkApplication *application)
+{
+	/* Based on a simular construct in Evince (src/ev-application.c).
+	 * Setting multiple accelerators at once for an action
+	 * is not very straight forward in a static way.
+	 *
+	 * This gchar* array simulates an action<->accels mapping.
+	 * Enter the action name followed by the accelerator strings
+	 * and terminate the entry with a NULL-string. */
+	static const gchar * const accelmap[] = {
+		"win.open",		"<Ctrl>o", NULL ,
+		"win.save",		"<Ctrl>s", NULL ,
+		"win.save-as",		"<Ctrl><shift>s", NULL,
+		"win.print",		"<Ctrl>p", NULL,
+		"win.properties",	"<Alt>Return", NULL,
+		"win.set-wallpaper",	"<Ctrl>F8", NULL,
+		"win.manual",		"F1", NULL,
+
+		"win.go-previous",	"Left", "BackSpace", NULL,
+		"win.go-next",		"Right", NULL,
+		"win.go-first",		"<Alt>Home", "Home", NULL,
+		"win.go-last",		"<Alt>End", "End", NULL,
+		"win.go-random",	"<Ctrl>m", NULL,
+		"win.rotate-90",	"<Ctrl>r", NULL,
+		"win.rotate-270",	"<Ctrl><Shift>r", NULL,
+		"win.move-trash",	"Delete", NULL,
+		"win.delete",		"<Shift>Delete", NULL,
+		"win.copy",		"<Ctrl>c", NULL,
+		"win.undo",		"<Ctrl>z", NULL,
+		"win.zoom-in",		"<Ctrl>equal", "<Ctrl>KP_Add",
+					"<Ctrl>plus", NULL,
+		"win.zoom-out",		"<Ctrl>minus",
+					"<Ctrl>KP_Subtract", NULL,
+		"win.zoom-normal",	"<Ctrl>0", NULL,
+
+		"win.view-gallery",	"F9", NULL,
+		"win.view-sidebar",	"<Ctrl>F9", NULL,
+		"win.view-fullscreen",	"F11", NULL,
+		"win.view-slideshow",	"F5", NULL,
+		"win.toggle-zoom-fit",	"F", NULL,
+
+		NULL /* Terminating NULL */
+	};
+
+	const gchar * const *it = accelmap;
+
+	for (it = accelmap; it[0]; it += g_strv_length ((gchar **)it) + 1) {
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+						       it[0], &it[1]);
+	}
 }
 
 static void
@@ -286,6 +330,7 @@ eog_application_startup (GApplication *application)
 	              NULL);
 
 	eog_application_init_app_menu (app);
+	eog_application_init_accelerators (GTK_APPLICATION (app));
 
 	app->priv->extensions = peas_extension_set_new (
 				   PEAS_ENGINE (app->priv->plugin_engine),
@@ -340,13 +385,6 @@ eog_application_finalize (GObject *object)
 {
 	EogApplication *application = EOG_APPLICATION (object);
 	EogApplicationPrivate *priv = application->priv;
-
-	if (priv->toolbars_model) {
-		g_object_unref (priv->toolbars_model);
-		priv->toolbars_model = NULL;
-		g_free (priv->toolbars_file);
-		priv->toolbars_file = NULL;
-	}
 
 	g_clear_object (&priv->extensions);
 
@@ -419,35 +457,16 @@ static void
 eog_application_init (EogApplication *eog_application)
 {
 	EogApplicationPrivate *priv;
-	const gchar *dot_dir = eog_util_dot_dir ();
 
 	eog_session_init (eog_application);
 
 	eog_application->priv = eog_application_get_instance_private (eog_application);
 	priv = eog_application->priv;
 
-	priv->toolbars_model = egg_toolbars_model_new ();
 	priv->plugin_engine = eog_plugin_engine_new ();
 	priv->flags = 0;
 
 	priv->ui_settings = g_settings_new (EOG_CONF_UI);
-
-	egg_toolbars_model_load_names (priv->toolbars_model,
-				       EOG_DATA_DIR "/eog-toolbar.xml");
-
-	if (G_LIKELY (dot_dir != NULL))
-		priv->toolbars_file = g_build_filename
-			(dot_dir, "eog_toolbar.xml", NULL);
-
-	if (!dot_dir || !egg_toolbars_model_load_toolbars (priv->toolbars_model,
-							priv->toolbars_file)) {
-
-		egg_toolbars_model_load_toolbars (priv->toolbars_model,
-						  EOG_DATA_DIR "/eog-toolbar.xml");
-	}
-
-	egg_toolbars_model_set_flags (priv->toolbars_model, 0,
-				      EGG_TB_MODEL_NOT_REMOVABLE);
 
 	eog_application_load_accelerators ();
 }
@@ -718,64 +737,6 @@ eog_application_open_uris (EogApplication  *application,
 
  	return eog_application_open_file_list (application, file_list, timestamp,
 						    flags, error);
-}
-
-
-/**
- * eog_application_get_toolbars_model:
- * @application: An #EogApplication.
- *
- * Retrieves the #EggToolbarsModel for the toolbar in #EogApplication.
- *
- * Returns: (transfer none): An #EggToolbarsModel.
- **/
-EggToolbarsModel *
-eog_application_get_toolbars_model (EogApplication *application)
-{
-	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
-
-	return application->priv->toolbars_model;
-}
-
-/**
- * eog_application_save_toolbars_model:
- * @application: An #EogApplication.
- *
- * Causes the saving of the model of the toolbar in #EogApplication to a file.
- **/
-void
-eog_application_save_toolbars_model (EogApplication *application)
-{
-	if (G_LIKELY(application->priv->toolbars_file != NULL))
-		egg_toolbars_model_save_toolbars (application->priv->toolbars_model,
-		                                  application->priv->toolbars_file,
-						  "1.0");
-}
-
-/**
- * eog_application_reset_toolbars_model:
- * @app: an #EogApplication
- *
- * Restores the toolbars model to the defaults.
- **/
-void
-eog_application_reset_toolbars_model (EogApplication *app)
-{
-	EogApplicationPrivate *priv;
-	g_return_if_fail (EOG_IS_APPLICATION (app));
-
-	priv = app->priv;
-
-	g_object_unref (app->priv->toolbars_model);
-
-	priv->toolbars_model = egg_toolbars_model_new ();
-
-	egg_toolbars_model_load_names (priv->toolbars_model,
-				       EOG_DATA_DIR "/eog-toolbar.xml");
-	egg_toolbars_model_load_toolbars (priv->toolbars_model,
-					  EOG_DATA_DIR "/eog-toolbar.xml");
-	egg_toolbars_model_set_flags (priv->toolbars_model, 0,
-				      EGG_TB_MODEL_NOT_REMOVABLE);
 }
 
 static void

@@ -32,14 +32,11 @@
 
 #include "eog-application.h"
 #include "eog-plugin-engine.h"
-#include "egg-toolbars-model.h"
 #include "eog-window.h"
 
 G_BEGIN_DECLS
 
 struct _EogApplicationPrivate {
-	EggToolbarsModel *toolbars_model;
-	gchar            *toolbars_file;
 	EogPluginEngine  *plugin_engine;
 
 	EogStartupFlags   flags;
@@ -49,12 +46,6 @@ struct _EogApplicationPrivate {
 	PeasExtensionSet *extensions;
 };
 
-
-EggToolbarsModel *eog_application_get_toolbars_model  (EogApplication *application);
-
-void              eog_application_save_toolbars_model (EogApplication *application);
-
-void		  eog_application_reset_toolbars_model (EogApplication *app);
 
 void              eog_application_screensaver_enable  (EogApplication *application);
 
