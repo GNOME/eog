@@ -4550,13 +4550,12 @@ eog_window_construct_ui (EogWindow *window)
 	g_object_unref (popup_menu);
 
 	gtk_paned_pack1 (GTK_PANED (hpaned),
-			 priv->sidebar,
-			 FALSE,
-			 FALSE);
-
-	gtk_paned_pack2 (GTK_PANED (hpaned),
 			 priv->overlay,
 			 TRUE,
+			 FALSE);
+	gtk_paned_pack2 (GTK_PANED (hpaned),
+			 priv->sidebar,
+			 FALSE,
 			 FALSE);
 
 	gtk_widget_show_all (hpaned);
