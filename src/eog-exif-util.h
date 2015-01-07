@@ -37,6 +37,10 @@ G_BEGIN_DECLS
 #define EOG_TYPE_EXIF_DATA eog_exif_data_get_type ()
 
 gchar       *eog_exif_util_format_date           (const gchar *date);
+void         eog_exif_util_format_datetime_label (GtkLabel *label,
+                                                  ExifData *exif_data,
+                                                  gint tag_id,
+                                                  const gchar *format);
 void         eog_exif_util_set_label_text        (GtkLabel *label,
                                                   ExifData *exif_data,
                                                   gint tag_id);
