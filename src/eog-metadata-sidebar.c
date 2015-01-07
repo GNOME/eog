@@ -177,9 +177,14 @@ eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 				      EXIF_TAG_METERING_MODE);
 	eog_exif_util_set_label_text (GTK_LABEL (priv->model_label),
 				      exif_data, EXIF_TAG_MODEL);
-	eog_exif_util_set_label_text (GTK_LABEL (priv->date_label),
-				      exif_data,
-				      EXIF_TAG_DATE_TIME_ORIGINAL);
+	eog_exif_util_format_datetime_label (GTK_LABEL (priv->date_label),
+					     exif_data,
+					     EXIF_TAG_DATE_TIME_ORIGINAL,
+					     _("%a, %d %B %Y"));
+	eog_exif_util_format_datetime_label (GTK_LABEL (priv->time_label),
+					     exif_data,
+					     EXIF_TAG_DATE_TIME_ORIGINAL,
+					     _("%X"));
 
 	/* exif_data_unref can handle NULL-values */
 	exif_data_unref(exif_data);
