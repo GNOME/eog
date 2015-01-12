@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: eog.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-08 16:30+0000\n"
-"PO-Revision-Date: 2015-01-08 18:18+0100\n"
+"POT-Creation-Date: 2015-01-12 04:30+0000\n"
+"PO-Revision-Date: 2015-01-12 11:53+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -82,7 +82,7 @@ msgstr ""
 "mostrándolas con la orientación correcta."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5647
+#: ../src/eog-window.c:5646
 msgid "Image Viewer"
 msgstr "Visor de imágenes"
 
@@ -113,22 +113,18 @@ msgid "_Close"
 msgstr "_Cerrar"
 
 #: ../data/eog-image-properties-dialog.ui.h:5
-#: ../src/eog-metadata-sidebar.c:497
 msgid "Name:"
 msgstr "Nombre:"
 
 #: ../data/eog-image-properties-dialog.ui.h:6
-#: ../src/eog-metadata-sidebar.c:499
 msgid "Width:"
 msgstr "Anchura:"
 
 #: ../data/eog-image-properties-dialog.ui.h:7
-#: ../src/eog-metadata-sidebar.c:501
 msgid "Height:"
 msgstr "Altura:"
 
 #: ../data/eog-image-properties-dialog.ui.h:8
-#: ../src/eog-metadata-sidebar.c:503
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -137,87 +133,70 @@ msgid "Bytes:"
 msgstr "Bytes:"
 
 #: ../data/eog-image-properties-dialog.ui.h:10
-#: ../src/eog-metadata-sidebar.c:507
 msgid "Folder:"
 msgstr "Carpeta:"
 
 #: ../data/eog-image-properties-dialog.ui.h:11
-#: ../src/eog-metadata-sidebar.c:495
 msgid "General"
 msgstr "General"
 
 #: ../data/eog-image-properties-dialog.ui.h:12
-#: ../src/eog-metadata-sidebar.c:532
 msgid "Aperture Value:"
 msgstr "Valor de apertura:"
 
 #: ../data/eog-image-properties-dialog.ui.h:13
-#: ../src/eog-metadata-sidebar.c:535
 msgid "Exposure Time:"
 msgstr "Tiempo de exposición:"
 
 #: ../data/eog-image-properties-dialog.ui.h:14
-#: ../src/eog-metadata-sidebar.c:538
 msgid "Focal Length:"
 msgstr "Distancia focal:"
 
 #: ../data/eog-image-properties-dialog.ui.h:15
-#: ../src/eog-metadata-sidebar.c:540
 msgid "Flash:"
 msgstr "Flash:"
 
 #: ../data/eog-image-properties-dialog.ui.h:16
-#: ../src/eog-metadata-sidebar.c:544
 msgid "ISO Speed Rating:"
 msgstr "Tasa de velocidad ISO:"
 
 #: ../data/eog-image-properties-dialog.ui.h:17
-#: ../src/eog-metadata-sidebar.c:547
 msgid "Metering Mode:"
 msgstr "Modo de medida:"
 
 #: ../data/eog-image-properties-dialog.ui.h:18
-#: ../src/eog-metadata-sidebar.c:550
 msgid "Camera Model:"
 msgstr "Modelo de la cámara:"
 
 #: ../data/eog-image-properties-dialog.ui.h:19
-#: ../src/eog-metadata-sidebar.c:552
 msgid "Date/Time:"
 msgstr "Fecha/Hora:"
 
 #: ../data/eog-image-properties-dialog.ui.h:20
-#: ../src/eog-metadata-sidebar.c:557
 msgid "Description:"
 msgstr "Descripción:"
 
 #: ../data/eog-image-properties-dialog.ui.h:21
-#: ../src/eog-metadata-sidebar.c:560
 msgid "Location:"
 msgstr "Ubicación:"
 
 #: ../data/eog-image-properties-dialog.ui.h:22
-#: ../src/eog-metadata-sidebar.c:563
 msgid "Keywords:"
 msgstr "Palabras clave:"
 
 #: ../data/eog-image-properties-dialog.ui.h:23
-#: ../src/eog-metadata-sidebar.c:565
 msgid "Author:"
 msgstr "Autor:"
 
 #: ../data/eog-image-properties-dialog.ui.h:24
-#: ../src/eog-metadata-sidebar.c:568
 msgid "Copyright:"
 msgstr "Derechos de autor:"
 
 #: ../data/eog-image-properties-dialog.ui.h:25
-#: ../src/eog-metadata-sidebar.c:571
 msgid "Details"
 msgstr "Detalles"
 
 #: ../data/eog-image-properties-dialog.ui.h:26
-#: ../src/eog-metadata-sidebar.c:528
 msgid "Metadata"
 msgstr "Metadatos"
 
@@ -408,7 +387,6 @@ msgid "_Best Fit"
 msgstr "Ajuste óptim_o"
 
 #: ../data/fullscreen-toolbar.ui.h:9
-#, fuzzy
 #| msgid "Rotate Counterc_lockwise"
 msgid "Rotate Counter_clockwise"
 msgstr "Rotar en sentido _antihorario"
@@ -416,6 +394,61 @@ msgstr "Rotar en sentido _antihorario"
 #: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Rotate Clockwise"
 msgstr "_Rotar en sentido horario"
+
+#: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
+msgid "Size"
+msgstr "Tamaño"
+
+#: ../data/metadata-sidebar.ui.h:2
+#| msgid "Type:"
+msgid "Type"
+msgstr "Tipo"
+
+#: ../data/metadata-sidebar.ui.h:3
+#| msgid "File size:"
+msgid "File Size"
+msgstr "Tamaño del archivo"
+
+#: ../data/metadata-sidebar.ui.h:4
+#| msgid "Folder:"
+msgid "Folder"
+msgstr "Carpeta"
+
+#: ../data/metadata-sidebar.ui.h:5
+#| msgid "Aperture Value:"
+msgid "Aperture"
+msgstr "Apertura"
+
+#: ../data/metadata-sidebar.ui.h:6
+#| msgid "Exposure Time:"
+msgid "Exposure"
+msgstr "Exposición"
+
+#: ../data/metadata-sidebar.ui.h:7
+msgid "ISO"
+msgstr "ISO"
+
+#: ../data/metadata-sidebar.ui.h:8
+#| msgid "Metering Mode:"
+msgid "Metering"
+msgstr "Medición"
+
+#: ../data/metadata-sidebar.ui.h:9 ../src/eog-metadata-details.c:65
+msgid "Camera"
+msgstr "Cámara"
+
+#: ../data/metadata-sidebar.ui.h:10
+msgid "Date"
+msgstr "Fecha"
+
+#: ../data/metadata-sidebar.ui.h:11
+msgid "Time"
+msgstr "Hora"
+
+#: ../data/metadata-sidebar.ui.h:12
+#| msgid "Focal Length:"
+msgid "Focal Length"
+msgstr "Distancia focal"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:1
 msgid "Automatic orientation"
@@ -655,7 +688,6 @@ msgid "External program to use for editing images"
 msgstr "Programa externo que usar para editar imágenes"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:41
-#, fuzzy
 #| msgid ""
 #| "The desktop file name (including the \".desktop\") of the application to "
 #| "use for editing images (when the \"Edit Image\" toolbar button is "
@@ -666,9 +698,8 @@ msgid ""
 "empty string to disable this feature."
 msgstr ""
 "El nombre del archivo de escritorio (incluyendo «.desktop») de la aplicación "
-"que usar para editar imágenes (al pulsar el botón de la barra de "
-"herramientas «Editar imagen»). Dejar vacía para desactivar esta "
-"característica."
+"que usar para editar imágenes (al pulsar el botón «Editar imagen»). Dejar "
+"vacía para desactivar esta característica."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:42
 msgid "Active plugins"
@@ -808,10 +839,6 @@ msgstr "No se encontraron imágenes en «%s»."
 msgid "The given locations contain no images."
 msgstr "Las ubicaciones proporcionadas no contienen imágenes."
 
-#: ../src/eog-metadata-details.c:65
-msgid "Camera"
-msgstr "Cámara"
-
 #: ../src/eog-metadata-details.c:66
 msgid "Image Data"
 msgstr "Datos de la imagen"
@@ -873,18 +900,13 @@ msgid "South"
 msgstr "Sur"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
+#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
-#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:154
-msgid "%a, %d %B %Y"
-msgstr "%a, %d %B %Y"
-
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:251
+#: ../src/eog-exif-util.c:274
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (long. focal)"
@@ -892,7 +914,7 @@ msgstr "%.1f (long. focal)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:262
+#: ../src/eog-exif-util.c:285
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (película de 35mm)"
@@ -928,8 +950,7 @@ msgid "Supported image files"
 msgstr "Archivos de imagen soportados"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-metadata-sidebar.c:234
-#: ../src/eog-metadata-sidebar.c:238 ../src/eog-properties-dialog.c:139
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
 #: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
 msgid "pixel"
 msgid_plural "pixels"
@@ -997,17 +1018,27 @@ msgstr "No se pudo crear el archivo temporal para guardar: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "No se puede asignar memoria para cargar el archivo JPG"
 
-#: ../src/eog-metadata-sidebar.c:247 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:108
+#, c-format
+#| msgid "%i × %i pixel  %s    %i%%"
+#| msgid_plural "%i × %i pixels  %s    %i%%"
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i píxel"
+msgstr[1] "%i × %i píxeles"
+
+#: ../src/eog-metadata-sidebar.c:119 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../src/eog-metadata-sidebar.c:505
-msgid "File size:"
-msgstr "Tamaño del archivo:"
+#: ../src/eog-metadata-sidebar.c:183
+msgid "%a, %d %B %Y"
+msgstr "%a, %d %B %Y"
 
-#: ../src/eog-metadata-sidebar.c:521 ../src/eog-properties-dialog.c:745
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Mostrar en el gestor de archivos la carpeta que contiene este archivo"
+#: ../src/eog-metadata-sidebar.c:187
+#, c-format
+msgid "%X"
+msgstr "%X"
 
 #: ../src/eog-preferences-dialog.c:125
 #, c-format
@@ -1076,10 +1107,6 @@ msgstr "Vertical"
 msgid "Both"
 msgstr "Ambos"
 
-#: ../src/eog-print-image-setup.c:969
-msgid "Size"
-msgstr "Tamaño"
-
 #: ../src/eog-print-image-setup.c:972
 msgid "_Width:"
 msgstr "A_nchura:"
@@ -1107,6 +1134,10 @@ msgstr "Pulgadas"
 #: ../src/eog-print-image-setup.c:1024
 msgid "Preview"
 msgstr "Vista preliminar"
+
+#: ../src/eog-properties-dialog.c:745
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Mostrar en el gestor de archivos la carpeta que contiene este archivo"
 
 #: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
@@ -1333,11 +1364,11 @@ msgstr ""
 msgid "Couldn't access trash."
 msgstr "No se pudo acceder a la papelera."
 
-#: ../src/eog-window.c:5650
+#: ../src/eog-window.c:5649
 msgid "The GNOME image viewer."
 msgstr "El visor de imágenes de GNOME."
 
-#: ../src/eog-window.c:5653
+#: ../src/eog-window.c:5652
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2010\n"
