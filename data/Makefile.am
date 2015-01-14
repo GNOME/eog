@@ -30,6 +30,7 @@ EXTRA_DIST =			\
 	fullscreen-toolbar.ui	\
 	eog.css			\
 	eog-app-menu.xml	\
+	eog-gear-menu.ui	\
 	eog-image-properties-dialog.ui	\
 	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \

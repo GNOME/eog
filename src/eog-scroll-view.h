@@ -6,6 +6,16 @@
 
 G_BEGIN_DECLS
 
+/* Maximum zoom factor */
+#define MAX_ZOOM_FACTOR 20
+#define MIN_ZOOM_FACTOR 0.02
+
+/* Default increment for zooming.  The current zoom factor is multiplied or
+ * divided by this amount on every zooming step.  For consistency, you should
+ * use the same value elsewhere in the program.
+ */
+#define IMAGE_VIEW_ZOOM_MULTIPLIER 1.05
+
 typedef struct _EogScrollView EogScrollView;
 typedef struct _EogScrollViewClass EogScrollViewClass;
 typedef struct _EogScrollViewPrivate EogScrollViewPrivate;

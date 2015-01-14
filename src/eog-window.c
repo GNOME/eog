@@ -136,6 +136,8 @@ struct _EogWindowPrivate {
         GtkWidget           *statusbar;
         GtkWidget           *nav;
 	GtkWidget           *message_area;
+	GtkWidget           *zoom_revealer;
+	GtkWidget           *zoom_scale;
 	GtkWidget           *properties_dlg;
 
 	/*GSimpleActionGroup  *actions_recent;*/
@@ -468,6 +470,19 @@ eog_window_get_display_profile (GtkWidget *window)
 	return profile;
 }
 #endif
+
+static void
+update_zoom_scale (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	gdouble zoom;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+	zoom = eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->view));
+	gtk_range_set_value (GTK_RANGE (priv->zoom_scale), zoom);
+}
 
 static void
 update_image_pos (EogWindow *window)
@@ -1657,6 +1672,7 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 
 	update_status_bar (window);
+	update_zoom_scale (window);
 
 	action_zoom_in =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
@@ -4418,14 +4434,71 @@ eog_window_view_previous_image_cb (EogScrollView *view,
 }
 
 static void
+eog_window_zoom_scale_value_changed_cb (GtkRange *range, gpointer user_data)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (priv->view) {
+		gdouble value;
+
+		value = gtk_range_get_value (range);
+		eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (priv->view), value);
+	}
+}
+
+static void
+eog_window_zoom_button_toggled_cb (GtkToggleButton *button, gpointer user_data)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	GtkWidget *zoom_image;
+	gboolean toggled;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (!priv->view) {
+		return;
+	}
+
+	toggled = gtk_toggle_button_get_active (button);
+	if (toggled) {
+		zoom_image = gtk_image_new_from_icon_name ("zoom-out-symbolic",
+							   GTK_ICON_SIZE_BUTTON);
+	} else {
+		zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
+							   GTK_ICON_SIZE_BUTTON);
+		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
+					       EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	}
+
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->zoom_revealer), toggled);
+	gtk_button_set_image (GTK_BUTTON (button), zoom_image);
+}
+
+static void
 eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+
+	GtkBuilder *builder;
+	GAction *action = NULL;
+	GObject *builder_object;
+
 	GtkWidget *popup_menu;
 	GtkWidget *hpaned;
-	GAction *action = NULL;
-	GtkBuilder *builder;
-	GObject *builder_object;
+	GtkWidget *headerbar;
+	GtkWidget *zoom_button;
+	GtkWidget *zoom_image;
+	GtkWidget *menu_button;
+	GtkWidget *menu_image;
+	GtkWidget *fullscreen_button;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -4435,6 +4508,65 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
 	gtk_widget_show (priv->box);
 	priv->ui_mgr = gtk_ui_manager_new ();
+
+	headerbar = gtk_header_bar_new ();
+	gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (headerbar), TRUE);
+	gtk_header_bar_set_title (GTK_HEADER_BAR (headerbar),
+				  g_get_application_name ());
+	gtk_window_set_titlebar (GTK_WINDOW (window), headerbar);
+	gtk_widget_show (headerbar);
+
+	zoom_button = gtk_toggle_button_new ();
+	zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
+						   GTK_ICON_SIZE_BUTTON);
+	gtk_button_set_image (GTK_BUTTON (zoom_button), zoom_image);
+	g_signal_connect (zoom_button, "toggled",
+			  G_CALLBACK (eog_window_zoom_button_toggled_cb),
+			  window);
+	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar), zoom_button);
+	gtk_widget_show (zoom_button);
+
+	priv->zoom_revealer = gtk_revealer_new ();
+	gtk_revealer_set_transition_type (GTK_REVEALER (priv->zoom_revealer),
+					  GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT);
+	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar),
+				   priv->zoom_revealer);
+	gtk_widget_show (priv->zoom_revealer);
+
+	priv->zoom_scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL,
+						     MIN_ZOOM_FACTOR, 1.0,
+						     IMAGE_VIEW_ZOOM_MULTIPLIER);
+	gtk_scale_set_draw_value (GTK_SCALE (priv->zoom_scale), FALSE);
+	/* TODO: the scale by itself does not take any width, so we manually
+	 * set it here. Decide on the optimal value. */
+	gtk_widget_set_size_request (priv->zoom_scale, 200, -1);
+	g_signal_connect (priv->zoom_scale, "value-changed",
+			  G_CALLBACK (eog_window_zoom_scale_value_changed_cb),
+			  window);
+	gtk_container_add (GTK_CONTAINER (priv->zoom_revealer),
+			   priv->zoom_scale);
+	gtk_widget_show (priv->zoom_scale);
+
+	menu_button = gtk_menu_button_new ();
+	menu_image = gtk_image_new_from_icon_name ("open-menu-symbolic",
+						   GTK_ICON_SIZE_BUTTON);
+	gtk_button_set_image (GTK_BUTTON (menu_button), menu_image);
+
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-gear-menu.ui");
+	builder_object = gtk_builder_get_object (builder, "gear-menu");
+	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button),
+					G_MENU_MODEL (builder_object));
+	g_clear_object (&builder);
+
+	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
+	gtk_widget_show (menu_button);
+
+	fullscreen_button = gtk_button_new_from_icon_name ("view-fullscreen-symbolic",
+							   GTK_ICON_SIZE_BUTTON);
+	gtk_actionable_set_action_name (GTK_ACTIONABLE (fullscreen_button),
+					"win.view-fullscreen");
+	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
+	gtk_widget_show (fullscreen_button);
 
 #if 0
 	/*gtk_window_add_accel_group (GTK_WINDOW (window),
@@ -4526,7 +4658,7 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (view_zoom_changed_cb),
 			  window);
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					      "toggle-zoom-fit");
+					     "toggle-zoom-fit");
 	if (action != NULL) {
 		/* Binding will be destroyed when the objects finalize */
 		g_object_bind_property_full (priv->view, "zoom-mode",
@@ -4573,8 +4705,8 @@ eog_window_construct_ui (EogWindow *window)
 
 	priv->nav = eog_thumb_nav_new (priv->thumbview,
 				       EOG_THUMB_NAV_MODE_ONE_ROW,
-				       g_settings_get_boolean (priv->ui_settings
-				       	, EOG_CONF_UI_SCROLL_BUTTONS));
+				       g_settings_get_boolean (priv->ui_settings,
+							       EOG_CONF_UI_SCROLL_BUTTONS));
 
 	// Bind the scroll buttons to their GSettings key
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_SCROLL_BUTTONS,
@@ -4691,7 +4823,7 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
 					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar"));
-	
+
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
 					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"));
