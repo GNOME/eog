@@ -93,6 +93,7 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	EogImage *img = priv->image;
 	GFile *file, *parent_file;
 	GFileInfo *file_info;
+	gchar *basename, *baseuri;
 	gchar *str;
 	goffset bytes;
 	gint width, height;
@@ -137,10 +138,15 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 		/* file is root directory itself */
 		parent_file = g_object_ref (file);
 	}
-	str = g_file_get_basename (parent_file);
-	str = g_markup_printf_escaped ("<a href=\"%s\">%s</a>", g_file_get_uri (parent_file), str);
+	basename = g_file_get_basename (parent_file);
+	baseuri = g_file_get_uri (parent_file);
+	str = g_markup_printf_escaped ("<a href=\"%s\">%s</a>",
+				       baseuri,
+				       basename);
 	gtk_label_set_markup (GTK_LABEL (priv->folder_label), str);
 	g_free (str);
+	g_free (baseuri);
+	g_free (basename);
 	g_object_unref (parent_file);
 }
 
