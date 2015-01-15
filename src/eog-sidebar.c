@@ -365,9 +365,6 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 	GtkWidget *arrow;
 	GtkWidget *image;
 
-	gtk_orientable_set_orientation (GTK_ORIENTABLE (eog_sidebar),
-					GTK_ORIENTATION_VERTICAL);
-
 	eog_sidebar->priv = eog_sidebar_get_instance_private (eog_sidebar);
 
 	/* data model */
@@ -460,7 +457,9 @@ eog_sidebar_new (void)
 {
 	GtkWidget *eog_sidebar;
 
-	eog_sidebar = g_object_new (EOG_TYPE_SIDEBAR, NULL);
+	eog_sidebar = g_object_new (EOG_TYPE_SIDEBAR,
+				    "orientation", GTK_ORIENTATION_VERTICAL,
+				    NULL);
 
 	return eog_sidebar;
 }
