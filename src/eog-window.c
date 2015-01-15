@@ -2317,21 +2317,22 @@ eog_window_print (EogWindow *window)
 
 static void
 eog_window_action_file_open (GSimpleAction *action,
-							 GVariant      *parameter,
-							 gpointer       user_data)
+			     GVariant      *parameter,
+			     gpointer       user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
-        EogImage *current;
+	EogImage *current;
 	GtkWidget *dlg;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	window = EOG_WINDOW (user_data);
 
-        priv = window->priv;
+	priv = window->priv;
 
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
 
 	current = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
@@ -2341,8 +2342,8 @@ eog_window_action_file_open (GSimpleAction *action,
 		file_uri = eog_image_get_uri_for_display (current);
 		dir_uri = g_path_get_dirname (file_uri);
 
-	        gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
-                                                         dir_uri);
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
+							 dir_uri);
 		g_free (file_uri);
 		g_free (dir_uri);
 		g_object_unref (current);
