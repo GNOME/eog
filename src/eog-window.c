@@ -86,10 +86,6 @@
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 2 * 1000
 #define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
-/*#define EOG_RECENT_FILES_GROUP  "Graphics"
-#define EOG_RECENT_FILES_APP_NAME "Image Viewer"
-#define EOG_RECENT_FILES_LIMIT  5*/
-
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
 
 #define is_rtl (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
@@ -140,8 +136,6 @@ struct _EogWindowPrivate {
 	GtkWidget           *zoom_scale;
 	GtkWidget           *properties_dlg;
 
-	/*GSimpleActionGroup  *actions_recent;*/
-
 	GtkWidget           *fullscreen_popup;
 	GSource             *fullscreen_timeout_source;
 
@@ -150,8 +144,6 @@ struct _EogWindowPrivate {
 	GSource             *slideshow_switch_source;
 
 	guint                fullscreen_idle_inhibit_cookie;
-
-        /*guint		     recent_menu_id;*/
 
         EogJob              *load_job;
         EogJob              *transform_job;
@@ -823,55 +815,6 @@ update_selection_ui_visibility (EogWindow *window)
 	}
 }
 
-#if 0
-static gboolean
-add_file_to_recent_files (GFile *file)
-{
-	gchar *text_uri;
-	GFileInfo *file_info;
-	GtkRecentData *recent_data;
-	static gchar *groups[2] = { EOG_RECENT_FILES_GROUP , NULL };
-
-	if (file == NULL) return FALSE;
-
-	/* The password gets stripped here because ~/.recently-used.xbel is
-	 * readable by everyone (chmod 644). It also makes the workaround
-	 * for the bug with gtk_recent_info_get_uri_display() easier
-	 * (see the comment in eog_window_update_recent_files_menu()). */
-	text_uri = g_file_get_uri (file);
-
-	if (text_uri == NULL)
-		return FALSE;
-
-	file_info = g_file_query_info (file,
-				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				       0, NULL, NULL);
-	if (file_info == NULL)
-		return FALSE;
-
-	recent_data = g_slice_new (GtkRecentData);
-	recent_data->display_name = NULL;
-	recent_data->description = NULL;
-	recent_data->mime_type = (gchar *) g_file_info_get_content_type (file_info);
-	recent_data->app_name = EOG_RECENT_FILES_APP_NAME;
-	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
-	recent_data->groups = groups;
-	recent_data->is_private = FALSE;
-
-	gtk_recent_manager_add_full (gtk_recent_manager_get_default (),
-				     text_uri,
-				     recent_data);
-
-	g_free (recent_data->app_exec);
-	g_free (text_uri);
-	g_object_unref (file_info);
-
-	g_slice_free (GtkRecentData, recent_data);
-
-	return FALSE;
-}
-#endif
-
 static void
 image_thumb_changed_cb (EogImage *image, gpointer data)
 {
@@ -976,7 +919,6 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
-	/*GFile *file;*/
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -1006,12 +948,6 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	gtk_window_set_title (GTK_WINDOW (window), eog_image_get_caption (image));
 
 	update_status_bar (window);
-
-	/*file = eog_image_get_file (image);
-	g_idle_add_full (G_PRIORITY_LOW,
-			 (GSourceFunc) add_file_to_recent_files,
-			 file,
-			 (GDestroyNotify) g_object_unref);*/
 
 	/*eog_window_update_openwith_menu (window, image);*/
 }
@@ -1687,31 +1623,6 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_out),
 			!eog_scroll_view_get_zoom_is_min (EOG_SCROLL_VIEW (window->priv->view)));
 }
-
-#if 0
-static void
-eog_window_open_recent_cb (GAction *action, EogWindow *window)
-{
-	GtkRecentInfo *info;
-	const gchar *uri;
-	GSList *list = NULL;
-
-	info = g_object_get_data (G_OBJECT (action), "gtk-recent-info");
-	g_return_if_fail (info != NULL);
-
-	uri = gtk_recent_info_get_uri (info);
-	list = g_slist_prepend (list, g_strdup (uri));
-
-	eog_application_open_uri_list (EOG_APP,
-				       list,
-				       GDK_CURRENT_TIME,
-				       0,
-				       NULL);
-
-	g_slist_foreach (list, (GFunc) g_free, NULL);
-	g_slist_free (list);
-}
-#endif
 
 static void
 file_open_dialog_response_cb (GtkWidget *chooser,
@@ -4099,127 +4010,6 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 		g_action_change_state (action, new_state);
 }
 
-#if 0
-static gint
-sort_recents_mru (GtkRecentInfo *a, GtkRecentInfo *b)
-{
-	gboolean has_eog_a, has_eog_b;
-
-	/* We need to check this first as gtk_recent_info_get_application_info
-	 * will treat it as a non-fatal error when the GtkRecentInfo doesn't
-	 * have the application registered. */
-	has_eog_a = gtk_recent_info_has_application (a,
-						     EOG_RECENT_FILES_APP_NAME);
-	has_eog_b = gtk_recent_info_has_application (b,
-						     EOG_RECENT_FILES_APP_NAME);
-	if (has_eog_a && has_eog_b) {
-		time_t time_a, time_b;
-
-		/* These should not fail as we already checked that
-		 * the application is registered with the info objects */
-		gtk_recent_info_get_application_info (a,
-						      EOG_RECENT_FILES_APP_NAME,
-						      NULL,
-						      NULL,
-						      &time_a);
-		gtk_recent_info_get_application_info (b,
-						      EOG_RECENT_FILES_APP_NAME,
-						      NULL,
-						      NULL,
-						      &time_b);
-
-		return (time_b - time_a);
-	} else if (has_eog_a) {
-		return -1;
-	} else if (has_eog_b) {
-		return 1;
-	}
-
-	return 0;
-}
-
-static void
-eog_window_update_recent_files_menu (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	GAction *action;
-	gchar **action_names, *action_name;
-	guint i;
-	GList *li = NULL, *items = NULL;
-	guint count_recent = 0;
-
-	priv = window->priv;
-
-	if (priv->recent_menu_id != 0)
-		gtk_ui_manager_remove_ui (priv->ui_mgr, priv->recent_menu_id);
-
-	action_names = g_action_group_list_actions (G_ACTION_GROUP (priv->actions_recent));
-
-	for (i = 0; i < g_strv_length (action_names); i++) {
-		action_name = action_names[i];
-		action = g_action_map_lookup_action (G_ACTION_MAP (priv->actions_recent), action_name);
-		g_signal_handlers_disconnect_by_func (action,
-						      G_CALLBACK(eog_window_open_recent_cb),
-						      window);
-
-		g_action_map_remove_action (G_ACTION_MAP (priv->actions_recent),
-						action_name);
-	}
-
-	g_strfreev (action_names);
-
-	priv->recent_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
-	items = gtk_recent_manager_get_items (gtk_recent_manager_get_default());
-	items = g_list_sort (items, (GCompareFunc) sort_recents_mru);
-
-	for (li = items; li != NULL && count_recent < EOG_RECENT_FILES_LIMIT; li = li->next) {
-		gchar *action_name;
-		GSimpleAction *action;
-		GtkRecentInfo *info = li->data;
-
-		/* Sorting moves non-EOG files to the end of the list.
-		 * So no file of interest will follow if this test fails */
-		if (!gtk_recent_info_has_application (info, EOG_RECENT_FILES_APP_NAME))
-			break;
-
-		count_recent++;
-
-		action_name = g_strdup_printf ("recent-info-%d", count_recent);
-
-		action = g_simple_action_new (action_name, NULL);
-
-		g_object_set_data_full (G_OBJECT (action), "gtk-recent-info",
-					gtk_recent_info_ref (info),
-					(GDestroyNotify) gtk_recent_info_unref);
-
-		g_signal_connect (action, "activate",
-				  G_CALLBACK (eog_window_open_recent_cb),
-				  window);
-
-		g_action_map_add_action (G_ACTION_MAP (priv->actions_recent), G_ACTION (action));
-
-		g_object_unref (action);
-
-		/* TODO: replace this with code for the new UI. */
-		/*gtk_ui_manager_add_ui (priv->ui_mgr, priv->recent_menu_id,
-				       "/MainMenu/Image/RecentDocuments",
-				       action_name, action_name,
-				       GTK_UI_MANAGER_AUTO, FALSE);*/
-
-		g_free (action_name);
-	}
-
-	g_list_foreach (items, (GFunc) gtk_recent_info_unref, NULL);
-	g_list_free (items);
-}
-
-static void
-eog_window_recent_manager_changed_cb (GtkRecentManager *manager, EogWindow *window)
-{
-	eog_window_update_recent_files_menu (window);
-}
-#endif
-
 static void
 eog_window_drag_data_received (GtkWidget *widget,
                                GdkDragContext *context,
@@ -4569,21 +4359,6 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
 	gtk_widget_show (fullscreen_button);
 
-#if 0
-	/*gtk_window_add_accel_group (GTK_WINDOW (window),
-				    gtk_ui_manager_get_accel_group (priv->ui_mgr));*/
-
-	priv->actions_recent = g_simple_action_group_new ();
-
-	g_signal_connect (gtk_recent_manager_get_default (), "changed",
-			  G_CALLBACK (eog_window_recent_manager_changed_cb),
-			  window);
-
-	eog_window_update_recent_files_menu (window);
-
-	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_recent, 0);
-#endif
-
 	priv->cbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
 	gtk_widget_show (priv->cbox);
@@ -4798,8 +4573,6 @@ eog_window_init (EogWindow *window)
 		eog_window_get_display_profile (GTK_WIDGET (window));
 #endif
 
-	/*window->priv->recent_menu_id = 0;*/
-
 	window->priv->gallery_position = 0;
 	window->priv->gallery_resizable = FALSE;
 
@@ -4879,11 +4652,6 @@ eog_window_dispose (GObject *object)
 		priv->image = NULL;
 	}
 
-	/*if (priv->actions_recent != NULL) {
-		g_object_unref (priv->actions_recent);
-		priv->actions_recent = NULL;
-	}*/
-
 	/*if (priv->actions_open_with != NULL) {
 		g_object_unref (priv->actions_open_with);
 		priv->actions_open_with = NULL;
@@ -4898,12 +4666,6 @@ eog_window_dispose (GObject *object)
 
 	slideshow_clear_timeout (window);
 	eog_window_uninhibit_screensaver (window);
-
-	/*g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_default (),
-					      G_CALLBACK (eog_window_recent_manager_changed_cb),
-					      window);
-
-	priv->recent_menu_id = 0;*/
 
 	eog_window_clear_load_job (window);
 
