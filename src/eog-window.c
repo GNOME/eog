@@ -2528,8 +2528,8 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 
 static void
 eog_window_action_close_window (GSimpleAction *action,
-								GVariant      *variant,
-								gpointer       user_data)
+				GVariant      *variant,
+				gpointer       user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2538,8 +2538,8 @@ eog_window_action_close_window (GSimpleAction *action,
 
 static void
 eog_window_action_preferences (GSimpleAction *action,
-							   GVariant      *variant,
-							   gpointer       user_data)
+			       GVariant      *variant,
+			       gpointer       user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2548,8 +2548,8 @@ eog_window_action_preferences (GSimpleAction *action,
 
 static void
 eog_window_action_help (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+			GVariant      *variant,
+			gpointer       user_data)
 {
 	EogWindow *window;
 
@@ -2562,8 +2562,8 @@ eog_window_action_help (GSimpleAction *action,
 
 static void
 eog_window_action_about (GSimpleAction *action,
-						 GVariant      *variant,
-						 gpointer       user_data)
+			 GVariant      *variant,
+			 gpointer       user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2572,8 +2572,8 @@ eog_window_action_about (GSimpleAction *action,
 
 static void
 eog_window_action_show_hide_bar (GSimpleAction *action,
-								 GVariant      *state,
-								 gpointer       user_data)
+				 GVariant      *state,
+				 gpointer       user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -2886,8 +2886,8 @@ eog_window_save_images (EogWindow *window, GList *images)
 
 static void
 eog_window_action_save (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+			GVariant      *variant,
+			gpointer       user_data)
 {
 	EogWindowPrivate *priv;
 	EogWindow *window;
@@ -2951,8 +2951,8 @@ eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 
 static void
 eog_window_action_save_as (GSimpleAction *action,
-						   GVariant      *variant,
-						   gpointer       user_data)
+			   GVariant      *variant,
+			   gpointer       user_data)
 {
         EogWindowPrivate *priv;
         EogWindow *window;
@@ -3035,8 +3035,8 @@ eog_window_action_save_as (GSimpleAction *action,
 
 static void
 eog_window_action_open_containing_folder (GSimpleAction *action,
-										  GVariant      *variant,
-										  gpointer       user_data)
+					  GVariant      *variant,
+					  gpointer       user_data)
 {
 	EogWindowPrivate *priv;
 	GFile *file;
@@ -3057,8 +3057,8 @@ eog_window_action_open_containing_folder (GSimpleAction *action,
 
 static void
 eog_window_action_print (GSimpleAction *action,
-						 GVariant      *variant,
-						 gpointer       user_data)
+			 GVariant      *variant,
+			 gpointer       user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 
@@ -3094,8 +3094,8 @@ eog_window_get_properties_dialog (EogWindow *window)
 
 static void
 eog_window_action_properties (GSimpleAction *action,
-							  GVariant      *variant,
-							  gpointer       user_data)
+			      GVariant      *variant,
+			      gpointer       user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	GtkWidget *dialog;
@@ -3106,8 +3106,8 @@ eog_window_action_properties (GSimpleAction *action,
 
 static void
 eog_window_action_undo (GSimpleAction *action,
-						GVariant      *variant,
-						gpointer       user_data)
+			GVariant      *variant,
+			gpointer       user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3116,8 +3116,8 @@ eog_window_action_undo (GSimpleAction *action,
 
 static void
 eog_window_action_flip_horizontal (GSimpleAction *action,
-								   GVariant      *variant,
-								   gpointer       user_data)
+				   GVariant      *variant,
+				   gpointer       user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3127,8 +3127,8 @@ eog_window_action_flip_horizontal (GSimpleAction *action,
 
 static void
 eog_window_action_flip_vertical (GSimpleAction *action,
-								 GVariant      *variant,
-								 gpointer      user_data)
+				 GVariant      *variant,
+				 gpointer      user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3160,8 +3160,8 @@ eog_window_action_rotate_270 (GSimpleAction *action,
 
 static void
 eog_window_action_wallpaper (GSimpleAction *action,
-							 GVariant      *variant,
-							 gpointer       user_data)
+			     GVariant      *variant,
+			     gpointer       user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -3487,8 +3487,8 @@ eog_window_force_image_delete (EogWindow *window,
 
 static void
 eog_window_action_delete (GSimpleAction *action,
-						  GVariant      *variant,
-						  gpointer       user_data)
+			  GVariant      *variant,
+			  gpointer       user_data)
 {
 	EogWindow *window;
 	GList     *images;
@@ -3641,8 +3641,8 @@ move_to_trash_real (EogImage *image, GError **error)
 
 static void
 eog_window_action_copy_image (GSimpleAction *action,
-							  GVariant      *variant,
-							  gpointer       user_data)
+			      GVariant      *variant,
+			      gpointer       user_data)
 {
 	GtkClipboard *clipboard;
 	EogWindow *window;
@@ -3668,8 +3668,8 @@ eog_window_action_copy_image (GSimpleAction *action,
 
 static void
 eog_window_action_move_to_trash (GSimpleAction *action,
-								 GVariant      *variant,
-								 gpointer       user_data)
+				 GVariant      *variant,
+				 gpointer       user_data)
 {
 	GList *images;
 	GList *it;
@@ -3772,8 +3772,8 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 
 static void
 eog_window_action_toggle_fullscreen (GSimpleAction *action,
-									 GVariant      *state,
-									 gpointer       user_data)
+				     GVariant      *state,
+				     gpointer       user_data)
 {
 	EogWindow *window;
 	gboolean fullscreen;
@@ -3795,8 +3795,8 @@ eog_window_action_toggle_fullscreen (GSimpleAction *action,
 
 static void
 eog_window_action_toggle_slideshow (GSimpleAction *action,
-									GVariant      *state,
-									gpointer       user_data)
+				    GVariant      *state,
+				    gpointer       user_data)
 {
 	EogWindow *window;
 	gboolean slideshow;
@@ -3818,8 +3818,8 @@ eog_window_action_toggle_slideshow (GSimpleAction *action,
 
 static void
 eog_window_action_pause_slideshow (GSimpleAction *action,
-								   GVariant      *variant,
-								   gpointer       user_data)
+				   GVariant      *variant,
+				   gpointer       user_data)
 {
 	EogWindow *window;
 	gboolean slideshow;
@@ -3876,8 +3876,8 @@ eog_window_action_zoom_out (GSimpleAction *action,
 
 static void
 eog_window_action_zoom_normal (GSimpleAction *action,
-							   GVariant      *variant,
-							   gpointer       user_data)
+			       GVariant      *variant,
+			       gpointer       user_data)
 {
 	EogWindowPrivate *priv;
 
@@ -3894,8 +3894,8 @@ eog_window_action_zoom_normal (GSimpleAction *action,
 
 static void
 eog_window_action_toggle_zoom_fit (GSimpleAction *action,
-								   GVariant      *state,
-								   gpointer       user_data)
+				   GVariant      *state,
+				   gpointer       user_data)
 {
 	EogWindowPrivate *priv;
 	EogZoomMode mode;
@@ -4079,8 +4079,8 @@ static const GActionEntry window_actions[] = {
 
 static void
 eog_window_ui_settings_changed_cb (GSettings *settings,
-								   gchar     *key,
-								   gpointer   user_data)
+				   gchar     *key,
+				   gpointer   user_data)
 {
 	GVariant *new_state = NULL;
 	GVariant *old_state;
