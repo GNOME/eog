@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-07 21:25+0100\n"
-"PO-Revision-Date: 2015-01-07 21:27+0100\n"
+"POT-Creation-Date: 2015-01-17 14:10+0100\n"
+"PO-Revision-Date: 2015-01-17 14:12+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -79,7 +79,7 @@ msgstr ""
 "zuzenean automatikoki biratzeko."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5647
+#: ../src/eog-window.c:5779
 msgid "Image Viewer"
 msgstr "Irudi-ikustailea"
 
@@ -92,7 +92,45 @@ msgstr "Arakatu eta biratu irudiak"
 msgid "Picture;Slideshow;Graphics;"
 msgstr "Argazkia;diapositiba-aurkezpena;Grafikoak;"
 
-#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4520
+#: ../data/eog-gear-menu.ui.h:1
+msgid "_Open…"
+msgstr "_Ireki…"
+
+#: ../data/eog-gear-menu.ui.h:2 ../data/popup-menus.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+msgid "_Save"
+msgstr "_Gorde"
+
+#: ../data/eog-gear-menu.ui.h:3 ../data/popup-menus.ui.h:3
+#: ../src/eog-error-message-area.c:129
+msgid "Save _As…"
+msgstr "Gorde _honela…"
+
+#: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:7
+msgid "Prope_rties"
+msgstr "_Propietateak"
+
+#: ../data/eog-gear-menu.ui.h:5
+msgid "Recent _Images"
+msgstr "Azken _irudiak"
+
+#: ../data/eog-gear-menu.ui.h:6
+msgid "Open _With"
+msgstr "Ireki _honekin"
+
+#: ../data/eog-gear-menu.ui.h:7 ../data/popup-menus.ui.h:4
+msgid "_Print…"
+msgstr "_Inprimatu…"
+
+#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:8
+msgid "Set as Wa_llpaper"
+msgstr "Ezarri _horma-paper gisa"
+
+#: ../data/eog-gear-menu.ui.h:9
+msgid "Sli_deshow"
+msgstr "_Diapositiba-aurkezpena"
+
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4653
 msgid "Image Properties"
 msgstr "Irudiaren propietateak"
 
@@ -110,22 +148,18 @@ msgid "_Close"
 msgstr "It_xi"
 
 #: ../data/eog-image-properties-dialog.ui.h:5
-#: ../src/eog-metadata-sidebar.c:497
 msgid "Name:"
 msgstr "Izena:"
 
 #: ../data/eog-image-properties-dialog.ui.h:6
-#: ../src/eog-metadata-sidebar.c:499
 msgid "Width:"
 msgstr "Zabalera:"
 
 #: ../data/eog-image-properties-dialog.ui.h:7
-#: ../src/eog-metadata-sidebar.c:501
 msgid "Height:"
 msgstr "Altuera:"
 
 #: ../data/eog-image-properties-dialog.ui.h:8
-#: ../src/eog-metadata-sidebar.c:503
 msgid "Type:"
 msgstr "Mota:"
 
@@ -134,87 +168,70 @@ msgid "Bytes:"
 msgstr "Byteak:"
 
 #: ../data/eog-image-properties-dialog.ui.h:10
-#: ../src/eog-metadata-sidebar.c:507
 msgid "Folder:"
 msgstr "Karpeta:"
 
 #: ../data/eog-image-properties-dialog.ui.h:11
-#: ../src/eog-metadata-sidebar.c:495
 msgid "General"
 msgstr "Orokorra"
 
 #: ../data/eog-image-properties-dialog.ui.h:12
-#: ../src/eog-metadata-sidebar.c:532
 msgid "Aperture Value:"
 msgstr "Irekiduraren balioa:"
 
 #: ../data/eog-image-properties-dialog.ui.h:13
-#: ../src/eog-metadata-sidebar.c:535
 msgid "Exposure Time:"
 msgstr "Esposizio-denbora:"
 
 #: ../data/eog-image-properties-dialog.ui.h:14
-#: ../src/eog-metadata-sidebar.c:538
 msgid "Focal Length:"
 msgstr "Foku-luzera:"
 
 #: ../data/eog-image-properties-dialog.ui.h:15
-#: ../src/eog-metadata-sidebar.c:540
 msgid "Flash:"
 msgstr "Flasha:"
 
 #: ../data/eog-image-properties-dialog.ui.h:16
-#: ../src/eog-metadata-sidebar.c:544
 msgid "ISO Speed Rating:"
 msgstr "ISO abiaduraren emaria:"
 
 #: ../data/eog-image-properties-dialog.ui.h:17
-#: ../src/eog-metadata-sidebar.c:547
 msgid "Metering Mode:"
 msgstr "Neurtze modua:"
 
 #: ../data/eog-image-properties-dialog.ui.h:18
-#: ../src/eog-metadata-sidebar.c:550
 msgid "Camera Model:"
 msgstr "Kamera-modeloa:"
 
 #: ../data/eog-image-properties-dialog.ui.h:19
-#: ../src/eog-metadata-sidebar.c:552
 msgid "Date/Time:"
 msgstr "Data/Ordua:"
 
 #: ../data/eog-image-properties-dialog.ui.h:20
-#: ../src/eog-metadata-sidebar.c:557
 msgid "Description:"
 msgstr "Azalpena:"
 
 #: ../data/eog-image-properties-dialog.ui.h:21
-#: ../src/eog-metadata-sidebar.c:560
 msgid "Location:"
 msgstr "Kokalekua:"
 
 #: ../data/eog-image-properties-dialog.ui.h:22
-#: ../src/eog-metadata-sidebar.c:563
 msgid "Keywords:"
 msgstr "Gako-hitzak:"
 
 #: ../data/eog-image-properties-dialog.ui.h:23
-#: ../src/eog-metadata-sidebar.c:565
 msgid "Author:"
 msgstr "Egilea:"
 
 #: ../data/eog-image-properties-dialog.ui.h:24
-#: ../src/eog-metadata-sidebar.c:568
 msgid "Copyright:"
 msgstr "Copyright-a:"
 
 #: ../data/eog-image-properties-dialog.ui.h:25
-#: ../src/eog-metadata-sidebar.c:571
 msgid "Details"
 msgstr "Xehetasunak"
 
 #: ../data/eog-image-properties-dialog.ui.h:26
-#: ../src/eog-metadata-sidebar.c:528
 msgid "Metadata"
 msgstr "Metadatuak"
 
@@ -226,7 +243,7 @@ msgstr "Gorde honela"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3288 ../src/eog-window.c:3291 ../src/eog-window.c:3544
+#: ../src/eog-window.c:3305 ../src/eog-window.c:3308 ../src/eog-window.c:3561
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -410,6 +427,54 @@ msgstr "Biratu e_zkerrera"
 #: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Rotate Clockwise"
 msgstr "Biratu e_skuinera"
+
+#: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
+msgid "Size"
+msgstr "Tamaina"
+
+#: ../data/metadata-sidebar.ui.h:2
+msgid "Type"
+msgstr "Mota"
+
+#: ../data/metadata-sidebar.ui.h:3
+msgid "File Size"
+msgstr "Fitxategiaren tamaina"
+
+#: ../data/metadata-sidebar.ui.h:4
+msgid "Folder"
+msgstr "Karpeta"
+
+#: ../data/metadata-sidebar.ui.h:5
+msgid "Aperture"
+msgstr "Irekidura"
+
+#: ../data/metadata-sidebar.ui.h:6
+msgid "Exposure"
+msgstr "Esposizioa"
+
+#: ../data/metadata-sidebar.ui.h:7
+msgid "ISO"
+msgstr "ISOa"
+
+#: ../data/metadata-sidebar.ui.h:8
+msgid "Metering"
+msgstr "Neurketa"
+
+#: ../data/metadata-sidebar.ui.h:9 ../src/eog-metadata-details.c:65
+msgid "Camera"
+msgstr "Kamera"
+
+#: ../data/metadata-sidebar.ui.h:10
+msgid "Date"
+msgstr "Data"
+
+#: ../data/metadata-sidebar.ui.h:11
+msgid "Time"
+msgstr "Ordua"
+
+#: ../data/metadata-sidebar.ui.h:12
+msgid "Focal Length"
+msgstr "Foku-distantzia"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:1
 msgid "Automatic orientation"
@@ -671,34 +736,13 @@ msgstr ""
 msgid "Open _with"
 msgstr "Ireki _honekin"
 
-#: ../data/popup-menus.ui.h:2 ../src/eog-close-confirmation-dialog.c:178
-#: ../src/eog-file-chooser.c:465
-msgid "_Save"
-msgstr "_Gorde"
-
-#: ../data/popup-menus.ui.h:3 ../src/eog-error-message-area.c:129
-msgid "Save _As…"
-msgstr "Gorde _honela…"
-
-#: ../data/popup-menus.ui.h:4
-msgid "_Print…"
-msgstr "_Inprimatu…"
-
 #: ../data/popup-menus.ui.h:5
 msgid "_Copy"
 msgstr "_Kopiatu"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3547
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3564
 msgid "Move to _Trash"
 msgstr "Bota _zakarrontzira"
-
-#: ../data/popup-menus.ui.h:7
-msgid "Prope_rties"
-msgstr "_Propietateak"
-
-#: ../data/popup-menus.ui.h:8
-msgid "Set as Wa_llpaper"
-msgstr "Ezarri _horma-paper gisa"
 
 #: ../data/popup-menus.ui.h:9
 msgid "Show Containing _Folder"
@@ -765,7 +809,7 @@ msgstr "_Hautatu gordetzea nahi dituzun irudiak:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Ez baduzu gordetzen, aldaketa guztiak galduko dira."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:927
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:942
 msgid "_Reload"
 msgstr "_Birkargatu"
 
@@ -787,10 +831,6 @@ msgstr "Ez da irudirik aurkitu '%s'(e)n."
 #: ../src/eog-error-message-area.c:263
 msgid "The given locations contain no images."
 msgstr "Emandako kokalekuak ez du irudirik."
-
-#: ../src/eog-metadata-details.c:65
-msgid "Camera"
-msgstr "Kamera"
 
 #: ../src/eog-metadata-details.c:66
 msgid "Image Data"
@@ -853,18 +893,13 @@ msgid "South"
 msgstr "Hegoaldea"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
+#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %Y %B %d  %X"
 
-#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:154
-msgid "%a, %d %B %Y"
-msgstr "%a, %Y %B %d"
-
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:251
+#: ../src/eog-exif-util.c:274
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (foku-lentea)"
@@ -872,7 +907,7 @@ msgstr "%.1f (foku-lentea)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:262
+#: ../src/eog-exif-util.c:285
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm filma)"
@@ -908,8 +943,7 @@ msgid "Supported image files"
 msgstr "Onartutako irudi-fitxategiak"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-metadata-sidebar.c:234
-#: ../src/eog-metadata-sidebar.c:238 ../src/eog-properties-dialog.c:139
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
 #: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
 msgid "pixel"
 msgid_plural "pixels"
@@ -977,17 +1011,25 @@ msgstr "Ezin izan da aldi baterako fitxategia sortu gordetzeko: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Ezin izan da memoriarik esleitu JPEG fitxategia kargatzeko"
 
-#: ../src/eog-metadata-sidebar.c:247 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:109
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i pixel"
+msgstr[1] "%i × %i pixel"
+
+#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: ../src/eog-metadata-sidebar.c:505
-msgid "File size:"
-msgstr "Fitxategiaren tamaina:"
+#: ../src/eog-metadata-sidebar.c:189
+msgid "%a, %d %B %Y"
+msgstr "%a, %Y %B %d"
 
-#: ../src/eog-metadata-sidebar.c:521 ../src/eog-properties-dialog.c:745
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Erakutsi fitxategia daukan karpeta fitxategi-kudeatzailean"
+#: ../src/eog-metadata-sidebar.c:193
+#, c-format
+msgid "%X"
+msgstr "%X"
 
 #: ../src/eog-preferences-dialog.c:125
 #, c-format
@@ -1056,10 +1098,6 @@ msgstr "Bertikala"
 msgid "Both"
 msgstr "Biak"
 
-#: ../src/eog-print-image-setup.c:969
-msgid "Size"
-msgstr "Tamaina"
-
 #: ../src/eog-print-image-setup.c:972
 msgid "_Width:"
 msgstr "_Zabalera:"
@@ -1087,6 +1125,10 @@ msgstr "Hazbeteak"
 #: ../src/eog-print-image-setup.c:1024
 msgid "Preview"
 msgstr "Aurrebista"
+
+#: ../src/eog-properties-dialog.c:745
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Erakutsi fitxategia daukan karpeta fitxategi-kudeatzailean"
 
 #: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
@@ -1130,21 +1172,21 @@ msgstr " (Unicode baliogabea)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:535
+#: ../src/eog-window.c:550
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pixel  %s    %% %i"
 msgstr[1] "%i × %i pixel  %s    %% %i"
 
-#: ../src/eog-window.c:929 ../src/eog-window.c:2691
+#: ../src/eog-window.c:944 ../src/eog-window.c:2708
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Ezkutatu"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:939
+#: ../src/eog-window.c:954
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1158,26 +1200,26 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1233
+#: ../src/eog-window.c:1248
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "\"%s\" irudia gordetzen (%u/%u)"
 
-#: ../src/eog-window.c:1637
+#: ../src/eog-window.c:1652
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "\"%s\" irudia irekitzen"
 
-#: ../src/eog-window.c:1945
+#: ../src/eog-window.c:1961
 msgid "_Leave Fullscreen"
 msgstr "I_rten pantaila osotik"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2062
+#: ../src/eog-window.c:2078
 msgid "Viewing a slideshow"
 msgstr "Diapositiba-erakusketa moduan ikustea"
 
-#: ../src/eog-window.c:2281
+#: ../src/eog-window.c:2297
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1186,17 +1228,17 @@ msgstr ""
 "Errorea fitxategia inprimatzean:\n"
 "%s"
 
-#: ../src/eog-window.c:2640 ../src/eog-window.c:2655
+#: ../src/eog-window.c:2657 ../src/eog-window.c:2672
 msgid "Error launching System Settings: "
 msgstr "Errorea sistemako ezarpenak abiaraztean: "
 
-#: ../src/eog-window.c:2689
+#: ../src/eog-window.c:2706
 msgid "_Open Background Preferences"
 msgstr "_Ireki atzeko planoaren hobespenak"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2705
+#: ../src/eog-window.c:2722
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1205,11 +1247,11 @@ msgstr ""
 "\"%s\" irudia mahaigaineko atzeko planoko irudi gisa ezarri da.\n"
 "Nahi duzu bere itxura aldatzea?"
 
-#: ../src/eog-window.c:3186
+#: ../src/eog-window.c:3203
 msgid "Saving image locally…"
 msgstr "Irudia lokalean gordetzen…"
 
-#: ../src/eog-window.c:3264
+#: ../src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1218,7 +1260,7 @@ msgstr ""
 "Ziur zaude '%s'\n"
 "betirako ezabatzea nahi duzula?"
 
-#: ../src/eog-window.c:3267
+#: ../src/eog-window.c:3284
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1233,41 +1275,41 @@ msgstr[1] ""
 "Ziur zaude hautatutako %d irudi\n"
 "betirako ezabatzea nahi dituzula?"
 
-#: ../src/eog-window.c:3289 ../src/eog-window.c:3555
+#: ../src/eog-window.c:3306 ../src/eog-window.c:3572
 msgid "_Delete"
 msgstr "_Ezabatu"
 
-#: ../src/eog-window.c:3292 ../src/eog-window.c:3557
+#: ../src/eog-window.c:3309 ../src/eog-window.c:3574
 msgid "_Yes"
 msgstr "_Bai"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3296 ../src/eog-window.c:3549
+#: ../src/eog-window.c:3313 ../src/eog-window.c:3566
 msgid "Do _not ask again during this session"
 msgstr "_Ez galdetu berriro saio honetan"
 
-#: ../src/eog-window.c:3340
+#: ../src/eog-window.c:3357
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Ezin izan da irudiaren fitxategia berreskuratu"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3373
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Ezin izan da irudiaren fitxategiaren informazioa berreskuratu"
 
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3616
+#: ../src/eog-window.c:3389 ../src/eog-window.c:3633
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Ezin izan da fitxategia ezabatu"
 
 #. set dialog error message
-#: ../src/eog-window.c:3422 ../src/eog-window.c:3716
+#: ../src/eog-window.c:3439 ../src/eog-window.c:3733
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errorea %s irudia ezabatzean"
 
-#: ../src/eog-window.c:3517
+#: ../src/eog-window.c:3534
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1276,7 +1318,7 @@ msgstr ""
 "Ziur zaude \"%s\"\n"
 "zakarrontzira botatzea nahi duzula?"
 
-#: ../src/eog-window.c:3520
+#: ../src/eog-window.c:3537
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1285,7 +1327,7 @@ msgstr ""
 "Ezin izan da \"%s\"(r)en zakarrontzia aurkitu. Nahi duzu irudi hau betirako "
 "kentzea?"
 
-#: ../src/eog-window.c:3525
+#: ../src/eog-window.c:3542
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1300,7 +1342,7 @@ msgstr[1] ""
 "Ziur zaude hautatutako %d irudi\n"
 "zakarrontzira botatzea nahi dituzula?"
 
-#: ../src/eog-window.c:3530
+#: ../src/eog-window.c:3547
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1308,16 +1350,16 @@ msgstr ""
 "Hautatutako irudi batzuk ezin dira zakarrontzira bota, eta betirako "
 "ezabatuko dira. Aurrera jarraitzea nahi duzu?"
 
-#: ../src/eog-window.c:3594 ../src/eog-window.c:3608
+#: ../src/eog-window.c:3611 ../src/eog-window.c:3625
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Ezin izan da zakarrontzirik erabili."
 
-#: ../src/eog-window.c:5650
+#: ../src/eog-window.c:5782
 msgid "The GNOME image viewer."
 msgstr "GNOMEren irudi-ikustailea."
 
-#: ../src/eog-window.c:5653
+#: ../src/eog-window.c:5785
 msgid "translator-credits"
 msgstr ""
 "Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
@@ -1414,9 +1456,6 @@ msgstr "Exekutatu '%s --help' komando-lerroko aukera guztiak zerrendatzeko."
 
 #~ msgid "_Tools"
 #~ msgstr "_Tresnak"
-
-#~ msgid "_Open…"
-#~ msgstr "_Ireki…"
 
 #~ msgid "Open a file"
 #~ msgstr "Fitxategi bat irekitzen du"
