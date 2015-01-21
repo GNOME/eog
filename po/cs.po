@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-08 21:12+0000\n"
-"PO-Revision-Date: 2015-01-08 23:01+0100\n"
+"POT-Creation-Date: 2015-01-21 04:29+0000\n"
+"PO-Revision-Date: 2015-01-21 07:59+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -87,7 +87,7 @@ msgstr ""
 "nebo na výšku."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5646
+#: ../src/eog-window.c:5541
 msgid "Image Viewer"
 msgstr "Prohlížeč obrázků"
 
@@ -100,7 +100,41 @@ msgstr "Procházení a otáčení obrázků"
 msgid "Picture;Slideshow;Graphics;"
 msgstr "obrázek;fotka;promítání snímků;prezentace snímků;grafika;"
 
-#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4520
+#: ../data/eog-gear-menu.ui.h:1
+msgid "_Open…"
+msgstr "_Otevřít…"
+
+#: ../data/eog-gear-menu.ui.h:2 ../data/popup-menus.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+msgid "_Save"
+msgstr "_Uložit"
+
+#: ../data/eog-gear-menu.ui.h:3 ../data/popup-menus.ui.h:3
+#: ../src/eog-error-message-area.c:129
+msgid "Save _As…"
+msgstr "Uložit _jako…"
+
+#: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:7
+msgid "Prope_rties"
+msgstr "Vlast_nosti"
+
+#: ../data/eog-gear-menu.ui.h:5
+msgid "Open _With"
+msgstr "Otevřít _pomocí"
+
+#: ../data/eog-gear-menu.ui.h:6 ../data/popup-menus.ui.h:4
+msgid "_Print…"
+msgstr "_Tisk…"
+
+#: ../data/eog-gear-menu.ui.h:7 ../data/popup-menus.ui.h:8
+msgid "Set as Wa_llpaper"
+msgstr "Nastavit jako _tapetu"
+
+#: ../data/eog-gear-menu.ui.h:8
+msgid "Sli_deshow"
+msgstr "Pro_mítání snímků"
+
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:4428
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
@@ -213,7 +247,7 @@ msgstr "Uložit jako"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3288 ../src/eog-window.c:3291 ../src/eog-window.c:3544
+#: ../src/eog-window.c:3216 ../src/eog-window.c:3219 ../src/eog-window.c:3472
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -702,34 +736,13 @@ msgstr ""
 msgid "Open _with"
 msgstr "Otevřít _pomocí"
 
-#: ../data/popup-menus.ui.h:2 ../src/eog-close-confirmation-dialog.c:178
-#: ../src/eog-file-chooser.c:465
-msgid "_Save"
-msgstr "_Uložit"
-
-#: ../data/popup-menus.ui.h:3 ../src/eog-error-message-area.c:129
-msgid "Save _As…"
-msgstr "Uložit _jako…"
-
-#: ../data/popup-menus.ui.h:4
-msgid "_Print…"
-msgstr "_Tisk…"
-
 #: ../data/popup-menus.ui.h:5
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3547
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3475
 msgid "Move to _Trash"
 msgstr "Přesunout do _koše"
-
-#: ../data/popup-menus.ui.h:7
-msgid "Prope_rties"
-msgstr "Vlast_nosti"
-
-#: ../data/popup-menus.ui.h:8
-msgid "Set as Wa_llpaper"
-msgstr "Nastavit jako _tapetu"
 
 #: ../data/popup-menus.ui.h:9
 msgid "Show Containing _Folder"
@@ -796,7 +809,7 @@ msgstr "_Vyberte obrázky, které chcete uložit:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Bez uložení budou všechny vaše změny ztraceny."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:927
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:885
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
@@ -999,7 +1012,7 @@ msgstr "Nelze vytvořit dočasný soubor pro ukládání: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nelze alokovat paměť pro načtení JPEG souboru"
 
-#: ../src/eog-metadata-sidebar.c:108
+#: ../src/eog-metadata-sidebar.c:109
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
@@ -1007,15 +1020,15 @@ msgstr[0] "%i × %i bod"
 msgstr[1] "%i × %i body"
 msgstr[2] "%i × %i bodů"
 
-#: ../src/eog-metadata-sidebar.c:119 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: ../src/eog-metadata-sidebar.c:183
+#: ../src/eog-metadata-sidebar.c:189
 msgid "%a, %d %B %Y"
 msgstr "%a, %e. %B %Y"
 
-#: ../src/eog-metadata-sidebar.c:187
+#: ../src/eog-metadata-sidebar.c:193
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1162,7 +1175,7 @@ msgstr " (neplatný Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:535
+#: ../src/eog-window.c:542
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1170,14 +1183,14 @@ msgstr[0] "%i × %i bod  %s    %i%%"
 msgstr[1] "%i × %i body  %s    %i%%"
 msgstr[2] "%i × %i bodů  %s    %i%%"
 
-#: ../src/eog-window.c:929 ../src/eog-window.c:2691
+#: ../src/eog-window.c:887 ../src/eog-window.c:2619
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Skrýt"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:939
+#: ../src/eog-window.c:897
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1191,26 +1204,26 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1233
+#: ../src/eog-window.c:1184
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Ukládání obrázku „%s“ (%u/%u)"
 
-#: ../src/eog-window.c:1637
+#: ../src/eog-window.c:1588
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Otevírá se obrázek „%s“"
 
-#: ../src/eog-window.c:1945
+#: ../src/eog-window.c:1872
 msgid "_Leave Fullscreen"
 msgstr "Opustit ce_lou obrazovku"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2062
+#: ../src/eog-window.c:1989
 msgid "Viewing a slideshow"
 msgstr "Probíhá promítání snímků"
 
-#: ../src/eog-window.c:2281
+#: ../src/eog-window.c:2208
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1219,17 +1232,17 @@ msgstr ""
 "Chyba během tisku souboru:\n"
 "%s"
 
-#: ../src/eog-window.c:2640 ../src/eog-window.c:2655
+#: ../src/eog-window.c:2568 ../src/eog-window.c:2583
 msgid "Error launching System Settings: "
 msgstr "Chyba spouštění Nastavení systému: "
 
-#: ../src/eog-window.c:2689
+#: ../src/eog-window.c:2617
 msgid "_Open Background Preferences"
 msgstr "_Otevřít předvolby pozadí"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2705
+#: ../src/eog-window.c:2633
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1238,11 +1251,11 @@ msgstr ""
 "Obrázek „%s“ byl nastaven jako pozadí plochy.\n"
 "Přejete si upravit její vzhled?"
 
-#: ../src/eog-window.c:3186
+#: ../src/eog-window.c:3114
 msgid "Saving image locally…"
 msgstr "Obrázek se ukládá místně…"
 
-#: ../src/eog-window.c:3264
+#: ../src/eog-window.c:3192
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1251,7 +1264,7 @@ msgstr ""
 "Opravdu chcete trvale\n"
 "odstranit „%s“?"
 
-#: ../src/eog-window.c:3267
+#: ../src/eog-window.c:3195
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1269,41 +1282,41 @@ msgstr[2] ""
 "Opravdu chcete %d vybraných\n"
 "obrázků trvale odstranit?"
 
-#: ../src/eog-window.c:3289 ../src/eog-window.c:3555
+#: ../src/eog-window.c:3217 ../src/eog-window.c:3483
 msgid "_Delete"
 msgstr "O_dstranit"
 
-#: ../src/eog-window.c:3292 ../src/eog-window.c:3557
+#: ../src/eog-window.c:3220 ../src/eog-window.c:3485
 msgid "_Yes"
 msgstr "_Ano"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3296 ../src/eog-window.c:3549
+#: ../src/eog-window.c:3224 ../src/eog-window.c:3477
 msgid "Do _not ask again during this session"
 msgstr "_Neptat se znovu během tohoto sezení"
 
-#: ../src/eog-window.c:3340
+#: ../src/eog-window.c:3268
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Nelze získat soubor s obrázkem"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3284
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Nelze získat informace o souboru s obrázkem"
 
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3616
+#: ../src/eog-window.c:3300 ../src/eog-window.c:3544
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Soubor nelze smazat"
 
 #. set dialog error message
-#: ../src/eog-window.c:3422 ../src/eog-window.c:3716
+#: ../src/eog-window.c:3350 ../src/eog-window.c:3644
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba při odstraňování obrázku %s"
 
-#: ../src/eog-window.c:3517
+#: ../src/eog-window.c:3445
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1312,7 +1325,7 @@ msgstr ""
 "Opravdu chcete přesunout\n"
 "„%s“ do koše?"
 
-#: ../src/eog-window.c:3520
+#: ../src/eog-window.c:3448
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1320,7 +1333,7 @@ msgid ""
 msgstr ""
 "Koš pro „%s“ není dostupný. Přejete si odstranit tento obrázek natrvalo?"
 
-#: ../src/eog-window.c:3525
+#: ../src/eog-window.c:3453
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1338,7 +1351,7 @@ msgstr[2] ""
 "Opravdu chcete přesunout\n"
 "%d vybraných obrázků do koše?"
 
-#: ../src/eog-window.c:3530
+#: ../src/eog-window.c:3458
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1346,16 +1359,16 @@ msgstr ""
 "Některé z vybraných obrázků nelze přesunout do koše a budou odstraněny "
 "natrvalo. Jste si jisti, že chcete pokračovat?"
 
-#: ../src/eog-window.c:3594 ../src/eog-window.c:3608
+#: ../src/eog-window.c:3522 ../src/eog-window.c:3536
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Nelze přistoupit ke koši."
 
-#: ../src/eog-window.c:5649
+#: ../src/eog-window.c:5544
 msgid "The GNOME image viewer."
 msgstr "Prohlížeč obrázků pro GNOME."
 
-#: ../src/eog-window.c:5652
+#: ../src/eog-window.c:5547
 msgid "translator-credits"
 msgstr ""
 "George Lebl <jirka@5z.com>\n"
