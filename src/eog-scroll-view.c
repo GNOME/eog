@@ -182,6 +182,7 @@ struct _EogScrollViewPrivate {
 	GtkWidget *left_revealer;
 	GtkWidget *right_revealer;
 	GtkWidget *bottom_revealer;
+	GSource   *overlay_timeout_source;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -2671,6 +2672,80 @@ sv_rgba_to_string_mapping (const GValue       *value,
 }
 
 static void
+_clear_overlay_timeout (EogScrollView *view)
+{
+	EogScrollViewPrivate *priv = view->priv;
+
+	if (priv->overlay_timeout_source != NULL) {
+		g_source_unref (priv->overlay_timeout_source);
+		g_source_destroy (priv->overlay_timeout_source);
+	}
+
+	priv->overlay_timeout_source = NULL;
+}
+static gboolean
+_overlay_timeout_cb (gpointer data)
+{
+	EogScrollView *view = EOG_SCROLL_VIEW (data);
+	EogScrollViewPrivate *priv = view->priv;
+
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->left_revealer), FALSE);
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->right_revealer), FALSE);
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->bottom_revealer), FALSE);
+
+	_clear_overlay_timeout (view);
+
+	return FALSE;
+}
+static void
+_set_overlay_timeout (EogScrollView *view)
+{
+	GSource *source;
+
+	_clear_overlay_timeout (view);
+
+	source = g_timeout_source_new_seconds (2);
+	g_source_set_callback (source, _overlay_timeout_cb, view, NULL);
+
+	g_source_attach (source, NULL);
+
+	view->priv->overlay_timeout_source = source;
+}
+
+static gboolean
+_enter_overlay_event_cb (GtkWidget *widget,
+			 GdkEvent *event,
+			 gpointer user_data)
+{
+	EogScrollView *view = EOG_SCROLL_VIEW (user_data);
+
+	_clear_overlay_timeout (view);
+
+	return FALSE;
+}
+
+static gboolean
+_motion_notify_cb (GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
+{
+	EogScrollView *view = EOG_SCROLL_VIEW (user_data);
+	EogScrollViewPrivate *priv = view->priv;
+	gboolean reveal_child;
+
+	reveal_child = gtk_revealer_get_reveal_child (GTK_REVEALER (priv->left_revealer));
+
+	if (!reveal_child) {
+		gtk_revealer_set_reveal_child (GTK_REVEALER (priv->left_revealer), TRUE);
+		gtk_revealer_set_reveal_child (GTK_REVEALER (priv->right_revealer), TRUE);
+		gtk_revealer_set_reveal_child (GTK_REVEALER (priv->bottom_revealer), TRUE);
+	}
+
+	/* reset timeout */
+	_set_overlay_timeout(view);
+
+	return FALSE;
+}
+
+static void
 eog_scroll_view_init (EogScrollView *view)
 {
 	GSettings *settings;
@@ -2895,12 +2970,19 @@ eog_scroll_view_init (EogScrollView *view)
 
 	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
 
-	/* Workaround to keep the buttons visible until the right signals
-	 * are wired up.
-	 */
-	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->left_revealer), TRUE);
-	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->right_revealer), TRUE);
-	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->bottom_revealer), TRUE);
+	/* Display overlay buttons on mouse movement */
+	g_signal_connect (priv->display,
+			  "motion-notify-event",
+			  G_CALLBACK (_motion_notify_cb),
+			  view);
+
+	/* Don't hide overlay buttons when above */
+	gtk_widget_add_events (GTK_WIDGET (priv->overlay),
+			       GDK_ENTER_NOTIFY_MASK);
+	g_signal_connect (priv->overlay,
+			  "enter-notify-event",
+			  G_CALLBACK (_enter_overlay_event_cb),
+			  view);
 }
 
 static void
