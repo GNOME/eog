@@ -33,6 +33,9 @@
 #define CHECK_LIGHT "#cccccc"
 #define CHECK_WHITE "#ffffff"
 
+/* Time used for the realing animation of the overlaid buttons */
+#define OVERLAY_REVEAL_ANIM_TIME (500U) /* ms */
+
 #if 0
 /* Progressive loading state */
 typedef enum {
@@ -174,6 +177,11 @@ struct _EogScrollViewPrivate {
 	gdouble initial_zoom;
 	EogRotationState rotate_state;
 	EogPanAction pan_action;
+
+	GtkWidget *overlay;
+	GtkWidget *left_revealer;
+	GtkWidget *right_revealer;
+	GtkWidget *bottom_revealer;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -2703,6 +2711,10 @@ eog_scroll_view_init (EogScrollView *view)
 			  view);
 
 	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
+
+	priv->overlay = gtk_overlay_new ();
+	gtk_grid_attach (GTK_GRID (view), priv->overlay, 0, 0, 1, 1);
+
 	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
 				      "can-focus", TRUE,
 				      NULL);
@@ -2749,8 +2761,8 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
 			  G_CALLBACK (view_on_drag_begin_cb), view);
 
-	gtk_grid_attach (GTK_GRID (view), priv->display,
-			 0, 0, 1, 1);
+	gtk_container_add (GTK_CONTAINER (priv->overlay), priv->display);
+
 	gtk_widget_set_hexpand (priv->display, TRUE);
 	gtk_widget_set_vexpand (priv->display, TRUE);
 	gtk_grid_attach (GTK_GRID (view), priv->hbar,
@@ -2812,6 +2824,83 @@ eog_scroll_view_init (EogScrollView *view)
 					   TRUE);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->pan_gesture),
 						    GTK_PHASE_CAPTURE);
+
+	/* left revealer */
+	priv->left_revealer = gtk_revealer_new ();
+	gtk_revealer_set_transition_type (GTK_REVEALER (priv->left_revealer),
+					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->left_revealer),
+					      OVERLAY_REVEAL_ANIM_TIME);
+	gtk_widget_set_halign (priv->left_revealer, GTK_ALIGN_START);
+	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
+	gtk_widget_set_margin_start(priv->left_revealer, 12);
+	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
+				 priv->left_revealer);
+
+	/* right revealer */
+	priv->right_revealer = gtk_revealer_new ();
+	gtk_revealer_set_transition_type (GTK_REVEALER (priv->right_revealer),
+					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->right_revealer),
+					      OVERLAY_REVEAL_ANIM_TIME);
+	gtk_widget_set_halign (priv->right_revealer, GTK_ALIGN_END);
+	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
+	gtk_widget_set_margin_end (priv->right_revealer, 12);
+	gtk_overlay_add_overlay(GTK_OVERLAY (priv->overlay),
+				priv->right_revealer);
+
+	/* bottom revealer */
+	priv->bottom_revealer = gtk_revealer_new ();
+	gtk_revealer_set_transition_type (GTK_REVEALER (priv->bottom_revealer),
+					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->bottom_revealer),
+					      OVERLAY_REVEAL_ANIM_TIME);
+	gtk_widget_set_halign (priv->bottom_revealer, GTK_ALIGN_CENTER);
+	gtk_widget_set_valign (priv->bottom_revealer, GTK_ALIGN_END);
+	gtk_widget_set_margin_bottom (priv->bottom_revealer, 12);
+	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
+				 priv->bottom_revealer);
+
+	/* buttons */
+
+	GtkWidget *button = gtk_button_new_from_icon_name ("go-next-symbolic",
+							      GTK_ICON_SIZE_BUTTON);
+
+	gtk_container_add(GTK_CONTAINER (priv->right_revealer), button);
+	gtk_actionable_set_action_name(GTK_ACTIONABLE (button), "win.go-next");
+
+
+	button = gtk_button_new_from_icon_name("go-previous-symbolic",
+					       GTK_ICON_SIZE_BUTTON);
+
+	gtk_container_add(GTK_CONTAINER (priv->left_revealer), button);
+	gtk_actionable_set_action_name (GTK_ACTIONABLE(button),
+					"win.go-previous");
+
+
+	/* group rotate buttons into a box */
+	GtkWidget* bottomBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+
+	button = gtk_button_new_from_icon_name ("object-rotate-left-symbolic",
+						GTK_ICON_SIZE_BUTTON);
+	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
+					"win.rotate-270");
+	gtk_container_add (GTK_CONTAINER (bottomBox), button);
+
+	button = gtk_button_new_from_icon_name ("object-rotate-right-symbolic",
+						GTK_ICON_SIZE_BUTTON);
+	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
+					"win.rotate-90");
+	gtk_container_add (GTK_CONTAINER (bottomBox), button);
+
+	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
+
+	/* Workaround to keep the buttons visible until the right signals
+	 * are wired up.
+	 */
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->left_revealer), TRUE);
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->right_revealer), TRUE);
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->bottom_revealer), TRUE);
 }
 
 static void
