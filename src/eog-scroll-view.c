@@ -10,6 +10,8 @@
 #include <librsvg/rsvg.h>
 #endif
 
+#include <glib/gi18n.h>
+
 #include "eog-config-keys.h"
 #include "eog-enum-types.h"
 #include "eog-scroll-view.h"
@@ -2936,13 +2938,14 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
 				 priv->bottom_revealer);
 
-	/* buttons */
-
+	/* overlaid buttons */
 	GtkWidget *button = gtk_button_new_from_icon_name ("go-next-symbolic",
-							      GTK_ICON_SIZE_BUTTON);
+							   GTK_ICON_SIZE_BUTTON);
 
 	gtk_container_add(GTK_CONTAINER (priv->right_revealer), button);
 	gtk_actionable_set_action_name(GTK_ACTIONABLE (button), "win.go-next");
+	gtk_widget_set_tooltip_text (button,
+				     _("Go to the next image of the gallery"));
 
 
 	button = gtk_button_new_from_icon_name("go-previous-symbolic",
@@ -2951,6 +2954,9 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_container_add(GTK_CONTAINER (priv->left_revealer), button);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE(button),
 					"win.go-previous");
+	gtk_widget_set_tooltip_text (button,
+				     _("Go to the previous image of the gallery"));
+
 
 
 	/* group rotate buttons into a box */
@@ -2960,12 +2966,17 @@ eog_scroll_view_init (EogScrollView *view)
 						GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
 					"win.rotate-270");
+	gtk_widget_set_tooltip_text (button,
+				     _("Rotate the image 90 degrees to the left"));
+
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-right-symbolic",
 						GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
 					"win.rotate-90");
+	gtk_widget_set_tooltip_text (button,
+				     _("Rotate the image 90 degrees to the right"));
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
