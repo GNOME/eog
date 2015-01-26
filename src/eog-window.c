@@ -4425,7 +4425,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->view);
 
 	eog_sidebar_add_page (EOG_SIDEBAR (priv->sidebar),
-			      _("Image Properties"),
+			      _("Properties"),
 			      GTK_WIDGET (eog_metadata_sidebar_new (window)));
 
 	gtk_widget_set_size_request (GTK_WIDGET (priv->view), 100, 100);
