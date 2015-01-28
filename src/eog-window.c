@@ -4330,8 +4330,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (priv->zoom_revealer);
 
 	priv->zoom_scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL,
-						     MIN_ZOOM_FACTOR, 1.0,
-						     IMAGE_VIEW_ZOOM_MULTIPLIER);
+						     0.3, 3.0, 0.1);
 	gtk_scale_set_draw_value (GTK_SCALE (priv->zoom_scale), FALSE);
 	/* TODO: the scale by itself does not take any width, so we manually
 	 * set it here. Decide on the optimal value. */
