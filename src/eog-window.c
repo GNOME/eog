@@ -4315,6 +4315,11 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (eog_window_zoom_button_toggled_cb),
 			  window);
 	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar), zoom_button);
+	/* disable zoom button if no image is loaded */
+	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP(window),
+							    "zoom-normal"),
+				"enabled", zoom_button, "sensitive",
+				G_BINDING_DEFAULT);
 	gtk_widget_show (zoom_button);
 
 	priv->zoom_revealer = gtk_revealer_new ();
