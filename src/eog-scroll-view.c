@@ -2946,6 +2946,8 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_actionable_set_action_name(GTK_ACTIONABLE (button), "win.go-next");
 	gtk_widget_set_tooltip_text (button,
 				     _("Go to the next image of the gallery"));
+	gtk_style_context_add_class (gtk_widget_get_style_context (button),
+				     GTK_STYLE_CLASS_OSD);
 
 
 	button = gtk_button_new_from_icon_name("go-previous-symbolic",
@@ -2956,7 +2958,8 @@ eog_scroll_view_init (EogScrollView *view)
 					"win.go-previous");
 	gtk_widget_set_tooltip_text (button,
 				     _("Go to the previous image of the gallery"));
-
+	gtk_style_context_add_class (gtk_widget_get_style_context (button),
+				     GTK_STYLE_CLASS_OSD);
 
 
 	/* group rotate buttons into a box */
@@ -2968,6 +2971,8 @@ eog_scroll_view_init (EogScrollView *view)
 					"win.rotate-270");
 	gtk_widget_set_tooltip_text (button,
 				     _("Rotate the image 90 degrees to the left"));
+	gtk_style_context_add_class (gtk_widget_get_style_context (button),
+				     GTK_STYLE_CLASS_OSD);
 
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
@@ -2977,6 +2982,8 @@ eog_scroll_view_init (EogScrollView *view)
 					"win.rotate-90");
 	gtk_widget_set_tooltip_text (button,
 				     _("Rotate the image 90 degrees to the right"));
+	gtk_style_context_add_class (gtk_widget_get_style_context (button),
+				     GTK_STYLE_CLASS_OSD);
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
