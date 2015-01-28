@@ -2964,6 +2964,8 @@ eog_scroll_view_init (EogScrollView *view)
 
 	/* group rotate buttons into a box */
 	GtkWidget* bottomBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_style_context_add_class (gtk_widget_get_style_context (bottomBox),
+				     GTK_STYLE_CLASS_LINKED);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-left-symbolic",
 						GTK_ICON_SIZE_BUTTON);
