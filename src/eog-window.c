@@ -136,6 +136,8 @@ struct _EogWindowPrivate {
 	GtkWidget           *zoom_scale;
 	GtkWidget           *properties_dlg;
 
+	GtkBuilder          *gear_menu_builder;
+
 	GtkWidget           *fullscreen_popup;
 	GSource             *fullscreen_timeout_source;
 
@@ -4351,7 +4353,8 @@ eog_window_construct_ui (EogWindow *window)
 	builder_object = gtk_builder_get_object (builder, "gear-menu");
 	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button),
 					G_MENU_MODEL (builder_object));
-	g_clear_object (&builder);
+	priv->gear_menu_builder = builder;
+	builder = NULL;
 
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
 	gtk_widget_show (menu_button);
@@ -5276,6 +5279,19 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 
 	eog_job_scheduler_add_job (job);
 	g_object_unref (job);
+}
+
+GMenu *
+eog_window_get_gear_menu_section (EogWindow *window, const gchar *id)
+{
+	GObject *object;
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	object = gtk_builder_get_object (window->priv->gear_menu_builder, id);
+	if (object == NULL || !G_IS_MENU (object))
+		return NULL;
+
+	return G_MENU (object);
 }
 
 /**
