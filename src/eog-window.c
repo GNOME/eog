@@ -4731,6 +4731,8 @@ eog_window_dispose (GObject *object)
 		g_clear_object (&priv->thumbview);
 	}
 
+	g_clear_object (&priv->gear_menu_builder);
+
 	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
