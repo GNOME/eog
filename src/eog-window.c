@@ -136,6 +136,9 @@ struct _EogWindowPrivate {
 	GtkWidget           *zoom_scale;
 	GtkWidget           *properties_dlg;
 
+	GMenu               *open_with_menu;
+	GPtrArray           *appinfo;
+
 	GtkBuilder          *gear_menu_builder;
 
 	GtkWidget           *fullscreen_popup;
@@ -162,9 +165,6 @@ struct _EogWindowPrivate {
 
 	EogWindowGalleryPos  gallery_position;
 	gboolean             gallery_resizable;
-
-	/*GSimpleActionGroup  *actions_open_with;
-	guint                open_with_menu_id;*/
 
 	gboolean	     save_disabled;
 	gboolean             needs_reload_confirmation;
@@ -194,8 +194,7 @@ static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 static void fullscreen_set_timeout (EogWindow *window);
 static void fullscreen_clear_timeout (EogWindow *window);
 static void update_action_groups_state (EogWindow *window);
-/*static void open_with_launch_application_cb (GAction *action, gpointer callback_data);*/
-/*static void eog_window_update_openwith_menu (EogWindow *window, EogImage *image);*/
+static void eog_window_update_open_with_menu (EogWindow *window, EogImage *image);
 static void eog_window_list_store_image_added (GtkTreeModel *tree_model,
 					       GtkTreePath  *path,
 					       GtkTreeIter  *iter,
@@ -206,7 +205,6 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
 static void eog_window_finish_saving (EogWindow *window);
-/*static GAppInfo *get_appinfo_for_editor (EogWindow *window);*/
 
 static GQuark
 eog_window_error_quark (void)
@@ -951,166 +949,121 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	update_status_bar (window);
 
-	/*eog_window_update_openwith_menu (window, image);*/
+	eog_window_update_open_with_menu (window, image);
 }
 
-#if 0
 static void
-open_with_launch_application_cb (GAction *action, gpointer data) {
-	EogImage *image;
+eog_window_action_open_with (GSimpleAction *action,
+			     GVariant      *parameter,
+			     gpointer       user_data)
+{
+	EogWindow *window;
 	GAppInfo *app;
 	GFile *file;
 	GList *files = NULL;
+	guint32 index = -1;
+	GdkAppLaunchContext *context;
 
-	image = EOG_IMAGE (data);
-	file = eog_image_get_file (image);
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	window = EOG_WINDOW (user_data);
 
-	app = g_object_get_data (G_OBJECT (action), "app");
+	index = g_variant_get_uint32 (parameter);
+	if (index < 0)
+		return;
+
+	app = g_ptr_array_index (window->priv->appinfo, index);
+	if (!app)
+		return;
+
+	file = eog_image_get_file (window->priv->image);
 	files = g_list_append (files, file);
-	g_app_info_launch (app,
-			   files,
-			   NULL, NULL);
+
+	context = gdk_display_get_app_launch_context (
+	  gtk_widget_get_display (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_screen (context,
+	  gtk_widget_get_screen (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_icon (context,
+	  g_app_info_get_icon (app));
+	gdk_app_launch_context_set_timestamp (context,
+	  gtk_get_current_event_time ());
+
+	g_app_info_launch (app, files, G_APP_LAUNCH_CONTEXT (context), NULL);
 
 	g_object_unref (file);
+	g_object_unref (context);
 	g_list_free (files);
 }
 
 static void
-eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
+eog_window_update_open_with_menu (EogWindow *window, EogImage *image)
 {
-	gboolean edit_button_active;
-	GAppInfo *editor_app;
+	EogWindowPrivate *priv;
 	GFile *file;
 	GFileInfo *file_info;
-	GList *iter;
+	GList *apps = NULL, *li = NULL;
 	const gchar *mime_type;
-	GSimpleAction *action;
-	EogWindowPrivate *priv;
-        GList *apps;
-        guint action_id = 0;
-        GIcon *app_icon;
-        char *path;
-        GtkWidget *menuitem;
+	guint32 count = 0;
 
 	priv = window->priv;
 
-	edit_button_active = FALSE;
-	editor_app = get_appinfo_for_editor (window);
+	g_menu_remove_all (priv->open_with_menu);
+	g_ptr_array_free (priv->appinfo, TRUE);
+	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
 
 	file = eog_image_get_file (image);
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 				       0, NULL, NULL);
 
-	if (file_info == NULL)
+	if (file_info == NULL) {
+		g_object_unref (file);
 		return;
-	else {
-		mime_type = g_file_info_get_content_type (file_info);
 	}
 
-        if (priv->open_with_menu_id != 0) {
-               gtk_ui_manager_remove_ui (priv->ui_mgr, priv->open_with_menu_id);
-               priv->open_with_menu_id = 0;
-        }
-
-        if (priv->actions_open_with != NULL) {
-              gtk_ui_manager_remove_action_group (priv->ui_mgr, priv->actions_open_with);
-              priv->actions_open_with = NULL;
-        }
-
-        if (mime_type == NULL) {
-                g_object_unref (file_info);
-                return;
-	}
-
-        apps = g_app_info_get_all_for_type (mime_type);
-
+	mime_type = g_file_info_get_content_type (file_info);
+	apps = g_app_info_get_all_for_type (mime_type);
 	g_object_unref (file_info);
+	if (!apps) {
+		g_object_unref (file);
+		return;
+	}
 
-        if (!apps)
-                return;
+	for (li = apps; li != NULL; li = li->next) {
+		GAppInfo *app = li->data;
+		gchar *label;
+		GIcon *icon;
+		GVariant *value;
+		GMenuItem *item;
 
-        priv->actions_open_with = g_simple_action_group_new ();
-        gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_open_with, -1);
+		/* Do not include eog itself */
+		if (g_ascii_strcasecmp (g_app_info_get_executable (app),
+					g_get_prgname ()) == 0) {
+			/* FIXME: should we really unref this? We free the full
+			 * list below outside of the loop. If we should unref,
+			 * why don't we unref the others that do not pass the
+			 * above check? */
+			g_object_unref (app);
+			continue;
+		}
 
-        priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
+		label = g_strdup (g_app_info_get_display_name (app));
+		item = g_menu_item_new (label, NULL);
+		g_free (label);
+		icon = g_app_info_get_icon (app);
+		g_menu_item_set_icon (item, icon);
 
-        for (iter = apps; iter; iter = iter->next) {
-                GAppInfo *app = iter->data;
-                gchar name[64];
-
-                if (editor_app != NULL && g_app_info_equal (editor_app, app)) {
-                        edit_button_active = TRUE;
-                }
-
-                /* Do not include eog itself */
-                if (g_ascii_strcasecmp (g_app_info_get_executable (app),
-                                        g_get_prgname ()) == 0) {
-                        g_object_unref (app);
-                        continue;
-                }
-
-                g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
-
-                action = g_simple_action_new (name, NULL);
-
-		app_icon = g_app_info_get_icon (app);
-
-                g_object_set_data_full (G_OBJECT (action), "app", app,
-                                        (GDestroyNotify) g_object_unref);
-
-                g_signal_connect (action,
-                                  "activate",
-                                  G_CALLBACK (open_with_launch_application_cb),
-                                  image);
-
-                g_action_map_add_action (G_ACTION_MAP (priv->actions_open_with),
-										 G_ACTION (action));
-                g_object_unref (action);
-
-                gtk_ui_manager_add_ui (priv->ui_mgr,
-                                priv->open_with_menu_id,
-                                "/ThumbnailPopup/open-with/Applications Placeholder",
-                                name,
-                                name,
-                                GTK_UI_MANAGER_MENUITEM,
-                                FALSE);
-                gtk_ui_manager_add_ui (priv->ui_mgr,
-                                priv->open_with_menu_id,
-                                "/ViewPopup/open-with/Applications Placeholder",
-                                name,
-                                name,
-                                GTK_UI_MANAGER_MENUITEM,
-                                FALSE);
-
-                path = g_strdup_printf ("/ThumbnailPopup/open-with/Applications Placeholder/%s", name);
-
-                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
-
-                /* Only force displaying the icon if it is an application icon */
-                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
-
-                g_free (path);
-
-                path = g_strdup_printf ("/ViewPopup/open-with/Applications Placeholder/%s", name);
-
-                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
-
-                /* Only force displaying the icon if it is an application icon */
-                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
-
-                g_free (path);
+		value = g_variant_new_uint32 (count++);
+		g_menu_item_set_action_and_target_value (item,
+							 "win.open-with",
+							 value);
+		g_ptr_array_add (priv->appinfo, app);
+		g_menu_append_item (priv->open_with_menu, item);
+		g_object_unref (item);
         }
 
+	g_object_unref (file);
         g_list_free (apps);
-
-        action = G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (window),
-                                              "OpenEditor"));
-        if (action != NULL) {
-                g_simple_action_set_enabled (action, edit_button_active);
-        }
 }
-#endif
 
 static void
 eog_window_clear_load_job (EogWindow *window)
@@ -3948,7 +3901,7 @@ readonly_state_handler (GSimpleAction *action,
 static const GActionEntry window_actions[] = {
 	/* Stateless actions on the window. */
 	{ "open",          eog_window_action_file_open },
-	{ "open-with",     NULL },
+	{ "open-with",     eog_window_action_open_with, "u" },
 	{ "open-folder",   eog_window_action_open_containing_folder },
 	{ "save",          eog_window_action_save },
 	{ "save-as",       eog_window_action_save_as },
@@ -4140,70 +4093,6 @@ eog_window_finish_saving (EogWindow *window)
 	} while (priv->save_job != NULL);
 }
 
-#if 0
-static GAppInfo *
-get_appinfo_for_editor (EogWindow *window)
-{
-	/* We want this function to always return the same thing, not
-	 * just for performance reasons, but because if someone edits
-	 * GConf while eog is running, the application could get into an
-	 * inconsistent state.
-	 */
-	static GDesktopAppInfo *app_info = NULL;
-	static gboolean initialised;
-
-	if (!initialised) {
-		gchar *editor;
-
-		editor = g_settings_get_string (window->priv->ui_settings,
-		                                EOG_CONF_UI_EXTERNAL_EDITOR);
-
-		if (editor != NULL) {
-			app_info = g_desktop_app_info_new (editor);
-		}
-
-		initialised = TRUE;
-		g_free (editor);
-	}
-
-	return (GAppInfo *) app_info;
-}
-
-static void
-eog_window_open_editor (GAction *action,
-			EogWindow *window)
-{
-	GdkAppLaunchContext *context;
-	GAppInfo *app_info;
-	GList files;
-
-	app_info = get_appinfo_for_editor (window);
-
-	if (app_info == NULL)
-		return;
-
-	context = gdk_display_get_app_launch_context (
-	  gtk_widget_get_display (GTK_WIDGET (window)));
-	gdk_app_launch_context_set_screen (context,
-	  gtk_widget_get_screen (GTK_WIDGET (window)));
-	gdk_app_launch_context_set_icon (context,
-	  g_app_info_get_icon (app_info));
-	gdk_app_launch_context_set_timestamp (context,
-	  gtk_get_current_event_time ());
-
-	{
-		GList f = { eog_image_get_file (window->priv->image) };
-		files = f;
-	}
-
-	g_app_info_launch (app_info, &files,
-			   G_APP_LAUNCH_CONTEXT (context), NULL);
-
-	g_object_unref (files.data);
-	g_object_unref (context);
-}
-#endif
-
 static void
 eog_window_view_rotation_changed_cb (EogScrollView *view,
 				     gdouble        degrees,
@@ -4353,8 +4242,6 @@ eog_window_construct_ui (EogWindow *window)
 	builder_object = gtk_builder_get_object (builder, "gear-menu");
 	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button),
 					G_MENU_MODEL (builder_object));
-	priv->gear_menu_builder = builder;
-	builder = NULL;
 
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
 	gtk_widget_show (menu_button);
@@ -4365,6 +4252,15 @@ eog_window_construct_ui (EogWindow *window)
 					"win.view-fullscreen");
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
 	gtk_widget_show (fullscreen_button);
+
+	priv->open_with_menu = g_menu_new ();
+	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
+	builder_object = gtk_builder_get_object (builder, "open-with-menu");
+	g_menu_append_section (G_MENU (builder_object),
+			       NULL,
+			       G_MENU_MODEL (priv->open_with_menu));
+	priv->gear_menu_builder = builder;
+	builder = NULL;
 
 	priv->cbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
@@ -4457,7 +4353,11 @@ eog_window_construct_ui (EogWindow *window)
 
 	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/popup-menus.ui");
 	builder_object = gtk_builder_get_object (builder, "view-popup-menu");
-	popup_menu = gtk_menu_new_from_model (G_MENU_MODEL(builder_object));
+	GObject *open_with_menu = gtk_builder_get_object (builder, "open-with-menu");
+	g_menu_append_section (G_MENU (open_with_menu),
+			       NULL,
+			       G_MENU_MODEL (priv->open_with_menu));
+	popup_menu = gtk_menu_new_from_model (G_MENU_MODEL (builder_object));
 
 	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
 				   GTK_MENU (popup_menu));
@@ -4659,10 +4559,15 @@ eog_window_dispose (GObject *object)
 		priv->image = NULL;
 	}
 
-	/*if (priv->actions_open_with != NULL) {
-		g_object_unref (priv->actions_open_with);
-		priv->actions_open_with = NULL;
-	}*/
+	if (priv->open_with_menu != NULL) {
+		g_object_unref (priv->open_with_menu);
+		priv->open_with_menu = NULL;
+	}
+
+	if (priv->appinfo != NULL) {
+		g_ptr_array_free (priv->appinfo, TRUE);
+		priv->appinfo = NULL;
+	}
 
 	fullscreen_clear_timeout (window);
 
