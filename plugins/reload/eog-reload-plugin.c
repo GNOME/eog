@@ -173,7 +173,6 @@ eog_reload_plugin_deactivate (EogWindowActivatable *activatable)
 	EogReloadPlugin *plugin = EOG_RELOAD_PLUGIN (activatable);
 	GMenu *menu;
 	GMenuModel *model;
-	const gchar *id;
 	gint i;
 
 	eog_debug (DEBUG_PLUGINS);
@@ -186,11 +185,16 @@ eog_reload_plugin_deactivate (EogWindowActivatable *activatable)
 	/* Remove menu entry */
 	model = G_MENU_MODEL (menu);
 	for (i = 0; i < g_menu_model_get_n_items (model); i++) {
-		if (g_menu_model_get_item_attribute (model, i, "id", "s", &id)
-		    && g_strcmp0 (id, EOG_RELOAD_PLUGIN_MENU_ID) == 0)
-		{
-			g_menu_remove (menu, i);
-			break;
+		gchar *id;
+		if (g_menu_model_get_item_attribute (model, i, "id", "s", &id)) {
+			const gboolean found =
+				(g_strcmp0 (id, EOG_RELOAD_PLUGIN_MENU_ID) != 0);
+			g_free (id);
+
+			if (found) {
+				g_menu_remove (menu, i);
+				break;
+			}
 		}
 	}
 
