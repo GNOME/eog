@@ -1038,10 +1038,6 @@ eog_window_update_open_with_menu (EogWindow *window, EogImage *image)
 		/* Do not include eog itself */
 		if (g_ascii_strcasecmp (g_app_info_get_executable (app),
 					g_get_prgname ()) == 0) {
-			/* FIXME: should we really unref this? We free the full
-			 * list below outside of the loop. If we should unref,
-			 * why don't we unref the others that do not pass the
-			 * above check? */
 			g_object_unref (app);
 			continue;
 		}
@@ -1059,10 +1055,10 @@ eog_window_update_open_with_menu (EogWindow *window, EogImage *image)
 		g_ptr_array_add (priv->appinfo, app);
 		g_menu_append_item (priv->open_with_menu, item);
 		g_object_unref (item);
-        }
+	}
 
 	g_object_unref (file);
-        g_list_free (apps);
+	g_list_free (apps);
 }
 
 static void
