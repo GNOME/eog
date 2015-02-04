@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2015-01-26 19:22+0000\n"
-"PO-Revision-Date: 2015-02-02 11:04+0000\n"
+"PO-Revision-Date: 2015-02-04 17:48+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -494,7 +494,7 @@ msgstr "Sjálfvirk stefna"
 #: ../data/org.gnome.eog.gschema.xml.in.h:2
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
-msgstr ""
+msgstr "Hvort snúa eigi mynd sjálfvirkt miðað við EXIF stefnumerki."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:4
 msgid ""
@@ -505,7 +505,7 @@ msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:5
 msgid "Interpolate Image"
-msgstr "Innskjóta mynd"
+msgstr "Skjóta inn í mynd (interpolate - brúun)"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:6
 #, fuzzy
@@ -515,10 +515,9 @@ msgid ""
 msgstr "Hvort að innreikna eigi mynd við notkun á súmmi eður ei. "
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:7
-#, fuzzy
 #| msgid "Interpolate Image"
 msgid "Extrapolate Image"
-msgstr "Innreikna mynd"
+msgstr "Innreikna í mynd (extrapolate - bryggjun)"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:8
 #, fuzzy
@@ -616,10 +615,9 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:27
-#, fuzzy
 #| msgid "Show/hide the window statusbar."
 msgid "Show/Hide the window statusbar."
-msgstr "Sýna/fela tólstiku"
+msgstr "Sýna/fela stöðustiku þessa glugga."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:28
 msgid "Show/Hide the image gallery pane."
@@ -1253,13 +1251,12 @@ msgstr ""
 
 #: ../src/eog-window.c:2568 ../src/eog-window.c:2583
 msgid "Error launching System Settings: "
-msgstr ""
+msgstr "Villa við að ræsa kerfisstillingar: "
 
 #: ../src/eog-window.c:2617
-#, fuzzy
 #| msgid "Eye of Gnome Preferences"
 msgid "_Open Background Preferences"
-msgstr "Stillingar Eye of Gnome"
+msgstr "_Opna kjörstillingar fyrir bakgrunn"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
@@ -1271,9 +1268,8 @@ msgid ""
 msgstr ""
 
 #: ../src/eog-window.c:3114
-#, fuzzy
 msgid "Saving image locally…"
-msgstr "Vista mynd"
+msgstr "Vista mynd á tölvunni..."
 
 #: ../src/eog-window.c:3192
 #, c-format
@@ -1307,14 +1303,14 @@ msgid "Do _not ask again during this session"
 msgstr "Ekki spyrja aftur í þessari setu"
 
 #: ../src/eog-window.c:3268
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't retrieve image file"
-msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
+msgstr "Ekki tókst að ná í myndskrá"
 
 #: ../src/eog-window.c:3284
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't retrieve image file information"
-msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
+msgstr "Ekki tókst að ná í upplýsingar úr myndskrá"
 
 #: ../src/eog-window.c:3300 ../src/eog-window.c:3544
 #, c-format
@@ -1344,15 +1340,19 @@ msgid ""
 msgstr ""
 
 #: ../src/eog-window.c:3453
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to move\n"
 "the selected image to the trash?"
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
-msgstr[0] "Viltu yfirskrifa %s?"
-msgstr[1] "Viltu yfirskrifa %s?"
+msgstr[0] ""
+"Ert þú viss um að þú viljir flytja\n"
+"valda mynd í ruslið?"
+msgstr[1] ""
+"Ert þú viss um að þú viljir flytja\n"
+"%d valdar mynd í ruslið?"
 
 #: ../src/eog-window.c:3458
 msgid ""
@@ -1404,6 +1404,7 @@ msgstr "Setja í gang nýtt tilvik í stað þess að nýta það sem er í gang
 msgid ""
 "Open in a single window, if multiple windows are open the first one is used"
 msgstr ""
+"Opna í stökum glugga, ef margir gluggar eru opnir verður sá fyrsti notaður"
 
 #: ../src/main.c:69
 #| msgid "About this application"
