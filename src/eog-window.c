@@ -4152,11 +4152,15 @@ eog_window_zoom_button_toggled_cb (GtkToggleButton *button, gpointer user_data)
 	if (toggled) {
 		zoom_image = gtk_image_new_from_icon_name ("zoom-out-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
+		gtk_widget_set_tooltip_text (GTK_WIDGET (button),
+					     _("Fit the image to the window"));
 	} else {
 		zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
 		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
 					       EOG_ZOOM_MODE_SHRINK_TO_FIT);
+		gtk_widget_set_tooltip_text (GTK_WIDGET (button),
+					     _("Shrink or enlarge the current image"));
 	}
 
 	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->zoom_revealer), toggled);
@@ -4201,6 +4205,8 @@ eog_window_construct_ui (EogWindow *window)
 	zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
 						   GTK_ICON_SIZE_BUTTON);
 	gtk_button_set_image (GTK_BUTTON (zoom_button), zoom_image);
+	gtk_widget_set_tooltip_text (zoom_button,
+				     _("Shrink or enlarge the current image"));
 	g_signal_connect (zoom_button, "toggled",
 			  G_CALLBACK (eog_window_zoom_button_toggled_cb),
 			  window);
