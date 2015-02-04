@@ -1825,6 +1825,9 @@ eog_window_get_exit_fullscreen_button (EogWindow *window)
 					      GTK_ICON_SIZE_BUTTON);
 	gtk_button_set_image (GTK_BUTTON (button), image);
 	gtk_button_set_always_show_image (GTK_BUTTON (button), TRUE);
+	gtk_widget_set_tooltip_text(button,
+				    _("Leave fullscreen mode"));
+
 
 	g_signal_connect (button, "clicked",
 			  G_CALLBACK (exit_fullscreen_button_clicked_cb),
@@ -4246,6 +4249,8 @@ eog_window_construct_ui (EogWindow *window)
 							   GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (fullscreen_button),
 					"win.view-fullscreen");
+	gtk_widget_set_tooltip_text(fullscreen_button,
+				    _("Show the current image in fullscreen mode"));
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
 	gtk_widget_show (fullscreen_button);
 
