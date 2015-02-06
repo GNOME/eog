@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-29 16:30+0000\n"
-"PO-Revision-Date: 2015-01-30 01:16+0300\n"
+"POT-Creation-Date: 2015-02-06 04:31+0000\n"
+"PO-Revision-Date: 2015-02-06 15:11+0300\n"
 "Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "_Statusbar"
 msgstr "_Строка состояния"
 
-#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:11
+#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:20
 msgid "_Image Gallery"
 msgstr "_Галерея изображений"
 
@@ -85,7 +85,7 @@ msgstr ""
 "поворота изображения в правильную ландшафтную или портретную ориентацию."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5545
+#: ../src/eog-window.c:5475
 msgid "Image Viewer"
 msgstr "Просмотр изображений"
 
@@ -245,7 +245,7 @@ msgstr "Сохранить как"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3216 ../src/eog-window.c:3219 ../src/eog-window.c:3472
+#: ../src/eog-window.c:3170 ../src/eog-window.c:3173 ../src/eog-window.c:3426
 msgid "_Cancel"
 msgstr "О_тмена"
 
@@ -391,44 +391,86 @@ msgid "Plugins"
 msgstr "Модули"
 
 #: ../data/fullscreen-toolbar.ui.h:1
+#| msgid "Go to the next image of the gallery"
+msgid "Go to the first image of the gallery"
+msgstr "Перейти к первому изображению в галерее"
+
+#: ../data/fullscreen-toolbar.ui.h:2
 msgid "_First Image"
 msgstr "П_ервое изображение"
 
-#: ../data/fullscreen-toolbar.ui.h:2
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2960
+msgid "Go to the previous image of the gallery"
+msgstr "Перейти к предыдущему изображению в галерее"
+
+#: ../data/fullscreen-toolbar.ui.h:4
 msgid "_Previous Image"
 msgstr "_Предыдущее изображение"
 
-#: ../data/fullscreen-toolbar.ui.h:3
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2948
+msgid "Go to the next image of the gallery"
+msgstr "Перейти к следующему изображению в галерее"
+
+#: ../data/fullscreen-toolbar.ui.h:6
 msgid "_Next Image"
 msgstr "_Следующее изображение"
 
-#: ../data/fullscreen-toolbar.ui.h:4
+#: ../data/fullscreen-toolbar.ui.h:7
+#| msgid "Go to the next image of the gallery"
+msgid "Go to the last image of the gallery"
+msgstr "Перейти к последнему изображению в галерее"
+
+#: ../data/fullscreen-toolbar.ui.h:8
 msgid "_Last Image"
 msgstr "П_оследнее изображение"
 
-#: ../data/fullscreen-toolbar.ui.h:5
+#: ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Увеличить изображение"
+
+#: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Zoom In"
 msgstr "У_величить"
 
-#: ../data/fullscreen-toolbar.ui.h:6
+#: ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Уменьшить изображение"
+
+#: ../data/fullscreen-toolbar.ui.h:12
 msgid "Zoom _Out"
 msgstr "У_меньшить"
 
-#: ../data/fullscreen-toolbar.ui.h:7
+#: ../data/fullscreen-toolbar.ui.h:13
 msgid "_Normal Size"
 msgstr "_Нормальный размер"
 
-#: ../data/fullscreen-toolbar.ui.h:8
+#: ../data/fullscreen-toolbar.ui.h:14
 msgid "_Best Fit"
 msgstr "Наилучшая подгонка"
 
-#: ../data/fullscreen-toolbar.ui.h:9
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2975
+msgid "Rotate the image 90 degrees to the left"
+msgstr "Повернуть изображение на 90 градусов против часовой стрелки"
+
+#: ../data/fullscreen-toolbar.ui.h:16
 msgid "Rotate Counter_clockwise"
 msgstr "Повернуть против часовой _стрелки"
 
-#: ../data/fullscreen-toolbar.ui.h:10
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2986
+msgid "Rotate the image 90 degrees to the right"
+msgstr "Повернуть изображение на 90 градусов по часовой стрелке"
+
+#: ../data/fullscreen-toolbar.ui.h:18
 msgid "_Rotate Clockwise"
 msgstr "Повернуть по _часовой стрелке"
+
+#: ../data/fullscreen-toolbar.ui.h:19
+msgid "Changes the visibility of the image gallery pane in the current window"
+msgstr "Изменяет видимость панели галереи изображений в текущем окне"
+
+#: ../data/fullscreen-toolbar.ui.h:21
+msgid "Pause or resume the slideshow"
+msgstr "Приостановить или возобновить слайд-шоу"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -744,7 +786,7 @@ msgstr "Открыть _с помощью"
 msgid "_Copy"
 msgstr "_Копировать"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3475
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3429
 msgid "Move to _Trash"
 msgstr "Переместить в _корзину"
 
@@ -760,12 +802,11 @@ msgstr "Полноэкранный режим по двойному щелчку
 msgid "Activate fullscreen mode with double-click"
 msgstr "Войти в полноэкранный режим по двойному щелчку мыши"
 
-#: ../plugins/reload/eog-reload-plugin.c:74
+#: ../plugins/reload/eog-reload-plugin.c:150
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "Перезагрузить изображение"
 
-#: ../plugins/reload/eog-reload-plugin.c:76
 #: ../plugins/reload/reload.plugin.desktop.in.h:2
 msgid "Reload current image"
 msgstr "Перезагрузить текущее изображение"
@@ -1147,22 +1188,6 @@ msgstr "Показать папку, в которой содержится эт
 msgid "as is"
 msgstr "как есть"
 
-#: ../src/eog-scroll-view.c:2948
-msgid "Go to the next image of the gallery"
-msgstr "Перейти к следующему изображению в галерее"
-
-#: ../src/eog-scroll-view.c:2960
-msgid "Go to the previous image of the gallery"
-msgstr "Перейти к предыдущему изображению в галерее"
-
-#: ../src/eog-scroll-view.c:2975
-msgid "Rotate the image 90 degrees to the left"
-msgstr "Повернуть изображение на 90 градусов против часовой стрелки"
-
-#: ../src/eog-scroll-view.c:2986
-msgid "Rotate the image 90 degrees to the right"
-msgstr "Повернуть изображение на 90 градусов по часовой стрелке"
-
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
 #. * count.
@@ -1209,7 +1234,7 @@ msgstr[0] "%i × %i пиксел  %s    %i%%"
 msgstr[1] "%i × %i пиксела  %s    %i%%"
 msgstr[2] "%i × %i пикселов  %s    %i%%"
 
-#: ../src/eog-window.c:887 ../src/eog-window.c:2619
+#: ../src/eog-window.c:887 ../src/eog-window.c:2573
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "С_крыть"
@@ -1230,26 +1255,31 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1184
+#: ../src/eog-window.c:1135
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Сохранение изображения «%s» (%u/%u)"
 
-#: ../src/eog-window.c:1588
+#: ../src/eog-window.c:1539
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Загрузка изображения «%s»"
 
-#: ../src/eog-window.c:1872
+#: ../src/eog-window.c:1823
 msgid "_Leave Fullscreen"
-msgstr "_Выйти из полноэкранного режима"
+msgstr "_Покинуть полноэкранный режим"
+
+#: ../src/eog-window.c:1829
+#| msgid "_Leave Fullscreen"
+msgid "Leave fullscreen mode"
+msgstr "Покинуть полноэкранный режим"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1989
+#: ../src/eog-window.c:1943
 msgid "Viewing a slideshow"
 msgstr "Просмотр слайд-шоу"
 
-#: ../src/eog-window.c:2208
+#: ../src/eog-window.c:2162
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1258,17 +1288,17 @@ msgstr ""
 "Ошибка при печати файла:\n"
 "%s"
 
-#: ../src/eog-window.c:2568 ../src/eog-window.c:2583
+#: ../src/eog-window.c:2522 ../src/eog-window.c:2537
 msgid "Error launching System Settings: "
 msgstr "Ошибка запуска параметров системы:"
 
-#: ../src/eog-window.c:2617
+#: ../src/eog-window.c:2571
 msgid "_Open Background Preferences"
 msgstr "О_ткрыть параметры фона"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2633
+#: ../src/eog-window.c:2587
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1277,11 +1307,11 @@ msgstr ""
 "Изображение «%s» установлено в качестве фона рабочего стола.\n"
 "Изменить его внешний вид?"
 
-#: ../src/eog-window.c:3114
+#: ../src/eog-window.c:3068
 msgid "Saving image locally…"
 msgstr "Сохранение изображения на диск…"
 
-#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3146
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1290,7 +1320,7 @@ msgstr ""
 "Действительно безвозвратно удалить\n"
 "«%s»?"
 
-#: ../src/eog-window.c:3195
+#: ../src/eog-window.c:3149
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1308,41 +1338,41 @@ msgstr[2] ""
 "Действительно безвозвратно удалить\n"
 "%d выбранных изображений?"
 
-#: ../src/eog-window.c:3217 ../src/eog-window.c:3483
+#: ../src/eog-window.c:3171 ../src/eog-window.c:3437
 msgid "_Delete"
 msgstr "_Удалить"
 
-#: ../src/eog-window.c:3220 ../src/eog-window.c:3485
+#: ../src/eog-window.c:3174 ../src/eog-window.c:3439
 msgid "_Yes"
 msgstr "_Да"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3224 ../src/eog-window.c:3477
+#: ../src/eog-window.c:3178 ../src/eog-window.c:3431
 msgid "Do _not ask again during this session"
 msgstr "_Не спрашивать больше во время этого сеанса"
 
-#: ../src/eog-window.c:3268
+#: ../src/eog-window.c:3222
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Не удалось получить файл изображения"
 
-#: ../src/eog-window.c:3284
+#: ../src/eog-window.c:3238
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Не удалось получить информацию о файле изображения"
 
-#: ../src/eog-window.c:3300 ../src/eog-window.c:3544
+#: ../src/eog-window.c:3254 ../src/eog-window.c:3498
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Не удалось удалить файл"
 
 #. set dialog error message
-#: ../src/eog-window.c:3350 ../src/eog-window.c:3644
+#: ../src/eog-window.c:3304 ../src/eog-window.c:3598
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Ошибка при удалении изображения %s"
 
-#: ../src/eog-window.c:3445
+#: ../src/eog-window.c:3399
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1351,14 +1381,14 @@ msgstr ""
 "Действительно хотите переместить\n"
 "«%s» в корзину?"
 
-#: ../src/eog-window.c:3448
+#: ../src/eog-window.c:3402
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "Не удалось найти корзину для «%s». Удалить изображение навсегда?"
 
-#: ../src/eog-window.c:3453
+#: ../src/eog-window.c:3407
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1376,7 +1406,7 @@ msgstr[2] ""
 "Действительно хотите переместить\n"
 "%d выбранных изображений в корзину?"
 
-#: ../src/eog-window.c:3458
+#: ../src/eog-window.c:3412
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1384,20 +1414,35 @@ msgstr ""
 "Не удалось переместить некоторые выделенные изображения в корзину, они будут "
 "удалены навсегда. Продолжить?"
 
-#: ../src/eog-window.c:3522 ../src/eog-window.c:3536
+#: ../src/eog-window.c:3476 ../src/eog-window.c:3490
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Нет доступа к корзине."
 
-#: ../src/eog-window.c:4432
+#: ../src/eog-window.c:4156
+#| msgid "Shows the image date in the window statusbar"
+msgid "Fit the image to the window"
+msgstr "Подогнать размер изображения под размер окна"
+
+#: ../src/eog-window.c:4163 ../src/eog-window.c:4209
+#| msgid "Reload current image"
+msgid "Shrink or enlarge the current image"
+msgstr "Уменьшить или увеличить текущее изображение"
+
+#: ../src/eog-window.c:4259
+#| msgid "Open in fullscreen mode"
+msgid "Show the current image in fullscreen mode"
+msgstr "Показать текущее изображение в полноэкранном режиме"
+
+#: ../src/eog-window.c:4338
 msgid "Properties"
 msgstr "Свойства"
 
-#: ../src/eog-window.c:5548
+#: ../src/eog-window.c:5478
 msgid "The GNOME image viewer."
 msgstr "Программа для просмотра изображений в GNOME"
 
-#: ../src/eog-window.c:5551
+#: ../src/eog-window.c:5481
 msgid "translator-credits"
 msgstr ""
 "Alexander Saprykin <xelfium@gmail.com>, 2010.\n"
