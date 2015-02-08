@@ -5195,6 +5195,13 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 	g_object_unref (job);
 }
 
+/**
+ * eog_window_get_gear_menu_section:
+ * @window: an #EogWindow.
+ * @id: the ID for the menu section to look up
+ *
+ * Return value: (transfer none): a #GMenu or %NULL on failure
+ **/
 GMenu *
 eog_window_get_gear_menu_section (EogWindow *window, const gchar *id)
 {
