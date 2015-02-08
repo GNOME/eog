@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-30 16:35+0000\n"
-"PO-Revision-Date: 2015-01-30 21:38+0100\n"
+"POT-Creation-Date: 2015-02-08 16:31+0000\n"
+"PO-Revision-Date: 2015-02-08 21:13+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "_Statusbar"
 msgstr "Á_llapotsor"
 
-#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:11
+#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:20
 msgid "_Image Gallery"
 msgstr "_Képgaléria"
 
@@ -76,7 +76,7 @@ msgstr ""
 "vagy fekvő tájolásba."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5545
+#: ../src/eog-window.c:5482
 msgid "Image Viewer"
 msgstr "Képmegjelenítő"
 
@@ -236,7 +236,7 @@ msgstr "Mentés másként"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3216 ../src/eog-window.c:3219 ../src/eog-window.c:3472
+#: ../src/eog-window.c:3170 ../src/eog-window.c:3173 ../src/eog-window.c:3426
 msgid "_Cancel"
 msgstr "Mé_gse"
 
@@ -382,44 +382,84 @@ msgid "Plugins"
 msgstr "Bővítmények"
 
 #: ../data/fullscreen-toolbar.ui.h:1
+msgid "Go to the first image of the gallery"
+msgstr "Ugrás a galéria első képére"
+
+#: ../data/fullscreen-toolbar.ui.h:2
 msgid "_First Image"
 msgstr "_Első kép"
 
-#: ../data/fullscreen-toolbar.ui.h:2
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2960
+msgid "Go to the previous image of the gallery"
+msgstr "Ugrás a galéria előző képére"
+
+#: ../data/fullscreen-toolbar.ui.h:4
 msgid "_Previous Image"
 msgstr "_Előző kép"
 
-#: ../data/fullscreen-toolbar.ui.h:3
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2948
+msgid "Go to the next image of the gallery"
+msgstr "Ugrás a galéria következő képére"
+
+#: ../data/fullscreen-toolbar.ui.h:6
 msgid "_Next Image"
 msgstr "_Következő kép"
 
-#: ../data/fullscreen-toolbar.ui.h:4
+#: ../data/fullscreen-toolbar.ui.h:7
+msgid "Go to the last image of the gallery"
+msgstr "Ugrás a galéria utolsó képére"
+
+#: ../data/fullscreen-toolbar.ui.h:8
 msgid "_Last Image"
 msgstr "_Utolsó kép"
 
-#: ../data/fullscreen-toolbar.ui.h:5
+#: ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Kép nagyítása"
+
+#: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Zoom In"
 msgstr "_Nagyítás"
 
-#: ../data/fullscreen-toolbar.ui.h:6
+#: ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Kép kicsinyítése"
+
+#: ../data/fullscreen-toolbar.ui.h:12
 msgid "Zoom _Out"
 msgstr "_Kicsinyítés"
 
-#: ../data/fullscreen-toolbar.ui.h:7
+#: ../data/fullscreen-toolbar.ui.h:13
 msgid "_Normal Size"
 msgstr "_Normál méret"
 
-#: ../data/fullscreen-toolbar.ui.h:8
+#: ../data/fullscreen-toolbar.ui.h:14
 msgid "_Best Fit"
 msgstr "Legjobb _illeszkedés"
 
-#: ../data/fullscreen-toolbar.ui.h:9
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2975
+msgid "Rotate the image 90 degrees to the left"
+msgstr "Kép forgatása 90 fokkal balra"
+
+#: ../data/fullscreen-toolbar.ui.h:16
 msgid "Rotate Counter_clockwise"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
-#: ../data/fullscreen-toolbar.ui.h:10
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2986
+msgid "Rotate the image 90 degrees to the right"
+msgstr "Kép forgatása 90 fokkal jobbra"
+
+#: ../data/fullscreen-toolbar.ui.h:18
 msgid "_Rotate Clockwise"
 msgstr "Forgatás az ó_ramutató irányába"
+
+#: ../data/fullscreen-toolbar.ui.h:19
+msgid "Changes the visibility of the image gallery pane in the current window"
+msgstr "A jelenlegi ablakban megváltoztatja a képgaléria sáv láthatóságát"
+
+#: ../data/fullscreen-toolbar.ui.h:21
+msgid "Pause or resume the slideshow"
+msgstr "A diavetítés megállítása vagy folytatása"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -694,24 +734,10 @@ msgstr ""
 "„Metaadatok” lapon beágyazva jelenik meg."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:40
-msgid "External program to use for editing images"
-msgstr "Képek szerkesztésére használt külső program"
-
-#: ../data/org.gnome.eog.gschema.xml.in.h:41
-msgid ""
-"The desktop file name (including the \".desktop\") of the application to use "
-"for editing images (when the \"Edit Image\" button is clicked). Set to the "
-"empty string to disable this feature."
-msgstr ""
-"A képek szerkesztéséhez a „Kép szerkesztése” gomb megnyomásakor használandó ."
-"desktop fájl neve (a „.desktop” kiterjesztéssel). Állítsa üres "
-"karakterláncra a szolgáltatás kikapcsolásához."
-
-#: ../data/org.gnome.eog.gschema.xml.in.h:42
 msgid "Active plugins"
 msgstr "Aktív bővítmények"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:43
+#: ../data/org.gnome.eog.gschema.xml.in.h:41
 msgid ""
 "List of active plugins. It doesn't contain the \"Location\" of the active "
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
@@ -729,7 +755,7 @@ msgstr "Megnyitás e_zzel"
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3475
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3429
 msgid "Move to _Trash"
 msgstr "Áthelyezés a _Kukába"
 
@@ -745,12 +771,11 @@ msgstr "Teljes képernyő dupla kattintásra"
 msgid "Activate fullscreen mode with double-click"
 msgstr "Teljes képernyős mód aktiválása dupla kattintásra"
 
-#: ../plugins/reload/eog-reload-plugin.c:74
+#: ../plugins/reload/eog-reload-plugin.c:150
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "Kép újratöltése"
 
-#: ../plugins/reload/eog-reload-plugin.c:76
 #: ../plugins/reload/reload.plugin.desktop.in.h:2
 msgid "Reload current image"
 msgstr "Aktuális kép újratöltése"
@@ -1126,22 +1151,6 @@ msgstr "A fájlt tartalmazó mappa megjelenítése a fájlkezelőben"
 msgid "as is"
 msgstr "ahogy van"
 
-#: ../src/eog-scroll-view.c:2948
-msgid "Go to the next image of the gallery"
-msgstr "Ugrás a galéria következő képére"
-
-#: ../src/eog-scroll-view.c:2960
-msgid "Go to the previous image of the gallery"
-msgstr "Ugrás a galéria előző képére"
-
-#: ../src/eog-scroll-view.c:2975
-msgid "Rotate the image 90 degrees to the left"
-msgstr "Kép forgatása 90 fokkal balra"
-
-#: ../src/eog-scroll-view.c:2986
-msgid "Rotate the image 90 degrees to the right"
-msgstr "Kép forgatása 90 fokkal jobbra"
-
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
 #. * count.
@@ -1187,7 +1196,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i képpont,  %s    %i%%"
 msgstr[1] "%i × %i képpont,  %s    %i%%"
 
-#: ../src/eog-window.c:887 ../src/eog-window.c:2619
+#: ../src/eog-window.c:887 ../src/eog-window.c:2573
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Elrejtés"
@@ -1208,26 +1217,31 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1184
+#: ../src/eog-window.c:1135
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "„%s” kép mentése (%u/%u)"
 
-#: ../src/eog-window.c:1588
+#: ../src/eog-window.c:1539
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "„%s” kép betöltése"
 
-#: ../src/eog-window.c:1872
+#: ../src/eog-window.c:1823
 msgid "_Leave Fullscreen"
 msgstr "T_eljes képernyő elhagyása"
 
+#: ../src/eog-window.c:1829
+#| msgid "_Leave Fullscreen"
+msgid "Leave fullscreen mode"
+msgstr "Teljes képernyős mód elhagyása"
+
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1989
+#: ../src/eog-window.c:1943
 msgid "Viewing a slideshow"
 msgstr "Diavetítés megtekintése"
 
-#: ../src/eog-window.c:2208
+#: ../src/eog-window.c:2162
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1236,17 +1250,17 @@ msgstr ""
 "Hiba a fájl nyomtatása közben:\n"
 "%s"
 
-#: ../src/eog-window.c:2568 ../src/eog-window.c:2583
+#: ../src/eog-window.c:2522 ../src/eog-window.c:2537
 msgid "Error launching System Settings: "
 msgstr "Hiba a Rendszerbeállítások indításakor: "
 
-#: ../src/eog-window.c:2617
+#: ../src/eog-window.c:2571
 msgid "_Open Background Preferences"
 msgstr "_Háttérbeállítások megnyitása"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2633
+#: ../src/eog-window.c:2587
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1255,11 +1269,11 @@ msgstr ""
 "A(z) „%s” kép az asztal háttereként lett beállítva.\n"
 "Kívánja módosítani a megjelenését?"
 
-#: ../src/eog-window.c:3114
+#: ../src/eog-window.c:3068
 msgid "Saving image locally…"
 msgstr "Kép mentése helyileg…"
 
-#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3146
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1268,7 +1282,7 @@ msgstr ""
 "Biztosan véglegesen törölni akarja\n"
 "a következőt: „%s”?"
 
-#: ../src/eog-window.c:3195
+#: ../src/eog-window.c:3149
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1283,41 +1297,41 @@ msgstr[1] ""
 "Biztosan véglegesen törölni akarja\n"
 "a kijelölt %d képet?"
 
-#: ../src/eog-window.c:3217 ../src/eog-window.c:3483
+#: ../src/eog-window.c:3171 ../src/eog-window.c:3437
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: ../src/eog-window.c:3220 ../src/eog-window.c:3485
+#: ../src/eog-window.c:3174 ../src/eog-window.c:3439
 msgid "_Yes"
 msgstr "_Igen"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3224 ../src/eog-window.c:3477
+#: ../src/eog-window.c:3178 ../src/eog-window.c:3431
 msgid "Do _not ask again during this session"
 msgstr "_Ne kérdezze újra ebben a munkamenetben"
 
-#: ../src/eog-window.c:3268
+#: ../src/eog-window.c:3222
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "A képfájl nem kérhető le"
 
-#: ../src/eog-window.c:3284
+#: ../src/eog-window.c:3238
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "A képfájl információi nem kérhetők le"
 
-#: ../src/eog-window.c:3300 ../src/eog-window.c:3544
+#: ../src/eog-window.c:3254 ../src/eog-window.c:3498
 #, c-format
 msgid "Couldn't delete file"
 msgstr "A fájl nem törölhető"
 
 #. set dialog error message
-#: ../src/eog-window.c:3350 ../src/eog-window.c:3644
+#: ../src/eog-window.c:3304 ../src/eog-window.c:3598
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Hiba a(z) %s kép törlése közben"
 
-#: ../src/eog-window.c:3445
+#: ../src/eog-window.c:3399
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1326,14 +1340,14 @@ msgstr ""
 "Biztosan át akarja helyezni a(z)\n"
 "„%s” képet a Kukába?"
 
-#: ../src/eog-window.c:3448
+#: ../src/eog-window.c:3402
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "Nem található %s kukája. Véglegesen el kívánja távolítani ezt a képet?"
 
-#: ../src/eog-window.c:3453
+#: ../src/eog-window.c:3407
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1348,7 +1362,7 @@ msgstr[1] ""
 "Biztos át akarja helyezni a\n"
 "kijelölt %d képet a Kukába?"
 
-#: ../src/eog-window.c:3458
+#: ../src/eog-window.c:3412
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1356,21 +1370,33 @@ msgstr ""
 "Néhány kiválasztott kép nem helyezhető át a Kukába és véglegesen törlésre "
 "kerül. Biztosan folytatja?"
 
-#: ../src/eog-window.c:3522 ../src/eog-window.c:3536
+#: ../src/eog-window.c:3476 ../src/eog-window.c:3490
 #, c-format
 msgid "Couldn't access trash."
 msgstr "A Kuka nem érhető el."
 
-#: ../src/eog-window.c:4432
-#| msgid "Prope_rties"
+#: ../src/eog-window.c:4156
+msgid "Fit the image to the window"
+msgstr "Kép igazítása az ablakhoz"
+
+#: ../src/eog-window.c:4163 ../src/eog-window.c:4209
+#| msgid "Shrink the image"
+msgid "Shrink or enlarge the current image"
+msgstr "A jelenlegi kép kicsinyítése vagy nagyítása"
+
+#: ../src/eog-window.c:4259
+msgid "Show the current image in fullscreen mode"
+msgstr "Kép megjelenítése teljes képernyős módban"
+
+#: ../src/eog-window.c:4338
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../src/eog-window.c:5548
+#: ../src/eog-window.c:5485
 msgid "The GNOME image viewer."
 msgstr "A GNOME képmegjelenítője."
 
-#: ../src/eog-window.c:5551
+#: ../src/eog-window.c:5488
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik at gnome dot hu>\n"
@@ -1421,6 +1447,18 @@ msgstr "[FÁJL…]"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot a parancssori kapcsolók listájáért."
+
+#~ msgid "External program to use for editing images"
+#~ msgstr "Képek szerkesztésére használt külső program"
+
+#~ msgid ""
+#~ "The desktop file name (including the \".desktop\") of the application to "
+#~ "use for editing images (when the \"Edit Image\" button is clicked). Set "
+#~ "to the empty string to disable this feature."
+#~ msgstr ""
+#~ "A képek szerkesztéséhez a „Kép szerkesztése” gomb megnyomásakor "
+#~ "használandó .desktop fájl neve (a „.desktop” kiterjesztéssel). Állítsa "
+#~ "üres karakterláncra a szolgáltatás kikapcsolásához."
 
 #~ msgid "_View"
 #~ msgstr "_Nézet"
@@ -1510,10 +1548,6 @@ msgstr ""
 #~ msgid "Changes the visibility of the statusbar in the current window"
 #~ msgstr "A jelenlegi ablakban megváltoztatja az állapotsor láthatóságát"
 
-#~ msgid ""
-#~ "Changes the visibility of the image gallery pane in the current window"
-#~ msgstr "A jelenlegi ablakban megváltoztatja a képgaléria sáv láthatóságát"
-
 #~ msgid "Changes the visibility of the side pane in the current window"
 #~ msgstr "A jelenlegi ablakban megváltoztatja az oldalsáv láthatóságát"
 
@@ -1565,35 +1599,14 @@ msgstr ""
 #~ msgid "Copy the selected image to the clipboard"
 #~ msgstr "A kijelölt kép vágólapra másolása"
 
-#~ msgid "Enlarge the image"
-#~ msgstr "Kép nagyítása"
-
-#~ msgid "Shrink the image"
-#~ msgstr "Kép kicsinyítése"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Kép normál mérete"
 
 #~ msgid "_Fullscreen"
 #~ msgstr "_Teljes képernyő"
 
-#~ msgid "Show the current image in fullscreen mode"
-#~ msgstr "Kép megjelenítése teljes képernyős módban"
-
 #~ msgid "Pause Slideshow"
 #~ msgstr "Diavetítés megállítása"
-
-#~ msgid "Pause or resume the slideshow"
-#~ msgstr "A diavetítés megállítása vagy folytatása"
-
-#~ msgid "Fit the image to the window"
-#~ msgstr "Kép igazítása az ablakhoz"
-
-#~ msgid "Go to the first image of the gallery"
-#~ msgstr "Ugrás a galéria első képére"
-
-#~ msgid "Go to the last image of the gallery"
-#~ msgstr "Ugrás a galéria utolsó képére"
 
 #~ msgid "_Random Image"
 #~ msgstr "_Véletlen kép"
