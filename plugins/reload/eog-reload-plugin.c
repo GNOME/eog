@@ -188,7 +188,7 @@ eog_reload_plugin_deactivate (EogWindowActivatable *activatable)
 		gchar *id;
 		if (g_menu_model_get_item_attribute (model, i, "id", "s", &id)) {
 			const gboolean found =
-				(g_strcmp0 (id, EOG_RELOAD_PLUGIN_MENU_ID) != 0);
+				(g_strcmp0 (id, EOG_RELOAD_PLUGIN_MENU_ID) == 0);
 			g_free (id);
 
 			if (found) {
@@ -206,7 +206,6 @@ eog_reload_plugin_deactivate (EogWindowActivatable *activatable)
 	/* Finally remove action */
 	g_action_map_remove_action (G_ACTION_MAP (plugin->window),
 				    EOG_RELOAD_PLUGIN_ACTION);
-
 }
 
 static void
