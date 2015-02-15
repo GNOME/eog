@@ -104,7 +104,6 @@ EogWindowMode eog_window_get_mode       (EogWindow       *window);
 void          eog_window_set_mode       (EogWindow       *window,
 					 EogWindowMode    mode);
 
-GtkUIManager *eog_window_get_ui_manager (EogWindow       *window);
 GMenu        *eog_window_get_gear_menu_section (EogWindow   *window,
 						const gchar *id);
 

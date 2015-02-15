@@ -121,7 +121,6 @@ struct _EogWindowPrivate {
 	EogWindowMode        mode;
 	EogWindowStatus      status;
 
-        GtkUIManager        *ui_mgr;
         GtkWidget           *overlay;
         GtkWidget           *box;
         GtkWidget           *layout;
@@ -4192,7 +4191,6 @@ eog_window_construct_ui (EogWindow *window)
 	priv->box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
 	gtk_widget_show (priv->box);
-	priv->ui_mgr = gtk_ui_manager_new ();
 
 	headerbar = gtk_header_bar_new ();
 	gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (headerbar), TRUE);
@@ -5213,22 +5211,6 @@ eog_window_get_gear_menu_section (EogWindow *window, const gchar *id)
 		return NULL;
 
 	return G_MENU (object);
-}
-
-/**
- * eog_window_get_ui_manager:
- * @window: An #EogWindow.
- *
- * Gets the #GtkUIManager that describes the UI of @window.
- *
- * Returns: (transfer none): A #GtkUIManager.
- **/
-GtkUIManager *
-eog_window_get_ui_manager (EogWindow *window)
-{
-        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
-
-	return window->priv->ui_mgr;
 }
 
 /**
