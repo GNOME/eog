@@ -229,6 +229,21 @@ _eog_zoom_shrink_to_boolean (GBinding *binding, const GValue *source,
 	return TRUE;
 }
 
+static gboolean
+_eog_zoom_button_variant_to_boolean (GBinding *binding, const GValue *source,
+				     GValue *target, gpointer user_data)
+{
+	GVariant *variant = g_value_get_variant (source);
+	g_return_val_if_fail(g_variant_is_of_type (variant,
+						   G_VARIANT_TYPE_BOOLEAN),
+			     FALSE);
+
+	// Use inverted logic, as the button behaves inverted as well
+	g_value_set_boolean(target, !g_variant_get_boolean(variant));
+
+	return TRUE;
+}
+
 static void
 eog_window_set_gallery_mode (EogWindow           *window,
 			     EogWindowGalleryPos  position,
@@ -4349,6 +4364,11 @@ eog_window_construct_ui (EogWindow *window)
 					     action, "state",
 					     G_BINDING_SYNC_CREATE,
 					     _eog_zoom_shrink_to_boolean,
+					     NULL, NULL, NULL);
+		g_object_bind_property_full (action, "state",
+					     zoom_button, "active",
+					     G_BINDING_SYNC_CREATE,
+					     _eog_zoom_button_variant_to_boolean,
 					     NULL, NULL, NULL);
 	}
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
