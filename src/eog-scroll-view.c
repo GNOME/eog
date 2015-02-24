@@ -2911,6 +2911,7 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_widget_set_halign (priv->left_revealer, GTK_ALIGN_START);
 	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start(priv->left_revealer, 12);
+	gtk_widget_set_margin_end(priv->left_revealer, 12);
 	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
 				 priv->left_revealer);
 
@@ -2922,6 +2923,7 @@ eog_scroll_view_init (EogScrollView *view)
 					      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->right_revealer, GTK_ALIGN_END);
 	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
+	gtk_widget_set_margin_start (priv->right_revealer, 12);
 	gtk_widget_set_margin_end (priv->right_revealer, 12);
 	gtk_overlay_add_overlay(GTK_OVERLAY (priv->overlay),
 				priv->right_revealer);
