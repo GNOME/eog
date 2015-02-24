@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 00:00+0200\n"
-"PO-Revision-Date: 2015-02-10 00:00+0200\n"
+"POT-Creation-Date: 2015-02-25 00:39+0200\n"
+"PO-Revision-Date: 2015-02-25 00:39+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -71,7 +71,7 @@ msgstr ""
 "שלך בכיוון הנכון לאורך או לרוחב."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5482
+#: ../src/eog-window.c:5484
 msgid "Image Viewer"
 msgstr "מציג תמונות"
 
@@ -231,7 +231,7 @@ msgstr "שמירה בשם"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3170 ../src/eog-window.c:3173 ../src/eog-window.c:3426
+#: ../src/eog-window.c:3184 ../src/eog-window.c:3187 ../src/eog-window.c:3440
 msgid "_Cancel"
 msgstr "_ביטול"
 
@@ -378,13 +378,13 @@ msgstr "תוספים"
 
 #: ../data/fullscreen-toolbar.ui.h:1
 msgid "Go to the first image of the gallery"
-msgstr "מעבר לתמונה הראשונה בגלריה"
+msgstr "מעבר לתמונה הראשונה באוסף"
 
 #: ../data/fullscreen-toolbar.ui.h:2
 msgid "_First Image"
 msgstr "_תמונה ראשונה"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2960
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2962
 msgid "Go to the previous image of the gallery"
 msgstr "מעבר לתמונה הקודמת באוסף"
 
@@ -392,9 +392,9 @@ msgstr "מעבר לתמונה הקודמת באוסף"
 msgid "_Previous Image"
 msgstr "התמונה ה_קודמת"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2948
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2950
 msgid "Go to the next image of the gallery"
-msgstr "מעבר לתמונה הבאה בגלריה"
+msgstr "מעבר לתמונה הבאה באוסף"
 
 #: ../data/fullscreen-toolbar.ui.h:6
 msgid "_Next Image"
@@ -402,7 +402,7 @@ msgstr "התמונה ה_באה"
 
 #: ../data/fullscreen-toolbar.ui.h:7
 msgid "Go to the last image of the gallery"
-msgstr "מעבר לתמונה האחרונה בגלריה"
+msgstr "מעבר לתמונה האחרונה באוסף"
 
 #: ../data/fullscreen-toolbar.ui.h:8
 msgid "_Last Image"
@@ -432,7 +432,7 @@ msgstr "גודל _רגיל"
 msgid "_Best Fit"
 msgstr "הה_תאמה הטובה ביותר"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2975
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2977
 msgid "Rotate the image 90 degrees to the left"
 msgstr "סיבוב התמונה 90 מעלות שמאלה"
 
@@ -440,7 +440,7 @@ msgstr "סיבוב התמונה 90 מעלות שמאלה"
 msgid "Rotate Counter_clockwise"
 msgstr "סיבוב _נגד כיוון השעון"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2986
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2988
 msgid "Rotate the image 90 degrees to the right"
 msgstr "סיבוב התמונה 90 מעלות ימינה"
 
@@ -752,7 +752,7 @@ msgstr "פתיחה _באמצעות"
 msgid "_Copy"
 msgstr "ה_עתקה"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3429
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3443
 msgid "Move to _Trash"
 msgstr "הע_ברה לאשפה"
 
@@ -821,7 +821,7 @@ msgstr "נא ל_בחור את התמונות שברצונך לשמור:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "אם לא תבוצע שמירה, כל השינויים שלך יאבדו."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:885
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:899
 msgid "_Reload"
 msgstr "_רענון"
 
@@ -1183,21 +1183,21 @@ msgstr " (יוניקוד לא תקני)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:542
+#: ../src/eog-window.c:556
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "פיקסל %i על %i  %s    %i%%"
 msgstr[1] "%i על %i פיקסלים  %s    %i%%"
 
-#: ../src/eog-window.c:887 ../src/eog-window.c:2573
+#: ../src/eog-window.c:901 ../src/eog-window.c:2587
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "ה_סתרה"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:897
+#: ../src/eog-window.c:911
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1212,30 +1212,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1135
+#: ../src/eog-window.c:1149
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "התמונה \"%s\" נשמרת (%u/%u)"
 
-#: ../src/eog-window.c:1539
+#: ../src/eog-window.c:1553
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "התמונה \"%s\" נטענת"
 
-#: ../src/eog-window.c:1823
+#: ../src/eog-window.c:1837
 msgid "_Leave Fullscreen"
 msgstr "יציאה מ_מסך מלא"
 
-#: ../src/eog-window.c:1829
+#: ../src/eog-window.c:1843
 msgid "Leave fullscreen mode"
 msgstr "יציאה ממסך מלא"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1943
+#: ../src/eog-window.c:1957
 msgid "Viewing a slideshow"
 msgstr "צפייה במצגת"
 
-#: ../src/eog-window.c:2162
+#: ../src/eog-window.c:2176
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1244,17 +1244,17 @@ msgstr ""
 "שגיאה בהדפסת קובץ:\n"
 "%s"
 
-#: ../src/eog-window.c:2522 ../src/eog-window.c:2537
+#: ../src/eog-window.c:2536 ../src/eog-window.c:2551
 msgid "Error launching System Settings: "
 msgstr "טעינת הגדרות המערכת הובילה לשגיאה:"
 
-#: ../src/eog-window.c:2571
+#: ../src/eog-window.c:2585
 msgid "_Open Background Preferences"
 msgstr "_פתיחת העדפות הרקע"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2587
+#: ../src/eog-window.c:2601
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1263,11 +1263,11 @@ msgstr ""
 "התמונה \"%s\" הוגדרה כתמונת רקע.\n"
 "האם ברצונך לשנות את המראה שלה?"
 
-#: ../src/eog-window.c:3068
+#: ../src/eog-window.c:3082
 msgid "Saving image locally…"
 msgstr "התמונה נשמרת באופן מקומי…"
 
-#: ../src/eog-window.c:3146
+#: ../src/eog-window.c:3160
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1276,7 +1276,7 @@ msgstr ""
 "האם ברצונך להסיר את\n"
 "‏„%s“ לצמיתות?"
 
-#: ../src/eog-window.c:3149
+#: ../src/eog-window.c:3163
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1291,41 +1291,41 @@ msgstr[1] ""
 "האם להסיר את %d התמונות\n"
 "הנבחרות לצמיתות?"
 
-#: ../src/eog-window.c:3171 ../src/eog-window.c:3437
+#: ../src/eog-window.c:3185 ../src/eog-window.c:3451
 msgid "_Delete"
 msgstr "מ_חיקה"
 
-#: ../src/eog-window.c:3174 ../src/eog-window.c:3439
+#: ../src/eog-window.c:3188 ../src/eog-window.c:3453
 msgid "_Yes"
 msgstr "_כן"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3178 ../src/eog-window.c:3431
+#: ../src/eog-window.c:3192 ../src/eog-window.c:3445
 msgid "Do _not ask again during this session"
 msgstr "_לא לשאול שוב במהלך הפעלה זו"
 
-#: ../src/eog-window.c:3222
+#: ../src/eog-window.c:3236
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "לא ניתן לקבל את קובץ התמונה"
 
-#: ../src/eog-window.c:3238
+#: ../src/eog-window.c:3252
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "לא ניתן לקבל את פרטי קובץ התמונה"
 
-#: ../src/eog-window.c:3254 ../src/eog-window.c:3498
+#: ../src/eog-window.c:3268 ../src/eog-window.c:3512
 #, c-format
 msgid "Couldn't delete file"
 msgstr "לא ניתן למחוק את הקובץ"
 
 #. set dialog error message
-#: ../src/eog-window.c:3304 ../src/eog-window.c:3598
+#: ../src/eog-window.c:3318 ../src/eog-window.c:3612
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "שגיאה במחיקת התמונה %s"
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3413
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1334,14 +1334,14 @@ msgstr ""
 "האם ברצונך להעביר את\n"
 "‏\"%s\" לאשפה?"
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3416
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "לא ניתן למצוא אשפה עבור \"%s\". האם ברצונך להסיר תמונה זו לצמיתות?"
 
-#: ../src/eog-window.c:3407
+#: ../src/eog-window.c:3421
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1352,7 +1352,7 @@ msgid_plural ""
 msgstr[0] "האם ברצונך להעביר את התמונה הנבחרת לאשפה?"
 msgstr[1] "האם ברצונך להעביר את %d התמונות הנבחרות לאשפה?"
 
-#: ../src/eog-window.c:3412
+#: ../src/eog-window.c:3426
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1360,32 +1360,32 @@ msgstr ""
 "לא ניתן להעביר כמה מהקבצים הנבחרים אל האשפה והם יוסרו לצמיתות. האם ברצונך "
 "להמשיך?"
 
-#: ../src/eog-window.c:3476 ../src/eog-window.c:3490
+#: ../src/eog-window.c:3490 ../src/eog-window.c:3504
 #, c-format
 msgid "Couldn't access trash."
 msgstr "לא ניתן לגשת לאשפה."
 
-#: ../src/eog-window.c:4156
+#: ../src/eog-window.c:4170
 msgid "Fit the image to the window"
 msgstr "התאמת התמונה לחלון"
 
-#: ../src/eog-window.c:4163 ../src/eog-window.c:4209
+#: ../src/eog-window.c:4177 ../src/eog-window.c:4222
 msgid "Shrink or enlarge the current image"
 msgstr "הקטנה או הגדלת התמונה הנוכחית"
 
-#: ../src/eog-window.c:4259
+#: ../src/eog-window.c:4272
 msgid "Show the current image in fullscreen mode"
 msgstr "הצגת התמונה הנוכחית במסך מלא"
 
-#: ../src/eog-window.c:4338
+#: ../src/eog-window.c:4351
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: ../src/eog-window.c:5485
+#: ../src/eog-window.c:5487
 msgid "The GNOME image viewer."
 msgstr "מציג התמונות של GNOME"
 
-#: ../src/eog-window.c:5488
+#: ../src/eog-window.c:5490
 msgid "translator-credits"
 msgstr ""
 "גיל אושר\n"
@@ -1604,7 +1604,7 @@ msgstr "Run '%s --help' to see a full list of available command line options."
 #~ msgstr "_טעינת תמונה אקראית"
 
 #~ msgid "Go to a random image of the gallery"
-#~ msgstr "מעבור לתמונה אקראית בגלריה"
+#~ msgstr "מעבור לתמונה אקראית באוסף"
 
 #~ msgid "Start a slideshow view of the images"
 #~ msgstr "התחלת מצגת של התמונות"
@@ -1637,7 +1637,7 @@ msgstr "Run '%s --help' to see a full list of available command line options."
 #~ msgstr "התאמה"
 
 #~ msgid "Gallery"
-#~ msgstr "גלריה"
+#~ msgstr "אוסף"
 
 #~ msgctxt "action (to trash)"
 #~ msgid "Trash"
