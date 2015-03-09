@@ -10,8 +10,9 @@ from dogtail import i18n
 
 @step(u'Open About dialog')
 def open_about_dialog(context):
-    context.app.menu(translate('Help')).click()
-    context.app.menu(translate('Help')).menuItem(translate('About')).click()
+    context.execute_steps(u"""
+        * Click "About" in GApplication menu
+    """)
     context.about_dialog = context.app.dialog(translate('About Image Viewer'))
 
 

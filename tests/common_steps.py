@@ -13,7 +13,7 @@ from gi.repository import GLib
 
 from dogtail.rawinput import keyCombo, absoluteMotion, pressKey
 from dogtail.tree import root
-from dogtail.utils import run
+from dogtail.utils import run, GnomeShell, doDelay
 from dogtail.predicate import GenericPredicate
 from dogtail import i18n
 import pyatspi
@@ -269,3 +269,21 @@ def translate(string):
             print(translation)
         translation = translation[-1].decode('utf-8')
     return translation
+
+
+# GApplication menu steps
+@step(u'Open GApplication menu')
+def get_gmenu(context):
+    GnomeShell().getApplicationMenuButton('Image Viewer').click()
+
+
+@step(u'Close GApplication menu')
+def close_gmenu(context):
+    GnomeShell().getApplicationMenuButton('Image Viewer').click()
+    doDelay(2)
+
+
+@step(u'Click "{name}" in GApplication menu')
+def click_menu(context, name):
+    GnomeShell().clickApplicationMenuItem('Image Viewer', name)
+    doDelay(2)
