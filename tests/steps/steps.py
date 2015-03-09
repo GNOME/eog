@@ -68,6 +68,11 @@ def rotate_image_clockwise(context):
     btn.click()
 
 
+@step(u'Click Fullscreen button on headerbar')
+def click_fullscreen(context):
+    context.app.child(translate('Fullscreen')).click()
+
+
 @step(u'Open context menu for current image')
 def open_context_menu(context):
     context.app.child(roleName='drawing area').click(button=3)
@@ -89,15 +94,11 @@ def sidepanel_displayed(context, state):
     assert actual == (state == 'displayed')
 
 
-def app_is_not_fullscreen(context):
-    import ipdb; ipdb.set_trace()
-
-
 @then(u'application is {negative:w} fullscreen anymore')
 @then(u'application is displayed fullscreen')
 def app_displayed_fullscreen(context, negative=None):
     sleep(0.5)
-    actual = not context.app.child(roleName='menu bar').showing
+    actual = context.app.child(roleName='drawing area').position[1] == 0
     assert actual == (negative is None)
 
 

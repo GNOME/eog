@@ -36,7 +36,7 @@ Feature: Smoke tests
   @fullscreen @fullscreen_via_menu
   Scenario: Fullscreen via menu
     * Open "/tmp/gnome-logo.png" via menu
-    * Select "View -> Fullscreen" menu
+    * Click Fullscreen button on headerbar
     Then application is displayed fullscreen
     * Press "<Esc>"
     Then application is not fullscreen anymore
