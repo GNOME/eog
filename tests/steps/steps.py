@@ -42,21 +42,22 @@ def open_file_via_menu(context, filename):
 
 @then(u'image size is {width:d}x{height:d}')
 def image_size_is(context, width, height):
+    size_text = None
     for attempt in xrange(0, 10):
-        width_text = context.app.child(roleName='page tab list').child(translate('Width:')).parent.children[-1].text
-        if width_text == '':
+        size_child = context.app.child(roleName='page tab list').child(translate('Size'))
+        size_text = size_child.parent.children[11].text
+        if size_text == '':
             sleep(0.5)
             continue
         else:
             break
-    height_text = context.app.child(roleName='page tab list').child(translate('Height:')).parent.children[-1].text
     try:
-        actual_width = int(width_text.split(' ')[0])
-        actual_height = int(height_text.split(' ')[0])
+        actual_width = size_text.split(' \xc3\x97 ')[0].strip()
+        actual_height = size_text.split(' \xc3\x97 ')[1].split(' ')[0].strip()
     except Exception:
         raise Exception("Incorrect width/height is been displayed")
-    assert actual_width == width
-    assert actual_height == height
+    assert int(actual_width) == width, "Expected width to be '%s', but was '%s'" % (width, actual_width)
+    assert int(actual_height) == height, "Expected height to be '%s', but was '%s'" % (height, actual_height)
 
 
 @step(u'Rotate the image clockwise')
