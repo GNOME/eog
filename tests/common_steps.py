@@ -285,5 +285,5 @@ def close_gmenu(context):
 
 @step(u'Click "{name}" in GApplication menu')
 def click_menu(context, name):
-    GnomeShell().clickApplicationMenuItem('Image Viewer', name)
+    GnomeShell().clickApplicationMenuItem('Image Viewer', translate(name))
     doDelay(2)

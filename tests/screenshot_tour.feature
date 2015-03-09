@@ -4,11 +4,8 @@ Feature: Screenshot tour
     Scenario Outline: Main dialogs
      * Set locale to "<locale>"
      * Make sure that eog is running
-     * Select and close "Image" menu
-     * Select and close "Edit" menu
-     * Select and close "View" menu
-     * Select and close "Go" menu
-     * Select and close "Help" menu
+     * Open and close About dialog
+     * Open and close hamburger menu
      * Open "/tmp/gnome-logo.png" via menu
      * Open context menu for current image
 
@@ -26,11 +23,8 @@ Feature: Screenshot tour
     Scenario Outline: Main dialogs
      * Set locale to "<locale>"
      * Make sure that eog is running
-     * Select and close "Image" menu
-     * Select and close "Edit" menu
-     * Select and close "View" menu
-     * Select and close "Go" menu
-     * Select and close "Help" menu
+     * Open and close About dialog
+     * Open and close hamburger menu
      * Open "/tmp/gnome-logo.png" via menu
      * Open context menu for current image
 

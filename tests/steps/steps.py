@@ -16,6 +16,12 @@ def open_about_dialog(context):
     context.about_dialog = context.app.dialog(translate('About Image Viewer'))
 
 
+@step(u'Open and close About dialog')
+def open_and_close_about_dialog(context):
+    context.execute_steps(u'* Click "About" in GApplication menu')
+    keyCombo("<Esc>")
+
+
 @then(u'Website link to wiki is displayed')
 def website_link_to_wiki_is_displayed(context):
     assert context.about_dialog.child(translate('Website')).showing
@@ -146,16 +152,10 @@ def select_menuitem(context, menu):
     current.menuItem(translate(menu_item[-1])).click()
 
 
-@step(u'Select and close "{menu}" menu')
-def select_menuitem_and_close_it(context, menu):
-    context.execute_steps('* Select "%s" menu' % menu)
+@step(u'Open and close hamburger menu')
+def select_hamburger_and_close_it(context):
+    context.app.child('Menu').click()
     keyCombo("<Esc>")
-
-
-@step(u'Open "Image -> Save As" menu')
-def open_save_as_menu(context):
-    context.app.menu(translate("Image")).click()
-    context.app.menu(translate("Image")).findChildren(lambda x: 'Save As' in x.name)[0].click()
 
 
 @step(u'Select "{name}" window')
