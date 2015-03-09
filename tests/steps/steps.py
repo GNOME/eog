@@ -62,7 +62,10 @@ def image_size_is(context, width, height):
 
 @step(u'Rotate the image clockwise')
 def rotate_image_clockwise(context):
-    context.app.child(roleName='tool bar').child(translate('Right')).click()
+    btn = context.app.child(description=translate('Rotate the image 90 degrees to the left'))
+    context.app.child(roleName='drawing area').point()
+    sleep(1)
+    btn.click()
 
 
 @step(u'Open context menu for current image')
