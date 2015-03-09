@@ -22,7 +22,7 @@ Feature: Smoke tests
   Scenario: Sidepanel via menu
     * Open "/tmp/gnome-logo.png" via menu
     Then sidepanel is displayed
-    * Select "View -> Side Pane" menu
+    * Click "Side Pane" in GApplication menu
     Then sidepanel is hidden
 
   @sidepane @sidepane_via_shortcut
@@ -30,7 +30,7 @@ Feature: Smoke tests
     * Open "/tmp/gnome-logo.png" via menu
     * Press "<Ctrl><F9>"
     Then sidepanel is hidden
-    * Select "View -> Side Pane" menu
+    * Click "Side Pane" in GApplication menu
     Then sidepanel is displayed
 
   @fullscreen @fullscreen_via_menu
