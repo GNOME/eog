@@ -458,6 +458,8 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (eog_sidebar->priv->notebook), FALSE);
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (eog_sidebar->priv->notebook), FALSE);
+	gtk_widget_set_margin_start (eog_sidebar->priv->notebook, 6);
+	gtk_widget_set_margin_end (eog_sidebar->priv->notebook, 6);
 
 	gtk_box_pack_start (GTK_BOX (eog_sidebar), eog_sidebar->priv->notebook,
 			    TRUE, TRUE, 0);
