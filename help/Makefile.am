@@ -53,6 +53,6 @@ HELP_FILES = \
 	view.page				\
 	zoom.page
 
-HELP_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pl pt_BR ro ru sl sv te th uk zh_CN zh_TW
+HELP_LINGUAS = ar ca cs da de el en_GB es eu fi fr gl hu it ja ko lv oc pa pt_BR ro ru sl sv te th uk zh_CN zh_TW
 
 -include $(top_srcdir)/git.mk
