@@ -2716,7 +2716,7 @@ _set_overlay_timeout (EogScrollView *view)
 
 	_clear_overlay_timeout (view);
 
-	source = g_timeout_source_new_seconds (2);
+	source = g_timeout_source_new (1000);
 	g_source_set_callback (source, _overlay_timeout_cb, view, NULL);
 
 	g_source_attach (source, NULL);
