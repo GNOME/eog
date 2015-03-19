@@ -3035,6 +3035,8 @@ eog_scroll_view_dispose (GObject *object)
 	}
 #endif
 
+	_clear_overlay_timeout (view);
+
 	if (priv->idle_id != 0) {
 		g_source_remove (priv->idle_id);
 		priv->idle_id = 0;
