@@ -1324,8 +1324,6 @@ set_zoom (EogScrollView *view, double zoom,
 	int xofs, yofs;
 	double x_rel, y_rel;
 
-	g_assert (zoom > 0.0);
-
 	priv = view->priv;
 
 	if (priv->pixbuf == NULL)
