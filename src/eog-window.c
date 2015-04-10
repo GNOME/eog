@@ -204,6 +204,8 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
 static void eog_window_finish_saving (EogWindow *window);
+static void eog_window_zoom_scale_value_changed_cb (GtkRange *range,
+						    gpointer user_data);
 
 static GQuark
 eog_window_error_quark (void)
@@ -1573,7 +1575,19 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 
 	update_status_bar (window);
+
+	/* Block signal handler to avoid setting the zoom again.
+	 * Although the ScrollView will usually ignore it, it won't
+	 * do so when the zoom scale clamps the zoom factor to its
+	 * own allowed range. (#747410)
+	 */
+	g_signal_handlers_block_by_func (window->priv->zoom_scale,
+					 eog_window_zoom_scale_value_changed_cb,
+					 window);
 	update_zoom_scale (window);
+	g_signal_handlers_unblock_by_func (window->priv->zoom_scale,
+					   eog_window_zoom_scale_value_changed_cb,
+					   window);
 
 	action_zoom_in =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
