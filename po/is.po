@@ -1,188 +1,521 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Samúel Jón Gunnarsson <sammi@techattack.nu>, 2003
+# Samúel Jón Gunnarsson <sammi@techattack.nu>, 2003.
+# Sveinn í Felli <sv1@fellsnet.is>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-03-13 06:28-0000\n"
-"Last-Translator: helgi <helgi@trance.is>\n"
-"Language-Team: Icelandic <gnome@techattack.nu>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=eog&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-04-27 03:32+0000\n"
+"PO-Revision-Date: 2015-04-27 14:33+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.5\n"
 
-#: eog.desktop.in.h:1
+#. Translaters: This string is for a toggle to display a toolbar.
+#. * The name of the toolbar is automatically computed from the widgets
+#. * on the toolbar, and is placed at the %s. Note the _ before the %s
+#. * which is used to add mnemonics. We know that this is likely to
+#. * produce duplicates, but don't worry about it. If your language
+#. * normally has a mnemonic at the start, please use the _. If not,
+#. * please remove.
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:992
+#, c-format
+msgid "Show “_%s”"
+msgstr "Birta „_%s“"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1485
+#| msgid "_Toolbar"
+msgid "_Move on Toolbar"
+msgstr "_Færa á áhaldastiku"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1486
+msgid "Move the selected item on the toolbar"
+msgstr "Færa valda hlutinn á áhaldastikuna"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1487
+msgid "_Remove from Toolbar"
+msgstr "_Fjarlægja af áhaldastiku"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1488
+msgid "Remove the selected item from the toolbar"
+msgstr "Fjarlægja valinn hlut af áhaldastiku"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1489
+#| msgid "_Toolbar"
+msgid "_Delete Toolbar"
+msgstr "_Eyða áhaldastiku"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1490
+msgid "Remove the selected toolbar"
+msgstr "Fjarlægja völdu áhaldastikuna"
+
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:489
+msgid "Separator"
+msgstr "Aðgreinir"
+
+#: ../data/eog-app-menu.xml.h:1 ../src/eog-window.c:4038
+msgid "_View"
+msgstr "Sý_n"
+
+#: ../data/eog-app-menu.xml.h:2 ../src/eog-window.c:4064
+msgid "_Toolbar"
+msgstr "_Tólstika"
+
+#: ../data/eog-app-menu.xml.h:3 ../src/eog-window.c:4067
+msgid "_Statusbar"
+msgstr "_Stöðustika"
+
+#: ../data/eog-app-menu.xml.h:4 ../src/eog-window.c:4070
+#| msgid "Image Viewer"
+msgid "_Image Gallery"
+msgstr "_Myndasafn"
+
+#: ../data/eog-app-menu.xml.h:5 ../src/eog-window.c:4073
+msgid "Side _Pane"
+msgstr "Hliðars_pjald"
+
+#: ../data/eog-app-menu.xml.h:6 ../src/eog-window.c:4052
+msgid "Prefere_nces"
+msgstr "Stilli_ngar"
+
+#: ../data/eog-app-menu.xml.h:7 ../src/eog-window.c:2565
+#: ../src/eog-window.c:4041
+msgid "_Help"
+msgstr "_Hjálp"
+
+#: ../data/eog-app-menu.xml.h:8 ../src/eog-window.c:4058
+msgid "_About"
+msgstr "_Um"
+
+#: ../data/eog-app-menu.xml.h:9
+msgid "_Quit"
+msgstr "H_ætta"
+
+#: ../data/eog.appdata.xml.in.h:1
+msgid ""
+"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"formats for viewing single images or images in a collection."
+msgstr ""
+"Eye of GNOME myndarýnirinn er hinn opinberi myndaskoðari fyrir GNOME "
+"skjáborðið. Hann er samhæfður útliti og virkni GTK+ viðmótsins í GNOME og "
+"styður mörg myndskráasnið, hvort sem er til skoðunar á stökum myndum eða "
+"myndasöfnum."
+
+#: ../data/eog.appdata.xml.in.h:2
+msgid ""
+"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
+"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"automatically rotate your images in the correct portrait or landscape "
+"orientation."
+msgstr ""
+"Eye of GNOME myndarýnirinn gerir einnig kleift að skoða myndir sem "
+"skyggnusýningu á öllum skjánum eða að setja mynd sem bakgrunn skjáborðs. "
+"Ennfremur les hann merki frá myndavélum þannig að myndum sé snúið sjálfvirkt "
+"lárétt eða lóðrétt, eftir því hvernig þær voru teknar."
+
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:287
+#: ../src/eog-window.c:6163
 msgid "Image Viewer"
 msgstr "Myndarýnir"
 
-#: eog.desktop.in.h:2
-msgid "View many different types of images"
-msgstr "Skoða margar mismunandi gerðir af myndum"
+#: ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Snúa og skoða myndir"
 
-#: eog.glade.h:1
-msgid "    "
-msgstr "    "
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#: ../data/eog.desktop.in.in.h:4
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Mynd;Skyggnusýning;Myndefni;"
 
-#: eog.glade.h:2
-msgid "*"
-msgstr ""
+#: ../data/eog-image-properties-dialog.ui.h:1 ../src/eog-window.c:5039
+msgid "Image Properties"
+msgstr "Eiginleikar myndar"
 
-#: eog.glade.h:3
-msgid "."
-msgstr ""
+#: ../data/eog-image-properties-dialog.ui.h:2
+#| msgid "Previous"
+msgid "_Previous"
+msgstr "_Fyrri"
 
-#: eog.glade.h:4
-msgid "<b>File Name Preview</b>"
-msgstr ""
+#: ../data/eog-image-properties-dialog.ui.h:3
+#| msgid "Next"
+msgid "_Next"
+msgstr "_Næsta"
 
-#: eog.glade.h:5
-msgid "<b>File Path Specifications</b>"
-msgstr ""
+#: ../data/eog-image-properties-dialog.ui.h:4
+#: ../src/eog-metadata-sidebar.c:495
+msgid "Name:"
+msgstr "Heiti:"
 
-#: eog.glade.h:6
-msgid "<b>Image Interpolation</b>"
-msgstr "<b>Innreikningur myndar</b>"
+#: ../data/eog-image-properties-dialog.ui.h:5
+#: ../src/eog-metadata-sidebar.c:497
+#| msgid "Width"
+msgid "Width:"
+msgstr "Breidd:"
 
-#: eog.glade.h:7
-msgid "<b>Image Zoom</b>"
-msgstr "<b>Súmm myndar</b>"
+#: ../data/eog-image-properties-dialog.ui.h:6
+#: ../src/eog-metadata-sidebar.c:499
+#| msgid "Height"
+msgid "Height:"
+msgstr "Hæð:"
 
-#: eog.glade.h:8
-#, fuzzy
-msgid "<b>Options</b>"
-msgstr "<b>Innreikningur myndar</b>"
+#: ../data/eog-image-properties-dialog.ui.h:7
+#: ../src/eog-metadata-sidebar.c:501
+msgid "Type:"
+msgstr "Tegund:"
 
-#: eog.glade.h:9
-msgid "<b>Sequence</b>"
-msgstr "<b>Syrpa</b>"
+#: ../data/eog-image-properties-dialog.ui.h:8
+msgid "Bytes:"
+msgstr "Bæti:"
 
-#: eog.glade.h:10
-#, fuzzy
-msgid "<b>Transparent Parts</b>"
-msgstr "<b>Glærleiki</b>"
+#: ../data/eog-image-properties-dialog.ui.h:9
+#: ../src/eog-metadata-sidebar.c:505
+#| msgid "Open Folder"
+msgid "Folder:"
+msgstr "Skráarsafn:"
 
-#: eog.glade.h:12
+#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../src/eog-metadata-sidebar.c:493
+msgid "General"
+msgstr "Almennt"
+
+#: ../data/eog-image-properties-dialog.ui.h:11
+#: ../src/eog-metadata-sidebar.c:530
+msgid "Aperture Value:"
+msgstr "Ljósop:"
+
+#: ../data/eog-image-properties-dialog.ui.h:12
+#: ../src/eog-metadata-sidebar.c:533
+msgid "Exposure Time:"
+msgstr "Lýsingartími:"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../src/eog-metadata-sidebar.c:536
+msgid "Focal Length:"
+msgstr "Brennivídd:"
+
+#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../src/eog-metadata-sidebar.c:538
+msgid "Flash:"
+msgstr "Flass:"
+
+#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../src/eog-metadata-sidebar.c:542
+msgid "ISO Speed Rating:"
+msgstr "ISO-hraði:"
+
+#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../src/eog-metadata-sidebar.c:545
+msgid "Metering Mode:"
+msgstr "Mælihamur:"
+
+#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../src/eog-metadata-sidebar.c:548
+msgid "Camera Model:"
+msgstr "Tegund myndavélar:"
+
+#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../src/eog-metadata-sidebar.c:550
+msgid "Date/Time:"
+msgstr "Dags/tími:"
+
+#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../src/eog-metadata-sidebar.c:555
+msgid "Description:"
+msgstr "Lýsing:"
+
+#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../src/eog-metadata-sidebar.c:558
+#| msgid "Collection"
+msgid "Location:"
+msgstr "Staðsetning:"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../src/eog-metadata-sidebar.c:561
+msgid "Keywords:"
+msgstr "Stikkorð:"
+
+#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../src/eog-metadata-sidebar.c:563
+msgid "Author:"
+msgstr "Höfundur:"
+
+#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../src/eog-metadata-sidebar.c:566
+msgid "Copyright:"
+msgstr "Höfundarréttur:"
+
+#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../src/eog-metadata-sidebar.c:569
+msgid "Details"
+msgstr "Nánar"
+
+#: ../data/eog-image-properties-dialog.ui.h:25
+#: ../src/eog-metadata-sidebar.c:526
+msgid "Metadata"
+msgstr "Lýsigögn"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:1
+msgid "Save As"
+msgstr "Vista sem"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:172
+#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
+#: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
+#: ../src/eog-window.c:3367 ../src/eog-window.c:3370 ../src/eog-window.c:3621
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Hætta við"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:3
+#: ../src/eog-close-confirmation-dialog.c:184
+msgid "Save _As"
+msgstr "Vist_a sem"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
 #, no-c-format
-msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+#| msgid "% of original size"
+msgid "<b>%f:</b> original filename"
+msgstr "<b>%f:</b> upprunalegt skráarheiti"
 
-#: eog.glade.h:13
-msgid "As _background"
-msgstr "Sem _bakgrunnur"
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
+#, no-c-format
+msgid "<b>%n:</b> counter"
+msgstr "<b>%n:</b> teljari"
 
-#: eog.glade.h:14
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
+msgid "_Filename format:"
+msgstr "_Form skráarheitis:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
+msgid "_Destination folder:"
+msgstr "Á_kvörðunarstaður:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
+msgid "Choose a folder"
+msgstr "Veldu möppu"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
+msgid "File Path Specifications"
+msgstr "Nánar um skráarslóð"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
+msgid "_Start counter at:"
+msgstr "_Byrja að telja með:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
+msgid "_Replace spaces with underscores"
+msgstr "Skipta út bilum með undi_rstriki"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
+msgid "Options"
+msgstr "Valkostir"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
+msgid "Rename from:"
+msgstr "Endurnefna frá:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:16
+msgid "To:"
+msgstr "Til:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:17
+msgid "File Name Preview"
+msgstr "Forskoðun skráarheitis"
+
+#: ../data/eog-preferences-dialog.ui.h:1
+#| msgid "Prefere_nces"
+msgid "Preferences"
+msgstr "Kjörstillingar"
+
+#: ../data/eog-preferences-dialog.ui.h:2
+msgid "Image Enhancements"
+msgstr "Endurbætur á mynd"
+
+#: ../data/eog-preferences-dialog.ui.h:3
+msgid "Smooth images when zoomed _out"
+msgstr "Mý_kja myndir við að renna frá"
+
+#: ../data/eog-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed _in"
+msgstr "Mýk_ja myndir við að renna að"
+
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "_Automatic orientation"
+msgstr "Sjálfvirk stefna"
+
+#: ../data/eog-preferences-dialog.ui.h:6
+#| msgid "As _background"
+msgid "Background"
+msgstr "Bakgrunnur"
+
+#: ../data/eog-preferences-dialog.ui.h:7
+#| msgid "As custom c_olor"
+msgid "As custom color:"
+msgstr "Sem sérsniðinn litur:"
+
+#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/org.gnome.eog.gschema.xml.in.h:3
+#| msgid "As _background"
+msgid "Background Color"
+msgstr "Bakgrunnslitur"
+
+#: ../data/eog-preferences-dialog.ui.h:9
+msgid "Transparent Parts"
+msgstr "Gegnsæir hlutar"
+
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "As check _pattern"
 msgstr "Sem hakað m_ynstur"
 
-#: eog.glade.h:15
-msgid "As custom c_olor"
-msgstr "Sem sér_valin litur"
+#: ../data/eog-preferences-dialog.ui.h:11
+#| msgid "As custom c_olor"
+msgid "As custom c_olor:"
+msgstr "Sem sérsniðinn litur:"
 
-#: eog.glade.h:16
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "Color for Transparent Areas"
 msgstr "Litur fyrir glær svæði"
 
-#: eog.glade.h:17
-#, fuzzy
-msgid "Destination Folder:"
-msgstr "Opna Möppu"
+#: ../data/eog-preferences-dialog.ui.h:13
+msgid "As _background"
+msgstr "Sem _bakgrunnur"
 
-#: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Stillingar Eye of Gnome"
+#: ../data/eog-preferences-dialog.ui.h:14
+#| msgid "Image _View"
+msgid "Image View"
+msgstr "Myndbirting"
 
-#: eog.glade.h:19
-#, fuzzy
-msgid "Filename Format:"
-msgstr "Skráarnafn"
+#: ../data/eog-preferences-dialog.ui.h:15
+#| msgid "<b>Image Zoom</b>"
+msgid "Image Zoom"
+msgstr "Aðdráttur mynda"
 
-#: eog.glade.h:20
-msgid "Image _View"
-msgstr "_Myndasýn"
+#: ../data/eog-preferences-dialog.ui.h:16
+msgid "E_xpand images to fit screen"
+msgstr "Stækka myndina _svo hún passi í skjáinn"
 
-#: eog.glade.h:21
-msgid "Rename From:"
-msgstr ""
+#: ../data/eog-preferences-dialog.ui.h:17
+#| msgid "<b>Sequence</b>"
+msgid "Sequence"
+msgstr "Runa"
 
-#: eog.glade.h:22
-msgid "Replace spaces by underscore"
-msgstr ""
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#: ../data/eog-preferences-dialog.ui.h:19
+msgid "_Time between images:"
+msgstr "_Töf milli mynda:"
 
-#: eog.glade.h:23
-#, fuzzy
-msgid "Save As"
-msgstr "Vist_a sem..."
-
-#: eog.glade.h:24
-#, fuzzy
-msgid "Saving Image"
-msgstr "Vista mynd"
-
-#: eog.glade.h:25
-#, fuzzy
-msgid "Show _next image automatically after:"
-msgstr ""
-"Sýna næstu mynd sjálfkrafa:\n"
-"(0 til slá frá)"
-
-#: eog.glade.h:26
-msgid "Sli_de Show"
-msgstr "Myn_dasyrpa"
-
-#: eog.glade.h:27
-msgid "Start counter at:"
-msgstr ""
-
-#: eog.glade.h:28
-msgid "To:"
-msgstr ""
-
-#: eog.glade.h:29
-#, fuzzy
-msgid "_Browse"
-msgstr "_Loka"
-
-#: eog.glade.h:30
-#, fuzzy
-msgid "_Interpolate image on zoom"
-msgstr "Innreikna mynd"
-
-#: eog.glade.h:31
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Loop sequence"
 msgstr "_Endurtaka syrpu"
 
-#: eog.glade.h:32
-msgid "seconds"
-msgstr "sek"
+#: ../data/eog-preferences-dialog.ui.h:21
+#| msgid "Slide Show"
+msgid "Slideshow"
+msgstr "Skyggnusýning"
 
-#: eog.schemas.in.h:1
+#: ../data/eog-preferences-dialog.ui.h:22
+msgid "Plugins"
+msgstr "Viðbætur"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:1
+msgid "Automatic orientation"
+msgstr "Sjálfvirk stefna"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:2
 msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "Hvort snúa eigi mynd sjálfvirkt miðað við EXIF stefnumerki."
 
-#: eog.schemas.in.h:3
-#, no-c-format
-msgid "Allow zoom greater than 100% initially"
+#: ../data/org.gnome.eog.gschema.xml.in.h:4
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
 msgstr ""
+"Liturinn sem notaður er til að fylla svæðið á bakvið myndina. Ef lykillinn "
+"'use-"
+"background-color' er ekki stilltur, verður liturinn tilgreindur af virku GTK+ "
+"þemunni."
 
-#: eog.schemas.in.h:4
-msgid "Delay in seconds until showing the next image"
+#: ../data/org.gnome.eog.gschema.xml.in.h:5
+msgid "Interpolate Image"
+msgstr "Innreikna mynd"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:6
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non-interpolated images."
 msgstr ""
+"Hvort brúa eigi mynd þegar aðdráttur en minnkaður. Þetta gefur betri gæði en "
+"er eitthvað hægvirkara en þegar brúun er ekki notuð á myndirnar."
 
-#: eog.schemas.in.h:5
-#, fuzzy
+#: ../data/org.gnome.eog.gschema.xml.in.h:7
+#| msgid "Interpolate Image"
+msgid "Extrapolate Image"
+msgstr "Innreikna í mynd (extrapolate - bryggjun)"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:8
+msgid ""
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
+msgstr ""
+"Hvort bryggja eigi mynd þegar aðdráttur er aukinn. Þetta gefur móskukenndari "
+"myndgæði en er eitthvað hægvirkara en þegar bryggjun er ekki notuð á "
+"myndirnar."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:9
+msgid "Transparency indicator"
+msgstr "Staða glærleika"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:10
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
-msgstr "Ákvarðar hvernig eigi að sýna eigi glærleika. "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
+msgstr ""
+"Ákvarðar hvernig eigi að sýna eigi gegnsæi. Það má velja á milli "
+"CHECK_PATTERN (eins og skákborð), COLOR (litur), og NONE (ekkert). Ef COLOR "
+"er valið, þá mun trans-color lykillinn ráða litnum."
 
-#: eog.schemas.in.h:6
+#: ../data/org.gnome.eog.gschema.xml.in.h:11
+msgid "Scroll wheel zoom"
+msgstr "Aðdráttur með skrunhjóli"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:12
+msgid "Whether the scroll wheel should be used for zooming."
+msgstr "Hvort nota eigi skrunhjól við aðdrátt."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:13
+msgid "Zoom multiplier"
+msgstr "Aðdráttarmargfaldari"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:15
+#, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"Margföldun sem á að nota við aðdrátt með skrunhjóli músar. Þetta gildi "
+"skilgreinir aðdráttarbreytingu við hvert þrep í snúningi skrunhjólsins. Sem "
+"dæmi, 0,05 gefur 5% aðdráttarbreytingu fyrir hvert þrep og 1,00 gefur 100% "
+"aðdráttarbreytingu."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:16
+msgid "Transparency color"
+msgstr "Glærleikalitur"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:17
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -190,521 +523,1360 @@ msgstr ""
 "Ef glærleikalykill inniheldur gildið LITUR, þá mun þessi lykill ákvarða "
 "litinn sem notaður verður til að sýna eigi glærleika."
 
-#: eog.schemas.in.h:7
+#: ../data/org.gnome.eog.gschema.xml.in.h:18
+#| msgid "As custom c_olor"
+msgid "Use a custom background color"
+msgstr "Nota sérsniðinn bakgrunnslit"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:19
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"Ef þetta er virkt verður liturinn sem skilgreindur er af lyklinum 'use-"
+"background-color' notaður til að fylla svæðið á bakvið myndina. Ef þetta er "
+"ekki stillt, verður liturinn tilgreindur af virku GTK+ "
+"þemunni."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:20
+msgid "Loop through the image sequence"
+msgstr "Endurtaka myndarununa"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:21
+msgid "Whether the sequence of images should be shown in an endless loop."
+msgstr "Hvort eigi að sýna myndaröð í óendanlegri endurtekningu."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:23
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Leyfa upphafsaðdrátt meiri en 100%"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:24
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
+"Ef þetta er EKKI virkt verða smærri myndir ekki teygðar til að passa á skjá í "
+"upphafi."
 
-#: eog.schemas.in.h:8
-msgid "Interpolate Image"
-msgstr "Innreikna mynd"
+#: ../data/org.gnome.eog.gschema.xml.in.h:25
+msgid "Delay in seconds until showing the next image"
+msgstr "Bið í sekúndum áður en næsta mynd birtist"
 
-#: eog.schemas.in.h:9
-msgid "Loop through the image sequence"
+#: ../data/org.gnome.eog.gschema.xml.in.h:26
+msgid ""
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"Gildi stærra en 0 segir til um í hve margar sekúndur mynd er á skjánum áður "
+"en henni er skipt út fyrir þá næstu. 0 gerir sjáfvirka vöfrun óvirka."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:27
+#| msgid "Show/hide the window toolbar."
+msgid "Show/Hide the window toolbar."
+msgstr "Birta/Fela verkfærastiku gluggans."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:28
+#| msgid "Show/hide the window statusbar."
+msgid "Show/Hide the window statusbar."
+msgstr "Sýna/fela stöðustiku þessa glugga."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:29
+msgid "Show/Hide the image gallery pane."
+msgstr "Birta eða fela myndasafnsspjald."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:30
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"Staðsetning myndasafnsspjalds. Settu 0 fyrir neðst; 1 fyrir vinstri; 2 fyrir "
+"efst; 3 "
+"fyrir hægri."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:31
+msgid "Whether the image gallery pane should be resizable."
+msgstr "Hvort eigi að vera hægt að breyta stærð myndasafnsspjalds."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:32
+#| msgid "Show/hide the window statusbar."
+msgid "Show/Hide the window side pane."
+msgstr "Birta eða fela hliðarspjald."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:33
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr "Birta eða fela skrunhnappa á myndasafnsspjaldi."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:34
+msgid "Close main window without asking to save changes."
+msgstr "Loka aðalglugga án þess að spyrja hvort eigi að vista."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:35
+msgid "Trash images without asking"
+msgstr "Henda myndum án þess að spyrja"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:36
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"Ef þetta er virkt, mun Eye of GNOME myndarýnirinn ekki spyrja um staðfestingu "
+"þegar myndum er hent í ruslið. Eftir sem áður verður spurt um staðfestingu ef "
+"ekki er hægt að setja myndir í ruslið og þeim því endanlega eytt í staðinn."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:37
+msgid ""
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"Hvort skráarvafri eigi að myndamöppu notandans ef engar myndir eru hlaðnar "
+"inn."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:38
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
 msgstr ""
 
-#: eog.schemas.in.h:10
-msgid "Open images in a new window"
-msgstr "Opna myndir í nýjum glugga"
-
-#: eog.schemas.in.h:11
-msgid "Show/hide the window statusbar."
-msgstr "Sýna/fela tólstiku"
-
-#: eog.schemas.in.h:12
-msgid "Show/hide the window toolbar."
-msgstr "Sýna/fela tólstiku"
-
-#: eog.schemas.in.h:13
-msgid "Transparency color"
-msgstr "Glærleikalitur"
-
-#: eog.schemas.in.h:14
-msgid "Transparency indicator"
-msgstr "Staða glærleika"
-
-#: eog.schemas.in.h:15
-#, fuzzy
+#: ../data/org.gnome.eog.gschema.xml.in.h:39
 msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
+"Whether the metadata list in the properties dialog should have its own page."
 msgstr ""
-"Hvort að opna eigi mynd í nýjum glugga í stað fyrir að útskipta mynd í "
-"núverandi glugga."
+"Hvort listi með lýsigögnum í stillingarglugganum eigi að vera með sína eigin "
+"síðu."
 
-#: eog.schemas.in.h:16
+#: ../data/org.gnome.eog.gschema.xml.in.h:40
 msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
+"If activated, the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
+msgstr ""
+"Ef þetta er virkt, verður nákvæmur listi með lýsigögnum í stillingarglugganum "
+"færður yfir í sína eigin síðu í glugganum. Þetta er gagnlegt á minni skjám "
+"eins og á fartölvum og slíku. Ef þetta er óvirkt verður listinn innifalinn á "
+"síðunni \"Lýsigögn\"."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:41
+msgid "External program to use for editing images"
+msgstr "Utanaðkomandi forrit til breytinga á myndum"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:42
+msgid ""
+"The desktop file name (including the \".desktop\") of the application to use "
+"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
+"to the empty string to disable this feature."
 msgstr ""
 
-#: eog.schemas.in.h:17
-#, fuzzy
+#: ../data/org.gnome.eog.gschema.xml.in.h:43
+msgid "Active plugins"
+msgstr "Virkar viðbætur"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:44
 msgid ""
-"Whether the image should be interpolated on zoom or not. This leads to "
-"better quality but is somewhat slower than non interpolated images."
-msgstr "Hvort að innreikna eigi mynd við notkun á súmmi eður ei. "
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"Listi yfir virkar viðbætur. Hann sýnir ekki \"staðsetningu\" virku "
+"viðbótanna. Skoðaðu skrána .eog-plugin til að finna \"staðsetningu\" "
+"tiltekinnar viðbótar."
 
-#: libeog/eog-file-selection.c:124
-msgid "All Files"
-msgstr "Allar Skrár"
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
+msgid "Fullscreen with double-click"
+msgstr "Fylla skjá með því að tvísmella"
 
-#: libeog/eog-file-selection.c:129
-msgid "All Images"
-msgstr "Allar Myndir"
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+msgid "Activate fullscreen mode with double-click"
+msgstr "Láta mynd fylla skjáinn með því að tvísmella"
+
+#: ../plugins/reload/eog-reload-plugin.c:74
+#: ../plugins/reload/reload.plugin.desktop.in.h:1
+#| msgid "Load Image"
+msgid "Reload Image"
+msgstr "Endurlesa mynd"
+
+#: ../plugins/reload/eog-reload-plugin.c:76
+#: ../plugins/reload/reload.plugin.desktop.in.h:2
+msgid "Reload current image"
+msgstr "Hleður núverandi mynd aftur inn"
+
+#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:1
+#| msgid "Show/hide the window statusbar."
+msgid "Date in statusbar"
+msgstr "Dagsetning í stöðustiku"
+
+#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:2
+#| msgid "Show/hide the window statusbar."
+msgid "Shows the image date in the window statusbar"
+msgstr "Birtir dagsetningu myndarinnar í stöðustikunni"
+
+#: ../src/eog-close-confirmation-dialog.c:166
+msgid "Close _without Saving"
+msgstr "_Loka án þess að vista"
+
+#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+#: ../src/eog-window.c:4079
+msgid "_Save"
+msgstr "Vi_sta"
+
+#: ../src/eog-close-confirmation-dialog.c:212
+msgid "Question"
+msgstr "Spurning"
+
+#: ../src/eog-close-confirmation-dialog.c:391
+msgid "If you don't save, your changes will be lost."
+msgstr "Ef þú vistar ekki munu allar breytingar glatast."
+
+#: ../src/eog-close-confirmation-dialog.c:428
+#, c-format
+msgid "Save changes to image \"%s\" before closing?"
+msgstr "Vista breytingar á myndinni '\"%s' áður en henni er lokað?"
+
+#: ../src/eog-close-confirmation-dialog.c:635
+#, c-format
+msgid "There is %d image with unsaved changes. Save changes before closing?"
+msgid_plural ""
+"There are %d images with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"Þú átt eftir að vista breytingar á %d mynd. Viltu vista áður en þú lokar?"
+msgstr[1] ""
+"Þú átt eftir að vista breytingar á %d myndum. Viltu vista áður en þú lokar?"
+
+#: ../src/eog-close-confirmation-dialog.c:652
+msgid "S_elect the images you want to save:"
+msgstr "V_eldu myndirnar sem þú vilt vista:"
+
+#. Secondary label
+#: ../src/eog-close-confirmation-dialog.c:671
+msgid "If you don't save, all your changes will be lost."
+msgstr "Ef þú vistar ekki munu allar breytingar glatast."
+
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:847
+msgid "_Reload"
+msgstr "_Endurhlaða"
+
+#: ../src/eog-error-message-area.c:129 ../src/eog-window.c:4085
+msgid "Save _As…"
+msgstr "Vist_a sem..."
+
+#: ../src/eog-error-message-area.c:171
+#, c-format
+#| msgid "Could not open `%s'"
+msgid "Could not load image '%s'."
+msgstr "Gat ekki hlaðið myndinni '%s'."
+
+#: ../src/eog-error-message-area.c:213
+#, c-format
+#| msgid "Could not open `%s'"
+msgid "Could not save image '%s'."
+msgstr "Gat ekki vistað myndina '%s'."
+
+#: ../src/eog-error-message-area.c:256
+#, c-format
+#| msgid "No image loaded."
+msgid "No images found in '%s'."
+msgstr "Engar myndir fundust í ‚%s‘."
+
+#: ../src/eog-error-message-area.c:263
+msgid "The given locations contain no images."
+msgstr "Gefinn staðsetning innihélt engar myndir."
+
+#: ../src/eog-metadata-details.c:65
+msgid "Camera"
+msgstr "Myndavél"
+
+#: ../src/eog-metadata-details.c:66
+msgid "Image Data"
+msgstr "Myndgögn"
+
+#: ../src/eog-metadata-details.c:67
+msgid "Image Taking Conditions"
+msgstr "Skilyrði við myndatöku"
+
+#: ../src/eog-metadata-details.c:68
+msgid "GPS Data"
+msgstr "GPS-gögn"
+
+#: ../src/eog-metadata-details.c:69
+msgid "Maker Note"
+msgstr "Maker Note"
+
+#: ../src/eog-metadata-details.c:70
+msgid "Other"
+msgstr "Annað"
+
+#: ../src/eog-metadata-details.c:72
+msgid "XMP Exif"
+msgstr "XMP EXIF"
+
+#: ../src/eog-metadata-details.c:73
+msgid "XMP IPTC"
+msgstr "XMP IPTC"
+
+#: ../src/eog-metadata-details.c:74
+msgid "XMP Rights Management"
+msgstr "XMP réttindastýring"
+
+#: ../src/eog-metadata-details.c:75
+msgid "XMP Other"
+msgstr "XMP annað"
+
+#: ../src/eog-metadata-details.c:251
+msgid "Tag"
+msgstr "Merki"
+
+#: ../src/eog-metadata-details.c:258
+msgid "Value"
+msgstr "Gildi"
+
+#: ../src/eog-metadata-details.c:436
+msgid "North"
+msgstr "Norður"
+
+#: ../src/eog-metadata-details.c:439
+msgid "East"
+msgstr "Austur"
+
+#: ../src/eog-metadata-details.c:442
+msgid "West"
+msgstr "Vestur"
+
+#: ../src/eog-metadata-details.c:445
+msgid "South"
+msgstr "Suður"
+
+#. A strftime-formatted string, to display the date the image was taken.
+#: ../src/eog-exif-util.c:120 ../src/eog-exif-util.c:160
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %d %B %Y  %X"
+
+#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
+#: ../src/eog-exif-util.c:154
+msgid "%a, %d %B %Y"
+msgstr "%a, %d %B %Y"
+
+#. TRANSLATORS: This is the actual focal length used when
+#. the image was taken.
+#: ../src/eog-exif-util.c:251
+#, c-format
+msgid "%.1f (lens)"
+msgstr "%.1f (linsa)"
+
+#. Print as float to get a similar look as above.
+#. TRANSLATORS: This is the equivalent focal length assuming
+#. a 35mm film camera.
+#: ../src/eog-exif-util.c:262
+#, c-format
+msgid "%.1f (35mm film)"
+msgstr "%.1f (35mm filma)"
+
+#: ../src/eog-file-chooser.c:119
+msgid "File format is unknown or unsupported"
+msgstr "Myndskráarsnið er óþekkt eða ekki stutt"
+
+#: ../src/eog-file-chooser.c:124
+msgid ""
+"Image Viewer could not determine a supported writable file format based on "
+"the filename."
+msgstr "Myndarýnir gat ekki ákvarðað skráasnið út frá heiti myndskrár."
+
+#: ../src/eog-file-chooser.c:125
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Prófaðu aðra skráarendingu á borð við .png eða .jpg."
 
 #  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: ../src/eog-file-chooser.c:160
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#  Pixel size of image: width x height in pixel
+#: ../src/eog-file-chooser.c:212
+#| msgid "All Files"
+msgid "All files"
+msgstr "Allar skrár"
+
+#: ../src/eog-file-chooser.c:217
+#| msgid "Unsupported image type for saving."
+msgid "Supported image files"
+msgstr "Studdar myndskrár"
+
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
-#, c-format
-msgid "%s x %s pixel"
-msgstr "%s x %s pixel"
+#: ../src/eog-file-chooser.c:289 ../src/eog-metadata-sidebar.c:232
+#: ../src/eog-metadata-sidebar.c:236 ../src/eog-properties-dialog.c:134
+#: ../src/eog-properties-dialog.c:136 ../src/eog-thumb-view.c:515
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] "mynddíll"
+msgstr[1] "mynddílar"
 
-#: libeog/eog-file-selection.c:396
-msgid "Load Image"
-msgstr "Hlaða mynd"
+#: ../src/eog-file-chooser.c:457 ../src/eog-file-chooser.c:473
+#| msgid "Open"
+msgid "_Open"
+msgstr "_Opna"
 
-#: libeog/eog-file-selection.c:404
+#: ../src/eog-file-chooser.c:459
+#| msgid "EOG Image"
+msgid "Open Image"
+msgstr "Opna mynd"
+
+#: ../src/eog-file-chooser.c:467
 msgid "Save Image"
 msgstr "Vista mynd"
 
-#: libeog/eog-file-selection.c:412
+#: ../src/eog-file-chooser.c:475
 msgid "Open Folder"
 msgstr "Opna Möppu"
 
-#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
-#, fuzzy, c-format
-msgid "Couldn't create temporary file for saving: %s"
-msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
+#: ../src/eog-image.c:613
+#, c-format
+msgid "Transformation on unloaded image."
+msgstr "Umbreyting á óhlaðinni mynd"
 
-#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
+#: ../src/eog-image.c:641
+#, c-format
+#| msgid "Loading failed"
+msgid "Transformation failed."
+msgstr "Umbreyting mistókst."
 
-#: libeog/eog-image.c:814
-msgid "empty file"
-msgstr "tóm skrá"
+#: ../src/eog-image.c:1116
+#, c-format
+msgid "EXIF not supported for this file format."
+msgstr "Þetta skráasnið styður ekki EXIF."
 
-#: libeog/eog-image.c:1247 libeog/eog-image.c:1458
-msgid "File exists"
-msgstr "Skráin er þegar til"
+#: ../src/eog-image.c:1265
+#, c-format
+#| msgid "Image saving failed"
+msgid "Image loading failed."
+msgstr "Ekki tókst að hlaða myndinni."
 
-#: libeog/eog-image.c:1400 libeog/eog-image.c:1526
+#: ../src/eog-image.c:1846 ../src/eog-image.c:1966
+#, c-format
 msgid "No image loaded."
 msgstr "Engar innhlaðnar myndir."
 
-#: libeog/eog-image.c:1409 libeog/eog-image.c:1535
+#: ../src/eog-image.c:1854 ../src/eog-image.c:1975
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "Þú hefur ekki næg réttindi til að vista skrána."
+
+#: ../src/eog-image.c:1864 ../src/eog-image.c:1986
+#, c-format
 msgid "Temporary file creation failed."
-msgstr ""
+msgstr "Gerð bráðabirgðaskrár mistókst."
 
-#: libeog/eog-info-view-exif.c:26
-#, fuzzy
-msgid "Camera"
-msgstr "Nafn"
-
-#: libeog/eog-info-view-exif.c:27
-#, fuzzy
-msgid "Image Data"
-msgstr "Breidd myndar"
-
-#: libeog/eog-info-view-exif.c:28
-#, fuzzy
-msgid "Image Taking Conditions"
-msgstr "Myndasafn"
-
-#: libeog/eog-info-view-exif.c:29
-msgid "Maker Note"
-msgstr ""
-
-#: libeog/eog-info-view-exif.c:30
-msgid "Other"
-msgstr ""
-
-#: libeog/eog-info-view-exif.c:212
-msgid "Tag"
-msgstr ""
-
-#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
-msgid "Value"
-msgstr "Gildi"
-
-#. only used for internal purpose
-#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
-msgid "Filename"
-msgstr "Skráarnafn"
-
-#: libeog/eog-info-view-file.c:26
-msgid "Width"
-msgstr "Breidd"
-
-#: libeog/eog-info-view-file.c:27
-msgid "Height"
-msgstr "Hæð"
-
-#: libeog/eog-info-view-file.c:28
-msgid "Filesize"
-msgstr "Skráarstærð"
-
-#: libeog/eog-info-view-file.c:88
-msgid "Attribute"
-msgstr "Egind"
-
-#: libeog/eog-info-view.c:92
-#, fuzzy
-msgid "File"
-msgstr "_Skrá"
-
-#: libeog/eog-info-view.c:101
-msgid "EXIF"
-msgstr ""
-
-#: libeog/eog-info-view.c:108
-msgid "IPTC"
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:137
-msgid "Option not available."
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:138
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:214
-msgid "as is"
-msgstr ""
-
-#: libeog/eog-save-dialog-helper.c:162
-#, fuzzy, c-format
-msgid "Saving image %s."
-msgstr "Vista mynd"
-
-#: libeog/eog-save-dialog-helper.c:208
-#, fuzzy
-msgid "Cancel saving ..."
-msgstr "Hætta við vistun"
-
-#: libeog/eog-uri-converter.c:1023
-msgid "Filenames are not disjunct."
-msgstr ""
-
-#: libeog/eog-uri-converter.h:46
-#, fuzzy
-msgid "Counter"
-msgstr "Miðjað"
-
-#: libeog/eog-uri-converter.h:47
-#, fuzzy
-msgid "Comment"
-msgstr "_Innihald"
-
-#: libeog/eog-uri-converter.h:48
-msgid "Date"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:49
-msgid "Time"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:50
-msgid "Day"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:51
-msgid "Month"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:52
-msgid "Year"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:53
-msgid "Hour"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:54
-msgid "Minute"
-msgstr ""
-
-#: libeog/eog-uri-converter.h:55
-#, fuzzy
-msgid "Second"
-msgstr "sek"
-
-#. Translators should localize the following string
-#. * which will give them credit in the About box.
-#. * E.g. "Fulano de Tal <fulano@detal.com>"
-#.
-#: shell/eog-window.c:314
-msgid "translator-credits"
-msgstr ""
-
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
-
-#: shell/eog-window.c:322
-msgid "The GNOME image viewing and cataloging program."
-msgstr "Myndarýnir og myndflokkunarforrit fyrir GNOME"
-
-#: shell/eog-window.c:359
+#: ../src/eog-image-jpeg.c:374
 #, c-format
-msgid ""
-"Could not display help for Eye of Gnome.\n"
-"%s"
-msgstr ""
-"Ekki tókst að sýna hjálp fyrir Eye of Gnome.\n"
-"%s"
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Gat ekki búið til bráðabirgðaskrá vegna vistunar: %s"
 
-#: shell/eog-window.c:626
+#: ../src/eog-image-jpeg.c:393
 #, c-format
-msgid "Overwrite file %s?"
-msgstr ""
-
-#: shell/eog-window.c:627
-#, fuzzy
-msgid "File exists. Do you want to overwrite it?"
-msgstr "Viltu yfirskrifa %s?"
-
-#: shell/eog-window.c:636 shell/eog-window.c:649
-msgid "Skip"
-msgstr ""
-
-#: shell/eog-window.c:637
-msgid "Overwrite"
-msgstr ""
-
-#: shell/eog-window.c:642
-#, c-format
-msgid "Error on saving %s."
-msgstr ""
-
-#: shell/eog-window.c:650 shell/eog-window.c:1034
-msgid "Retry"
-msgstr ""
-
-#: shell/eog-window.c:1023
-#, fuzzy, c-format
-msgid "Couldn't determine file format of %s"
+msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
 
-#: shell/eog-window.c:1024
-msgid "Please use an appropriate filename suffix or select a file format."
-msgstr ""
+#: ../src/eog-metadata-sidebar.c:245 ../src/eog-properties-dialog.c:151
+msgid "Unknown"
+msgstr "Óþekkt"
 
-#: shell/eog-window.c:1166
-#, fuzzy
-msgid "Error on saving images."
-msgstr "Vista mynd"
+#: ../src/eog-metadata-sidebar.c:503
+#| msgid "Filesize"
+msgid "File size:"
+msgstr "Skráarstærð:"
 
-#: shell/eog-window.c:1399
-#, fuzzy, c-format
-msgid "Do you really want to move %i image to trash?"
-msgid_plural "Do you really want to move %i images to trash?"
-msgstr[0] "Viltu yfirskrifa %s?"
-msgstr[1] "Viltu yfirskrifa %s?"
+#: ../src/eog-metadata-sidebar.c:519 ../src/eog-properties-dialog.c:666
+#: ../src/eog-window.c:4089
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Sýna möppuna sem inniheldur þessa skrá í skráarstjóra"
 
-#: shell/eog-window.c:1437
-msgid "Couldn't access trash."
-msgstr ""
-
-#: shell/eog-window.c:1511
+#: ../src/eog-preferences-dialog.c:109
 #, c-format
-msgid "Error on deleting image %s"
-msgstr ""
+#| msgid "seconds"
+msgid "%lu second"
+msgid_plural "%lu seconds"
+msgstr[0] "%lu sekúnda"
+msgstr[1] "%lu sekúndur"
+
+#: ../src/eog-print.c:371
+#| msgid "Image Height"
+msgid "Image Settings"
+msgstr "Myndstillingar"
+
+#: ../src/eog-print-image-setup.c:902
+msgid "Image"
+msgstr "Mynd"
+
+#: ../src/eog-print-image-setup.c:903
+msgid "The image whose printing properties will be set up"
+msgstr "Myndin sem stilla á eiginleika fyrir"
+
+#: ../src/eog-print-image-setup.c:909
+#| msgid "Print Set_up"
+msgid "Page Setup"
+msgstr "Uppsetning síðu"
+
+#: ../src/eog-print-image-setup.c:910
+msgid "The information for the page where the image will be printed"
+msgstr "Upplýsingar fyrir síðuna þar sem myndin verður prentuð"
+
+#: ../src/eog-print-image-setup.c:936
+msgid "Position"
+msgstr "Staðsetning"
+
+#: ../src/eog-print-image-setup.c:940
+msgid "_Left:"
+msgstr "_Vinstri:"
+
+#: ../src/eog-print-image-setup.c:942
+#| msgid "Height"
+msgid "_Right:"
+msgstr "_Hægri:"
+
+#: ../src/eog-print-image-setup.c:943
+msgid "_Top:"
+msgstr "_Uppi:"
+
+#: ../src/eog-print-image-setup.c:944
+msgid "_Bottom:"
+msgstr "_Niðri:"
+
+#: ../src/eog-print-image-setup.c:947
+msgid "C_enter:"
+msgstr "_Miðja:"
+
+#: ../src/eog-print-image-setup.c:952
+msgid "None"
+msgstr "Ekkert"
+
+#: ../src/eog-print-image-setup.c:954
+#| msgid "Horizontally"
+msgid "Horizontal"
+msgstr "Lárétt"
+
+#: ../src/eog-print-image-setup.c:956
+#| msgid "Vertically"
+msgid "Vertical"
+msgstr "Lóðrétt"
+
+#: ../src/eog-print-image-setup.c:958
+msgid "Both"
+msgstr "Bæði"
+
+#: ../src/eog-print-image-setup.c:974
+msgid "Size"
+msgstr "Stærð"
+
+#: ../src/eog-print-image-setup.c:977
+#| msgid "Width"
+msgid "_Width:"
+msgstr "_Breidd:"
+
+#: ../src/eog-print-image-setup.c:979
+#| msgid "Height"
+msgid "_Height:"
+msgstr "_Hæð:"
+
+#: ../src/eog-print-image-setup.c:982
+msgid "_Scaling:"
+msgstr "_Kvörðun:"
+
+#: ../src/eog-print-image-setup.c:993
+msgid "_Unit:"
+msgstr "_Eining:"
+
+#: ../src/eog-print-image-setup.c:998
+#| msgid "Millimeter"
+msgid "Millimeters"
+msgstr "Millímetrar"
+
+#: ../src/eog-print-image-setup.c:1000
+msgid "Inches"
+msgstr "Þumlungar"
+
+#: ../src/eog-print-image-setup.c:1029
+msgid "Preview"
+msgstr "Forsýn"
+
+#: ../src/eog-save-as-dialog-helper.c:162
+msgid "as is"
+msgstr "eins og er"
+
+#. Translators: This string is displayed in the statusbar.
+#. * The first token is the image number, the second is total image
+#. * count.
+#. *
+#. * Translate to "%Id" if you want to use localized digits, or
+#. * translate to "%d" otherwise.
+#. *
+#. * Note that translating this doesn't guarantee that you get localized
+#. * digits. That needs support from your system and locale definition
+#. * too.
+#: ../src/eog-statusbar.c:126
+#, c-format
+msgid "%d / %d"
+msgstr "%d / %d"
+
+#: ../src/eog-thumb-view.c:543
+msgid "Taken on"
+msgstr "Tekin"
+
+#: ../src/eog-uri-converter.c:980
+#, c-format
+msgid "At least two file names are equal."
+msgstr "Að minnsta kosti tvö skráaheiti eru eins."
+
+#: ../src/eog-util.c:68
+#| msgid ""
+#| "Could not display help for Eye of Gnome.\n"
+#| "%s"
+msgid "Could not display help for Image Viewer"
+msgstr "Ekki tókst að sýna hjálp fyrir forritið"
+
+#: ../src/eog-util.c:116
+msgid " (invalid Unicode)"
+msgstr " (ógilt Unicode)"
 
 #  [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#. Translators: This is the string displayed in the statusbar
+#. * The tokens are from left to right:
+#. * - image width
+#. * - image height
+#. * - image size in bytes
+#. * - zoom in percent
+#: ../src/eog-window.c:541
 #, c-format
-msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i pixel  %s    %i%%"
+#| msgid "%i x %i pixel  %s    %i%%"
+msgid "%i × %i pixel  %s    %i%%"
+msgid_plural "%i × %i pixels  %s    %i%%"
+msgstr[0] "%i × %i mynddíll  %s    %i%%"
+msgstr[1] "%i × %i mynddílar  %s    %i%%"
 
-#: shell/eog-window.c:2233
-msgid "_File"
-msgstr "_Skrá"
+#: ../src/eog-window.c:849 ../src/eog-window.c:2784
+msgctxt "MessageArea"
+msgid "Hi_de"
+msgstr "_Fela"
 
-#: shell/eog-window.c:2234
-msgid "_Edit"
-msgstr "Sýs_l"
+#. The newline character is currently necessary due to a problem
+#. * with the automatic line break.
+#: ../src/eog-window.c:859
+#, c-format
+msgid ""
+"The image \"%s\" has been modified by an external application.\n"
+"Would you like to reload it?"
+msgstr ""
+"Myndini \"%s\" var breytt af öðru forriti.\n"
+"Viltu endurhlaða henni inn?"
 
-#: shell/eog-window.c:2235
-msgid "_View"
-msgstr "Sý_n"
+#: ../src/eog-window.c:1023
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "Nota „%s“ til að opna myndina sem er valin"
 
-#: shell/eog-window.c:2236
-msgid "_Help"
-msgstr "_Hjálp"
+#. Translators: This string is displayed in the statusbar
+#. * while saving images. The tokens are from left to right:
+#. * - the original filename
+#. * - the current image's position in the queue
+#. * - the total number of images queued for saving
+#: ../src/eog-window.c:1179
+#, c-format
+msgid "Saving image \"%s\" (%u/%u)"
+msgstr "Vista myndina „%s“ (%u/%u)"
 
-#: shell/eog-window.c:2237
-msgid "_New"
-msgstr "_Nýtt"
+#: ../src/eog-window.c:1574
+#, c-format
+msgid "Opening image \"%s\""
+msgstr "Opna mynd \"%s\""
 
-#: shell/eog-window.c:2237
-msgid "Open a new window"
-msgstr "Opna nýjan glugga"
+#: ../src/eog-window.c:1898
+#| msgid "_Full Screen"
+msgid "_Leave Fullscreen"
+msgstr "_Hætta í heilskjá"
 
-#: shell/eog-window.c:2238
-msgid "_Open..."
-msgstr "_Opna..."
+#. L10N: This the reason why the screensaver is inhibited.
+#: ../src/eog-window.c:2030
+msgid "Viewing a slideshow"
+msgstr "Skoðun yndasýningar"
 
-#: shell/eog-window.c:2238
-msgid "Open a file"
-msgstr "Opna skrá"
+#: ../src/eog-window.c:2259
+#, c-format
+msgid ""
+"Error printing file:\n"
+"%s"
+msgstr ""
+"Villa við að prenta skránna:\n"
+"%s"
 
-#: shell/eog-window.c:2239
-#, fuzzy
-msgid "Open _Directory..."
-msgstr "_Opna Möppu..."
+#: ../src/eog-window.c:2558
+#| msgid "_Toolbar"
+msgid "Toolbar Editor"
+msgstr "Breyta áhaldastikunni"
 
-#: shell/eog-window.c:2239
-msgid "Open a directory"
-msgstr "Opna Möppu"
+#: ../src/eog-window.c:2561
+msgid "_Reset to Default"
+msgstr "_Endurstilla"
 
-#: shell/eog-window.c:2240
+#: ../src/eog-window.c:2563 ../src/eog-window.c:4046
 msgid "_Close"
 msgstr "_Loka"
 
-#: shell/eog-window.c:2240
+#: ../src/eog-window.c:2731 ../src/eog-window.c:2746
+msgid "Error launching System Settings: "
+msgstr "Villa við að ræsa kerfisstillingar: "
+
+#. I18N: When setting mnemonics for these strings, watch out to not
+#. clash with mnemonics from eog's menubar
+#: ../src/eog-window.c:2782
+#| msgid "Eye of Gnome Preferences"
+msgid "_Open Background Preferences"
+msgstr "_Opna kjörstillingar fyrir bakgrunn"
+
+#. The newline character is currently necessary due to a problem
+#. * with the automatic line break.
+#: ../src/eog-window.c:2798
+#, c-format
+msgid ""
+"The image \"%s\" has been set as Desktop Background.\n"
+"Would you like to modify its appearance?"
+msgstr ""
+"Myndin \"%s\" hefur verið sett sem bakgrunnur skjáborðsins\n"
+"Viltu breyta framsetningu hennar?"
+
+#: ../src/eog-window.c:3265
+msgid "Saving image locally…"
+msgstr "Vista mynd á tölvunni..."
+
+#: ../src/eog-window.c:3343
+#, c-format
+msgid ""
+"Are you sure you want to remove\n"
+"\"%s\" permanently?"
+msgstr ""
+"Ertu viss um að þú viljir fjarlægja\n"
+"\"%s\" endanlega?"
+
+#: ../src/eog-window.c:3346
+#, c-format
+msgid ""
+"Are you sure you want to remove\n"
+"the selected image permanently?"
+msgid_plural ""
+"Are you sure you want to remove\n"
+"the %d selected images permanently?"
+msgstr[0] ""
+"Ertu viss um að þú viljir fjarlægja\n"
+"endanlega valda mynd?"
+msgstr[1] ""
+"Ertu viss um að þú viljir fjarlægja\n"
+"endanlega %d valdar myndir?"
+
+#: ../src/eog-window.c:3368 ../src/eog-window.c:3632
+msgid "_Delete"
+msgstr "_Eyða"
+
+#: ../src/eog-window.c:3371 ../src/eog-window.c:3634
+msgid "_Yes"
+msgstr "_Já"
+
+#. add 'dont ask again' button
+#: ../src/eog-window.c:3375 ../src/eog-window.c:3626
+msgid "Do _not ask again during this session"
+msgstr "Ekki spyrja aftur í þessari setu"
+
+#: ../src/eog-window.c:3419
+#, c-format
+msgid "Couldn't retrieve image file"
+msgstr "Ekki tókst að ná í myndskrá"
+
+#: ../src/eog-window.c:3435
+#, c-format
+msgid "Couldn't retrieve image file information"
+msgstr "Ekki tókst að ná í upplýsingar úr myndskrá"
+
+#: ../src/eog-window.c:3451 ../src/eog-window.c:3693
+#, c-format
+msgid "Couldn't delete file"
+msgstr "Gat ekki eytt skrá"
+
+#. set dialog error message
+#: ../src/eog-window.c:3501 ../src/eog-window.c:3789
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "Villa í að eyða mynd %s"
+
+#: ../src/eog-window.c:3594
+#, c-format
+msgid ""
+"Are you sure you want to move\n"
+"\"%s\" to the trash?"
+msgstr ""
+"Ert þú viss um að þú viljir flytja\n"
+"\"%s\" í ruslið?"
+
+#: ../src/eog-window.c:3597
+#, c-format
+msgid ""
+"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"permanently?"
+msgstr "Ruslmappa fyrir \"%s\" fannst ekki. Viltu eyða þessari mynd varanlega?"
+
+#: ../src/eog-window.c:3602
+#, c-format
+msgid ""
+"Are you sure you want to move\n"
+"the selected image to the trash?"
+msgid_plural ""
+"Are you sure you want to move\n"
+"the %d selected images to the trash?"
+msgstr[0] ""
+"Ert þú viss um að þú viljir flytja\n"
+"valda mynd í ruslið?"
+msgstr[1] ""
+"Ert þú viss um að þú viljir flytja\n"
+"%d valdar myndir í ruslið?"
+
+#: ../src/eog-window.c:3607
+msgid ""
+"Some of the selected images can't be moved to the trash and will be removed "
+"permanently. Are you sure you want to proceed?"
+msgstr ""
+"Sumt af myndunum er ekki hægt að setja í ruslið og verður því endanlega eytt. "
+"Ertu viss um að þú viljir halda áfram?"
+
+#: ../src/eog-window.c:3624 ../src/eog-window.c:4115 ../src/eog-window.c:4142
+#| msgid "Move to Trash"
+msgid "Move to _Trash"
+msgstr "Flytja í _Rusl"
+
+#: ../src/eog-window.c:3671 ../src/eog-window.c:3685
+#, c-format
+msgid "Couldn't access trash."
+msgstr "Fékk ekki aðgengi að ruslinu."
+
+#: ../src/eog-window.c:4036
+#| msgid "Image"
+msgid "_Image"
+msgstr "_Mynd"
+
+#: ../src/eog-window.c:4037
+msgid "_Edit"
+msgstr "Sýs_l"
+
+#: ../src/eog-window.c:4039
+msgid "_Go"
+msgstr "_Fara"
+
+#: ../src/eog-window.c:4040
+#| msgid "_Toolbar"
+msgid "_Tools"
+msgstr "_Verkfæri"
+
+#: ../src/eog-window.c:4043
+#| msgid "Open"
+msgid "_Open…"
+msgstr "_Opna…"
+
+#: ../src/eog-window.c:4044
+msgid "Open a file"
+msgstr "Opna skrá"
+
+#: ../src/eog-window.c:4047
 msgid "Close window"
 msgstr "Loka glugga"
 
-#: shell/eog-window.c:2241
-msgid "Prefere_nces"
-msgstr "Stilli_ngar"
+#: ../src/eog-window.c:4049
+#| msgid "_Toolbar"
+msgid "T_oolbar"
+msgstr "Á_haldastika"
 
-#: shell/eog-window.c:2241
-#, fuzzy
-msgid "Preferences for Eye of Gnome"
-msgstr "Stillingar fyrir EoG íhluti"
+#: ../src/eog-window.c:4050
+#| msgid "About this application"
+msgid "Edit the application toolbar"
+msgstr "Breyta áhaldastiku forritsins"
 
-#: shell/eog-window.c:2242
+#: ../src/eog-window.c:4053
+msgid "Preferences for Image Viewer"
+msgstr "Kjörstillingar myndaskoðara"
+
+#: ../src/eog-window.c:4055
 msgid "_Contents"
 msgstr "_Innihald"
 
-#: shell/eog-window.c:2242
-msgid "Help On this application"
+#: ../src/eog-window.c:4056
+#| msgid "Help On this application"
+msgid "Help on this application"
 msgstr "Skoða hjálp fyrir þetta forrit"
 
-#: shell/eog-window.c:2243
-msgid "_About"
-msgstr "_Um"
-
-#: shell/eog-window.c:2243
+#: ../src/eog-window.c:4059
 msgid "About this application"
 msgstr "Um þetta forrit"
 
-#: shell/eog-window.c:2248
-msgid "_Toolbar"
-msgstr "_Tólstika"
+#: ../src/eog-window.c:4065
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Breytir sýnileika verkfærastiku í þessum glugga"
 
-#: shell/eog-window.c:2249
-#, fuzzy
-msgid "_Statusbar"
-msgstr "Texti tólstiku"
+#: ../src/eog-window.c:4068
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Breytir sýnileika stöðustiku í þessum glugga"
 
-#: shell/eog-window.c:2254
-msgid "_Save"
-msgstr "Vi_sta"
+#: ../src/eog-window.c:4071
+msgid "Changes the visibility of the image gallery pane in the current window"
+msgstr "Breytir sýnileika myndasafnsspjalds í þessum glugga"
 
-#: shell/eog-window.c:2255
-#, fuzzy
-msgid "Save _As"
-msgstr "Vist_a sem..."
+#: ../src/eog-window.c:4074
+msgid "Changes the visibility of the side pane in the current window"
+msgstr "Breytir sýnileika hliðarspjalds í þessum glugga"
 
-#: shell/eog-window.c:2257
+#: ../src/eog-window.c:4080
+msgid "Save changes in currently selected images"
+msgstr "Vista breytingar í völdum myndum"
+
+#: ../src/eog-window.c:4082
+msgid "Open _with"
+msgstr "Opna _með"
+
+#: ../src/eog-window.c:4083
+msgid "Open the selected image with a different application"
+msgstr "Opna myndina sem er valin með öðru forriti"
+
+#: ../src/eog-window.c:4086
+msgid "Save the selected images with a different name"
+msgstr "Vista valdar myndir undir öðru nafni"
+
+#: ../src/eog-window.c:4088
+msgid "Show Containing _Folder"
+msgstr "_Birta upprunamöppu"
+
+#: ../src/eog-window.c:4091
+#| msgid "_Print..."
+msgid "_Print…"
+msgstr "_Prenta…"
+
+#: ../src/eog-window.c:4092
+msgid "Print the selected image"
+msgstr "Prenta myndina sem er valin út"
+
+#: ../src/eog-window.c:4094
+msgid "Prope_rties"
+msgstr "_Eiginleikar"
+
+#: ../src/eog-window.c:4095
+msgid "Show the properties and metadata of the selected image"
+msgstr "Birta eiginleika og lýsigögn hjá völdum myndum"
+
+#: ../src/eog-window.c:4097
 msgid "_Undo"
 msgstr "Aft_urkalla"
 
-#: shell/eog-window.c:2259
+#: ../src/eog-window.c:4098
+msgid "Undo the last change in the image"
+msgstr "Kalla aftur síðustu breytingu á myndinni"
+
+#: ../src/eog-window.c:4100
 msgid "Flip _Horizontal"
 msgstr "Velta Lá_rétt"
 
-#: shell/eog-window.c:2260
+#: ../src/eog-window.c:4101
+msgid "Mirror the image horizontally"
+msgstr "Spegla myndinni lárétt"
+
+#: ../src/eog-window.c:4103
 msgid "Flip _Vertical"
 msgstr "Velta _Lóðrétt"
 
-#: shell/eog-window.c:2262
-#, fuzzy
+#: ../src/eog-window.c:4104
+msgid "Mirror the image vertically"
+msgstr "Spegla myndinni lóðrétt"
+
+#: ../src/eog-window.c:4106
 msgid "_Rotate Clockwise"
-msgstr "Snúa með k_lukku"
+msgstr "Snúa _réttsælis"
 
-#: shell/eog-window.c:2263
-#, fuzzy
-msgid "Rotate Counter C_lockwise"
-msgstr "Snúa á móti kl_ukku"
+#: ../src/eog-window.c:4107
+msgid "Rotate the image 90 degrees to the right"
+msgstr "Snúa myndinni 90 gráður til hægri"
 
-#: shell/eog-window.c:2264
-#, fuzzy
-msgid "Rotat_e 180°"
-msgstr "Snúa um 180 grá_ður"
+#: ../src/eog-window.c:4109
+msgid "Rotate Counterc_lockwise"
+msgstr "Snúa rangsæ_lis"
 
-#: shell/eog-window.c:2266
-msgid "Delete"
-msgstr ""
+#: ../src/eog-window.c:4110
+msgid "Rotate the image 90 degrees to the left"
+msgstr "Snúa myndinni 90 gráður til vinstri"
 
-#: shell/eog-window.c:2268
-msgid "_Full Screen"
-msgstr "_Heilskjásýn"
+#: ../src/eog-window.c:4112
+msgid "Set as Wa_llpaper"
+msgstr "Se_tja sem bakgrunnsmynd"
 
-#: shell/eog-window.c:2269
+#: ../src/eog-window.c:4113
+msgid "Set the selected image as the wallpaper"
+msgstr "Nota valda mynd sem bakgrunn skjáborðsins"
+
+#: ../src/eog-window.c:4116
+msgid "Move the selected image to the trash folder"
+msgstr "Henda valinni skrá í ruslið"
+
+#: ../src/eog-window.c:4118
+#| msgid "Next Image"
+msgid "_Delete Image"
+msgstr "_Eyða mynd"
+
+#: ../src/eog-window.c:4119
+msgid "Delete the selected image"
+msgstr "Eyða valinni mynd"
+
+#: ../src/eog-window.c:4121
+msgid "_Copy"
+msgstr "_Afrita"
+
+#: ../src/eog-window.c:4122
+msgid "Copy the selected image to the clipboard"
+msgstr "Afrita valda mynd á klippispjaldið"
+
+#: ../src/eog-window.c:4124 ../src/eog-window.c:4133 ../src/eog-window.c:4136
 msgid "_Zoom In"
 msgstr "_Súma inn"
 
-#: shell/eog-window.c:2270
+#: ../src/eog-window.c:4125 ../src/eog-window.c:4134
+msgid "Enlarge the image"
+msgstr "Stækka myndina"
+
+#: ../src/eog-window.c:4127 ../src/eog-window.c:4139
 msgid "Zoom _Out"
 msgstr "Súma ú_t"
 
-#: shell/eog-window.c:2271
+#: ../src/eog-window.c:4128 ../src/eog-window.c:4137 ../src/eog-window.c:4140
+msgid "Shrink the image"
+msgstr "Minna myndina"
+
+#: ../src/eog-window.c:4130
 msgid "_Normal Size"
 msgstr "Ve_njuleg Stærð"
 
-#: shell/eog-window.c:2272
-msgid "Best _Fit"
-msgstr "Besta _Snið"
+#: ../src/eog-window.c:4131
+msgid "Show the image at its normal size"
+msgstr "Sýna myndinni í venjulegri stærð"
 
-#: shell/main.c:236
-#, fuzzy, c-format
-msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgstr ""
-"Þú ert við það að opna %i glugga samtímis. Viltu opna þá sem í staðin sem "
-"safn?"
+#: ../src/eog-window.c:4148
+#| msgid "_Full Screen"
+msgid "_Fullscreen"
+msgstr "_Heilskjár"
 
-#: shell/main.c:240
-msgid "Open multiple single windows?"
-msgstr "Opna marga einstaka glugga?"
+#: ../src/eog-window.c:4149
+msgid "Show the current image in fullscreen mode"
+msgstr "Láta þessa mynd fylla allan skjáinn"
 
-#: shell/main.c:244
-msgid "Single Windows"
-msgstr "Einstakir gluggar"
+#: ../src/eog-window.c:4151
+#| msgid "Slide Show"
+msgid "Pause Slideshow"
+msgstr "Gera hlé á myndasýningu"
 
-#: shell/main.c:246
-msgid "Collection"
-msgstr "Safn"
+#: ../src/eog-window.c:4152
+msgid "Pause or resume the slideshow"
+msgstr "Gera hlé eða halda áfram með myndasýningu"
 
-#: shell/main.c:298
-#, fuzzy
-msgid "File not found."
-msgid_plural "Files not found."
-msgstr[0] "Skrá(r) fannst/fundust ekki"
-msgstr[1] "Skrá(r) fannst/fundust ekki"
+#: ../src/eog-window.c:4154
+#| msgid "Best _Fit"
+msgid "_Best Fit"
+msgstr "_Besta lögun"
 
-#: shell/util.c:52
+#: ../src/eog-window.c:4155
+#| msgid "Print image to the printer"
+msgid "Fit the image to the window"
+msgstr "Láta myndina passa í gluggann"
+
+#: ../src/eog-window.c:4160 ../src/eog-window.c:4175
+#| msgid "Previous Image"
+msgid "_Previous Image"
+msgstr "_Fyrri mynd"
+
+#: ../src/eog-window.c:4161
+msgid "Go to the previous image of the gallery"
+msgstr "Fara á fyrri mynd í safninu"
+
+#: ../src/eog-window.c:4163
+#| msgid "Next Image"
+msgid "_Next Image"
+msgstr "_Næsta mynd"
+
+#: ../src/eog-window.c:4164
+msgid "Go to the next image of the gallery"
+msgstr "Fara á næstu mynd í safninu"
+
+#: ../src/eog-window.c:4166 ../src/eog-window.c:4178
+#| msgid "Next Image"
+msgid "_First Image"
+msgstr "_Fyrsta mynd"
+
+#: ../src/eog-window.c:4167
+msgid "Go to the first image of the gallery"
+msgstr "Fara á fyrstu mynd í safninu"
+
+#: ../src/eog-window.c:4169 ../src/eog-window.c:4181
+#| msgid "Load Image"
+msgid "_Last Image"
+msgstr "_Síðasta myndin"
+
+#: ../src/eog-window.c:4170
+msgid "Go to the last image of the gallery"
+msgstr "Fara á síðustu mynd í safninu"
+
+#: ../src/eog-window.c:4172
+#| msgid "Load Image"
+msgid "_Random Image"
+msgstr "Slem_bin mynd"
+
+#: ../src/eog-window.c:4173
+msgid "Go to a random image of the gallery"
+msgstr "Birta tilviljanakennda mynd úr safninu"
+
+#: ../src/eog-window.c:4331
+#| msgid "Slide Show"
+msgid "S_lideshow"
+msgstr "S_kyggnusýning"
+
+#: ../src/eog-window.c:4332
+msgid "Start a slideshow view of the images"
+msgstr "Skoða myndinar í skyggnusýningu"
+
+#: ../src/eog-window.c:4404
+msgid "Previous"
+msgstr "Fyrri"
+
+#: ../src/eog-window.c:4409
+msgid "Next"
+msgstr "Næsta"
+
+#: ../src/eog-window.c:4416
+#| msgid "Height"
+msgid "Right"
+msgstr "Hægri"
+
+#: ../src/eog-window.c:4419
+msgid "Left"
+msgstr "Vinstri"
+
+#: ../src/eog-window.c:4422
+#| msgid "Open Folder"
+msgid "Show Folder"
+msgstr "Birta möppu"
+
+#: ../src/eog-window.c:4425
+msgid "In"
+msgstr "Inn"
+
+#: ../src/eog-window.c:4428
+msgid "Out"
+msgstr "Út"
+
+#: ../src/eog-window.c:4431
+msgid "Normal"
+msgstr "Venjulegt"
+
+#: ../src/eog-window.c:4434
+msgid "Fit"
+msgstr "Passa"
+
+#: ../src/eog-window.c:4437
+msgid "Gallery"
+msgstr "Myndasafn"
+
+#: ../src/eog-window.c:4454
+msgctxt "action (to trash)"
+msgid "Trash"
+msgstr "Rusl"
+
+#: ../src/eog-window.c:4820
 #, c-format
-msgid "Could not open `%s'"
-msgstr "Ekki tókst að opna `%s'"
+msgid "Edit the current image using %s"
+msgstr "Breyta þessari mynd með %s"
+
+#: ../src/eog-window.c:4822
+#| msgid "EOG Image"
+msgid "Edit Image"
+msgstr "Breyta myndinni"
+
+#: ../src/eog-window.c:6166
+#| msgid "The GNOME image viewing and cataloging program."
+msgid "The GNOME image viewer."
+msgstr "GNOME myndaskoðarinn."
+
+#: ../src/eog-window.c:6169
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Baldur https://launchpad.net/~baldurpet\n"
+"  Kári Þorkelsson https://launchpad.net/~kthorkelsson\n"
+"  Sveinn í Felli https://launchpad.net/~sveinki\n"
+"  bingibergs https://launchpad.net/~bingibergs\n"
+"  helgi https://launchpad.net/~helgi"
+
+#: ../src/main.c:56
+#| msgid "EOG Image Viewer"
+msgid "GNOME Image Viewer"
+msgstr "GNOME myndaskoðari"
+
+#: ../src/main.c:63
+msgid "Open in fullscreen mode"
+msgstr "Fylla allan skjáinn í byrjun"
+
+#: ../src/main.c:64
+msgid "Disable image gallery"
+msgstr "Gera birtingu myndasafns óvirka"
+
+#: ../src/main.c:65
+#| msgid "Open in this window"
+msgid "Open in slideshow mode"
+msgstr "Byrja í skyggnusýningarham"
+
+#: ../src/main.c:66
+msgid "Start a new instance instead of reusing an existing one"
+msgstr "Setja í gang nýtt tilvik í stað þess að nýta það sem er í gangi"
+
+#: ../src/main.c:67
+msgid ""
+"Open in a single window, if multiple windows are open the first one is used"
+msgstr ""
+"Opna í stökum glugga, ef margir gluggar eru opnir verður sá fyrsti notaður"
+
+#: ../src/main.c:69
+#| msgid "About this application"
+msgid "Show the application's version"
+msgstr "Sjá útgáfu forrits"
+
+#: ../src/main.c:99
+msgid "[FILE…]"
+msgstr "[SKRÁ…]"
+
+#. I18N: The '%s' is replaced with eog's command name.
+#: ../src/main.c:112
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Keyrðu '%s --help' til að sjá alla mögulega skipanalínurofa"
+
+#~ msgid "View many different types of images"
+#~ msgstr "Skoða margar mismunandi gerðir af myndum"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "<b>Image Interpolation</b>"
+#~ msgstr "<b>Innreikningur myndar</b>"
+
+#, fuzzy
+#~ msgid "Saving Image"
+#~ msgstr "Vista mynd"
+
+#~ msgid "Sli_de Show"
+#~ msgstr "Myn_dasyrpa"
+
+#, fuzzy
+#~ msgid "_Browse"
+#~ msgstr "_Loka"
+
+#, fuzzy
+#~ msgid "_Interpolate image on zoom"
+#~ msgstr "Innreikna mynd"
+
+#~ msgid "Open images in a new window"
+#~ msgstr "Opna myndir í nýjum glugga"
+
+#, fuzzy
+#~ msgid ""
+#~ "Whether opening an image should create a new window instead of replacing "
+#~ "the image in the current window."
+#~ msgstr ""
+#~ "Hvort að opna eigi mynd í nýjum glugga í stað fyrir að útskipta mynd í "
+#~ "núverandi glugga."
+
+#~ msgid "All Images"
+#~ msgstr "Allar Myndir"
+
+#  Pixel size of image: width x height in pixel
+#~ msgid "%s x %s pixel"
+#~ msgstr "%s x %s pixel"
+
+#~ msgid "empty file"
+#~ msgstr "tóm skrá"
+
+#~ msgid "File exists"
+#~ msgstr "Skráin er þegar til"
+
+#~ msgid "Filename"
+#~ msgstr "Skráarnafn"
+
+#~ msgid "Attribute"
+#~ msgstr "Egind"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "_Skrá"
+
+#, fuzzy
+#~ msgid "Cancel saving ..."
+#~ msgstr "Hætta við vistun"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "_Innihald"
+
+#, fuzzy
+#~ msgid "Second"
+#~ msgstr "sek"
+
+#~ msgid "Eye of Gnome"
+#~ msgstr "Eye of Gnome"
+
+#, fuzzy
+#~ msgid "File exists. Do you want to overwrite it?"
+#~ msgstr "Viltu yfirskrifa %s?"
+
+#~ msgid "_File"
+#~ msgstr "_Skrá"
+
+#~ msgid "_New"
+#~ msgstr "_Nýtt"
+
+#~ msgid "Open a new window"
+#~ msgstr "Opna nýjan glugga"
+
+#~ msgid "_Open..."
+#~ msgstr "_Opna..."
+
+#, fuzzy
+#~ msgid "Open _Directory..."
+#~ msgstr "_Opna Möppu..."
+
+#~ msgid "Open a directory"
+#~ msgstr "Opna Möppu"
+
+#, fuzzy
+#~ msgid "Rotat_e 180°"
+#~ msgstr "Snúa um 180 grá_ður"
+
+#, fuzzy
+#~ msgid ""
+#~ "You are about to open %i windows simultaneously. Do you want to open them "
+#~ "in a collection instead?"
+#~ msgstr ""
+#~ "Þú ert við það að opna %i glugga samtímis. Viltu opna þá sem í staðin sem "
+#~ "safn?"
+
+#~ msgid "Open multiple single windows?"
+#~ msgstr "Opna marga einstaka glugga?"
+
+#~ msgid "Single Windows"
+#~ msgstr "Einstakir gluggar"
+
+#, fuzzy
+#~ msgid "File not found."
+#~ msgid_plural "Files not found."
+#~ msgstr[0] "Skrá(r) fannst/fundust ekki"
+#~ msgstr[1] "Skrá(r) fannst/fundust ekki"
 
 #~ msgid "EOG Image Collection Viewer"
 #~ msgstr "EOG safnmyndarýnir"
@@ -720,26 +1892,8 @@ msgstr "Ekki tókst að opna `%s'"
 #~ msgid "View as Image Collection"
 #~ msgstr "Myndasafn"
 
-#~ msgid "Next"
-#~ msgstr "Næsta"
-
-#~ msgid "Next Image"
-#~ msgstr "Næsta mynd"
-
-#~ msgid "Previous"
-#~ msgstr "Fyrri"
-
-#~ msgid "Previous Image"
-#~ msgstr "Fyrri mynd"
-
-#~ msgid "Slide Show"
-#~ msgstr "Myndasyrpa"
-
 #~ msgid "Saving finished"
 #~ msgstr "Vistun lokið"
-
-#~ msgid "Move to Trash"
-#~ msgstr "Henda í ruslið"
 
 #~ msgid "Collection View"
 #~ msgstr "Safnsýn"
@@ -756,42 +1910,21 @@ msgstr "Ekki tókst að opna `%s'"
 #~ msgid "Progress of Image Loading"
 #~ msgstr "Staða á hleðslu myndar"
 
-#~ msgid "EOG Image"
-#~ msgstr "EOG mynd"
-
-#~ msgid "EOG Image Viewer"
-#~ msgstr "EOG myndarýnir"
-
 #~ msgid "EOG Image viewer factory"
 #~ msgstr "Verksmiðja EOG myndarýnis"
 
 #~ msgid "Embeddable EOG Image"
 #~ msgstr "Innfelld EOG mynd"
 
-#~ msgid "Image"
-#~ msgstr "Mynd"
-
 #~ msgid "Images can only be saved as local files."
 #~ msgstr "Myndir er einungis hægt að vista sem staðbundar skrár."
-
-#~ msgid "Unsupported image type for saving."
-#~ msgstr "Óstudd gerð myndar til vistunar."
 
 #~ msgid "Page"
 #~ msgstr "Síða"
 
-#~ msgid "Preview"
-#~ msgstr "Forsýn"
-
-#~ msgid "Millimeter"
-#~ msgstr "Millimetrar"
-
 #  First page of notebook: Paper selection and margins.
 #~ msgid "Paper"
 #~ msgstr "Pappír"
-
-#~ msgid "% of original size"
-#~ msgstr "% af upprunalegri stærð"
 
 #~ msgid "Adjust to "
 #~ msgstr "Stillla að"
@@ -804,9 +1937,6 @@ msgstr "Ekki tókst að opna `%s'"
 
 #~ msgid "Fit to page"
 #~ msgstr "Falla að síðustærð"
-
-#~ msgid "Horizontally"
-#~ msgstr "Lárétt"
 
 #~ msgid "Horizontally by "
 #~ msgstr "Lárétt um"
@@ -835,50 +1965,23 @@ msgstr "Ekki tókst að opna `%s'"
 #~ msgid "Show"
 #~ msgstr "Sýna"
 
-#~ msgid "Vertically"
-#~ msgstr "Lóðrétt"
-
 #~ msgid "Vertically by "
 #~ msgstr "Lóðrétt um"
 
 #~ msgid "The name of the file or data to print"
 #~ msgstr "Nafn skráar eða gangs sem á að prenta"
 
-#~ msgid "Cancel"
-#~ msgstr "Hætta við"
-
 #~ msgid "New"
 #~ msgstr "Nýtt"
-
-#~ msgid "Open"
-#~ msgstr "Opna"
 
 #~ msgid "Open in new window"
 #~ msgstr "Opna í nýjum glugga"
 
-#~ msgid "Open in this window"
-#~ msgstr "Opna í þessum glugga"
-
 #~ msgid "Quit the program"
 #~ msgstr "Hætta í forritinu"
 
-#~ msgid "_Quit"
-#~ msgstr "H_ætta"
-
 #~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 #~ msgstr "Samúel Jón Gunnarsson  <sammi@techattack.nu>"
-
-#~ msgid "Fit"
-#~ msgstr "Passa"
-
-#~ msgid "In"
-#~ msgstr "Inn"
-
-#~ msgid "Normal"
-#~ msgstr "Venjulegt"
-
-#~ msgid "Out"
-#~ msgstr "Út"
 
 #~ msgid "Full Screen"
 #~ msgstr "Heilskjásýn"
@@ -889,12 +1992,6 @@ msgstr "Ekki tókst að opna `%s'"
 #~ msgid "Print Previe_w..."
 #~ msgstr "Pren_taraforsýn..."
 
-#~ msgid "Print Set_up"
-#~ msgstr "Prentar_uppsetning"
-
-#~ msgid "Print image to the printer"
-#~ msgstr "Senda mynd til prentara"
-
 #~ msgid "Rotate Left"
 #~ msgstr "Snúa til visnstri"
 
@@ -903,9 +2000,6 @@ msgstr "Ekki tókst að opna `%s'"
 
 #~ msgid "Setup the page settings for your current printer"
 #~ msgstr "Stilla pappírsstærðir fyrir prentarann þinn"
-
-#~ msgid "_Print..."
-#~ msgstr "_Prenta..."
 
 #~ msgid "/Rotate C_lockwise"
 #~ msgstr "/Snúa til _hægri"
@@ -938,17 +2032,8 @@ msgstr "Ekki tókst að opna `%s'"
 #~ "Hleðsla myndar %s mistókst.\n"
 #~ "Ástæða: %s."
 
-#~ msgid "Loading failed"
-#~ msgstr "Hleðsla mistókst"
-
 #~ msgid "Image successfully saved"
 #~ msgstr "Vistun myndar tókst"
-
-#~ msgid "Image saving failed"
-#~ msgstr "Vistun myndar mistókst"
-
-#~ msgid "Image Height"
-#~ msgstr "Hæð myndar"
 
 #~ msgid "Statusbar Text"
 #~ msgstr "Texti tólstiku"
