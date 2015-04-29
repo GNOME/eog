@@ -533,36 +533,37 @@ update_status_bar (EogWindow *window)
 
 	priv = window->priv;
 
-	if (priv->image != NULL &&
-	    eog_image_has_data (priv->image, EOG_IMAGE_DATA_DIMENSION)) {
-		int zoom, width, height;
-		goffset bytes = 0;
+	if (priv->image != NULL) {
+		if (eog_image_has_data (priv->image, EOG_IMAGE_DATA_DIMENSION)) {
+			int zoom, width, height;
+			goffset bytes = 0;
 
-		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->view)) + 0.5);
+			zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->view)) + 0.5);
 
-		eog_image_get_size (priv->image, &width, &height);
+			eog_image_get_size (priv->image, &width, &height);
 
-		bytes = eog_image_get_bytes (priv->image);
+			bytes = eog_image_get_bytes (priv->image);
 
-		if ((width > 0) && (height > 0)) {
-			gchar *size_string;
+			if ((width > 0) && (height > 0)) {
+				gchar *size_string;
 
-			size_string = g_format_size (bytes);
+				size_string = g_format_size (bytes);
 
-			/* Translators: This is the string displayed in the statusbar
-			 * The tokens are from left to right:
-			 * - image width
-			 * - image height
-			 * - image size in bytes
-			 * - zoom in percent */
-			str = g_strdup_printf (ngettext("%i × %i pixel  %s    %i%%",
-							"%i × %i pixels  %s    %i%%", height),
-						width,
-						height,
-						size_string,
-						zoom);
+				/* Translators: This is the string displayed in the statusbar
+				 * The tokens are from left to right:
+				 * - image width
+				 * - image height
+				 * - image size in bytes
+				 * - zoom in percent */
+				str = g_strdup_printf (ngettext("%i × %i pixel  %s    %i%%",
+								"%i × %i pixels  %s    %i%%", height),
+							width,
+							height,
+							size_string,
+							zoom);
 
-			g_free (size_string);
+				g_free (size_string);
+			}
 		}
 
 		update_image_pos (window);
