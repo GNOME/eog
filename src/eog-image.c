@@ -1086,8 +1086,6 @@ eog_image_real_load (EogImage *img,
 					break;
 				}
 
-				eog_image_emit_size_prepared (img);
-
 				priv->metadata_status = EOG_IMAGE_METADATA_NOT_AVAILABLE;
 			}
 
