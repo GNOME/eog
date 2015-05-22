@@ -347,6 +347,7 @@ eog_window_set_gallery_mode (EogWindow           *window,
 	}
 
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
+	gtk_widget_show (priv->layout);
 
 	eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav), mode);
 
@@ -743,9 +744,32 @@ update_action_groups_state (EogWindow *window)
 		n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 	}
 
-	if (n_images == 0) {
-		gtk_widget_hide (priv->layout);
+	if (priv->flags & EOG_STARTUP_DISABLE_GALLERY) {
+		g_settings_set_boolean (priv->ui_settings,
+					EOG_CONF_UI_IMAGE_GALLERY,
+					FALSE);
 
+		show_image_gallery = FALSE;
+	} else {
+		show_image_gallery =
+			g_settings_get_boolean (priv->ui_settings,
+					EOG_CONF_UI_IMAGE_GALLERY);
+	}
+
+	show_image_gallery &= n_images > 1 &&
+			      priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
+
+	gtk_widget_set_visible (priv->nav, show_image_gallery);
+
+	g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
+				   g_variant_new_boolean (show_image_gallery));
+
+	if (show_image_gallery)
+		gtk_widget_grab_focus (priv->thumbview);
+	else
+		gtk_widget_grab_focus (priv->view);
+
+	if (n_images == 0) {
 		_eog_window_enable_window_actions (window, TRUE);
 		_eog_window_enable_image_actions (window, FALSE);
 		_eog_window_enable_gallery_actions (window, FALSE);
@@ -759,29 +783,6 @@ update_action_groups_state (EogWindow *window)
 			priv->status = EOG_WINDOW_STATUS_NORMAL;
 		}
 	} else {
-		if (priv->flags & EOG_STARTUP_DISABLE_GALLERY) {
-			g_settings_set_boolean (priv->ui_settings,
-						EOG_CONF_UI_IMAGE_GALLERY,
-						FALSE);
-
-			show_image_gallery = FALSE;
-		} else {
-			show_image_gallery =
-				g_settings_get_boolean (priv->ui_settings,
-						EOG_CONF_UI_IMAGE_GALLERY);
-		}
-
-		show_image_gallery = show_image_gallery &&
-				     n_images > 1 &&
-				     priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
-
-		gtk_widget_show (priv->layout);
-
-		gtk_widget_set_visible (priv->nav, show_image_gallery);
-
-		g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
-					   g_variant_new_boolean (show_image_gallery));
-
 		_eog_window_enable_window_actions (window, TRUE);
 		_eog_window_enable_image_actions (window, TRUE);
 
@@ -795,11 +796,6 @@ update_action_groups_state (EogWindow *window)
 			_eog_window_enable_gallery_actions (window, TRUE);
 			g_simple_action_set_enabled (G_SIMPLE_ACTION (action_sshow), TRUE);
 		}
-
-		if (show_image_gallery)
-			gtk_widget_grab_focus (priv->thumbview);
-		else
-			gtk_widget_grab_focus (priv->view);
 	}
 
 	print_disabled = g_settings_get_boolean (priv->lockdown_settings,
