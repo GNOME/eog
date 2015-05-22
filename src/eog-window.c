@@ -261,8 +261,11 @@ eog_window_set_gallery_mode (EogWindow           *window,
 
 	priv = window->priv;
 
-	if (priv->gallery_position == position &&
-	    priv->gallery_resizable == resizable)
+	/* If layout is not set, ignore similar parameters
+	 * to make sure a layout is set eventually */
+	if (priv->layout
+	    && priv->gallery_position == position
+	    && priv->gallery_resizable == resizable)
 		return;
 
 	priv->gallery_position = position;
@@ -273,10 +276,13 @@ eog_window_set_gallery_mode (EogWindow           *window,
 	g_object_ref (hpaned);
 	g_object_ref (priv->nav);
 
-	gtk_container_remove (GTK_CONTAINER (priv->layout), hpaned);
-	gtk_container_remove (GTK_CONTAINER (priv->layout), priv->nav);
+	if (priv->layout)
+	{
+		gtk_container_remove (GTK_CONTAINER (priv->layout), hpaned);
+		gtk_container_remove (GTK_CONTAINER (priv->layout), priv->nav);
 
-	gtk_widget_destroy (priv->layout);
+		gtk_widget_destroy (priv->layout);
+	}
 
 	switch (position) {
 	case EOG_WINDOW_GALLERY_POS_BOTTOM:
@@ -4314,8 +4320,6 @@ eog_window_construct_ui (EogWindow *window)
 		gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
 					      "tip_message");
 
-	priv->layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-
 	hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 
 	priv->sidebar = eog_sidebar_new ();
@@ -4415,8 +4419,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_widget_show_all (hpaned);
 
-	gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
-
 	priv->thumbview = g_object_ref (eog_thumb_view_new ());
 
 	/* giving shape to the view */
@@ -4443,9 +4445,8 @@ eog_window_construct_ui (EogWindow *window)
 	g_object_unref (popup_menu);
 	g_clear_object (&builder);
 
-	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
-
-	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
+	// Setup priv->layout
+	eog_window_set_gallery_mode (window, priv->gallery_position, priv->gallery_resizable);
 
 	g_settings_bind (priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_POSITION,
 			 window, "gallery-position", G_SETTINGS_BIND_GET);
@@ -4520,7 +4521,7 @@ eog_window_init (EogWindow *window)
 		eog_window_get_display_profile (GTK_WIDGET (window));
 #endif
 
-	window->priv->gallery_position = 0;
+	window->priv->gallery_position = EOG_WINDOW_GALLERY_POS_BOTTOM;
 	window->priv->gallery_resizable = FALSE;
 
 	window->priv->save_disabled = FALSE;
