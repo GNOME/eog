@@ -771,8 +771,7 @@ update_action_groups_state (EogWindow *window)
 
 		gtk_widget_show (priv->layout);
 
-		if (show_image_gallery)
-			gtk_widget_show (priv->nav);
+		gtk_widget_set_visible (priv->nav, show_image_gallery);
 
 		g_simple_action_set_state (G_SIMPLE_ACTION (action_gallery),
 					   g_variant_new_boolean (show_image_gallery));
@@ -1933,7 +1932,8 @@ update_ui_visibility (EogWindow *window)
 	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = g_settings_get_boolean (priv->ui_settings,
 						  EOG_CONF_UI_IMAGE_GALLERY);
-		visible = visible && priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
+		visible &= gtk_widget_get_visible (priv->nav);
+		visible &= (priv->mode != EOG_WINDOW_MODE_SLIDESHOW);
 		action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery");
 		g_assert (action != NULL);
 		g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
