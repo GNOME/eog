@@ -109,7 +109,6 @@ eog_thumb_view_constructed (GObject *object)
 				    FALSE);
 
 	g_object_set (thumbview->priv->pixbuf_cell,
-	              "follow-state", FALSE,
 	              "height", 100,
 	              "width", 115,
 	              "yalign", 0.5,
