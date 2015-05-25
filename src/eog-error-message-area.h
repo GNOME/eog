@@ -43,7 +43,8 @@ typedef enum
 	EOG_ERROR_MESSAGE_AREA_RESPONSE_NONE   = 0,
 	EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL = 1,
 	EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD = 2,
-	EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS = 3
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS = 3,
+	EOG_ERROR_MESSAGE_AREA_RESPONSE_OPEN_WITH_EVINCE = 4
 } EogErrorMessageAreaResponseType;
 
 G_GNUC_INTERNAL
@@ -56,5 +57,8 @@ GtkWidget   *eog_image_save_error_message_area_new   (const gchar  *caption,
 
 G_GNUC_INTERNAL
 GtkWidget   *eog_no_images_error_message_area_new    (GFile *file);
+
+G_GNUC_INTERNAL
+GtkWidget   *eog_multipage_error_message_area_new    (void);
 
 #endif /* __EOG_ERROR_MESSAGE_AREA__ */

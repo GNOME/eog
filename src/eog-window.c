@@ -206,6 +206,9 @@ static gboolean eog_window_save_images (EogWindow *window, GList *images);
 static void eog_window_finish_saving (EogWindow *window);
 static void eog_window_zoom_scale_value_changed_cb (GtkRange *range,
 						    gpointer user_data);
+static void eog_window_error_message_area_response (GtkInfoBar *message_area,
+						    gint        response_id,
+						    EogWindow  *window);
 
 static GQuark
 eog_window_error_quark (void)
@@ -968,6 +971,41 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	update_status_bar (window);
 
 	eog_window_update_open_with_menu (window, image);
+
+	if (eog_image_is_multipaged (image)) {
+		GtkWidget *info_bar;
+
+		eog_debug_message (DEBUG_IMAGE_DATA, "Image is multipaged");
+
+		info_bar = eog_multipage_error_message_area_new ();
+		g_signal_connect (info_bar,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+		gtk_widget_show (info_bar);
+		eog_window_set_message_area (window, info_bar);
+	}
+}
+
+static void
+_eog_window_launch_appinfo_with_files (EogWindow *window,
+				       GAppInfo *appinfo,
+				       GList *files)
+{
+	GdkAppLaunchContext *context;
+
+	context = gdk_display_get_app_launch_context (
+	  gtk_widget_get_display (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_screen (context,
+	  gtk_widget_get_screen (GTK_WIDGET (window)));
+	gdk_app_launch_context_set_icon (context,
+	  g_app_info_get_icon (appinfo));
+	gdk_app_launch_context_set_timestamp (context,
+	  gtk_get_current_event_time ());
+
+	g_app_info_launch (appinfo, files, G_APP_LAUNCH_CONTEXT (context), NULL);
+
+	g_object_unref (context);
 }
 
 static void
@@ -980,7 +1018,7 @@ eog_window_action_open_with (GSimpleAction *action,
 	GFile *file;
 	GList *files = NULL;
 	guint32 index = -1;
-	GdkAppLaunchContext *context;
+
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 	window = EOG_WINDOW (user_data);
@@ -996,20 +1034,10 @@ eog_window_action_open_with (GSimpleAction *action,
 	file = eog_image_get_file (window->priv->image);
 	files = g_list_append (files, file);
 
-	context = gdk_display_get_app_launch_context (
-	  gtk_widget_get_display (GTK_WIDGET (window)));
-	gdk_app_launch_context_set_screen (context,
-	  gtk_widget_get_screen (GTK_WIDGET (window)));
-	gdk_app_launch_context_set_icon (context,
-	  g_app_info_get_icon (app));
-	gdk_app_launch_context_set_timestamp (context,
-	  gtk_get_current_event_time ());
+	_eog_window_launch_appinfo_with_files (window, app, files);
 
-	g_app_info_launch (app, files, G_APP_LAUNCH_CONTEXT (context), NULL);
-
-	g_object_unref (file);
-	g_object_unref (context);
 	g_list_free (files);
+	g_object_unref (file);
 }
 
 static void
@@ -1277,6 +1305,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 	switch (response_id) {
 	case EOG_ERROR_MESSAGE_AREA_RESPONSE_NONE:
 	case EOG_ERROR_MESSAGE_AREA_RESPONSE_CANCEL:
+	case GTK_RESPONSE_CLOSE:
 		/* nothing to do in this case */
 		break;
 	case EOG_ERROR_MESSAGE_AREA_RESPONSE_RELOAD:
@@ -1288,6 +1317,26 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 			g_action_map_lookup_action (G_ACTION_MAP (window),
 							      "save-as");
 		eog_window_action_save_as (G_SIMPLE_ACTION (action_save_as), NULL, window);
+		break;
+	case EOG_ERROR_MESSAGE_AREA_RESPONSE_OPEN_WITH_EVINCE:
+	{
+		GDesktopAppInfo *app_info;
+		GFile *img_file;
+		GList *img_files = NULL;
+
+		app_info = g_desktop_app_info_new ("evince.desktop");
+
+		if (app_info) {
+			img_file = eog_image_get_file (window->priv->image);
+			if (img_file) {
+				img_files = g_list_append (img_files, img_file);
+			}
+			_eog_window_launch_appinfo_with_files (window,
+							       G_APP_INFO (app_info),
+							       img_files);
+			g_list_free_full (img_files, g_object_unref);
+		}
+	}
 		break;
 	}
 }

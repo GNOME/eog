@@ -2501,3 +2501,33 @@ eog_image_is_jpeg (EogImage *img)
 
 	return ((img->priv->file_type != NULL) && (g_ascii_strcasecmp (img->priv->file_type, EOG_FILE_FORMAT_JPEG) == 0));
 }
+
+/**
+ * eog_image_is_multipaged:
+ * @img: an #EogImage
+ *
+ * Check whether the image actually contains multiple images/pages.
+ * This can happen for TIFF files. GIF animations are not multipaged.
+ *
+ * Note that this only works if the image data is loaded.
+ *
+ * Returns: %TRUE if @img is multipaged, %FALSE if not or the image data wasn't loaded.
+ * Since: 3.18
+ **/
+gboolean
+eog_image_is_multipaged (EogImage *img)
+{
+	gboolean result = FALSE;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	if (img->priv->image != NULL)
+	{
+		const gchar* value = gdk_pixbuf_get_option (img->priv->image,
+							    "multipage");
+
+		result = (g_strcmp0 ("yes", value) == 0);
+	}
+
+	return result;
+}

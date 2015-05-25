@@ -219,6 +219,8 @@ gboolean          eog_image_is_file_changed          (EogImage *img);
 
 gboolean          eog_image_is_file_writable         (EogImage *img);
 
+gboolean          eog_image_is_multipaged            (EogImage *img);
+
 G_END_DECLS
 
 #endif /* __EOG_IMAGE_H__ */
