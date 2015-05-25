@@ -4234,6 +4234,7 @@ eog_window_zoom_button_toggled_cb (GtkToggleButton *button, gpointer user_data)
 							   GTK_ICON_SIZE_BUTTON);
 		gtk_widget_set_tooltip_text (GTK_WIDGET (button),
 					     _("Fit the image to the window"));
+		eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (priv->view), FALSE);
 	} else {
 		zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
