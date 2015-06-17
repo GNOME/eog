@@ -408,6 +408,7 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      folder_label);
+#if HAVE_EXIF
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      aperture_label);
@@ -432,6 +433,7 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      time_label);
+#endif /* HAVE_EXIF */
 }
 
 
