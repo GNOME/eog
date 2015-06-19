@@ -4,7 +4,6 @@ appiconsdir = $(datadir)/icons/hicolor/$(size)/apps
 
 dist_actionicons_DATA = \
 	actions/eog-plugin.svg		\
-	actions/eog-image-gallery.svg	\
 	actions/eog-image-gallery-symbolic.svg	\
 	actions/slideshow-play.svg
 

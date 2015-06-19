@@ -6,11 +6,9 @@ dist_appicons_DATA = \
 	apps/eog.png
 dist_actionicons_DATA = \
 	actions/eog-plugin.png	  	\
-	actions/eog-image-gallery.png  \
 	actions/slideshow-play.png
 
 noinst_DATA = \
-	actions/eog-image-gallery.svg  \
 	actions/eog-plugin.svg  \
 	actions/slideshow-play.svg
 
