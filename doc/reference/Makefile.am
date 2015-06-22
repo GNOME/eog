@@ -77,10 +77,8 @@ IGNORE_HFILES= \
 	eog-print-preview.h
 
 if !HAVE_EXIF
-if !HAVE_EXEMPI
 IGNORE_HFILES +=			\
 	eog-exif-util.h
-endif
 endif
 
 # Images to copy into HTML directory.
