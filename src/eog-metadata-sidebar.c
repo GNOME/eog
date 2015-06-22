@@ -50,7 +50,8 @@
 #include <exempi/xmpconsts.h>
 #endif
 
-#if HAVE_EXIF || HAVE_EXEMPI
+/* There's no exempi support in the sidebar yet */
+#if HAVE_EXIF  /*|| HAVE_EXEMPI */
 #define HAVE_METADATA 1
 #endif
 
@@ -81,6 +82,8 @@ struct _EogMetadataSidebarPrivate {
 	GtkWidget *model_label;
 	GtkWidget *date_label;
 	GtkWidget *time_label;
+#else
+	GtkWidget *metadata_grid;
 #endif
 };
 
@@ -155,18 +158,14 @@ static void
 eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 {
 	EogMetadataSidebarPrivate *priv = sidebar->priv;
-	EogImage *img = priv->image;
 #if HAVE_EXIF
+	EogImage *img = priv->image;
 	ExifData *exif_data = NULL;
-#endif
 
 	if (img) {
-#if HAVE_EXIF
 		exif_data = eog_image_get_exif_info (img);
-#endif
 	}
 
-#if HAVE_EXIF
 	eog_exif_util_set_label_text (GTK_LABEL (priv->aperture_label),
 				      exif_data, EXIF_TAG_FNUMBER);
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exposure_label),
@@ -316,6 +315,18 @@ eog_metadata_sidebar_init (EogMetadataSidebar *sidebar)
 
 	g_signal_connect (priv->folder_label, "activate-link",
 			  G_CALLBACK (_folder_label_clicked_cb), sidebar);
+
+#ifndef HAVE_EXIF
+	{
+		/* Remove the lower 8 lines as they are empty without libexif*/
+		guint i;
+
+		for (i = 11; i > 3; i--)
+		{
+			gtk_grid_remove_row (GTK_GRID (priv->metadata_grid), i);
+		}
+	}
+#endif /* !HAVE_EXIF */
 }
 
 static void
@@ -432,6 +443,10 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      time_label);
+#else
+	gtk_widget_class_bind_template_child_private (widget_class,
+						      EogMetadataSidebar,
+						      metadata_grid);
 #endif /* HAVE_EXIF */
 }
 
