@@ -1900,7 +1900,7 @@ eog_window_get_exit_fullscreen_button (EogWindow *window)
 	GtkWidget *image;
 
 	button = gtk_button_new_with_mnemonic (_("_Leave Fullscreen"));
-	image = gtk_image_new_from_icon_name ("view-restore",
+	image = gtk_image_new_from_icon_name ("view-restore-symbolic",
 					      GTK_ICON_SIZE_BUTTON);
 	gtk_button_set_image (GTK_BUTTON (button), image);
 	gtk_button_set_always_show_image (GTK_BUTTON (button), TRUE);
