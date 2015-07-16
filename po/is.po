@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-25 04:33+0000\n"
-"PO-Revision-Date: 2015-04-27 14:36+0000\n"
+"POT-Creation-Date: 2015-07-02 03:33+0000\n"
+"PO-Revision-Date: 2015-07-16 14:15+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -69,8 +69,8 @@ msgstr ""
 "Ennfremur les hann merki frá myndavélum þannig að myndum sé snúið sjálfvirkt "
 "lárétt eða lóðrétt, eftir því hvernig þær voru teknar."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5484
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
+#: ../src/eog-window.c:5499
 msgid "Image Viewer"
 msgstr "Myndarýnir"
 
@@ -230,7 +230,7 @@ msgstr "Vista sem"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3184 ../src/eog-window.c:3187 ../src/eog-window.c:3440
+#: ../src/eog-window.c:3199 ../src/eog-window.c:3202 ../src/eog-window.c:3455
 msgid "_Cancel"
 msgstr "_Hætta við"
 
@@ -383,7 +383,7 @@ msgstr "Fara á fyrstu myndina í safninu"
 msgid "_First Image"
 msgstr "_Fyrsta mynd"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2972
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2970
 msgid "Go to the previous image of the gallery"
 msgstr "Fara á fyrri mynd í safninu"
 
@@ -391,7 +391,7 @@ msgstr "Fara á fyrri mynd í safninu"
 msgid "_Previous Image"
 msgstr "Fy_rri mynd"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2960
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2958
 msgid "Go to the next image of the gallery"
 msgstr "Fara á næstu mynd í safninu"
 
@@ -431,7 +431,7 @@ msgstr "_Venjuleg stærð"
 msgid "_Best Fit"
 msgstr "_Passar best"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2987
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2985
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Snúa myndinni 90 gráður til vinstri"
 
@@ -439,7 +439,7 @@ msgstr "Snúa myndinni 90 gráður til vinstri"
 msgid "Rotate Counter_clockwise"
 msgstr "Snúa ran_gsælis"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2998
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2996
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Snúa myndinni 90 gráður til hægri"
 
@@ -519,9 +519,8 @@ msgid ""
 "theme instead."
 msgstr ""
 "Liturinn sem notaður er til að fylla svæðið á bakvið myndina. Ef lykillinn "
-"'use-"
-"background-color' er ekki stilltur, verður liturinn tilgreindur af virku GTK+ "
-"þemunni."
+"'use-background-color' er ekki stilltur, verður liturinn tilgreindur af "
+"virku GTK+ þemunni."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:5
 msgid "Interpolate Image"
@@ -611,8 +610,7 @@ msgid ""
 msgstr ""
 "Ef þetta er virkt verður liturinn sem skilgreindur er af lyklinum 'use-"
 "background-color' notaður til að fylla svæðið á bakvið myndina. Ef þetta er "
-"ekki stillt, verður liturinn tilgreindur af virku GTK+ "
-"þemunni."
+"ekki stillt, verður liturinn tilgreindur af virku GTK+ þemunni."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:20
 msgid "Loop through the image sequence"
@@ -632,8 +630,8 @@ msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Ef þetta er EKKI virkt verða smærri myndir ekki teygðar til að passa á skjá í "
-"upphafi."
+"Ef þetta er EKKI virkt verða smærri myndir ekki teygðar til að passa á skjá "
+"í upphafi."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:25
 msgid "Delay in seconds until showing the next image"
@@ -689,9 +687,10 @@ msgid ""
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
-"Ef þetta er virkt, mun Eye of GNOME myndarýnirinn ekki spyrja um staðfestingu "
-"þegar myndum er hent í ruslið. Eftir sem áður verður spurt um staðfestingu ef "
-"ekki er hægt að setja myndir í ruslið og þeim því endanlega eytt í staðinn."
+"Ef þetta er virkt, mun Eye of GNOME myndarýnirinn ekki spyrja um "
+"staðfestingu þegar myndum er hent í ruslið. Eftir sem áður verður spurt um "
+"staðfestingu ef ekki er hægt að setja myndir í ruslið og þeim því endanlega "
+"eytt í staðinn."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:36
 msgid ""
@@ -708,6 +707,10 @@ msgid ""
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
+"Ef þetta er virkt og engin mynd er hlaðin inn í virka glugganum, mun "
+"skráaveljarinn birta myndamöppu notandans eins og hún er skilgreind í "
+"XDG-sérmöppum notandans. Ef þetta er óvirkt eða myndamappa notanda er ekki "
+"uppsett, mun núverandi vinnumappa birtast."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:38
 msgid ""
@@ -723,10 +726,10 @@ msgid ""
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
 "be embedded on the \"Metadata\" page."
 msgstr ""
-"Ef þetta er virkt, verður nákvæmur listi með lýsigögnum í stillingarglugganum "
-"færður yfir í sína eigin síðu í glugganum. Þetta er gagnlegt á minni skjám "
-"eins og á fartölvum og slíku. Ef þetta er óvirkt verður listinn innifalinn á "
-"síðunni \"Lýsigögn\"."
+"Ef þetta er virkt, verður nákvæmur listi með lýsigögnum í "
+"stillingarglugganum færður yfir í sína eigin síðu í glugganum. Þetta er "
+"gagnlegt á minni skjám eins og á fartölvum og slíku. Ef þetta er óvirkt "
+"verður listinn innifalinn á síðunni \"Lýsigögn\"."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:40
 msgid "Active plugins"
@@ -750,7 +753,7 @@ msgstr "Opna _með"
 msgid "_Copy"
 msgstr "_Afrita"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3443
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3458
 msgid "Move to _Trash"
 msgstr "_Henda í ruslið"
 
@@ -819,7 +822,7 @@ msgstr "V_eldu myndirnar sem þú vilt vista:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Ef þú vistar ekki munu allar breytingar glatast."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:899
+#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:902
 msgid "_Reload"
 msgstr "Endu_rhlaða"
 
@@ -1183,21 +1186,21 @@ msgstr " (ógilt Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:556
+#: ../src/eog-window.c:558
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i mynddíll  %s    %i%%"
 msgstr[1] "%i × %i mynddílar  %s    %i%%"
 
-#: ../src/eog-window.c:901 ../src/eog-window.c:2587
+#: ../src/eog-window.c:904 ../src/eog-window.c:2602
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Fela"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:911
+#: ../src/eog-window.c:914
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1211,30 +1214,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1149
+#: ../src/eog-window.c:1152
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Vista myndina „%s“ (%u/%u)"
 
-#: ../src/eog-window.c:1553
+#: ../src/eog-window.c:1556
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Opna mynd \"%s\""
 
-#: ../src/eog-window.c:1837
+#: ../src/eog-window.c:1852
 msgid "_Leave Fullscreen"
 msgstr "_Hætta í skjáfylli"
 
-#: ../src/eog-window.c:1843
+#: ../src/eog-window.c:1858
 msgid "Leave fullscreen mode"
 msgstr "Hætta í skjáfylli"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1957
+#: ../src/eog-window.c:1972
 msgid "Viewing a slideshow"
 msgstr "Skoðun skyggnusýninga"
 
-#: ../src/eog-window.c:2176
+#: ../src/eog-window.c:2191
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1243,17 +1246,17 @@ msgstr ""
 "Villa við að prenta skrána:\n"
 "%s"
 
-#: ../src/eog-window.c:2536 ../src/eog-window.c:2551
+#: ../src/eog-window.c:2551 ../src/eog-window.c:2566
 msgid "Error launching System Settings: "
 msgstr "Villa við að ræsa kerfisstillingar: "
 
-#: ../src/eog-window.c:2585
+#: ../src/eog-window.c:2600
 msgid "_Open Background Preferences"
 msgstr "_Opna kjörstillingar fyrir bakgrunn"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2601
+#: ../src/eog-window.c:2616
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1262,11 +1265,11 @@ msgstr ""
 "Myndin \"%s\" hefur verið sett sem bakgrunnur skjáborðsins\n"
 "Viltu breyta framsetningu hennar?"
 
-#: ../src/eog-window.c:3082
+#: ../src/eog-window.c:3097
 msgid "Saving image locally…"
 msgstr "Vista mynd á tölvunni..."
 
-#: ../src/eog-window.c:3160
+#: ../src/eog-window.c:3175
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1275,7 +1278,7 @@ msgstr ""
 "Ertu viss um að þú viljir fjarlægja\n"
 "\"%s\" endanlega?"
 
-#: ../src/eog-window.c:3163
+#: ../src/eog-window.c:3178
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1290,41 +1293,41 @@ msgstr[1] ""
 "Ertu viss um að þú viljir fjarlægja\n"
 "endanlega %d valdar myndir?"
 
-#: ../src/eog-window.c:3185 ../src/eog-window.c:3451
+#: ../src/eog-window.c:3200 ../src/eog-window.c:3466
 msgid "_Delete"
 msgstr "_Eyða"
 
-#: ../src/eog-window.c:3188 ../src/eog-window.c:3453
+#: ../src/eog-window.c:3203 ../src/eog-window.c:3468
 msgid "_Yes"
 msgstr "_Já"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3192 ../src/eog-window.c:3445
+#: ../src/eog-window.c:3207 ../src/eog-window.c:3460
 msgid "Do _not ask again during this session"
 msgstr "Ekki spyrja aftur í þessari setu"
 
-#: ../src/eog-window.c:3236
+#: ../src/eog-window.c:3251
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Ekki tókst að ná í myndskrá"
 
-#: ../src/eog-window.c:3252
+#: ../src/eog-window.c:3267
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Ekki tókst að ná í upplýsingar úr myndskrá"
 
-#: ../src/eog-window.c:3268 ../src/eog-window.c:3512
+#: ../src/eog-window.c:3283 ../src/eog-window.c:3527
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Gat ekki eytt skrá"
 
 #. set dialog error message
-#: ../src/eog-window.c:3318 ../src/eog-window.c:3612
+#: ../src/eog-window.c:3333 ../src/eog-window.c:3627
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Villa við að eyða mynd %s"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3428
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1333,14 +1336,14 @@ msgstr ""
 "Ert þú viss um að þú viljir flytja\n"
 "\"%s\" í ruslið?"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3431
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "Ruslmappa fyrir \"%s\" fannst ekki. Viltu eyða þessari mynd varanlega?"
 
-#: ../src/eog-window.c:3421
+#: ../src/eog-window.c:3436
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1355,7 +1358,7 @@ msgstr[1] ""
 "Ert þú viss um að þú viljir flytja\n"
 "%d valdar mynd í ruslið?"
 
-#: ../src/eog-window.c:3426
+#: ../src/eog-window.c:3441
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1363,32 +1366,32 @@ msgstr ""
 "Sumt af myndunum er ekki hægt að setja í ruslið og verður því endanlega "
 "eytt. Ertu viss um að þú viljir halda áfram?"
 
-#: ../src/eog-window.c:3490 ../src/eog-window.c:3504
+#: ../src/eog-window.c:3505 ../src/eog-window.c:3519
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Fékk ekki aðgang að ruslinu."
 
-#: ../src/eog-window.c:4170
+#: ../src/eog-window.c:4185
 msgid "Fit the image to the window"
 msgstr "Láta myndina passa í gluggann"
 
-#: ../src/eog-window.c:4177 ../src/eog-window.c:4222
+#: ../src/eog-window.c:4192 ../src/eog-window.c:4237
 msgid "Shrink or enlarge the current image"
 msgstr "Stækka eða minnka myndina"
 
-#: ../src/eog-window.c:4272
+#: ../src/eog-window.c:4287
 msgid "Show the current image in fullscreen mode"
 msgstr "Láta þessa mynd fylla allan skjáinn"
 
-#: ../src/eog-window.c:4351
+#: ../src/eog-window.c:4366
 msgid "Properties"
 msgstr "Eiginleikar"
 
-#: ../src/eog-window.c:5487
+#: ../src/eog-window.c:5502
 msgid "The GNOME image viewer."
 msgstr "GNOME myndaskoðarinn."
 
-#: ../src/eog-window.c:5490
+#: ../src/eog-window.c:5505
 msgid "translator-credits"
 msgstr "Sveinn í Felli, sv1@fellsnet.is, 2015"
 
