@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-18 07:10-0400\n"
+"POT-Creation-Date: 2015-08-02 23:00+0200\n"
 "PO-Revision-Date: 2015-03-18 07:10-0400\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -73,8 +73,8 @@ msgstr ""
 "etiquetes de la càmera per girar automàticament les imatges en l'orientació "
 "vertical o horitzontal."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5484
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
+#: ../src/eog-window.c:5549
 msgid "Image Viewer"
 msgstr "Visualitzador d'imatges"
 
@@ -101,7 +101,7 @@ msgid "_Save"
 msgstr "_Desa"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:129
+#: ../src/eog-error-message-area.c:132
 msgid "Save _As…"
 msgstr "_Anomena i desa…"
 
@@ -117,7 +117,11 @@ msgstr "Estableix com a _fons d'escriptori"
 msgid "Sli_deshow"
 msgstr "_Projecció de diapositives"
 
-#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:7
+#: ../data/eog-gear-menu.ui.h:8
+msgid "S_ide Pane"
+msgstr "_Subfinestra lateral"
+
+#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
 msgid "Prope_rties"
 msgstr "P_ropietats"
 
@@ -232,9 +236,9 @@ msgstr "Anomena i desa"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
 #: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
+#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3184 ../src/eog-window.c:3187 ../src/eog-window.c:3440
+#: ../src/eog-window.c:3250 ../src/eog-window.c:3253 ../src/eog-window.c:3506
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -362,7 +366,7 @@ msgstr "Ajusta totes les imatges a la _pantalla"
 msgid "Sequence"
 msgstr "Seqüència"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog
 #: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Time between images:"
 msgstr "_Temps entre imatges:"
@@ -387,7 +391,7 @@ msgstr "Vés a la primera imatge de la col·lecció"
 msgid "_First Image"
 msgstr "P_rimera imatge"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2972
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2970
 msgid "Go to the previous image of the gallery"
 msgstr "Vés a la imatge prèvia de la col·lecció"
 
@@ -395,7 +399,7 @@ msgstr "Vés a la imatge prèvia de la col·lecció"
 msgid "_Previous Image"
 msgstr "Imatge _prèvia"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2960
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2958
 msgid "Go to the next image of the gallery"
 msgstr "Vés a la imatge següent de la col·lecció"
 
@@ -435,7 +439,7 @@ msgstr "Mida _normal"
 msgid "_Best Fit"
 msgstr "Millor a_just"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2987
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2985
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Gira la imatge 90 graus en sentit antihorari"
 
@@ -443,7 +447,7 @@ msgstr "Gira la imatge 90 graus en sentit antihorari"
 msgid "Rotate Counter_clockwise"
 msgstr "Gira _en sentit antihorari"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2998
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2996
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Gira la imatge 90 graus en sentit horari"
 
@@ -765,7 +769,7 @@ msgstr "Obre a_mb"
 msgid "_Copy"
 msgstr "_Copia"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3443
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3509
 msgid "Move to _Trash"
 msgstr "Mou a la _paperera"
 
@@ -836,29 +840,53 @@ msgid "If you don't save, all your changes will be lost."
 msgstr "Es perdran tots els canvis si no els deseu."
 
 # Ha de ser indeterminat (josep)
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:899
+#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
 msgid "_Reload"
 msgstr "_Torna a carregar"
 
-#: ../src/eog-error-message-area.c:171
+#: ../src/eog-error-message-area.c:136
+msgid "Open with Document Viewer"
+msgstr ""
+
+#: ../src/eog-error-message-area.c:218
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "No s'ha pogut carregar la imatge «%s»."
 
-#: ../src/eog-error-message-area.c:213
+#: ../src/eog-error-message-area.c:260
 #, c-format
 msgid "Could not save image '%s'."
 msgstr "No s'ha pogut desar la imatge «%s»."
 
 # FIXME: O... "no s'ha carregat cap imatge"? (josep)
-#: ../src/eog-error-message-area.c:256
+#: ../src/eog-error-message-area.c:303
 #, c-format
 msgid "No images found in '%s'."
 msgstr "No s'ha trobat cap imatge a «%s»."
 
-#: ../src/eog-error-message-area.c:263
+#: ../src/eog-error-message-area.c:310
 msgid "The given locations contain no images."
 msgstr "Les ubicacions donades no contenen cap imatge."
+
+#: ../src/eog-error-message-area.c:349
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"Aquesta imatge conté múltiples pàgines. Image View mostra només la primera "
+"pàgina.\n"
+"Voleu obrir la imatge amb el Document Viewer per veure totes les pàgines?"
+
+#: ../src/eog-error-message-area.c:354
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"Aquesta imatge conté múltiples pàgines. Image View mostra només la primera "
+"pàgina.\n"
+"Podeu instal·lar el Document Viewer per veure totes les pàgines."
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
@@ -912,7 +940,7 @@ msgstr "Fitxers d'imatge"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
+#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "píxel"
@@ -935,38 +963,38 @@ msgstr "Desa la imatge"
 msgid "Open Folder"
 msgstr "Obre una carpeta"
 
-#: ../src/eog-image.c:613
+#: ../src/eog-image.c:577
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformació en una imatge descarregada."
 
-#: ../src/eog-image.c:641
+#: ../src/eog-image.c:605
 #, c-format
 msgid "Transformation failed."
 msgstr "No s'ha pogut transformar la imatge."
 
-#: ../src/eog-image.c:1138
+#: ../src/eog-image.c:1085
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Aquest format de fitxer no pot fer servir EXIF."
 
-#: ../src/eog-image.c:1287
+#: ../src/eog-image.c:1229
 #, c-format
 msgid "Image loading failed."
 msgstr "No s'ha pogut carregar la imatge."
 
 # FIXME: O... "no s'ha carregat cap imatge"? (josep)
-#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
 #, c-format
 msgid "No image loaded."
 msgstr "No hi ha cap imatge carregada."
 
-#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
+#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "No teniu els permisos necessaris per desar el fitxer."
 
-#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
+#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Ha fallat la creació del fitxer temporal."
@@ -1041,14 +1069,14 @@ msgstr "Oest"
 msgid "South"
 msgstr "Sud"
 
-#: ../src/eog-metadata-sidebar.c:109
+#: ../src/eog-metadata-sidebar.c:113
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i píxel"
 msgstr[1] "%i × %i píxels"
 
-#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:124 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -1179,7 +1207,7 @@ msgstr "com està"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:544
+#: ../src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "Presa al"
 
@@ -1202,21 +1230,21 @@ msgstr " (Unicode no vàlid)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:556
+#: ../src/eog-window.c:568
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i píxel  %s    %i%%"
 msgstr[1] "%i × %i píxels  %s    %i%%"
 
-#: ../src/eog-window.c:901 ../src/eog-window.c:2587
+#: ../src/eog-window.c:908 ../src/eog-window.c:2653
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Oculta"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:911
+#: ../src/eog-window.c:918
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1230,30 +1258,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1149
+#: ../src/eog-window.c:1181
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "S'està desant la imatge «%s» (%u/%u)"
 
-#: ../src/eog-window.c:1553
+#: ../src/eog-window.c:1606
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "S'està obrint la imatge «%s»"
 
-#: ../src/eog-window.c:1837
+#: ../src/eog-window.c:1902
 msgid "_Leave Fullscreen"
 msgstr "Surt de _la pantalla completa"
 
-#: ../src/eog-window.c:1843
+#: ../src/eog-window.c:1908
 msgid "Leave fullscreen mode"
 msgstr "Surt del mode de pantalla completa"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1957
+#: ../src/eog-window.c:2023
 msgid "Viewing a slideshow"
 msgstr "S'està visualitzant una projecció de diapositives"
 
-#: ../src/eog-window.c:2176
+#: ../src/eog-window.c:2242
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1262,17 +1290,17 @@ msgstr ""
 "S'ha produït un error en imprimir el fitxer:\n"
 "%s"
 
-#: ../src/eog-window.c:2536 ../src/eog-window.c:2551
+#: ../src/eog-window.c:2602 ../src/eog-window.c:2617
 msgid "Error launching System Settings: "
 msgstr "S'ha produït un error en iniciar els paràmetres del sistema: "
 
-#: ../src/eog-window.c:2585
+#: ../src/eog-window.c:2651
 msgid "_Open Background Preferences"
 msgstr "Obre les preferències del _fons de pantalla"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2601
+#: ../src/eog-window.c:2667
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1281,11 +1309,11 @@ msgstr ""
 "S'ha establert la imatge «%s» com a fons d'escriptori.\n"
 "Voleu modificar-ne l'aparença?"
 
-#: ../src/eog-window.c:3082
+#: ../src/eog-window.c:3148
 msgid "Saving image locally…"
 msgstr "S'està desant la imatge en local…"
 
-#: ../src/eog-window.c:3160
+#: ../src/eog-window.c:3226
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1294,7 +1322,7 @@ msgstr ""
 "Segur de voler suprimir\n"
 "«%s»?"
 
-#: ../src/eog-window.c:3163
+#: ../src/eog-window.c:3229
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1309,41 +1337,41 @@ msgstr[1] ""
 "Segur que voleu moure les\n"
 "%d imatges seleccionades a la paperera?"
 
-#: ../src/eog-window.c:3185 ../src/eog-window.c:3451
+#: ../src/eog-window.c:3251 ../src/eog-window.c:3517
 msgid "_Delete"
 msgstr "_Suprimeix"
 
-#: ../src/eog-window.c:3188 ../src/eog-window.c:3453
+#: ../src/eog-window.c:3254 ../src/eog-window.c:3519
 msgid "_Yes"
 msgstr "_Sí"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3192 ../src/eog-window.c:3445
+#: ../src/eog-window.c:3258 ../src/eog-window.c:3511
 msgid "Do _not ask again during this session"
 msgstr "No _ho tornis a demanar en aquesta sessió"
 
-#: ../src/eog-window.c:3236
+#: ../src/eog-window.c:3302
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "No s'ha pogut recuperar el fitxer d'imatge"
 
-#: ../src/eog-window.c:3252
+#: ../src/eog-window.c:3318
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "No s'ha pogut recuperar la informació del fitxer d'imatge"
 
-#: ../src/eog-window.c:3268 ../src/eog-window.c:3512
+#: ../src/eog-window.c:3334 ../src/eog-window.c:3578
 #, c-format
 msgid "Couldn't delete file"
 msgstr "No s'ha pogut suprimir el fitxer"
 
 #. set dialog error message
-#: ../src/eog-window.c:3318 ../src/eog-window.c:3612
+#: ../src/eog-window.c:3384 ../src/eog-window.c:3678
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "S'ha produït un error en eliminar la imatge %s"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3479
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1352,7 +1380,7 @@ msgstr ""
 "Esteu segur de voler moure\n"
 "«%s» a la paperera?"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3482
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1361,7 +1389,7 @@ msgstr ""
 "No s'ha pogut trobar una paperera per a «%s». Voleu suprimir aquesta imatge "
 "permanentment?"
 
-#: ../src/eog-window.c:3421
+#: ../src/eog-window.c:3487
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1376,7 +1404,7 @@ msgstr[1] ""
 "Esteu segur que voleu moure les\n"
 "%d imatges seleccionades a la paperera?"
 
-#: ../src/eog-window.c:3426
+#: ../src/eog-window.c:3492
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1384,32 +1412,32 @@ msgstr ""
 "No es poden moure a la paperera algunes de les imatges seleccionades, de "
 "manera que se suprimiran permanentment. Segur que voleu continuar?"
 
-#: ../src/eog-window.c:3490 ../src/eog-window.c:3504
+#: ../src/eog-window.c:3556 ../src/eog-window.c:3570
 #, c-format
 msgid "Couldn't access trash."
 msgstr "No s'ha pogut accedir a la paperera."
 
-#: ../src/eog-window.c:4170
+#: ../src/eog-window.c:4236
 msgid "Fit the image to the window"
 msgstr "Ajusta la imatge a la finestra"
 
-#: ../src/eog-window.c:4177 ../src/eog-window.c:4222
+#: ../src/eog-window.c:4244 ../src/eog-window.c:4289
 msgid "Shrink or enlarge the current image"
 msgstr "Encongeix o augmenta la imatge actual"
 
-#: ../src/eog-window.c:4272
+#: ../src/eog-window.c:4342
 msgid "Show the current image in fullscreen mode"
 msgstr "Mostra la imatge actual en mode pantalla completa"
 
-#: ../src/eog-window.c:4351
+#: ../src/eog-window.c:4419
 msgid "Properties"
 msgstr "Propietats"
 
-#: ../src/eog-window.c:5487
+#: ../src/eog-window.c:5552
 msgid "The GNOME image viewer."
 msgstr "El visualitzador d'imatges del GNOME."
 
-#: ../src/eog-window.c:5490
+#: ../src/eog-window.c:5555
 msgid "translator-credits"
 msgstr ""
 "Softcatalà <tradgnome@softcatala.org>\n"
