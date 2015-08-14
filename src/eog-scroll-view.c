@@ -2806,6 +2806,9 @@ eog_scroll_view_init (EogScrollView *view)
 
 	gtk_widget_add_events (GTK_WIDGET (priv->display),
 			       GDK_EXPOSURE_MASK
+#if GTK_CHECK_VERSION (3, 17, 7)
+			       | GDK_TOUCHPAD_GESTURE_MASK
+#endif
 			       | GDK_BUTTON_PRESS_MASK
 			       | GDK_BUTTON_RELEASE_MASK
 			       | GDK_POINTER_MOTION_MASK
