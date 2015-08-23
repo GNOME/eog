@@ -133,7 +133,7 @@ add_message_area_buttons (GtkWidget *message_area,
 					 EOG_ERROR_MESSAGE_AREA_RESPONSE_SAVEAS);
 	if (buttons & EOG_ERROR_MESSAGE_AREA_OPEN_WITH_EVINCE_BUTTON)
 		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
-					 _("Open with Document Viewer"),
+					 _("Open with _Document Viewer"),
 					 EOG_ERROR_MESSAGE_AREA_RESPONSE_OPEN_WITH_EVINCE);
 }
 
