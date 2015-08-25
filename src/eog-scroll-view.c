@@ -1035,19 +1035,6 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 	return FALSE;
 }
 
-static void
-eog_scroll_view_style_set (GtkWidget *widget, GtkStyle *old_style)
-{
-	GtkStyle *style;
-	EogScrollViewPrivate *priv;
-
-	style = gtk_widget_get_style (widget);
-	priv = EOG_SCROLL_VIEW (widget)->priv;
-
-	gtk_widget_set_style (priv->display, style);
-}
-
-
 /* Button release event handler for the image view */
 static gboolean
 eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
@@ -2654,7 +2641,6 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      G_TYPE_NONE, 0);
 
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
-	widget_class->style_set = eog_scroll_view_style_set;
 }
 
 static void
