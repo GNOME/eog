@@ -743,12 +743,13 @@ void
 eog_close_confirmation_dialog_set_sensitive (EogCloseConfirmationDialog *dlg,
 					     gboolean value)
 {
-	GtkWidget *action_area;
-
 	g_return_if_fail (EOG_IS_CLOSE_CONFIRMATION_DIALOG (dlg));
 
-	action_area = gtk_dialog_get_action_area (GTK_DIALOG (dlg));
-	gtk_widget_set_sensitive (action_area, value);
+	/* To keep in sync with add_buttons () */
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CLOSE, value);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_CANCEL, value);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVE, value);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), EOG_CLOSE_CONFIRMATION_DIALOG_RESPONSE_SAVEAS, value);
 
 	if (dlg->priv->toggle_renderer)
 		gtk_cell_renderer_toggle_set_activatable (GTK_CELL_RENDERER_TOGGLE (dlg->priv->toggle_renderer), value);
