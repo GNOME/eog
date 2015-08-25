@@ -16,9 +16,6 @@
 #include "eog-enum-types.h"
 #include "eog-scroll-view.h"
 #include "eog-debug.h"
-#if 0
-#include "uta.h"
-#endif
 #include "zoom.h"
 
 /* Maximum zoom factor */
@@ -47,15 +44,6 @@
 
 /* Time used for the realing animation of the overlaid buttons */
 #define OVERLAY_REVEAL_ANIM_TIME (500U) /* ms */
-
-#if 0
-/* Progressive loading state */
-typedef enum {
-	PROGRESSIVE_NONE,	/* We are not loading an image or it is already loaded */
-	PROGRESSIVE_LOADING,	/* An image is being loaded */
-	PROGRESSIVE_POLISHING	/* We have finished loading an image but have not scaled it with interpolation */
-} ProgressiveState;
-#endif
 
 /* Signal IDs */
 enum {
@@ -138,13 +126,6 @@ struct _EogScrollViewPrivate {
 	/* Current scrolling offsets */
 	int xofs, yofs;
 
-#if 0
-	/* Microtile arrays for dirty region.  This represents the dirty region
-	 * for interpolated drawing.
-	 */
-	EogUta *uta;
-#endif
-
 	/* handler ID for paint idle callback */
 	guint idle_id;
 
@@ -164,11 +145,6 @@ struct _EogScrollViewPrivate {
 	int drag_anchor_x, drag_anchor_y;
 	int drag_ofs_x, drag_ofs_y;
 	guint dragging : 1;
-
-#if 0
-	/* status of progressive loading */
-	ProgressiveState progressive_state;
-#endif
 
 	/* how to indicate transparency in images */
 	EogTransparencyStyle transp_style;
@@ -216,7 +192,6 @@ static gboolean _eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b);
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_GRID)
 
-
 /*===================================
     widget size changing handler &
         util functions
@@ -510,18 +485,6 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 #define DOUBLE_EQUAL_MAX_DIFF 1e-6
 #define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
 
-#if 0
-/* Returns whether the zoom factor is 1.0 */
-static gboolean
-is_unity_zoom (EogScrollView *view)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-	return DOUBLE_EQUAL (priv->zoom, 1.0);
-}
-#endif
-
 /* Returns whether the image is zoomed in */
 static gboolean
 is_zoomed_in (EogScrollView *view)
@@ -545,6 +508,7 @@ is_zoomed_out (EogScrollView *view)
 /* Returns wether the image is movable, that means if it is larger then
  * the actual visible area.
  */
+
 static gboolean
 is_image_movable (EogScrollView *view)
 {
@@ -555,73 +519,9 @@ is_image_movable (EogScrollView *view)
 	return (gtk_widget_get_visible (priv->hbar) || gtk_widget_get_visible (priv->vbar));
 }
 
-
-/* Computes the image offsets with respect to the window */
-/*
-static void
-get_image_offsets (EogScrollView *view, int *xofs, int *yofs)
-{
-	EogScrollViewPrivate *priv;
-	int scaled_width, scaled_height;
-	int width, height;
-
-	priv = view->priv;
-
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-
-	width = GTK_WIDGET (priv->display)->allocation.width;
-	height = GTK_WIDGET (priv->display)->allocation.height;
-
-	// Compute image offsets with respect to the window
-	if (scaled_width <= width)
-		*xofs = (width - scaled_width) / 2;
-	else
-		*xofs = -priv->xofs;
-
-	if (scaled_height <= height)
-		*yofs = (height - scaled_height) / 2;
-	else
-		*yofs = -priv->yofs;
-}
-*/
-
 /*===================================
           drawing core
   ---------------------------------*/
-
-
-#if 0
-/* Pulls a rectangle from the specified microtile array.  The rectangle is the
- * first one that would be glommed together by art_rect_list_from_uta(), and its
- * size is bounded by max_width and max_height.  The rectangle is also removed
- * from the microtile array.
- */
-static void
-pull_rectangle (EogUta *uta, EogIRect *rect, int max_width, int max_height)
-{
-	uta_find_first_glom_rect (uta, rect, max_width, max_height);
-	uta_remove_rect (uta, rect->x0, rect->y0, rect->x1, rect->y1);
-}
-
-/* Paints a rectangle with the background color if the specified rectangle
- * intersects the dirty rectangle.
- */
-static void
-paint_background (EogScrollView *view, EogIRect *r, EogIRect *rect)
-{
-	EogScrollViewPrivate *priv;
-	EogIRect d;
-
-	priv = view->priv;
-
-	eog_irect_intersect (&d, r, rect);
-	if (!eog_irect_empty (&d)) {
-		gdk_window_clear_area (gtk_widget_get_window (priv->display),
-				       d.x0, d.y0,
-				       d.x1 - d.x0, d.y1 - d.y0);
-	}
-}
-#endif
 
 static void
 get_transparency_params (EogScrollView *view, int *size, GdkRGBA *color1, GdkRGBA *color2)
@@ -688,453 +588,11 @@ create_background_surface (EogScrollView *view)
 	return surface;
 }
 
-#if 0
-#ifdef HAVE_RSVG
-static cairo_surface_t *
-create_background_surface (EogScrollView *view)
-{
-	int check_size;
-	guint32 check_1 = 0;
-	guint32 check_2 = 0;
-	cairo_surface_t *surface;
-	cairo_t *check_cr;
-
-	get_transparency_params (view, &check_size, &check_1, &check_2);
-
-	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, check_size * 2, check_size * 2);
-	check_cr = cairo_create (surface);
-	cairo_set_source_rgba (check_cr,
-			       ((check_1 & 0xff0000) >> 16) / 255.,
-			       ((check_1 & 0x00ff00) >> 8)  / 255.,
-			        (check_1 & 0x0000ff)        / 255.,
-				1.);
-	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
-	cairo_fill (check_cr);
-	cairo_translate (check_cr, check_size, check_size);
-	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
-	cairo_fill (check_cr);
-
-	cairo_set_source_rgba (check_cr,
-			       ((check_2 & 0xff0000) >> 16) / 255.,
-			       ((check_2 & 0x00ff00) >> 8)  / 255.,
-			        (check_2 & 0x0000ff)        / 255.,
-				1.);
-	cairo_translate (check_cr, -check_size, 0);
-	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
-	cairo_fill (check_cr);
-	cairo_translate (check_cr, check_size, -check_size);
-	cairo_rectangle (check_cr, 0., 0., check_size, check_size);
-	cairo_fill (check_cr);
-	cairo_destroy (check_cr);
-
-	return surface;
-}
-
-static void
-draw_svg_background (EogScrollView *view, cairo_t *cr, EogIRect *render_rect, EogIRect *image_rect)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-
-	if (priv->background_surface == NULL)
-		priv->background_surface = create_background_surface (view);
-
-	cairo_set_source_surface (cr, priv->background_surface,
-				  - (render_rect->x0 - image_rect->x0) % (CHECK_MEDIUM * 2),
-				  - (render_rect->y0 - image_rect->y0) % (CHECK_MEDIUM * 2));
-	cairo_pattern_set_extend (cairo_get_source (cr), CAIRO_EXTEND_REPEAT);
-	cairo_rectangle (cr,
-			 0,
-			 0,
-			 render_rect->x1 - render_rect->x0,
-			 render_rect->y1 - render_rect->y0);
-	cairo_fill (cr);
-}
-
-static cairo_surface_t *
-draw_svg_on_image_surface (EogScrollView *view, EogIRect *render_rect, EogIRect *image_rect)
-{
-	EogScrollViewPrivate *priv;
-	cairo_t *cr;
-	cairo_surface_t *surface;
-	cairo_matrix_t matrix, translate, scale;
-	EogTransform *transform;
-
-	priv = view->priv;
-
-	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-					      render_rect->x1 - render_rect->x0,
-					      render_rect->y1 - render_rect->y0);
-	cr = cairo_create (surface);
-
-	cairo_save (cr);
-	draw_svg_background (view, cr, render_rect, image_rect);
-	cairo_restore (cr);
-
-	cairo_matrix_init_identity (&matrix);
-	transform = eog_image_get_transform (priv->image);
-	if (transform) {
-		cairo_matrix_t affine;
-		double image_offset_x = 0., image_offset_y = 0.;
-
-		eog_transform_get_affine (transform, &affine);
-		cairo_matrix_multiply (&matrix, &affine, &matrix);
-
-		switch (eog_transform_get_transform_type (transform)) {
-		case EOG_TRANSFORM_ROT_90:
-		case EOG_TRANSFORM_FLIP_HORIZONTAL:
-			image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
-			break;
-		case EOG_TRANSFORM_ROT_270:
-		case EOG_TRANSFORM_FLIP_VERTICAL:
-			image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
-			break;
-		case EOG_TRANSFORM_ROT_180:
-		case EOG_TRANSFORM_TRANSPOSE:
-		case EOG_TRANSFORM_TRANSVERSE:
-			image_offset_x = (double) gdk_pixbuf_get_width (priv->pixbuf);
-			image_offset_y = (double) gdk_pixbuf_get_height (priv->pixbuf);
-			break;
-		case EOG_TRANSFORM_NONE:
-		default:
-			break;
-		}
-
-		cairo_matrix_init_translate (&translate, image_offset_x, image_offset_y);
-		cairo_matrix_multiply (&matrix, &matrix, &translate);
-	}
-
-	cairo_matrix_init_scale (&scale, priv->zoom, priv->zoom);
-	cairo_matrix_multiply (&matrix, &matrix, &scale);
-	cairo_matrix_init_translate (&translate, image_rect->x0, image_rect->y0);
-	cairo_matrix_multiply (&matrix, &matrix, &translate);
-	cairo_matrix_init_translate (&translate, -render_rect->x0, -render_rect->y0);
-	cairo_matrix_multiply (&matrix, &matrix, &translate);
-
-	cairo_set_matrix (cr, &matrix);
-
-	rsvg_handle_render_cairo (eog_image_get_svg (priv->image), cr);
-	cairo_destroy (cr);
-
-	return surface;
-}
-
-static void
-draw_svg (EogScrollView *view, EogIRect *render_rect, EogIRect *image_rect)
-{
-	EogScrollViewPrivate *priv;
-	cairo_t *cr;
-	cairo_surface_t *surface;
-	GdkWindow *window;
-
-	priv = view->priv;
-
-	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
-	surface = draw_svg_on_image_surface (view, render_rect, image_rect);
-
-	cr = gdk_cairo_create (window);
-	cairo_set_source_surface (cr, surface, render_rect->x0, render_rect->y0);
-	cairo_paint (cr);
-	cairo_destroy (cr);
-}
-#endif
-
-/* Paints a rectangle of the dirty region */
-static void
-paint_rectangle (EogScrollView *view, EogIRect *rect, cairo_filter_t interp_type)
-{
-	EogScrollViewPrivate *priv;
-	GdkPixbuf *tmp;
-	char *str;
-	GtkAllocation allocation;
-	int scaled_width, scaled_height;
-	int xofs, yofs;
-	EogIRect r, d;
-	int check_size;
-	guint32 check_1 = 0;
-	guint32 check_2 = 0;
-
-	priv = view->priv;
-
-	if (!gtk_widget_is_drawable (priv->display))
-		return;
-
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
-
-	if (scaled_width < 1 || scaled_height < 1)
-	{
-		r.x0 = 0;
-		r.y0 = 0;
-		r.x1 = allocation.width;
-		r.y1 = allocation.height;
-		paint_background (view, &r, rect);
-		return;
-	}
-
-	/* Compute image offsets with respect to the window */
-
-	if (scaled_width <= allocation.width)
-		xofs = (allocation.width - scaled_width) / 2;
-	else
-		xofs = -priv->xofs;
-
-	if (scaled_height <= allocation.height)
-		yofs = (allocation.height - scaled_height) / 2;
-	else
-		yofs = -priv->yofs;
-
-	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n",
-			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
-
-	/* Draw background if necessary, in four steps */
-
-	/* Top */
-	if (yofs > 0) {
-		r.x0 = 0;
-		r.y0 = 0;
-		r.x1 = allocation.width;
-		r.y1 = yofs;
-		paint_background (view, &r, rect);
-	}
-
-	/* Left */
-	if (xofs > 0) {
-		r.x0 = 0;
-		r.y0 = yofs;
-		r.x1 = xofs;
-		r.y1 = yofs + scaled_height;
-		paint_background (view, &r, rect);
-	}
-
-	/* Right */
-	if (xofs >= 0) {
-		r.x0 = xofs + scaled_width;
-		r.y0 = yofs;
-		r.x1 = allocation.width;
-		r.y1 = yofs + scaled_height;
-		if (r.x0 < r.x1)
-			paint_background (view, &r, rect);
-	}
-
-	/* Bottom */
-	if (yofs >= 0) {
-		r.x0 = 0;
-		r.y0 = yofs + scaled_height;
-		r.x1 = allocation.width;
-		r.y1 = allocation.height;
-		if (r.y0 < r.y1)
-			paint_background (view, &r, rect);
-	}
-
-
-	/* Draw the scaled image
-	 *
-	 * FIXME: this is not using the color correction tables!
-	 */
-
-	if (!priv->pixbuf)
-		return;
-
-	r.x0 = xofs;
-	r.y0 = yofs;
-	r.x1 = xofs + scaled_width;
-	r.y1 = yofs + scaled_height;
-
-	eog_irect_intersect (&d, &r, rect);
-	if (eog_irect_empty (&d))
-		return;
-
-	switch (interp_type) {
-	case CAIRO_FILTER_NEAREST:
-		str = "NEAREST";
-		break;
-	default:
-		str = "ALIASED";
-	}
-
-	eog_debug_message (DEBUG_WINDOW, "%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n",
-			   str, d.x0, d.y0, d.x1, d.y1);
-
-#ifdef HAVE_RSVG
-	if (eog_image_is_svg (view->priv->image) && interp_type != CAIRO_FILTER_NEAREST) {
-		draw_svg (view, &d, &r);
-		return;
-	}
-#endif
-	/* Short-circuit the fast case to avoid a memcpy() */
-
-	if (is_unity_zoom (view)
-	    && gdk_pixbuf_get_colorspace (priv->pixbuf) == GDK_COLORSPACE_RGB
-	    && !gdk_pixbuf_get_has_alpha (priv->pixbuf)
-	    && gdk_pixbuf_get_bits_per_sample (priv->pixbuf) == 8) {
-		guchar *pixels;
-		int rowstride;
-
-		rowstride = gdk_pixbuf_get_rowstride (priv->pixbuf);
-
-		pixels = (gdk_pixbuf_get_pixels (priv->pixbuf)
-			  + (d.y0 - yofs) * rowstride
-			  + 3 * (d.x0 - xofs));
-
-		gdk_draw_rgb_image_dithalign (gtk_widget_get_window (GTK_WIDGET (priv->display)),
-					      gtk_widget_get_style (GTK_WIDGET (priv->display))->black_gc,
-					      d.x0, d.y0,
-					      d.x1 - d.x0, d.y1 - d.y0,
-					      GDK_RGB_DITHER_MAX,
-					      pixels,
-					      rowstride,
-					      d.x0 - xofs, d.y0 - yofs);
-		return;
-	}
-
-	/* For all other cases, create a temporary pixbuf */
-
-	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
-
-	if (!tmp) {
-		g_message ("paint_rectangle(): Could not allocate temporary pixbuf of "
-			   "size (%d, %d); skipping", d.x1 - d.x0, d.y1 - d.y0);
-		return;
-	}
-
-	/* Compute transparency parameters */
-	get_transparency_params (view, &check_size, &check_1, &check_2);
-
-	/* Draw! */
-	gdk_pixbuf_composite_color (priv->pixbuf,
-				    tmp,
-				    0, 0,
-				    d.x1 - d.x0, d.y1 - d.y0,
-				    -(d.x0 - xofs), -(d.y0 - yofs),
-				    priv->zoom, priv->zoom,
-				    is_unity_zoom (view) ? CAIRO_FILTER_NEAREST : interp_type,
-				    255,
-				    d.x0 - xofs, d.y0 - yofs,
-				    check_size,
-				    check_1, check_2);
-
-	gdk_draw_rgb_image_dithalign (gtk_widget_get_window (priv->display),
-				      gtk_widget_get_style (priv->display)->black_gc,
-				      d.x0, d.y0,
-				      d.x1 - d.x0, d.y1 - d.y0,
-				      GDK_RGB_DITHER_MAX,
-				      gdk_pixbuf_get_pixels (tmp),
-				      gdk_pixbuf_get_rowstride (tmp),
-				      d.x0 - xofs, d.y0 - yofs);
-
-	g_object_unref (tmp);
-}
-
-
-/* Idle handler for the drawing process.  We pull a rectangle from the dirty
- * region microtile array, paint it, and leave the rest to the next idle
- * iteration.
- */
-static gboolean
-paint_iteration_idle (gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-	EogIRect rect;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	g_assert (priv->uta != NULL);
-
-	pull_rectangle (priv->uta, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
-
-	if (eog_irect_empty (&rect)) {
-		eog_uta_free (priv->uta);
-		priv->uta = NULL;
-	} else {
-		if (is_zoomed_in (view))
-			paint_rectangle (view, &rect, priv->interp_type_in);
-		else if (is_zoomed_out (view))
-			paint_rectangle (view, &rect, priv->interp_type_out);
-		else
-			paint_rectangle (view, &rect, CAIRO_FILTER_NEAREST);
-	}
-		
-	if (!priv->uta) {
-		priv->idle_id = 0;
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
-/* Paints the requested area in non-interpolated mode.  Then, if we are
- * configured to use interpolation, we queue an idle handler to redraw the area
- * with interpolation.  The area is in window coordinates.
- */
-static void
-request_paint_area (EogScrollView *view, GdkRectangle *area)
-{
-	EogScrollViewPrivate *priv;
-	EogIRect r;
-	GtkAllocation allocation;
-
-	priv = view->priv;
-
-	eog_debug_message (DEBUG_WINDOW, "x: %i, y: %i, width: %i, height: %i\n",
-			   area->x, area->y, area->width, area->height);
-
-	if (!gtk_widget_is_drawable (priv->display))
-		return;
-
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
-	r.x0 = MAX (0, area->x);
-	r.y0 = MAX (0, area->y);
-	r.x1 = MIN (allocation.width, area->x + area->width);
-	r.y1 = MIN (allocation.height, area->y + area->height);
-
-	eog_debug_message (DEBUG_WINDOW, "r: %i, %i, %i, %i\n", r.x0, r.y0, r.x1, r.y1);
-
-	if (r.x0 >= r.x1 || r.y0 >= r.y1)
-		return;
-
-	/* Do nearest neighbor, 1:1 zoom or active progressive loading synchronously for speed.  */
-	if ((is_zoomed_in (view) && priv->interp_type_in == CAIRO_FILTER_NEAREST) ||
-	    (is_zoomed_out (view) && priv->interp_type_out == CAIRO_FILTER_NEAREST) ||
-	    is_unity_zoom (view) ||
-	    priv->progressive_state == PROGRESSIVE_LOADING) {
-		paint_rectangle (view, &r, CAIRO_FILTER_NEAREST);
-		return;
-	}
-
-	if (priv->progressive_state == PROGRESSIVE_POLISHING)
-		/* We have already a complete image with nearest neighbor mode.
-		 * It's sufficient to add only a antitaliased idle update
-		 */
-		priv->progressive_state = PROGRESSIVE_NONE;
-	else if (!priv->image || !eog_image_is_animation (priv->image))
-		/* do nearest neigbor before anti aliased version,
-		   except for animations to avoid a "blinking" effect. */
-		paint_rectangle (view, &r, CAIRO_FILTER_NEAREST);
-
-	/* All other interpolation types are delayed.  */
-	if (priv->uta)
-		g_assert (priv->idle_id != 0);
-	else {
-		g_assert (priv->idle_id == 0);
-		priv->idle_id = g_idle_add (paint_iteration_idle, view);
-	}
-
-	priv->uta = uta_add_rect (priv->uta, r.x0, r.y0, r.x1, r.y1);
-}
-#endif
-
-
 /* =======================================
 
     scrolling stuff
 
     --------------------------------------*/
-
 
 /* Scrolls the view to the specified offsets.  */
 static void
@@ -1185,34 +643,6 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 
 	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
 
-	/* Ensure that the uta has the full size */
-#if 0
-	twidth = (allocation.width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
-	theight = (allocation.height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
-
-#if 0
-	if (priv->uta)
-		g_assert (priv->idle_id != 0);
-	else
-		priv->idle_id = g_idle_add (paint_iteration_idle, view);
-#endif
-
-	priv->uta = uta_ensure_size (priv->uta, 0, 0, twidth, theight);
-
-	/* Copy the uta area.  Our synchronous handling of expose events, below,
-	 * will queue the new scrolled-in areas.
-	 */
-	src_x = xofs < 0 ? 0 : xofs;
-	src_y = yofs < 0 ? 0 : yofs;
-	dest_x = xofs < 0 ? -xofs : 0;
-	dest_y = yofs < 0 ? -yofs : 0;
-
-	uta_copy_area (priv->uta,
-		       src_x, src_y,
-		       dest_x, dest_y,
-		       allocation.width - abs (xofs),
-		       allocation.height - abs (yofs));
-#endif
 	/* Scroll the window area and process exposure synchronously. */
 
 	if (!gtk_gesture_is_recognized (priv->zoom_gesture)) {
@@ -2152,108 +1582,6 @@ rotate_gesture_angle_changed_cb (GtkGestureRotate *rotate,
    image loading callbacks
 
    -----------------------------------*/
-/*
-static void
-image_loading_update_cb (EogImage *img, int x, int y, int width, int height, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-	GdkRectangle area;
-	int xofs, yofs;
-	int sx0, sy0, sx1, sy1;
-
-	view = (EogScrollView*) data;
-	priv = view->priv;
-
-	eog_debug_message (DEBUG_IMAGE_LOAD, "x: %i, y: %i, width: %i, height: %i\n",
-			   x, y, width, height);
-
-	if (priv->pixbuf == NULL) {
-		priv->pixbuf = eog_image_get_pixbuf (img);
-		set_zoom_fit (view);
-		check_scrollbar_visibility (view, NULL);
-	}
-	priv->progressive_state = PROGRESSIVE_LOADING;
-
-	get_image_offsets (view, &xofs, &yofs);
-
-	sx0 = floor (x * priv->zoom + xofs);
-	sy0 = floor (y * priv->zoom + yofs);
-	sx1 = ceil ((x + width) * priv->zoom + xofs);
-	sy1 = ceil ((y + height) * priv->zoom + yofs);
-
-	area.x = sx0;
-	area.y = sy0;
-	area.width = sx1 - sx0;
-	area.height = sy1 - sy0;
-
-	if (GTK_WIDGET_DRAWABLE (priv->display))
-		gdk_window_invalidate_rect (GTK_WIDGET (priv->display)->window, &area, FALSE);
-}
-
-
-static void
-image_loading_finished_cb (EogImage *img, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-
-	view = (EogScrollView*) data;
-	priv = view->priv;
-
-	if (priv->pixbuf == NULL) {
-		priv->pixbuf = eog_image_get_pixbuf (img);
-		priv->progressive_state = PROGRESSIVE_NONE;
-		set_zoom_fit (view);
-		check_scrollbar_visibility (view, NULL);
-		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-
-	}
-	else if (priv->interp_type != CAIRO_FILTER_NEAREST &&
-		 !is_unity_zoom (view))
-	{
-		// paint antialiased image version
-		priv->progressive_state = PROGRESSIVE_POLISHING;
-		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-	}
-}
-
-static void
-image_loading_failed_cb (EogImage *img, char *msg, gpointer data)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = EOG_SCROLL_VIEW (data)->priv;
-
-	g_print ("loading failed: %s.\n", msg);
-
-	if (priv->pixbuf != 0) {
-		g_object_unref (priv->pixbuf);
-		priv->pixbuf = 0;
-	}
-
-	if (GTK_WIDGET_DRAWABLE (priv->display)) {
-		gdk_window_clear (GTK_WIDGET (priv->display)->window);
-	}
-}
-
-static void
-image_loading_cancelled_cb (EogImage *img, gpointer data)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = EOG_SCROLL_VIEW (data)->priv;
-
-	if (priv->pixbuf != NULL) {
-		g_object_unref (priv->pixbuf);
-		priv->pixbuf = NULL;
-	}
-
-	if (GTK_WIDGET_DRAWABLE (priv->display)) {
-		gdk_window_clear (GTK_WIDGET (priv->display)->window);
-	}
-}
-*/
 
 /* Use when the pixbuf in the view is changed, to keep a
    reference to it and create its cairo surface. */
@@ -3028,13 +2356,6 @@ eog_scroll_view_dispose (GObject *object)
 
 	view = EOG_SCROLL_VIEW (object);
 	priv = view->priv;
-
-#if 0
-	if (priv->uta != NULL) {
-		eog_uta_free (priv->uta);
-		priv->uta = NULL;
-	}
-#endif
 
 	_clear_overlay_timeout (view);
 
