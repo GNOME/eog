@@ -260,8 +260,6 @@ eog_metadata_details_init (EogMetadataDetails *details)
 							    NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (details), column);
 
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (details), TRUE);
-
 	eog_metadata_details_reset (details);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (details),
