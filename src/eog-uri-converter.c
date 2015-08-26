@@ -941,6 +941,13 @@ eog_uri_converter_requires_exif (EogURIConverter *converter)
 	return converter->priv->requires_exif;
 }
 
+/**
+ * eog_uri_converter_check:
+ * @converter: a #EogURIConverter
+ * @img_list: (element-type GFile): a #Gfile list
+ * @error: a #GError location to store the error occurring, or NULL to ignore
+ */
+
 gboolean
 eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **error)
 {
@@ -981,6 +988,8 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 			     EOG_UC_ERROR_EQUAL_FILENAMES,
 			     _("At least two file names are equal."));
 	}
+
+	g_list_free (file_list);
 
 	return all_different;
 }
