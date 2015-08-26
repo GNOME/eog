@@ -3010,6 +3010,15 @@ eog_window_action_print (GSimpleAction *action,
 	eog_window_print (window);
 }
 
+/**
+ * eog_window_get_properties_dialog:
+ * @window: a #EogWindow
+ *
+ * Gets the @window property dialog. The widget will be built on the first call to this function.
+ *
+ * Returns: (transfer none): a #GtkWidget.
+ */
+
 GtkWidget*
 eog_window_get_properties_dialog (EogWindow *window)
 {

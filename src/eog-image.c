@@ -2432,6 +2432,14 @@ eog_image_get_svg (EogImage *img)
 }
 #endif
 
+/**
+ * eog_image_get_transform:
+ * @img: a #EogImage
+ *
+ * Get @img transform.
+ *
+ * Returns: (transfer none): A #EogTransform.
+ */
 
 EogTransform *
 eog_image_get_transform (EogImage *img)
@@ -2440,6 +2448,15 @@ eog_image_get_transform (EogImage *img)
 
 	return img->priv->trans;
 }
+
+/**
+ * eog_image_get_autorotate_transform:
+ * @img: a #EogImage
+ *
+ * Get @img autorotate transform.
+ *
+ * Returns: (transfer none): A #EogTransform.
+ */
 
 EogTransform*
 eog_image_get_autorotate_transform (EogImage *img)

@@ -481,6 +481,16 @@ eog_job_copy_run (EogJob *job)
 			 g_object_unref);
 }
 
+/**
+ * eog_job_copy_new:
+ * @images: (element-type EogImage) (transfer full): a #EogImage list
+ * @destination: destination path for the copy
+ *
+ * Creates a new #EogJob.
+ *
+ * Returns: A #EogJob.
+ */
+
 EogJob *
 eog_job_copy_new (GList       *images,
 		  const gchar *destination)
@@ -757,6 +767,15 @@ eog_job_model_run (EogJob *job)
 			 g_object_unref);
 }
 
+/**
+ * eog_job_model_new:
+ * @file_list: (element-type GFile): a #GFile list
+ *
+ * Creates a new #EogJob model.
+ *
+ * Returns: A #EogJob.
+ */
+
 EogJob *
 eog_job_model_new (GSList *file_list)
 {
@@ -936,6 +955,15 @@ eog_job_save_run (EogJob *job)
 			 job,
 			 g_object_unref);
 }
+
+/**
+ * eog_job_save_new:
+ * @images: (element-type EogImage) (transfer full): a #EogImage list
+ *
+ * Creates a new #EogJob for image saving.
+ *
+ * Returns: A #EogJob.
+ */
 
 EogJob *
 eog_job_save_new (GList *images)
@@ -1134,6 +1162,17 @@ eog_job_save_as_run (EogJob *job)
 			 job,
 			 g_object_unref);
 }
+
+/**
+ * eog_job_save_as_new:
+ * @images: (element-type EogImage) (transfer full): a #EogImage list
+ * @converter: a URI converter
+ * file: a #GFile
+ *
+ * Creates a new #EogJog for save as.
+ *
+ * Returns: A #EogJob.
+ */
 
 EogJob *
 eog_job_save_as_new (GList           *images,
@@ -1417,6 +1456,16 @@ eog_job_transform_run (EogJob *job)
 			 job,
 			 g_object_unref);
 }
+
+/**
+ * eog_job_transform_new:
+ * @images: (element-type EogImage) (transfer full): a #EogImage list
+ * @transform: a #EogTransform
+ *
+ * Create a new #EogJob for image transformation.
+ *
+ * Returns: A #EogJob.
+ */
 
 EogJob *
 eog_job_transform_new (GList        *images,
