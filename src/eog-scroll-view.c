@@ -1252,6 +1252,7 @@ eog_scroll_view_focus_out_event (GtkWidget     *widget,
 static gboolean
 display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 {
+	const GdkRGBA *background_color = NULL;
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
@@ -1275,11 +1276,23 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
 
 	/* Paint the background */
-	cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
 	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
-	cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
-			 scaled_width, scaled_height);
+	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
+		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
+				 scaled_width, scaled_height);
+	if (priv->override_bg_color != NULL)
+		background_color = priv->override_bg_color;
+	else if (priv->use_bg_color)
+		background_color = priv->background_color;
+	if (background_color != NULL)
+		cairo_set_source_rgba (cr,
+				       background_color->red,
+				       background_color->green,
+				       background_color->blue,
+				       background_color->alpha);
+	else
+		cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
 	cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_fill (cr);
 
@@ -2787,15 +2800,7 @@ _eog_replace_gdk_rgba (GdkRGBA **dest, const GdkRGBA *src)
 static void
 _eog_scroll_view_update_bg_color (EogScrollView *view)
 {
-	const GdkRGBA *selected;
 	EogScrollViewPrivate *priv = view->priv;
-
-	if (priv->override_bg_color)
-		selected = priv->override_bg_color;
-	else if (priv->use_bg_color)
-		selected = priv->background_color;
-	else
-		selected = NULL;
 
 	if (priv->transp_style == EOG_TRANSP_BACKGROUND
 	    && priv->background_surface != NULL) {
@@ -2805,10 +2810,7 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 		priv->background_surface = NULL;
 	}
 
-	/*gtk_widget_modify_bg (GTK_WIDGET (priv->display),
-			      GTK_STATE_NORMAL,
-			      selected);*/
-	gtk_widget_override_background_color(GTK_WIDGET (priv->display), GTK_STATE_FLAG_NORMAL, selected);
+	gtk_widget_queue_draw (priv->display);
 }
 
 void
