@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-08 14:23+0000\n"
-"PO-Revision-Date: 2015-02-14 23:19+0100\n"
+"POT-Creation-Date: 2015-08-24 16:20+0000\n"
+"PO-Revision-Date: 2015-08-27 10:26+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.3\n"
 
 #: ../data/eog-app-menu.xml.h:1
 msgid "_Statusbar"
@@ -74,8 +74,8 @@ msgstr ""
 "använda en bild som skrivbordsbakgrund. Bildvisaren läser av kamerataggarna för "
 "att automatiskt rotera dina bilder till stående eller liggande format."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5482
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
+#: ../src/eog-window.c:5549
 msgid "Image Viewer"
 msgstr "Bildvisare"
 
@@ -102,7 +102,7 @@ msgid "_Save"
 msgstr "_Spara"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:129
+#: ../src/eog-error-message-area.c:132
 msgid "Save _As…"
 msgstr "Spara so_m…"
 
@@ -118,7 +118,11 @@ msgstr "Använd som skriv_bordsunderlägg"
 msgid "Sli_deshow"
 msgstr "Bil_dspel"
 
-#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:7
+#: ../data/eog-gear-menu.ui.h:8
+msgid "S_ide Pane"
+msgstr "S_idopanel"
+
+#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
 msgid "Prope_rties"
 msgstr "Ege_nskaper"
 
@@ -232,10 +236,10 @@ msgid "Save As"
 msgstr "Spara som"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
-#: ../src/eog-close-confirmation-dialog.c:172 ../src/eog-error-message-area.c:119
+#: ../src/eog-close-confirmation-dialog.c:172 ../src/eog-error-message-area.c:122
 #: ../src/eog-file-chooser.c:456 ../src/eog-file-chooser.c:464
-#: ../src/eog-file-chooser.c:472 ../src/eog-window.c:3170 ../src/eog-window.c:3173
-#: ../src/eog-window.c:3426
+#: ../src/eog-file-chooser.c:472 ../src/eog-window.c:3250 ../src/eog-window.c:3253
+#: ../src/eog-window.c:3506
 msgid "_Cancel"
 msgstr "_Avbryt"
 
@@ -388,7 +392,7 @@ msgstr "Gå till den första bilden i galleriet"
 msgid "_First Image"
 msgstr "_Första bilden"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2960
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2973
 msgid "Go to the previous image of the gallery"
 msgstr "Gå till föregående bild i galleriet"
 
@@ -396,7 +400,7 @@ msgstr "Gå till föregående bild i galleriet"
 msgid "_Previous Image"
 msgstr "_Föregående bild"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2948
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2961
 msgid "Go to the next image of the gallery"
 msgstr "Gå till nästa bild i galleriet"
 
@@ -436,7 +440,7 @@ msgstr "_Normal storlek"
 msgid "_Best Fit"
 msgstr "Bästa _anpassning"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2975
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2988
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotera bilden 90 grader åt vänster"
 
@@ -444,7 +448,7 @@ msgstr "Rotera bilden 90 grader åt vänster"
 msgid "Rotate Counter_clockwise"
 msgstr "Rotera _moturs"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2986
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2999
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotera bilden 90 grader åt höger"
 
@@ -751,7 +755,7 @@ msgstr "Öppna _med"
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3429
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3509
 msgid "Move to _Trash"
 msgstr "Flytta till _papperskorgen"
 
@@ -820,28 +824,48 @@ msgstr "_Markera bilderna som du vill spara:"
 msgid "If you don't save, all your changes will be lost."
 msgstr "Om du inte sparar så kommer alla dina ändringar att gå förlorade."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:885
+#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
 msgid "_Reload"
 msgstr "_Läs om"
 
-#: ../src/eog-error-message-area.c:171
+#: ../src/eog-error-message-area.c:136
+msgid "Open with _Document Viewer"
+msgstr "Öppna med _Dokumentvisare"
+
+#: ../src/eog-error-message-area.c:218
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "Kunde inte läsa in bilden ”%s”."
 
-#: ../src/eog-error-message-area.c:213
+#: ../src/eog-error-message-area.c:260
 #, c-format
 msgid "Could not save image '%s'."
 msgstr "Kunde inte spara bilden ”%s”."
 
-#: ../src/eog-error-message-area.c:256
+#: ../src/eog-error-message-area.c:303
 #, c-format
 msgid "No images found in '%s'."
 msgstr "Inga bilder hittades i ”%s”."
 
-#: ../src/eog-error-message-area.c:263
+#: ../src/eog-error-message-area.c:310
 msgid "The given locations contain no images."
 msgstr "De angivna platserna innehåller inga bilder."
+
+#: ../src/eog-error-message-area.c:349
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"Denna bild innehåller flera sidor. Bildvisare visar bara den första sidan.\n"
+"Vill du öppna bilden med Dokumentvisare för att se alla sidor?"
+
+#: ../src/eog-error-message-area.c:354
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"Denna bild innehåller flera sidor. Bildvisare visar bara den första sidan.\n"
+"Du kan vilja installera Dokumentvisare för att se alla sidor."
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
@@ -895,7 +919,7 @@ msgstr "Bildfiler som stöds"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
+#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "bildpunkt"
@@ -917,37 +941,37 @@ msgstr "Spara bild"
 msgid "Open Folder"
 msgstr "Öppna mapp"
 
-#: ../src/eog-image.c:613
+#: ../src/eog-image.c:577
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformering på oinläst bild."
 
-#: ../src/eog-image.c:641
+#: ../src/eog-image.c:605
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformering misslyckades."
 
-#: ../src/eog-image.c:1138
+#: ../src/eog-image.c:1085
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF stöds inte för detta filformat."
 
-#: ../src/eog-image.c:1287
+#: ../src/eog-image.c:1229
 #, c-format
 msgid "Image loading failed."
 msgstr "Bildinläsning misslyckades."
 
-#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
 #, c-format
 msgid "No image loaded."
 msgstr "Ingen bild inläst."
 
-#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
+#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har inte den behörighet som krävs för att spara filen."
 
-#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
+#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Skapandet av temporär fil misslyckades."
@@ -1023,14 +1047,14 @@ msgstr "Väst"
 msgid "South"
 msgstr "Syd"
 
-#: ../src/eog-metadata-sidebar.c:109
+#: ../src/eog-metadata-sidebar.c:113
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i bildpunkt"
 msgstr[1] "%i × %i bildpunkter"
 
-#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:124 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Okänt"
 
@@ -1162,7 +1186,7 @@ msgstr "som det är"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:544
+#: ../src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "Taget den"
 
@@ -1185,21 +1209,21 @@ msgstr " (ogiltig Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:542
+#: ../src/eog-window.c:568
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i bildpunkt  %s    %i%%"
 msgstr[1] "%i × %i bildpunkter  %s    %i%%"
 
-#: ../src/eog-window.c:887 ../src/eog-window.c:2573
+#: ../src/eog-window.c:908 ../src/eog-window.c:2653
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Dö_lj"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:897
+#: ../src/eog-window.c:918
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1213,30 +1237,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1135
+#: ../src/eog-window.c:1181
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Sparar bilden ”%s” (%u/%u)"
 
-#: ../src/eog-window.c:1539
+#: ../src/eog-window.c:1606
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Öppnar bilden ”%s”"
 
-#: ../src/eog-window.c:1823
+#: ../src/eog-window.c:1902
 msgid "_Leave Fullscreen"
 msgstr "_Lämna helskärmsläge"
 
-#: ../src/eog-window.c:1829
+#: ../src/eog-window.c:1908
 msgid "Leave fullscreen mode"
 msgstr "Lämna helskärmsläge"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1943
+#: ../src/eog-window.c:2023
 msgid "Viewing a slideshow"
 msgstr "Visar ett bildspel"
 
-#: ../src/eog-window.c:2162
+#: ../src/eog-window.c:2242
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1245,17 +1269,17 @@ msgstr ""
 "Fel vid utskrift av fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2522 ../src/eog-window.c:2537
+#: ../src/eog-window.c:2602 ../src/eog-window.c:2617
 msgid "Error launching System Settings: "
 msgstr "Fel vid start av systeminställningar: "
 
-#: ../src/eog-window.c:2571
+#: ../src/eog-window.c:2651
 msgid "_Open Background Preferences"
 msgstr "_Öppna bakgrundsinställningar"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2587
+#: ../src/eog-window.c:2667
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1264,11 +1288,11 @@ msgstr ""
 "Bilden ”%s” har ställts in som skrivbordsbakgrund.\n"
 "Vill du ändra dess utseende?"
 
-#: ../src/eog-window.c:3068
+#: ../src/eog-window.c:3148
 msgid "Saving image locally…"
 msgstr "Sparar bilden lokalt…"
 
-#: ../src/eog-window.c:3146
+#: ../src/eog-window.c:3226
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1277,7 +1301,7 @@ msgstr ""
 "Är du säker att du permanent vill radera\n"
 "”%s”?"
 
-#: ../src/eog-window.c:3149
+#: ../src/eog-window.c:3229
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1292,41 +1316,41 @@ msgstr[1] ""
 "Är du säker att du permanent vill radera\n"
 "de %d markerade bilderna?"
 
-#: ../src/eog-window.c:3171 ../src/eog-window.c:3437
+#: ../src/eog-window.c:3251 ../src/eog-window.c:3517
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: ../src/eog-window.c:3174 ../src/eog-window.c:3439
+#: ../src/eog-window.c:3254 ../src/eog-window.c:3519
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3178 ../src/eog-window.c:3431
+#: ../src/eog-window.c:3258 ../src/eog-window.c:3511
 msgid "Do _not ask again during this session"
 msgstr "Fråga _inte igen under denna session"
 
-#: ../src/eog-window.c:3222
+#: ../src/eog-window.c:3302
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Kunde inte hämta bildfilen"
 
-#: ../src/eog-window.c:3238
+#: ../src/eog-window.c:3318
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Kunde inte hämta information om bildfilen"
 
-#: ../src/eog-window.c:3254 ../src/eog-window.c:3498
+#: ../src/eog-window.c:3334 ../src/eog-window.c:3578
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Kunde inte ta bort filen"
 
 #. set dialog error message
-#: ../src/eog-window.c:3304 ../src/eog-window.c:3598
+#: ../src/eog-window.c:3384 ../src/eog-window.c:3678
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fel vid borttagning av bilden %s"
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3479
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1335,7 +1359,7 @@ msgstr ""
 "Är du säker att du vill flytta\n"
 "”%s” till papperskorgen?"
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3482
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1343,7 +1367,7 @@ msgid ""
 msgstr ""
 "En papperskorg för ”%s” kunde inte hittas. Vill du ta bort denna bild permanent?"
 
-#: ../src/eog-window.c:3407
+#: ../src/eog-window.c:3487
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1358,7 +1382,7 @@ msgstr[1] ""
 "Är du säker att du vill flytta de\n"
 "%d markerade bilderna till papperskorgen?"
 
-#: ../src/eog-window.c:3412
+#: ../src/eog-window.c:3492
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1366,32 +1390,32 @@ msgstr ""
 "Några av de markerade bilderna kan inte flyttas till papperskorgen och kommer "
 "att tas bort permanent. Är du säker på att du vill fortsätta?"
 
-#: ../src/eog-window.c:3476 ../src/eog-window.c:3490
+#: ../src/eog-window.c:3556 ../src/eog-window.c:3570
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kunde inte komma åt papperskorgen."
 
-#: ../src/eog-window.c:4156
+#: ../src/eog-window.c:4236
 msgid "Fit the image to the window"
 msgstr "Anpassar bilden till fönstret"
 
-#: ../src/eog-window.c:4163 ../src/eog-window.c:4209
+#: ../src/eog-window.c:4244 ../src/eog-window.c:4289
 msgid "Shrink or enlarge the current image"
 msgstr "Förminska eller förstora den aktuella bilden"
 
-#: ../src/eog-window.c:4259
+#: ../src/eog-window.c:4342
 msgid "Show the current image in fullscreen mode"
 msgstr "Visa den aktuella bilden i helskärmsläge"
 
-#: ../src/eog-window.c:4338
+#: ../src/eog-window.c:4419
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/eog-window.c:5485
+#: ../src/eog-window.c:5552
 msgid "The GNOME image viewer."
 msgstr "GNOME-bildvisaren."
 
-#: ../src/eog-window.c:5488
+#: ../src/eog-window.c:5555
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
