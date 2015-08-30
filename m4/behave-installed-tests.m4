@@ -76,7 +76,7 @@ install-data-am: installed-tests-data-hook
 uninstall-am: uninstall-tests-hook
 
 META_DIRECTORY=${DESTDIR}${datadir}/installed-tests/${PACKAGE}
-EXEC_DIRECTORY=${DESTDIR}${pkglibexecdir}/installed-tests
+EXEC_DIRECTORY=${DESTDIR}${libexecdir}/installed-tests/${PACKAGE}
 
 BEHAVE_FEATURES=$(notdir $(wildcard $(srcdir)/tests/*.feature))
 BEHAVE_STEP_DEFINITION=$(notdir $(wildcard $(srcdir)/tests/steps/*.py))
