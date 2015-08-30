@@ -76,6 +76,8 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
 AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
 
+GLIB_TESTS
+
 # ***************
 # User documentation
 # ***************
@@ -327,6 +329,7 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 jpegutils/Makefile
+tests/Makefile
 help/Makefile
 po/Makefile.in
 data/Makefile
