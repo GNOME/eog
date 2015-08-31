@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-22 15:35+0000\n"
-"PO-Revision-Date: 2015-06-22 22:57+0200\n"
+"POT-Creation-Date: 2015-08-31 15:37+0000\n"
+"PO-Revision-Date: 2015-08-31 17:50+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -76,7 +76,7 @@ msgstr ""
 "vagy fekvő tájolásba."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
-#: ../src/eog-window.c:5546
+#: ../src/eog-window.c:5549
 msgid "Image Viewer"
 msgstr "Képmegjelenítő"
 
@@ -120,7 +120,6 @@ msgid "Sli_deshow"
 msgstr "_Diavetítés"
 
 #: ../data/eog-gear-menu.ui.h:8
-#| msgid "Side _Pane"
 msgid "S_ide Pane"
 msgstr "Oldal_sáv"
 
@@ -394,7 +393,7 @@ msgstr "Ugrás a galéria első képére"
 msgid "_First Image"
 msgstr "_Első kép"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2970
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2288
 msgid "Go to the previous image of the gallery"
 msgstr "Ugrás a galéria előző képére"
 
@@ -402,7 +401,7 @@ msgstr "Ugrás a galéria előző képére"
 msgid "_Previous Image"
 msgstr "_Előző kép"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2958
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2276
 msgid "Go to the next image of the gallery"
 msgstr "Ugrás a galéria következő képére"
 
@@ -442,7 +441,7 @@ msgstr "_Normál méret"
 msgid "_Best Fit"
 msgstr "Legjobb _illeszkedés"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2985
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2303
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Kép forgatása 90 fokkal balra"
 
@@ -450,7 +449,7 @@ msgstr "Kép forgatása 90 fokkal balra"
 msgid "Rotate Counter_clockwise"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2996
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2314
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Kép forgatása 90 fokkal jobbra"
 
@@ -836,8 +835,9 @@ msgid "_Reload"
 msgstr "Újr_atöltés"
 
 #: ../src/eog-error-message-area.c:136
-msgid "Open with Document Viewer"
-msgstr "Megnyitás a Dokumentummegjelenítővel"
+#| msgid "Open with Document Viewer"
+msgid "Open with _Document Viewer"
+msgstr "Megnyitás a _Dokumentummegjelenítővel"
 
 #: ../src/eog-error-message-area.c:218
 #, c-format
@@ -864,8 +864,8 @@ msgid ""
 "page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt jeleníti "
-"meg.\n"
+"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt "
+"jeleníti meg.\n"
 "Szeretné a képet a Dokumentummegjelenítővel megnyitni az összes oldal "
 "megtekintéséhez?"
 
@@ -875,8 +875,8 @@ msgid ""
 "page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt jeleníti "
-"meg.\n"
+"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt "
+"jeleníti meg.\n"
 "Érdemes lenne a Dokumentummegjelenítőt telepíteni az összes oldal "
 "megtekintéséhez."
 
@@ -1059,22 +1059,22 @@ msgstr "Nyugat"
 msgid "South"
 msgstr "Dél"
 
-#: ../src/eog-metadata-sidebar.c:110
+#: ../src/eog-metadata-sidebar.c:113
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i képpont"
 msgstr[1] "%i × %i képpont"
 
-#: ../src/eog-metadata-sidebar.c:121 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:124 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../src/eog-metadata-sidebar.c:190
+#: ../src/eog-metadata-sidebar.c:189
 msgid "%a, %d %B %Y"
 msgstr "%Y. %B %e. %a"
 
-#: ../src/eog-metadata-sidebar.c:194
+#: ../src/eog-metadata-sidebar.c:193
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1174,7 +1174,7 @@ msgstr "Hüvelyk"
 msgid "Preview"
 msgstr "Előnézet"
 
-#: ../src/eog-properties-dialog.c:745
+#: ../src/eog-properties-dialog.c:751
 msgid "Show the folder which contains this file in the file manager"
 msgstr "A fájlt tartalmazó mappa megjelenítése a fájlkezelőben"
 
@@ -1413,19 +1413,19 @@ msgstr "Kép igazítása az ablakhoz"
 msgid "Shrink or enlarge the current image"
 msgstr "A jelenlegi kép kicsinyítése vagy nagyítása"
 
-#: ../src/eog-window.c:4339
+#: ../src/eog-window.c:4342
 msgid "Show the current image in fullscreen mode"
 msgstr "Kép megjelenítése teljes képernyős módban"
 
-#: ../src/eog-window.c:4416
+#: ../src/eog-window.c:4419
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../src/eog-window.c:5549
+#: ../src/eog-window.c:5552
 msgid "The GNOME image viewer."
 msgstr "A GNOME képmegjelenítője."
 
-#: ../src/eog-window.c:5552
+#: ../src/eog-window.c:5555
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik at gnome dot hu>\n"
