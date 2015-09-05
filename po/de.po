@@ -17,21 +17,23 @@
 # Hendrik Knackstedt <kn.hendrik@gmail.com>, 2011, 2012.
 # Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2012, 2014-2015.
+# Bernd Homuth <dev@hmt.im>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-20 03:36+0000\n"
-"PO-Revision-Date: 2015-06-20 08:34+0100\n"
-"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"POT-Creation-Date: 2015-09-05 15:37+0000\n"
+"PO-Revision-Date: 2015-09-05 21:54+0200\n"
+"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Gtranslator 2.91.6\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/eog-app-menu.xml.h:1
@@ -86,7 +88,7 @@ msgstr ""
 "richtig in das Hoch- oder Querformat zu drehen."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
-#: ../src/eog-window.c:5546
+#: ../src/eog-window.c:5558
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
 
@@ -250,7 +252,7 @@ msgstr "Speichern unter"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3250 ../src/eog-window.c:3253 ../src/eog-window.c:3506
+#: ../src/eog-window.c:3259 ../src/eog-window.c:3262 ../src/eog-window.c:3515
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -403,7 +405,7 @@ msgstr "Zum ersten Bild in der Sammlung gehen"
 msgid "_First Image"
 msgstr "_Erstes Bild"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2970
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
 msgid "Go to the previous image of the gallery"
 msgstr "Zum vorherigen Bild in der Sammlung gehen"
 
@@ -411,7 +413,7 @@ msgstr "Zum vorherigen Bild in der Sammlung gehen"
 msgid "_Previous Image"
 msgstr "_Vorheriges Bild"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2958
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
 msgid "Go to the next image of the gallery"
 msgstr "Zum nächsten Bild in der Sammlung gehen"
 
@@ -451,7 +453,7 @@ msgstr "_Normale Größe"
 msgid "_Best Fit"
 msgstr "Ein_passen"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2985
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Das Bild um 90 Grad nach links drehen"
 
@@ -459,7 +461,7 @@ msgstr "Das Bild um 90 Grad nach links drehen"
 msgid "Rotate Counter_clockwise"
 msgstr "_Gegen den Uhrzeigersinn drehen"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2996
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Das Bild um 90 Grad nach rechts drehen"
 
@@ -784,7 +786,7 @@ msgstr "Öffnen _mit"
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3509
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3518
 msgid "Move to _Trash"
 msgstr "In den _Papierkorb verschieben"
 
@@ -861,8 +863,9 @@ msgid "_Reload"
 msgstr "_Neu laden"
 
 #: ../src/eog-error-message-area.c:136
-msgid "Open with Document Viewer"
-msgstr "Mit Dokumentenbetrachter öffnen"
+#| msgid "Open with Document Viewer"
+msgid "Open with _Document Viewer"
+msgstr "Mit Dokumentenbe_trachter öffnen"
 
 #: ../src/eog-error-message-area.c:218
 #, c-format
@@ -1068,38 +1071,38 @@ msgstr "Attribut"
 msgid "Value"
 msgstr "Wert"
 
-#: ../src/eog-metadata-details.c:436
+#: ../src/eog-metadata-details.c:434
 msgid "North"
 msgstr "Nord"
 
-#: ../src/eog-metadata-details.c:439
+#: ../src/eog-metadata-details.c:437
 msgid "East"
 msgstr "Ost"
 
-#: ../src/eog-metadata-details.c:442
+#: ../src/eog-metadata-details.c:440
 msgid "West"
 msgstr "West"
 
-#: ../src/eog-metadata-details.c:445
+#: ../src/eog-metadata-details.c:443
 msgid "South"
 msgstr "Süd"
 
-#: ../src/eog-metadata-sidebar.c:110
+#: ../src/eog-metadata-sidebar.c:113
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i Pixel"
 msgstr[1] "%i × %i Pixel"
 
-#: ../src/eog-metadata-sidebar.c:121 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:124 ../src/eog-properties-dialog.c:156
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ../src/eog-metadata-sidebar.c:190
+#: ../src/eog-metadata-sidebar.c:189
 msgid "%a, %d %B %Y"
 msgstr "%a, %d. %B %Y"
 
-#: ../src/eog-metadata-sidebar.c:194
+#: ../src/eog-metadata-sidebar.c:193
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1199,7 +1202,7 @@ msgstr "Zoll"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../src/eog-properties-dialog.c:745
+#: ../src/eog-properties-dialog.c:751
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Den Ordner, der diese Datei enthält, in der Dateiverwaltung anzeigen"
 
@@ -1226,7 +1229,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Aufgenommen am"
 
-#: ../src/eog-uri-converter.c:982
+#: ../src/eog-uri-converter.c:989
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Mindestens zwei Dateinamen sind gleich."
@@ -1324,11 +1327,11 @@ msgstr ""
 "Das Bild »%s« wurde als Hintergrundbild festgelegt.\n"
 "Möchten Sie sein Erscheinungsbild verändern?"
 
-#: ../src/eog-window.c:3148
+#: ../src/eog-window.c:3157
 msgid "Saving image locally…"
 msgstr "Bild wird lokal gespeichert …"
 
-#: ../src/eog-window.c:3226
+#: ../src/eog-window.c:3235
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1337,7 +1340,7 @@ msgstr ""
 "Soll »%s«\n"
 "wirklich dauerhaft gelöscht werden?"
 
-#: ../src/eog-window.c:3229
+#: ../src/eog-window.c:3238
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1352,41 +1355,41 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich unwiderruflich gelöscht werden?"
 
-#: ../src/eog-window.c:3251 ../src/eog-window.c:3517
+#: ../src/eog-window.c:3260 ../src/eog-window.c:3526
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: ../src/eog-window.c:3254 ../src/eog-window.c:3519
+#: ../src/eog-window.c:3263 ../src/eog-window.c:3528
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3258 ../src/eog-window.c:3511
+#: ../src/eog-window.c:3267 ../src/eog-window.c:3520
 msgid "Do _not ask again during this session"
 msgstr "Während der laufenden Sitzung _nicht erneut fragen"
 
-#: ../src/eog-window.c:3302
+#: ../src/eog-window.c:3311
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Datei konnte nicht geholt werden"
 
-#: ../src/eog-window.c:3318
+#: ../src/eog-window.c:3327
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Dateiinformationen konnten nicht geholt werden"
 
-#: ../src/eog-window.c:3334 ../src/eog-window.c:3578
+#: ../src/eog-window.c:3343 ../src/eog-window.c:3587
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Datei konnte nicht gelöscht werden"
 
 #. set dialog error message
-#: ../src/eog-window.c:3384 ../src/eog-window.c:3678
+#: ../src/eog-window.c:3393 ../src/eog-window.c:3687
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fehler beim Löschen von Bild %s"
 
-#: ../src/eog-window.c:3479
+#: ../src/eog-window.c:3488
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1395,7 +1398,7 @@ msgstr ""
 "Soll »%s« wirklich\n"
 "in den Papierkorb verschoben werden?"
 
-#: ../src/eog-window.c:3482
+#: ../src/eog-window.c:3491
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1404,7 +1407,7 @@ msgstr ""
 "Es konnte kein Papierkorb für »%s« gefunden werden. Wollen Sie das Bild "
 "unwiderruflich löschen?"
 
-#: ../src/eog-window.c:3487
+#: ../src/eog-window.c:3496
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1419,7 +1422,7 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich in den Papierkorb verschoben werden?"
 
-#: ../src/eog-window.c:3492
+#: ../src/eog-window.c:3501
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1428,32 +1431,32 @@ msgstr ""
 "werden und werden daher unwiderruflich gelöscht. Sind Sie sicher, dass Sie "
 "fortfahren wollen?"
 
-#: ../src/eog-window.c:3556 ../src/eog-window.c:3570
+#: ../src/eog-window.c:3565 ../src/eog-window.c:3579
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Auf den Papierkorb konnte nicht zugegriffen werden."
 
-#: ../src/eog-window.c:4236
+#: ../src/eog-window.c:4245
 msgid "Fit the image to the window"
 msgstr "Das Bild auf die Fenstergröße anpassen"
 
-#: ../src/eog-window.c:4244 ../src/eog-window.c:4289
+#: ../src/eog-window.c:4253 ../src/eog-window.c:4298
 msgid "Shrink or enlarge the current image"
 msgstr "Aktuelles Bild verkleinern oder vergrößern"
 
-#: ../src/eog-window.c:4339
+#: ../src/eog-window.c:4351
 msgid "Show the current image in fullscreen mode"
 msgstr "Das momentane Bild im Vollbildmodus anzeigen"
 
-#: ../src/eog-window.c:4416
+#: ../src/eog-window.c:4428
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: ../src/eog-window.c:5549
+#: ../src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "Der GNOME-Bildbetrachter."
 
-#: ../src/eog-window.c:5552
+#: ../src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
