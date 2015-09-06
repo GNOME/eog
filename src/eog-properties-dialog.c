@@ -66,7 +66,6 @@ struct _EogPropertiesDialogPrivate {
 	EogPropertiesDialogPage current_page;
 
 	GtkWidget      *notebook;
-	GtkWidget      *close_button;
 	GtkWidget      *next_button;
 	GtkWidget      *previous_button;
 
@@ -657,9 +656,6 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 						     next_button);
 	gtk_widget_class_bind_template_child_private(wklass,
 						     EogPropertiesDialog,
-						     close_button);
-	gtk_widget_class_bind_template_child_private(wklass,
-						     EogPropertiesDialog,
 						     thumbnail_image);
 	gtk_widget_class_bind_template_child_private(wklass,
 						     EogPropertiesDialog,
@@ -776,11 +772,6 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			  G_CALLBACK (gtk_widget_hide_on_delete),
 			  prop_dlg);
 
-	g_signal_connect_swapped (priv->close_button,
-				  "clicked",
-				  G_CALLBACK (gtk_widget_hide_on_delete),
-				  prop_dlg);
-
 	gtk_widget_set_tooltip_text (GTK_WIDGET (priv->folder_button),
 				     _("Show the folder which contains this "
 				       "file in the file manager"));
@@ -859,6 +850,7 @@ eog_properties_dialog_new (GtkWindow    *parent,
 			     	 "thumbview", thumbview,
 				 "next-action", next_image_action,
 				 "prev-action", previous_image_action,
+				 "use-header-bar", TRUE,
 			     	 NULL);
 
 	gtk_window_set_transient_for (GTK_WINDOW (prop_dlg), parent);
