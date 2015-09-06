@@ -309,6 +309,7 @@ GtkWidget *eog_preferences_dialog_get_instance(GtkWindow *parent)
 {
 	if (instance == NULL) {
 		instance = g_object_new (EOG_TYPE_PREFERENCES_DIALOG,
+					 "use-header-bar", TRUE,
 				 	 NULL);
 	}
 
