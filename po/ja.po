@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-24 18:51+0000\n"
-"PO-Revision-Date: 2015-02-08 10:06+0900\n"
+"POT-Creation-Date: 2015-09-11 19:01+0000\n"
+"PO-Revision-Date: 2015-08-25 20:56+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -61,8 +61,8 @@ msgstr "Eye of GNOME は GNOME デスクトップの公式画像ビューアー�
 msgid "The Eye of GNOME also allows to view the images in a fullscreen slideshow mode or set an image as the desktop wallpaper. It reads the camera tags to automatically rotate your images in the correct portrait or landscape orientation."
 msgstr "Eye of GNOME では、フルスクリーンでスライドショーを楽しんだり、画像をデスクトップの壁紙にしたりできます。カメラのタグを自動的に読み込んで画像の縦横の方向を正しく表示します。"
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5484
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
+#: ../src/eog-window.c:5558
 msgid "Image Viewer"
 msgstr "画像ビューアー"
 
@@ -89,7 +89,7 @@ msgid "_Save"
 msgstr "保存(_S)"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:129
+#: ../src/eog-error-message-area.c:132
 msgid "Save _As…"
 msgstr "名前を付けて保存(_A)…"
 
@@ -105,7 +105,11 @@ msgstr "壁紙にする(_L)"
 msgid "Sli_deshow"
 msgstr "スライドショー(_D)"
 
-#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:7
+#: ../data/eog-gear-menu.ui.h:8
+msgid "S_ide Pane"
+msgstr "サイドペイン(_I)"
+
+#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
 msgid "Prope_rties"
 msgstr "プロパティ(_R)"
 
@@ -220,9 +224,9 @@ msgstr "名前を付けて保存"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
 #: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
+#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3184 ../src/eog-window.c:3187 ../src/eog-window.c:3440
+#: ../src/eog-window.c:3259 ../src/eog-window.c:3262 ../src/eog-window.c:3515
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
@@ -375,7 +379,7 @@ msgstr "ギャラリーの一番最初の画像を表示します"
 msgid "_First Image"
 msgstr "先頭へ(_F)"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2962
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
 msgid "Go to the previous image of the gallery"
 msgstr "ギャラリーの前の画像を表示します"
 
@@ -383,7 +387,7 @@ msgstr "ギャラリーの前の画像を表示します"
 msgid "_Previous Image"
 msgstr "前の画像へ(_P)"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2950
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
 msgid "Go to the next image of the gallery"
 msgstr "ギャラリーの次の画像を表示します"
 
@@ -423,7 +427,7 @@ msgstr "通常の大きさ(_N)"
 msgid "_Best Fit"
 msgstr "ウィンドウに合わせる(_B)"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2977
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
 msgid "Rotate the image 90 degrees to the left"
 msgstr "画像を左回りで90°回転させます"
 
@@ -431,7 +435,7 @@ msgstr "画像を左回りで90°回転させます"
 msgid "Rotate Counter_clockwise"
 msgstr "反時計回りに回転する(_C)"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2988
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
 msgid "Rotate the image 90 degrees to the right"
 msgstr "画像を右回りで90°回転させます"
 
@@ -662,7 +666,7 @@ msgstr "別のアプリケーションで開く(_W)"
 msgid "_Copy"
 msgstr "コピー(_C)"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3443
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3518
 msgid "Move to _Trash"
 msgstr "ゴミ箱へ移動する(_T)"
 
@@ -727,28 +731,48 @@ msgstr "保存したい画像を選んでください(_E):"
 msgid "If you don't save, all your changes will be lost."
 msgstr "保存をしないと変更はすべて失われます。"
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:899
+#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
 msgid "_Reload"
 msgstr "再読み込み(_R)"
 
-#: ../src/eog-error-message-area.c:171
+#: ../src/eog-error-message-area.c:136
+msgid "Open with _Document Viewer"
+msgstr "ドキュメントビューアーで開く(_D)"
+
+#: ../src/eog-error-message-area.c:218
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "'%s' という画像を読み込めませんでした"
 
-#: ../src/eog-error-message-area.c:213
+#: ../src/eog-error-message-area.c:260
 #, c-format
 msgid "Could not save image '%s'."
 msgstr "'%s' という画像を保存できませんでした"
 
-#: ../src/eog-error-message-area.c:256
+#: ../src/eog-error-message-area.c:303
 #, c-format
 msgid "No images found in '%s'."
 msgstr "'%s' という画像が見つかりませんでした"
 
-#: ../src/eog-error-message-area.c:263
+#: ../src/eog-error-message-area.c:310
 msgid "The given locations contain no images."
 msgstr "指定した場所に画像がありませんでした"
+
+#: ../src/eog-error-message-area.c:349
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表示できません。\n"
+"すべてのページを表示するにはドキュメントビューアーで開いてください。"
+
+#: ../src/eog-error-message-area.c:354
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表示できません。\n"
+"すべてのページを表示するにはドキュメントビューアーをインストールしてください。"
 
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=550830
 # https://bugzilla.gnome.org/show_bug.cgi?id=611279
@@ -799,8 +823,8 @@ msgid "Supported image files"
 msgstr "サポートされている画像ファイル"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:166
+#: ../src/eog-properties-dialog.c:168 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "ピクセル"
@@ -821,37 +845,37 @@ msgstr "画像の保存"
 msgid "Open Folder"
 msgstr "フォルダーの選択"
 
-#: ../src/eog-image.c:613
+#: ../src/eog-image.c:577
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "読み込んでいない画像で変換します。"
 
-#: ../src/eog-image.c:641
+#: ../src/eog-image.c:605
 #, c-format
 msgid "Transformation failed."
 msgstr "変換に失敗しました。"
 
-#: ../src/eog-image.c:1138
+#: ../src/eog-image.c:1085
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "このファイル形式では EXIF をサポートしていません。"
 
-#: ../src/eog-image.c:1287
+#: ../src/eog-image.c:1229
 #, c-format
 msgid "Image loading failed."
 msgstr "画像の読み込みに失敗しました。"
 
-#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
 #, c-format
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
+#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "ファイルを保存するのに必要な権限がありません。"
 
-#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
+#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "作業用ファイルの生成に失敗しました。"
@@ -910,39 +934,39 @@ msgstr "タグ"
 msgid "Value"
 msgstr "値"
 
-#: ../src/eog-metadata-details.c:436
+#: ../src/eog-metadata-details.c:434
 msgid "North"
 msgstr "北"
 
-#: ../src/eog-metadata-details.c:439
+#: ../src/eog-metadata-details.c:437
 msgid "East"
 msgstr "東"
 
-#: ../src/eog-metadata-details.c:442
+#: ../src/eog-metadata-details.c:440
 msgid "West"
 msgstr "西"
 
-#: ../src/eog-metadata-details.c:445
+#: ../src/eog-metadata-details.c:443
 msgid "South"
 msgstr "南"
 
-#: ../src/eog-metadata-sidebar.c:109
+#: ../src/eog-metadata-sidebar.c:144
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i x %i ピクセル"
 
-#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:155 ../src/eog-properties-dialog.c:183
 msgid "Unknown"
 msgstr "不明"
 
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=550830
 # https://bugzilla.gnome.org/show_bug.cgi?id=611279
-#: ../src/eog-metadata-sidebar.c:189
+#: ../src/eog-metadata-sidebar.c:219
 msgid "%a, %d %B %Y"
 msgstr "%Y年%B%e日 (%a)"
 
-#: ../src/eog-metadata-sidebar.c:193
+#: ../src/eog-metadata-sidebar.c:223
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1041,7 +1065,7 @@ msgstr "インチ"
 msgid "Preview"
 msgstr "プレビュー"
 
-#: ../src/eog-properties-dialog.c:745
+#: ../src/eog-properties-dialog.c:785
 msgid "Show the folder which contains this file in the file manager"
 msgstr "ファイルマネージャーでこのファイルを含むフォルダーを表示します"
 
@@ -1064,11 +1088,11 @@ msgstr "変更しない"
 msgid "%d / %d"
 msgstr "%d / %Id"
 
-#: ../src/eog-thumb-view.c:544
+#: ../src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "撮影日: "
 
-#: ../src/eog-uri-converter.c:982
+#: ../src/eog-uri-converter.c:989
 #, c-format
 msgid "At least two file names are equal."
 msgstr "同じ名前のファイルです。"
@@ -1087,20 +1111,20 @@ msgstr " (不正な Unicode です)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:556
+#: ../src/eog-window.c:568
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i ピクセル %s    %i%%"
 
-#: ../src/eog-window.c:901 ../src/eog-window.c:2587
+#: ../src/eog-window.c:908 ../src/eog-window.c:2653
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隠す(_D)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:911
+#: ../src/eog-window.c:918
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1114,30 +1138,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1149
+#: ../src/eog-window.c:1181
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "画像 \"%s\" を保存しています (%u/%u)"
 
-#: ../src/eog-window.c:1553
+#: ../src/eog-window.c:1606
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "画像 \"%s\" を開いています"
 
-#: ../src/eog-window.c:1837
+#: ../src/eog-window.c:1902
 msgid "_Leave Fullscreen"
 msgstr "フルスクリーン解除(_L)"
 
-#: ../src/eog-window.c:1843
+#: ../src/eog-window.c:1908
 msgid "Leave fullscreen mode"
 msgstr "フルスクリーンモードを解除します"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1957
+#: ../src/eog-window.c:2023
 msgid "Viewing a slideshow"
 msgstr "スライドショー表示中"
 
-#: ../src/eog-window.c:2176
+#: ../src/eog-window.c:2242
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1146,17 +1170,17 @@ msgstr ""
 "ファイルを印刷する際にエラー:\n"
 "%s"
 
-#: ../src/eog-window.c:2536 ../src/eog-window.c:2551
+#: ../src/eog-window.c:2602 ../src/eog-window.c:2617
 msgid "Error launching System Settings: "
 msgstr "「システムの設定」の起動時にエラー: "
 
-#: ../src/eog-window.c:2585
+#: ../src/eog-window.c:2651
 msgid "_Open Background Preferences"
 msgstr "背景の設定を開く(_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2601
+#: ../src/eog-window.c:2667
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1165,11 +1189,11 @@ msgstr ""
 "画像 \"%s\" がデスクトップの背景に設定されました。\n"
 "見た目を変更しますか?"
 
-#: ../src/eog-window.c:3082
+#: ../src/eog-window.c:3157
 msgid "Saving image locally…"
 msgstr "画像をローカルに保存中…"
 
-#: ../src/eog-window.c:3160
+#: ../src/eog-window.c:3235
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1178,7 +1202,7 @@ msgstr ""
 "本当に \"%s\" を\n"
 "完全に削除しますか?"
 
-#: ../src/eog-window.c:3163
+#: ../src/eog-window.c:3238
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1190,41 +1214,41 @@ msgstr[0] ""
 "本当に、選択した %d個の\n"
 "画像を完全に削除しますか?"
 
-#: ../src/eog-window.c:3185 ../src/eog-window.c:3451
+#: ../src/eog-window.c:3260 ../src/eog-window.c:3526
 msgid "_Delete"
 msgstr "削除(_D)"
 
-#: ../src/eog-window.c:3188 ../src/eog-window.c:3453
+#: ../src/eog-window.c:3263 ../src/eog-window.c:3528
 msgid "_Yes"
 msgstr "はい(_Y)"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3192 ../src/eog-window.c:3445
+#: ../src/eog-window.c:3267 ../src/eog-window.c:3520
 msgid "Do _not ask again during this session"
 msgstr "このセッション中は再度確認しない(_N)"
 
-#: ../src/eog-window.c:3236
+#: ../src/eog-window.c:3311
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "画像ファイルが見つかりませんでした"
 
-#: ../src/eog-window.c:3252
+#: ../src/eog-window.c:3327
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "画像ファイルの情報が見つかりませんでした"
 
-#: ../src/eog-window.c:3268 ../src/eog-window.c:3512
+#: ../src/eog-window.c:3343 ../src/eog-window.c:3587
 #, c-format
 msgid "Couldn't delete file"
 msgstr "ファイルを削除できませんでした"
 
 #. set dialog error message
-#: ../src/eog-window.c:3318 ../src/eog-window.c:3612
+#: ../src/eog-window.c:3393 ../src/eog-window.c:3687
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "画像 %s を削除する際にエラー"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3488
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1233,12 +1257,12 @@ msgstr ""
 "本当に \"%s\" を\n"
 "ゴミ箱へ移動しますか?"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3491
 #, c-format
 msgid "A trash for \"%s\" couldn't be found. Do you want to remove this image permanently?"
 msgstr "\"%s\" をゴミ箱へ移動できません。この画像を直接削除しますか?"
 
-#: ../src/eog-window.c:3421
+#: ../src/eog-window.c:3496
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1250,36 +1274,36 @@ msgstr[0] ""
 "本当に、選択した %d個の\n"
 "画像をゴミ箱へ移動しますか?"
 
-#: ../src/eog-window.c:3426
+#: ../src/eog-window.c:3501
 msgid "Some of the selected images can't be moved to the trash and will be removed permanently. Are you sure you want to proceed?"
 msgstr "選択した画像のいくつかはゴミ箱へ移動できません。直接削除しますが、続行してもよろしいですか?"
 
-#: ../src/eog-window.c:3490 ../src/eog-window.c:3504
+#: ../src/eog-window.c:3565 ../src/eog-window.c:3579
 #, c-format
 msgid "Couldn't access trash."
 msgstr "ゴミ箱にアクセスできませんでした。"
 
-#: ../src/eog-window.c:4170
+#: ../src/eog-window.c:4245
 msgid "Fit the image to the window"
 msgstr "画像をウィンドウに合わせた大きさにします"
 
-#: ../src/eog-window.c:4177 ../src/eog-window.c:4222
+#: ../src/eog-window.c:4253 ../src/eog-window.c:4298
 msgid "Shrink or enlarge the current image"
 msgstr "画像を縮小/拡大します"
 
-#: ../src/eog-window.c:4272
+#: ../src/eog-window.c:4351
 msgid "Show the current image in fullscreen mode"
 msgstr "画像をフルスクリーンモードで表示します"
 
-#: ../src/eog-window.c:4351
+#: ../src/eog-window.c:4428
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../src/eog-window.c:5487
+#: ../src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "GNOME の画像ビューアーです。"
 
-#: ../src/eog-window.c:5490
+#: ../src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
