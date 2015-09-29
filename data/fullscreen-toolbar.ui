@@ -5,7 +5,7 @@
   <object class="GtkToolbar" id="fullscreen_toolbar">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="toolbar_style">icons</property>
+    <property name="toolbar_style">both-horiz</property>
     <child>
       <object class="GtkToolButton" id="first_button">
         <property name="visible">True</property>
@@ -224,6 +224,22 @@
       <packing>
         <property name="expand">False</property>
         <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolButton" id="exit_fullscreen_button">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">_Leave Fullscreen</property>
+        <property name="use_underline">True</property>
+        <property name="tooltip_text" translatable="yes">Leave fullscreen mode</property>
+        <property name="icon_name">view-restore</property>
+        <property name="halign">end</property>
+        <property name="is_important">True</property>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="homogeneous">False</property>
       </packing>
     </child>
   </object>

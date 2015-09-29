@@ -1894,28 +1894,6 @@ exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 }
 
 static GtkWidget *
-eog_window_get_exit_fullscreen_button (EogWindow *window)
-{
-	GtkWidget *button;
-	GtkWidget *image;
-
-	button = gtk_button_new_with_mnemonic (_("_Leave Fullscreen"));
-	image = gtk_image_new_from_icon_name ("view-restore-symbolic",
-					      GTK_ICON_SIZE_BUTTON);
-	gtk_button_set_image (GTK_BUTTON (button), image);
-	gtk_button_set_always_show_image (GTK_BUTTON (button), TRUE);
-	gtk_widget_set_tooltip_text(button,
-				    _("Leave fullscreen mode"));
-
-
-	g_signal_connect (button, "clicked",
-			  G_CALLBACK (exit_fullscreen_button_clicked_cb),
-			  window);
-
-	return button;
-}
-
-static GtkWidget *
 eog_window_create_fullscreen_popup (EogWindow *window)
 {
 	GtkWidget *revealer;
@@ -1940,10 +1918,10 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, TRUE, TRUE, 0);
 
-	g_object_unref (builder);
-
-	button = eog_window_get_exit_fullscreen_button (window);
-	gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+	button = GTK_WIDGET (gtk_builder_get_object (builder, "exit_fullscreen_button"));
+	g_signal_connect (button, "clicked",
+			  G_CALLBACK (exit_fullscreen_button_clicked_cb),
+			  window);
 
 	/* Disable timer when the pointer enters the toolbar window. */
 	g_signal_connect (revealer,
@@ -1951,6 +1929,7 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 			  G_CALLBACK (fullscreen_leave_notify_cb),
 			  window);
 
+	g_object_unref (builder);
 	return revealer;
 }
 
