@@ -253,6 +253,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.view-fullscreen",	"F11", NULL,
 		"win.view-slideshow",	"F5", NULL,
 		"win.toggle-zoom-fit",	"F", NULL,
+		"win.toggle-gear-menu",	"F10", NULL,
 
 		NULL /* Terminating NULL */
 	};
