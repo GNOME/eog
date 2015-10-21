@@ -2744,23 +2744,15 @@ static gboolean
 view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event,
 			       gpointer user_data)
 {
-	/* Ignore double-clicks and triple-clicks */
-	if (gdk_event_triggers_context_menu ((const GdkEvent*) event)
-	    && event->type == GDK_BUTTON_PRESS)
-	{
-		eog_scroll_view_popup_menu (EOG_SCROLL_VIEW (view), event);
+    /* Ignore double-clicks and triple-clicks */
+    if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+    {
+	    eog_scroll_view_popup_menu (EOG_SCROLL_VIEW (view), event);
 
-		return TRUE;
-	}
+	    return TRUE;
+    }
 
-	return FALSE;
-}
-
-static gboolean
-eog_scroll_view_popup_menu_handler (GtkWidget *widget, gpointer user_data)
-{
-	eog_scroll_view_popup_menu (EOG_SCROLL_VIEW (widget), NULL);
-	return TRUE;
+    return FALSE;
 }
 
 void
@@ -2778,8 +2770,6 @@ eog_scroll_view_set_popup (EogScrollView *view,
 
 	g_signal_connect (G_OBJECT (view), "button_press_event",
 			  G_CALLBACK (view_on_button_press_event_cb), NULL);
-	g_signal_connect (G_OBJECT (view), "popup-menu",
-			  G_CALLBACK (eog_scroll_view_popup_menu_handler), NULL);
 }
 
 static gboolean
