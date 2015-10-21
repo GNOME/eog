@@ -4343,11 +4343,6 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
 	gtk_widget_show (menu_button);
 
-	action = G_ACTION (g_property_action_new ("toggle-gear-menu",
-						  menu_button, "active"));
-	g_action_map_add_action (G_ACTION_MAP (window), action);
-	g_object_unref (action);
-
 	fullscreen_button = gtk_button_new_from_icon_name ("view-fullscreen-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (fullscreen_button),
