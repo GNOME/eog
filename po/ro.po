@@ -6,77 +6,795 @@
 # Adi Roiban https://launchpad.net/~adiroiban, 2008, 2009
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2010, 2011.
 # Daniel Șerbănescu <cyber19rider@gmail.com>, 2010.
+# Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ro\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&ke"
-"ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-12 02:12+0000\n"
-"PO-Revision-Date: 2011-03-12 03:14+0200\n"
-"Last-Translator: Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
-"Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&key"
+"words=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-10-21 19:07+0000\n"
+"PO-Revision-Date: 2015-10-25 15:35+0200\n"
+"Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
+"Language-Team: Gnome Romanian Translation Team\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.6.1\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
-#. Translaters: This string is for a toggle to display a toolbar.
-#. * The name of the toolbar is automatically computed from the widgets
-#. * on the toolbar, and is placed at the %s. Note the _ before the %s
-#. * which is used to add mnemonics. We know that this is likely to
-#. * produce duplicates, but don't worry about it. If your language
-#. * normally has a mnemonic at the start, please use the _. If not,
-#. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:948
-#, c-format
-msgid "Show “_%s”"
-msgstr "Arată „_%s”"
+#: ../data/eog-app-menu.xml.h:1
+msgid "_Statusbar"
+msgstr "Bară de _stare"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1411
-msgid "_Move on Toolbar"
-msgstr "_Mută în bara de unelte"
+#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:20
+msgid "_Image Gallery"
+msgstr "Galerie de _imagini"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1412
-msgid "Move the selected item on the toolbar"
-msgstr "Mută elementul selectat în bara de unelte"
+#: ../data/eog-app-menu.xml.h:3
+msgid "Side _Pane"
+msgstr "_Panou lateral"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1413
-msgid "_Remove from Toolbar"
-msgstr "Ște_rge din bara de unelte"
+#: ../data/eog-app-menu.xml.h:4
+msgid "Prefere_nces"
+msgstr "Preferi_nțe"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1414
-msgid "Remove the selected item from the toolbar"
-msgstr "Șterge elementul selectat din bara de unelte"
+#: ../data/eog-app-menu.xml.h:5 ../data/eog-preferences-dialog.ui.h:2
+msgid "_Help"
+msgstr "_Ajutor"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1415
-msgid "_Delete Toolbar"
-msgstr "Șterge bara _de unelte"
+#: ../data/eog-app-menu.xml.h:6
+msgid "_About"
+msgstr "_Despre"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1416
-msgid "Remove the selected toolbar"
-msgstr "Șterge bara de unelte aleasă"
+#: ../data/eog-app-menu.xml.h:7
+msgid "_Quit"
+msgstr "_Ieșire"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:485
-msgid "Separator"
-msgstr "Separator"
+#: ../data/eog.appdata.xml.in.h:1
+msgid ""
+"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"formats for viewing single images or images in a collection."
+msgstr ""
+"Ochiul lui GNOME este vizualizatorul de imagini oficial al desktopului "
+"GNOME. Se integrează cu aspectul GTK+ al lui GNOME, și suportă multe formate "
+"de imagine pentru vizualizarea unei singure imagini sau a unei colecții de "
+"imagini."
+
+#: ../data/eog.appdata.xml.in.h:2
+msgid ""
+"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
+"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"automatically rotate your images in the correct portrait or landscape "
+"orientation."
+msgstr ""
+"Ochiul lui GNOME permite de asemenea vizualizarea de imagini într-o "
+"prezentare de diapozitive pe întreg ecranul sau să stabilească o imagine ca "
+"fundal de desktop. Citește tagurile camerei pentru a roti automat imaginile "
+"în orientarea corectă de tip portret sau peisaj."
+
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:327
+#: ../src/eog-window.c:5542
+msgid "Image Viewer"
+msgstr "Vizualizator imagini"
+
+#: ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Navighează și rotește imagini"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#: ../data/eog.desktop.in.in.h:4
+msgid "Picture;Slideshow;Graphics;"
+msgstr ""
+"Picture;Slideshow;Graphics;Imagine;Fotografie;Grafică;Prezentare;Diapozitive"
+
+#: ../data/eog-gear-menu.ui.h:1
+msgid "_Open…"
+msgstr "_Deschide…"
+
+#: ../data/eog-gear-menu.ui.h:2
+msgid "Open _With"
+msgstr "Desc_hide cu"
+
+#: ../data/eog-gear-menu.ui.h:3 ../data/popup-menus.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+msgid "_Save"
+msgstr "_Salvează"
+
+#: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
+#: ../src/eog-error-message-area.c:132
+msgid "Save _As…"
+msgstr "Salvează c_a…"
+
+#: ../data/eog-gear-menu.ui.h:5 ../data/popup-menus.ui.h:4
+msgid "_Print…"
+msgstr "Ti_părește…"
+
+#: ../data/eog-gear-menu.ui.h:6 ../data/popup-menus.ui.h:8
+msgid "Set as Wa_llpaper"
+msgstr "Sstabilește ca funda_l pentru desktop"
+
+#: ../data/eog-gear-menu.ui.h:7
+msgid "Sli_deshow"
+msgstr "Prezentare de _diapozitive"
+
+#: ../data/eog-gear-menu.ui.h:8
+msgid "S_ide Pane"
+msgstr "Panou _lateral"
+
+#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
+msgid "Prope_rties"
+msgstr "Prop_rietăți"
+
+#: ../data/eog-image-properties-dialog.ui.h:1
+msgid "Image Properties"
+msgstr "Proprietăți imagine"
+
+#: ../data/eog-image-properties-dialog.ui.h:2
+msgid "Previous"
+msgstr "Precedenta"
+
+#: ../data/eog-image-properties-dialog.ui.h:3
+msgid "Next"
+msgstr "Următoarea"
+
+#: ../data/eog-image-properties-dialog.ui.h:4
+msgid "Name:"
+msgstr "Nume:"
+
+#: ../data/eog-image-properties-dialog.ui.h:5
+msgid "Width:"
+msgstr "Lățime:"
+
+#: ../data/eog-image-properties-dialog.ui.h:6
+msgid "Height:"
+msgstr "Înălțime:"
+
+#: ../data/eog-image-properties-dialog.ui.h:7
+msgid "Type:"
+msgstr "Tip:"
+
+#: ../data/eog-image-properties-dialog.ui.h:8
+msgid "Bytes:"
+msgstr "Bytes:"
+
+#: ../data/eog-image-properties-dialog.ui.h:9
+msgid "Folder:"
+msgstr "Dosar:"
+
+#: ../data/eog-image-properties-dialog.ui.h:10
+msgid "General"
+msgstr "Generale"
+
+#: ../data/eog-image-properties-dialog.ui.h:11
+msgid "Aperture Value:"
+msgstr "Valoare diafragmă:"
+
+#: ../data/eog-image-properties-dialog.ui.h:12
+msgid "Exposure Time:"
+msgstr "Timp de expunere:"
+
+#: ../data/eog-image-properties-dialog.ui.h:13
+msgid "Focal Length:"
+msgstr "Distanța focală:"
+
+#: ../data/eog-image-properties-dialog.ui.h:14
+msgid "Flash:"
+msgstr "Bliț:"
+
+#: ../data/eog-image-properties-dialog.ui.h:15
+msgid "ISO Speed Rating:"
+msgstr "Viteza ISO:"
+
+#: ../data/eog-image-properties-dialog.ui.h:16
+msgid "Metering Mode:"
+msgstr "Mod de măsurare:"
+
+#: ../data/eog-image-properties-dialog.ui.h:17
+msgid "Camera Model:"
+msgstr "Model cameră:"
+
+#: ../data/eog-image-properties-dialog.ui.h:18
+msgid "Date/Time:"
+msgstr "Dată/Oră:"
+
+#: ../data/eog-image-properties-dialog.ui.h:19
+msgid "Description:"
+msgstr "Descriere:"
+
+#: ../data/eog-image-properties-dialog.ui.h:20
+msgid "Location:"
+msgstr "Locație:"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
+msgid "Keywords:"
+msgstr "Cuvinte cheie:"
+
+#: ../data/eog-image-properties-dialog.ui.h:22
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../data/eog-image-properties-dialog.ui.h:23
+msgid "Copyright:"
+msgstr "Drepturi de autor:"
+
+#: ../data/eog-image-properties-dialog.ui.h:24
+msgid "Details"
+msgstr "Detalii"
+
+#: ../data/eog-image-properties-dialog.ui.h:25
+msgid "Metadata"
+msgstr "Metadata"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:1
+msgid "Save As"
+msgstr "Salvează ca"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:2
+#: ../src/eog-close-confirmation-dialog.c:172
+#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
+#: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
+#: ../src/eog-window.c:3238 ../src/eog-window.c:3241 ../src/eog-window.c:3494
+msgid "_Cancel"
+msgstr "_Anulează"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:3
+#: ../src/eog-close-confirmation-dialog.c:184
+msgid "Save _As"
+msgstr "Salvează c_a"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:5
+#, no-c-format
+msgid "<b>%f:</b> original filename"
+msgstr "<b>%f:</b> nume fișier original"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:7
+#, no-c-format
+msgid "<b>%n:</b> counter"
+msgstr "<b>%n:</b> contor"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:8
+msgid "_Filename format:"
+msgstr "_Format nume fișier:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:9
+msgid "_Destination folder:"
+msgstr "_Dosar destinație:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:10
+msgid "Choose a folder"
+msgstr "Alegeți un dosar"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:11
+msgid "File Path Specifications"
+msgstr "Specificații cale fișier"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:12
+msgid "_Start counter at:"
+msgstr "Î_ncepe numărarea de la:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:13
+msgid "_Replace spaces with underscores"
+msgstr "În_locuiește spațiile cu liniuță de subliniere"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:14
+msgid "Options"
+msgstr "Opțiuni"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:15
+msgid "Rename from:"
+msgstr "Redenumește din:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:16
+msgid "To:"
+msgstr "Pâna la:"
+
+#: ../data/eog-multiple-save-as-dialog.ui.h:17
+msgid "File Name Preview"
+msgstr "Previzualizare nume fișier"
+
+#: ../data/eog-preferences-dialog.ui.h:1
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: ../data/eog-preferences-dialog.ui.h:3
+msgid "Image Enhancements"
+msgstr "Îmbunătățiri imagine"
+
+#: ../data/eog-preferences-dialog.ui.h:4
+msgid "Smooth images when zoomed _out"
+msgstr "Netezește imaginile când sunt micș_orate"
+
+#: ../data/eog-preferences-dialog.ui.h:5
+msgid "Smooth images when zoomed _in"
+msgstr "Netezește imaginile când sunt măr_ite"
+
+#: ../data/eog-preferences-dialog.ui.h:6
+msgid "_Automatic orientation"
+msgstr "Orientare _automată"
+
+#: ../data/eog-preferences-dialog.ui.h:7
+msgid "Background"
+msgstr "Fundal"
+
+#: ../data/eog-preferences-dialog.ui.h:8
+msgid "As custom color:"
+msgstr "Ca o culoare personalizată:"
+
+#: ../data/eog-preferences-dialog.ui.h:9
+#: ../data/org.gnome.eog.gschema.xml.in.h:3
+msgid "Background Color"
+msgstr "Culoare de fundal"
+
+#: ../data/eog-preferences-dialog.ui.h:10
+msgid "Transparent Parts"
+msgstr "Părți transparente"
+
+#: ../data/eog-preferences-dialog.ui.h:11
+msgid "As check _pattern"
+msgstr "Ca o _tablă de șah"
+
+#: ../data/eog-preferences-dialog.ui.h:12
+msgid "As custom c_olor:"
+msgstr "Ca o cul_oare personalizată:"
+
+#: ../data/eog-preferences-dialog.ui.h:13
+msgid "Color for Transparent Areas"
+msgstr "Culoarea pentru zonele transparente"
+
+#: ../data/eog-preferences-dialog.ui.h:14
+msgid "As _background"
+msgstr "Ca _fundal"
+
+#: ../data/eog-preferences-dialog.ui.h:15
+msgid "Image View"
+msgstr "Vizualizare imagine"
+
+#: ../data/eog-preferences-dialog.ui.h:16
+msgid "Image Zoom"
+msgstr "Zoom imagine"
+
+#: ../data/eog-preferences-dialog.ui.h:17
+msgid "E_xpand images to fit screen"
+msgstr "E_xtinde imaginea pentru a umple ecranul"
+
+#: ../data/eog-preferences-dialog.ui.h:18
+msgid "Sequence"
+msgstr "Secvență"
+
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog
+#: ../data/eog-preferences-dialog.ui.h:20
+msgid "_Time between images:"
+msgstr "_Timp între imagini:"
+
+#: ../data/eog-preferences-dialog.ui.h:21
+msgid "_Loop sequence"
+msgstr "_Repetă secvența"
+
+#: ../data/eog-preferences-dialog.ui.h:22
+msgid "Slideshow"
+msgstr "Succesiune automată imagini"
+
+#: ../data/eog-preferences-dialog.ui.h:23
+msgid "Plugins"
+msgstr "Module"
+
+#: ../data/fullscreen-toolbar.ui.h:1
+msgid "Go to the first image of the gallery"
+msgstr "Mergi la prima imagine din galerie"
+
+#: ../data/fullscreen-toolbar.ui.h:2
+msgid "_First Image"
+msgstr "P_rima imagine"
+
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
+msgid "Go to the previous image of the gallery"
+msgstr "Mergi la imaginea anterioară din galerie"
+
+#: ../data/fullscreen-toolbar.ui.h:4
+msgid "_Previous Image"
+msgstr "Imaginea _precedentă"
+
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
+msgid "Go to the next image of the gallery"
+msgstr "Mergi la imaginea următoare din galerie"
+
+#: ../data/fullscreen-toolbar.ui.h:6
+msgid "_Next Image"
+msgstr "Imaginea _următoare"
+
+#: ../data/fullscreen-toolbar.ui.h:7
+msgid "Go to the last image of the gallery"
+msgstr "Mergi la ultima imagine din galerie"
+
+#: ../data/fullscreen-toolbar.ui.h:8
+msgid "_Last Image"
+msgstr "Ul_tima imagine"
+
+#: ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Mărește imaginea"
+
+#: ../data/fullscreen-toolbar.ui.h:10
+msgid "_Zoom In"
+msgstr "_Mărește"
+
+#: ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Micșorează imaginea"
+
+#: ../data/fullscreen-toolbar.ui.h:12
+msgid "Zoom _Out"
+msgstr "Mi_cșorează"
+
+#: ../data/fullscreen-toolbar.ui.h:13
+msgid "_Normal Size"
+msgstr "Dimensiune _normală"
+
+#: ../data/fullscreen-toolbar.ui.h:14
+msgid "_Best Fit"
+msgstr "Cea mai _bună potrivire"
+
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
+msgid "Rotate the image 90 degrees to the left"
+msgstr "Rotește imaginea 90 de grade către stânga"
+
+#: ../data/fullscreen-toolbar.ui.h:16
+msgid "Rotate Counter_clockwise"
+msgstr "Rotește în sens _antiorar"
+
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
+msgid "Rotate the image 90 degrees to the right"
+msgstr "Rotește imaginea 90 de grade către dreapta"
+
+#: ../data/fullscreen-toolbar.ui.h:18
+msgid "_Rotate Clockwise"
+msgstr "_Rotește în sens orar"
+
+#: ../data/fullscreen-toolbar.ui.h:19
+msgid "Changes the visibility of the image gallery pane in the current window"
+msgstr ""
+"Comută vizibilitatea panoului pentru galeria de imagini în fereastra curentă"
+
+#: ../data/fullscreen-toolbar.ui.h:21
+msgid "Pause or resume the slideshow"
+msgstr "Suspendă sau reia prezentarea de diapozitive"
+
+#: ../data/fullscreen-toolbar.ui.h:22
+msgid "_Leave Fullscreen"
+msgstr "Părăsește _modul pe tot ecranul"
+
+#: ../data/fullscreen-toolbar.ui.h:23
+msgid "Leave fullscreen mode"
+msgstr "Părăsește modul pe tot ecranul"
+
+#: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
+msgid "Size"
+msgstr "Mărime"
+
+#: ../data/metadata-sidebar.ui.h:2
+msgid "Type"
+msgstr "Tip"
+
+#: ../data/metadata-sidebar.ui.h:3
+msgid "File Size"
+msgstr "Dimensiune fișier"
+
+#: ../data/metadata-sidebar.ui.h:4
+msgid "Folder"
+msgstr "Dosar"
+
+#: ../data/metadata-sidebar.ui.h:5
+msgid "Aperture"
+msgstr "Apertură"
+
+#: ../data/metadata-sidebar.ui.h:6
+msgid "Exposure"
+msgstr "Expunere"
+
+#: ../data/metadata-sidebar.ui.h:7
+msgid "ISO"
+msgstr "ISO"
+
+#: ../data/metadata-sidebar.ui.h:8
+msgid "Metering"
+msgstr "Mod de măsurare"
+
+#: ../data/metadata-sidebar.ui.h:9 ../src/eog-metadata-details.c:65
+msgid "Camera"
+msgstr "Cameră"
+
+#: ../data/metadata-sidebar.ui.h:10
+msgid "Date"
+msgstr "Dată"
+
+#: ../data/metadata-sidebar.ui.h:11
+msgid "Time"
+msgstr "Timp"
+
+#: ../data/metadata-sidebar.ui.h:12
+msgid "Focal Length"
+msgstr "Distanța focală"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:1
+msgid "Automatic orientation"
+msgstr "Orientare automată"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:2
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr ""
+"Imaginile sunt rotite automat în funcție de informațiile de orientare EXIF."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:4
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
+msgstr ""
+"Culoarea folosită pentru a umple zone din jurul imaginii. Dacă cheia „use-"
+"background-color” nu este definită, culoarea este definită de tema GTK+ "
+"activă."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:5
+msgid "Interpolate Image"
+msgstr "Interpolează imaginea"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:6
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non-interpolated images."
+msgstr ""
+"Dacă imaginea ar trebui să fie interpolată la micșoarare. Aceasta implică o "
+"calitate mai bună, dar și o viteză ceva mai scăzută față de imaginile "
+"neinterpolate."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:7
+msgid "Extrapolate Image"
+msgstr "Extrapolează imaginea"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:8
+msgid ""
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
+msgstr ""
+"Dacă imaginea ar trebui să fie extrapolată la mărire. Aceasta implică o "
+"diminuare a calității, și o viteză ceva mai scăzută față de imaginile "
+"extrapolate."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:9
+msgid "Transparency indicator"
+msgstr "Indicator de transparență"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:10
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
+msgstr ""
+"Determină felul în care ar trebui indicată transparența. Valorile valide "
+"sunt CHECK_PATTERN, COLOR și NONE. Dacă este aleasă COLOR, atunci cheia "
+"„trans-color” determină valoarea utilizată a culorii."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:11
+msgid "Scroll wheel zoom"
+msgstr "Zoom cu rotița de derulare"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:12
+msgid "Whether the scroll wheel should be used for zooming."
+msgstr "Dacă rotița de derulare să fie folosită pentru zoom."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:13
+msgid "Zoom multiplier"
+msgstr "Multiplicator zoom"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:15
+#, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"Multiplicator care să fie aplicat când se utilizează rotița de derulare a "
+"mausului pentru zoom. Această valoare definește pasul zoomului pentru "
+"fiecare eveniment de derulare. De exemplu, 0.05 înseamnă o creștere de 5% a "
+"zoomului pentru fiecare eveniment de derulare și 1.00 înseamnă o creștere "
+"100% a zoomului."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:16
+msgid "Transparency color"
+msgstr "Culoare de transparență"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:17
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+"În cazul în care cheia de transparență are valoarea COLOR, atunci această "
+"cheie determină culoarea care este utilizată pentru a indica transparența."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:18
+msgid "Use a custom background color"
+msgstr "Folosește o culoare de fundal personalizată"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:19
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"Dacă este activă, culoarea definită de „use-background-color” va fi folosită "
+"pentru a umple zone din jurul imaginii. Dacă aceasta nu este definită, "
+"culoarea de umplere va fi definită de tema GTK+ activă."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:20
+msgid "Loop through the image sequence"
+msgstr "Repetă ciclul afișării secvenței de imagini"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:21
+msgid "Whether the sequence of images should be shown in an endless loop."
+msgstr "Dacă secvența de imagini să fie afișată într-un ciclu infinit."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:23
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Permite zoomul inițial mai mare de 100%"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:24
+msgid ""
+"If this is set to FALSE small images will not be stretched to fit into the "
+"screen initially."
+msgstr ""
+"Dacă aceasta este definită la „FALSE” atunci imaginile mici nu vor fi mărite "
+"pentru a se potrivi dimensiunii ecranului."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:25
+msgid "Delay in seconds until showing the next image"
+msgstr "Întârzierea în secunde până la afișarea următoarei imagini"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:26
+msgid ""
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"O valoare mai mare de 0 determină câte secunde va fi afișată o imagine pe "
+"ecran înainte ca următoarea să fie afișată automat. Zero dezactivează "
+"navigarea automată."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:27
+msgid "Show/Hide the window statusbar."
+msgstr "Afișează/ascunde bara de stare a ferestrei."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:28
+msgid "Show/Hide the image gallery pane."
+msgstr "Afișează/ascunde panoul pentru galeria de imagini."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:29
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"Poziția panoului galeriei de imagini. Definiți „0” pentru jos; „1” pentru "
+"stânga; „2” pentru sus; „3” pentru dreapta."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:30
+msgid "Whether the image gallery pane should be resizable."
+msgstr "Dacă panoul galeriei de imagini să fie redimensionabil."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:31
+msgid "Show/Hide the window side pane."
+msgstr "Arată/ascunde panoul lateral al ferestrei."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:32
+msgid "Show/Hide the image gallery pane scroll buttons."
+msgstr ""
+"Arată/ascunde butoanele de derulare ale panoului de galeriei de imagini."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:33
+msgid "Close main window without asking to save changes."
+msgstr ""
+"Închide fereastra principală fără a întreba dacă se dorește salvarea "
+"modificărilor."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:34
+msgid "Trash images without asking"
+msgstr "Mută imaginile la gunoi fără a mai întreba"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:35
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"La activare, Eye of GNOME nu va cere confirmare la mutarea imaginilor la "
+"coșul de gunoi. Se va cere confirmare în cazul în care fișierele nu pot fi "
+"mutate în coșul de gunoi, iar în acest caz vor fi șterse."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:36
+msgid ""
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"Dacă dialogul de alegere fișiere ar trebui să afișeze dosarul de fotografii "
+"al utilizatorului când nu sunt imagini încărcate."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:37
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
+msgstr ""
+"La activare, dacă nu sunt imagini încărcate în fereastra activă, dialogul de "
+"alegere fișiere va afișa dosarul de fotografii al utilizatorului folosind "
+"dosarul special XDG. Dacă este dezactivat sau dosarul de fotografii nu a "
+"fost definit, va afișa dosarul curent."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:38
+msgid ""
+"Whether the metadata list in the properties dialog should have its own page."
+msgstr ""
+"Dacă lista de metadate din dialogul de proprietăți ar trebui să aibă pagină "
+"proprie."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:39
+msgid ""
+"If activated, the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
+msgstr ""
+"La activare, lista detaliată de metadate din dialogul de proprietăți va fi "
+"mutată într-o pagină dedicată din dialog. Aceasta ar trebui să facă dialogul "
+"mai utilizabil pe ecrane mici, cum ar fi netbook-urile. Dacă este "
+"dezactivată, widgetul va fi înglobat în pagina „Metadate”."
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:40
+msgid "Active plugins"
+msgstr "Module active"
+
+#: ../data/org.gnome.eog.gschema.xml.in.h:41
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"Lista modulelor active. Nu conține locația modulelor active. Vezi fișierul "
+".eog-plugin pentru a determina locația unui modul activ."
+
+#: ../data/popup-menus.ui.h:1
+msgid "Open _with"
+msgstr "Desc_hide cu"
+
+#: ../data/popup-menus.ui.h:5
+msgid "_Copy"
+msgstr "_Copiază"
+
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3497
+msgid "Move to _Trash"
+msgstr "Mu_tă la coșul de gunoi"
+
+#: ../data/popup-menus.ui.h:9
+msgid "Show Containing _Folder"
+msgstr "Arată _dosarul conținător"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
-msgid "Activate fullscreen mode with double-click"
-msgstr "Activează modul pe tot ecranul cu dublu-clic"
-
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
 msgid "Fullscreen with double-click"
 msgstr "Pe tot ecranul cu dublu-clic"
 
-#: ../plugins/reload/eog-reload-plugin.c:53
+#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+msgid "Activate fullscreen mode with double-click"
+msgstr "Activează cu dublu-clic modul pe tot ecranul"
+
+#: ../plugins/reload/eog-reload-plugin.c:185
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "Reîncarcă imaginea"
 
-#: ../plugins/reload/eog-reload-plugin.c:55
 #: ../plugins/reload/reload.plugin.desktop.in.h:2
 msgid "Reload current image"
 msgstr "Reîncarcă imaginea curentă"
@@ -89,539 +807,24 @@ msgstr "Data în bara de stare"
 msgid "Shows the image date in the window statusbar"
 msgstr "Afișează data imaginii în bara de stare a ferestrei"
 
-#: ../data/eog.desktop.in.in.h:1
-msgid "Browse and rotate images"
-msgstr "Navighează și rotește imagini"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Image Viewer"
-msgstr "Vizualizator imagini"
-
-#: ../data/eog-image-properties-dialog.ui.h:1
-msgid "Aperture Value:"
-msgstr "Valoare diafragmă:"
-
-#: ../data/eog-image-properties-dialog.ui.h:2
-msgid "Author:"
-msgstr "Autor:"
-
-#: ../data/eog-image-properties-dialog.ui.h:3
-msgid "Bytes:"
-msgstr "Octeți:"
-
-#: ../data/eog-image-properties-dialog.ui.h:4
-msgid "Camera Model:"
-msgstr "Model cameră:"
-
-#: ../data/eog-image-properties-dialog.ui.h:5
-msgid "Copyright:"
-msgstr "Drepturi de autor:"
-
-#: ../data/eog-image-properties-dialog.ui.h:6
-msgid "Date/Time:"
-msgstr "Dată/Oră:"
-
-#: ../data/eog-image-properties-dialog.ui.h:7
-msgid "Description:"
-msgstr "Descriere:"
-
-#: ../data/eog-image-properties-dialog.ui.h:8
-msgid "Details"
-msgstr "Detalii"
-
-#: ../data/eog-image-properties-dialog.ui.h:9
-msgid "Exposure Time:"
-msgstr "Timp de expunere:"
-
-#: ../data/eog-image-properties-dialog.ui.h:10
-msgid "Flash:"
-msgstr "Bliț:"
-
-#: ../data/eog-image-properties-dialog.ui.h:11
-msgid "Focal Length:"
-msgstr "Distanța focală:"
-
-#: ../data/eog-image-properties-dialog.ui.h:12
-msgid "General"
-msgstr "Generale"
-
-#: ../data/eog-image-properties-dialog.ui.h:13
-msgid "Height:"
-msgstr "Înălțime:"
-
-#: ../data/eog-image-properties-dialog.ui.h:14
-msgid "ISO Speed Rating:"
-msgstr "Viteza ISO:"
-
-#: ../data/eog-image-properties-dialog.ui.h:15
-msgid "Image Properties"
-msgstr "Proprietăți imagine"
-
-#: ../data/eog-image-properties-dialog.ui.h:16
-msgid "Keywords:"
-msgstr "Cuvinte cheie:"
-
-#: ../data/eog-image-properties-dialog.ui.h:17
-msgid "Location:"
-msgstr "Locație:"
-
-#: ../data/eog-image-properties-dialog.ui.h:18
-msgid "Metadata"
-msgstr "Metadata"
-
-#: ../data/eog-image-properties-dialog.ui.h:19
-msgid "Metering Mode:"
-msgstr "Mod de măsurare:"
-
-#: ../data/eog-image-properties-dialog.ui.h:20
-msgid "Name:"
-msgstr "Nume:"
-
-#: ../data/eog-image-properties-dialog.ui.h:21
-msgid "Type:"
-msgstr "Tip:"
-
-#: ../data/eog-image-properties-dialog.ui.h:22
-msgid "Width:"
-msgstr "Lățime:"
-
-#: ../data/eog-image-properties-dialog.ui.h:23
-msgid "_Next"
-msgstr "Î_nainte"
-
-#: ../data/eog-image-properties-dialog.ui.h:24
-msgid "_Previous"
-msgstr "Îna_poi"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:2
-#, no-c-format
-msgid "<b>%f:</b> original filename"
-msgstr "<b>%f:</b> nume fișier original"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%n:</b> counter"
-msgstr "<b>%n:</b> contor"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:5
-msgid "Choose a folder"
-msgstr "Alegeți un dosar"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:6
-msgid "Destination folder:"
-msgstr "Dosar destinație:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:7
-msgid "File Name Preview"
-msgstr "Previzualizare nume fișier"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:8
-msgid "File Path Specifications"
-msgstr "Specificații cale fișier"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:9
-msgid "Filename format:"
-msgstr "Format nume fișier:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:10
-msgid "Options"
-msgstr "Opțiuni"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:11
-msgid "Rename from:"
-msgstr "Redenumește din:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:12
-msgid "Replace spaces with underscores"
-msgstr "Înlocuiește spațiile cu liniuță de subliniere"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:13
-msgid "Save As"
-msgstr "Salvează ca"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:14
-msgid "Start counter at:"
-msgstr "Începe numărarea de la:"
-
-#: ../data/eog-multiple-save-as-dialog.ui.h:15
-msgid "To:"
-msgstr "Pâna la:"
-
-#: ../data/eog-preferences-dialog.ui.h:1
-msgid "As _background"
-msgstr "Ca _fundal"
-
-#: ../data/eog-preferences-dialog.ui.h:2
-msgid "As check _pattern"
-msgstr "Ca _model mozaic"
-
-#: ../data/eog-preferences-dialog.ui.h:3
-msgid "As custom c_olor:"
-msgstr "Ca o cul_oare personalizată:"
-
-#: ../data/eog-preferences-dialog.ui.h:4
-msgid "As custom color:"
-msgstr "Ca o culoare personalizată:"
-
-#: ../data/eog-preferences-dialog.ui.h:5
-msgid "Background"
-msgstr "Fundal"
-
-#: ../data/eog-preferences-dialog.ui.h:6
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:6
-msgid "Background Color"
-msgstr "Culoare de fundal"
-
-#: ../data/eog-preferences-dialog.ui.h:7
-msgid "Color for Transparent Areas"
-msgstr "Culoarea pentru zonele transparente"
-
-#: ../data/eog-preferences-dialog.ui.h:8
-msgid "E_xpand images to fit screen"
-msgstr "E_xtinde imaginea pentru a umple ecranul"
-
-#: ../data/eog-preferences-dialog.ui.h:9
-msgid "Eye of GNOME Preferences"
-msgstr "Preferințe Eye of GNOME"
-
-#: ../data/eog-preferences-dialog.ui.h:10
-msgid "Image Enhancements"
-msgstr "Îmbunătățiri imagine"
-
-#: ../data/eog-preferences-dialog.ui.h:11
-msgid "Image View"
-msgstr "Vizualizare imagine"
-
-#: ../data/eog-preferences-dialog.ui.h:12
-msgid "Image Zoom"
-msgstr "Scalare imagine"
-
-#: ../data/eog-preferences-dialog.ui.h:13
-msgid "Plugins"
-msgstr "Module"
-
-#: ../data/eog-preferences-dialog.ui.h:14
-msgid "Sequence"
-msgstr "Secvență"
-
-#: ../data/eog-preferences-dialog.ui.h:15
-msgid "Slideshow"
-msgstr "Succesiune automată imagini"
-
-#: ../data/eog-preferences-dialog.ui.h:16
-msgid "Smooth images when zoomed-_in"
-msgstr "Netezește imaginile când sunt măr_ite"
-
-#: ../data/eog-preferences-dialog.ui.h:17
-msgid "Smooth images when zoomed-_out"
-msgstr "Netezește imaginile când sunt micș_orate"
-
-#: ../data/eog-preferences-dialog.ui.h:18
-msgid "Transparent Parts"
-msgstr "Părți transparente"
-
-#: ../data/eog-preferences-dialog.ui.h:19
-msgid "_Automatic orientation"
-msgstr "Orientare _automată"
-
-#: ../data/eog-preferences-dialog.ui.h:20
-msgid "_Loop sequence"
-msgstr "_Repetă secvența"
-
-#: ../data/eog-preferences-dialog.ui.h:21
-msgid "_Switch image after:"
-msgstr "_Schimbă imaginea după:"
-
-#: ../data/eog-preferences-dialog.ui.h:22
-msgid "seconds"
-msgstr "secunde"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:1
-msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"O valoare mai mare de 0 determină câte secunde va fi afișată o imagine pe "
-"ecran înainte ca următoarea să fie afișată automat. Zero dezactivează "
-"navigarea automată."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:2
-msgid "Active plugins"
-msgstr "Module active"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:4
-#, no-c-format
-msgid "Allow zoom greater than 100% initially"
-msgstr "Permite scalarea inițială mai mare de 100%"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:5
-msgid "Automatic orientation"
-msgstr "Orientare automată"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:7
-msgid "Close main window without asking to save changes."
-msgstr ""
-"Închide fereastra principală fără a întreba dacă se dorește salvarea "
-"modificărilor."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:8
-msgid "Delay in seconds until showing the next image"
-msgstr "Întârzierea în secunde până la afișarea următoarei imagini"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:9
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
-"determines the color value used."
-msgstr ""
-"Determină felul în care ar trebui indicată transparența. Valorile valide "
-"sunt CHECK_PATTERN, COLOR și NONE. Dacă este aleasă COLOR, atunci cheia "
-"„trans-color” determină valoarea utilizată a culorii."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:10
-msgid "External program to use for editing images"
-msgstr "Programul extern de utilizat la editarea imaginilor"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:11
-msgid "Extrapolate Image"
-msgstr "Extrapolează imaginea"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:12
-msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up, it "
-"will show the current working directory."
-msgstr ""
-"La activare, dacă nu sunt imagini încărcate în fereastra activă, dialogul de "
-"alegere fișiere va afișa dosarul de fotografii al utilizatorului folosind "
-"dosarul special XDG. Dacă este dezactivat sau dosarul de fotografii nu a "
-"fost definit, va afișa dosarul curent."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:13
-msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
-msgstr ""
-"La activare, Eye of GNOME nu va cere confirmare la mutarea imaginilor la "
-"coșul de gunoi. Se va cere confirmare în cazul în care fișierele nu pot fi "
-"mutate în coșul de gunoi, iar în acest caz vor fi șterse."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:14
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
-msgstr ""
-"La activare, lista detaliată de metadate din dialogul de proprietăți va fi "
-"mutată într-o pagină dedicată din dialog. Aceasta ar trebui să facă dialogul "
-"mai utilizabil pe ecrane mici, cum ar fi netbook-urile. Dacă este "
-"dezactivată, widgetul va fi înglobat în pagina „Metadate”."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:15
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"În cazul în care cheia de transparență are valoarea COLOR, atunci această "
-"cheie determină culoarea care este utilizată pentru a indica transparența."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:16
-msgid ""
-"If this is active, the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set, the current GTK+ theme "
-"will determine the fill color."
-msgstr ""
-"Dacă este activă, culoarea definită de „use-background-color” va fi folosită "
-"pentru a umple zone din jurul imaginii. Dacă aceasta nu este definită, "
-"culoarea de umplere va fi definită de tema GTK+ activă."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:17
-msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
-msgstr ""
-"Dacă aceasta este definită la „FALSE” atunci imaginile mici nu vor fi mărite "
-"pentru a se potrivi dimensiunii ecranului."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:18
-msgid ""
-"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
-"for right."
-msgstr ""
-"Poziția panoului galeriei de imagini. Definiți „0” pentru jos; „1” pentru "
-"stânga; „2” pentru sus; „3” pentru dreapta."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:19
-msgid "Interpolate Image"
-msgstr "Interpolează imaginea"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:20
-msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
-"plugin."
-msgstr ""
-"Lista modulelor active. Nu conține „locația” modulelor active. Vezi "
-"fișierul .eog-plugin pentru a determina „locația” unui modul activ."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:21
-msgid "Loop through the image sequence"
-msgstr "Repetă ciclul afișării secvenței de imagini"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:22
-msgid "Scroll wheel zoom"
-msgstr "Scalare cu rotița de derulare"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:23
-msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr ""
-"Arată/ascunde butoanele de derulare ale panoului de galeriei de imagini."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:24
-msgid "Show/Hide the image gallery pane."
-msgstr "Afișează/ascunde panoul pentru galeria de imagini."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:25
-msgid "Show/Hide the window side pane."
-msgstr "Arată/ascunde panoul lateral al ferestrei."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:26
-msgid "Show/Hide the window statusbar."
-msgstr "Afișează/ascunde bara de stare a ferestrei."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:27
-msgid "Show/Hide the window toolbar."
-msgstr "Afișează/ascunde bara de unelte a ferestrei."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:28
-msgid ""
-"The color that is used to fill the area behind the image. If the use-"
-"background-color key is not set, the color is determined by the active GTK+ "
-"theme instead."
-msgstr ""
-"Culoarea folosită pentru a umple zone din jurul imaginii. Dacă cheia „use-"
-"background-color” nu este definită, culoarea este definită de tema GTK+ "
-"activă."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:29
-msgid ""
-"The desktop file name (including the \".desktop\") of the application to use "
-"for editing images (when the \"Edit Image\" toolbar button is clicked). Set "
-"to the empty string to disable this feature."
-msgstr ""
-"Numele fișierului desktop (inclusiv extensia „.desktop”) al aplicației de "
-"utilizat pentru editarea imaginilor (în cazul în care butonul „Editează "
-"imaginea” din bara de instrumente este apăsat). Definiți la un șir gol "
-"pentru a dezactiva această funcționalitate."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:31
-#, no-c-format
-msgid ""
-"The multiplier to be applied when using the mouse scroll wheel for zooming. "
-"This value defines the zooming step used for each scroll event. For example, "
-"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
-"a 100% zoom increment."
-msgstr ""
-"Multiplicator care să fie aplicat când se utilizează rotița de derulare a "
-"mausului pentru scalare. Această valoare definește pasul scalării pentru "
-"fiecare eveniment de derulare. De exemplu, 0.05 înseamnă o creștere de 5% a "
-"scalării pentru fiecare eveniment de derulare și 1.00 înseamnă o creștere "
-"100% a scalării."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:32
-msgid "Transparency color"
-msgstr "Culoare de transparență"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:33
-msgid "Transparency indicator"
-msgstr "Indicator de transparență"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:34
-msgid "Trash images without asking"
-msgstr "Mută imaginile la gunoi fără a mai întreba"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:35
-msgid "Use a custom background color"
-msgstr "Folosește o culoare de fundal personalizată"
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:36
-msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
-"are loaded."
-msgstr ""
-"Dacă dialogul de alegere fișiere ar trebui să afișeze dosarul de fotografii "
-"al utilizatorului când nu sunt imagini încărcate."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:37
-msgid "Whether the image gallery pane should be resizable."
-msgstr "Dacă panoul galeriei de imagini să fie redimensionabil."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:38
-msgid ""
-"Whether the image should be extrapolated on zoom-in. This leads to blurry "
-"quality and is somewhat slower than non-extrapolated images."
-msgstr ""
-"Dacă imaginea ar trebui să fie extrapolată la mărire. Aceasta implică o "
-"calitate mai bună, dar și o viteză scăzută pentru imaginile extrapolate."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:39
-msgid ""
-"Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non-interpolated images."
-msgstr ""
-"Dacă imaginea ar trebui să fie interpolată la mărire. Aceasta implică o "
-"calitate mai bună, dar și o viteză scăzută față de imaginile neinterpolate."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:40
-msgid ""
-"Whether the image should be rotated automatically based on EXIF orientation."
-msgstr ""
-"Imaginile sunt rotite automat în funcție de informațiile de orientare EXIF."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:41
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr ""
-"Dacă lista de metadate din dialogul de proprietăți ar trebui să aibă pagină "
-"proprie."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:42
-msgid "Whether the scroll wheel should be used for zooming."
-msgstr "Dacă rotița de derulare să fie folosită pentru scalare."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:43
-msgid "Whether the sequence of images should be shown in an endless loop."
-msgstr "Dacă secvența de imagini să fie afișată într-un ciclu infinit."
-
-#: ../data/org.gnome.eog.gschema.xml.in.in.h:44
-msgid "Zoom multiplier"
-msgstr "Multiplicator scalare"
-
-#: ../src/eog-application.c:124
-msgid "Running in fullscreen mode"
-msgstr "Se ruleză pe tot ecranul"
-
-#: ../src/eog-close-confirmation-dialog.c:159
+#: ../src/eog-close-confirmation-dialog.c:166
 msgid "Close _without Saving"
 msgstr "Mută imaginile la _gunoi fără a salva"
 
-#: ../src/eog-close-confirmation-dialog.c:192
+#: ../src/eog-close-confirmation-dialog.c:212
 msgid "Question"
 msgstr "Întrebare"
 
-#: ../src/eog-close-confirmation-dialog.c:373
+#: ../src/eog-close-confirmation-dialog.c:391
 msgid "If you don't save, your changes will be lost."
 msgstr "Dacă nu salvați, modificările vor fi pierdute."
 
-#: ../src/eog-close-confirmation-dialog.c:408
+#: ../src/eog-close-confirmation-dialog.c:437
 #, c-format
 msgid "Save changes to image \"%s\" before closing?"
 msgstr "Salvați modificările imaginii „%s” înainge de a închide?"
 
-#: ../src/eog-close-confirmation-dialog.c:603
+#: ../src/eog-close-confirmation-dialog.c:652
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -636,277 +839,73 @@ msgstr[2] ""
 "Există %d de imagini cu modificări nesalvate. Salvați modificările înainte "
 "de închidere?"
 
-#: ../src/eog-close-confirmation-dialog.c:620
+#: ../src/eog-close-confirmation-dialog.c:669
 msgid "S_elect the images you want to save:"
 msgstr "S_electați imaginile pe care vreți să le salvați:"
 
 #. Secondary label
-#: ../src/eog-close-confirmation-dialog.c:638
+#: ../src/eog-close-confirmation-dialog.c:688
 msgid "If you don't save, all your changes will be lost."
 msgstr "Dacă nu salvați, toate modificările vor fi pierdute."
 
-#: ../src/eog-file-chooser.c:126
-msgid "File format is unknown or unsupported"
-msgstr "Formatul fișierului este necunoscut sau nesuportat"
+#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
+msgid "_Reload"
+msgstr "_Reîncarcă"
 
-#: ../src/eog-file-chooser.c:131
-msgid ""
-"Eye of GNOME could not determine a supported writable file format based on "
-"the filename."
-msgstr ""
-"Eye of GNOME nu a putut determina un format inscriptibil de fișier pe baza "
-"numelui fișierului."
+#: ../src/eog-error-message-area.c:136
+#| msgid "Open with Document Viewer"
+msgid "Open with _Document Viewer"
+msgstr "Deschide cu Vizualizator de _documente"
 
-#: ../src/eog-file-chooser.c:132
-msgid "Please try a different file extension like .png or .jpg."
-msgstr "Încercați o altă extensie, cu ar fi .png sau .jpg."
-
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:167
-#, c-format
-msgid "%s (*.%s)"
-msgstr "%s·(*.%s)"
-
-#: ../src/eog-file-chooser.c:219
-msgid "All files"
-msgstr "Toate fișierele"
-
-#: ../src/eog-file-chooser.c:224
-msgid "Supported image files"
-msgstr "Fișiere imagine acceptate"
-
-#. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:296 ../src/eog-properties-dialog.c:137
-#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:443
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "pixel"
-msgstr[1] "pixeli"
-msgstr[2] "de pixeli"
-
-#: ../src/eog-file-chooser.c:447
-msgid "Open Image"
-msgstr "Deschide imaginea"
-
-#: ../src/eog-file-chooser.c:455
-msgid "Save Image"
-msgstr "Salvează imaginea"
-
-#: ../src/eog-file-chooser.c:463
-msgid "Open Folder"
-msgstr "Deschide dosar"
-
-#: ../src/eog-image.c:600
-#, c-format
-msgid "Transformation on unloaded image."
-msgstr "Transformare asupra unei imagini neîncărcate."
-
-#: ../src/eog-image.c:628
-#, c-format
-msgid "Transformation failed."
-msgstr "Transformarea a eșuat."
-
-#: ../src/eog-image.c:1055
-#, c-format
-msgid "EXIF not supported for this file format."
-msgstr "EXIF nu este suportat pentru acest tip de fișier."
-
-#: ../src/eog-image.c:1184
-#, c-format
-msgid "Image loading failed."
-msgstr "Încărcarea imaginii a eșuat."
-
-#: ../src/eog-image.c:1605 ../src/eog-image.c:1707
-#, c-format
-msgid "No image loaded."
-msgstr "Nicio imagine încărcată."
-
-#: ../src/eog-image.c:1615 ../src/eog-image.c:1719
-#, c-format
-msgid "Temporary file creation failed."
-msgstr "Fișierul temporar nu a putut fi creat."
-
-#: ../src/eog-image-jpeg.c:373
-#, c-format
-msgid "Couldn't create temporary file for saving: %s"
-msgstr "Nu s-a putut crea un fișier temporar pentru salvare: %s"
-
-#: ../src/eog-image-jpeg.c:392
-#, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Nu s-a putut aloca memorie pentru încărcarea imaginii JPEG"
-
-#: ../src/eog-exif-details.c:68
-msgid "Camera"
-msgstr "Cameră"
-
-#: ../src/eog-exif-details.c:69
-msgid "Image Data"
-msgstr "Date imagine"
-
-#: ../src/eog-exif-details.c:70
-msgid "Image Taking Conditions"
-msgstr "Condiții realizare fotografie"
-
-#: ../src/eog-exif-details.c:71
-msgid "Maker Note"
-msgstr "Notă autor"
-
-#: ../src/eog-exif-details.c:72
-msgid "Other"
-msgstr "Altele"
-
-#: ../src/eog-exif-details.c:74
-msgid "XMP Exif"
-msgstr "XMP Exif"
-
-#: ../src/eog-exif-details.c:75
-msgid "XMP IPTC"
-msgstr "XMP IPTC"
-
-#: ../src/eog-exif-details.c:76
-msgid "XMP Rights Management"
-msgstr "Administrator de drepturi XMP"
-
-#: ../src/eog-exif-details.c:77
-msgid "XMP Other"
-msgstr "Altele XMP"
-
-#: ../src/eog-exif-details.c:251
-msgid "Tag"
-msgstr "Etichetă"
-
-#: ../src/eog-exif-details.c:258
-msgid "Value"
-msgstr "Valoare"
-
-#. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:118 ../src/eog-exif-util.c:158
-msgid "%a, %d %B %Y  %X"
-msgstr "%a, %d %B %Y  %X"
-
-#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:152
-msgid "%a, %d %B %Y"
-msgstr "%a, %d %B %Y"
-
-#: ../src/eog-error-message-area.c:107
-msgid "_Retry"
-msgstr "_Reîncearcă"
-
-#: ../src/eog-error-message-area.c:150
+#: ../src/eog-error-message-area.c:218
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "Nu s-a putut încărca imaginea „%s”."
 
-#: ../src/eog-error-message-area.c:192
+#: ../src/eog-error-message-area.c:260
+#, c-format
+msgid "Could not save image '%s'."
+msgstr "Nu s-a putut salva imaginea „%s”."
+
+#: ../src/eog-error-message-area.c:303
 #, c-format
 msgid "No images found in '%s'."
 msgstr "Nu s-au găsit imagini în „%s”."
 
-#: ../src/eog-error-message-area.c:199
+#: ../src/eog-error-message-area.c:310
 msgid "The given locations contain no images."
 msgstr "Locația dată nu conține imagini."
 
-#: ../src/eog-print.c:219
-msgid "Image Settings"
-msgstr "Preferințe imagine"
+#: ../src/eog-error-message-area.c:349
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"Această imagine conține mai multe pagini. Vizualizatorul de imagini afișează "
+"doar prima pagină.\n"
+"Doriți să deschideți imaginea cu Vizualizatorul de documente pentru a vedea "
+"toate paginile?"
 
-#: ../src/eog-print-image-setup.c:834
-msgid "Image"
-msgstr "Imagine"
+#: ../src/eog-error-message-area.c:354
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"Această imagine conțină mai multe pagini. Vizualizatorul de imagini afișează "
+"doar prima pagină.\n"
+"Probabil că vreți să instalați Vizualizatorul de documente pentru a vedea "
+"toate paginile."
 
-#: ../src/eog-print-image-setup.c:835
-msgid "The image whose printing properties will be set up"
-msgstr "Imaginea pentru care se configurează proprietățile de tipărire"
-
-#: ../src/eog-print-image-setup.c:841
-msgid "Page Setup"
-msgstr "Configurare pagină"
-
-#: ../src/eog-print-image-setup.c:842
-msgid "The information for the page where the image will be printed"
-msgstr "Informațiile pentru pagina pe care va fi tipărită imaginea"
-
-#: ../src/eog-print-image-setup.c:870
-msgid "Position"
-msgstr "Poziție"
-
-#: ../src/eog-print-image-setup.c:875
-msgid "_Left:"
-msgstr "_Stânga:"
-
-#: ../src/eog-print-image-setup.c:876
-msgid "_Right:"
-msgstr "D_reapta:"
-
-#: ../src/eog-print-image-setup.c:877
-msgid "_Top:"
-msgstr "S_us:"
-
-#: ../src/eog-print-image-setup.c:878
-msgid "_Bottom:"
-msgstr "_Jos:"
-
-#: ../src/eog-print-image-setup.c:880
-msgid "C_enter:"
-msgstr "C_entru:"
-
-#: ../src/eog-print-image-setup.c:885
-msgid "None"
-msgstr "Niciuna"
-
-#: ../src/eog-print-image-setup.c:887
-msgid "Horizontal"
-msgstr "Orizontal"
-
-#: ../src/eog-print-image-setup.c:889
-msgid "Vertical"
-msgstr "Vertical"
-
-#: ../src/eog-print-image-setup.c:891
-msgid "Both"
-msgstr "Ambele"
-
-#: ../src/eog-print-image-setup.c:907
-msgid "Size"
-msgstr "Mărime"
-
-#: ../src/eog-print-image-setup.c:912
-msgid "_Width:"
-msgstr "_Lățime:"
-
-#: ../src/eog-print-image-setup.c:914
-msgid "_Height:"
-msgstr "Î_nălțime:"
-
-#: ../src/eog-print-image-setup.c:917
-msgid "_Scaling:"
-msgstr "_Scalare:"
-
-#: ../src/eog-print-image-setup.c:930
-msgid "_Unit:"
-msgstr "_Unități:"
-
-#: ../src/eog-print-image-setup.c:935
-msgid "Millimeters"
-msgstr "Milimetri"
-
-#: ../src/eog-print-image-setup.c:937
-msgid "Inches"
-msgstr "Țoli"
-
-#: ../src/eog-print-image-setup.c:967
-msgid "Preview"
-msgstr "Previzualizare"
-
-#: ../src/eog-properties-dialog.c:154
-msgid "Unknown"
-msgstr "Necunoscut"
+#. A strftime-formatted string, to display the date the image was taken.
+#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %d %B %Y  %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:232
+#: ../src/eog-exif-util.c:274
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (lentilă)"
@@ -914,12 +913,293 @@ msgstr "%.1f (lentilă)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:243
+#: ../src/eog-exif-util.c:285
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (film 35mm)"
 
-#: ../src/eog-save-as-dialog-helper.c:161
+#: ../src/eog-file-chooser.c:119
+msgid "File format is unknown or unsupported"
+msgstr "Formatul fișierului este necunoscut sau nesuportat"
+
+#: ../src/eog-file-chooser.c:124
+msgid ""
+"Image Viewer could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"Vizualizatorul de imagini nu a putut determina un format inscriptibil de "
+"fișier pe baza numelui fișierului."
+
+#: ../src/eog-file-chooser.c:125
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Încercați o altă extensie, cu ar fi .png sau .jpg."
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../src/eog-file-chooser.c:160
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s·(*.%s)"
+
+#: ../src/eog-file-chooser.c:212
+msgid "All files"
+msgstr "Toate fișierele"
+
+#: ../src/eog-file-chooser.c:217
+msgid "Supported image files"
+msgstr "Fișiere imagine acceptate"
+
+#. Pixel size of image: width x height in pixel
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:165
+#: ../src/eog-properties-dialog.c:167 ../src/eog-thumb-view.c:515
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] "pixel"
+msgstr[1] "pixeli"
+msgstr[2] "de pixeli"
+
+#: ../src/eog-file-chooser.c:457 ../src/eog-file-chooser.c:473
+msgid "_Open"
+msgstr "_Deschide"
+
+#: ../src/eog-file-chooser.c:459
+msgid "Open Image"
+msgstr "Deschide imaginea"
+
+#: ../src/eog-file-chooser.c:467
+msgid "Save Image"
+msgstr "Salvează imaginea"
+
+#: ../src/eog-file-chooser.c:475
+msgid "Open Folder"
+msgstr "Deschide dosar"
+
+#: ../src/eog-image.c:577
+#, c-format
+msgid "Transformation on unloaded image."
+msgstr "Transformare asupra unei imagini neîncărcate."
+
+#: ../src/eog-image.c:605
+#, c-format
+msgid "Transformation failed."
+msgstr "Transformarea a eșuat."
+
+#: ../src/eog-image.c:1085
+#, c-format
+msgid "EXIF not supported for this file format."
+msgstr "EXIF nu este suportat pentru acest tip de fișier."
+
+#: ../src/eog-image.c:1229
+#, c-format
+msgid "Image loading failed."
+msgstr "Încărcarea imaginii a eșuat."
+
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
+#, c-format
+msgid "No image loaded."
+msgstr "Nicio imagine încărcată."
+
+#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
+#, c-format
+msgid "You do not have the permissions necessary to save the file."
+msgstr "Nu aveți permisiunile necesare pentru a salva fișierul."
+
+#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
+#, c-format
+msgid "Temporary file creation failed."
+msgstr "Fișierul temporar nu a putut fi creat."
+
+#: ../src/eog-image-jpeg.c:374
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Nu s-a putut crea un fișier temporar pentru salvare: %s"
+
+#: ../src/eog-image-jpeg.c:393
+#, c-format
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Nu s-a putut aloca memorie pentru încărcarea imaginii JPEG"
+
+#: ../src/eog-metadata-details.c:66
+msgid "Image Data"
+msgstr "Date imagine"
+
+#: ../src/eog-metadata-details.c:67
+msgid "Image Taking Conditions"
+msgstr "Condiții realizare fotografie"
+
+#: ../src/eog-metadata-details.c:68
+msgid "GPS Data"
+msgstr "Date GPS"
+
+#: ../src/eog-metadata-details.c:69
+msgid "Maker Note"
+msgstr "Notă autor"
+
+#: ../src/eog-metadata-details.c:70
+msgid "Other"
+msgstr "Altele"
+
+#: ../src/eog-metadata-details.c:72
+msgid "XMP Exif"
+msgstr "XMP Exif"
+
+#: ../src/eog-metadata-details.c:73
+msgid "XMP IPTC"
+msgstr "XMP IPTC"
+
+#: ../src/eog-metadata-details.c:74
+msgid "XMP Rights Management"
+msgstr "Administrator de drepturi XMP"
+
+#: ../src/eog-metadata-details.c:75
+msgid "XMP Other"
+msgstr "Altele XMP"
+
+#: ../src/eog-metadata-details.c:251
+msgid "Tag"
+msgstr "Etichetă"
+
+#: ../src/eog-metadata-details.c:258
+msgid "Value"
+msgstr "Valoare"
+
+#: ../src/eog-metadata-details.c:434
+msgid "North"
+msgstr "Nord"
+
+#: ../src/eog-metadata-details.c:437
+msgid "East"
+msgstr "Est"
+
+#: ../src/eog-metadata-details.c:440
+msgid "West"
+msgstr "Vest"
+
+#: ../src/eog-metadata-details.c:443
+msgid "South"
+msgstr "Sud"
+
+#: ../src/eog-metadata-sidebar.c:144
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i pixel"
+msgstr[1] "%i × %i pixeli"
+msgstr[2] "%i × %i de pixeli"
+
+#: ../src/eog-metadata-sidebar.c:155 ../src/eog-properties-dialog.c:182
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: ../src/eog-metadata-sidebar.c:219
+msgid "%a, %d %B %Y"
+msgstr "%a, %d %B %Y"
+
+#: ../src/eog-metadata-sidebar.c:223
+#, c-format
+msgid "%X"
+msgstr "%X"
+
+#: ../src/eog-preferences-dialog.c:125
+#, c-format
+msgid "%lu second"
+msgid_plural "%lu seconds"
+msgstr[0] "%lu secundă"
+msgstr[1] "%lu secunde"
+msgstr[2] "%lu de secunde"
+
+#: ../src/eog-print.c:371
+msgid "Image Settings"
+msgstr "Preferințe imagine"
+
+#: ../src/eog-print-image-setup.c:897
+msgid "Image"
+msgstr "Imagine"
+
+#: ../src/eog-print-image-setup.c:898
+msgid "The image whose printing properties will be set up"
+msgstr "Imaginea pentru care se configurează proprietățile de tipărire"
+
+#: ../src/eog-print-image-setup.c:904
+msgid "Page Setup"
+msgstr "Configurare pagină"
+
+#: ../src/eog-print-image-setup.c:905
+msgid "The information for the page where the image will be printed"
+msgstr "Informațiile pentru pagina pe care va fi tipărită imaginea"
+
+#: ../src/eog-print-image-setup.c:931
+msgid "Position"
+msgstr "Poziție"
+
+#: ../src/eog-print-image-setup.c:935
+msgid "_Left:"
+msgstr "_Stânga:"
+
+#: ../src/eog-print-image-setup.c:937
+msgid "_Right:"
+msgstr "D_reapta:"
+
+#: ../src/eog-print-image-setup.c:938
+msgid "_Top:"
+msgstr "S_us:"
+
+#: ../src/eog-print-image-setup.c:939
+msgid "_Bottom:"
+msgstr "_Jos:"
+
+#: ../src/eog-print-image-setup.c:942
+msgid "C_enter:"
+msgstr "C_entru:"
+
+#: ../src/eog-print-image-setup.c:947
+msgid "None"
+msgstr "Niciuna"
+
+#: ../src/eog-print-image-setup.c:949
+msgid "Horizontal"
+msgstr "Orizontal"
+
+#: ../src/eog-print-image-setup.c:951
+msgid "Vertical"
+msgstr "Vertical"
+
+#: ../src/eog-print-image-setup.c:953
+msgid "Both"
+msgstr "Ambele"
+
+#: ../src/eog-print-image-setup.c:972
+msgid "_Width:"
+msgstr "_Lățime:"
+
+#: ../src/eog-print-image-setup.c:974
+msgid "_Height:"
+msgstr "Î_nălțime:"
+
+#: ../src/eog-print-image-setup.c:977
+msgid "_Scaling:"
+msgstr "_Scalare:"
+
+#: ../src/eog-print-image-setup.c:988
+msgid "_Unit:"
+msgstr "_Unități:"
+
+#: ../src/eog-print-image-setup.c:993
+msgid "Millimeters"
+msgstr "Milimetri"
+
+#: ../src/eog-print-image-setup.c:995
+msgid "Inches"
+msgstr "Țoli"
+
+#: ../src/eog-print-image-setup.c:1024
+msgid "Preview"
+msgstr "Previzualizare"
+
+#: ../src/eog-properties-dialog.c:776
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Arată dosarul care conține acest fișier în managerul de fișere"
+
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "ca atare"
 
@@ -938,18 +1218,18 @@ msgstr "ca atare"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:471
+#: ../src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "Fotografiat în"
 
-#: ../src/eog-uri-converter.c:984
+#: ../src/eog-uri-converter.c:989
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Cel puțin două nume de fișiere sunt identice."
 
 #: ../src/eog-util.c:68
-msgid "Could not display help for Eye of GNOME"
-msgstr "Nu s-a putut afișa ajutorul pentru Eye of GNOME"
+msgid "Could not display help for Image Viewer"
+msgstr "Nu s-a putut afișa ajutorul pentru Vizualizatorul de imagini"
 
 #: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
@@ -961,7 +1241,7 @@ msgstr " (Unicode nevalid)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:531
+#: ../src/eog-window.c:568
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -969,18 +1249,14 @@ msgstr[0] "%i × %i pixel  %s    %i%%"
 msgstr[1] "%i × %i pixeli  %s    %i%%"
 msgstr[2] "%i × %i de pixeli  %s    %i%%"
 
-#: ../src/eog-window.c:831
-msgid "_Reload"
-msgstr "_Reîncarcă"
-
-#: ../src/eog-window.c:833 ../src/eog-window.c:2710
+#: ../src/eog-window.c:908 ../src/eog-window.c:2632
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Ascun_de"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:843
+#: ../src/eog-window.c:918
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -989,27 +1265,27 @@ msgstr ""
 "Imaginea „%s” a fost modificată de către o aplicație externă.\n"
 "Doriți să o reîncărcați?"
 
-#: ../src/eog-window.c:1007
-#, c-format
-msgid "Use \"%s\" to open the selected image"
-msgstr "Utilizează „%s” pentru a deschide imaginea aleasă"
-
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1163
+#: ../src/eog-window.c:1181
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Se salvează imaginea „%s” (%u/%u)"
 
-#: ../src/eog-window.c:1516
+#: ../src/eog-window.c:1606
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "Se deschide imaginea „%s”"
 
-#: ../src/eog-window.c:2209
+#. L10N: This the reason why the screensaver is inhibited.
+#: ../src/eog-window.c:2002
+msgid "Viewing a slideshow"
+msgstr "Vizualizarea unei prezentări de diapozitive"
+
+#: ../src/eog-window.c:2221
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1018,48 +1294,17 @@ msgstr ""
 "Eroare la tipărirea fișierului:\n"
 "%s"
 
-#: ../src/eog-window.c:2471
-msgid "Toolbar Editor"
-msgstr "Editor bară de unelte"
-
-#: ../src/eog-window.c:2474
-msgid "_Reset to Default"
-msgstr "_Restabilește la implicit"
-
-#: ../src/eog-window.c:2560
-msgid "translator-credits"
-msgstr ""
-"Mugurel Tudor <mugurelu@gnome.ro>\n"
-"Daniel Șerbănescu <cyber19rider@gmail.com>\n"
-"Launchpad Contributions:\n"
-"  Adi Roiban https://launchpad.net/~adiroiban\n"
-"  Cristian KLEIN https://launchpad.net/~cristiklein\n"
-"  Doru Horișco https://launchpad.net/~doruhushhush\n"
-"  Ionuț Jula https://launchpad.net/~ionutjula\n"
-"  Mircea MITU https://launchpad.net/~mache\n"
-"  Mugurel Tudor https://launchpad.net/~mugurelu-gnome"
-
-#: ../src/eog-window.c:2565
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
-
-#: ../src/eog-window.c:2568
-msgid "The GNOME image viewer."
-msgstr "Vizualizatorul de imagini pentru GNOME."
-
-#: ../src/eog-window.c:2660 ../src/eog-window.c:2675
+#: ../src/eog-window.c:2581 ../src/eog-window.c:2596
 msgid "Error launching System Settings: "
-msgstr "Eroare la lansarea Configurațiilor sistemului: "
+msgstr "Eroare la lansarea configurațiilor sistemului: "
 
-#. I18N: When setting mnemonics for these strings, watch out to not
-#. clash with mnemonics from eog's menubar
-#: ../src/eog-window.c:2708
+#: ../src/eog-window.c:2630
 msgid "_Open Background Preferences"
 msgstr "_Deschide preferințele de fundal"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2724
+#: ../src/eog-window.c:2646
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1068,20 +1313,81 @@ msgstr ""
 "Imaginea „%s” a fost configurată ca fundal al desktopului.\n"
 "Doriți să-i modificați aspectul?"
 
-#: ../src/eog-window.c:3116
+#: ../src/eog-window.c:3136
 msgid "Saving image locally…"
 msgstr "Se salvează imaginea local…"
 
-#: ../src/eog-window.c:3196
+#: ../src/eog-window.c:3214
+#, c-format
+msgid ""
+"Are you sure you want to remove\n"
+"\"%s\" permanently?"
+msgstr ""
+"Sigur doriți să eliminați\n"
+"„%s” la permanent?"
+
+#: ../src/eog-window.c:3217
+#, c-format
+msgid ""
+"Are you sure you want to remove\n"
+"the selected image permanently?"
+msgid_plural ""
+"Are you sure you want to remove\n"
+"the %d selected images permanently?"
+msgstr[0] ""
+"Doriți să eliminați permanent\n"
+"imaginea selectată?"
+msgstr[1] ""
+"Doriți să eliminați permanent \n"
+"%d imagini selectate?"
+msgstr[2] ""
+"Doriți să eliminați permanent\n"
+"%d de imagini selectate?"
+
+#: ../src/eog-window.c:3239 ../src/eog-window.c:3505
+msgid "_Delete"
+msgstr "Ș_terge"
+
+#: ../src/eog-window.c:3242 ../src/eog-window.c:3507
+msgid "_Yes"
+msgstr "_Da"
+
+#. add 'dont ask again' button
+#: ../src/eog-window.c:3246 ../src/eog-window.c:3499
+msgid "Do _not ask again during this session"
+msgstr "_Nu întreba din nou în această sesiune"
+
+#: ../src/eog-window.c:3290
+#, c-format
+msgid "Couldn't retrieve image file"
+msgstr "Nu s-a putut prelua fișierul imagine"
+
+#: ../src/eog-window.c:3306
+#, c-format
+msgid "Couldn't retrieve image file information"
+msgstr "Nu s-au putut prelua informațiile fișierului imagine"
+
+#: ../src/eog-window.c:3322 ../src/eog-window.c:3566
+#, c-format
+msgid "Couldn't delete file"
+msgstr "Nu s-a putut șterge fișierul"
+
+#. set dialog error message
+#: ../src/eog-window.c:3372 ../src/eog-window.c:3666
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "Eroare la ștergerea imaginii %s"
+
+#: ../src/eog-window.c:3467
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
 msgstr ""
-"Sunteți sigur că doriți să mutați\n"
+"Sigur doriți să mutați\n"
 "„%s” la gunoi?"
 
-#: ../src/eog-window.c:3199
+#: ../src/eog-window.c:3470
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1090,7 +1396,7 @@ msgstr ""
 "Nu s-a putut găsit coșul de gunoi pentru „%s”. Doriți să ștergeți permanent "
 "această imagine?"
 
-#: ../src/eog-window.c:3204
+#: ../src/eog-window.c:3475
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1108,7 +1414,7 @@ msgstr[2] ""
 "Doriți să mutați %d de imagini\n"
 "selectată în coșul de gunoi?"
 
-#: ../src/eog-window.c:3209
+#: ../src/eog-window.c:3480
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1116,417 +1422,302 @@ msgstr ""
 "O parte din imaginile selectate nu au putut fi mutate la coșul de gunoi și "
 "voi fi șterse definitiv. Doriți să continuați?"
 
-#: ../src/eog-window.c:3226 ../src/eog-window.c:3714 ../src/eog-window.c:3738
-msgid "Move to _Trash"
-msgstr "Mu_tă la coșul de gunoi"
-
-#: ../src/eog-window.c:3228
-msgid "_Do not ask again during this session"
-msgstr "_Nu întreba din nou în această sesiune"
-
-#: ../src/eog-window.c:3273 ../src/eog-window.c:3287
+#: ../src/eog-window.c:3544 ../src/eog-window.c:3558
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Nu s-a putut accesa coșul de gunoi."
 
-#: ../src/eog-window.c:3295
-#, c-format
-msgid "Couldn't delete file"
-msgstr "Nu s-a putut șterge fișierul"
-
-#: ../src/eog-window.c:3391
-#, c-format
-msgid "Error on deleting image %s"
-msgstr "Eroare la ștergerea imaginii %s"
-
-#: ../src/eog-window.c:3638
-msgid "_Image"
-msgstr "_Imagine"
-
-#: ../src/eog-window.c:3639
-msgid "_Edit"
-msgstr "_Editare"
-
-#: ../src/eog-window.c:3640
-msgid "_View"
-msgstr "_Vizualizare"
-
-#: ../src/eog-window.c:3641
-msgid "_Go"
-msgstr "Navi_gare"
-
-#: ../src/eog-window.c:3642
-msgid "_Tools"
-msgstr "Unel_te"
-
-#: ../src/eog-window.c:3643
-msgid "_Help"
-msgstr "_Ajutor"
-
-#: ../src/eog-window.c:3645
-msgid "_Open…"
-msgstr "_Deschide…"
-
-#: ../src/eog-window.c:3646
-msgid "Open a file"
-msgstr "Deschide un fișier"
-
-#: ../src/eog-window.c:3648
-msgid "_Close"
-msgstr "În_chide"
-
-#: ../src/eog-window.c:3649
-msgid "Close window"
-msgstr "Închide fereastra"
-
-#: ../src/eog-window.c:3651
-msgid "T_oolbar"
-msgstr "Bară de _unelte"
-
-#: ../src/eog-window.c:3652
-msgid "Edit the application toolbar"
-msgstr "Editează bara de unelte a aplicației"
-
-#: ../src/eog-window.c:3654
-msgid "Prefere_nces"
-msgstr "Preferi_nțe"
-
-#: ../src/eog-window.c:3655
-msgid "Preferences for Eye of GNOME"
-msgstr "Preferințe pentru Eye of GNOME"
-
-#: ../src/eog-window.c:3657
-msgid "_Contents"
-msgstr "_Conținut"
-
-#: ../src/eog-window.c:3658
-msgid "Help on this application"
-msgstr "Ajutor pentru această aplicație"
-
-#: ../src/eog-window.c:3660
-msgid "_About"
-msgstr "_Despre"
-
-#: ../src/eog-window.c:3661
-msgid "About this application"
-msgstr "Despre această aplicație"
-
-#: ../src/eog-window.c:3666
-msgid "_Toolbar"
-msgstr "Bară de unel_te"
-
-#: ../src/eog-window.c:3667
-msgid "Changes the visibility of the toolbar in the current window"
-msgstr "Comută vizibilitatea barei de unelte în fereastra curentă"
-
-#: ../src/eog-window.c:3669
-msgid "_Statusbar"
-msgstr "Bară de _stare"
-
-#: ../src/eog-window.c:3670
-msgid "Changes the visibility of the statusbar in the current window"
-msgstr "Comută vizibilitatea barei de stare în fereastra curentă"
-
-#: ../src/eog-window.c:3672
-msgid "_Image Gallery"
-msgstr "Galerie de _imagini"
-
-#: ../src/eog-window.c:3673
-msgid "Changes the visibility of the image gallery pane in the current window"
-msgstr ""
-"Comută vizibilitatea panoului pentru galeria de imagini în fereastra curentă"
-
-#: ../src/eog-window.c:3675
-msgid "Side _Pane"
-msgstr "_Panou lateral"
-
-#: ../src/eog-window.c:3676
-msgid "Changes the visibility of the side pane in the current window"
-msgstr "Schimbă vizibilitatea panoului lateral în fereastra curentă"
-
-#: ../src/eog-window.c:3681
-msgid "_Save"
-msgstr "_Salvează"
-
-#: ../src/eog-window.c:3682
-msgid "Save changes in currently selected images"
-msgstr "Salvează modificările din imaginile selectate curent"
-
-#: ../src/eog-window.c:3684
-msgid "Open _with"
-msgstr "Desc_hide cu"
-
-#: ../src/eog-window.c:3685
-msgid "Open the selected image with a different application"
-msgstr "Deschide imaginile selectate cu a altă aplicație"
-
-#: ../src/eog-window.c:3687
-msgid "Save _As…"
-msgstr "Salvează c_a…"
-
-#: ../src/eog-window.c:3688
-msgid "Save the selected images with a different name"
-msgstr "Salvează imaginile selectate sub un alt nume"
-
-#: ../src/eog-window.c:3690
-msgid "_Print…"
-msgstr "Ti_părește…"
-
-#: ../src/eog-window.c:3691
-msgid "Print the selected image"
-msgstr "Tipărește imaginile selectate"
-
-#: ../src/eog-window.c:3693
-msgid "Prope_rties"
-msgstr "Prop_rietăți"
-
-#: ../src/eog-window.c:3694
-msgid "Show the properties and metadata of the selected image"
-msgstr "Afișează prioprietățile și informațiile imaginii selectate"
-
-#: ../src/eog-window.c:3696
-msgid "_Undo"
-msgstr "_Refă"
-
-#: ../src/eog-window.c:3697
-msgid "Undo the last change in the image"
-msgstr "Anulează ultima modificare din imagine"
-
-#: ../src/eog-window.c:3699
-msgid "Flip _Horizontal"
-msgstr "Răstoarnă ori_zontal"
-
-#: ../src/eog-window.c:3700
-msgid "Mirror the image horizontally"
-msgstr "Oglindește orizontal imaginea"
-
-#: ../src/eog-window.c:3702
-msgid "Flip _Vertical"
-msgstr "Răstoarnă _vertical"
-
-#: ../src/eog-window.c:3703
-msgid "Mirror the image vertically"
-msgstr "Oglindește vertical imaginea"
-
-#: ../src/eog-window.c:3705
-msgid "_Rotate Clockwise"
-msgstr "_Rotește în sens orar"
-
-#: ../src/eog-window.c:3706
-msgid "Rotate the image 90 degrees to the right"
-msgstr "Rotește imaginea 90 de grade către dreapta"
-
-#: ../src/eog-window.c:3708
-msgid "Rotate Counterc_lockwise"
-msgstr "Rotire în sensulul invers al ace_lor de ceasornic"
-
-#: ../src/eog-window.c:3709
-msgid "Rotate the image 90 degrees to the left"
-msgstr "Rotește imaginea 90 de grade către stânga"
-
-#: ../src/eog-window.c:3711
-msgid "Set as _Desktop Background"
-msgstr "Definește ca fundal pentru _desktop"
-
-#: ../src/eog-window.c:3712
-msgid "Set the selected image as the desktop background"
-msgstr "Definește imaginea selectată ca fundal pentru desktop"
-
-#: ../src/eog-window.c:3715
-msgid "Move the selected image to the trash folder"
-msgstr "Mută în coșul de gunoi imaginea selectată"
-
-#: ../src/eog-window.c:3717
-#| msgid "_Top:"
-msgid "_Copy"
-msgstr "_Copiază"
-
-#: ../src/eog-window.c:3718
-#| msgid "Move the selected item on the toolbar"
-msgid "Copy the selected image to the clipboard"
-msgstr "Copiază imaginea selectată în clipboard"
-
-#: ../src/eog-window.c:3720 ../src/eog-window.c:3729 ../src/eog-window.c:3732
-msgid "_Zoom In"
-msgstr "_Mărește"
-
-#: ../src/eog-window.c:3721 ../src/eog-window.c:3730
-msgid "Enlarge the image"
-msgstr "Mărește imaginea"
-
-#: ../src/eog-window.c:3723 ../src/eog-window.c:3735
-msgid "Zoom _Out"
-msgstr "Mi_cșorează"
-
-#: ../src/eog-window.c:3724 ../src/eog-window.c:3733 ../src/eog-window.c:3736
-msgid "Shrink the image"
-msgstr "Micșorează imaginea"
-
-#: ../src/eog-window.c:3726
-msgid "_Normal Size"
-msgstr "Dimensiune _normală"
-
-#: ../src/eog-window.c:3727
-msgid "Show the image at its normal size"
-msgstr "Afișează imaginea la dimensiunea ei normală"
-
-#: ../src/eog-window.c:3744
-msgid "_Fullscreen"
-msgstr "Pe _tot ecranul"
-
-#: ../src/eog-window.c:3745
-msgid "Show the current image in fullscreen mode"
-msgstr "Afișează imaginea curentă pe tot ecranul"
-
-#: ../src/eog-window.c:3747
-msgid "Pause Slideshow"
-msgstr "Pauză în succesiunea de imagini"
-
-#: ../src/eog-window.c:3748
-msgid "Pause or resume the slideshow"
-msgstr "Face o pauză sau reia succesiunea de imagini"
-
-#: ../src/eog-window.c:3750
-msgid "Best _Fit"
-msgstr "Cea mai _bună potrivire"
-
-#: ../src/eog-window.c:3751
+#: ../src/eog-window.c:4224
 msgid "Fit the image to the window"
 msgstr "Potrivește dimensiunea imaginii în fereastră"
 
-#: ../src/eog-window.c:3756 ../src/eog-window.c:3771
-msgid "_Previous Image"
-msgstr "Imaginea _precedentă"
+#: ../src/eog-window.c:4232 ../src/eog-window.c:4277
+msgid "Shrink or enlarge the current image"
+msgstr "Micșorează sau mărește imaginea curentă"
 
-#: ../src/eog-window.c:3757
-msgid "Go to the previous image of the gallery"
-msgstr "Mergi la imaginea anterioară din galerie"
+#: ../src/eog-window.c:4335
+msgid "Show the current image in fullscreen mode"
+msgstr "Afișează imaginea curentă pe tot ecranul"
 
-#: ../src/eog-window.c:3759
-msgid "_Next Image"
-msgstr "Imaginea _următoare"
+#: ../src/eog-window.c:4412
+msgid "Properties"
+msgstr "Proprietăți"
 
-#: ../src/eog-window.c:3760
-msgid "Go to the next image of the gallery"
-msgstr "Mergi la imaginea următoare din galerie"
+#: ../src/eog-window.c:5545
+msgid "The GNOME image viewer."
+msgstr "Vizualizatorul de imagini pentru GNOME."
 
-#: ../src/eog-window.c:3762 ../src/eog-window.c:3774
-msgid "_First Image"
-msgstr "P_rima imagine"
+#: ../src/eog-window.c:5548
+msgid "translator-credits"
+msgstr ""
+"Mugurel Tudor <mugurelu@gnome.ro>\n"
+"Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
+"Launchpad Contributions:\n"
+"  Adi Roiban https://launchpad.net/~adiroiban\n"
+"  Cristian KLEIN https://launchpad.net/~cristiklein\n"
+"  Doru Horișco https://launchpad.net/~doruhushhush\n"
+"  Ionuț Jula https://launchpad.net/~ionutjula\n"
+"  Mircea MITU https://launchpad.net/~mache\n"
+"  Mugurel Tudor https://launchpad.net/~mugurelu-gnome"
 
-#: ../src/eog-window.c:3763
-msgid "Go to the first image of the gallery"
-msgstr "Mergi la prima imagine din galerie"
+#: ../src/main.c:56
+msgid "GNOME Image Viewer"
+msgstr "Vizualizatorul de imagini GNOME"
 
-#: ../src/eog-window.c:3765 ../src/eog-window.c:3777
-msgid "_Last Image"
-msgstr "Ul_tima imagine"
-
-#: ../src/eog-window.c:3766
-msgid "Go to the last image of the gallery"
-msgstr "Mergi la ultima imagine din galerie"
-
-#: ../src/eog-window.c:3768
-msgid "_Random Image"
-msgstr "Imagine aleatoa_re"
-
-#: ../src/eog-window.c:3769
-msgid "Go to a random image of the gallery"
-msgstr "Mergi la o imagine aleatoare din galerie"
-
-#: ../src/eog-window.c:3783
-msgid "_Slideshow"
-msgstr "Succesiune _automată a imaginilor"
-
-#: ../src/eog-window.c:3784
-msgid "Start a slideshow view of the images"
-msgstr "Pornește o succesiune automată a imaginilor"
-
-#: ../src/eog-window.c:3850
-msgid "Previous"
-msgstr "Precedenta"
-
-#: ../src/eog-window.c:3854
-msgid "Next"
-msgstr "Următoarea"
-
-#: ../src/eog-window.c:3858
-msgid "Right"
-msgstr "Dreapta"
-
-#: ../src/eog-window.c:3861
-msgid "Left"
-msgstr "Stânga"
-
-#: ../src/eog-window.c:3864
-msgid "In"
-msgstr "Mărește"
-
-#: ../src/eog-window.c:3867
-msgid "Out"
-msgstr "Micșorează"
-
-#: ../src/eog-window.c:3870
-msgid "Normal"
-msgstr "Normal"
-
-#: ../src/eog-window.c:3873
-msgid "Fit"
-msgstr "Potrivește"
-
-#: ../src/eog-window.c:3876
-msgid "Gallery"
-msgstr "Galerie"
-
-#: ../src/eog-window.c:3879
-msgctxt "action (to trash)"
-msgid "Trash"
-msgstr "Șterge"
-
-#: ../src/eog-window.c:4227
-#, c-format
-msgid "Edit the current image using %s"
-msgstr "Editează imaginea curentă folosind %s"
-
-#: ../src/eog-window.c:4229
-msgid "Edit Image"
-msgstr "Editează imaginea"
-
-#: ../src/main.c:69 ../src/main.c:254
-msgid "Eye of GNOME Image Viewer"
-msgstr "Vizualizatorul de imagini Eye of GNOME"
-
-#: ../src/main.c:76
+#: ../src/main.c:63
 msgid "Open in fullscreen mode"
 msgstr "Deschide pe tot ecranul"
 
-#: ../src/main.c:77
+#: ../src/main.c:64
 msgid "Disable image gallery"
 msgstr "Dezactivează galeria de imagini"
 
-#: ../src/main.c:78
+#: ../src/main.c:65
 msgid "Open in slideshow mode"
 msgstr "Deschide în modul succesiune automată a imaginilor"
 
-#: ../src/main.c:80
+#: ../src/main.c:66
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Pornește o nouă instanță în locul refolosirii instanței curente"
 
-#: ../src/main.c:83
+#: ../src/main.c:67
+msgid ""
+"Open in a single window, if multiple windows are open the first one is used"
+msgstr ""
+"Deschide într-o singură fereastră, dacă ferestre multiple sunt deschise "
+"prima este folosită"
+
+#: ../src/main.c:69
 msgid "Show the application's version"
 msgstr "Arată versiunea aplicației"
 
-#: ../src/main.c:84
+#: ../src/main.c:99
 msgid "[FILE…]"
 msgstr "[FIȘIER…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:214
+#: ../src/main.c:112
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Rulați „%s --help” pentru a vedea lista completă a opțiunilor liniei de "
 "comandă."
+
+#~ msgid "_Previous"
+#~ msgstr "Îna_poi"
+
+#~ msgid "_Next"
+#~ msgstr "Î_nainte"
+
+#~ msgid "_Close"
+#~ msgstr "În_chide"
+
+#~ msgid "Show “_%s”"
+#~ msgstr "Arată „_%s”"
+
+#~ msgid "_Move on Toolbar"
+#~ msgstr "_Mută în bara de unelte"
+
+#~ msgid "Move the selected item on the toolbar"
+#~ msgstr "Mută elementul selectat în bara de unelte"
+
+#~ msgid "_Remove from Toolbar"
+#~ msgstr "Ște_rge din bara de unelte"
+
+#~ msgid "Remove the selected item from the toolbar"
+#~ msgstr "Șterge elementul selectat din bara de unelte"
+
+#~ msgid "Remove the selected toolbar"
+#~ msgstr "Șterge bara de unelte aleasă"
+
+#~ msgid "Separator"
+#~ msgstr "Separator"
+
+#~ msgid "Eye of GNOME Preferences"
+#~ msgstr "Preferințe Eye of GNOME"
+
+#~ msgid "_Switch image after:"
+#~ msgstr "_Schimbă imaginea după:"
+
+#~ msgid "External program to use for editing images"
+#~ msgstr "Programul extern de utilizat la editarea imaginilor"
+
+#~ msgid "Show/Hide the window toolbar."
+#~ msgstr "Afișează/ascunde bara de unelte a ferestrei."
+
+#~ msgid ""
+#~ "The desktop file name (including the \".desktop\") of the application to "
+#~ "use for editing images (when the \"Edit Image\" toolbar button is "
+#~ "clicked). Set to the empty string to disable this feature."
+#~ msgstr ""
+#~ "Numele fișierului desktop (inclusiv extensia „.desktop”) al aplicației de "
+#~ "utilizat pentru editarea imaginilor (în cazul în care butonul „Editează "
+#~ "imaginea” din bara de instrumente este apăsat). Definiți la un șir gol "
+#~ "pentru a dezactiva această funcționalitate."
+
+#~ msgid "Running in fullscreen mode"
+#~ msgstr "Se ruleză pe tot ecranul"
+
+#~ msgid "_Retry"
+#~ msgstr "_Reîncearcă"
+
+#~ msgid "Use \"%s\" to open the selected image"
+#~ msgstr "Utilizează „%s” pentru a deschide imaginea aleasă"
+
+#~ msgid "Toolbar Editor"
+#~ msgstr "Editor bară de unelte"
+
+#~ msgid "_Reset to Default"
+#~ msgstr "_Restabilește la implicit"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "Eye of GNOME"
+
+#~ msgid "_Image"
+#~ msgstr "_Imagine"
+
+#~ msgid "_Edit"
+#~ msgstr "_Editare"
+
+#~ msgid "_View"
+#~ msgstr "_Vizualizare"
+
+#~ msgid "_Go"
+#~ msgstr "Navi_gare"
+
+#~ msgid "_Tools"
+#~ msgstr "Unel_te"
+
+#~ msgid "Open a file"
+#~ msgstr "Deschide un fișier"
+
+#~ msgid "Close window"
+#~ msgstr "Închide fereastra"
+
+#~ msgid "T_oolbar"
+#~ msgstr "Bară de _unelte"
+
+#~ msgid "Edit the application toolbar"
+#~ msgstr "Editează bara de unelte a aplicației"
+
+#~ msgid "Preferences for Eye of GNOME"
+#~ msgstr "Preferințe pentru Eye of GNOME"
+
+#~ msgid "_Contents"
+#~ msgstr "_Conținut"
+
+#~ msgid "Help on this application"
+#~ msgstr "Ajutor pentru această aplicație"
+
+#~ msgid "About this application"
+#~ msgstr "Despre această aplicație"
+
+#~ msgid "_Toolbar"
+#~ msgstr "Bară de unel_te"
+
+#~ msgid "Changes the visibility of the toolbar in the current window"
+#~ msgstr "Comută vizibilitatea barei de unelte în fereastra curentă"
+
+#~ msgid "Changes the visibility of the statusbar in the current window"
+#~ msgstr "Comută vizibilitatea barei de stare în fereastra curentă"
+
+#~ msgid "Changes the visibility of the side pane in the current window"
+#~ msgstr "Schimbă vizibilitatea panoului lateral în fereastra curentă"
+
+#~ msgid "Save changes in currently selected images"
+#~ msgstr "Salvează modificările din imaginile selectate curent"
+
+#~ msgid "Open the selected image with a different application"
+#~ msgstr "Deschide imaginile selectate cu a altă aplicație"
+
+#~ msgid "Save the selected images with a different name"
+#~ msgstr "Salvează imaginile selectate sub un alt nume"
+
+#~ msgid "Print the selected image"
+#~ msgstr "Tipărește imaginile selectate"
+
+#~ msgid "Show the properties and metadata of the selected image"
+#~ msgstr "Afișează prioprietățile și informațiile imaginii selectate"
+
+#~ msgid "_Undo"
+#~ msgstr "_Refă"
+
+#~ msgid "Undo the last change in the image"
+#~ msgstr "Anulează ultima modificare din imagine"
+
+#~ msgid "Flip _Horizontal"
+#~ msgstr "Răstoarnă ori_zontal"
+
+#~ msgid "Mirror the image horizontally"
+#~ msgstr "Oglindește orizontal imaginea"
+
+#~ msgid "Flip _Vertical"
+#~ msgstr "Răstoarnă _vertical"
+
+#~ msgid "Mirror the image vertically"
+#~ msgstr "Oglindește vertical imaginea"
+
+#~ msgid "Set as _Desktop Background"
+#~ msgstr "Definește ca fundal pentru _desktop"
+
+#~ msgid "Set the selected image as the desktop background"
+#~ msgstr "Definește imaginea selectată ca fundal pentru desktop"
+
+#~ msgid "Move the selected image to the trash folder"
+#~ msgstr "Mută în coșul de gunoi imaginea selectată"
+
+#~| msgid "Move the selected item on the toolbar"
+#~ msgid "Copy the selected image to the clipboard"
+#~ msgstr "Copiază imaginea selectată în clipboard"
+
+#~ msgid "Show the image at its normal size"
+#~ msgstr "Afișează imaginea la dimensiunea ei normală"
+
+#~ msgid "Pause Slideshow"
+#~ msgstr "Pauză în succesiunea de imagini"
+
+#~ msgid "_Random Image"
+#~ msgstr "Imagine aleatoa_re"
+
+#~ msgid "Go to a random image of the gallery"
+#~ msgstr "Mergi la o imagine aleatoare din galerie"
+
+#~ msgid "_Slideshow"
+#~ msgstr "Succesiune _automată a imaginilor"
+
+#~ msgid "Start a slideshow view of the images"
+#~ msgstr "Pornește o succesiune automată a imaginilor"
+
+#~ msgid "Right"
+#~ msgstr "Dreapta"
+
+#~ msgid "Left"
+#~ msgstr "Stânga"
+
+#~ msgid "In"
+#~ msgstr "Mărește"
+
+#~ msgid "Out"
+#~ msgstr "Micșorează"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Fit"
+#~ msgstr "Potrivește"
+
+#~ msgid "Gallery"
+#~ msgstr "Galerie"
+
+#~ msgctxt "action (to trash)"
+#~ msgid "Trash"
+#~ msgstr "Șterge"
+
+#~ msgid "Edit the current image using %s"
+#~ msgstr "Editează imaginea curentă folosind %s"
+
+#~ msgid "Edit Image"
+#~ msgstr "Editează imaginea"
 
 #~ msgid "All Images"
 #~ msgstr "Toate imaginile"
@@ -1618,6 +1809,3 @@ msgstr ""
 
 #~ msgid "Open with \"%s\""
 #~ msgstr "Deschide cu „%s”"
-
-#~ msgid "Set As _Wallpaper"
-#~ msgstr "Setează ca _fundal pentru desktop"
