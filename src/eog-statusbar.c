@@ -50,18 +50,19 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	EogStatusbarPrivate *priv;
 	GtkWidget *vbox;
 
+	g_object_set (statusbar, "margin", 0, NULL);
+
 	statusbar->priv = eog_statusbar_get_instance_private (statusbar);
 	priv = statusbar->priv;
 
 	priv->img_num_label = gtk_label_new (NULL);
-	gtk_widget_set_size_request (priv->img_num_label, 100, 10);
 	gtk_widget_show (priv->img_num_label);
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  priv->img_num_label,
 			  FALSE,
 			  TRUE,
-			  0);
+			  6);
 
 	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
@@ -69,24 +70,15 @@ eog_statusbar_init (EogStatusbar *statusbar)
 			  vbox,
 			  FALSE,
 			  FALSE,
-			  2);
+			  6);
 
 	statusbar->priv->progressbar = gtk_progress_bar_new ();
 
 	gtk_box_pack_end (GTK_BOX (vbox),
 			  priv->progressbar,
 			  TRUE,
-			  TRUE,
+			  FALSE,
 			  0);
-
-	/* Set margins by hand to avoid causing redraws due to the statusbar
-	 * becoming too small for the progressbar */
-	gtk_widget_set_margin_start (priv->progressbar, 2);
-	gtk_widget_set_margin_end (priv->progressbar, 2);
-	gtk_widget_set_margin_top (priv->progressbar, 1);
-	gtk_widget_set_margin_bottom (priv->progressbar, 0);
-
-	gtk_widget_set_size_request (priv->progressbar, -1, 10);
 
 	gtk_widget_show (vbox);
 
