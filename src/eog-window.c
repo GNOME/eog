@@ -305,7 +305,7 @@ eog_window_set_gallery_mode (EogWindow           *window,
 		} else {
 			mode = EOG_THUMB_NAV_MODE_ONE_ROW;
 
-			priv->layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
+			priv->layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
 			if (position == EOG_WINDOW_GALLERY_POS_BOTTOM) {
 				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);

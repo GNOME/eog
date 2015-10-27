@@ -22,3 +22,27 @@ EogScrollView GtkOverlay GtkButton:prelight {
 EogStatusbar {
 	border-top: 1px solid @borders;
 }
+
+EogThumbNav {
+	border-top: 1px solid @borders;
+}
+
+EogThumbNav GtkScrolledWindow {
+	border-bottom: none;
+}
+
+EogThumbNav GtkScrolledWindow .undershoot.right {
+	background: none;
+	box-shadow: inset -6px 0 3px -6px @borders;
+}
+
+EogThumbNav GtkScrolledWindow .undershoot.left {
+	background: none;
+	box-shadow: inset 6px 0 3px -6px @borders;
+}
+
+EogThumbNav GtkButton {
+	border-width: 1px 0 0;
+	border-radius: 0;
+	box-shadow: none;
+}
