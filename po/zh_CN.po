@@ -13,27 +13,29 @@
 # Lele Long <schemacs@gmail.com>, 2011.
 # Wylmer Wang <wantinghard@gmail.com>, 2011.
 # EL8LatSPQ <el8latspq@hotmail.com>, 2012.
-# YunQiang Su <wzssyqa@gmail.com>, 2010, 2011, 2012.
 # tuhaihe <1132321739qq@gmail.com>, 2013.
 # Tong Hui <tonghuix@gmail.com>, 2013.
+# Jeff Bai <jeffbai@aosc.xyz>, 2015.
+# YunQiang Su <wzssyqa@gmail.com>, 2010, 2011, 2012, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-04-29 19:34+0000\n"
-"PO-Revision-Date: 2015-04-22 21:59+0800\n"
-"Last-Translator: Tong Hui <tonghuix@gmail.com>\n"
-"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"POT-Creation-Date: 2015-11-10 04:39+0000\n"
+"PO-Revision-Date: 2015-11-14 15:14+0800\n"
+"Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
+"Language-Team: 汉语 <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/eog-app-menu.xml.h:1
+#| msgid "S_tatus Bar"
 msgid "_Statusbar"
 msgstr "状态栏(_S)"
 
@@ -81,7 +83,7 @@ msgstr ""
 "自动读取相机的标签来自动旋转您的照片，从而正确的横向/纵向显示它们。"
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
-#: ../src/eog-window.c:5499
+#: ../src/eog-window.c:5558
 msgid "Image Viewer"
 msgstr "图像查看器"
 
@@ -108,7 +110,7 @@ msgid "_Save"
 msgstr "保存(_S)"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:129
+#: ../src/eog-error-message-area.c:132
 msgid "Save _As…"
 msgstr "另存为(_A)…"
 
@@ -124,7 +126,11 @@ msgstr "设为桌面壁纸(_L)"
 msgid "Sli_deshow"
 msgstr "幻灯片放映(_D)"
 
-#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:7
+#: ../data/eog-gear-menu.ui.h:8
+msgid "S_ide Pane"
+msgstr "侧边栏(_I)"
+
+#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
 msgid "Prope_rties"
 msgstr "属性(_R)"
 
@@ -241,9 +247,9 @@ msgstr "另存为"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
 #: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
+#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3199 ../src/eog-window.c:3202 ../src/eog-window.c:3455
+#: ../src/eog-window.c:3259 ../src/eog-window.c:3262 ../src/eog-window.c:3515
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -372,7 +378,7 @@ msgstr "将图像扩展以适合屏幕(_X)"
 msgid "Sequence"
 msgstr "序列"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog
 #: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Time between images:"
 msgstr "图像之间的时间(_T)："
@@ -397,7 +403,7 @@ msgstr "转到收藏中第一个图像"
 msgid "_First Image"
 msgstr "第一个图像(_F)"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2970
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
 msgid "Go to the previous image of the gallery"
 msgstr "转到收藏中上一个图像"
 
@@ -405,7 +411,7 @@ msgstr "转到收藏中上一个图像"
 msgid "_Previous Image"
 msgstr "上一个图像(_P)"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2958
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
 msgid "Go to the next image of the gallery"
 msgstr "转到收藏中下一个图像"
 
@@ -445,7 +451,7 @@ msgstr "正常大小(_N)"
 msgid "_Best Fit"
 msgstr "最佳匹配(_B)"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2985
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
 msgid "Rotate the image 90 degrees to the left"
 msgstr "将图片逆时针旋转 90 度"
 
@@ -453,7 +459,7 @@ msgstr "将图片逆时针旋转 90 度"
 msgid "Rotate Counter_clockwise"
 msgstr "逆时针旋转(_C)"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2996
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
 msgid "Rotate the image 90 degrees to the right"
 msgstr "将图片顺时针旋转 90 度"
 
@@ -748,7 +754,7 @@ msgstr "打开方式(_W)"
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3458
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3518
 msgid "Move to _Trash"
 msgstr "移至回收站(_T)"
 
@@ -764,7 +770,7 @@ msgstr "双击切换全屏"
 msgid "Activate fullscreen mode with double-click"
 msgstr "双击启用全屏模式"
 
-#: ../plugins/reload/eog-reload-plugin.c:150
+#: ../plugins/reload/eog-reload-plugin.c:185
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "重新载入图像"
@@ -814,28 +820,50 @@ msgstr "选择您想保存的图像(_E)："
 msgid "If you don't save, all your changes will be lost."
 msgstr "如果不保存，您的所有更改都会丢失。"
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:902
+#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: ../src/eog-error-message-area.c:171
+#: ../src/eog-error-message-area.c:136
+msgid "Open with _Document Viewer"
+msgstr "用文档查看器打开(_D)"
+
+#: ../src/eog-error-message-area.c:218
 #, c-format
 msgid "Could not load image '%s'."
 msgstr "无法载入图像“%s”。"
 
-#: ../src/eog-error-message-area.c:213
+#: ../src/eog-error-message-area.c:260
 #, c-format
 msgid "Could not save image '%s'."
 msgstr "无法保存图像“%s”。"
 
-#: ../src/eog-error-message-area.c:256
+#: ../src/eog-error-message-area.c:303
 #, c-format
 msgid "No images found in '%s'."
 msgstr "“%s”中无图像。"
 
-#: ../src/eog-error-message-area.c:263
+#: ../src/eog-error-message-area.c:310
 msgid "The given locations contain no images."
 msgstr "给定的位置不包含图像。"
+
+#: ../src/eog-error-message-area.c:349
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"该图像包含多个页面。图像查看器只能显示第一页。\n"
+"您想要用文档查看器打开该图像以查看所有页面吗？"
+
+#: ../src/eog-error-message-area.c:354
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"该图像包含多个页面。图像查看器只能显示第一页。\n"
+"您可以安装文档查看器来查看所有页面。"
 
 #. A strftime-formatted string, to display the date the image was taken.
 #: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
@@ -886,8 +914,8 @@ msgid "Supported image files"
 msgstr "支持的图像文件"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:166
+#: ../src/eog-properties-dialog.c:168 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "像素"
@@ -908,37 +936,37 @@ msgstr "保存图像"
 msgid "Open Folder"
 msgstr "打开文件夹"
 
-#: ../src/eog-image.c:613
+#: ../src/eog-image.c:577
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "转换未加载的图像。"
 
-#: ../src/eog-image.c:641
+#: ../src/eog-image.c:605
 #, c-format
 msgid "Transformation failed."
 msgstr "转换失败。"
 
-#: ../src/eog-image.c:1138
+#: ../src/eog-image.c:1085
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "这种文件格式不支持 EXIF。"
 
-#: ../src/eog-image.c:1287
+#: ../src/eog-image.c:1229
 #, c-format
 msgid "Image loading failed."
 msgstr "图像载入失败。"
 
-#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
 #, c-format
 msgid "No image loaded."
 msgstr "没有载入图像。"
 
-#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
+#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "您没有保存此文件必须的权限。"
 
-#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
+#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "临时文件创建失败。"
@@ -998,37 +1026,37 @@ msgstr "标记"
 msgid "Value"
 msgstr "值"
 
-#: ../src/eog-metadata-details.c:436
+#: ../src/eog-metadata-details.c:434
 msgid "North"
-msgstr "向北"
+msgstr "北"
 
-#: ../src/eog-metadata-details.c:439
+#: ../src/eog-metadata-details.c:437
 msgid "East"
-msgstr "向东"
+msgstr "东"
 
-#: ../src/eog-metadata-details.c:442
+#: ../src/eog-metadata-details.c:440
 msgid "West"
-msgstr "向西"
+msgstr "西"
 
-#: ../src/eog-metadata-details.c:445
+#: ../src/eog-metadata-details.c:443
 msgid "South"
-msgstr "向南"
+msgstr "南"
 
-#: ../src/eog-metadata-sidebar.c:109
+#: ../src/eog-metadata-sidebar.c:144
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i 像素"
 
-#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:155 ../src/eog-properties-dialog.c:183
 msgid "Unknown"
 msgstr "未知"
 
-#: ../src/eog-metadata-sidebar.c:189
+#: ../src/eog-metadata-sidebar.c:219
 msgid "%a, %d %B %Y"
 msgstr "%Y年%m月%d日%A"
 
-#: ../src/eog-metadata-sidebar.c:193
+#: ../src/eog-metadata-sidebar.c:223
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1128,7 +1156,7 @@ msgstr "英寸"
 msgid "Preview"
 msgstr "预览"
 
-#: ../src/eog-properties-dialog.c:745
+#: ../src/eog-properties-dialog.c:785
 msgid "Show the folder which contains this file in the file manager"
 msgstr "在文件管理器中显示包含这个文件的文件夹"
 
@@ -1151,11 +1179,11 @@ msgstr "原样"
 msgid "%d / %d"
 msgstr "第 %d 张，共 %d 张"
 
-#: ../src/eog-thumb-view.c:544
+#: ../src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "拍摄时间"
 
-#: ../src/eog-uri-converter.c:982
+#: ../src/eog-uri-converter.c:989
 #, c-format
 msgid "At least two file names are equal."
 msgstr "至少两个文件名相同。"
@@ -1175,20 +1203,20 @@ msgstr " (无效的 Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:558
+#: ../src/eog-window.c:568
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i 像素  %s    %i%%"
 
-#: ../src/eog-window.c:904 ../src/eog-window.c:2602
+#: ../src/eog-window.c:908 ../src/eog-window.c:2653
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隐藏(_D)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:914
+#: ../src/eog-window.c:918
 #, c-format
 msgid ""
 "The image \"%s\" has been modified by an external application.\n"
@@ -1202,30 +1230,30 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1152
+#: ../src/eog-window.c:1181
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "保存图像“%s”(第%u个，共%u个)"
 
-#: ../src/eog-window.c:1556
+#: ../src/eog-window.c:1606
 #, c-format
 msgid "Opening image \"%s\""
 msgstr "正在打开图像“%s”"
 
-#: ../src/eog-window.c:1852
+#: ../src/eog-window.c:1902
 msgid "_Leave Fullscreen"
 msgstr "退出全屏(_L)"
 
-#: ../src/eog-window.c:1858
+#: ../src/eog-window.c:1908
 msgid "Leave fullscreen mode"
 msgstr "退出全屏模式"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1972
+#: ../src/eog-window.c:2023
 msgid "Viewing a slideshow"
 msgstr "正在以幻灯片方式查看"
 
-#: ../src/eog-window.c:2191
+#: ../src/eog-window.c:2242
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1234,17 +1262,17 @@ msgstr ""
 "打印文件出错：\n"
 "%s"
 
-#: ../src/eog-window.c:2551 ../src/eog-window.c:2566
+#: ../src/eog-window.c:2602 ../src/eog-window.c:2617
 msgid "Error launching System Settings: "
 msgstr "启动系统设置时出错："
 
-#: ../src/eog-window.c:2600
+#: ../src/eog-window.c:2651
 msgid "_Open Background Preferences"
 msgstr "打开背景首选项(_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2616
+#: ../src/eog-window.c:2667
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1253,11 +1281,11 @@ msgstr ""
 "图像“%s”已设为桌面背景。\n"
 "您想修改它的外观吗？"
 
-#: ../src/eog-window.c:3097
+#: ../src/eog-window.c:3157
 msgid "Saving image locally…"
 msgstr "本地保存图像…"
 
-#: ../src/eog-window.c:3175
+#: ../src/eog-window.c:3235
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1266,7 +1294,7 @@ msgstr ""
 "您要删除“%s”吗？\n"
 "永久删除！"
 
-#: ../src/eog-window.c:3178
+#: ../src/eog-window.c:3238
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1278,41 +1306,41 @@ msgstr[0] ""
 "您确定要永久删除选中的\n"
 "这 %d 张图像吗？"
 
-#: ../src/eog-window.c:3200 ../src/eog-window.c:3466
+#: ../src/eog-window.c:3260 ../src/eog-window.c:3526
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/eog-window.c:3203 ../src/eog-window.c:3468
+#: ../src/eog-window.c:3263 ../src/eog-window.c:3528
 msgid "_Yes"
 msgstr "是(_Y)"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3207 ../src/eog-window.c:3460
+#: ../src/eog-window.c:3267 ../src/eog-window.c:3520
 msgid "Do _not ask again during this session"
 msgstr "在该会话期间不再询问(_N)"
 
-#: ../src/eog-window.c:3251
+#: ../src/eog-window.c:3311
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "无法检索图像文件"
 
-#: ../src/eog-window.c:3267
+#: ../src/eog-window.c:3327
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "无法获取图像文件信息"
 
-#: ../src/eog-window.c:3283 ../src/eog-window.c:3527
+#: ../src/eog-window.c:3343 ../src/eog-window.c:3587
 #, c-format
 msgid "Couldn't delete file"
 msgstr "无法删除文件"
 
 #. set dialog error message
-#: ../src/eog-window.c:3333 ../src/eog-window.c:3627
+#: ../src/eog-window.c:3393 ../src/eog-window.c:3687
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "删除图像 %s 出错"
 
-#: ../src/eog-window.c:3428
+#: ../src/eog-window.c:3488
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1321,14 +1349,14 @@ msgstr ""
 "您真的想要将“%s”\n"
 "移至回收站吗？"
 
-#: ../src/eog-window.c:3431
+#: ../src/eog-window.c:3491
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
 "permanently?"
 msgstr "无法找到可用于“%s”的回收站。您想要将此图像永久移除吗？"
 
-#: ../src/eog-window.c:3436
+#: ../src/eog-window.c:3496
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1340,38 +1368,38 @@ msgstr[0] ""
 "您真的想要将 %d 个\n"
 "选中的图像移至回收站吗？"
 
-#: ../src/eog-window.c:3441
+#: ../src/eog-window.c:3501
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "有些所选择的图像无法移动到回收站并将永久移除。您确定要这样进行吗？"
 
-#: ../src/eog-window.c:3505 ../src/eog-window.c:3519
+#: ../src/eog-window.c:3565 ../src/eog-window.c:3579
 #, c-format
 msgid "Couldn't access trash."
 msgstr "无法访问回收站。"
 
-#: ../src/eog-window.c:4185
+#: ../src/eog-window.c:4245
 msgid "Fit the image to the window"
 msgstr "使图像适合窗口"
 
-#: ../src/eog-window.c:4192 ../src/eog-window.c:4237
+#: ../src/eog-window.c:4253 ../src/eog-window.c:4298
 msgid "Shrink or enlarge the current image"
 msgstr "缩小或放大当前图像"
 
-#: ../src/eog-window.c:4287
+#: ../src/eog-window.c:4351
 msgid "Show the current image in fullscreen mode"
 msgstr "在全屏模式中显示当前图像"
 
-#: ../src/eog-window.c:4366
+#: ../src/eog-window.c:4428
 msgid "Properties"
 msgstr "属性"
 
-#: ../src/eog-window.c:5502
+#: ../src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "GNOME 图像查看器。"
 
-#: ../src/eog-window.c:5505
+#: ../src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "开源软件国际化之简体中文组\n"
@@ -1422,6 +1450,15 @@ msgstr "[文件…]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
+
+#~ msgid "Image _Gallery"
+#~ msgstr "图像收藏(_G)"
+
+#~ msgid "Previous"
+#~ msgstr "上一张"
+
+#~ msgid "Next"
+#~ msgstr "下一张"
 
 #~ msgid "Show “_%s”"
 #~ msgstr "显示“%s”"
@@ -1591,12 +1628,6 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 
 #~ msgid "Start a slideshow view of the images"
 #~ msgstr "以幻灯片方式查看图像"
-
-#~ msgid "Previous"
-#~ msgstr "上一张"
-
-#~ msgid "Next"
-#~ msgstr "下一张"
 
 # SUN CHANGED MESSAGE
 #~ msgid "Right"
