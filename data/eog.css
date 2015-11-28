@@ -1,4 +1,4 @@
-GtkScrollbar#eog-image-gallery-scrollbar {
+#eog-image-gallery-scrollbar {
 	-GtkScrollbar-has-backward-stepper: false;
 	-GtkScrollbar-has-secondary-backward-stepper: false;
 	-GtkScrollbar-has-forward-stepper: false;
@@ -6,42 +6,33 @@ GtkScrollbar#eog-image-gallery-scrollbar {
 	-GtkScrollbar-min-slider-length: 60;
 }
 
-GtkLabel#eog-sidebar-title {
+#eog-sidebar-title {
 	font-weight: bold;
 }
 
-EogScrollView GtkOverlay GtkButton {
-	opacity: 0.7;
-}
-
-EogScrollView GtkOverlay GtkButton:hover,
-EogScrollView GtkOverlay GtkButton:prelight {
-	opacity: 1.0;
-}
-
-EogStatusbar {
+statusbar {
 	border-top: 1px solid @borders;
 }
 
-EogThumbNav {
+#eog-thumb-nav {
 	border-top: 1px solid @borders;
 }
 
-EogThumbNav GtkScrolledWindow {
+#eog-thumb-nav scrolledwindow {
 	border-bottom: none;
 }
 
-EogThumbNav GtkScrolledWindow .undershoot.right {
+#eog-thumb-nav scrolledwindow undershoot.right {
 	background: none;
 	box-shadow: inset -6px 0 3px -6px @borders;
 }
 
-EogThumbNav GtkScrolledWindow .undershoot.left {
+#eog-thumb-nav scrolledwindow undershoot.left {
 	background: none;
 	box-shadow: inset 6px 0 3px -6px @borders;
 }
 
-EogThumbNav GtkButton {
+#eog-thumb-nav button {
 	border-width: 1px 0 0;
 	border-radius: 0;
 	box-shadow: none;

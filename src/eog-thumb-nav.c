@@ -444,6 +444,7 @@ eog_thumb_nav_new (GtkWidget       *thumbview,
 	GObject *nav;
 
 	nav = g_object_new (EOG_TYPE_THUMB_NAV,
+			    "name", "eog-thumb-nav",
 		            "show-buttons", show_buttons,
 		            "mode", mode,
 		            "thumbview", thumbview,
