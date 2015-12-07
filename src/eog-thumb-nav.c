@@ -81,7 +81,6 @@ eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer u
 	case GDK_SCROLL_RIGHT:
 		break;
 
-#if GTK_CHECK_VERSION (3, 3, 18)
 	case GDK_SCROLL_SMOOTH:
 	{
 		/* Compatibility code to catch smooth events from mousewheels */
@@ -98,7 +97,7 @@ eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer u
 		inc *= (gint) y_delta;
 	}
 	break;
-#endif
+
 	default:
 		g_assert_not_reached ();
 		return FALSE;
