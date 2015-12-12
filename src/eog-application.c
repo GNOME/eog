@@ -293,6 +293,7 @@ eog_application_startup (GApplication *application)
 	GtkSettings *settings;
 	GtkCssProvider *provider;
 
+	g_application_set_resource_base_path (application, "/org/gnome/eog");
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
 #ifdef HAVE_EXEMPI
