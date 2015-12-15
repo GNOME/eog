@@ -34,6 +34,8 @@
 
 #define EOG_CONF_DESKTOP_WALLPAPER_SCHEMA	"org.gnome.desktop.background"
 #define EOG_CONF_DESKTOP_WALLPAPER		"picture-uri"
+#define EOG_CONF_DESKTOP_SCREENSAVER_SCHEMA	"org.gnome.desktop.screensaver"
+#define EOG_CONF_DESKTOP_SCREENSAVER		"picture-uri"
 
 #define EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA	"org.gnome.desktop.lockdown"
 #define EOG_CONF_DESKTOP_CAN_PRINT		"disable-printing"

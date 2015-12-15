@@ -2625,6 +2625,9 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	settings = g_settings_new (EOG_CONF_DESKTOP_WALLPAPER_SCHEMA);
 	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER, uri);
 	g_object_unref (settings);
+	settings = g_settings_new (EOG_CONF_DESKTOP_SCREENSAVER_SCHEMA);
+	g_settings_set_string (settings, EOG_CONF_DESKTOP_SCREENSAVER, uri);
+	g_object_unref (settings);
 	g_free (uri);
 
 	info_bar = gtk_info_bar_new_with_buttons (_("_Open Background Preferences"),
