@@ -10,7 +10,7 @@
 # Nathan-J. Hirschauer <nathanhirschauer@verfriemelt.org>, 2009.
 # Jochen Skulj <jochen@jochenskulj.de>, 2009.
 # Felix Riemann <friemann@gnome.org>, 2010, 2011.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2010-2012.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2010-2012, 2015.
 # Jakob Kramer <jakob.kramer@gmx.de>, 2010.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2011, 2012.
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2009-2012.
@@ -24,43 +24,31 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-05 15:37+0000\n"
-"PO-Revision-Date: 2015-09-05 21:54+0200\n"
-"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
+"POT-Creation-Date: 2015-12-29 04:42+0000\n"
+"PO-Revision-Date: 2015-12-29 14:50+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/eog-app-menu.xml.h:1
-msgid "_Statusbar"
-msgstr "_Statusleiste"
-
-#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:20
-msgid "_Image Gallery"
-msgstr "Bildersa_mmlung"
-
-#: ../data/eog-app-menu.xml.h:3
-msgid "Side _Pane"
-msgstr "S_eitenleiste"
-
-#: ../data/eog-app-menu.xml.h:4
 msgid "Prefere_nces"
 msgstr "_Einstellungen"
 
-#: ../data/eog-app-menu.xml.h:5 ../data/eog-preferences-dialog.ui.h:2
+#: ../data/eog-app-menu.xml.h:2 ../data/eog-preferences-dialog.ui.h:2
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../data/eog-app-menu.xml.h:6
+#: ../data/eog-app-menu.xml.h:3
 msgid "_About"
 msgstr "_Info"
 
-#: ../data/eog-app-menu.xml.h:7
+#: ../data/eog-app-menu.xml.h:4
 msgid "_Quit"
 msgstr "_Beenden"
 
@@ -87,8 +75,8 @@ msgstr ""
 "festzulegen. Es liest Kamera-Metainformationen, um Bilder automatisch "
 "richtig in das Hoch- oder Querformat zu drehen."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:326
-#: ../src/eog-window.c:5558
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:328
+#: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
 
@@ -135,7 +123,15 @@ msgstr "_Diaschau"
 msgid "S_ide Pane"
 msgstr "S_eitenleiste"
 
-#: ../data/eog-gear-menu.ui.h:9 ../data/popup-menus.ui.h:7
+#: ../data/eog-gear-menu.ui.h:9
+msgid "Image _Gallery"
+msgstr "Bildersa_mmlung"
+
+#: ../data/eog-gear-menu.ui.h:10
+msgid "S_tatus Bar"
+msgstr "_Statusleiste"
+
+#: ../data/eog-gear-menu.ui.h:11 ../data/popup-menus.ui.h:7
 msgid "Prope_rties"
 msgstr "Ei_genschaften"
 
@@ -144,103 +140,98 @@ msgid "Image Properties"
 msgstr "Bildeigenschaften"
 
 #: ../data/eog-image-properties-dialog.ui.h:2
-msgid "_Previous"
-msgstr "_Vorheriges"
+msgid "Previous"
+msgstr "Vorheriges"
 
 #: ../data/eog-image-properties-dialog.ui.h:3
-msgid "_Next"
-msgstr "_Nächstes"
+msgid "Next"
+msgstr "Nächstes"
 
 #: ../data/eog-image-properties-dialog.ui.h:4
-#: ../data/eog-preferences-dialog.ui.h:3
-msgid "_Close"
-msgstr "S_chließen"
-
-#: ../data/eog-image-properties-dialog.ui.h:5
 msgid "Name:"
 msgstr "Name:"
 
-#: ../data/eog-image-properties-dialog.ui.h:6
+#: ../data/eog-image-properties-dialog.ui.h:5
 msgid "Width:"
 msgstr "Breite:"
 
-#: ../data/eog-image-properties-dialog.ui.h:7
+#: ../data/eog-image-properties-dialog.ui.h:6
 msgid "Height:"
 msgstr "Höhe:"
 
-#: ../data/eog-image-properties-dialog.ui.h:8
+#: ../data/eog-image-properties-dialog.ui.h:7
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../data/eog-image-properties-dialog.ui.h:9
+#: ../data/eog-image-properties-dialog.ui.h:8
 msgid "Bytes:"
 msgstr "Bytes:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../data/eog-image-properties-dialog.ui.h:9
 msgid "Folder:"
 msgstr "Ordner:"
 
-#: ../data/eog-image-properties-dialog.ui.h:11
+#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
 msgid "General"
 msgstr "Allgemein"
 
-#: ../data/eog-image-properties-dialog.ui.h:12
+#: ../data/eog-image-properties-dialog.ui.h:11
 msgid "Aperture Value:"
 msgstr "Blendenwert:"
 
-#: ../data/eog-image-properties-dialog.ui.h:13
+#: ../data/eog-image-properties-dialog.ui.h:12
 msgid "Exposure Time:"
 msgstr "Belichtungszeit:"
 
-#: ../data/eog-image-properties-dialog.ui.h:14
+#: ../data/eog-image-properties-dialog.ui.h:13
 msgid "Focal Length:"
 msgstr "Brennweite:"
 
-#: ../data/eog-image-properties-dialog.ui.h:15
+#: ../data/eog-image-properties-dialog.ui.h:14
 msgid "Flash:"
 msgstr "Blitz:"
 
-#: ../data/eog-image-properties-dialog.ui.h:16
+#: ../data/eog-image-properties-dialog.ui.h:15
 msgid "ISO Speed Rating:"
 msgstr "ISO-Empfindlichkeit:"
 
-#: ../data/eog-image-properties-dialog.ui.h:17
+#: ../data/eog-image-properties-dialog.ui.h:16
 msgid "Metering Mode:"
 msgstr "Messverfahren:"
 
-#: ../data/eog-image-properties-dialog.ui.h:18
+#: ../data/eog-image-properties-dialog.ui.h:17
 msgid "Camera Model:"
 msgstr "Kameramodell:"
 
-#: ../data/eog-image-properties-dialog.ui.h:19
+#: ../data/eog-image-properties-dialog.ui.h:18
 msgid "Date/Time:"
 msgstr "Datum/Zeit:"
 
-#: ../data/eog-image-properties-dialog.ui.h:20
+#: ../data/eog-image-properties-dialog.ui.h:19
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../data/eog-image-properties-dialog.ui.h:20
 msgid "Location:"
 msgstr "Ort:"
 
-#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../data/eog-image-properties-dialog.ui.h:21
 msgid "Keywords:"
 msgstr "Schlüsselwörter:"
 
-#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../data/eog-image-properties-dialog.ui.h:22
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../data/eog-image-properties-dialog.ui.h:23
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../data/eog-image-properties-dialog.ui.h:25
+#: ../data/eog-image-properties-dialog.ui.h:24
 msgid "Details"
 msgstr "Details"
 
-#: ../data/eog-image-properties-dialog.ui.h:26
+#: ../data/eog-image-properties-dialog.ui.h:25
 msgid "Metadata"
 msgstr "Metadaten"
 
@@ -252,7 +243,7 @@ msgstr "Speichern unter"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3259 ../src/eog-window.c:3262 ../src/eog-window.c:3515
+#: ../src/eog-window.c:3238 ../src/eog-window.c:3241 ../src/eog-window.c:3494
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -315,85 +306,85 @@ msgstr "Dateinamen-Vorschau"
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../data/eog-preferences-dialog.ui.h:4
+#: ../data/eog-preferences-dialog.ui.h:3
 msgid "Image Enhancements"
 msgstr "Bildverbesserungen"
 
-#: ../data/eog-preferences-dialog.ui.h:5
+#: ../data/eog-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed _out"
 msgstr "Bild bei Ver_kleinerung glätten"
 
-#: ../data/eog-preferences-dialog.ui.h:6
+#: ../data/eog-preferences-dialog.ui.h:5
 msgid "Smooth images when zoomed _in"
 msgstr "Bild bei Ver_größerung glätten"
 
-#: ../data/eog-preferences-dialog.ui.h:7
+#: ../data/eog-preferences-dialog.ui.h:6
 msgid "_Automatic orientation"
 msgstr "_Automatische Drehung des Bildes"
 
-#: ../data/eog-preferences-dialog.ui.h:8
+#: ../data/eog-preferences-dialog.ui.h:7
 msgid "Background"
 msgstr "Hintergrund"
 
-#: ../data/eog-preferences-dialog.ui.h:9
+#: ../data/eog-preferences-dialog.ui.h:8
 msgid "As custom color:"
 msgstr "Als benutzerdefinierte Farbe:"
 
-#: ../data/eog-preferences-dialog.ui.h:10
+#: ../data/eog-preferences-dialog.ui.h:9
 #: ../data/org.gnome.eog.gschema.xml.in.h:3
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: ../data/eog-preferences-dialog.ui.h:10
 msgid "Transparent Parts"
 msgstr "Transparente Bereiche"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: ../data/eog-preferences-dialog.ui.h:11
 msgid "As check _pattern"
 msgstr "Als _Karo-Muster"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: ../data/eog-preferences-dialog.ui.h:12
 msgid "As custom c_olor:"
 msgstr "Als _benutzerdefinierte Farbe:"
 
-#: ../data/eog-preferences-dialog.ui.h:14
+#: ../data/eog-preferences-dialog.ui.h:13
 msgid "Color for Transparent Areas"
 msgstr "Farbe für transparente Bereiche"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: ../data/eog-preferences-dialog.ui.h:14
 msgid "As _background"
 msgstr "Als _Hintergrund"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:15
 msgid "Image View"
 msgstr "Bildansicht"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "Image Zoom"
 msgstr "Bildvergrößerung"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "E_xpand images to fit screen"
 msgstr "Bild auf _Bildschirmgröße bringen"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "Sequence"
 msgstr "Abfolge"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
-#: ../data/eog-preferences-dialog.ui.h:21
+#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog
+#: ../data/eog-preferences-dialog.ui.h:20
 msgid "_Time between images:"
 msgstr "_Zeit zwischen den Bildern:"
 
-#: ../data/eog-preferences-dialog.ui.h:22
+#: ../data/eog-preferences-dialog.ui.h:21
 msgid "_Loop sequence"
 msgstr "_Endlosschleife"
 
-#: ../data/eog-preferences-dialog.ui.h:23
+#: ../data/eog-preferences-dialog.ui.h:22
 msgid "Slideshow"
 msgstr "Diaschau"
 
-#: ../data/eog-preferences-dialog.ui.h:24
+#: ../data/eog-preferences-dialog.ui.h:23
 msgid "Plugins"
 msgstr "Plugins"
 
@@ -405,7 +396,7 @@ msgstr "Zum ersten Bild in der Sammlung gehen"
 msgid "_First Image"
 msgstr "_Erstes Bild"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
 msgid "Go to the previous image of the gallery"
 msgstr "Zum vorherigen Bild in der Sammlung gehen"
 
@@ -413,7 +404,7 @@ msgstr "Zum vorherigen Bild in der Sammlung gehen"
 msgid "_Previous Image"
 msgstr "_Vorheriges Bild"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
 msgid "Go to the next image of the gallery"
 msgstr "Zum nächsten Bild in der Sammlung gehen"
 
@@ -453,7 +444,7 @@ msgstr "_Normale Größe"
 msgid "_Best Fit"
 msgstr "Ein_passen"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Das Bild um 90 Grad nach links drehen"
 
@@ -461,7 +452,7 @@ msgstr "Das Bild um 90 Grad nach links drehen"
 msgid "Rotate Counter_clockwise"
 msgstr "_Gegen den Uhrzeigersinn drehen"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Das Bild um 90 Grad nach rechts drehen"
 
@@ -474,9 +465,141 @@ msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr ""
 "Ändert die Sichtbarkeit der Bildersammlungsleiste des aktuellen Fensters"
 
+#: ../data/fullscreen-toolbar.ui.h:20
+msgid "_Image Gallery"
+msgstr "Bildersa_mmlung"
+
 #: ../data/fullscreen-toolbar.ui.h:21
 msgid "Pause or resume the slideshow"
 msgstr "Die Diaschau anhalten oder fortsetzen"
+
+#: ../data/fullscreen-toolbar.ui.h:22
+msgid "_Leave Fullscreen"
+msgstr "_Vollbild verlassen"
+
+#: ../data/fullscreen-toolbar.ui.h:23
+msgid "Leave fullscreen mode"
+msgstr "Vollbildmodus verlassen"
+
+#: ../data/help-overlay.ui.h:2
+msgid "Open an image file"
+msgstr "Eine Bilddatei öffnen"
+
+#: ../data/help-overlay.ui.h:3
+msgid "Save the image"
+msgstr "Das Bild speichern"
+
+#: ../data/help-overlay.ui.h:4
+msgid "Save the image with a new file name"
+msgstr "Das Bild unter einem anderen Namen speichern"
+
+#: ../data/help-overlay.ui.h:5
+msgid "Print the current image"
+msgstr "Das gewählte Bild drucken"
+
+#: ../data/help-overlay.ui.h:6
+msgid "Close the current window"
+msgstr "Das aktuelle Fenster schließen"
+
+#: ../data/help-overlay.ui.h:7
+msgid "Close all windows"
+msgstr "Alle Fenster schließen"
+
+#: ../data/help-overlay.ui.h:8
+msgid "Set the image as desktop background"
+msgstr "Das Bild als Hintergrundbild festlegen"
+
+#: ../data/help-overlay.ui.h:9
+msgid "Show/Hide the sidebar"
+msgstr "Seitenleiste anzeigen/verbergen."
+
+#: ../data/help-overlay.ui.h:10
+msgid "Show image properties dialog"
+msgstr "Bildeigenschaften-Dialog anzeigen"
+
+#: ../data/help-overlay.ui.h:11
+msgid "Open the application manual"
+msgstr "Das Handbuch zu dieser Anwendung öffnen"
+
+#: ../data/help-overlay.ui.h:12
+msgid "Zoom"
+msgstr "Ansichtsgröße"
+
+#: ../data/help-overlay.ui.h:13
+msgid "Zoom in"
+msgstr "Vergrößern"
+
+#: ../data/help-overlay.ui.h:14
+msgid "Zoom out"
+msgstr "Verkleinern"
+
+#: ../data/help-overlay.ui.h:15
+msgid "Actual size"
+msgstr "Tatsächliche Größe"
+
+#: ../data/help-overlay.ui.h:16
+msgid "Best fit  "
+msgstr "Einpassen"
+
+#: ../data/help-overlay.ui.h:17
+msgid "Browsing Images"
+msgstr "Bilder durchsuchen"
+
+#: ../data/help-overlay.ui.h:18
+msgid "Go to the previous image in the folder"
+msgstr "Zum vorherigen Bild im Ordner gehen"
+
+#: ../data/help-overlay.ui.h:19
+msgid "Go to the next image in the folder"
+msgstr "Zum nächsten Bild im Ordner gehen"
+
+#: ../data/help-overlay.ui.h:20
+msgid "Go to the first image in the folder"
+msgstr "Zum ersten Bild im Ordner gehen"
+
+#: ../data/help-overlay.ui.h:21
+msgid "Go to the last image in the folder"
+msgstr "Zum letzten Bild im Ordner gehen"
+
+#: ../data/help-overlay.ui.h:22
+msgid "Go to a random image in the folder"
+msgstr "Zu einem zufälligen Bild im Ordner gehen"
+
+#: ../data/help-overlay.ui.h:23
+msgid "Show/Hide the image gallery"
+msgstr "Bildersammlung anzeigen/verbergen"
+
+#: ../data/help-overlay.ui.h:24
+msgid "Rotation"
+msgstr "Drehung"
+
+#: ../data/help-overlay.ui.h:25
+msgid "Rotate clockwise"
+msgstr "Im Uhrzeigersinn drehen"
+
+#: ../data/help-overlay.ui.h:26
+msgid "Rotate counterclockwise"
+msgstr "Gegen den Uhrzeigersinn drehen"
+
+#: ../data/help-overlay.ui.h:27
+msgid "Rotate counter-clockwise"
+msgstr "Gegen den Uhrzeigersinn drehen"
+
+#: ../data/help-overlay.ui.h:28
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#: ../data/help-overlay.ui.h:29
+msgid "Enter/Leave fullscreen"
+msgstr "Vollbild ein- oder ausschalten"
+
+#: ../data/help-overlay.ui.h:30
+msgid "Start/Stop slideshow"
+msgstr "Diaschau starten oder stoppen"
+
+#: ../data/help-overlay.ui.h:31
+msgid "Pause slideshow"
+msgstr "Diaschau unterbrechen"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -786,7 +909,7 @@ msgstr "Öffnen _mit"
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3518
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3497
 msgid "Move to _Trash"
 msgstr "In den _Papierkorb verschieben"
 
@@ -802,7 +925,7 @@ msgstr "Vollbildmodus durch Doppelklick"
 msgid "Activate fullscreen mode with double-click"
 msgstr "Vollbildmodus durch Doppelklick aktivieren"
 
-#: ../plugins/reload/eog-reload-plugin.c:150
+#: ../plugins/reload/eog-reload-plugin.c:185
 #: ../plugins/reload/reload.plugin.desktop.in.h:1
 msgid "Reload Image"
 msgstr "Bild neu laden"
@@ -863,7 +986,6 @@ msgid "_Reload"
 msgstr "_Neu laden"
 
 #: ../src/eog-error-message-area.c:136
-#| msgid "Open with Document Viewer"
 msgid "Open with _Document Viewer"
 msgstr "Mit Dokumentenbe_trachter öffnen"
 
@@ -959,8 +1081,8 @@ msgid "Supported image files"
 msgstr "Unterstützte Bilddateien"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:515
+#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:165
+#: ../src/eog-properties-dialog.c:167 ../src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "Pixel"
@@ -1087,22 +1209,22 @@ msgstr "West"
 msgid "South"
 msgstr "Süd"
 
-#: ../src/eog-metadata-sidebar.c:113
+#: ../src/eog-metadata-sidebar.c:144
 #, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i Pixel"
 msgstr[1] "%i × %i Pixel"
 
-#: ../src/eog-metadata-sidebar.c:124 ../src/eog-properties-dialog.c:156
+#: ../src/eog-metadata-sidebar.c:155 ../src/eog-properties-dialog.c:182
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ../src/eog-metadata-sidebar.c:189
+#: ../src/eog-metadata-sidebar.c:219
 msgid "%a, %d %B %Y"
 msgstr "%a, %d. %B %Y"
 
-#: ../src/eog-metadata-sidebar.c:193
+#: ../src/eog-metadata-sidebar.c:223
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1202,7 +1324,7 @@ msgstr "Zoll"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../src/eog-properties-dialog.c:751
+#: ../src/eog-properties-dialog.c:776
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Den Ordner, der diese Datei enthält, in der Dateiverwaltung anzeigen"
 
@@ -1220,7 +1342,7 @@ msgstr "wie bisher"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:126
+#: ../src/eog-statusbar.c:118
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
@@ -1255,7 +1377,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i Pixel  %s    %i%%"
 msgstr[1] "%i x %i Pixel  %s    %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2653
+#: ../src/eog-window.c:908 ../src/eog-window.c:2632
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Verbergen"
@@ -1286,20 +1408,12 @@ msgstr "Bild »%s« (%u/%u) wird gespeichert"
 msgid "Opening image \"%s\""
 msgstr "Bild »%s« wird geöffnet"
 
-#: ../src/eog-window.c:1902
-msgid "_Leave Fullscreen"
-msgstr "_Vollbild verlassen"
-
-#: ../src/eog-window.c:1908
-msgid "Leave fullscreen mode"
-msgstr "Vollbildmodus verlassen"
-
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2023
+#: ../src/eog-window.c:2002
 msgid "Viewing a slideshow"
 msgstr "Als Diaschau anzeigen"
 
-#: ../src/eog-window.c:2242
+#: ../src/eog-window.c:2221
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1308,17 +1422,17 @@ msgstr ""
 "Fehler beim Drucken der Datei:\n"
 "%s"
 
-#: ../src/eog-window.c:2602 ../src/eog-window.c:2617
+#: ../src/eog-window.c:2581 ../src/eog-window.c:2596
 msgid "Error launching System Settings: "
 msgstr "Fehler beim Aufruf der Systemeinstellungen:"
 
-#: ../src/eog-window.c:2651
+#: ../src/eog-window.c:2630
 msgid "_Open Background Preferences"
 msgstr "Hintergrundeinstellungen ö_ffnen"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2667
+#: ../src/eog-window.c:2646
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1327,11 +1441,11 @@ msgstr ""
 "Das Bild »%s« wurde als Hintergrundbild festgelegt.\n"
 "Möchten Sie sein Erscheinungsbild verändern?"
 
-#: ../src/eog-window.c:3157
+#: ../src/eog-window.c:3136
 msgid "Saving image locally…"
 msgstr "Bild wird lokal gespeichert …"
 
-#: ../src/eog-window.c:3235
+#: ../src/eog-window.c:3214
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1340,7 +1454,7 @@ msgstr ""
 "Soll »%s«\n"
 "wirklich dauerhaft gelöscht werden?"
 
-#: ../src/eog-window.c:3238
+#: ../src/eog-window.c:3217
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1355,41 +1469,41 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich unwiderruflich gelöscht werden?"
 
-#: ../src/eog-window.c:3260 ../src/eog-window.c:3526
+#: ../src/eog-window.c:3239 ../src/eog-window.c:3505
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: ../src/eog-window.c:3263 ../src/eog-window.c:3528
+#: ../src/eog-window.c:3242 ../src/eog-window.c:3507
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3267 ../src/eog-window.c:3520
+#: ../src/eog-window.c:3246 ../src/eog-window.c:3499
 msgid "Do _not ask again during this session"
 msgstr "Während der laufenden Sitzung _nicht erneut fragen"
 
-#: ../src/eog-window.c:3311
+#: ../src/eog-window.c:3290
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Datei konnte nicht geholt werden"
 
-#: ../src/eog-window.c:3327
+#: ../src/eog-window.c:3306
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Dateiinformationen konnten nicht geholt werden"
 
-#: ../src/eog-window.c:3343 ../src/eog-window.c:3587
+#: ../src/eog-window.c:3322 ../src/eog-window.c:3566
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Datei konnte nicht gelöscht werden"
 
 #. set dialog error message
-#: ../src/eog-window.c:3393 ../src/eog-window.c:3687
+#: ../src/eog-window.c:3372 ../src/eog-window.c:3666
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fehler beim Löschen von Bild %s"
 
-#: ../src/eog-window.c:3488
+#: ../src/eog-window.c:3467
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1398,7 +1512,7 @@ msgstr ""
 "Soll »%s« wirklich\n"
 "in den Papierkorb verschoben werden?"
 
-#: ../src/eog-window.c:3491
+#: ../src/eog-window.c:3470
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1407,7 +1521,7 @@ msgstr ""
 "Es konnte kein Papierkorb für »%s« gefunden werden. Wollen Sie das Bild "
 "unwiderruflich löschen?"
 
-#: ../src/eog-window.c:3496
+#: ../src/eog-window.c:3475
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1422,7 +1536,7 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich in den Papierkorb verschoben werden?"
 
-#: ../src/eog-window.c:3501
+#: ../src/eog-window.c:3480
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1431,32 +1545,32 @@ msgstr ""
 "werden und werden daher unwiderruflich gelöscht. Sind Sie sicher, dass Sie "
 "fortfahren wollen?"
 
-#: ../src/eog-window.c:3565 ../src/eog-window.c:3579
+#: ../src/eog-window.c:3544 ../src/eog-window.c:3558
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Auf den Papierkorb konnte nicht zugegriffen werden."
 
-#: ../src/eog-window.c:4245
+#: ../src/eog-window.c:4224
 msgid "Fit the image to the window"
 msgstr "Das Bild auf die Fenstergröße anpassen"
 
-#: ../src/eog-window.c:4253 ../src/eog-window.c:4298
+#: ../src/eog-window.c:4232 ../src/eog-window.c:4277
 msgid "Shrink or enlarge the current image"
 msgstr "Aktuelles Bild verkleinern oder vergrößern"
 
-#: ../src/eog-window.c:4351
+#: ../src/eog-window.c:4335
 msgid "Show the current image in fullscreen mode"
 msgstr "Das momentane Bild im Vollbildmodus anzeigen"
 
-#: ../src/eog-window.c:4428
+#: ../src/eog-window.c:4412
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: ../src/eog-window.c:5561
+#: ../src/eog-window.c:5545
 msgid "The GNOME image viewer."
 msgstr "Der GNOME-Bildbetrachter."
 
-#: ../src/eog-window.c:5564
+#: ../src/eog-window.c:5548
 msgid "translator-credits"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
@@ -1517,6 +1631,18 @@ msgstr ""
 "Führen Sie »%s --help« für eine vollständige Liste der verfügbaren Optionen "
 "aus."
 
+#~ msgid "Side _Pane"
+#~ msgstr "S_eitenleiste"
+
+#~ msgid "_Previous"
+#~ msgstr "_Vorheriges"
+
+#~ msgid "_Next"
+#~ msgstr "_Nächstes"
+
+#~ msgid "_Close"
+#~ msgstr "S_chließen"
+
 #~ msgid "Show “_%s”"
 #~ msgstr "»_%s« anzeigen"
 
@@ -1546,9 +1672,6 @@ msgstr ""
 
 #~ msgid "_Toolbar"
 #~ msgstr "_Werkzeugleiste"
-
-#~ msgid "Show/Hide the window toolbar."
-#~ msgstr "Werkzeugleiste anzeigen/verbergen."
 
 #~ msgid "External program to use for editing images"
 #~ msgstr "Externe Anwendung für das Bearbeiten von Bildern"
@@ -1585,12 +1708,6 @@ msgstr ""
 #~ msgid "_Tools"
 #~ msgstr "_Werkzeuge"
 
-#~ msgid "Open a file"
-#~ msgstr "Eine Datei öffnen"
-
-#~ msgid "Close window"
-#~ msgstr "Fenster schließen"
-
 #~ msgid "T_oolbar"
 #~ msgstr "_Werkzeugleiste"
 
@@ -1602,9 +1719,6 @@ msgstr ""
 
 #~ msgid "_Contents"
 #~ msgstr "I_nhalt"
-
-#~ msgid "Help on this application"
-#~ msgstr "Hilfe zu dieser Anwendung"
 
 #~ msgid "About this application"
 #~ msgstr "Info zu dieser Anwendung"
@@ -1623,12 +1737,6 @@ msgstr ""
 
 #~ msgid "Open the selected image with a different application"
 #~ msgstr "Das gewählte Bild mit einer anderen Anwendung öffnen"
-
-#~ msgid "Save the selected images with a different name"
-#~ msgstr "Die gewählten Bilder unter anderen Namen speichern"
-
-#~ msgid "Print the selected image"
-#~ msgstr "Das gewählte Bild drucken"
 
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Die Eigenschaften und Metadaten des gewählten Bilds anzeigen"
@@ -1669,29 +1777,14 @@ msgstr ""
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Das Bild in seiner normalen Größe anzeigen"
 
-#~ msgid "_Fullscreen"
-#~ msgstr "_Vollbild"
-
-#~ msgid "Pause Slideshow"
-#~ msgstr "Diaschau unterbrechen"
-
 #~ msgid "_Random Image"
 #~ msgstr "_Zufälliges Bild"
-
-#~ msgid "Go to a random image of the gallery"
-#~ msgstr "Zu einem zufälligen Bild in der Sammlung gehen"
 
 #~ msgid "S_lideshow"
 #~ msgstr "_Diaschau"
 
 #~ msgid "Start a slideshow view of the images"
 #~ msgstr "Die Diaschau der Bilder starten"
-
-#~ msgid "Previous"
-#~ msgstr "Vorheriges"
-
-#~ msgid "Next"
-#~ msgstr "Nächstes"
 
 #~ msgid "Right"
 #~ msgstr "Rechts"
@@ -1729,9 +1822,6 @@ msgstr ""
 
 #~ msgid "_About Image Viewer"
 #~ msgstr "_Info zum Bildbetrachter"
-
-#~ msgid "Set as _Desktop Background"
-#~ msgstr "Als _Hintergrundbild"
 
 #~ msgctxt "PrefDlgSlideSwitchPrefix"
 #~ msgid "_Switch image after:"
