@@ -160,27 +160,11 @@ static void
 eog_application_init_app_menu (EogApplication *application)
 {
 	EogApplicationPrivate *priv = application->priv;
-	GtkBuilder *builder;
-	GError *error = NULL;
 	GAction *action;
 
 	g_action_map_add_action_entries (G_ACTION_MAP (application),
 					 app_entries, G_N_ELEMENTS (app_entries),
 					 application);
-
-	builder = gtk_builder_new ();
-	gtk_builder_add_from_resource (builder,
-				       "/org/gnome/eog/ui/eog-app-menu.xml",
-				       &error);
-
-	if (error == NULL) {
-		gtk_application_set_app_menu (GTK_APPLICATION (application),
-					      G_MENU_MODEL (gtk_builder_get_object (builder,
-		                                                                    "app-menu")));
-	} else {
-		g_critical ("Unable to add the application menu: %s\n", error->message);
-		g_error_free (error);
-	}
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
 	                                     "view-gallery");
@@ -207,8 +191,6 @@ eog_application_init_app_menu (EogApplication *application)
 	                              _settings_map_get_bool_variant,
 	                              _settings_map_set_variant,
 	                              NULL, NULL);
-
-	g_object_unref (builder);
 }
 
 static void

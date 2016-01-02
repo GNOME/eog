@@ -2,7 +2,6 @@
 <gresources>
   <gresource prefix="/org/gnome/eog/ui">
     <file>eog.css</file>
-    <file compressed="true" preprocess="xml-stripblanks">eog-app-menu.xml</file>
     <file compressed="true" preprocess="xml-stripblanks">eog-gear-menu.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">eog-image-properties-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">eog-multiple-save-as-dialog.ui</file>
@@ -13,6 +12,7 @@
     <file compressed="true" preprocess="xml-stripblanks">popup-menus.ui</file>
   </gresource>
   <gresource prefix="/org/gnome/eog/gtk">
+    <file alias="menus.ui" compressed="true" preprocess="xml-stripblanks">eog-app-menu.xml</file>
     <file compressed="true" preprocess="xml-stripblanks">help-overlay.ui</file>
   </gresource>
 </gresources>
