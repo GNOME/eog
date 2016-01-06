@@ -10,15 +10,15 @@
 # Lauri Nurmi <lanurmi@iki.fi>, 2003-2004.
 # Tommi Vainikainen <thv@iki.fi>, 2009-2011.
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2011.
-# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013, 2014, 2015.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-07 04:42+0000\n"
-"PO-Revision-Date: 2015-11-07 15:20+0200\n"
+"POT-Creation-Date: 2016-01-06 04:44+0000\n"
+"PO-Revision-Date: 2016-01-06 13:48+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -33,15 +33,19 @@ msgstr ""
 msgid "Prefere_nces"
 msgstr "_Asetukset"
 
-#: ../data/eog-app-menu.xml.h:2 ../data/eog-preferences-dialog.ui.h:2
+#: ../data/eog-app-menu.xml.h:2
+msgid "_Keyboard Shortcuts"
+msgstr "_Pikanäppäimet"
+
+#: ../data/eog-app-menu.xml.h:3 ../data/eog-preferences-dialog.ui.h:2
 msgid "_Help"
 msgstr "O_hje"
 
-#: ../data/eog-app-menu.xml.h:3
+#: ../data/eog-app-menu.xml.h:4
 msgid "_About"
 msgstr "_Tietoja"
 
-#: ../data/eog-app-menu.xml.h:4
+#: ../data/eog-app-menu.xml.h:5
 msgid "_Quit"
 msgstr "_Lopeta"
 
@@ -67,7 +71,7 @@ msgstr ""
 "kameran kuviin asettamat tunnistetiedot, joten kuvat ovat automaattisesti "
 "aina \"oikein päin\"."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:327
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "Kuvakatselin"
@@ -116,12 +120,10 @@ msgid "S_ide Pane"
 msgstr "Sivu_paneeli"
 
 #: ../data/eog-gear-menu.ui.h:9
-#| msgid "_Image Gallery"
 msgid "Image _Gallery"
 msgstr "_Kuvakokoelma"
 
 #: ../data/eog-gear-menu.ui.h:10
-#| msgid "_Statusbar"
 msgid "S_tatus Bar"
 msgstr "T_ilarivi"
 
@@ -165,7 +167,7 @@ msgstr "Tavuja:"
 msgid "Folder:"
 msgstr "Kansio:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
 msgid "General"
 msgstr "Yleinen"
 
@@ -390,7 +392,7 @@ msgstr "Siirry kokoelman ensimmäiseen kuvaan"
 msgid "_First Image"
 msgstr "Ensi_mmäinen kuva"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
 msgid "Go to the previous image of the gallery"
 msgstr "Siirry kokoelman edelliseen kuvaan"
 
@@ -398,7 +400,7 @@ msgstr "Siirry kokoelman edelliseen kuvaan"
 msgid "_Previous Image"
 msgstr "_Edellinen kuva"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
 msgid "Go to the next image of the gallery"
 msgstr "Siirry kokoelman seuraavaan kuvaan"
 
@@ -438,7 +440,7 @@ msgstr "_Normaalikoko"
 msgid "_Best Fit"
 msgstr "_Paras sovitus"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Kierrä kuvaa 90 astetta vastapäivään"
 
@@ -446,7 +448,7 @@ msgstr "Kierrä kuvaa 90 astetta vastapäivään"
 msgid "Rotate Counter_clockwise"
 msgstr "Kierrä va_stapäivään"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Kierrä kuvaa 90 astetta myötäpäivään"
 
@@ -473,6 +475,164 @@ msgstr "_Poistu koko näytöstä"
 #: ../data/fullscreen-toolbar.ui.h:23
 msgid "Leave fullscreen mode"
 msgstr "Poistu koko näytön tilasta"
+
+#: ../data/help-overlay.ui.h:2
+#| msgid "Open a file"
+msgid "Open an image file"
+msgstr "Avaa kuvatiedosto"
+
+#: ../data/help-overlay.ui.h:3
+#| msgid "Enlarge the image"
+msgid "Save the image"
+msgstr "Tallenna kuva"
+
+#: ../data/help-overlay.ui.h:4
+#| msgid "Save the selected images with a different name"
+msgid "Save the image with a new file name"
+msgstr "Tallenna kuva eri tiedostonimellä"
+
+#: ../data/help-overlay.ui.h:5
+#| msgid "Print the selected image"
+msgid "Print the current image"
+msgstr "Tulosta nykyinen kuva"
+
+#: ../data/help-overlay.ui.h:6
+#| msgid "Close window"
+msgid "Close the current window"
+msgstr "Sulje nykyinen ikkuna"
+
+#: ../data/help-overlay.ui.h:7
+#| msgid "Close window"
+msgid "Close all windows"
+msgstr "Sulje kaikki ikkunat"
+
+#: ../data/help-overlay.ui.h:8
+#| msgid "Set as _Desktop Background"
+msgid "Set the image as desktop background"
+msgstr "Aseta kuva työpöydän taustakuvaksi"
+
+#: ../data/help-overlay.ui.h:9
+#| msgid "Show/Hide the window toolbar."
+msgid "Show/Hide the sidebar"
+msgstr "Näytä/piilota sivupalkki"
+
+#: ../data/help-overlay.ui.h:10
+#| msgid "Image Properties"
+msgid "Show image properties dialog"
+msgstr "Näytä kuvan ominaisuudet"
+
+#: ../data/help-overlay.ui.h:11
+#| msgid "Help on this application"
+msgid "Open the application manual"
+msgstr "Avaa sovelluksen ohje"
+
+#: ../data/help-overlay.ui.h:12
+#, fuzzy
+#| msgid "_Zoom In"
+msgid "Zoom"
+msgstr "_Lähennä"
+
+#: ../data/help-overlay.ui.h:13
+#, fuzzy
+#| msgid "_Zoom In"
+msgid "Zoom in"
+msgstr "_Lähennä"
+
+#: ../data/help-overlay.ui.h:14
+#, fuzzy
+#| msgid "Zoom _Out"
+msgid "Zoom out"
+msgstr "L_oitonna"
+
+#: ../data/help-overlay.ui.h:15
+msgid "Actual size"
+msgstr "Varsinainen koko"
+
+#: ../data/help-overlay.ui.h:16
+#, fuzzy
+#| msgid "_Best Fit"
+msgid "Best fit  "
+msgstr "_Paras sovitus"
+
+#: ../data/help-overlay.ui.h:17
+#, fuzzy
+#| msgid "Browse and rotate images"
+msgid "Browsing Images"
+msgstr "Selaa ja kierrä kuvia"
+
+#: ../data/help-overlay.ui.h:18
+#| msgid "Go to the previous image of the gallery"
+msgid "Go to the previous image in the folder"
+msgstr "Siirry kansiossa olevaan edelliseen kuvaan"
+
+#: ../data/help-overlay.ui.h:19
+#| msgid "Go to the next image of the gallery"
+msgid "Go to the next image in the folder"
+msgstr "Siirry kansiossa olevaan seuraavaan kuvaan"
+
+#: ../data/help-overlay.ui.h:20
+#| msgid "Go to the first image of the gallery"
+msgid "Go to the first image in the folder"
+msgstr "Siirry kansiossa olevaan ensimmäiseen kuvaan"
+
+#: ../data/help-overlay.ui.h:21
+#| msgid "Go to the last image of the gallery"
+msgid "Go to the last image in the folder"
+msgstr "Siirry kansiossa olevaan viimeiseen kuvaan"
+
+#: ../data/help-overlay.ui.h:22
+#| msgid "Go to a random image of the gallery"
+msgid "Go to a random image in the folder"
+msgstr "Siirry kansiossa olevaan satunnaiseen kuvaan"
+
+#: ../data/help-overlay.ui.h:23
+#| msgid "Show/Hide the image gallery pane."
+msgid "Show/Hide the image gallery"
+msgstr "Näytä/piilota kuvakokoelma"
+
+#: ../data/help-overlay.ui.h:24
+#, fuzzy
+#| msgid "Location:"
+msgid "Rotation"
+msgstr "Sijainti:"
+
+#: ../data/help-overlay.ui.h:25
+#, fuzzy
+#| msgid "_Rotate Clockwise"
+msgid "Rotate clockwise"
+msgstr "Kierrä _myötäpäivään"
+
+#: ../data/help-overlay.ui.h:26
+#, fuzzy
+#| msgid "Rotate Counter_clockwise"
+msgid "Rotate counterclockwise"
+msgstr "Kierrä va_stapäivään"
+
+#: ../data/help-overlay.ui.h:27
+#, fuzzy
+#| msgid "Rotate Counter_clockwise"
+msgid "Rotate counter-clockwise"
+msgstr "Kierrä va_stapäivään"
+
+#: ../data/help-overlay.ui.h:28
+#| msgid "_Fullscreen"
+msgid "Fullscreen"
+msgstr "Koko näyttö"
+
+#: ../data/help-overlay.ui.h:29
+#| msgid "_Leave Fullscreen"
+msgid "Enter/Leave fullscreen"
+msgstr "Siirry tai poistu koko näytön tilasta"
+
+#: ../data/help-overlay.ui.h:30
+#| msgid "Slideshow"
+msgid "Start/Stop slideshow"
+msgstr "Käynnistä tai pysäytä diaesitys"
+
+#: ../data/help-overlay.ui.h:31
+#| msgid "Pause Slideshow"
+msgid "Pause slideshow"
+msgstr "Keskeytä diaesitys"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -1525,9 +1685,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 #~ msgid "_Toolbar"
 #~ msgstr "_Työkalupalkki"
 
-#~ msgid "Show/Hide the window toolbar."
-#~ msgstr "Näytä/piilota ikkunan työkalupalkki."
-
 #~ msgid "External program to use for editing images"
 #~ msgstr "Ulkoinen sovellus kuvien muokkaamiseen"
 
@@ -1562,12 +1719,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 #~ msgid "_Tools"
 #~ msgstr "_Työkalut"
 
-#~ msgid "Open a file"
-#~ msgstr "Avaa tiedosto"
-
-#~ msgid "Close window"
-#~ msgstr "Sulje ikkuna"
-
 #~ msgid "T_oolbar"
 #~ msgstr "_Työkalupalkki"
 
@@ -1579,9 +1730,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 
 #~ msgid "_Contents"
 #~ msgstr "S_isältö"
-
-#~ msgid "Help on this application"
-#~ msgstr "Ohjeita tämän ohjelman käyttöön"
 
 #~ msgid "About this application"
 #~ msgstr "Tietoja sovelluksesta"
@@ -1600,12 +1748,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 
 #~ msgid "Open the selected image with a different application"
 #~ msgstr "Avaa valittu kuva toisella ohjelmalla"
-
-#~ msgid "Save the selected images with a different name"
-#~ msgstr "Tallenna valittu kuva toisella nimellä"
-
-#~ msgid "Print the selected image"
-#~ msgstr "Tulosta valittu kuva"
 
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Näytä valitun kuvan ominaisuudet ja metatiedot"
@@ -1646,17 +1788,8 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Näytä kuva normaalikoossa"
 
-#~ msgid "_Fullscreen"
-#~ msgstr "Koko nä_yttö"
-
-#~ msgid "Pause Slideshow"
-#~ msgstr "Pidä tauko diaesityksessä"
-
 #~ msgid "_Random Image"
 #~ msgstr "_Satunnainen kuva"
-
-#~ msgid "Go to a random image of the gallery"
-#~ msgstr "Siirry satunnaiseen kuvaan kokoelmassa"
 
 #~ msgid "S_lideshow"
 #~ msgstr "_Diaesitys"
@@ -1700,9 +1833,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
 
 #~ msgid "_About Image Viewer"
 #~ msgstr "_Tietoja - Kuvakatselin"
-
-#~ msgid "Set as _Desktop Background"
-#~ msgstr "Aseta _taustakuvaksi"
 
 #~ msgctxt "PrefDlgSlideSwitchPrefix"
 #~ msgid "_Switch image after:"
