@@ -8,15 +8,16 @@
 # SUGITA Toshinori <sugita@d-pad.co.jp>, 2009.
 # Yasumichi Akahoshi <yasumichi@vinelinux.org>, 2010
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 1999-2002, 2010-2012.
-# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2015.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2016.
 # Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-25 04:43+0000\n"
-"PO-Revision-Date: 2015-11-25 20:04+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=eog&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-01-03 15:08+0000\n"
+"PO-Revision-Date: 2016-01-16 12:27+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -29,27 +30,44 @@ msgstr ""
 msgid "Prefere_nces"
 msgstr "設定(_N)"
 
-#: ../data/eog-app-menu.xml.h:2 ../data/eog-preferences-dialog.ui.h:2
+#: ../data/eog-app-menu.xml.h:2
+msgid "_Keyboard Shortcuts"
+msgstr "キーボードショートカット(_K)"
+
+#: ../data/eog-app-menu.xml.h:3 ../data/eog-preferences-dialog.ui.h:2
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../data/eog-app-menu.xml.h:3
+#: ../data/eog-app-menu.xml.h:4
 msgid "_About"
 msgstr "このアプリケーションについて(_A)"
 
-#: ../data/eog-app-menu.xml.h:4
+#: ../data/eog-app-menu.xml.h:5
 msgid "_Quit"
 msgstr "終了(_Q)"
 
 #: ../data/eog.appdata.xml.in.h:1
-msgid "The Eye of GNOME is the official image viewer for the GNOME desktop. It integrates with the GTK+ look and feel of GNOME, and supports many image formats for viewing single images or images in a collection."
-msgstr "Eye of GNOME は GNOME デスクトップの公式画像ビューアーです。GTK+ により見た目と操作性で GNOME と統合しています。多くの画像形式をサポートしており、単一の画像に加え画像コレクションの鑑賞にも適しています。"
+msgid ""
+"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"formats for viewing single images or images in a collection."
+msgstr ""
+"Eye of GNOME は GNOME デスクトップの公式画像ビューアーです。GTK+ により見た目"
+"と操作性で GNOME と統合しています。多くの画像形式をサポートしており、単一の画"
+"像に加え画像コレクションの鑑賞にも適しています。"
 
 #: ../data/eog.appdata.xml.in.h:2
-msgid "The Eye of GNOME also allows to view the images in a fullscreen slideshow mode or set an image as the desktop wallpaper. It reads the camera tags to automatically rotate your images in the correct portrait or landscape orientation."
-msgstr "Eye of GNOME では、フルスクリーンでスライドショーを楽しんだり、画像をデスクトップの壁紙にしたりできます。カメラのタグを自動的に読み込んで画像の縦横の方向を正しく表示します。"
+msgid ""
+"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
+"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"automatically rotate your images in the correct portrait or landscape "
+"orientation."
+msgstr ""
+"Eye of GNOME では、フルスクリーンでスライドショーを楽しんだり、画像をデスク"
+"トップの壁紙にしたりできます。カメラのタグを自動的に読み込んで画像の縦横の方"
+"向を正しく表示します。"
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:327
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "画像ビューアー"
@@ -61,7 +79,9 @@ msgstr "画像の閲覧や向きの調整をします"
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
 msgid "Picture;Slideshow;Graphics;"
-msgstr "Picture;Slideshow;Graphics;写真;画像;スライドショー;グラフィックス;ImageViewer;"
+msgstr ""
+"Picture;Slideshow;Graphics;写真;画像;スライドショー;グラフィックス;"
+"ImageViewer;"
 
 #: ../data/eog-gear-menu.ui.h:1
 msgid "_Open…"
@@ -145,7 +165,7 @@ msgstr "サイズ:"
 msgid "Folder:"
 msgstr "フォルダー:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10
+#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
 msgid "General"
 msgstr "全般"
 
@@ -370,7 +390,7 @@ msgstr "ギャラリーの一番最初の画像を表示します"
 msgid "_First Image"
 msgstr "先頭へ(_F)"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
 msgid "Go to the previous image of the gallery"
 msgstr "ギャラリーの前の画像を表示します"
 
@@ -378,7 +398,7 @@ msgstr "ギャラリーの前の画像を表示します"
 msgid "_Previous Image"
 msgstr "前の画像へ(_P)"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
 msgid "Go to the next image of the gallery"
 msgstr "ギャラリーの次の画像を表示します"
 
@@ -418,7 +438,7 @@ msgstr "通常の大きさ(_N)"
 msgid "_Best Fit"
 msgstr "ウィンドウに合わせる(_B)"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
 msgid "Rotate the image 90 degrees to the left"
 msgstr "画像を左回りで90°回転させます"
 
@@ -426,7 +446,7 @@ msgstr "画像を左回りで90°回転させます"
 msgid "Rotate Counter_clockwise"
 msgstr "反時計回りに回転する(_C)"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
 msgid "Rotate the image 90 degrees to the right"
 msgstr "画像を右回りで90°回転させます"
 
@@ -453,6 +473,126 @@ msgstr "フルスクリーン解除(_L)"
 #: ../data/fullscreen-toolbar.ui.h:23
 msgid "Leave fullscreen mode"
 msgstr "フルスクリーンモードを解除します"
+
+#: ../data/help-overlay.ui.h:2
+msgid "Open an image file"
+msgstr "画像ファイルを開く"
+
+#: ../data/help-overlay.ui.h:3
+msgid "Save the image"
+msgstr "画像を保存する"
+
+#: ../data/help-overlay.ui.h:4
+msgid "Save the image with a new file name"
+msgstr "画像に名前を付けて保存する"
+
+#: ../data/help-overlay.ui.h:5
+msgid "Print the current image"
+msgstr "現在の画像を印刷する"
+
+#: ../data/help-overlay.ui.h:6
+msgid "Close the current window"
+msgstr "現在のウィンドウを閉じる"
+
+#: ../data/help-overlay.ui.h:7
+msgid "Close all windows"
+msgstr "すべてのウィンドウを閉じる"
+
+#: ../data/help-overlay.ui.h:8
+msgid "Set the image as desktop background"
+msgstr "画像をデスクトップの背景に設定する"
+
+#: ../data/help-overlay.ui.h:9
+msgid "Show/Hide the sidebar"
+msgstr "サイドバーの表示/非表示を切り替える"
+
+#: ../data/help-overlay.ui.h:10
+msgid "Show image properties dialog"
+msgstr "画像のプロパティダイアログを表示する"
+
+#: ../data/help-overlay.ui.h:11
+msgid "Open the application manual"
+msgstr "アプリケーションのマニュアルを開く"
+
+#: ../data/help-overlay.ui.h:12
+msgid "Zoom"
+msgstr "ズーム"
+
+#: ../data/help-overlay.ui.h:13
+msgid "Zoom in"
+msgstr "拡大"
+
+#: ../data/help-overlay.ui.h:14
+msgid "Zoom out"
+msgstr "縮小"
+
+#: ../data/help-overlay.ui.h:15
+msgid "Actual size"
+msgstr "実際のサイズで表示する"
+
+#: ../data/help-overlay.ui.h:16
+msgid "Best fit  "
+msgstr "ウィンドウに合わせる"
+
+#: ../data/help-overlay.ui.h:17
+msgid "Browsing Images"
+msgstr "画像の閲覧"
+
+#: ../data/help-overlay.ui.h:18
+msgid "Go to the previous image in the folder"
+msgstr "フォルダー内の前の画像を表示する"
+
+#: ../data/help-overlay.ui.h:19
+msgid "Go to the next image in the folder"
+msgstr "フォルダー内の次の画像を表示する"
+
+#: ../data/help-overlay.ui.h:20
+msgid "Go to the first image in the folder"
+msgstr "フォルダー内の一番最初の画像を表示する"
+
+#: ../data/help-overlay.ui.h:21
+msgid "Go to the last image in the folder"
+msgstr "フォルダー内の一番最後の画像を表示する"
+
+#: ../data/help-overlay.ui.h:22
+msgid "Go to a random image in the folder"
+msgstr "フォルダー内の画像をランダムに表示する"
+
+#: ../data/help-overlay.ui.h:23
+msgid "Show/Hide the image gallery"
+msgstr "画像ギャラリーの表示/非表示を切り替える"
+
+#: ../data/help-overlay.ui.h:24
+msgid "Rotation"
+msgstr "回転"
+
+#: ../data/help-overlay.ui.h:25
+msgid "Rotate clockwise"
+msgstr "時計回りに回転する"
+
+#: ../data/help-overlay.ui.h:26
+msgid "Rotate counterclockwise"
+msgstr "反時計回りに回転する"
+
+#: ../data/help-overlay.ui.h:27
+msgid "Rotate counter-clockwise"
+msgstr "反時計回りに回転する"
+
+#: ../data/help-overlay.ui.h:28
+msgid "Fullscreen"
+msgstr "フルスクリーン"
+
+#: ../data/help-overlay.ui.h:29
+msgid "Enter/Leave fullscreen"
+msgstr "フルスクリーン表示を切り替える"
+
+#: ../data/help-overlay.ui.h:30
+msgid "Start/Stop slideshow"
+msgstr "スライドショーを開始/終了する"
+
+#: ../data/help-overlay.ui.h:31
+msgid "Pause slideshow"
+msgstr "スライドショーを一時停止する"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -507,20 +647,30 @@ msgid "Automatic orientation"
 msgstr "向きの自動調整"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:2
-msgid "Whether the image should be rotated automatically based on EXIF orientation."
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "EXIF の向きに応じて自動的に画像の向きを調整します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:4
-msgid "The color that is used to fill the area behind the image. If the use-background-color key is not set, the color is determined by the active GTK+ theme instead."
-msgstr "画像の後ろの領域を塗りつぶすのに使われる色です。use-background-color キーが設定されていなければ、代わりにアクティブな GTK+ のテーマによって決定されます。"
+msgid ""
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
+msgstr ""
+"画像の後ろの領域を塗りつぶすのに使われる色です。use-background-color キーが設"
+"定されていなければ、代わりにアクティブな GTK+ のテーマによって決定されます。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:5
 msgid "Interpolate Image"
 msgstr "画像の補正"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:6
-msgid "Whether the image should be interpolated on zoom-out. This leads to better quality but is somewhat slower than non-interpolated images."
-msgstr "画像を拡大する際に補間するかどうかを指定します。これによって画像がより良い品質になりますが、補間しない場合と比較して描画が多少遅くなります。"
+msgid ""
+"Whether the image should be interpolated on zoom-out. This leads to better "
+"quality but is somewhat slower than non-interpolated images."
+msgstr ""
+"画像を拡大する際に補間するかどうかを指定します。これによって画像がより良い品"
+"質になりますが、補間しない場合と比較して描画が多少遅くなります。"
 
 # FIXME: 以前は"Interpolate Image"だが、同じ意味では?
 #: ../data/org.gnome.eog.gschema.xml.in.h:7
@@ -528,8 +678,12 @@ msgid "Extrapolate Image"
 msgstr "画像の補正"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:8
-msgid "Whether the image should be extrapolated on zoom-in. This leads to blurry quality and is somewhat slower than non-extrapolated images."
-msgstr "画像を拡大する際に補正するかどうかを指定します。これは画像がぼやけた状態になり、補正しない場合と比較して描画が多少遅くなります。"
+msgid ""
+"Whether the image should be extrapolated on zoom-in. This leads to blurry "
+"quality and is somewhat slower than non-extrapolated images."
+msgstr ""
+"画像を拡大する際に補正するかどうかを指定します。これは画像がぼやけた状態にな"
+"り、補正しない場合と比較して描画が多少遅くなります。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:9
 msgid "Transparency indicator"
@@ -538,8 +692,14 @@ msgstr "透過する部分の表示方法"
 # 原文は trans-color だが、data/eog.schemas.in では trans_color なので、原文の
 # ミス
 #: ../data/org.gnome.eog.gschema.xml.in.h:10
-msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key determines the color value used."
-msgstr "画像を透過する部分をどのように表示させるかを指定します。指定可能な値は CHECK_PATTERN、COLOR と NONE です。COLOR を選択した場合、キー trans_color には使用する色の値を指定します。"
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
+"determines the color value used."
+msgstr ""
+"画像を透過する部分をどのように表示させるかを指定します。指定可能な値は "
+"CHECK_PATTERN、COLOR と NONE です。COLOR を選択した場合、キー trans_color に"
+"は使用する色の値を指定します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:11
 msgid "Scroll wheel zoom"
@@ -555,24 +715,42 @@ msgstr "拡大率"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:15
 #, no-c-format
-msgid "The multiplier to be applied when using the mouse scroll wheel for zooming. This value defines the zooming step used for each scroll event. For example, 0.05 results in a 5% zoom increment for each scroll event and 1.00 result in a 100% zoom increment."
-msgstr "マウスホイールのスクロールで画像を拡大/縮小する際に適用する倍率です。スクロールのイベントが発生するたびに、この値の乗数で拡大/縮小します。例えば、0.05 にするとスクロールのイベントが発生する度に 5% 単位で拡大し、1.00 にすると 100% 単位で拡大することになります。"
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr ""
+"マウスホイールのスクロールで画像を拡大/縮小する際に適用する倍率です。スクロー"
+"ルのイベントが発生するたびに、この値の乗数で拡大/縮小します。例えば、0.05 に"
+"するとスクロールのイベントが発生する度に 5% 単位で拡大し、1.00 にすると 100% "
+"単位で拡大することになります。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:16
 msgid "Transparency color"
 msgstr "透過する部分の色"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:17
-msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
-msgstr "キー transparency が COLOR の場合、このキーは透過する部分に使用する色を表します。"
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+"キー transparency が COLOR の場合、このキーは透過する部分に使用する色を表しま"
+"す。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:18
 msgid "Use a custom background color"
 msgstr "背景にカスタム色を使用する"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:19
-msgid "If this is active, the color set by the background-color key will be used to fill the area behind the image. If it is not set, the current GTK+ theme will determine the fill color."
-msgstr "これがアクティブならば、background-color キーで設定された色が画像の後ろのエリアを満たすのに使われます。設定されてない場合、現在の GTK+ のテーマが色を決定します。"
+msgid ""
+"If this is active, the color set by the background-color key will be used to "
+"fill the area behind the image. If it is not set, the current GTK+ theme "
+"will determine the fill color."
+msgstr ""
+"これがアクティブならば、background-color キーで設定された色が画像の後ろのエリ"
+"アを満たすのに使われます。設定されてない場合、現在の GTK+ のテーマが色を決定"
+"します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:20
 msgid "Loop through the image sequence"
@@ -588,7 +766,9 @@ msgid "Allow zoom greater than 100% initially"
 msgstr "初期表示で 100% より大きい倍率を許可する"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:24
-msgid "If this is set to FALSE small images will not be stretched to fit into the screen initially."
+msgid ""
+"If this is set to FALSE small images will not be stretched to fit into the "
+"screen initially."
 msgstr "FALSE に設定すると、小さい画像が画面に合うよう拡大されなくなります。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:25
@@ -596,8 +776,12 @@ msgid "Delay in seconds until showing the next image"
 msgstr "次の画像が表示されるまでの間隔 (秒)"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:26
-msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
-msgstr " 0より大きい値は、次の画像が自動的に表示されるまで画像が画面上に表示される時間 (秒) を指定することになります。 0を指定すると自動閲覧を無効にします。"
+msgid ""
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+" 0より大きい値は、次の画像が自動的に表示されるまで画像が画面上に表示される時"
+"間 (秒) を指定することになります。 0を指定すると自動閲覧を無効にします。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:27
 msgid "Show/Hide the window statusbar."
@@ -608,8 +792,12 @@ msgid "Show/Hide the image gallery pane."
 msgstr "画像ギャラリーのペインを表示するかどうか。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:29
-msgid "Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 for right."
-msgstr "画像ギャラリーのペインの位置です。指定可能な値: 0 (下側)、1 (左側)、2 (上側)、3 (右側)"
+msgid ""
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
+"for right."
+msgstr ""
+"画像ギャラリーのペインの位置です。指定可能な値: 0 (下側)、1 (左側)、2 (上"
+"側)、3 (右側)"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:30
 msgid "Whether the image gallery pane should be resizable."
@@ -621,7 +809,8 @@ msgstr "ウィンドウにサイドペインを表示するかどうか。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:32
 msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr "画像ギャラリーのペインにスクロールボタンを表示するかどうかを指定します。"
+msgstr ""
+"画像ギャラリーのペインにスクロールボタンを表示するかどうかを指定します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:33
 msgid "Close main window without asking to save changes."
@@ -632,34 +821,67 @@ msgid "Trash images without asking"
 msgstr "確認無しで画像を削除する"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:35
-msgid "If activated, Eye of GNOME won't ask for confirmation when moving images to the trash. It will still ask if any of the files cannot be moved to the trash and would be deleted instead."
-msgstr "この項目が有効な場合、Eye of GNOME は画像をごみ箱に移動する際に確認をしません。ファイルがごみ箱に移動できない、あるいは削除できない場合には表示します。"
+msgid ""
+"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"この項目が有効な場合、Eye of GNOME は画像をごみ箱に移動する際に確認をしませ"
+"ん。ファイルがごみ箱に移動できない、あるいは削除できない場合には表示します。"
 
 # filechooser -> ファイルの選択画面 とした
 #: ../data/org.gnome.eog.gschema.xml.in.h:36
-msgid "Whether the file chooser should show the user's pictures folder if no images are loaded."
-msgstr "画像が読み込まれていない場合、ファイルの選択画面でユーザーの画像フォルダーを表示するかどうか指定します。"
+msgid ""
+"Whether the file chooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"画像が読み込まれていない場合、ファイルの選択画面でユーザーの画像フォルダーを"
+"表示するかどうか指定します。"
 
 # filechooser -> ファイルの選択画面 とした
 #: ../data/org.gnome.eog.gschema.xml.in.h:37
-msgid "If activated and no image is loaded in the active window, the file chooser will display the user's pictures folder using the XDG special user directories. If deactivated or the pictures folder has not been set up, it will show the current working directory."
-msgstr "この項目が有効でアクティブなウィンドウで画像が読み込まれていない場合は、XDG のユーザー固有ディレクトリを使って、ファイルの選択画面でユーザーの画像フォルダーを表示します。無効になっている、あるいは画像フォルダーが設定されていない場合は、現在のディレクトリを表示します。"
+msgid ""
+"If activated and no image is loaded in the active window, the file chooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up, it "
+"will show the current working directory."
+msgstr ""
+"この項目が有効でアクティブなウィンドウで画像が読み込まれていない場合は、XDG "
+"のユーザー固有ディレクトリを使って、ファイルの選択画面でユーザーの画像フォル"
+"ダーを表示します。無効になっている、あるいは画像フォルダーが設定されていない"
+"場合は、現在のディレクトリを表示します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:38
-msgid "Whether the metadata list in the properties dialog should have its own page."
-msgstr "プロパティダイアログ中のメタデータ一覧を個別に表示するかどうかを指定します。"
+msgid ""
+"Whether the metadata list in the properties dialog should have its own page."
+msgstr ""
+"プロパティダイアログ中のメタデータ一覧を個別に表示するかどうかを指定します。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:39
-msgid "If activated, the detailed metadata list in the properties dialog will be moved to its own page in the dialog. This should make the dialog more usable on smaller screens, e.g. as used by netbooks. If disabled, the widget will be embedded on the \"Metadata\" page."
-msgstr "この項目が有効だと、プロパティダイアログ中の詳細なメタデータ一覧が、個別のダイアログで表示されるようになります。これにより、ネットブックなどで使われているような小さなスクリーンで、ダイアログがより使いやすくなります。無効になっている場合は、ウィジェットは \"メタデータ\" ページに埋め込まれます。"
+msgid ""
+"If activated, the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
+"be embedded on the \"Metadata\" page."
+msgstr ""
+"この項目が有効だと、プロパティダイアログ中の詳細なメタデータ一覧が、個別のダ"
+"イアログで表示されるようになります。これにより、ネットブックなどで使われてい"
+"るような小さなスクリーンで、ダイアログがより使いやすくなります。無効になって"
+"いる場合は、ウィジェットは \"メタデータ\" ページに埋め込まれます。"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:40
 msgid "Active plugins"
 msgstr "利用可能なプラグイン"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:41
-msgid "List of active plugins. It doesn't contain the \"Location\" of the active plugins. See the .eog-plugin file for obtaining the \"Location\" of a given plugin."
-msgstr "利用可能なプラグイン名の並びです。これらの文字列にはプラグインを格納したフォルダー名は含まれません。詳細は、指定したプラグインの \"フォルダー\" の中にある .eog-plugin ファイルを参照してみてください。"
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr ""
+"利用可能なプラグイン名の並びです。これらの文字列にはプラグインを格納したフォ"
+"ルダー名は含まれません。詳細は、指定したプラグインの \"フォルダー\" の中にあ"
+"る .eog-plugin ファイルを参照してみてください。"
 
 #: ../data/popup-menus.ui.h:1
 msgid "Open _with"
@@ -722,8 +944,11 @@ msgstr "\"%s\" への変更を閉じる前に保存しますか?"
 #: ../src/eog-close-confirmation-dialog.c:652
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
-msgstr[0] "まだ保存していない変更をされた画像が %d 枚あります。閉じる前に変更を保存しますか?"
+msgid_plural ""
+"There are %d images with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"まだ保存していない変更をされた画像が %d 枚あります。閉じる前に変更を保存しま"
+"すか?"
 
 #: ../src/eog-close-confirmation-dialog.c:669
 msgid "S_elect the images you want to save:"
@@ -763,19 +988,24 @@ msgstr "指定した場所に画像がありませんでした"
 
 #: ../src/eog-error-message-area.c:349
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表示できません。\n"
+"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表"
+"示できません。\n"
 "すべてのページを表示するにはドキュメントビューアーで開いてください。"
 
 #: ../src/eog-error-message-area.c:354
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first page.\n"
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表示できません。\n"
-"すべてのページを表示するにはドキュメントビューアーをインストールしてください。"
+"この画像には複数のページが含まれています。画像ビューアーでは先頭ページしか表"
+"示できません。\n"
+"すべてのページを表示するにはドキュメントビューアーをインストールしてくださ"
+"い。"
 
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=550830
 # https://bugzilla.gnome.org/show_bug.cgi?id=611279
@@ -804,8 +1034,12 @@ msgid "File format is unknown or unsupported"
 msgstr "不明またはサポートしていないファイル形式です"
 
 #: ../src/eog-file-chooser.c:124
-msgid "Image Viewer could not determine a supported writable file format based on the filename."
-msgstr "画像ビューアーは、ファイル名に基づいてサポートしている書き込み可能なファイル形式を決定できませんでした。"
+msgid ""
+"Image Viewer could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"画像ビューアーは、ファイル名に基づいてサポートしている書き込み可能なファイル"
+"形式を決定できませんでした。"
 
 #: ../src/eog-file-chooser.c:125
 msgid "Please try a different file extension like .png or .jpg."
@@ -1254,7 +1488,9 @@ msgstr ""
 
 #: ../src/eog-window.c:3470
 #, c-format
-msgid "A trash for \"%s\" couldn't be found. Do you want to remove this image permanently?"
+msgid ""
+"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"permanently?"
 msgstr "\"%s\" をゴミ箱へ移動できません。この画像を直接削除しますか?"
 
 #: ../src/eog-window.c:3475
@@ -1270,8 +1506,12 @@ msgstr[0] ""
 "画像をゴミ箱へ移動しますか?"
 
 #: ../src/eog-window.c:3480
-msgid "Some of the selected images can't be moved to the trash and will be removed permanently. Are you sure you want to proceed?"
-msgstr "選択した画像のいくつかはゴミ箱へ移動できません。直接削除しますが、続行してもよろしいですか?"
+msgid ""
+"Some of the selected images can't be moved to the trash and will be removed "
+"permanently. Are you sure you want to proceed?"
+msgstr ""
+"選択した画像のいくつかはゴミ箱へ移動できません。直接削除しますが、続行しても"
+"よろしいですか?"
 
 #: ../src/eog-window.c:3544 ../src/eog-window.c:3558
 #, c-format
@@ -1332,8 +1572,11 @@ msgid "Start a new instance instead of reusing an existing one"
 msgstr "既存のウィンドウを再利用せずに新しいインスタンスを起動する"
 
 #: ../src/main.c:67
-msgid "Open in a single window, if multiple windows are open the first one is used"
-msgstr "単一のウィンドウで開く (複数のウィンドウを開いている場合は最初のウィンドウを使用する)"
+msgid ""
+"Open in a single window, if multiple windows are open the first one is used"
+msgstr ""
+"単一のウィンドウで開く (複数のウィンドウを開いている場合は最初のウィンドウを"
+"使用する)"
 
 #: ../src/main.c:69
 msgid "Show the application's version"
@@ -1347,7 +1590,9 @@ msgstr "[ファイル…]"
 #: ../src/main.c:112
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示されます"
+msgstr ""
+"'%s --help' を実行すると利用可能なすべてのコマンドラインオプションの一覧が表"
+"示されます"
 
 #~ msgid "Side _Pane"
 #~ msgstr "サイドペイン(_P)"
@@ -1392,14 +1637,17 @@ msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラ
 #~ msgid "_Toolbar"
 #~ msgstr "ツールバー(_T)"
 
-#~ msgid "Show/Hide the window toolbar."
-#~ msgstr "ウィンドウにツールバーを表示するかどうか。"
-
 #~ msgid "External program to use for editing images"
 #~ msgstr "画像を編集するのに使用する外部のプログラム"
 
-#~ msgid "The desktop file name (including the \".desktop\") of the application to use for editing images (when the \"Edit Image\" toolbar button is clicked). Set to the empty string to disable this feature."
-#~ msgstr "(ツールバー「画像を編集」のボタンがクリックされた時に)画像を編集するのに使うアプリケーションの desktop ファイルの名前 (\".desktop\" を含む)。この機能を無効にするには空文字列を指定してください。"
+#~ msgid ""
+#~ "The desktop file name (including the \".desktop\") of the application to "
+#~ "use for editing images (when the \"Edit Image\" toolbar button is "
+#~ "clicked). Set to the empty string to disable this feature."
+#~ msgstr ""
+#~ "(ツールバー「画像を編集」のボタンがクリックされた時に)画像を編集するのに使"
+#~ "うアプリケーションの desktop ファイルの名前 (\".desktop\" を含む)。この機"
+#~ "能を無効にするには空文字列を指定してください。"
 
 #~ msgid "Use \"%s\" to open the selected image"
 #~ msgstr "選択した画像を \"%s\" で開きます"
@@ -1422,12 +1670,6 @@ msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラ
 #~ msgid "_Tools"
 #~ msgstr "ツール(_T)"
 
-#~ msgid "Open a file"
-#~ msgstr "ファイルを開きます"
-
-#~ msgid "Close window"
-#~ msgstr "このウィンドウを閉じます"
-
 #~ msgid "T_oolbar"
 #~ msgstr "ツールバー(_O)"
 
@@ -1439,9 +1681,6 @@ msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラ
 
 #~ msgid "_Contents"
 #~ msgstr "目次(_C)"
-
-#~ msgid "Help on this application"
-#~ msgstr "このアプリケーションのヘルプです"
 
 #~ msgid "About this application"
 #~ msgstr "このアプリケーションの情報を表示します"
@@ -1460,12 +1699,6 @@ msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラ
 
 #~ msgid "Open the selected image with a different application"
 #~ msgstr "選択した画像を別のアプリケーションで開きます"
-
-#~ msgid "Save the selected images with a different name"
-#~ msgstr "選択した画像に名前を付けて保存します"
-
-#~ msgid "Print the selected image"
-#~ msgstr "選択した画像を印刷します"
 
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "選択した画像のプロパティとメタデータを表示します"
@@ -1506,17 +1739,8 @@ msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラ
 #~ msgid "Show the image at its normal size"
 #~ msgstr "通常の大きさで画像を表示します"
 
-#~ msgid "_Fullscreen"
-#~ msgstr "フルスクリーン(_F)"
-
-#~ msgid "Pause Slideshow"
-#~ msgstr "スライドショー停止"
-
 #~ msgid "_Random Image"
 #~ msgstr "ランダムな画像(_R)"
-
-#~ msgid "Go to a random image of the gallery"
-#~ msgstr "ギャラリーでランダムに画像を表示します"
 
 #~ msgid "S_lideshow"
 #~ msgstr "スライドショー(_L)"
