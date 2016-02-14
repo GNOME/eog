@@ -1660,7 +1660,7 @@ eog_scroll_view_set_antialiasing_in (EogScrollView *view, gboolean state)
 
 	priv = view->priv;
 
-	new_interp_type = state ? CAIRO_FILTER_BILINEAR : CAIRO_FILTER_NEAREST;
+	new_interp_type = state ? CAIRO_FILTER_GOOD : CAIRO_FILTER_NEAREST;
 
 	if (priv->interp_type_in != new_interp_type) {
 		priv->interp_type_in = new_interp_type;
@@ -1679,7 +1679,7 @@ eog_scroll_view_set_antialiasing_out (EogScrollView *view, gboolean state)
 
 	priv = view->priv;
 
-	new_interp_type = state ? CAIRO_FILTER_BILINEAR : CAIRO_FILTER_NEAREST;
+	new_interp_type = state ? CAIRO_FILTER_GOOD : CAIRO_FILTER_NEAREST;
 
 	if (priv->interp_type_out != new_interp_type) {
 		priv->interp_type_out = new_interp_type;
@@ -2097,8 +2097,8 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
 	//priv->uta = NULL;
-	priv->interp_type_in = CAIRO_FILTER_BILINEAR;
-	priv->interp_type_out = CAIRO_FILTER_BILINEAR;
+	priv->interp_type_in = CAIRO_FILTER_GOOD;
+	priv->interp_type_out = CAIRO_FILTER_GOOD;
 	priv->scroll_wheel_zoom = FALSE;
 	priv->zoom_multiplier = IMAGE_VIEW_ZOOM_MULTIPLIER;
 	priv->image = NULL;
