@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-15 14:01+0200\n"
-"PO-Revision-Date: 2016-01-15 14:07+0200\n"
+"POT-Creation-Date: 2016-03-02 21:23+0200\n"
+"PO-Revision-Date: 2016-03-02 21:24+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -42,6 +42,14 @@ msgid "_Quit"
 msgstr "י_ציאה"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "העין של GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "צפייה וסיבוב של תמונות"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -51,7 +59,7 @@ msgstr ""
 "מראה GTK+ ותחושה של GNOME, ותומך בתבניות תמונה רבות לצפייה בתמונות בודדות או "
 "תמונות באוספים."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -66,10 +74,6 @@ msgstr ""
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "מציג תמונות"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "צפייה וסיבוב של תמונות"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -158,7 +162,7 @@ msgstr "בתים:"
 msgid "Folder:"
 msgstr "תיקייה:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
+#: ../data/eog-image-properties-dialog.ui.h:10
 msgid "General"
 msgstr "כללי"
 
@@ -383,7 +387,7 @@ msgstr "מעבר לתמונה הראשונה באוסף"
 msgid "_First Image"
 msgstr "_תמונה ראשונה"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "מעבר לתמונה הקודמת באוסף"
 
@@ -391,7 +395,7 @@ msgstr "מעבר לתמונה הקודמת באוסף"
 msgid "_Previous Image"
 msgstr "התמונה ה_קודמת"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "מעבר לתמונה הבאה באוסף"
 
@@ -431,7 +435,7 @@ msgstr "גודל _רגיל"
 msgid "_Best Fit"
 msgstr "הה_תאמה הטובה ביותר"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "סיבוב התמונה 90 מעלות שמאלה"
 
@@ -439,7 +443,7 @@ msgstr "סיבוב התמונה 90 מעלות שמאלה"
 msgid "Rotate Counter_clockwise"
 msgstr "סיבוב _נגד כיוון השעון"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "סיבוב התמונה 90 מעלות ימינה"
 
@@ -467,123 +471,153 @@ msgstr "יציאה מ_מסך מלא"
 msgid "Leave fullscreen mode"
 msgstr "יציאה ממסך מלא"
 
+#: ../data/help-overlay.ui.h:1
+msgctxt "shortcut window"
+msgid "General"
+msgstr "כללי"
+
 #: ../data/help-overlay.ui.h:2
+msgctxt "shortcut window"
 msgid "Open an image file"
 msgstr "פתיחת תמונה"
 
 #: ../data/help-overlay.ui.h:3
+msgctxt "shortcut window"
 msgid "Save the image"
 msgstr "שמירת התמונה"
 
 #: ../data/help-overlay.ui.h:4
+msgctxt "shortcut window"
 msgid "Save the image with a new file name"
 msgstr "שמירת התמונה בשם קובץ חדש"
 
 #: ../data/help-overlay.ui.h:5
+msgctxt "shortcut window"
 msgid "Print the current image"
 msgstr "הדפסת התמונה הנוכחית"
 
 #: ../data/help-overlay.ui.h:6
+msgctxt "shortcut window"
 msgid "Close the current window"
 msgstr "סגירת החלון הנוכחי"
 
 #: ../data/help-overlay.ui.h:7
+msgctxt "shortcut window"
 msgid "Close all windows"
 msgstr "סגירת כל החלונות"
 
 #: ../data/help-overlay.ui.h:8
+msgctxt "shortcut window"
 msgid "Set the image as desktop background"
 msgstr "הגדרת התמונה כרקע שולחן העבודה"
 
 #: ../data/help-overlay.ui.h:9
+msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
 msgstr "הצגה/הסתרת הסרגל הצדי"
 
 #: ../data/help-overlay.ui.h:10
+msgctxt "shortcut window"
 msgid "Show image properties dialog"
-msgstr "הצגת דיאלוג מאפייני תמונה"
+msgstr "הצגת דו־שיח מאפייני תמונה"
 
 #: ../data/help-overlay.ui.h:11
+msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "פתיחת דפי עזרה של היישום"
 
 #: ../data/help-overlay.ui.h:12
+msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "תקריב"
 
 #: ../data/help-overlay.ui.h:13
+msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "התקרבות"
 
 #: ../data/help-overlay.ui.h:14
+msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "התרחקות"
 
 #: ../data/help-overlay.ui.h:15
+msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "גודל מקורי"
 
 #: ../data/help-overlay.ui.h:16
-msgid "Best fit  "
+msgctxt "shortcut window"
+msgid "Best fit"
 msgstr "ההתאמה הטובה ביותר"
 
 #: ../data/help-overlay.ui.h:17
+msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "דפדוף תמונות"
 
 #: ../data/help-overlay.ui.h:18
+msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "מעבר לתמונה הקודמת בתיקייה"
 
 #: ../data/help-overlay.ui.h:19
+msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "מעבר לתמונה הבאה בתיקייה"
 
 #: ../data/help-overlay.ui.h:20
+msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "מעבר לתמונה הראשונה בתיקייה"
 
 #: ../data/help-overlay.ui.h:21
+msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "מעבר לתמונה האחרונה בתיקייה"
 
 #: ../data/help-overlay.ui.h:22
+msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "מעבור לתמונה אקראית בתיקייה"
 
 #: ../data/help-overlay.ui.h:23
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "הצגה/הסתרת גלריית התמונות"
 
 #: ../data/help-overlay.ui.h:24
+msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "סיבוב "
 
 #: ../data/help-overlay.ui.h:25
+msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "סיבוב עם כיוון השעון"
 
 #: ../data/help-overlay.ui.h:26
+msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "סיבוב נגד כיוון השעון"
 
 #: ../data/help-overlay.ui.h:27
-msgid "Rotate counter-clockwise"
-msgstr "סיבוב נגד כיוון השעון"
-
-#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "מסך מלא"
 
-#: ../data/help-overlay.ui.h:29
+#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
-msgstr "יציאה ממסך מלא"
+msgstr "כניסה/יציאה ממסך מלא"
 
-#: ../data/help-overlay.ui.h:30
+#: ../data/help-overlay.ui.h:29
+msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "התחלה/השהיית מצגת"
 
-#: ../data/help-overlay.ui.h:31
+#: ../data/help-overlay.ui.h:30
+msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "השהיית מצגת"
 
@@ -1580,6 +1614,9 @@ msgstr "[FILE…]"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Run '%s --help' to see a full list of available command line options."
 
+#~ msgid "Rotate counter-clockwise"
+#~ msgstr "סיבוב נגד כיוון השעון"
+
 #~ msgid "Side _Pane"
 #~ msgstr "סרגל _צד"
 
@@ -1782,9 +1819,6 @@ msgstr "Run '%s --help' to see a full list of available command line options."
 
 #~ msgid "Eye of GNOME Preferences"
 #~ msgstr "העדפות העין של GNOME"
-
-#~ msgid "Eye of GNOME"
-#~ msgstr "העין של GNOME"
 
 #~ msgid "Running in fullscreen mode"
 #~ msgstr "מצב מסך מלא"
