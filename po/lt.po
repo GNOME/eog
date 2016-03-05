@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-06 16:42+0000\n"
-"PO-Revision-Date: 2016-01-17 21:20+0200\n"
+"POT-Creation-Date: 2016-02-15 19:51+0000\n"
+"PO-Revision-Date: 2016-03-05 21:50+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -47,6 +47,14 @@ msgid "_Quit"
 msgstr "_Išeiti"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Naršyti ir vartyti paveikslėlius"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -56,7 +64,7 @@ msgstr ""
 "integruojasi su GNOME GTK+ išvaizda ir palaiko daug paveikslėlių formatų, "
 "pavienių paveikslėlių arba rinkinio rodymui."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -71,10 +79,6 @@ msgstr ""
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "Paveikslėlių peržiūros programa"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Naršyti ir vartyti paveikslėlius"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -163,7 +167,7 @@ msgstr "Baitai:"
 msgid "Folder:"
 msgstr "Aplankas:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
+#: ../data/eog-image-properties-dialog.ui.h:10
 msgid "General"
 msgstr "Bendrosios"
 
@@ -388,7 +392,7 @@ msgstr "Pereiti prie pirmo galerijos paveikslėlio"
 msgid "_First Image"
 msgstr "_Pirmas paveikslėlis"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "Pereiti prie ankstesnio galerijos paveikslėlio"
 
@@ -396,7 +400,7 @@ msgstr "Pereiti prie ankstesnio galerijos paveikslėlio"
 msgid "_Previous Image"
 msgstr "_Ankstesnis paveikslėlis"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "Pereiti prie kito galerijos paveikslėlio"
 
@@ -436,7 +440,7 @@ msgstr "_Normalus dydis"
 msgid "_Best Fit"
 msgstr "Geriausiai _tinkantis"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Pasukti paveikslėlį 90 laipsnių į kairę"
 
@@ -444,7 +448,7 @@ msgstr "Pasukti paveikslėlį 90 laipsnių į kairę"
 msgid "Rotate Counter_clockwise"
 msgstr "Pasukti prieš _laikrodžio rodyklę"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Pasukti paveikslėlį 90 laipsnių į dešinę"
 
@@ -472,123 +476,153 @@ msgstr "Baigti _viso ekrano veikseną"
 msgid "Leave fullscreen mode"
 msgstr "Baigti viso ekrano veikseną"
 
+#: ../data/help-overlay.ui.h:1
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Bendrosios"
+
 #: ../data/help-overlay.ui.h:2
+msgctxt "shortcut window"
 msgid "Open an image file"
 msgstr "Atverti paveikslėlio failą"
 
 #: ../data/help-overlay.ui.h:3
+msgctxt "shortcut window"
 msgid "Save the image"
 msgstr "Įrašyti paveikslėlį"
 
 #: ../data/help-overlay.ui.h:4
+msgctxt "shortcut window"
 msgid "Save the image with a new file name"
 msgstr "Įrašyti paveikslėlį nauju failo pavadinimu"
 
 #: ../data/help-overlay.ui.h:5
+msgctxt "shortcut window"
 msgid "Print the current image"
 msgstr "Spausdinti esamą paveikslėlį"
 
 #: ../data/help-overlay.ui.h:6
+msgctxt "shortcut window"
 msgid "Close the current window"
 msgstr "Užverti esamą langą"
 
 #: ../data/help-overlay.ui.h:7
+msgctxt "shortcut window"
 msgid "Close all windows"
 msgstr "Užverti visus langus"
 
 #: ../data/help-overlay.ui.h:8
+msgctxt "shortcut window"
 msgid "Set the image as desktop background"
-msgstr "Nustatyti paveikslėlį kaip darbastalio foną"
+msgstr "Nustatyti paveikslėlį kaip darbalaukio foną"
 
 #: ../data/help-overlay.ui.h:9
+msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
 msgstr "Rodyti/slėpti šoninį polangį"
 
 #: ../data/help-overlay.ui.h:10
+msgctxt "shortcut window"
 msgid "Show image properties dialog"
 msgstr "Rodyti paveikslėlio savybių dialogą"
 
 #: ../data/help-overlay.ui.h:11
+msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Atverti programos žinyną"
 
 #: ../data/help-overlay.ui.h:12
+msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Mastelis"
 
 #: ../data/help-overlay.ui.h:13
+msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Didinti"
 
 #: ../data/help-overlay.ui.h:14
+msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Mažinti"
 
 #: ../data/help-overlay.ui.h:15
+msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Faktinis dydis"
 
 #: ../data/help-overlay.ui.h:16
-msgid "Best fit  "
+msgctxt "shortcut window"
+msgid "Best fit"
 msgstr "Geriausiai tinkantis"
 
 #: ../data/help-overlay.ui.h:17
+msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Naršomi paveikslėliai"
 
 #: ../data/help-overlay.ui.h:18
+msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Pereiti prie ankstesnio paveikslėlio aplanke"
 
 #: ../data/help-overlay.ui.h:19
+msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Pereiti prie kito paveikslėlio aplanke"
 
 #: ../data/help-overlay.ui.h:20
+msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Pereiti prie pirmo paveikslėlio aplanke"
 
 #: ../data/help-overlay.ui.h:21
+msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Pereiti prie paskutinio paveikslėlio aplanke"
 
 #: ../data/help-overlay.ui.h:22
+msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Pereiti prie atsitiktinio paveikslėlio aplanke"
 
 #: ../data/help-overlay.ui.h:23
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Rodyti/slėpti paveikslėlių kolekciją"
 
 #: ../data/help-overlay.ui.h:24
+msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Pasukimas"
 
 #: ../data/help-overlay.ui.h:25
+msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Pasukti pagal laikrodžio rodyklę"
 
 #: ../data/help-overlay.ui.h:26
+msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Pasukti prieš laikrodžio rodyklę"
 
 #: ../data/help-overlay.ui.h:27
-msgid "Rotate counter-clockwise"
-msgstr "Pasukti prieš laikrodžio rodyklę"
-
-#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Visas ekranas"
 
-#: ../data/help-overlay.ui.h:29
+#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Pradėti/užbaigti viso ekrano veikseną"
 
-#: ../data/help-overlay.ui.h:30
+#: ../data/help-overlay.ui.h:29
+msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Pradėti/stabdyti skaidrių rodymą"
 
-#: ../data/help-overlay.ui.h:31
+#: ../data/help-overlay.ui.h:30
+msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Pristabdyti skaidrių rodymą"
 
@@ -1605,6 +1639,10 @@ msgstr "[FAILAS…]"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite „%s --help“."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Rotate counter-clockwise"
+#~ msgstr "Pasukti prieš laikrodžio rodyklę"
 
 #~ msgid "Side _Pane"
 #~ msgstr "Šoninis _polangis"
