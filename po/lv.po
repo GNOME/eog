@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&"
 "keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-04 16:43+0000\n"
-"PO-Revision-Date: 2016-02-06 16:29+0200\n"
+"POT-Creation-Date: 2016-03-05 04:43+0000\n"
+"PO-Revision-Date: 2016-03-05 14:10+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -43,6 +43,14 @@ msgid "_Quit"
 msgstr "_Iziet"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Pārlūkot un pagriezt attēlus"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -52,7 +60,7 @@ msgstr ""
 "integrēts ar GTK+ GNOME izskatu un atbalsta daudzus attēlu formātus, "
 "atsevišķu attēlu un to kolekciju skatīšanai."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -67,10 +75,6 @@ msgstr ""
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "Attēlu skatītājs"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Pārlūkot un pagriezt attēlus"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -114,12 +118,10 @@ msgid "S_ide Pane"
 msgstr "Sānu _rūts"
 
 #: ../data/eog-gear-menu.ui.h:9
-#| msgid "_Image Gallery"
 msgid "Image _Gallery"
 msgstr "Attēlu galer_ija"
 
 #: ../data/eog-gear-menu.ui.h:10
-#| msgid "_Statusbar"
 msgid "S_tatus Bar"
 msgstr "S_tatusa josla"
 
@@ -132,12 +134,10 @@ msgid "Image Properties"
 msgstr "Attēla īpašības"
 
 #: ../data/eog-image-properties-dialog.ui.h:2
-#| msgid "_Previous"
 msgid "Previous"
 msgstr "Iepriekšējais"
 
 #: ../data/eog-image-properties-dialog.ui.h:3
-#| msgid "_Next"
 msgid "Next"
 msgstr "Nākamais"
 
@@ -390,7 +390,7 @@ msgstr "Pāriet uz pirmo galerijas attēlu"
 msgid "_First Image"
 msgstr "_Pirmais attēls"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "Pāriet uz iepriekšējo galerijas attēlu"
 
@@ -398,7 +398,7 @@ msgstr "Pāriet uz iepriekšējo galerijas attēlu"
 msgid "_Previous Image"
 msgstr "Ie_priekšējais attēls"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "Pāriet uz nākamo galerijas attēlu"
 
@@ -438,7 +438,7 @@ msgstr "_Normāls izmērs"
 msgid "_Best Fit"
 msgstr "La_bākā saderība"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Pagriezt attēlu 90 grādus pa kreisi"
 
@@ -446,7 +446,7 @@ msgstr "Pagriezt attēlu 90 grādus pa kreisi"
 msgid "Rotate Counter_clockwise"
 msgstr "Pagriezt pretēji pulksteņrādītāja virzienam"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Pagriezt attēlu 90 grādus pa labi"
 
@@ -475,19 +475,16 @@ msgid "Leave fullscreen mode"
 msgstr "Pamest pilnekrāna režīmu"
 
 #: ../data/help-overlay.ui.h:1
-#| msgid "General"
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Vispārīgi"
 
 #: ../data/help-overlay.ui.h:2
-#| msgid "Supported image files"
 msgctxt "shortcut window"
 msgid "Open an image file"
 msgstr "Atvērt attēla datni"
 
 #: ../data/help-overlay.ui.h:3
-#| msgid "Enlarge the image"
 msgctxt "shortcut window"
 msgid "Save the image"
 msgstr "Saglabāt attēlu"
@@ -498,7 +495,6 @@ msgid "Save the image with a new file name"
 msgstr "Saglabāt attēlu ar jaunu datnes nosaukumu"
 
 #: ../data/help-overlay.ui.h:5
-#| msgid "Shrink or enlarge the current image"
 msgctxt "shortcut window"
 msgid "Print the current image"
 msgstr "Drukāt atvērto attēlu"
@@ -519,37 +515,31 @@ msgid "Set the image as desktop background"
 msgstr "Iestatīt attēlu kā darbvirsmas fonu"
 
 #: ../data/help-overlay.ui.h:9
-#| msgid "Show/Hide the window side pane."
 msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
 msgstr "Rādīt/slēpt sānu rūti"
 
 #: ../data/help-overlay.ui.h:10
-#| msgid "Image Properties"
 msgctxt "shortcut window"
 msgid "Show image properties dialog"
 msgstr "Rādīt attēla īpašību dialoglodziņu"
 
 #: ../data/help-overlay.ui.h:11
-#| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Atvērt lietotnes rokasgrāmatu"
 
 #: ../data/help-overlay.ui.h:12
-#| msgid "_Zoom In"
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Mērogs"
 
 #: ../data/help-overlay.ui.h:13
-#| msgid "_Zoom In"
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Tuvināt"
 
 #: ../data/help-overlay.ui.h:14
-#| msgid "Zoom _Out"
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Tālināt"
@@ -560,97 +550,76 @@ msgid "Actual size"
 msgstr "Patiesais izmērs"
 
 #: ../data/help-overlay.ui.h:16
-#| msgid "_Best Fit"
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Labākā saderība"
 
 #: ../data/help-overlay.ui.h:17
-#| msgid "Browse and rotate images"
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Pārlūko attēlus"
 
 #: ../data/help-overlay.ui.h:18
-#| msgid "Go to the previous image of the gallery"
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Iet uz iepriekšējo attēlu mapē"
 
 #: ../data/help-overlay.ui.h:19
-#| msgid "Go to the next image of the gallery"
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Iet uz nākamo attēlu mapē"
 
 #: ../data/help-overlay.ui.h:20
-#| msgid "Go to the first image of the gallery"
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Iet uz pirmo attēlu mapē"
 
 #: ../data/help-overlay.ui.h:21
-#| msgid "Go to the last image of the gallery"
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Iet uz pēdējo attēlu mapē"
 
 #: ../data/help-overlay.ui.h:22
-#| msgid "Go to the next image of the gallery"
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Iet uz nejaušu attēlu mapē"
 
 #: ../data/help-overlay.ui.h:23
-#| msgid "Show/Hide the image gallery pane."
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Rādīt/slēpt attēlu galeriju"
 
 #: ../data/help-overlay.ui.h:24
-#| msgid "Location:"
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotācija"
 
 #: ../data/help-overlay.ui.h:25
-#| msgid "_Rotate Clockwise"
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Pagriezt pulksteņrādītāja virzienā"
 
 #: ../data/help-overlay.ui.h:26
-#| msgid "Rotate Counter_clockwise"
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Pagriezt pretēji pulksteņrādītājam"
 
 #: ../data/help-overlay.ui.h:27
-#| msgid "Rotate Counter_clockwise"
-msgctxt "shortcut window"
-msgid "Rotate counter-clockwise"
-msgstr "Pagriezt pretēji pulksteņrādītāja virzienam"
-
-#: ../data/help-overlay.ui.h:28
-#| msgid "_Leave Fullscreen"
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Pilnekrāns"
 
-#: ../data/help-overlay.ui.h:29
-#| msgid "_Leave Fullscreen"
+#: ../data/help-overlay.ui.h:28
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Ieiet/pamest pilnekrānu"
 
-#: ../data/help-overlay.ui.h:30
-#| msgid "Slideshow"
+#: ../data/help-overlay.ui.h:29
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Sākt/apturēt slīdrādi"
 
-#: ../data/help-overlay.ui.h:31
-#| msgid "Pause or resume the slideshow"
+#: ../data/help-overlay.ui.h:30
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Pauzēt slīdrādi"
@@ -1624,16 +1593,7 @@ msgid "translator-credits"
 msgstr ""
 "Oskars Zīle <oskars.zile@gmail.com>\n"
 "Anita Reitere <nitalynx@gmail.com>\n"
-"Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Artis Trops https://launchpad.net/~hornet-navigator\n"
-"  Māris Zinbergs https://launchpad.net/~maris-z\n"
-"  Mārtiņš Bruņenieks https://launchpad.net/~papuass\n"
-"  Pēteris Krišjānis https://launchpad.net/~pecisk-gmail\n"
-"  Pēteris Caune https://launchpad.net/~cuu508\n"
-"  Raivis Dejus https://launchpad.net/~orvils\n"
-"  Viesturs Zariņš https://launchpad.net/~viesturs-zarins"
+"Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
