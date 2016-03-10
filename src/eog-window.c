@@ -2556,6 +2556,29 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 	}
 }
 
+static gboolean
+in_desktop (const gchar *name)
+{
+	const gchar *desktop_name_list;
+	gchar **names;
+	gboolean in_list = FALSE;
+	gint i;
+
+	desktop_name_list = g_getenv ("XDG_CURRENT_DESKTOP");
+	if (!desktop_name_list)
+		return FALSE;
+
+	names = g_strsplit (desktop_name_list, ":", -1);
+	for (i = 0; names[i] && !in_list; i++)
+		if (strcmp (names[i], name) == 0) {
+			in_list = TRUE;
+			break;
+		}
+	g_strfreev (names);
+
+	return in_list;
+}
+
 static void
 wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 {
@@ -2565,7 +2588,7 @@ wallpaper_info_bar_response (GtkInfoBar *bar, gint response, EogWindow *window)
 		GError *error = NULL;
 
 		path = g_find_program_in_path ("unity-control-center");
-		if (path && g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0)
+		if (path && in_desktop ("Unity"))
 			app_info = g_app_info_create_from_commandline ("unity-control-center appearance",
 								       "System Settings",
 								       G_APP_INFO_CREATE_NONE,
