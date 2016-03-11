@@ -613,13 +613,15 @@ press_inside_image_area (EogPrintPreview *preview,
 			 guint y)
 {
 	EogPrintPreviewPrivate *priv;
+	const gint xs = (gint) x;
+	const gint ys = (gint) y;
 	gint x0, y0;
 
 	priv = preview->priv;
 	get_current_image_coordinates (preview, &x0, &y0);
 
-	if (x >= x0 &&  y >= y0 &&
-	    x <= x0 + priv->r_width && y <= y0 + priv->r_height)
+	if (xs >= x0 &&  ys >= y0 &&
+	    xs <= x0 + priv->r_width && ys <= y0 + priv->r_height)
 		return TRUE;
 
 	return FALSE;
