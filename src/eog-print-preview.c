@@ -746,6 +746,8 @@ button_press_event_cb (GtkWidget *widget,
 	case 1:
 		preview->priv->grabbed = press_inside_image_area (preview, event->x, event->y);
 		break;
+	default:
+		break;
 	}
 
 	if (preview->priv->grabbed) {
@@ -770,7 +772,9 @@ button_release_event_cb (GtkWidget *widget,
 		preview->priv->r_dx = 0;
 		preview->priv->r_dy = 0;
 		gtk_widget_queue_draw (GTK_WIDGET (preview));
-
+		break;
+	default:
+		break;
 	}
 	return FALSE;
 }
@@ -802,6 +806,8 @@ key_press_event_cb (GtkWidget   *widget,
 	case GDK_KEY_Down:
 		property = "image-y-align";
 		delta = 0.01;
+		break;
+	default:
 		break;
 	}
 
