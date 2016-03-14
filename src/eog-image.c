@@ -73,10 +73,9 @@
 #include <librsvg/rsvg.h>
 #endif
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, GTK_TYPE_ABSTRACT_IMAGE)
 
 enum {
-	SIGNAL_CHANGED,
 	SIGNAL_SIZE_PREPARED,
 	SIGNAL_THUMBNAIL_CHANGED,
 	SIGNAL_SAVE_PROGRESS,
@@ -220,10 +219,46 @@ eog_image_finalize (GObject *object)
 	G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
 }
 
+static int
+__get_width (GtkAbstractImage *_image)
+{
+  return EOG_IMAGE (_image)->priv->width;
+}
+
+static int
+__get_height (GtkAbstractImage *_image)
+{
+  return EOG_IMAGE (_image)->priv->height;
+}
+
+static int
+__get_scale_factor (GtkAbstractImage *_image)
+{
+  return 1;
+}
+
+static void
+__draw (GtkAbstractImage *_image, cairo_t *ct)
+{
+  EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
+
+  if (eog_image_is_svg (EOG_IMAGE (_image))) {
+    rsvg_handle_render_cairo (priv->svg, ct);
+  } else {
+    cairo_set_source_surface (ct, priv->surface, 0, 0);
+  }
+}
+
 static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
+    GtkAbstractImageClass *image_class = GTK_ABSTRACT_IMAGE_CLASS (klass);
+
+    image_class->get_width        = __get_width;
+    image_class->get_height       = __get_height;
+    image_class->get_scale_factor = __get_scale_factor;
+    image_class->draw             = __draw;
 
 	object_class->dispose = eog_image_dispose;
 	object_class->finalize = eog_image_finalize;
@@ -238,15 +273,6 @@ eog_image_class_init (EogImageClass *klass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT,
 			      G_TYPE_INT);
-
-	signals[SIGNAL_CHANGED] =
-		g_signal_new ("changed",
-			      EOG_TYPE_IMAGE,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
 
 	signals[SIGNAL_THUMBNAIL_CHANGED] =
 		g_signal_new ("thumbnail-changed",
@@ -594,6 +620,7 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 
 	g_object_unref (priv->image);
 	priv->image = transformed;
+    priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
 
 	if (transformed != NULL) {
 		priv->width = gdk_pixbuf_get_width (priv->image);
@@ -1176,6 +1203,7 @@ eog_image_real_load (EogImage *img,
 			priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
 		}
 
+
 		}
 
 		if (G_LIKELY (priv->image != NULL)) {
@@ -1184,6 +1212,7 @@ eog_image_real_load (EogImage *img,
 
 			priv->width = gdk_pixbuf_get_width (priv->image);
 			priv->height = gdk_pixbuf_get_height (priv->image);
+            priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
 
 			if (use_rsvg) {
 				format = NULL;
@@ -2166,7 +2195,7 @@ eog_image_modified (EogImage *img)
 {
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
-	g_signal_emit (G_OBJECT (img), signals[SIGNAL_CHANGED], 0);
+    g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
 }
 
 gchar*
@@ -2343,6 +2372,8 @@ eog_image_iter_advance (EogImage *img)
 			priv->width = gdk_pixbuf_get_width (transformed);
 			priv->height = gdk_pixbuf_get_height (transformed);
 		}
+        priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
+
 		g_mutex_unlock (&priv->status_mutex);
 		/* Emit next frame signal so we can update the display */
 		g_signal_emit (img, signals[SIGNAL_NEXT_FRAME], 0,
@@ -2547,4 +2578,13 @@ eog_image_is_multipaged (EogImage *img)
 	}
 
 	return result;
+}
+
+gboolean
+eog_image_has_alpha (EogImage *img)
+{
+    EogImagePrivate *priv = img->priv;
+
+    return priv->image != NULL &&
+           gdk_pixbuf_get_has_alpha (priv->image);
 }

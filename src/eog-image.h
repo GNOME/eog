@@ -89,15 +89,13 @@ typedef enum {
 } EogImageMetadataStatus;
 
 struct _EogImage {
-	GObject parent;
+  GtkAbstractImage parent;
 
 	EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-	GObjectClass parent_class;
-
-	void (* changed) 	   (EogImage *img);
+  GtkAbstractImageClass parent_class;
 
 	void (* size_prepared)     (EogImage *img,
 				    int       width,
@@ -220,6 +218,8 @@ gboolean          eog_image_is_file_changed          (EogImage *img);
 gboolean          eog_image_is_file_writable         (EogImage *img);
 
 gboolean          eog_image_is_multipaged            (EogImage *img);
+
+gboolean          eog_image_has_alpha                (EogImage *img);
 
 G_END_DECLS
 

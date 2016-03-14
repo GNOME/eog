@@ -46,6 +46,10 @@ struct _EogImagePrivate {
 	GdkPixbufAnimationIter *anim_iter;
 	GdkPixbuf        *image;
 	GdkPixbuf        *thumbnail;
+
+    cairo_surface_t *surface;
+
+
 #ifdef HAVE_RSVG
 	RsvgHandle       *svg;
 #endif
