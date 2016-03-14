@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-03 15:08+0000\n"
-"PO-Revision-Date: 2016-01-16 12:27+0900\n"
+"POT-Creation-Date: 2016-03-05 16:43+0000\n"
+"PO-Revision-Date: 2016-03-06 11:39+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -47,6 +47,14 @@ msgid "_Quit"
 msgstr "終了(_Q)"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "画像の閲覧や向きの調整をします"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -56,7 +64,7 @@ msgstr ""
 "と操作性で GNOME と統合しています。多くの画像形式をサポートしており、単一の画"
 "像に加え画像コレクションの鑑賞にも適しています。"
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -71,10 +79,6 @@ msgstr ""
 #: ../src/eog-window.c:5542
 msgid "Image Viewer"
 msgstr "画像ビューアー"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "画像の閲覧や向きの調整をします"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -165,7 +169,7 @@ msgstr "サイズ:"
 msgid "Folder:"
 msgstr "フォルダー:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
+#: ../data/eog-image-properties-dialog.ui.h:10
 msgid "General"
 msgstr "全般"
 
@@ -390,7 +394,7 @@ msgstr "ギャラリーの一番最初の画像を表示します"
 msgid "_First Image"
 msgstr "先頭へ(_F)"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "ギャラリーの前の画像を表示します"
 
@@ -398,7 +402,7 @@ msgstr "ギャラリーの前の画像を表示します"
 msgid "_Previous Image"
 msgstr "前の画像へ(_P)"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "ギャラリーの次の画像を表示します"
 
@@ -438,7 +442,7 @@ msgstr "通常の大きさ(_N)"
 msgid "_Best Fit"
 msgstr "ウィンドウに合わせる(_B)"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "画像を左回りで90°回転させます"
 
@@ -446,7 +450,7 @@ msgstr "画像を左回りで90°回転させます"
 msgid "Rotate Counter_clockwise"
 msgstr "反時計回りに回転する(_C)"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "画像を右回りで90°回転させます"
 
@@ -474,123 +478,153 @@ msgstr "フルスクリーン解除(_L)"
 msgid "Leave fullscreen mode"
 msgstr "フルスクリーンモードを解除します"
 
+#: ../data/help-overlay.ui.h:1
+msgctxt "shortcut window"
+msgid "General"
+msgstr "全般"
+
 #: ../data/help-overlay.ui.h:2
+msgctxt "shortcut window"
 msgid "Open an image file"
 msgstr "画像ファイルを開く"
 
 #: ../data/help-overlay.ui.h:3
+msgctxt "shortcut window"
 msgid "Save the image"
 msgstr "画像を保存する"
 
 #: ../data/help-overlay.ui.h:4
+msgctxt "shortcut window"
 msgid "Save the image with a new file name"
 msgstr "画像に名前を付けて保存する"
 
 #: ../data/help-overlay.ui.h:5
+msgctxt "shortcut window"
 msgid "Print the current image"
 msgstr "現在の画像を印刷する"
 
 #: ../data/help-overlay.ui.h:6
+msgctxt "shortcut window"
 msgid "Close the current window"
 msgstr "現在のウィンドウを閉じる"
 
 #: ../data/help-overlay.ui.h:7
+msgctxt "shortcut window"
 msgid "Close all windows"
 msgstr "すべてのウィンドウを閉じる"
 
 #: ../data/help-overlay.ui.h:8
+msgctxt "shortcut window"
 msgid "Set the image as desktop background"
 msgstr "画像をデスクトップの背景に設定する"
 
 #: ../data/help-overlay.ui.h:9
+msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
 msgstr "サイドバーの表示/非表示を切り替える"
 
 #: ../data/help-overlay.ui.h:10
+msgctxt "shortcut window"
 msgid "Show image properties dialog"
 msgstr "画像のプロパティダイアログを表示する"
 
 #: ../data/help-overlay.ui.h:11
+msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "アプリケーションのマニュアルを開く"
 
 #: ../data/help-overlay.ui.h:12
+msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "ズーム"
 
 #: ../data/help-overlay.ui.h:13
+msgctxt "shortcut window"
 msgid "Zoom in"
-msgstr "拡大"
+msgstr "拡大する"
 
 #: ../data/help-overlay.ui.h:14
+msgctxt "shortcut window"
 msgid "Zoom out"
-msgstr "縮小"
+msgstr "縮小する"
 
 #: ../data/help-overlay.ui.h:15
+msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "実際のサイズで表示する"
 
 #: ../data/help-overlay.ui.h:16
-msgid "Best fit  "
+msgctxt "shortcut window"
+msgid "Best fit"
 msgstr "ウィンドウに合わせる"
 
 #: ../data/help-overlay.ui.h:17
+msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "画像の閲覧"
 
 #: ../data/help-overlay.ui.h:18
+msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "フォルダー内の前の画像を表示する"
 
 #: ../data/help-overlay.ui.h:19
+msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "フォルダー内の次の画像を表示する"
 
 #: ../data/help-overlay.ui.h:20
+msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "フォルダー内の一番最初の画像を表示する"
 
 #: ../data/help-overlay.ui.h:21
+msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "フォルダー内の一番最後の画像を表示する"
 
 #: ../data/help-overlay.ui.h:22
+msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "フォルダー内の画像をランダムに表示する"
 
 #: ../data/help-overlay.ui.h:23
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "画像ギャラリーの表示/非表示を切り替える"
 
 #: ../data/help-overlay.ui.h:24
+msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "回転"
 
 #: ../data/help-overlay.ui.h:25
+msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "時計回りに回転する"
 
 #: ../data/help-overlay.ui.h:26
+msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "反時計回りに回転する"
 
 #: ../data/help-overlay.ui.h:27
-msgid "Rotate counter-clockwise"
-msgstr "反時計回りに回転する"
-
-#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "フルスクリーン"
 
-#: ../data/help-overlay.ui.h:29
+#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "フルスクリーン表示を切り替える"
 
-#: ../data/help-overlay.ui.h:30
+#: ../data/help-overlay.ui.h:29
+msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "スライドショーを開始/終了する"
 
-#: ../data/help-overlay.ui.h:31
+#: ../data/help-overlay.ui.h:30
+msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "スライドショーを一時停止する"
 
@@ -1593,6 +1627,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "'%s --help' を実行すると利用可能なすべてのコマンドラインオプションの一覧が表"
 "示されます"
+
+#~ msgid "Rotate counter-clockwise"
+#~ msgstr "反時計回りに回転する"
 
 #~ msgid "Side _Pane"
 #~ msgstr "サイドペイン(_P)"
