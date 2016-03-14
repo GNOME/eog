@@ -1624,9 +1624,6 @@ static void
 image_changed_cb (EogImage *img, gpointer data)
 {
     gtk_widget_queue_draw (GTK_WIDGET (data));
-
-	_set_zoom_mode_internal (EOG_SCROLL_VIEW (data),
-				 EOG_ZOOM_MODE_SHRINK_TO_FIT);
 }
 
 /*===================================
@@ -1879,21 +1876,6 @@ eog_scroll_view_get_zoom_is_max (EogScrollView *view)
 	return DOUBLE_EQUAL (view->priv->zoom, MAX_ZOOM_FACTOR);
 }
 
-static void
-display_next_frame_cb (EogImage *image, gint delay, gpointer data)
-{
- 	EogScrollViewPrivate *priv;
-	EogScrollView *view;
-
-	if (!EOG_IS_SCROLL_VIEW (data))
-		return;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-}
-
 void
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {
@@ -1912,16 +1894,13 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 	g_assert (priv->image == NULL);
 
-	/* priv->progressive_state = PROGRESSIVE_NONE; */
 	if (image != NULL) {
 		eog_image_data_ref (image);
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
 							   (GCallback) image_changed_cb, view);
 		if (eog_image_is_animation (image) == TRUE ) {
-			eog_image_start_animation (image);
-			priv->frame_changed_id = g_signal_connect (image, "next-frame",
-								    (GCallback) display_next_frame_cb, view);
+            gtk_playable_start (GTK_PLAYABLE (image));
 		}
 	}
 

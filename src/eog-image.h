@@ -89,13 +89,13 @@ typedef enum {
 } EogImageMetadataStatus;
 
 struct _EogImage {
-  GtkAbstractImage parent;
+  GtkPlayable parent;
 
 	EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-  GtkAbstractImageClass parent_class;
+  GtkPlayableClass parent_class;
 
 	void (* size_prepared)     (EogImage *img,
 				    int       width,
@@ -105,9 +105,6 @@ struct _EogImageClass {
 
 	void (* save_progress)     (EogImage *img,
 				    gfloat    progress);
-
-	void (* next_frame)        (EogImage *img,
-				    gint delay);
 
 	void (* file_changed)      (EogImage *img);
 };
@@ -198,8 +195,6 @@ GList		 *eog_image_get_supported_mime_types (void);
 gboolean          eog_image_is_supported_mime_type   (const char *mime_type);
 
 gboolean          eog_image_is_animation             (EogImage *img);
-
-gboolean          eog_image_start_animation          (EogImage *img);
 
 #ifdef HAVE_RSVG
 gboolean          eog_image_is_svg                   (EogImage *img);

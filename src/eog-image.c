@@ -73,13 +73,12 @@
 #include <librsvg/rsvg.h>
 #endif
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, GTK_TYPE_ABSTRACT_IMAGE)
+G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, GTK_TYPE_PLAYABLE)
 
 enum {
 	SIGNAL_SIZE_PREPARED,
 	SIGNAL_THUMBNAIL_CHANGED,
 	SIGNAL_SAVE_PROGRESS,
-	SIGNAL_NEXT_FRAME,
 	SIGNAL_FILE_CHANGED,
 	SIGNAL_LAST
 };
@@ -109,8 +108,6 @@ eog_image_free_mem_private (EogImage *image)
 			g_object_unref (priv->anim);
 			priv->anim = NULL;
 		}
-
-		priv->is_playing = FALSE;
 
 		if (priv->image != NULL) {
 			g_object_unref (priv->image);
@@ -186,6 +183,11 @@ eog_image_dispose (GObject *object)
 		priv->file_type = NULL;
 	}
 
+    if (priv->timeout_id != 0) {
+        g_source_remove (priv->timeout_id);
+        priv->timeout_id = 0;
+    }
+
 	g_mutex_clear (&priv->status_mutex);
 
 	if (priv->trans) {
@@ -249,16 +251,97 @@ __draw (GtkAbstractImage *_image, cairo_t *ct)
   }
 }
 
+
+static gboolean
+eog_image_iter_advance (EogImage *img)
+{
+	EogImagePrivate *priv;
+ 	gboolean new_frame;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+	g_return_val_if_fail (GDK_IS_PIXBUF_ANIMATION_ITER (img->priv->anim_iter), FALSE);
+
+	priv = img->priv;
+
+	if ((new_frame = gdk_pixbuf_animation_iter_advance (img->priv->anim_iter, NULL)) == TRUE)
+	  {
+		g_mutex_lock (&priv->status_mutex);
+		g_object_unref (priv->image);
+		priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
+	 	g_object_ref (priv->image);
+		/* keep the transformation over time */
+		if (EOG_IS_TRANSFORM (priv->trans)) {
+			GdkPixbuf* transformed = eog_transform_apply (priv->trans, priv->image, NULL);
+			g_object_unref (priv->image);
+			priv->image = transformed;
+			priv->width = gdk_pixbuf_get_width (transformed);
+			priv->height = gdk_pixbuf_get_height (transformed);
+		}
+        priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
+
+		g_mutex_unlock (&priv->status_mutex);
+
+        g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
+	  }
+
+	return new_frame;
+}
+
+static gboolean
+private_timeout (gpointer data)
+{
+	EogImage *img = EOG_IMAGE (data);
+	EogImagePrivate *priv = img->priv;
+
+	if (eog_image_is_animation (img) &&
+	    !g_source_is_destroyed (g_main_current_source ())) {
+		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
+			g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
+	 		return G_SOURCE_CONTINUE;
+ 	}
+	return G_SOURCE_REMOVE; /* stop playing */
+}
+static void
+__start (GtkPlayable *playable)
+{
+    EogImage *img = EOG_IMAGE (playable);
+	EogImagePrivate *priv = img->priv;
+
+	if (!eog_image_is_animation (img) || priv->timeout_id != 0)
+		return;
+
+	g_mutex_lock (&priv->status_mutex);
+	g_object_ref (priv->anim_iter);
+	g_mutex_unlock (&priv->status_mutex);
+
+ 	g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
+}
+
+static void
+__stop (GtkPlayable *playable)
+{
+    EogImagePrivate *priv = EOG_IMAGE (playable)->priv;
+
+    if (priv->timeout_id != 0) {
+      g_source_remove (priv->timeout_id);
+      priv->timeout_id = 0;
+    }
+}
+
 static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
     GtkAbstractImageClass *image_class = GTK_ABSTRACT_IMAGE_CLASS (klass);
+    GtkPlayableClass *playable_class = GTK_PLAYABLE_CLASS (klass);
 
     image_class->get_width        = __get_width;
     image_class->get_height       = __get_height;
     image_class->get_scale_factor = __get_scale_factor;
     image_class->draw             = __draw;
+
+    playable_class->start = __start;
+    playable_class->stop  = __stop;
 
 	object_class->dispose = eog_image_dispose;
 	object_class->finalize = eog_image_finalize;
@@ -292,23 +375,6 @@ eog_image_class_init (EogImageClass *klass)
 			      g_cclosure_marshal_VOID__FLOAT,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_FLOAT);
- 	/**
- 	 * EogImage::next-frame:
-  	 * @img: the object which received the signal.
-	 * @delay: number of milliseconds the current frame will be displayed.
-	 *
-	 * The ::next-frame signal will be emitted each time an animated image
-	 * advances to the next frame.
-	 */
-	signals[SIGNAL_NEXT_FRAME] =
-		g_signal_new ("next-frame",
-			      EOG_TYPE_IMAGE,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, next_frame),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__INT,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_INT);
 
 	signals[SIGNAL_FILE_CHANGED] = g_signal_new ("file-changed",
 						     EOG_TYPE_IMAGE,
@@ -328,7 +394,7 @@ eog_image_init (EogImage *img)
 	img->priv->image = NULL;
 	img->priv->anim = NULL;
 	img->priv->anim_iter = NULL;
-	img->priv->is_playing = FALSE;
+    img->priv->timeout_id = 0;
 	img->priv->thumbnail = NULL;
 	img->priv->width = -1;
 	img->priv->height = -1;
@@ -2346,43 +2412,6 @@ eog_image_is_supported_mime_type (const char *mime_type)
 
 	return (result != NULL);
 }
-
-static gboolean
-eog_image_iter_advance (EogImage *img)
-{
-	EogImagePrivate *priv;
- 	gboolean new_frame;
-
-	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
-	g_return_val_if_fail (GDK_IS_PIXBUF_ANIMATION_ITER (img->priv->anim_iter), FALSE);
-
-	priv = img->priv;
-
-	if ((new_frame = gdk_pixbuf_animation_iter_advance (img->priv->anim_iter, NULL)) == TRUE)
-	  {
-		g_mutex_lock (&priv->status_mutex);
-		g_object_unref (priv->image);
-		priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
-	 	g_object_ref (priv->image);
-		/* keep the transformation over time */
-		if (EOG_IS_TRANSFORM (priv->trans)) {
-			GdkPixbuf* transformed = eog_transform_apply (priv->trans, priv->image, NULL);
-			g_object_unref (priv->image);
-			priv->image = transformed;
-			priv->width = gdk_pixbuf_get_width (transformed);
-			priv->height = gdk_pixbuf_get_height (transformed);
-		}
-        priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
-
-		g_mutex_unlock (&priv->status_mutex);
-		/* Emit next frame signal so we can update the display */
-		g_signal_emit (img, signals[SIGNAL_NEXT_FRAME], 0,
-			       gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter));
-	  }
-
-	return new_frame;
-}
-
 /**
  * eog_image_is_animation:
  * @img: a #EogImage
@@ -2397,52 +2426,6 @@ eog_image_is_animation (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	return img->priv->anim != NULL;
-}
-
-static gboolean
-private_timeout (gpointer data)
-{
-	EogImage *img = EOG_IMAGE (data);
-	EogImagePrivate *priv = img->priv;
-
-	if (eog_image_is_animation (img) &&
-	    !g_source_is_destroyed (g_main_current_source ()) &&
-	    priv->is_playing) {
-		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
-			g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
-	 		return FALSE;
- 	}
-	priv->is_playing = FALSE;
-	return FALSE; /* stop playing */
-}
-
-/**
- * eog_image_start_animation:
- * @img: a #EogImage
- *
- * Starts playing an animated image.
- *
- * Returns: %TRUE on success, %FALSE if @img is already playing or isn't an animated image.
- **/
-gboolean
-eog_image_start_animation (EogImage *img)
-{
-	EogImagePrivate *priv;
-
-	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
-	priv = img->priv;
-
-	if (!eog_image_is_animation (img) || priv->is_playing)
-		return FALSE;
-
-	g_mutex_lock (&priv->status_mutex);
-	g_object_ref (priv->anim_iter);
-	priv->is_playing = TRUE;
-	g_mutex_unlock (&priv->status_mutex);
-
- 	g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
-
-	return TRUE;
 }
 
 #ifdef HAVE_RSVG
