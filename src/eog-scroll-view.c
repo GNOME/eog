@@ -164,7 +164,6 @@ struct _EogScrollViewPrivate {
 	EogRotationState rotate_state;
 	EogPanAction pan_action;
 
-	GtkWidget *overlay;
 	GtkWidget *left_revealer;
 	GtkWidget *right_revealer;
 	GtkWidget *bottom_revealer;
@@ -192,7 +191,7 @@ static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
 static gboolean _eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b);
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_GRID)
+G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_OVERLAY)
 
 /*===================================
     widget size changing handler &
@@ -2096,8 +2095,8 @@ eog_scroll_view_init (EogScrollView *view)
 
 	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
 
-	priv->overlay = gtk_overlay_new ();
-	gtk_grid_attach (GTK_GRID (view), priv->overlay, 0, 0, 1, 1);
+	/*priv->overlay = gtk_overlay_new ();*/
+	/*gtk_grid_attach (GTK_GRID (view), priv->overlay, 0, 0, 1, 1);*/
 
 	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
 				      "can-focus", TRUE,
@@ -2146,15 +2145,15 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
 			  G_CALLBACK (view_on_drag_begin_cb), view);
 
-	gtk_container_add (GTK_CONTAINER (priv->overlay), priv->display);
+	gtk_container_add (GTK_CONTAINER (view), priv->display);
 
 	gtk_widget_set_hexpand (priv->display, TRUE);
 	gtk_widget_set_vexpand (priv->display, TRUE);
-	gtk_grid_attach (GTK_GRID (view), priv->hbar,
-			 0, 1, 1, 1);
+	/*gtk_grid_attach (GTK_GRID (view), priv->hbar,*/
+			 /*0, 1, 1, 1);*/
 	gtk_widget_set_hexpand (priv->hbar, TRUE);
-	gtk_grid_attach (GTK_GRID (view), priv->vbar,
-			 1, 0, 1, 1);
+	/*gtk_grid_attach (GTK_GRID (view), priv->vbar,*/
+			 /*1, 0, 1, 1);*/
 	gtk_widget_set_vexpand (priv->vbar, TRUE);
 
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
@@ -2220,7 +2219,7 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start(priv->left_revealer, 12);
 	gtk_widget_set_margin_end(priv->left_revealer, 12);
-	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
+	gtk_overlay_add_overlay (GTK_OVERLAY (view),
 				 priv->left_revealer);
 
 	/* right revealer */
@@ -2233,7 +2232,7 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start (priv->right_revealer, 12);
 	gtk_widget_set_margin_end (priv->right_revealer, 12);
-	gtk_overlay_add_overlay(GTK_OVERLAY (priv->overlay),
+	gtk_overlay_add_overlay(GTK_OVERLAY (view),
 				priv->right_revealer);
 
 	/* bottom revealer */
@@ -2245,7 +2244,7 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_widget_set_halign (priv->bottom_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_valign (priv->bottom_revealer, GTK_ALIGN_END);
 	gtk_widget_set_margin_bottom (priv->bottom_revealer, 12);
-	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
+	gtk_overlay_add_overlay (GTK_OVERLAY (view),
 				 priv->bottom_revealer);
 
 	/* overlaid buttons */
@@ -2307,9 +2306,7 @@ eog_scroll_view_init (EogScrollView *view)
 			  view);
 
 	/* Don't hide overlay buttons when above */
-	gtk_widget_add_events (GTK_WIDGET (priv->overlay),
-			       GDK_ENTER_NOTIFY_MASK);
-	g_signal_connect (priv->overlay,
+	g_signal_connect (view,
 			  "enter-notify-event",
 			  G_CALLBACK (_enter_overlay_event_cb),
 			  view);
@@ -2683,8 +2680,6 @@ eog_scroll_view_new (void)
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
 			       "can-focus", TRUE,
-			       "row-homogeneous", FALSE,
-			       "column-homogeneous", FALSE,
 			       NULL);
 
 	return widget;
