@@ -489,12 +489,7 @@ is_zoomed_out (EogScrollView *view)
 static gboolean
 is_image_movable (EogScrollView *view)
 {
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-
 	return TRUE;
-	/*return (gtk_widget_get_visible (priv->hbar) || gtk_widget_get_visible (priv->vbar));*/
 }
 
 /*===================================
@@ -1165,9 +1160,9 @@ display_map_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 static void
 eog_scroll_view_size_allocate (GtkWidget *widget, GtkAllocation *alloc)
 {
-	EogScrollView *view;
+	/*EogScrollView *view;*/
 
-	view = EOG_SCROLL_VIEW (widget);
+	/*view = EOG_SCROLL_VIEW (widget);*/
 	/*check_scrollbar_visibility (view, alloc);*/
 
 	GTK_WIDGET_CLASS (eog_scroll_view_parent_class)->size_allocate (widget
@@ -1184,14 +1179,14 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 	priv = view->priv;
 
 	if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT) {
-		GtkAllocation alloc;
+		/*GtkAllocation alloc;*/
 
-		alloc.width = event->width;
-		alloc.height = event->height;
+		/*alloc.width = event->width;*/
+		/*alloc.height = event->height;*/
 
 		set_zoom_fit (view);
 		/*check_scrollbar_visibility (view, &alloc);*/
-		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+		gtk_widget_queue_draw (priv->display);
 	} else {
 		int scaled_width, scaled_height;
 		int x_offset = 0;
@@ -1297,6 +1292,7 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
 
 	/* Paint the background */
+#if 1
 	gtk_widget_get_allocation (priv->display, &allocation);
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
@@ -1316,7 +1312,9 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
 	cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_fill (cr);
+#endif
 
+#if 1
     if (eog_image_has_alpha (priv->image)) {
 		if (priv->background_surface == NULL) {
 			priv->background_surface = create_background_surface (view);
@@ -1326,19 +1324,26 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		cairo_rectangle (cr, xofs, yofs, scaled_width, scaled_height);
 		cairo_fill (cr);
 	}
+#endif
 
 	/* Make sure the image is only drawn as large as needed.
 	 * This is especially necessary for SVGs where there might
 	 * be more image data available outside the image boundaries.
 	 */
+#if 0
 	cairo_rectangle (cr, xofs, yofs, scaled_width, scaled_height);
 	cairo_clip (cr);
+#endif
 
 #ifdef HAVE_RSVG
 	if (eog_image_is_svg (view->priv->image)) {
+#if 0
 		cairo_matrix_t matrix, translate, scale, original;
 		EogTransform *transform = eog_image_get_transform (priv->image);
 		cairo_matrix_init_identity (&matrix);
+#endif
+
+#if 0
 		if (transform) {
 			cairo_matrix_t affine;
 			double image_offset_x = 0., image_offset_y = 0.;
@@ -1368,6 +1373,9 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 			cairo_matrix_init_translate (&translate, image_offset_x, image_offset_y);
 			cairo_matrix_multiply (&matrix, &matrix, &translate);
 		}
+#endif
+
+#if 0
 		cairo_matrix_init_scale (&scale, priv->zoom, priv->zoom);
 		cairo_matrix_multiply (&matrix, &matrix, &scale);
 		cairo_matrix_init_translate (&translate, xofs, yofs);
@@ -1377,11 +1385,14 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		cairo_matrix_multiply (&matrix, &matrix, &original);
 		cairo_set_matrix (cr, &matrix);
 
-        gtk_abstract_image_draw (GTK_ABSTRACT_IMAGE (priv->image), cr);
+		gtk_abstract_image_draw (GTK_ABSTRACT_IMAGE (priv->image), cr);
+#endif
+
 
 	} else
 #endif /* HAVE_RSVG */
 	{
+#if 0
 		cairo_filter_t interp_type;
 
 		if(!DOUBLE_EQUAL(priv->zoom, 1.0) && priv->force_unfiltered)
@@ -1408,9 +1419,10 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 			cairo_pattern_set_filter (cairo_get_source (cr), interp_type);
 
 		cairo_paint (cr);
+#endif
 	}
 
-	return TRUE;
+	return GDK_EVENT_PROPAGATE;
 }
 
 static void
@@ -1905,6 +1917,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 
 	priv->image = image;
+	gtk_image_view_set_abstract_image (GTK_IMAGE_VIEW (priv->display),
+									   GTK_ABSTRACT_IMAGE (image));
 
 	g_object_notify (G_OBJECT (view), "image");
 }
@@ -2116,8 +2130,14 @@ eog_scroll_view_init (EogScrollView *view)
 			       | GDK_KEY_PRESS_MASK);
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
 			  G_CALLBACK (display_size_change), view);
+
+
+#if 1
 	g_signal_connect (G_OBJECT (priv->display), "draw",
-			  G_CALLBACK (display_draw), view);
+	                  G_CALLBACK (display_draw), view);
+#endif
+
+
 	g_signal_connect (G_OBJECT (priv->display), "map_event",
 			  G_CALLBACK (display_map_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
@@ -2964,3 +2984,16 @@ eog_scroll_view_event_is_over_image (EogScrollView *view, const GdkEvent *ev)
 
 	return TRUE;
 }
+
+double
+eog_scroll_view_get_angle (EogScrollView *view)
+{
+	return gtk_image_view_get_angle (GTK_IMAGE_VIEW (view->priv->display));
+}
+
+void
+eog_scroll_view_set_angle (EogScrollView *view, double angle)
+{
+	gtk_image_view_set_angle (GTK_IMAGE_VIEW (view->priv->display), angle);
+}
+

@@ -3097,10 +3097,20 @@ eog_window_action_rotate_90 (GSimpleAction *action,
                              GVariant      *parameter,
                              gpointer       user_data)
 {
+	EogWindow *window = user_data;
+	EogScrollView *view;
+	double angle;
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	apply_transformation (EOG_WINDOW (user_data),
-			      eog_transform_rotate_new (90));
+
+	view = EOG_SCROLL_VIEW (window->priv->view);
+
+	angle = eog_scroll_view_get_angle (view);
+	eog_scroll_view_set_angle (view, angle + 90.0);
+
+
+	/*apply_transformation (EOG_WINDOW (user_data),*/
+				  /*eog_transform_rotate_new (90));*/
 }
 
 static void
@@ -3108,10 +3118,19 @@ eog_window_action_rotate_270 (GSimpleAction *action,
                               GVariant      *parameter,
                               gpointer       user_data)
 {
+	EogWindow *window = user_data;
+	EogScrollView *view;
+	double angle;
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	apply_transformation (EOG_WINDOW (user_data),
-			      eog_transform_rotate_new (270));
+
+	view = EOG_SCROLL_VIEW (window->priv->view);
+
+	angle = eog_scroll_view_get_angle (view);
+	eog_scroll_view_set_angle (view, angle - 90.0);
+
+	/*apply_transformation (EOG_WINDOW (user_data),*/
+				  /*eog_transform_rotate_new (270));*/
 }
 
 static void

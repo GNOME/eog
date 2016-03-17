@@ -100,6 +100,9 @@ void     eog_scroll_view_hide_cursor      (EogScrollView *view);
 gboolean eog_scroll_view_event_is_over_image	(EogScrollView *view,
 						 const GdkEvent *ev);
 
+double   eog_scroll_view_get_angle (EogScrollView *view);
+void     eog_scroll_view_set_angle (EogScrollView *view, double angle);
+
 G_END_DECLS
 
 #endif /* _EOG_SCROLL_VIEW_H_ */
