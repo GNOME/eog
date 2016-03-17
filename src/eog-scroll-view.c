@@ -520,22 +520,6 @@ scroll_by (EogScrollView *view, int xofs, int yofs)
 	scroll_to (view, priv->xofs + xofs, priv->yofs + yofs, TRUE);
 }
 
-
-/* Callback used when an adjustment is changed */
-static void
-adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	scroll_to (view, gtk_adjustment_get_value (priv->hadj),
-		   gtk_adjustment_get_value (priv->vadj), FALSE);
-}
-
-
 /* Drags the image to the specified position */
 static void
 drag_to (EogScrollView *view, int x, int y)
@@ -586,65 +570,11 @@ static void
 set_zoom (EogScrollView *view, double zoom,
 	  gboolean have_anchor, int anchorx, int anchory)
 {
-	EogScrollViewPrivate *priv;
-	GtkAllocation allocation;
-	int xofs, yofs;
-	double x_rel, y_rel;
+	EogScrollViewPrivate *priv = view->priv;
 
-	priv = view->priv;
-
-    if (priv->image == NULL)
-      return;
-
-
-	if (zoom > MAX_ZOOM_FACTOR)
-		zoom = MAX_ZOOM_FACTOR;
-	else if (zoom < MIN_ZOOM_FACTOR)
-		zoom = MIN_ZOOM_FACTOR;
-
-	if (DOUBLE_EQUAL (priv->zoom, zoom))
-		return;
-	if (DOUBLE_EQUAL (priv->zoom, priv->min_zoom) && zoom < priv->zoom)
-		return;
-
-	eog_scroll_view_set_zoom_mode (view, EOG_ZOOM_MODE_FREE);
-
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
-
-	/* compute new xofs/yofs values */
-	if (have_anchor) {
-		x_rel = (double) anchorx / allocation.width;
-		y_rel = (double) anchory / allocation.height;
-	} else {
-		x_rel = 0.5;
-		y_rel = 0.5;
-	}
-
-	compute_center_zoom_offsets (view, priv->zoom, zoom,
-				     allocation.width, allocation.height,
-				     x_rel, y_rel,
-				     &xofs, &yofs);
-
-	/* set new values */
-	priv->xofs = xofs; /* (img_width * x_rel * zoom) - anchorx; */
-	priv->yofs = yofs; /* (img_height * y_rel * zoom) - anchory; */
-
-	if (priv->dragging) {
-		priv->drag_anchor_x = anchorx;
-		priv->drag_anchor_y = anchory;
-		priv->drag_ofs_x = priv->xofs;
-		priv->drag_ofs_y = priv->yofs;
-	}
-#if 0
-	g_print ("xofs: %i  yofs: %i\n", priv->xofs, priv->yofs);
-#endif
-	if (zoom <= priv->min_zoom)
-		priv->zoom = priv->min_zoom;
-	else
-		priv->zoom = zoom;
-
-	/* repaint the whole image */
-	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+	zoom = MAX (priv->min_zoom, zoom);
+	gtk_image_view_set_scale (GTK_IMAGE_VIEW (priv->display), zoom);
+	priv->zoom = zoom;
 
 	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
 }
@@ -660,6 +590,10 @@ set_zoom_fit (EogScrollView *view)
 	priv = view->priv;
 
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
+
+	gtk_image_view_set_fit_allocation (GTK_IMAGE_VIEW (priv->display), TRUE);
+
+#if 0
 
 	if (!gtk_widget_get_mapped (GTK_WIDGET (view)))
 		return;
@@ -683,6 +617,7 @@ set_zoom_fit (EogScrollView *view)
 	priv->xofs = 0;
 	priv->yofs = 0;
 
+#endif
 	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
 }
 
@@ -898,78 +833,6 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 	return TRUE;
 }
 
-/* Scroll event handler for the image view.  We zoom with an event without
- * modifiers rather than scroll; we use the Shift modifier to scroll.
- * Rationale: images are not primarily vertical, and in EOG you scan scroll by
- * dragging the image with button 1 anyways.
- */
-static gboolean
-eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-	double zoom_factor;
-	int xofs, yofs;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	/* Compute zoom factor and scrolling offsets; we'll only use either of them */
-	/* same as in gtkscrolledwindow.c */
-	xofs = gtk_adjustment_get_page_increment (priv->hadj) / 2;
-	yofs = gtk_adjustment_get_page_increment (priv->vadj) / 2;
-
-	switch (event->direction) {
-	case GDK_SCROLL_UP:
-		zoom_factor = priv->zoom_multiplier;
-		xofs = 0;
-		yofs = -yofs;
-		break;
-
-	case GDK_SCROLL_LEFT:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
-		xofs = -xofs;
-		yofs = 0;
-		break;
-
-	case GDK_SCROLL_DOWN:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
-		xofs = 0;
-		yofs = yofs;
-		break;
-
-	case GDK_SCROLL_RIGHT:
-		zoom_factor = priv->zoom_multiplier;
-		xofs = xofs;
-		yofs = 0;
-		break;
-
-	default:
-		g_assert_not_reached ();
-		return FALSE;
-	}
-
-        if (priv->scroll_wheel_zoom) {
-		if (event->state & GDK_SHIFT_MASK)
-			scroll_by (view, yofs, xofs);
-		else if (event->state & GDK_CONTROL_MASK)
-			scroll_by (view, xofs, yofs);
-		else
-			set_zoom (view, priv->zoom * zoom_factor,
-				  TRUE, event->x, event->y);
-	} else {
-		if (event->state & GDK_SHIFT_MASK)
-			scroll_by (view, yofs, xofs);
-		else if (event->state & GDK_CONTROL_MASK)
-			set_zoom (view, priv->zoom * zoom_factor,
-				  TRUE, event->x, event->y);
-		else
-			scroll_by (view, xofs, yofs);
-        }
-
-	return TRUE;
-}
-
 /* Motion event handler for the image view */
 static gboolean
 eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer data)
@@ -1134,19 +997,21 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
 		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
-				 scaled_width, scaled_height);
+		                 scaled_width, scaled_height);
 	if (priv->override_bg_color != NULL)
 		background_color = priv->override_bg_color;
 	else if (priv->use_bg_color)
 		background_color = priv->background_color;
+
 	if (background_color != NULL)
 		cairo_set_source_rgba (cr,
-				       background_color->red,
-				       background_color->green,
-				       background_color->blue,
-				       background_color->alpha);
+		                       background_color->red,
+		                       background_color->green,
+		                       background_color->blue,
+		                       background_color->alpha);
 	else
 		cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
+
 	cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_fill (cr);
 
@@ -1835,14 +1700,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->background_surface = NULL;
 
 	priv->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
-	g_signal_connect (priv->hadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
-
 	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
-	g_signal_connect (priv->vadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
 
 	priv->scrolled_window = gtk_scrolled_window_new (priv->hadj, priv->vadj);
 
@@ -1866,10 +1724,8 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (display_size_change), view);
 
 
-#if 1
 	g_signal_connect (G_OBJECT (priv->display), "draw",
 	                  G_CALLBACK (display_draw), view);
-#endif
 
 
 	g_signal_connect (G_OBJECT (priv->display), "map_event",
@@ -1882,8 +1738,6 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "button_release_event",
 			  G_CALLBACK (eog_scroll_view_button_release_event),
 			  view);
-	g_signal_connect (G_OBJECT (priv->display), "scroll_event",
-			  G_CALLBACK (eog_scroll_view_scroll_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "focus_in_event",
 			  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
 	g_signal_connect (G_OBJECT (priv->display), "focus_out_event",
@@ -2423,8 +2277,8 @@ eog_scroll_view_new (void)
 	GtkWidget *widget;
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
-			       "can-focus", TRUE,
-			       NULL);
+	                       "can-focus", TRUE,
+	                       NULL);
 
 	return widget;
 }
