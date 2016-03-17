@@ -237,56 +237,6 @@ compute_scaled_size (EogScrollView *view, double zoom, int *width, int *height)
     }
 }
 
-/* Computes the offsets for the new zoom value so that they keep the image
- * centered on the view.
- */
-static void
-compute_center_zoom_offsets (EogScrollView *view,
-			     double old_zoom, double new_zoom,
-			     int width, int height,
-			     double zoom_x_anchor, double zoom_y_anchor,
-			     int *xofs, int *yofs)
-{
-	EogScrollViewPrivate *priv;
-	int old_scaled_width, old_scaled_height;
-	int new_scaled_width, new_scaled_height;
-	double view_cx, view_cy;
-
-	priv = view->priv;
-
-	compute_scaled_size (view, old_zoom,
-			     &old_scaled_width, &old_scaled_height);
-
-	if (old_scaled_width < width)
-		view_cx = (zoom_x_anchor * old_scaled_width) / old_zoom;
-	else
-		view_cx = (priv->xofs + zoom_x_anchor * width) / old_zoom;
-
-	if (old_scaled_height < height)
-		view_cy = (zoom_y_anchor * old_scaled_height) / old_zoom;
-	else
-		view_cy = (priv->yofs + zoom_y_anchor * height) / old_zoom;
-
-	compute_scaled_size (view, new_zoom,
-			     &new_scaled_width, &new_scaled_height);
-
-	if (new_scaled_width < width)
-		*xofs = 0;
-	else {
-		*xofs = floor (view_cx * new_zoom - zoom_x_anchor * width + 0.5);
-		if (*xofs < 0)
-			*xofs = 0;
-	}
-
-	if (new_scaled_height < height)
-		*yofs = 0;
-	else {
-		*yofs = floor (view_cy * new_zoom - zoom_y_anchor * height + 0.5);
-		if (*yofs < 0)
-			*yofs = 0;
-	}
-}
-
 static void
 eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 {
@@ -583,14 +533,9 @@ set_zoom (EogScrollView *view, double zoom,
 static void
 set_zoom_fit (EogScrollView *view)
 {
-	EogScrollViewPrivate *priv;
-	GtkAllocation allocation;
-	double new_zoom;
-
-	priv = view->priv;
+	EogScrollViewPrivate *priv = view->priv;
 
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
-
 	gtk_image_view_set_fit_allocation (GTK_IMAGE_VIEW (priv->display), TRUE);
 
 #if 0
@@ -1512,15 +1457,12 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		eog_image_data_ref (image);
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
-							   (GCallback) image_changed_cb, view);
-		if (eog_image_is_animation (image) == TRUE ) {
-            gtk_playable_start (GTK_PLAYABLE (image));
-		}
+		                                           (GCallback) image_changed_cb, view);
 	}
 
 	priv->image = image;
 	gtk_image_view_set_abstract_image (GTK_IMAGE_VIEW (priv->display),
-									   GTK_ABSTRACT_IMAGE (image));
+	                                   GTK_ABSTRACT_IMAGE (image));
 
 	g_object_notify (G_OBJECT (view), "image");
 }
@@ -1642,8 +1584,8 @@ _set_overlay_timeout (EogScrollView *view)
 
 static gboolean
 _enter_overlay_event_cb (GtkWidget *widget,
-			 GdkEvent *event,
-			 gpointer user_data)
+                         GdkEvent  *event,
+                         gpointer   user_data)
 {
 	EogScrollView *view = EOG_SCROLL_VIEW (user_data);
 
@@ -1814,103 +1756,101 @@ eog_scroll_view_init (EogScrollView *view)
 	/* left revealer */
 	priv->left_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->left_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->left_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->left_revealer, GTK_ALIGN_START);
 	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start(priv->left_revealer, 12);
 	gtk_widget_set_margin_end(priv->left_revealer, 12);
 	gtk_overlay_add_overlay (GTK_OVERLAY (view),
-				 priv->left_revealer);
+	                         priv->left_revealer);
 
 	/* right revealer */
 	priv->right_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->right_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->right_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->right_revealer, GTK_ALIGN_END);
 	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start (priv->right_revealer, 12);
 	gtk_widget_set_margin_end (priv->right_revealer, 12);
-	gtk_overlay_add_overlay(GTK_OVERLAY (view),
-				priv->right_revealer);
+	gtk_overlay_add_overlay (GTK_OVERLAY (view),
+	                         priv->right_revealer);
 
 	/* bottom revealer */
 	priv->bottom_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->bottom_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->bottom_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->bottom_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_valign (priv->bottom_revealer, GTK_ALIGN_END);
 	gtk_widget_set_margin_bottom (priv->bottom_revealer, 12);
 	gtk_overlay_add_overlay (GTK_OVERLAY (view),
-				 priv->bottom_revealer);
+	                         priv->bottom_revealer);
 
 	/* overlaid buttons */
 	GtkWidget *button = gtk_button_new_from_icon_name ("go-next-symbolic",
-							   GTK_ICON_SIZE_BUTTON);
+	                                                   GTK_ICON_SIZE_BUTTON);
 
-	gtk_container_add(GTK_CONTAINER (priv->right_revealer), button);
-	gtk_actionable_set_action_name(GTK_ACTIONABLE (button), "win.go-next");
+	gtk_container_add (GTK_CONTAINER (priv->right_revealer), button);
+	gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "win.go-next");
 	gtk_widget_set_tooltip_text (button,
-				     _("Go to the next image of the gallery"));
+	                             _("Go to the next image of the gallery"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
+	g_signal_connect (button, "enter-notify-event", G_CALLBACK (_enter_overlay_event_cb), view);
 
 
 	button = gtk_button_new_from_icon_name("go-previous-symbolic",
-					       GTK_ICON_SIZE_BUTTON);
+	                                       GTK_ICON_SIZE_BUTTON);
 
 	gtk_container_add(GTK_CONTAINER (priv->left_revealer), button);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE(button),
-					"win.go-previous");
+	                                "win.go-previous");
 	gtk_widget_set_tooltip_text (button,
-				     _("Go to the previous image of the gallery"));
+	                             _("Go to the previous image of the gallery"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
+	g_signal_connect (button, "enter-notify-event", G_CALLBACK (_enter_overlay_event_cb), view);
 
 
 	/* group rotate buttons into a box */
-	GtkWidget* bottomBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_style_context_add_class (gtk_widget_get_style_context (bottomBox),
-				     GTK_STYLE_CLASS_LINKED);
+	GtkWidget* bottom_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_style_context_add_class (gtk_widget_get_style_context (bottom_box),
+	                             GTK_STYLE_CLASS_LINKED);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-left-symbolic",
-						GTK_ICON_SIZE_BUTTON);
+	                                        GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
-					"win.rotate-270");
+	                                "win.rotate-270");
 	gtk_widget_set_tooltip_text (button,
-				     _("Rotate the image 90 degrees to the left"));
+	                             _("Rotate the image 90 degrees to the left"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
+	g_signal_connect (button, "enter-notify-event", G_CALLBACK (_enter_overlay_event_cb), view);
+	gtk_container_add (GTK_CONTAINER (bottom_box), button);
 
-	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-right-symbolic",
-						GTK_ICON_SIZE_BUTTON);
+	                                        GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
-					"win.rotate-90");
+	                                "win.rotate-90");
 	gtk_widget_set_tooltip_text (button,
-				     _("Rotate the image 90 degrees to the right"));
+	                             _("Rotate the image 90 degrees to the right"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
-	gtk_container_add (GTK_CONTAINER (bottomBox), button);
+	                             GTK_STYLE_CLASS_OSD);
+	g_signal_connect (button, "enter-notify-event", G_CALLBACK (_enter_overlay_event_cb), view);
+	gtk_container_add (GTK_CONTAINER (bottom_box), button);
 
-	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
+	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottom_box);
 
 	/* Display overlay buttons on mouse movement */
 	g_signal_connect (priv->display,
 			  "motion-notify-event",
 			  G_CALLBACK (_motion_notify_cb),
-			  view);
-
-	/* Don't hide overlay buttons when above */
-	g_signal_connect (view,
-			  "enter-notify-event",
-			  G_CALLBACK (_enter_overlay_event_cb),
 			  view);
 }
 
