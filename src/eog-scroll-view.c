@@ -99,8 +99,6 @@ struct _EogScrollViewPrivate {
 	GtkWidget *scrolled_window;
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
-	GtkWidget *hbar;
-	GtkWidget *vbar;
 	GtkWidget *menu;
 
 	/* actual image */
@@ -289,6 +287,7 @@ compute_center_zoom_offsets (EogScrollView *view,
 	}
 }
 
+#if 0
 /* Sets the scrollbar values based on the current scrolling offset */
 static void
 update_scrollbar_values (EogScrollView *view)
@@ -354,6 +353,7 @@ update_scrollbar_values (EogScrollView *view)
 			0, 0, NULL, NULL, view);
 	}
 }
+#endif
 
 static void
 eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
@@ -392,6 +392,7 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 /* Changes visibility of the scrollbars based on the zoom factor and the
  * specified allocation, or the current allocation if NULL is specified.
  */
+#if 0
 static void
 check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 {
@@ -456,6 +457,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	if (vbar_visible != gtk_widget_get_visible (GTK_WIDGET (priv->vbar)))
 		g_object_set (G_OBJECT (priv->vbar), "visible", vbar_visible, NULL);
 }
+#endif
 
 #define DOUBLE_EQUAL_MAX_DIFF 1e-6
 #define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
@@ -491,7 +493,8 @@ is_image_movable (EogScrollView *view)
 
 	priv = view->priv;
 
-	return (gtk_widget_get_visible (priv->hbar) || gtk_widget_get_visible (priv->vbar));
+	return TRUE;
+	/*return (gtk_widget_get_visible (priv->hbar) || gtk_widget_get_visible (priv->vbar));*/
 }
 
 /*===================================
@@ -586,19 +589,19 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	priv = view->priv;
 
 	/* Check bounds & Compute offsets */
-	if (gtk_widget_get_visible (priv->hbar)) {
+	/*if (gtk_widget_get_visible (priv->hbar)) {*/
 		x = CLAMP (x, 0, gtk_adjustment_get_upper (priv->hadj)
 				 - gtk_adjustment_get_page_size (priv->hadj));
 		xofs = x - priv->xofs;
-	} else
-		xofs = 0;
+	/*} else*/
+		/*xofs = 0;*/
 
-	if (gtk_widget_get_visible (priv->vbar)) {
+	/*if (gtk_widget_get_visible (priv->vbar)) {*/
 		y = CLAMP (y, 0, gtk_adjustment_get_upper (priv->vadj)
 				 - gtk_adjustment_get_page_size (priv->vadj));
 		yofs = y - priv->yofs;
-	} else
-		yofs = 0;
+	/*} else*/
+		/*yofs = 0;*/
 
 	if (xofs == 0 && yofs == 0)
 		return;
@@ -784,8 +787,8 @@ set_zoom (EogScrollView *view, double zoom,
 		priv->zoom = zoom;
 
 	/* we make use of the new values here */
-	check_scrollbar_visibility (view, NULL);
-	update_scrollbar_values (view);
+	/*check_scrollbar_visibility (view, NULL);*/
+	/*update_scrollbar_values (view);*/
 
 	/* repaint the whole image */
 	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
@@ -1155,7 +1158,7 @@ display_map_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 	eog_debug (DEBUG_WINDOW);
 
 	set_zoom_fit (view);
-	check_scrollbar_visibility (view, NULL);
+	/*check_scrollbar_visibility (view, NULL);*/
 	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 }
 
@@ -1165,7 +1168,7 @@ eog_scroll_view_size_allocate (GtkWidget *widget, GtkAllocation *alloc)
 	EogScrollView *view;
 
 	view = EOG_SCROLL_VIEW (widget);
-	check_scrollbar_visibility (view, alloc);
+	/*check_scrollbar_visibility (view, alloc);*/
 
 	GTK_WIDGET_CLASS (eog_scroll_view_parent_class)->size_allocate (widget
 									,alloc);
@@ -1187,7 +1190,7 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 		alloc.height = event->height;
 
 		set_zoom_fit (view);
-		check_scrollbar_visibility (view, &alloc);
+		/*check_scrollbar_visibility (view, &alloc);*/
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	} else {
 		int scaled_width, scaled_height;
@@ -1205,7 +1208,7 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 		scroll_by (view, x_offset, y_offset);
 	}
 
-	update_scrollbar_values (view);
+	/*update_scrollbar_values (view);*/
 }
 
 
@@ -1834,7 +1837,7 @@ eog_scroll_view_zoom_fit (EogScrollView *view)
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	set_zoom_fit (view);
-	check_scrollbar_visibility (view, NULL);
+	/*check_scrollbar_visibility (view, NULL);*/
 	gtk_widget_queue_draw (GTK_WIDGET (view->priv->display));
 }
 
@@ -1932,8 +1935,8 @@ eog_scroll_view_get_image (EogScrollView *view)
 gboolean
 eog_scroll_view_scrollbars_visible (EogScrollView *view)
 {
-	if (!gtk_widget_get_visible (GTK_WIDGET (view->priv->hbar)) &&
-	    !gtk_widget_get_visible (GTK_WIDGET (view->priv->vbar)))
+	/*if (!gtk_widget_get_visible (GTK_WIDGET (view->priv->hbar)) &&*/
+		/*!gtk_widget_get_visible (GTK_WIDGET (view->priv->vbar)))*/
 		return FALSE;
 
 	return TRUE;
@@ -2085,20 +2088,20 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (adjustment_changed_cb),
 			  view);
 
-	priv->hbar = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, priv->hadj);
+	/*priv->hbar = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, priv->hadj);*/
 	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 	g_signal_connect (priv->vadj, "value_changed",
 			  G_CALLBACK (adjustment_changed_cb),
 			  view);
 
-	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
+	/*priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);*/
 
 	priv->scrolled_window = gtk_scrolled_window_new (priv->hadj, priv->vadj);
 
 	priv->display = g_object_new (GTK_TYPE_IMAGE_VIEW,
 	                              "can-focus", TRUE,
 	                              "hexpand", TRUE,
-	                              "vexpand", TRUE
+	                              "vexpand", TRUE,
 	                              NULL);
 
 	gtk_widget_add_events (GTK_WIDGET (priv->display),
