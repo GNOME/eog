@@ -1108,7 +1108,8 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
 	int scaled_width, scaled_height;
-	int xofs = 0, yofs = 0;
+	double scale;
+	int xofs, yofs;
 
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (data), FALSE);
 
@@ -1119,8 +1120,17 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	if (priv->image == NULL)
 		return TRUE;
 
-	/* Paint the background */
+
+	scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
+	scaled_width = (int)(scale * gtk_abstract_image_get_width (GTK_ABSTRACT_IMAGE (priv->image)));
+	scaled_height = (int)(scale * gtk_abstract_image_get_height (GTK_ABSTRACT_IMAGE (priv->image)));
+
 	gtk_widget_get_allocation (priv->display, &allocation);
+
+	xofs = (allocation.width / 2)  - (scaled_width / 2);
+	yofs = (allocation.height / 2) - (scaled_height / 2);
+
+	/* Paint the background */
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
 		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
