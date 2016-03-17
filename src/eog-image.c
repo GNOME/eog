@@ -224,31 +224,27 @@ eog_image_finalize (GObject *object)
 static int
 __get_width (GtkAbstractImage *_image)
 {
-  return EOG_IMAGE (_image)->priv->width;
+	return EOG_IMAGE (_image)->priv->width;
 }
 
 static int
 __get_height (GtkAbstractImage *_image)
 {
-  return EOG_IMAGE (_image)->priv->height;
+	return EOG_IMAGE (_image)->priv->height;
 }
 
 static int
 __get_scale_factor (GtkAbstractImage *_image)
 {
-  return 1;
+	return 1;
 }
 
 static void
 __draw (GtkAbstractImage *_image, cairo_t *ct)
 {
-  EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
+	EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
 
-  if (eog_image_is_svg (EOG_IMAGE (_image))) {
-    rsvg_handle_render_cairo (priv->svg, ct);
-  } else {
-    cairo_set_source_surface (ct, priv->surface, 0, 0);
-  }
+	cairo_set_source_surface (ct, priv->surface, 0, 0);
 }
 
 
@@ -997,6 +993,24 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 	return (*width || *height);
 }
 
+static void
+create_svg_surface (EogImage *img)
+{
+	EogImagePrivate *priv = img->priv;
+	cairo_t *ct;
+
+	g_assert (priv->svg);
+
+	priv->surface = gdk_window_create_similar_image_surface (NULL,
+	                                                         CAIRO_FORMAT_ARGB32,
+	                                                         priv->width,
+	                                                         priv->height,
+	                                                         1);
+	ct = cairo_create (priv->surface);
+	rsvg_handle_render_cairo (priv->svg, ct);
+	cairo_destroy (ct);
+}
+
 static gboolean
 eog_image_real_load (EogImage *img,
 		     guint     data2read,
@@ -1278,13 +1292,14 @@ eog_image_real_load (EogImage *img,
 
 			priv->width = gdk_pixbuf_get_width (priv->image);
 			priv->height = gdk_pixbuf_get_height (priv->image);
-            priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
 
 			if (use_rsvg) {
 				format = NULL;
 				priv->file_type = g_strdup ("svg");
+				create_svg_surface (img);
 			} else {
 				format = gdk_pixbuf_loader_get_format (loader);
+				priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
 			}
 
 			if (format != NULL) {
