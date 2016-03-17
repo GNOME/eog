@@ -37,10 +37,8 @@
 
 #define CHECK_MEDIUM 8
 #define CHECK_BLACK "#000000"
-#define CHECK_DARK "#555555"
 #define CHECK_GRAY "#808080"
 #define CHECK_LIGHT "#cccccc"
-#define CHECK_WHITE "#ffffff"
 
 /* Time used for the realing animation of the overlaid buttons */
 #define OVERLAY_REVEAL_ANIM_TIME (500U) /* ms */
@@ -98,6 +96,7 @@ enum {
 struct _EogScrollViewPrivate {
 	/* some widgets we rely on */
 	GtkWidget *display;
+	GtkWidget *scrolled_window;
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
 	GtkWidget *hbar;
@@ -307,7 +306,7 @@ update_scrollbar_values (EogScrollView *view)
 		return;
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
+	gtk_widget_get_allocation (priv->display, &allocation);
 
 	if (gtk_widget_get_visible (GTK_WIDGET (priv->hbar))) {
 		/* Set scroll increments */
@@ -610,7 +609,7 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	if (!gtk_widget_is_drawable (priv->display))
 		goto out;
 
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
+	gtk_widget_get_allocation (priv->display, &allocation);
 
 	if (abs (xofs) >= allocation.width || abs (yofs) >= allocation.height) {
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
@@ -812,7 +811,7 @@ set_zoom_fit (EogScrollView *view)
 	if (priv->image == NULL)
 		return;
 
-	gtk_widget_get_allocation (GTK_WIDGET(priv->display), &allocation);
+	gtk_widget_get_allocation (priv->display, &allocation);
 
 	new_zoom = zoom_fit_scale (allocation.width, allocation.height,
                                gtk_abstract_image_get_width (GTK_ABSTRACT_IMAGE (priv->image)),
@@ -858,7 +857,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	xofs = yofs = 0;
 	zoom = 1.0;
 
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
+	gtk_widget_get_allocation (priv->display, &allocation);
 
 	modifiers = gtk_accelerator_get_default_mod_mask ();
 
@@ -1277,7 +1276,6 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	int scaled_width, scaled_height;
 	int xofs, yofs;
 
-	g_return_val_if_fail (GTK_IS_DRAWING_AREA (widget), FALSE);
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (data), FALSE);
 
 	view = EOG_SCROLL_VIEW (data);
@@ -1296,7 +1294,7 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
 
 	/* Paint the background */
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
+	gtk_widget_get_allocation (priv->display, &allocation);
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
 		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
@@ -2095,12 +2093,13 @@ eog_scroll_view_init (EogScrollView *view)
 
 	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
 
-	/*priv->overlay = gtk_overlay_new ();*/
-	/*gtk_grid_attach (GTK_GRID (view), priv->overlay, 0, 0, 1, 1);*/
+	priv->scrolled_window = gtk_scrolled_window_new (priv->hadj, priv->vadj);
 
-	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
-				      "can-focus", TRUE,
-				      NULL);
+	priv->display = g_object_new (GTK_TYPE_IMAGE_VIEW,
+	                              "can-focus", TRUE,
+	                              "hexpand", TRUE,
+	                              "vexpand", TRUE
+	                              NULL);
 
 	gtk_widget_add_events (GTK_WIDGET (priv->display),
 			       GDK_EXPOSURE_MASK
@@ -2145,16 +2144,8 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
 			  G_CALLBACK (view_on_drag_begin_cb), view);
 
-	gtk_container_add (GTK_CONTAINER (view), priv->display);
-
-	gtk_widget_set_hexpand (priv->display, TRUE);
-	gtk_widget_set_vexpand (priv->display, TRUE);
-	/*gtk_grid_attach (GTK_GRID (view), priv->hbar,*/
-			 /*0, 1, 1, 1);*/
-	gtk_widget_set_hexpand (priv->hbar, TRUE);
-	/*gtk_grid_attach (GTK_GRID (view), priv->vbar,*/
-			 /*1, 0, 1, 1);*/
-	gtk_widget_set_vexpand (priv->vbar, TRUE);
+	gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->display);
+	gtk_container_add (GTK_CONTAINER (view), priv->scrolled_window);
 
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
 			 "use-background-color", G_SETTINGS_BIND_DEFAULT);
