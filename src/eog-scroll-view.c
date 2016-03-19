@@ -1243,10 +1243,12 @@ void
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {
 	EogScrollViewPrivate *priv;
+	GtkImageView *display;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	priv = view->priv;
+	display = GTK_IMAGE_VIEW (priv->display);
 
 	if (priv->image == image) {
 		return;
@@ -1262,10 +1264,15 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 
 	priv->image = image;
-	gtk_image_view_set_angle (GTK_IMAGE_VIEW (priv->display), 0);
-	gtk_image_view_set_fit_allocation (GTK_IMAGE_VIEW (priv->display), TRUE);
-	gtk_image_view_set_abstract_image (GTK_IMAGE_VIEW (priv->display),
+
+	/* Disable the transitions in any case here so we don't see a possible
+	 * angle transition */
+	gtk_image_view_set_transitions_enabled (display, FALSE);
+	gtk_image_view_set_angle (display, 0);
+	gtk_image_view_set_fit_allocation (display, TRUE);
+	gtk_image_view_set_abstract_image (display,
 	                                   GTK_ABSTRACT_IMAGE (image));
+	gtk_image_view_set_transitions_enabled (display, TRUE);
 
 
 	g_object_notify (G_OBJECT (view), "image");
