@@ -109,9 +109,6 @@ struct _EogScrollViewPrivate {
 	/* whether to allow zoom > 1.0 on zoom fit */
 	gboolean upscale;
 
-	/* the actual zoom factor */
-	double zoom;
-
 	/* the minimum possible (reasonable) zoom factor */
 	double min_zoom;
 
@@ -460,9 +457,8 @@ set_zoom (EogScrollView *view, double zoom,
 
 	zoom = MAX (priv->min_zoom, zoom);
 	gtk_image_view_set_scale (GTK_IMAGE_VIEW (priv->display), zoom);
-	priv->zoom = zoom;
 
-	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
+	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, zoom);
 }
 
 /* Zooms the image to fit the available allocation */
@@ -470,10 +466,13 @@ static void
 set_zoom_fit (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv = view->priv;
+	double new_scale;
 
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	gtk_image_view_set_fit_allocation (GTK_IMAGE_VIEW (priv->display), TRUE);
+	new_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
+	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, new_scale);
 #if 0
 
 	if (!gtk_widget_get_mapped (GTK_WIDGET (view)))
@@ -494,12 +493,10 @@ set_zoom_fit (EogScrollView *view)
 	else if (new_zoom < MIN_ZOOM_FACTOR)
 		new_zoom = MIN_ZOOM_FACTOR;
 
-	priv->zoom = new_zoom;
 	priv->xofs = 0;
 	priv->yofs = 0;
 
 #endif
-	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
 }
 
 /*===================================
@@ -516,7 +513,8 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
 	gboolean do_zoom;
-	double zoom;
+	double scale = 1.0;
+	double cur_scale;
 	gboolean do_scroll;
 	int xofs, yofs;
 	GdkModifierType modifiers;
@@ -527,7 +525,8 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	do_zoom = FALSE;
 	do_scroll = FALSE;
 	xofs = yofs = 0;
-	zoom = 1.0;
+
+	cur_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
 	gtk_widget_get_allocation (priv->display, &allocation);
 
@@ -597,7 +596,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_KEY_KP_Add:
 		if (!(event->state & modifiers)) {
 			do_zoom = TRUE;
-			zoom = priv->zoom * priv->zoom_multiplier;
+			scale = cur_scale * priv->zoom_multiplier;
 		}
 		break;
 
@@ -605,14 +604,14 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_KEY_KP_Subtract:
 		if (!(event->state & modifiers)) {
 			do_zoom = TRUE;
-			zoom = priv->zoom / priv->zoom_multiplier;
+			scale = cur_scale / priv->zoom_multiplier;
 		}
 		break;
 
 	case GDK_KEY_1:
 		if (!(event->state & modifiers)) {
 			do_zoom = TRUE;
-			zoom = 1.0;
+			scale = 1.0;
 		}
 		break;
 
@@ -630,7 +629,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 		gdk_window_get_device_position (gtk_widget_get_window (widget), device,
 		                                &x, &y, NULL);
-		set_zoom (view, zoom, TRUE, x, y);
+		set_zoom (view, scale, TRUE, x, y);
 	}
 
 	if (do_scroll)
@@ -1036,26 +1035,28 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 {
 	EogScrollViewPrivate *priv;
 	double zoom;
+	double cur_scale;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	priv = view->priv;
+	cur_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
 	if (smooth) {
-		zoom = priv->zoom * priv->zoom_multiplier;
+		zoom = cur_scale * priv->zoom_multiplier;
 	} else {
 		int i;
 		int index = -1;
 
 		for (i = 0; i < n_zoom_levels; i++) {
-			if (preferred_zoom_levels [i] - priv->zoom > DOUBLE_EQUAL_MAX_DIFF) {
+			if (preferred_zoom_levels [i] - cur_scale > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
 		}
 
 		if (index == -1) {
-			zoom = priv->zoom;
+			zoom = cur_scale;
 		} else {
 			zoom = preferred_zoom_levels [i];
 		}
@@ -1068,25 +1069,27 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 {
 	EogScrollViewPrivate *priv;
 	double zoom;
+	double cur_scale;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	priv = view->priv;
+	cur_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
 	if (smooth) {
-		zoom = priv->zoom / priv->zoom_multiplier;
+		zoom = cur_scale / priv->zoom_multiplier;
 	} else {
 		int i;
 		int index = -1;
 
 		for (i = n_zoom_levels - 1; i >= 0; i--) {
-			if (priv->zoom - preferred_zoom_levels [i] > DOUBLE_EQUAL_MAX_DIFF) {
+			if (cur_scale - preferred_zoom_levels [i] > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
 		}
 		if (index == -1) {
-			zoom = priv->zoom;
+			zoom = cur_scale;
 		} else {
 			zoom = preferred_zoom_levels [i];
 		}
@@ -1122,20 +1125,28 @@ eog_scroll_view_get_zoom (EogScrollView *view)
 gboolean
 eog_scroll_view_get_zoom_is_min (EogScrollView *view)
 {
+	double cur_scale;
+
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
 
 	set_minimum_zoom_factor (view);
 
-	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR) ||
-	       DOUBLE_EQUAL (view->priv->zoom, view->priv->min_zoom);
+	cur_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (view->priv->display));
+
+	return DOUBLE_EQUAL (cur_scale, MIN_ZOOM_FACTOR) ||
+	       DOUBLE_EQUAL (cur_scale, view->priv->min_zoom);
 }
 
 gboolean
 eog_scroll_view_get_zoom_is_max (EogScrollView *view)
 {
+	double cur_scale;
+
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
 
-	return DOUBLE_EQUAL (view->priv->zoom, MAX_ZOOM_FACTOR);
+	cur_scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (view->priv->display));
+
+	return DOUBLE_EQUAL (cur_scale, MAX_ZOOM_FACTOR);
 }
 
 void
@@ -1349,7 +1360,6 @@ eog_scroll_view_init (EogScrollView *view)
 	priv = view->priv = eog_scroll_view_get_instance_private (view);
 	settings = g_settings_new (EOG_CONF_VIEW);
 
-	priv->zoom = 1.0;
 	priv->min_zoom = MIN_ZOOM_FACTOR;
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
