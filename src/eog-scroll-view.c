@@ -169,7 +169,6 @@ static void view_on_drag_data_get_cb (GtkWidget *widget,
 				      GdkDragContext*drag_context,
 				      GtkSelectionData *data, guint info,
 				      guint time, gpointer user_data);
-static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
 static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
                                                   gint *y, gint *width,
                                                   gint *height);
@@ -2075,23 +2074,6 @@ eog_scroll_view_set_zoom_multiplier (EogScrollView *view,
 	g_object_notify (G_OBJECT (view), "zoom-multiplier");
 }
 
-/* Helper to cause a redraw even if the zoom mode is unchanged */
-static void
-_set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode)
-{
-	gboolean notify = (mode != view->priv->zoom_mode);
-
-
-	if (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT)
-		eog_scroll_view_zoom_fit (view);
-	else
-		view->priv->zoom_mode = mode;
-
-	if (notify)
-		g_object_notify (G_OBJECT (view), "zoom-mode");
-}
-
-
 void
 eog_scroll_view_set_zoom_mode (EogScrollView *view, EogZoomMode mode)
 {
@@ -2100,7 +2082,12 @@ eog_scroll_view_set_zoom_mode (EogScrollView *view, EogZoomMode mode)
 	if (view->priv->zoom_mode == mode)
 		return;
 
-	_set_zoom_mode_internal (view, mode);
+	if (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT)
+		eog_scroll_view_zoom_fit (view);
+	else
+		view->priv->zoom_mode = mode;
+
+	g_object_notify (G_OBJECT (view), "zoom-mode");
 }
 
 EogZoomMode
