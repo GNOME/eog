@@ -1176,17 +1176,6 @@ rotate_gesture_angle_changed_cb (GtkGestureRotate *rotate,
 	priv->rotate_state = rotate_state;
 }
 
-/*==================================
-
-   image loading callbacks
-
-   -----------------------------------*/
-static void
-image_changed_cb (EogImage *img, gpointer data)
-{
-    gtk_widget_queue_draw (GTK_WIDGET (data));
-}
-
 /*===================================
          public API
   ---------------------------------*/
@@ -1456,9 +1445,6 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 	if (image != NULL) {
 		eog_image_data_ref (image);
-
-		priv->image_changed_id = g_signal_connect (image, "changed",
-		                                           (GCallback) image_changed_cb, view);
 	}
 
 	priv->image = image;
