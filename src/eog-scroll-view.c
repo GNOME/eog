@@ -1491,16 +1491,12 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (priv->display, "notify::scale",
 	                  G_CALLBACK (display_scale_changed_cb), view);
 
-	gtk_widget_add_events (GTK_WIDGET (priv->display),
-			       GDK_EXPOSURE_MASK
-			       | GDK_TOUCHPAD_GESTURE_MASK
-			       | GDK_BUTTON_PRESS_MASK
-			       | GDK_BUTTON_RELEASE_MASK
-			       | GDK_POINTER_MOTION_MASK
-			       | GDK_POINTER_MOTION_HINT_MASK
-			       | GDK_TOUCH_MASK
-			       | GDK_SCROLL_MASK
-			       | GDK_KEY_PRESS_MASK);
+	gtk_widget_add_events (priv->display,
+	                       GDK_BUTTON_PRESS_MASK
+	                     | GDK_BUTTON_RELEASE_MASK
+	                     | GDK_POINTER_MOTION_MASK
+	                     | GDK_POINTER_MOTION_HINT_MASK
+	                     | GDK_KEY_PRESS_MASK);
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
 			  G_CALLBACK (display_size_change), view);
 
