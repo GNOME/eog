@@ -118,9 +118,6 @@ struct _EogScrollViewPrivate {
 	/* the minimum possible (reasonable) zoom factor */
 	double min_zoom;
 
-	/* handler ID for paint idle callback */
-	guint idle_id;
-
 	/* Interpolation type when zoomed in*/
 	cairo_filter_t interp_type_in;
 
@@ -287,14 +284,20 @@ is_zoomed_out (EogScrollView *view)
 	return DOUBLE_EQUAL_MAX_DIFF + scale - 1.0 < 0.0;
 }
 
-/* Returns wether the image is movable, that means if it is larger then
+/* Returns wether the image is movable, that means if it is larger than
  * the actual visible area.
  */
 
 static gboolean
 is_image_movable (EogScrollView *view)
 {
-	return TRUE;
+	EogScrollViewPrivate *priv = view->priv;
+	GtkAllocation image_view_alloc;
+
+	gtk_widget_get_allocation (priv->display, &image_view_alloc);
+
+	return gtk_adjustment_get_upper (priv->hadj) > image_view_alloc.width ||
+	       gtk_adjustment_get_upper (priv->vadj) > image_view_alloc.height;
 }
 
 /*===================================
@@ -697,7 +700,7 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 				break;
 
 			if (is_image_movable (view)) {
-				eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
+			    eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
 
 				priv->dragging = TRUE;
 				priv->drag_anchor_x = event->x;
@@ -769,21 +772,6 @@ eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer
 
 	drag_to (view, x, y);
 	return GDK_EVENT_STOP;
-}
-
-static void
-display_map_event (GtkWidget *widget, GdkEvent *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	eog_debug (DEBUG_WINDOW);
-
-	set_zoom_fit (view);
-	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 }
 
 static void
@@ -946,7 +934,7 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 {
 	EogScrollViewPrivate *priv;
 
-	if (eog_scroll_view_scrollbars_visible (view)) {
+	if (is_image_movable (view)) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
 		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
@@ -995,13 +983,13 @@ pan_gesture_end_cb (GtkGesture       *gesture,
 void
 eog_scroll_view_hide_cursor (EogScrollView *view)
 {
-       eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_HIDDEN);
+	eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_HIDDEN);
 }
 
 void
 eog_scroll_view_show_cursor (EogScrollView *view)
 {
-       eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
+	eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
 }
 
 /* general properties */
@@ -1135,14 +1123,12 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 
 	if (smooth) {
 		zoom = priv->zoom * priv->zoom_multiplier;
-	}
-	else {
+	} else {
 		int i;
 		int index = -1;
 
 		for (i = 0; i < n_zoom_levels; i++) {
-			if (preferred_zoom_levels [i] - priv->zoom
-					> DOUBLE_EQUAL_MAX_DIFF) {
+			if (preferred_zoom_levels [i] - priv->zoom > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
@@ -1150,8 +1136,7 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 
 		if (index == -1) {
 			zoom = priv->zoom;
-		}
-		else {
+		} else {
 			zoom = preferred_zoom_levels [i];
 		}
 	}
@@ -1171,22 +1156,19 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 
 	if (smooth) {
 		zoom = priv->zoom / priv->zoom_multiplier;
-	}
-	else {
+	} else {
 		int i;
 		int index = -1;
 
 		for (i = n_zoom_levels - 1; i >= 0; i--) {
-			if (priv->zoom - preferred_zoom_levels [i]
-					> DOUBLE_EQUAL_MAX_DIFF) {
+			if (priv->zoom - preferred_zoom_levels [i] > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
 		}
 		if (index == -1) {
 			zoom = priv->zoom;
-		}
-		else {
+		} else {
 			zoom = preferred_zoom_levels [i];
 		}
 	}
@@ -1302,11 +1284,7 @@ eog_scroll_view_get_image (EogScrollView *view)
 gboolean
 eog_scroll_view_scrollbars_visible (EogScrollView *view)
 {
-	/*if (!gtk_widget_get_visible (GTK_WIDGET (view->priv->hbar)) &&*/
-		/*!gtk_widget_get_visible (GTK_WIDGET (view->priv->vbar)))*/
-		return FALSE;
-
-	return TRUE;
+	return is_image_movable (view);
 }
 
 /*===================================
@@ -1497,8 +1475,6 @@ eog_scroll_view_init (EogScrollView *view)
 	                  G_CALLBACK (display_draw), view);
 
 
-	g_signal_connect (G_OBJECT (priv->display), "map_event",
-			  G_CALLBACK (display_map_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
 			  G_CALLBACK (eog_scroll_view_button_press_event),
 			  view);
@@ -1674,11 +1650,6 @@ eog_scroll_view_dispose (GObject *object)
 	_clear_overlay_timeout (view);
 	_clear_hq_redraw_timeout (view);
 
-	if (priv->idle_id != 0) {
-		g_source_remove (priv->idle_id);
-		priv->idle_id = 0;
-	}
-
 	if (priv->background_color != NULL) {
 		gdk_rgba_free (priv->background_color);
 		priv->background_color = NULL;
@@ -1696,10 +1667,7 @@ eog_scroll_view_dispose (GObject *object)
 
 	free_image_resources (view);
 
-	if (priv->pan_gesture) {
-		g_object_unref (priv->pan_gesture);
-		priv->pan_gesture = NULL;
-	}
+	g_clear_object(&priv->pan_gesture);
 
 	G_OBJECT_CLASS (eog_scroll_view_parent_class)->dispose (object);
 }
@@ -1959,16 +1927,18 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 
 static void
 view_on_drag_begin_cb (GtkWidget        *widget,
-		       GdkDragContext   *context,
-		       gpointer          user_data)
+                       GdkDragContext   *context,
+                       gpointer          user_data)
 {
-	EogScrollView *view;
+	EogScrollView *view = user_data;
 	EogImage *image;
 	GdkPixbuf *thumbnail;
 	gint width, height;
 
-	view = EOG_SCROLL_VIEW (user_data);
 	image = view->priv->image;
+
+	if (image == NULL)
+		return;
 
 	thumbnail = eog_image_get_thumbnail (image);
 
@@ -1982,20 +1952,21 @@ view_on_drag_begin_cb (GtkWidget        *widget,
 
 static void
 view_on_drag_data_get_cb (GtkWidget        *widget,
-			  GdkDragContext   *drag_context,
-			  GtkSelectionData *data,
-			  guint             info,
-			  guint             time,
-			  gpointer          user_data)
+                          GdkDragContext   *drag_context,
+                          GtkSelectionData *data,
+                          guint             info,
+                          guint             time,
+                          gpointer          user_data)
 {
-	EogScrollView *view;
+	EogScrollView *view = user_data;
 	EogImage *image;
 	gchar *uris[2];
 	GFile *file;
 
-	view = EOG_SCROLL_VIEW (user_data);
-
 	image = view->priv->image;
+
+	if (image == NULL)
+	  return;
 
 	file = eog_image_get_file (image);
 	uris[0] = g_file_get_uri (file);
