@@ -131,9 +131,8 @@ struct _EogScrollViewPrivate {
 	gdouble zoom_multiplier;
 
 	/* dragging stuff */
-	int drag_anchor_x, drag_anchor_y;
-	int drag_ofs_x, drag_ofs_y;
-	guint dragging : 1;
+	double drag_anchor_x;
+	double drag_anchor_y;
 
 	/* how to indicate transparency in images */
 	EogTransparencyStyle transp_style;
@@ -149,6 +148,8 @@ struct _EogScrollViewPrivate {
 	cairo_surface_t *background_surface;
 
 	GtkGesture *pan_gesture;
+	GtkGesture *drag_gesture;
+
 	gdouble initial_zoom;
 	EogRotationState rotate_state;
 	EogPanAction pan_action;
@@ -439,24 +440,6 @@ scroll_by (EogScrollView *view, int xofs, int yofs)
 	scroll_to (view, _xofs + xofs, _yofs + yofs);
 }
 
-/* Drags the image to the specified position */
-static void
-drag_to (EogScrollView *view, int x, int y)
-{
-	EogScrollViewPrivate *priv;
-	int dx, dy;
-
-	priv = view->priv;
-
-	dx = priv->drag_anchor_x - x;
-	dy = priv->drag_anchor_y - y;
-
-	x = priv->drag_ofs_x + dx;
-	y = priv->drag_ofs_y + dy;
-
-	scroll_to (view, x, y);
-}
-
 static void
 set_minimum_zoom_factor (EogScrollView *view)
 {
@@ -675,105 +658,6 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	return TRUE;
 }
 
-
-/* Button press event handler for the image view */
-static gboolean
-eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	if (!gtk_widget_has_focus (priv->display))
-		gtk_widget_grab_focus (GTK_WIDGET (priv->display));
-
-	if (priv->dragging)
-		return GDK_EVENT_PROPAGATE;
-
-	switch (event->button) {
-		case 1:
-		case 2:
-			if (event->button == 1 && !priv->scroll_wheel_zoom &&
-			    !(event->state & GDK_CONTROL_MASK))
-				break;
-
-			if (is_image_movable (view)) {
-			    eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
-
-				priv->dragging = TRUE;
-				priv->drag_anchor_x = event->x;
-				priv->drag_anchor_y = event->y;
-
-				priv->drag_ofs_x = (int) gtk_adjustment_get_value (priv->hadj);
-				priv->drag_ofs_y = (int) gtk_adjustment_get_value (priv->vadj);
-
-				return GDK_EVENT_STOP;
-			}
-		default:
-			break;
-	}
-
-	return GDK_EVENT_PROPAGATE;
-}
-
-/* Button release event handler for the image view */
-static gboolean
-eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	if (!priv->dragging)
-		return FALSE;
-
-	switch (event->button) {
-		case 1:
-		case 2:
-			drag_to (view, event->x, event->y);
-			priv->dragging = FALSE;
-
-			eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
-			break;
-
-		default:
-			break;
-	}
-
-	return TRUE;
-}
-
-/* Motion event handler for the image view */
-static gboolean
-eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-	gint x, y;
-	GdkModifierType mods;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	if (!priv->dragging)
-		return GDK_EVENT_PROPAGATE;
-
-	if (event->is_hint) {
-		gdk_window_get_device_position (gtk_widget_get_window (GTK_WIDGET (priv->display)),
-		                                event->device, &x, &y, &mods);
-	} else {
-		x = event->x;
-		y = event->y;
-	}
-
-	drag_to (view, x, y);
-	return GDK_EVENT_STOP;
-}
-
 static void
 display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
@@ -928,9 +812,9 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 
 static void
 pan_gesture_pan_cb (GtkGesturePan   *gesture,
-		    GtkPanDirection  direction,
-		    gdouble          offset,
-		    EogScrollView   *view)
+                    GtkPanDirection  direction,
+                    gdouble          offset,
+                    EogScrollView   *view)
 {
 	EogScrollViewPrivate *priv;
 
@@ -958,8 +842,8 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 
 static void
 pan_gesture_end_cb (GtkGesture       *gesture,
-		    GdkEventSequence *sequence,
-		    EogScrollView    *view)
+                    GdkEventSequence *sequence,
+                    EogScrollView    *view)
 {
 	EogScrollViewPrivate *priv;
 
@@ -974,6 +858,56 @@ pan_gesture_end_cb (GtkGesture       *gesture,
 		g_signal_emit (view, view_signals [SIGNAL_NEXT_IMAGE], 0);
 
 	priv->pan_action = EOG_PAN_ACTION_NONE;
+}
+
+static void
+drag_begin_cb (GtkGesture *gesture,
+               double      start_x,
+               double      start_y,
+               gpointer    user_data)
+{
+	EogScrollView *view = user_data;
+	EogScrollViewPrivate *priv = view->priv;
+
+	if (!is_image_movable (view)) {
+		g_message ("not movable");
+		gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+		return;
+	}
+
+	gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+
+	g_message (__FUNCTION__);
+	priv->drag_anchor_x = gtk_adjustment_get_value (priv->hadj);
+	priv->drag_anchor_y = gtk_adjustment_get_value (priv->vadj);
+
+	eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
+}
+
+static void
+drag_update_cb (GtkGesture *gesture,
+                double      offset_x,
+                double      offset_y,
+                gpointer    user_data)
+{
+	EogScrollViewPrivate *priv = EOG_SCROLL_VIEW (user_data)->priv;
+	double new_value_x;
+	double new_value_y;
+
+	new_value_x = priv->drag_anchor_x - offset_x;
+	new_value_y = priv->drag_anchor_y - offset_y;
+
+	gtk_adjustment_set_value (priv->hadj, new_value_x);
+	gtk_adjustment_set_value (priv->vadj, new_value_y);
+}
+
+static void
+drag_end_cb (GtkGesture *gesture,
+             double      offset_x,
+             double      offset_y,
+             gpointer    user_data)
+{
+	eog_scroll_view_set_cursor (user_data, EOG_SCROLL_VIEW_CURSOR_NORMAL);
 }
 
 /*===================================
@@ -1470,19 +1404,9 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
 			  G_CALLBACK (display_size_change), view);
 
-
 	g_signal_connect (G_OBJECT (priv->display), "draw",
 	                  G_CALLBACK (display_draw), view);
 
-
-	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
-			  G_CALLBACK (eog_scroll_view_button_press_event),
-			  view);
-	g_signal_connect (G_OBJECT (priv->display), "motion_notify_event",
-			  G_CALLBACK (eog_scroll_view_motion_event), view);
-	g_signal_connect (G_OBJECT (priv->display), "button_release_event",
-			  G_CALLBACK (eog_scroll_view_button_release_event),
-			  view);
 	g_signal_connect (G_OBJECT (priv->display), "focus_in_event",
 			  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
 	g_signal_connect (G_OBJECT (priv->display), "focus_out_event",
@@ -1524,16 +1448,25 @@ eog_scroll_view_init (EogScrollView *view)
 
 	g_object_unref (settings);
 
-	priv->pan_gesture = gtk_gesture_pan_new (GTK_WIDGET (view),
-						 GTK_ORIENTATION_HORIZONTAL);
+
+
+
+	priv->pan_gesture = gtk_gesture_pan_new (GTK_WIDGET (view), GTK_ORIENTATION_HORIZONTAL);
 	g_signal_connect (priv->pan_gesture, "pan",
-			  G_CALLBACK (pan_gesture_pan_cb), view);
+	                  G_CALLBACK (pan_gesture_pan_cb), view);
 	g_signal_connect (priv->pan_gesture, "end",
-			  G_CALLBACK (pan_gesture_end_cb), view);
-	gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (priv->pan_gesture),
-					   TRUE);
+	                  G_CALLBACK (pan_gesture_end_cb), view);
+	gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (priv->pan_gesture), TRUE);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->pan_gesture),
-						    GTK_PHASE_CAPTURE);
+	                                            GTK_PHASE_CAPTURE);
+
+	priv->drag_gesture = gtk_gesture_drag_new (GTK_WIDGET (view));
+	g_signal_connect (priv->drag_gesture, "drag-begin",
+	                  G_CALLBACK (drag_begin_cb), view);
+	g_signal_connect (priv->drag_gesture, "drag-update",
+	                  G_CALLBACK (drag_update_cb), view);
+	g_signal_connect (priv->drag_gesture, "drag-end",
+	                  G_CALLBACK (drag_end_cb), view);
 
 	/* left revealer */
 	priv->left_revealer = gtk_revealer_new ();
@@ -1667,7 +1600,8 @@ eog_scroll_view_dispose (GObject *object)
 
 	free_image_resources (view);
 
-	g_clear_object(&priv->pan_gesture);
+	g_clear_object (&priv->pan_gesture);
+	g_clear_object (&priv->drag_gesture);
 
 	G_OBJECT_CLASS (eog_scroll_view_parent_class)->dispose (object);
 }
