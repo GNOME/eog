@@ -96,7 +96,6 @@ enum {
 struct _EogScrollViewPrivate {
 	/* some widgets we rely on */
 	GtkWidget *display;
-	GtkWidget *scrolled_window;
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
 	GtkWidget *menu;
@@ -148,8 +147,6 @@ struct _EogScrollViewPrivate {
 	GtkGesture *pan_gesture;
 	GtkGesture *drag_gesture;
 
-	gdouble initial_zoom;
-	EogRotationState rotate_state;
 	EogPanAction pan_action;
 
 	GtkWidget *left_revealer;
@@ -430,9 +427,10 @@ scroll_by (EogScrollView *view, int xofs, int yofs)
 static void
 set_minimum_zoom_factor (EogScrollView *view)
 {
-    GtkAbstractImage *image = GTK_ABSTRACT_IMAGE (view->priv->image);
+    GtkAbstractImage *image;
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
+	image = GTK_ABSTRACT_IMAGE (view->priv->image);
 
 	view->priv->min_zoom = MAX (1.0 / gtk_abstract_image_get_width (image),
 				    MAX(1.0 / gtk_abstract_image_get_height (image),
@@ -867,7 +865,6 @@ drag_begin_cb (GtkGesture *gesture,
 
 	gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 
-	g_message (__FUNCTION__);
 	priv->drag_anchor_x = gtk_adjustment_get_value (priv->hadj);
 	priv->drag_anchor_y = gtk_adjustment_get_value (priv->vadj);
 
@@ -1348,6 +1345,7 @@ eog_scroll_view_init (EogScrollView *view)
 {
 	GSettings *settings;
 	EogScrollViewPrivate *priv;
+	GtkWidget *scrolled_window;
 
 	priv = view->priv = eog_scroll_view_get_instance_private (view);
 	settings = g_settings_new (EOG_CONF_VIEW);
@@ -1372,7 +1370,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 
-	priv->scrolled_window = gtk_scrolled_window_new (priv->hadj, priv->vadj);
+	scrolled_window = gtk_scrolled_window_new (priv->hadj, priv->vadj);
 
 	priv->display = g_object_new (GTK_TYPE_IMAGE_VIEW,
 	                              "can-focus", TRUE,
@@ -1413,8 +1411,8 @@ eog_scroll_view_init (EogScrollView *view)
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
 			  G_CALLBACK (view_on_drag_begin_cb), view);
 
-	gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->display);
-	gtk_container_add (GTK_CONTAINER (view), priv->scrolled_window);
+	gtk_container_add (GTK_CONTAINER (scrolled_window), priv->display);
+	gtk_container_add (GTK_CONTAINER (view), scrolled_window);
 
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
 			 "use-background-color", G_SETTINGS_BIND_DEFAULT);
