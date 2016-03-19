@@ -89,13 +89,13 @@ typedef enum {
 } EogImageMetadataStatus;
 
 struct _EogImage {
-  GtkPlayable parent;
+	GtkPlayable parent;
 
 	EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-  GtkPlayableClass parent_class;
+	GtkPlayableClass parent_class;
 
 	void (* size_prepared)     (EogImage *img,
 				    int       width,
@@ -215,6 +215,8 @@ gboolean          eog_image_is_file_writable         (EogImage *img);
 gboolean          eog_image_is_multipaged            (EogImage *img);
 
 gboolean          eog_image_has_alpha                (EogImage *img);
+
+void              eog_image_set_view_scale           (EogImage *img, double view_scale);
 
 G_END_DECLS
 

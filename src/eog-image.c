@@ -183,10 +183,10 @@ eog_image_dispose (GObject *object)
 		priv->file_type = NULL;
 	}
 
-    if (priv->timeout_id != 0) {
-        g_source_remove (priv->timeout_id);
-        priv->timeout_id = 0;
-    }
+	if (priv->timeout_id != 0) {
+		g_source_remove (priv->timeout_id);
+		priv->timeout_id = 0;
+	}
 
 	g_mutex_clear (&priv->status_mutex);
 
@@ -224,13 +224,17 @@ eog_image_finalize (GObject *object)
 static int
 __get_width (GtkAbstractImage *_image)
 {
-	return EOG_IMAGE (_image)->priv->width;
+	EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
+
+	return priv->width;
 }
 
 static int
 __get_height (GtkAbstractImage *_image)
 {
-	return EOG_IMAGE (_image)->priv->height;
+	EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
+
+	return priv->height;
 }
 
 static int
@@ -243,6 +247,9 @@ static void
 __draw (GtkAbstractImage *_image, cairo_t *ct)
 {
 	EogImagePrivate *priv = EOG_IMAGE (_image)->priv;
+
+	if (priv->svg)
+		cairo_scale (ct, 1.0 / priv->view_scale, 1.0 / priv->view_scale);
 
 	cairo_set_source_surface (ct, priv->surface, 0, 0);
 }
@@ -259,12 +266,13 @@ eog_image_iter_advance (EogImage *img)
 
 	priv = img->priv;
 
-	if ((new_frame = gdk_pixbuf_animation_iter_advance (img->priv->anim_iter, NULL)) == TRUE)
-	  {
+	new_frame = gdk_pixbuf_animation_iter_advance (priv->anim_iter, NULL);
+
+	if (new_frame) {
 		g_mutex_lock (&priv->status_mutex);
 		g_object_unref (priv->image);
 		priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
-	 	g_object_ref (priv->image);
+		g_object_ref (priv->image);
 		/* keep the transformation over time */
 		if (EOG_IS_TRANSFORM (priv->trans)) {
 			GdkPixbuf* transformed = eog_transform_apply (priv->trans, priv->image, NULL);
@@ -277,8 +285,8 @@ eog_image_iter_advance (EogImage *img)
 
 		g_mutex_unlock (&priv->status_mutex);
 
-        g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
-	  }
+		g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
+	}
 
 	return new_frame;
 }
@@ -291,12 +299,14 @@ private_timeout (gpointer data)
 
 	if (eog_image_is_animation (img) &&
 	    !g_source_is_destroyed (g_main_current_source ())) {
-		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
-			g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
-	 		return G_SOURCE_CONTINUE;
+		int iter_delay = gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter);
+
+		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking? */
+		priv->timeout_id = g_timeout_add (iter_delay, private_timeout, img);
  	}
-	return G_SOURCE_REMOVE; /* stop playing */
+	return G_SOURCE_REMOVE;
 }
+
 static void
 __start (GtkPlayable *playable)
 {
@@ -310,34 +320,66 @@ __start (GtkPlayable *playable)
 	g_object_ref (priv->anim_iter);
 	g_mutex_unlock (&priv->status_mutex);
 
- 	g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
+	priv->timeout_id = g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter),
+	                                  private_timeout,
+	                                  img);
 }
 
 static void
 __stop (GtkPlayable *playable)
 {
-    EogImagePrivate *priv = EOG_IMAGE (playable)->priv;
+	EogImagePrivate *priv = EOG_IMAGE (playable)->priv;
 
-    if (priv->timeout_id != 0) {
-      g_source_remove (priv->timeout_id);
-      priv->timeout_id = 0;
-    }
+	if (priv->timeout_id != 0) {
+		g_source_remove (priv->timeout_id);
+		priv->timeout_id = 0;
+	}
+}
+
+static void
+render_svg_surface (EogImage *img)
+{
+	EogImagePrivate *priv = img->priv;
+	cairo_t *ct;
+	int w, h;
+
+	g_assert (priv->svg);
+
+	if (priv->surface)
+		cairo_surface_destroy (priv->surface);
+
+	w = (int)(priv->width * priv->view_scale);
+	h = (int)(priv->height * priv->view_scale);
+
+	priv->surface = gdk_window_create_similar_image_surface (NULL,
+	                                                         CAIRO_FORMAT_ARGB32,
+	                                                         w, h,
+	                                                         1);
+	ct = cairo_create (priv->surface);
+
+	cairo_rectangle (ct, 0, 0, w, h);
+	cairo_set_source_rgba (ct, 0, 1, 0, 1);
+	cairo_stroke (ct);
+
+	cairo_scale (ct, priv->view_scale, priv->view_scale);
+	rsvg_handle_render_cairo (priv->svg, ct);
+	cairo_destroy (ct);
 }
 
 static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
-    GtkAbstractImageClass *image_class = GTK_ABSTRACT_IMAGE_CLASS (klass);
-    GtkPlayableClass *playable_class = GTK_PLAYABLE_CLASS (klass);
+	GtkAbstractImageClass *image_class = GTK_ABSTRACT_IMAGE_CLASS (klass);
+	GtkPlayableClass *playable_class = GTK_PLAYABLE_CLASS (klass);
 
-    image_class->get_width        = __get_width;
-    image_class->get_height       = __get_height;
-    image_class->get_scale_factor = __get_scale_factor;
-    image_class->draw             = __draw;
+	image_class->get_width        = __get_width;
+	image_class->get_height       = __get_height;
+	image_class->get_scale_factor = __get_scale_factor;
+	image_class->draw             = __draw;
 
-    playable_class->start = __start;
-    playable_class->stop  = __stop;
+	playable_class->start = __start;
+	playable_class->stop  = __stop;
 
 	object_class->dispose = eog_image_dispose;
 	object_class->finalize = eog_image_finalize;
@@ -386,11 +428,12 @@ eog_image_init (EogImage *img)
 {
 	img->priv = eog_image_get_instance_private (img);
 
+	img->priv->view_scale = 1.0;
 	img->priv->file = NULL;
 	img->priv->image = NULL;
 	img->priv->anim = NULL;
 	img->priv->anim_iter = NULL;
-    img->priv->timeout_id = 0;
+	img->priv->timeout_id = 0;
 	img->priv->thumbnail = NULL;
 	img->priv->width = -1;
 	img->priv->height = -1;
@@ -993,23 +1036,6 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 	return (*width || *height);
 }
 
-static void
-create_svg_surface (EogImage *img)
-{
-	EogImagePrivate *priv = img->priv;
-	cairo_t *ct;
-
-	g_assert (priv->svg);
-
-	priv->surface = gdk_window_create_similar_image_surface (NULL,
-	                                                         CAIRO_FORMAT_ARGB32,
-	                                                         priv->width,
-	                                                         priv->height,
-	                                                         1);
-	ct = cairo_create (priv->surface);
-	rsvg_handle_render_cairo (priv->svg, ct);
-	cairo_destroy (ct);
-}
 
 static gboolean
 eog_image_real_load (EogImage *img,
@@ -1296,7 +1322,7 @@ eog_image_real_load (EogImage *img,
 			if (use_rsvg) {
 				format = NULL;
 				priv->file_type = g_strdup ("svg");
-				create_svg_surface (img);
+				render_svg_surface (img);
 			} else {
 				format = gdk_pixbuf_loader_get_format (loader);
 				priv->surface = gdk_cairo_surface_create_from_pixbuf (priv->image, 1, NULL);
@@ -2570,7 +2596,7 @@ eog_image_is_multipaged (EogImage *img)
 	if (img->priv->image != NULL)
 	{
 		const gchar* value = gdk_pixbuf_get_option (img->priv->image,
-							    "multipage");
+		                                            "multipage");
 
 		result = (g_strcmp0 ("yes", value) == 0);
 	}
@@ -2581,8 +2607,24 @@ eog_image_is_multipaged (EogImage *img)
 gboolean
 eog_image_has_alpha (EogImage *img)
 {
-    EogImagePrivate *priv = img->priv;
+	EogImagePrivate *priv = img->priv;
 
-    return priv->image != NULL &&
-           gdk_pixbuf_get_has_alpha (priv->image);
+	return priv->image != NULL &&
+	       gdk_pixbuf_get_has_alpha (priv->image);
+}
+
+void
+eog_image_set_view_scale (EogImage *img, double scale)
+{
+	EogImagePrivate *priv =  img->priv;
+
+	if (scale == priv->view_scale)
+		return;
+
+	priv->view_scale = scale;
+
+	if (priv->svg) {
+		render_svg_surface (img);
+		g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
+	}
 }

@@ -47,8 +47,11 @@ struct _EogImagePrivate {
 	GdkPixbuf        *image;
 	GdkPixbuf        *thumbnail;
 
-    cairo_surface_t *surface;
-    guint timeout_id;
+	cairo_surface_t *surface;
+	guint timeout_id;
+
+	double view_scale;
+	double current_scale;
 
 
 #ifdef HAVE_RSVG

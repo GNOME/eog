@@ -943,6 +943,7 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
 		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
 		                 scaled_width, scaled_height);
+
 	if (priv->override_bg_color != NULL)
 		background_color = priv->override_bg_color;
 	else if (priv->use_bg_color)
@@ -1461,8 +1462,11 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 
 	priv->image = image;
+	gtk_image_view_set_angle (GTK_IMAGE_VIEW (priv->display), 0);
+	gtk_image_view_set_fit_allocation (GTK_IMAGE_VIEW (priv->display), TRUE);
 	gtk_image_view_set_abstract_image (GTK_IMAGE_VIEW (priv->display),
 	                                   GTK_ABSTRACT_IMAGE (image));
+
 
 	g_object_notify (G_OBJECT (view), "image");
 }
@@ -1616,6 +1620,20 @@ _motion_notify_cb (GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
 }
 
 static void
+display_scale_changed_cb (GtkImageView *display,
+                          GParamSpec   *param_spec,
+                          gpointer      user_data)
+{
+	double scale = gtk_image_view_get_scale (display);
+
+
+	/* Will recalculate the surface */
+	eog_image_set_view_scale (EOG_SCROLL_VIEW (user_data)->priv->image, scale);
+
+	/*gtk_image_view_set_scale (GTK_IMAGE_VIEW (EOG_SCROLL_VIEW (user_data)->priv->display), 1.0);*/
+}
+
+static void
 eog_scroll_view_init (EogScrollView *view)
 {
 	GSettings *settings;
@@ -1650,7 +1668,11 @@ eog_scroll_view_init (EogScrollView *view)
 	                              "can-focus", TRUE,
 	                              "hexpand", TRUE,
 	                              "vexpand", TRUE,
+	                              "fit-allocation", TRUE,
 	                              NULL);
+
+	g_signal_connect (priv->display, "notify::scale",
+	                  G_CALLBACK (display_scale_changed_cb), view);
 
 	gtk_widget_add_events (GTK_WIDGET (priv->display),
 			       GDK_EXPOSURE_MASK
