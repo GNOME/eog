@@ -103,8 +103,6 @@ struct _EogScrollViewPrivate {
 
 	/* actual image */
 	EogImage *image;
-	guint image_changed_id;
-	guint frame_changed_id;
 
 	/* zoom mode, either ZOOM_MODE_FIT or ZOOM_MODE_FREE */
 	EogZoomMode zoom_mode;
@@ -195,16 +193,6 @@ free_image_resources (EogScrollView *view)
 	EogScrollViewPrivate *priv;
 
 	priv = view->priv;
-
-	if (priv->image_changed_id > 0) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_id);
-		priv->image_changed_id = 0;
-	}
-
-	if (priv->frame_changed_id > 0) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->frame_changed_id);
-		priv->frame_changed_id = 0;
-	}
 
 	if (priv->image != NULL) {
 		eog_image_data_unref (priv->image);
@@ -1417,9 +1405,9 @@ eog_scroll_view_init (EogScrollView *view)
 			  G_CALLBACK (display_key_press_event), view);
 
 	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
-			     target_table, G_N_ELEMENTS (target_table),
-			     GDK_ACTION_COPY | GDK_ACTION_MOVE |
-			     GDK_ACTION_LINK | GDK_ACTION_ASK);
+	                     target_table, G_N_ELEMENTS (target_table),
+	                     GDK_ACTION_COPY | GDK_ACTION_MOVE |
+	                     GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
 			  G_CALLBACK (view_on_drag_data_get_cb), view);
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
