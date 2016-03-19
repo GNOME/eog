@@ -351,6 +351,8 @@ render_svg_surface (EogImage *img)
 	w = (int)(priv->width * priv->view_scale);
 	h = (int)(priv->height * priv->view_scale);
 
+	g_message ("Rendering svg surface with size %d, %d", w, h);
+
 	priv->surface = gdk_window_create_similar_image_surface (NULL,
 	                                                         CAIRO_FORMAT_ARGB32,
 	                                                         w, h,

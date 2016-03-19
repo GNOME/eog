@@ -899,7 +899,6 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
 	int scaled_width, scaled_height;
-	double scale;
 	int xofs, yofs;
 
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (data), FALSE);
@@ -912,9 +911,8 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		return TRUE;
 
 
-	scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
-	scaled_width = (int)(scale * gtk_abstract_image_get_width (GTK_ABSTRACT_IMAGE (priv->image)));
-	scaled_height = (int)(scale * gtk_abstract_image_get_height (GTK_ABSTRACT_IMAGE (priv->image)));
+	scaled_width = (int)gtk_adjustment_get_upper (priv->hadj);
+	scaled_height = (int)gtk_adjustment_get_upper (priv->vadj);
 
 	gtk_widget_get_allocation (priv->display, &allocation);
 
