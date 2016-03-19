@@ -1383,7 +1383,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
 		/* Make sure the window is really realized
 		 *  before displaying the image. The ScrollView needs that.  */
-        	if (!gtk_widget_get_realized (GTK_WIDGET (window))) {
+		if (!gtk_widget_get_realized (GTK_WIDGET (window))) {
 			gint width = -1, height = -1;
 
 			eog_image_get_size (job->image, &width, &height);

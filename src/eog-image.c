@@ -92,54 +92,29 @@ static GList *supported_mime_types = NULL;
 static void
 eog_image_free_mem_private (EogImage *image)
 {
-	EogImagePrivate *priv;
-
-	priv = image->priv;
+	EogImagePrivate *priv = image->priv;
 
 	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
 		eog_image_cancel_load (image);
 	} else {
-		if (priv->anim_iter != NULL) {
-			g_object_unref (priv->anim_iter);
-			priv->anim_iter = NULL;
-		}
 
-		if (priv->anim != NULL) {
-			g_object_unref (priv->anim);
-			priv->anim = NULL;
-		}
-
-		if (priv->image != NULL) {
-			g_object_unref (priv->image);
-			priv->image = NULL;
-		}
+		g_clear_object (&priv->anim_iter);
+		g_clear_object (&priv->anim);
+		g_clear_object (&priv->image);
 
 #ifdef HAVE_RSVG
-		if (priv->svg != NULL) {
-			g_object_unref (priv->svg);
-			priv->svg = NULL;
-		}
+		g_clear_object (&priv->svg);
 #endif
 
 #ifdef HAVE_EXIF
-		if (priv->exif != NULL) {
-			exif_data_unref (priv->exif);
-			priv->exif = NULL;
-		}
+		g_clear_object (&priv->exif);
 #endif
 
-		if (priv->exif_chunk != NULL) {
-			g_free (priv->exif_chunk);
-			priv->exif_chunk = NULL;
-		}
-
+		g_clear_object (&priv->exif_chunk);
 		priv->exif_chunk_len = 0;
 
 #ifdef HAVE_EXEMPI
-		if (priv->xmp != NULL) {
-			xmp_free (priv->xmp);
-			priv->xmp = NULL;
-		}
+		g_clear_object (&priv->xmp);
 #endif
 
 #ifdef HAVE_LCMS
@@ -148,7 +123,6 @@ eog_image_free_mem_private (EogImage *image)
 			priv->profile = NULL;
 		}
 #endif
-
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 		priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
 	}
@@ -163,10 +137,7 @@ eog_image_dispose (GObject *object)
 
 	eog_image_free_mem_private (EOG_IMAGE (object));
 
-	if (priv->file) {
-		g_object_unref (priv->file);
-		priv->file = NULL;
-	}
+	g_clear_object (&priv->file);
 
 	if (priv->caption) {
 		g_free (priv->caption);
@@ -190,15 +161,8 @@ eog_image_dispose (GObject *object)
 
 	g_mutex_clear (&priv->status_mutex);
 
-	if (priv->trans) {
-		g_object_unref (priv->trans);
-		priv->trans = NULL;
-	}
-
-	if (priv->trans_autorotate) {
-		g_object_unref (priv->trans_autorotate);
-		priv->trans_autorotate = NULL;
-	}
+	g_clear_object(&priv->trans);
+	g_clear_object(&priv->trans_autorotate);
 
 	if (priv->undo_stack) {
 		g_slist_foreach (priv->undo_stack, (GFunc) g_object_unref, NULL);
@@ -296,6 +260,7 @@ private_timeout (gpointer data)
 {
 	EogImage *img = EOG_IMAGE (data);
 	EogImagePrivate *priv = img->priv;
+
 
 	if (eog_image_is_animation (img) &&
 	    !g_source_is_destroyed (g_main_current_source ())) {
@@ -1306,6 +1271,7 @@ eog_image_real_load (EogImage *img,
 		if (gdk_pixbuf_animation_is_static_image (priv->anim)) {
 			priv->image = gdk_pixbuf_animation_get_static_image (priv->anim);
 			priv->anim = NULL;
+			priv->anim_iter = NULL;
 		} else {
 			priv->anim_iter = gdk_pixbuf_animation_get_iter (priv->anim,NULL);
 			priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
