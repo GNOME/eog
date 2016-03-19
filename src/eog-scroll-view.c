@@ -214,20 +214,19 @@ free_image_resources (EogScrollView *view)
 
 /* Computes the size in pixels of the scaled image */
 static void
-compute_scaled_size (EogScrollView *view, double zoom, int *width, int *height)
+compute_scaled_size (EogScrollView *view, int *width, int *height)
 {
 	EogScrollViewPrivate *priv = view->priv;
 
-
-    if (priv->image) {
-      GtkAbstractImage *image = GTK_ABSTRACT_IMAGE (priv->image);
-
-      *width  = floor (gtk_abstract_image_get_width  (image) * zoom + 0.5);
-      *height = floor (gtk_abstract_image_get_height (image) * zoom + 0.5);
-    } else {
-      *width  = 0;
-      *height = 0;
-    }
+	if (priv->image) {
+		GtkAbstractImage *image = GTK_ABSTRACT_IMAGE (priv->image);
+		double scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
+		*width  = floor (gtk_abstract_image_get_width  (image) * scale + 0.5);
+		*height = floor (gtk_abstract_image_get_height (image) * scale + 0.5);
+	} else {
+		*width  = 0;
+		*height = 0;
+	}
 }
 
 static void
@@ -249,9 +248,9 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 		case EOG_SCROLL_VIEW_CURSOR_NORMAL:
 			gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
 			break;
-                case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
+		case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
 			cursor = gdk_cursor_new_for_display (display, GDK_BLANK_CURSOR);
-                        break;
+			break;
 		case EOG_SCROLL_VIEW_CURSOR_DRAG:
 			cursor = gdk_cursor_new_for_display (display, GDK_FLEUR);
 			break;
@@ -667,9 +666,8 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT) {
+	if (gtk_image_view_get_fit_allocation (GTK_IMAGE_VIEW (priv->display))) {
 		set_zoom_fit (view);
-		gtk_widget_queue_draw (priv->display);
 	} else {
 		int scaled_width, scaled_height;
 		int xofs = (int) gtk_adjustment_get_value (priv->hadj);
@@ -677,7 +675,7 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 		int x_offset = 0;
 		int y_offset = 0;
 
-		compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+		compute_scaled_size (view, &scaled_width, &scaled_height);
 
 		if (xofs + event->width > scaled_width)
 			x_offset = scaled_width - event->width - xofs;
@@ -869,11 +867,15 @@ drag_begin_cb (GtkGesture *gesture,
 	EogScrollView *view = user_data;
 	EogScrollViewPrivate *priv = view->priv;
 
+
+	g_message (__FUNCTION__);
+
 	if (!is_image_movable (view)) {
 		g_message ("not movable");
 		gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
 		return;
-	}
+	} else
+		g_message ("Movable");
 
 	gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 
@@ -939,7 +941,7 @@ eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale)
 	if (priv->upscale != upscale) {
 		priv->upscale = upscale;
 
-		if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT) {
+		if (gtk_image_view_get_fit_allocation (GTK_IMAGE_VIEW (priv->display))) {
 			set_zoom_fit (view);
 			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 		}
@@ -1075,7 +1077,6 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 		}
 	}
 	set_zoom (view, zoom, FALSE, 0, 0);
-
 }
 
 void
@@ -1131,7 +1132,7 @@ eog_scroll_view_get_zoom (EogScrollView *view)
 {
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), 0.0);
 
-	return view->priv->zoom;
+	return gtk_image_view_get_scale (GTK_IMAGE_VIEW (view->priv->display));
 }
 
 gboolean
@@ -1941,7 +1942,7 @@ eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
 	}
 
 	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL,
-			button, event_time);
+	                button, event_time);
 }
 
 static gboolean
@@ -1954,10 +1955,10 @@ view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event,
 	{
 		eog_scroll_view_popup_menu (EOG_SCROLL_VIEW (view), event);
 
-		return TRUE;
+		return GDK_EVENT_STOP;
 	}
 
-	return FALSE;
+	return GDK_EVENT_PROPAGATE;
 }
 
 static gboolean
@@ -2135,16 +2136,10 @@ eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
 	int _xofs = (int) gtk_adjustment_get_value (priv->hadj);
 	int _yofs = (int) gtk_adjustment_get_value (priv->vadj);
 
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+	compute_scaled_size (view, &scaled_width, &scaled_height);
 
-	if (G_LIKELY (width))
-		*width = scaled_width;
-	if (G_LIKELY (height))
-		*height = scaled_height;
-
-	/* If only width and height are needed stop here. */
-	if (x == NULL && y == NULL)
-		return TRUE;
+	*width = scaled_width;
+	*height = scaled_height;
 
 	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 
@@ -2160,10 +2155,8 @@ eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
 	else
 		yofs = -_yofs;
 
-	if (G_LIKELY (x))
-		*x = xofs;
-	if (G_LIKELY (y))
-		*y = yofs;
+	*x = xofs;
+	*y = yofs;
 
 	return TRUE;
 }
