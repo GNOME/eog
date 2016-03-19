@@ -1966,7 +1966,7 @@ view_on_drag_data_get_cb (GtkWidget        *widget,
 	image = view->priv->image;
 
 	if (image == NULL)
-	  return;
+		return;
 
 	file = eog_image_get_file (image);
 	uris[0] = g_file_get_uri (file);
