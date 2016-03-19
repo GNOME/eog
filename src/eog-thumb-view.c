@@ -958,6 +958,9 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 
 	model = gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview));
 
+	if (model == NULL)
+		return;
+
 	n_items = eog_list_store_length (EOG_LIST_STORE (model));
 
 	if (n_items == 0) {
