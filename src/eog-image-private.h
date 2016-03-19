@@ -48,8 +48,8 @@ struct _EogImagePrivate {
 
 	cairo_surface_t *surface;
 	guint timeout_id;
-
 	double view_scale;
+	cairo_filter_t interp_type;
 
 #ifdef HAVE_RSVG
 	RsvgHandle       *svg;

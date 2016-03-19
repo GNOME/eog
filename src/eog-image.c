@@ -214,6 +214,8 @@ __draw (GtkAbstractImage *_image, cairo_t *ct)
 
 	if (priv->svg)
 		cairo_scale (ct, 1.0 / priv->view_scale, 1.0 / priv->view_scale);
+	else
+		cairo_pattern_set_filter (cairo_get_source (ct), priv->interp_type);
 
 	cairo_set_source_surface (ct, priv->surface, 0, 0);
 }
@@ -400,6 +402,7 @@ eog_image_init (EogImage *img)
 	img->priv->image = NULL;
 	img->priv->anim = NULL;
 	img->priv->anim_iter = NULL;
+	img->priv->interp_type = CAIRO_FILTER_GOOD;
 	img->priv->timeout_id = 0;
 	img->priv->thumbnail = NULL;
 	img->priv->width = -1;
@@ -2595,4 +2598,10 @@ eog_image_set_view_scale (EogImage *img, double scale)
 		render_svg_surface (img);
 		g_signal_emit_by_name (G_OBJECT (img), "changed", 0);
 	}
+}
+
+void
+eog_image_set_interp_type (EogImage *img, cairo_filter_t interp_type)
+{
+	img->priv->interp_type = interp_type;
 }

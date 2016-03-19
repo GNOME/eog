@@ -218,6 +218,8 @@ gboolean          eog_image_has_alpha                (EogImage *img);
 
 void              eog_image_set_view_scale           (EogImage *img, double view_scale);
 
+void              eog_image_set_interp_type          (EogImage *img, cairo_filter_t interp_type);
+
 G_END_DECLS
 
 #endif /* __EOG_IMAGE_H__ */

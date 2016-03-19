@@ -269,24 +269,22 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 #define DOUBLE_EQUAL_MAX_DIFF 1e-6
 #define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
 
-/* Returns whether the image is zoomed in */
-static gboolean
+static inline gboolean
 is_zoomed_in (EogScrollView *view)
 {
-	EogScrollViewPrivate *priv;
+	EogScrollViewPrivate *priv = view->priv;
+	double scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
-	priv = view->priv;
-	return priv->zoom - 1.0 > DOUBLE_EQUAL_MAX_DIFF;
+	return scale - 1.0 > DOUBLE_EQUAL_MAX_DIFF;
 }
 
-/* Returns whether the image is zoomed out */
-static gboolean
+static inline gboolean
 is_zoomed_out (EogScrollView *view)
 {
-	EogScrollViewPrivate *priv;
+	EogScrollViewPrivate *priv = view->priv;
+	double scale = gtk_image_view_get_scale (GTK_IMAGE_VIEW (priv->display));
 
-	priv = view->priv;
-	return DOUBLE_EQUAL_MAX_DIFF + priv->zoom - 1.0 < 0.0;
+	return DOUBLE_EQUAL_MAX_DIFF + scale - 1.0 < 0.0;
 }
 
 /* Returns wether the image is movable, that means if it is larger then
@@ -486,7 +484,7 @@ set_minimum_zoom_factor (EogScrollView *view)
  **/
 static void
 set_zoom (EogScrollView *view, double zoom,
-	  gboolean have_anchor, int anchorx, int anchory)
+          gboolean have_anchor, int anchorx, int anchory)
 {
 	EogScrollViewPrivate *priv = view->priv;
 
@@ -1431,13 +1429,17 @@ display_scale_changed_cb (GtkImageView *display,
                           GParamSpec   *param_spec,
                           gpointer      user_data)
 {
+	EogScrollView *view = user_data;
+	EogScrollViewPrivate *priv = view->priv;
 	double scale = gtk_image_view_get_scale (display);
 
+	eog_image_set_view_scale (priv->image, scale);
 
-	/* Will recalculate the surface */
-	eog_image_set_view_scale (EOG_SCROLL_VIEW (user_data)->priv->image, scale);
-
-	/*gtk_image_view_set_scale (GTK_IMAGE_VIEW (EOG_SCROLL_VIEW (user_data)->priv->display), 1.0);*/
+	if (is_zoomed_in (view)) {
+		eog_image_set_interp_type (priv->image, priv->interp_type_in);
+	} else if (is_zoomed_out (view)) {
+		eog_image_set_interp_type (priv->image, priv->interp_type_out);
+	}
 }
 
 static void

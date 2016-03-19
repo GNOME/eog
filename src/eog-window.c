@@ -1024,8 +1024,6 @@ eog_window_action_open_with (GSimpleAction *action,
 	window = EOG_WINDOW (user_data);
 
 	index = g_variant_get_uint32 (parameter);
-	if (index < 0)
-		return;
 
 	app = g_ptr_array_index (window->priv->appinfo, index);
 	if (!app)
