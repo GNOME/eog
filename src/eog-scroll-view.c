@@ -307,7 +307,7 @@ is_image_movable (EogScrollView *view)
   ---------------------------------*/
 
 static void
-get_transparency_params (EogScrollView *view, int *size, GdkRGBA *color1, GdkRGBA *color2)
+get_transparency_params (EogScrollView *view, GdkRGBA *color1, GdkRGBA *color2)
 {
 	EogScrollViewPrivate *priv;
 
@@ -334,24 +334,22 @@ get_transparency_params (EogScrollView *view, int *size, GdkRGBA *color1, GdkRGB
 	default:
 		g_assert_not_reached ();
 	};
-
-	*size = CHECK_MEDIUM;
 }
 
 
 static cairo_surface_t *
 create_background_surface (EogScrollView *view)
 {
-	int check_size;
+	int check_size = CHECK_MEDIUM;
 	GdkRGBA check_1;
 	GdkRGBA check_2;
 	cairo_surface_t *surface;
 
-	get_transparency_params (view, &check_size, &check_1, &check_2);
+	get_transparency_params (view, &check_1, &check_2);
 	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
 						     CAIRO_CONTENT_COLOR_ALPHA,
 						     check_size * 2, check_size * 2);
-	cairo_t* cr = cairo_create (surface);
+	cairo_t *cr = cairo_create (surface);
 
 	/* Use source operator to make fully transparent work */
 	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
