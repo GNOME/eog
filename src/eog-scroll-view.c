@@ -118,9 +118,6 @@ struct _EogScrollViewPrivate {
 	/* the minimum possible (reasonable) zoom factor */
 	double min_zoom;
 
-	/* Current scrolling offsets */
-	int xofs, yofs;
-
 	/* handler ID for paint idle callback */
 	guint idle_id;
 
@@ -377,54 +374,35 @@ create_background_surface (EogScrollView *view)
 
 /* Scrolls the view to the specified offsets.  */
 static void
-scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
+scroll_to (EogScrollView *view, int x, int y)
 {
-	EogScrollViewPrivate *priv;
+	EogScrollViewPrivate *priv = view->priv;
 	GtkAllocation allocation;
 	int xofs, yofs;
-#if 0
-	int src_x, src_y;
-	int dest_x, dest_y;
-	int twidth, theight;
-#endif
-
-	priv = view->priv;
-
-	/* Check bounds & Compute offsets */
-	/*if (gtk_widget_get_visible (priv->hbar)) {*/
-		x = CLAMP (x, 0, gtk_adjustment_get_upper (priv->hadj)
-				 - gtk_adjustment_get_page_size (priv->hadj));
-		xofs = x - priv->xofs;
-	/*} else*/
-		/*xofs = 0;*/
-
-	/*if (gtk_widget_get_visible (priv->vbar)) {*/
-		y = CLAMP (y, 0, gtk_adjustment_get_upper (priv->vadj)
-				 - gtk_adjustment_get_page_size (priv->vadj));
-		yofs = y - priv->yofs;
-	/*} else*/
-		/*yofs = 0;*/
-
-	if (xofs == 0 && yofs == 0)
-		return;
-
-	priv->xofs = x;
-	priv->yofs = y;
 
 	if (!gtk_widget_is_drawable (priv->display))
 		goto out;
+
+
+	/* Check bounds & Compute offsets */
+	x = CLAMP (x, 0, gtk_adjustment_get_upper (priv->hadj)
+	                 - gtk_adjustment_get_page_size (priv->hadj));
+	xofs = x - (int) gtk_adjustment_get_value (priv->hadj);
+
+	y = CLAMP (y, 0, gtk_adjustment_get_upper (priv->vadj)
+	                 - gtk_adjustment_get_page_size (priv->vadj));
+	yofs = y - (int) gtk_adjustment_get_value (priv->vadj);
+
+	if (xofs == 0 && yofs == 0)
+		return;
 
 	gtk_widget_get_allocation (priv->display, &allocation);
 
 	if (abs (xofs) >= allocation.width || abs (yofs) >= allocation.height) {
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-		goto out;
 	}
 
- out:
-	if (!change_adjustments)
-		return;
-
+out:
 	g_signal_handlers_block_matched (
 		priv->hadj, G_SIGNAL_MATCH_DATA,
 		0, 0, NULL, NULL, view);
@@ -450,10 +428,14 @@ static void
 scroll_by (EogScrollView *view, int xofs, int yofs)
 {
 	EogScrollViewPrivate *priv;
+	int _xofs, _yofs;
 
 	priv = view->priv;
 
-	scroll_to (view, priv->xofs + xofs, priv->yofs + yofs, TRUE);
+	_xofs = (int) gtk_adjustment_get_value (priv->hadj);
+	_yofs = (int) gtk_adjustment_get_value (priv->vadj);
+
+	scroll_to (view, _xofs + xofs, _yofs + yofs);
 }
 
 /* Drags the image to the specified position */
@@ -471,7 +453,7 @@ drag_to (EogScrollView *view, int x, int y)
 	x = priv->drag_ofs_x + dx;
 	y = priv->drag_ofs_y + dy;
 
-	scroll_to (view, x, y, TRUE);
+	scroll_to (view, x, y);
 }
 
 static void
@@ -707,12 +689,12 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 		gtk_widget_grab_focus (GTK_WIDGET (priv->display));
 
 	if (priv->dragging)
-		return FALSE;
+		return GDK_EVENT_PROPAGATE;
 
 	switch (event->button) {
 		case 1:
 		case 2:
-                        if (event->button == 1 && !priv->scroll_wheel_zoom &&
+			if (event->button == 1 && !priv->scroll_wheel_zoom &&
 			    !(event->state & GDK_CONTROL_MASK))
 				break;
 
@@ -723,16 +705,16 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 				priv->drag_anchor_x = event->x;
 				priv->drag_anchor_y = event->y;
 
-				priv->drag_ofs_x = priv->xofs;
-				priv->drag_ofs_y = priv->yofs;
+				priv->drag_ofs_x = (int) gtk_adjustment_get_value (priv->hadj);
+				priv->drag_ofs_y = (int) gtk_adjustment_get_value (priv->vadj);
 
-				return TRUE;
+				return GDK_EVENT_STOP;
 			}
 		default:
 			break;
 	}
 
-	return FALSE;
+	return GDK_EVENT_PROPAGATE;
 }
 
 /* Button release event handler for the image view */
@@ -777,17 +759,18 @@ eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer
 	priv = view->priv;
 
 	if (!priv->dragging)
-		return FALSE;
+		return GDK_EVENT_PROPAGATE;
 
-	if (event->is_hint)
-		gdk_window_get_device_position (gtk_widget_get_window (GTK_WIDGET (priv->display)), event->device, &x, &y, &mods);
-	else {
+	if (event->is_hint) {
+		gdk_window_get_device_position (gtk_widget_get_window (GTK_WIDGET (priv->display)),
+		                                event->device, &x, &y, &mods);
+	} else {
 		x = event->x;
 		y = event->y;
 	}
 
 	drag_to (view, x, y);
-	return TRUE;
+	return GDK_EVENT_STOP;
 }
 
 static void
@@ -819,16 +802,18 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 		gtk_widget_queue_draw (priv->display);
 	} else {
 		int scaled_width, scaled_height;
+		int xofs = (int) gtk_adjustment_get_value (priv->hadj);
+		int yofs = (int) gtk_adjustment_get_value (priv->vadj);
 		int x_offset = 0;
 		int y_offset = 0;
 
 		compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
-		if (priv->xofs + event->width > scaled_width)
-			x_offset = scaled_width - event->width - priv->xofs;
+		if (xofs + event->width > scaled_width)
+			x_offset = scaled_width - event->width - xofs;
 
-		if (priv->yofs + event->height > scaled_height)
-			y_offset = scaled_height - event->height - priv->yofs;
+		if (yofs + event->height > scaled_height)
+			y_offset = scaled_height - event->height - yofs;
 
 		scroll_by (view, x_offset, y_offset);
 	}
@@ -911,7 +896,7 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		return TRUE;
 
 
-	scaled_width = (int)gtk_adjustment_get_upper (priv->hadj);
+	scaled_width  = (int)gtk_adjustment_get_upper (priv->hadj);
 	scaled_height = (int)gtk_adjustment_get_upper (priv->vadj);
 
 	gtk_widget_get_allocation (priv->display, &allocation);
@@ -2232,7 +2217,9 @@ eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
 {
 	EogScrollViewPrivate *priv = view->priv;
 	GtkAllocation allocation;
-	gint scaled_width, scaled_height, xofs, yofs;
+	int scaled_width, scaled_height, xofs, yofs;
+	int _xofs = (int) gtk_adjustment_get_value (priv->hadj);
+	int _yofs = (int) gtk_adjustment_get_value (priv->vadj);
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
@@ -2252,12 +2239,12 @@ eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
 	if (scaled_width <= allocation.width)
 		xofs = (allocation.width - scaled_width) / 2;
 	else
-		xofs = -priv->xofs;
+		xofs = -_xofs;
 
 	if (scaled_height <= allocation.height)
 		yofs = (allocation.height - scaled_height) / 2;
 	else
-		yofs = -priv->yofs;
+		yofs = -_yofs;
 
 	if (G_LIKELY (x))
 		*x = xofs;
