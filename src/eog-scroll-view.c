@@ -2107,9 +2107,12 @@ EogZoomMode
 eog_scroll_view_get_zoom_mode (EogScrollView *view)
 {
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view),
-			      EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	                      EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
-	return view->priv->zoom_mode;
+	if (gtk_image_view_get_fit_allocation (GTK_IMAGE_VIEW (view->priv->display)))
+		return EOG_ZOOM_MODE_SHRINK_TO_FIT;
+	else
+		return EOG_ZOOM_MODE_FREE;
 }
 
 static gboolean
