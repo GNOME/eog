@@ -41,7 +41,6 @@ struct _EogImagePrivate {
 	EogImageStatus    prev_status;
 	EogImageMetadataStatus metadata_status;
 
-	gboolean          is_playing;
 	GdkPixbufAnimation     *anim;
 	GdkPixbufAnimationIter *anim_iter;
 	GdkPixbuf        *image;
@@ -51,8 +50,6 @@ struct _EogImagePrivate {
 	guint timeout_id;
 
 	double view_scale;
-	double current_scale;
-
 
 #ifdef HAVE_RSVG
 	RsvgHandle       *svg;
