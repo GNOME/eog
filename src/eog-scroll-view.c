@@ -155,8 +155,6 @@ struct _EogScrollViewPrivate {
 	cairo_surface_t *background_surface;
 
 	GtkGesture *pan_gesture;
-	GtkGesture *zoom_gesture;
-	GtkGesture *rotate_gesture;
 	gdouble initial_zoom;
 	EogRotationState rotate_state;
 	EogPanAction pan_action;
@@ -386,7 +384,6 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
 	int xofs, yofs;
-	GdkWindow *window;
 #if 0
 	int src_x, src_y;
 	int dest_x, dest_y;
@@ -424,15 +421,6 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	if (abs (xofs) >= allocation.width || abs (yofs) >= allocation.height) {
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 		goto out;
-	}
-
-	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
-
-	/* Scroll the window area and process exposure synchronously. */
-
-	if (!gtk_gesture_is_recognized (priv->zoom_gesture)) {
-		gdk_window_scroll (window, -xofs, -yofs);
-		gdk_window_process_updates (window, TRUE);
 	}
 
  out:
@@ -790,9 +778,6 @@ eog_scroll_view_motion_event (GtkWidget *widget, GdkEventMotion *event, gpointer
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	if (gtk_gesture_is_recognized (priv->zoom_gesture))
-		return TRUE;
-
 	if (!priv->dragging)
 		return FALSE;
 
@@ -975,70 +960,6 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 }
 
 static void
-zoom_gesture_begin_cb (GtkGestureZoom   *gesture,
-		       GdkEventSequence *sequence,
-		       EogScrollView    *view)
-{
-	gdouble center_x, center_y;
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-
-	/* Displace dragging point to gesture center */
-	gtk_gesture_get_bounding_box_center (GTK_GESTURE (gesture),
-                                             &center_x, &center_y);
-	priv->drag_anchor_x = center_x;
-	priv->drag_anchor_y = center_y;
-	priv->drag_ofs_x = priv->xofs;
-	priv->drag_ofs_y = priv->yofs;
-	priv->dragging = TRUE;
-	priv->initial_zoom = priv->zoom;
-
-        gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
-}
-
-static void
-zoom_gesture_update_cb (GtkGestureZoom   *gesture,
-			GdkEventSequence *sequence,
-			EogScrollView    *view)
-{
-	gdouble center_x, center_y, scale;
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-	scale = gtk_gesture_zoom_get_scale_delta (gesture);
-	gtk_gesture_get_bounding_box_center (GTK_GESTURE (gesture),
-                                             &center_x, &center_y);
-
-	drag_to (view, center_x, center_y);
-	set_zoom (view, priv->initial_zoom * scale, TRUE,
-		  center_x, center_y);
-}
-
-static void
-zoom_gesture_end_cb (GtkGestureZoom   *gesture,
-		     GdkEventSequence *sequence,
-		     EogScrollView    *view)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-	priv->dragging = FALSE;
-        eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
-}
-
-static void
-rotate_gesture_begin_cb (GtkGesture       *gesture,
-			 GdkEventSequence *sequence,
-			 EogScrollView    *view)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-	priv->rotate_state = EOG_TRANSFORM_NONE;
-}
-
-static void
 pan_gesture_pan_cb (GtkGesturePan   *gesture,
 		    GtkPanDirection  direction,
 		    gdouble          offset,
@@ -1048,7 +969,7 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 
 	if (eog_scroll_view_scrollbars_visible (view)) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
-				       GTK_EVENT_SEQUENCE_DENIED);
+		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
 	}
 
@@ -1086,94 +1007,6 @@ pan_gesture_end_cb (GtkGesture       *gesture,
 		g_signal_emit (view, view_signals [SIGNAL_NEXT_IMAGE], 0);
 
 	priv->pan_action = EOG_PAN_ACTION_NONE;
-}
-
-static gboolean
-scroll_view_check_angle (gdouble angle,
-			 gdouble min,
-			 gdouble max,
-			 gdouble threshold)
-{
-	if (min < max) {
-		return (angle > min - threshold &&
-			angle < max + threshold);
-	} else {
-		return (angle < max + threshold ||
-			angle > min - threshold);
-	}
-}
-
-static EogRotationState
-scroll_view_get_rotate_state (EogScrollView *view,
-			      gdouble        delta)
-{
-	EogScrollViewPrivate *priv;
-
-	priv = view->priv;
-
-#define THRESHOLD (G_PI / 16)
-	switch (priv->rotate_state) {
-	case EOG_ROTATION_0:
-		if (scroll_view_check_angle (delta, G_PI * 7 / 4,
-					     G_PI / 4, THRESHOLD))
-			return priv->rotate_state;
-		break;
-	case EOG_ROTATION_90:
-		if (scroll_view_check_angle (delta, G_PI / 4,
-					     G_PI * 3 / 4, THRESHOLD))
-			return priv->rotate_state;
-		break;
-	case EOG_ROTATION_180:
-		if (scroll_view_check_angle (delta, G_PI * 3 / 4,
-					     G_PI * 5 / 4, THRESHOLD))
-			return priv->rotate_state;
-		break;
-	case EOG_ROTATION_270:
-		if (scroll_view_check_angle (delta, G_PI * 5 / 4,
-					     G_PI * 7 / 4, THRESHOLD))
-			return priv->rotate_state;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-#undef THRESHOLD
-
-	if (scroll_view_check_angle (delta, G_PI / 4, G_PI * 3 / 4, 0))
-		return EOG_ROTATION_90;
-	else if (scroll_view_check_angle (delta, G_PI * 3 / 4, G_PI * 5 / 4, 0))
-		return EOG_ROTATION_180;
-	else if (scroll_view_check_angle (delta, G_PI * 5 / 4, G_PI * 7 / 4, 0))
-		return EOG_ROTATION_270;
-
-	return EOG_ROTATION_0;
-}
-
-static void
-rotate_gesture_angle_changed_cb (GtkGestureRotate *rotate,
-				 gdouble           angle,
-				 gdouble           delta,
-				 EogScrollView    *view)
-{
-	EogRotationState rotate_state;
-	EogScrollViewPrivate *priv;
-	gint angle_diffs [N_EOG_ROTATIONS][N_EOG_ROTATIONS] = {
-		{ 0,   90,  180, 270 },
-		{ 270, 0,   90,  180 },
-		{ 180, 270, 0,   90 },
-		{ 90,  180, 270, 0 }
-	};
-	gint rotate_angle;
-
-	priv = view->priv;
-	rotate_state = scroll_view_get_rotate_state (view, delta);
-
-	if (priv->rotate_state == rotate_state)
-		return;
-
-	rotate_angle = angle_diffs[priv->rotate_state][rotate_state];
-	g_signal_emit (view, view_signals [SIGNAL_ROTATION_CHANGED], 0, (gdouble) rotate_angle);
-	priv->rotate_state = rotate_state;
 }
 
 /*===================================
@@ -1729,27 +1562,6 @@ eog_scroll_view_init (EogScrollView *view)
 
 	g_object_unref (settings);
 
-	priv->zoom_gesture = gtk_gesture_zoom_new (GTK_WIDGET (view));
-	g_signal_connect (priv->zoom_gesture, "begin",
-			  G_CALLBACK (zoom_gesture_begin_cb), view);
-	g_signal_connect (priv->zoom_gesture, "update",
-			  G_CALLBACK (zoom_gesture_update_cb), view);
-	g_signal_connect (priv->zoom_gesture, "end",
-			  G_CALLBACK (zoom_gesture_end_cb), view);
-	g_signal_connect (priv->zoom_gesture, "cancel",
-			  G_CALLBACK (zoom_gesture_end_cb), view);
-	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->zoom_gesture),
-						    GTK_PHASE_CAPTURE);
-
-	priv->rotate_gesture = gtk_gesture_rotate_new (GTK_WIDGET (view));
-	gtk_gesture_group (priv->rotate_gesture, priv->zoom_gesture);
-	g_signal_connect (priv->rotate_gesture, "angle-changed",
-			  G_CALLBACK (rotate_gesture_angle_changed_cb), view);
-	g_signal_connect (priv->rotate_gesture, "begin",
-			  G_CALLBACK (rotate_gesture_begin_cb), view);
-	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->rotate_gesture),
-						    GTK_PHASE_CAPTURE);
-
 	priv->pan_gesture = gtk_gesture_pan_new (GTK_WIDGET (view),
 						 GTK_ORIENTATION_HORIZONTAL);
 	g_signal_connect (priv->pan_gesture, "pan",
@@ -1897,16 +1709,6 @@ eog_scroll_view_dispose (GObject *object)
 	}
 
 	free_image_resources (view);
-
-	if (priv->zoom_gesture) {
-		g_object_unref (priv->zoom_gesture);
-		priv->zoom_gesture = NULL;
-	}
-
-	if (priv->rotate_gesture) {
-		g_object_unref (priv->rotate_gesture);
-		priv->rotate_gesture = NULL;
-	}
 
 	if (priv->pan_gesture) {
 		g_object_unref (priv->pan_gesture);
