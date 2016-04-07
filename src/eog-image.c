@@ -332,18 +332,6 @@ eog_image_init (EogImage *img)
 }
 
 EogImage *
-eog_image_new (const char *txt_uri)
-{
-	EogImage *img;
-
-	img = EOG_IMAGE (g_object_new (EOG_TYPE_IMAGE, NULL));
-
-	img->priv->file = g_file_new_for_uri (txt_uri);
-
-	return img;
-}
-
-EogImage *
 eog_image_new_file (GFile *file)
 {
 	EogImage *img;
