@@ -1260,6 +1260,7 @@ static gboolean _hq_redraw_cb (gpointer user_data)
 	priv->force_unfiltered = FALSE;
 	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 
+	priv->hq_redraw_timeout_source = NULL;
 	return G_SOURCE_REMOVE;
 }
 
