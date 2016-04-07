@@ -332,13 +332,14 @@ eog_image_init (EogImage *img)
 }
 
 EogImage *
-eog_image_new_file (GFile *file)
+eog_image_new_file (GFile *file, const gchar *caption)
 {
 	EogImage *img;
 
 	img = EOG_IMAGE (g_object_new (EOG_TYPE_IMAGE, NULL));
 
 	img->priv->file = g_object_ref (file);
+	img->priv->caption = g_strdup (caption);
 
 	return img;
 }

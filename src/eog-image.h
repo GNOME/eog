@@ -118,7 +118,7 @@ GType	          eog_image_get_type	             (void) G_GNUC_CONST;
 
 GQuark            eog_image_error_quark              (void);
 
-EogImage         *eog_image_new_file                 (GFile *file);
+EogImage         *eog_image_new_file                 (GFile *file, const gchar *caption);
 
 gboolean          eog_image_load                     (EogImage   *img,
 					              EogImageData data2read,
