@@ -2,14 +2,14 @@
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the eog package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2015.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&ke"
 "ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-16 04:43+0000\n"
-"PO-Revision-Date: 2015-11-16 15:38+0100\n"
+"POT-Creation-Date: 2016-04-29 03:47+0000\n"
+"PO-Revision-Date: 2016-04-29 11:16+0100\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "Language: gd\n"
@@ -26,19 +26,31 @@ msgstr ""
 msgid "Prefere_nces"
 msgstr "Roghai_nnean"
 
-#: ../data/eog-app-menu.xml.h:2 ../data/eog-preferences-dialog.ui.h:2
+#: ../data/eog-app-menu.xml.h:2
+msgid "_Keyboard Shortcuts"
+msgstr "Ath-ghoiridean a' _mheur-chlàir"
+
+#: ../data/eog-app-menu.xml.h:3 ../data/eog-preferences-dialog.ui.h:2
 msgid "_Help"
 msgstr "Cob_hair"
 
-#: ../data/eog-app-menu.xml.h:3
+#: ../data/eog-app-menu.xml.h:4
 msgid "_About"
 msgstr "_Mu dhèidhinn"
 
-#: ../data/eog-app-menu.xml.h:4
+#: ../data/eog-app-menu.xml.h:5
 msgid "_Quit"
 msgstr "_Fàg an-seo"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Brabhsaich is cuairtich dealbhan"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -49,7 +61,7 @@ msgstr ""
 "iomadh fòrmat deilbh gus dealbhan fa leth no cruinneachaidhean dhiubh a "
 "shealltainn."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -61,14 +73,10 @@ msgstr ""
 "deasga. Leughaidh e tagaichean camara gus na dealbhan agad a chuairteachadh "
 "'nam portraid no cruth-tìre gu fèin-obrachail 's mar bu chòir."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:327
-#: ../src/eog-window.c:5542
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
+#: ../src/eog-window.c:5565
 msgid "Image Viewer"
 msgstr "Sealladair dhealbhan"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Brabhsaich is cuairtich dealbhan"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -81,7 +89,6 @@ msgid "_Open…"
 msgstr "F_osgail..."
 
 #: ../data/eog-gear-menu.ui.h:2
-#| msgid "Open _with"
 msgid "Open _With"
 msgstr "Fosgail _le"
 
@@ -104,22 +111,18 @@ msgid "Set as Wa_llpaper"
 msgstr "Suidhich mar phàipear-balla"
 
 #: ../data/eog-gear-menu.ui.h:7
-#| msgid "Slideshow"
 msgid "Sli_deshow"
 msgstr "Taisbeana_dh-shleamhnagan"
 
 #: ../data/eog-gear-menu.ui.h:8
-#| msgid "Side _Pane"
 msgid "S_ide Pane"
 msgstr "_Leòsan-taoibh"
 
 #: ../data/eog-gear-menu.ui.h:9
-#| msgid "_Image Gallery"
 msgid "Image _Gallery"
 msgstr "Gailearaidh _dhealbhan"
 
 #: ../data/eog-gear-menu.ui.h:10
-#| msgid "_Statusbar"
 msgid "S_tatus Bar"
 msgstr "Bàr-s_taide"
 
@@ -235,7 +238,7 @@ msgstr "Sàbhail mar"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3238 ../src/eog-window.c:3241 ../src/eog-window.c:3494
+#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
 msgid "_Cancel"
 msgstr "_Sguir dheth"
 
@@ -388,7 +391,7 @@ msgstr "Rach dhan chiad dealbh sa ghailearaidh"
 msgid "_First Image"
 msgstr "A' _chiad dealbh"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2301
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2357
 msgid "Go to the previous image of the gallery"
 msgstr "Rach dhan dealbh roimhe sa ghailearaidh"
 
@@ -396,7 +399,7 @@ msgstr "Rach dhan dealbh roimhe sa ghailearaidh"
 msgid "_Previous Image"
 msgstr "An dealbh _roimhe"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2289
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2345
 msgid "Go to the next image of the gallery"
 msgstr "Rach dhan ath dhealbh sa ghailearaidh"
 
@@ -436,16 +439,15 @@ msgstr "Meud _abhàisteach"
 msgid "_Best Fit"
 msgstr "Meud as _fhearr"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2316
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2372
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Cuairtich an dealbh 90 ceum gu clì"
 
 #: ../data/fullscreen-toolbar.ui.h:16
-#| msgid "Rotate Counterc_lockwise"
 msgid "Rotate Counter_clockwise"
 msgstr "Cuairtich tuathai_l"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2327
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2383
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Cuairtich an dealbh 90 ceum gu deas"
 
@@ -472,36 +474,209 @@ msgid "_Leave Fullscreen"
 msgstr "_Fàg an làn-sgrìn"
 
 #: ../data/fullscreen-toolbar.ui.h:23
-#| msgid "_Leave Fullscreen"
 msgid "Leave fullscreen mode"
 msgstr "Fàg am modh làn-sgrìn"
+
+#: ../data/help-overlay.ui.h:1
+#| msgid "General"
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Coitcheann"
+
+#: ../data/help-overlay.ui.h:2
+#| msgid "Open a file"
+msgctxt "shortcut window"
+msgid "Open an image file"
+msgstr "Fosgail faidhle deilbh"
+
+#: ../data/help-overlay.ui.h:3
+#| msgid "Enlarge the image"
+msgctxt "shortcut window"
+msgid "Save the image"
+msgstr "Sàbhail an dealbh"
+
+#: ../data/help-overlay.ui.h:4
+#| msgid "Save the selected images with a different name"
+msgctxt "shortcut window"
+msgid "Save the image with a new file name"
+msgstr "Sàbhail an dealbh fo ainm faidhle eile"
+
+#: ../data/help-overlay.ui.h:5
+#| msgid "Print the selected image"
+msgctxt "shortcut window"
+msgid "Print the current image"
+msgstr "Clò-bhuail an dealbh làithreach"
+
+#: ../data/help-overlay.ui.h:6
+#| msgid "Close window"
+msgctxt "shortcut window"
+msgid "Close the current window"
+msgstr "Dùin an uinneag làithreach"
+
+#: ../data/help-overlay.ui.h:7
+#| msgid "Close window"
+msgctxt "shortcut window"
+msgid "Close all windows"
+msgstr "Dùin a h-uile uinneag"
+
+#: ../data/help-overlay.ui.h:8
+#| msgid "Set the selected image as the desktop background"
+msgctxt "shortcut window"
+msgid "Set the image as desktop background"
+msgstr "Suidhich an dealbh mar chùlaibh an deasg"
+
+#: ../data/help-overlay.ui.h:9
+#| msgid "Show/Hide the window toolbar."
+msgctxt "shortcut window"
+msgid "Show/Hide the sidebar"
+msgstr "Seall/Falaich am bàr-taoibh"
+
+#: ../data/help-overlay.ui.h:10
+#| msgid "Image Properties"
+msgctxt "shortcut window"
+msgid "Show image properties dialog"
+msgstr "Seall còmhradh airson roghainnean an deilbh"
+
+#: ../data/help-overlay.ui.h:11
+#| msgid "Help on this application"
+msgctxt "shortcut window"
+msgid "Open the application manual"
+msgstr "Fosgail leabhar-mìneachaidh na h-aplacaid"
+
+#: ../data/help-overlay.ui.h:12
+#| msgid "_Zoom In"
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Sùm"
+
+#: ../data/help-overlay.ui.h:13
+#| msgid "_Zoom In"
+msgctxt "shortcut window"
+msgid "Zoom in"
+msgstr "Sùm a-steach"
+
+#: ../data/help-overlay.ui.h:14
+#| msgid "Zoom _Out"
+msgctxt "shortcut window"
+msgid "Zoom out"
+msgstr "Sùm a-mach"
+
+#: ../data/help-overlay.ui.h:15
+msgctxt "shortcut window"
+msgid "Actual size"
+msgstr "An dearbh mheud"
+
+#: ../data/help-overlay.ui.h:16
+#| msgid "_Best Fit"
+msgctxt "shortcut window"
+msgid "Best fit"
+msgstr "Meud as fhearr"
+
+#: ../data/help-overlay.ui.h:17
+#| msgid "Browse and rotate images"
+msgctxt "shortcut window"
+msgid "Browsing Images"
+msgstr "Brabhsadh dhealbhan"
+
+#: ../data/help-overlay.ui.h:18
+#| msgid "Go to the previous image of the gallery"
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Rach dhan dealbh roimhe sa phasgan"
+
+#: ../data/help-overlay.ui.h:19
+#| msgid "Go to the next image of the gallery"
+msgctxt "shortcut window"
+msgid "Go to the next image in the folder"
+msgstr "Rach dhan ath dhealbh sa phasgan"
+
+#: ../data/help-overlay.ui.h:20
+#| msgid "Go to the first image of the gallery"
+msgctxt "shortcut window"
+msgid "Go to the first image in the folder"
+msgstr "Rach dhan chiad dealbh sa phasgan"
+
+#: ../data/help-overlay.ui.h:21
+#| msgid "Go to the last image of the gallery"
+msgctxt "shortcut window"
+msgid "Go to the last image in the folder"
+msgstr "Rach dhan dealbh mu dheireadh sa phasgan"
+
+#: ../data/help-overlay.ui.h:22
+#| msgid "Go to a random image of the gallery"
+msgctxt "shortcut window"
+msgid "Go to a random image in the folder"
+msgstr "Rach gu dealbh air thuaiream sa phasgan"
+
+#: ../data/help-overlay.ui.h:23
+#| msgid "Show/Hide the image gallery pane."
+msgctxt "shortcut window"
+msgid "Show/Hide the image gallery"
+msgstr "Seall/Falaich gailearaidh nan dealbhan"
+
+#: ../data/help-overlay.ui.h:24
+#| msgid "Location:"
+msgctxt "shortcut window"
+msgid "Rotation"
+msgstr "Cuairteachadh"
+
+#: ../data/help-overlay.ui.h:25
+#| msgid "_Rotate Clockwise"
+msgctxt "shortcut window"
+msgid "Rotate clockwise"
+msgstr "Cuairtich a' dol deiseil"
+
+#: ../data/help-overlay.ui.h:26
+#| msgid "Rotate Counter_clockwise"
+msgctxt "shortcut window"
+msgid "Rotate counterclockwise"
+msgstr "Cuairtich a' dol tuathail"
+
+#: ../data/help-overlay.ui.h:27
+#| msgid "_Fullscreen"
+msgctxt "shortcut window"
+msgid "Fullscreen"
+msgstr "Làn-sgrìn"
+
+#: ../data/help-overlay.ui.h:28
+#| msgid "_Leave Fullscreen"
+msgctxt "shortcut window"
+msgid "Enter/Leave fullscreen"
+msgstr "Tòisich/Fàg am modh làn-sgrìn"
+
+#: ../data/help-overlay.ui.h:29
+#| msgid "Slideshow"
+msgctxt "shortcut window"
+msgid "Start/Stop slideshow"
+msgstr "Tòisich/Crìochnaich taisbeanadh-shleamhnagan"
+
+#: ../data/help-overlay.ui.h:30
+#| msgid "Pause Slideshow"
+msgctxt "shortcut window"
+msgid "Pause slideshow"
+msgstr "Cuir an taisbeanadh-shleamhnagan 'na stad"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
 msgstr "Meud"
 
 #: ../data/metadata-sidebar.ui.h:2
-#| msgid "Type:"
 msgid "Type"
 msgstr "Seòrsa"
 
 #: ../data/metadata-sidebar.ui.h:3
-#| msgid "File size:"
 msgid "File Size"
 msgstr "Meud an fhaidhle"
 
 #: ../data/metadata-sidebar.ui.h:4
-#| msgid "Folder:"
 msgid "Folder"
 msgstr "Pasgan"
 
 #: ../data/metadata-sidebar.ui.h:5
-#| msgid "Aperture Value:"
 msgid "Aperture"
 msgstr "Fosgladh"
 
 #: ../data/metadata-sidebar.ui.h:6
-#| msgid "Exposure Time:"
 msgid "Exposure"
 msgstr "Deisearas"
 
@@ -510,7 +685,6 @@ msgid "ISO"
 msgstr "ISO"
 
 #: ../data/metadata-sidebar.ui.h:8
-#| msgid "Metering Mode:"
 msgid "Metering"
 msgstr "Meatairigeadh"
 
@@ -527,7 +701,6 @@ msgid "Time"
 msgstr "Àm"
 
 #: ../data/metadata-sidebar.ui.h:12
-#| msgid "Focal Length:"
 msgid "Focal Length"
 msgstr "Faid an fhòcais"
 
@@ -792,7 +965,7 @@ msgstr "Fosgail _le"
 msgid "_Copy"
 msgstr "Dèan _lethbhreac"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3497
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
 msgid "Move to _Trash"
 msgstr "Gluais dhan _sgudal"
 
@@ -996,37 +1169,37 @@ msgstr "Sabhail an dealbh"
 msgid "Open Folder"
 msgstr "Fosgail pasgan"
 
-#: ../src/eog-image.c:577
+#: ../src/eog-image.c:566
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Cruth-atharrachadh air dealbh gun luchdadh"
 
-#: ../src/eog-image.c:605
+#: ../src/eog-image.c:594
 #, c-format
 msgid "Transformation failed."
 msgstr "Dh' fhàillig leis a' chruth-atharrachadh."
 
-#: ../src/eog-image.c:1085
+#: ../src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Cha chuir am fòrmat faidhle seo taic ri EXIF."
 
-#: ../src/eog-image.c:1229
+#: ../src/eog-image.c:1218
 #, c-format
 msgid "Image loading failed."
 msgstr "Dh'fhàillig le luchdadh an deilbh."
 
-#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
+#: ../src/eog-image.c:1799 ../src/eog-image.c:1919
 #, c-format
 msgid "No image loaded."
 msgstr "Cha deach dealbh a luchdadh."
 
-#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
+#: ../src/eog-image.c:1807 ../src/eog-image.c:1928
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Tha cead a dhìth ort gus am faidhle seo a shàbhaladh."
 
-#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
+#: ../src/eog-image.c:1817 ../src/eog-image.c:1939
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Dh'fhàillig le cruthachadh an fhaidhle shealaich."
@@ -1106,8 +1279,6 @@ msgstr "Deas"
 
 #: ../src/eog-metadata-sidebar.c:144
 #, c-format
-#| msgid "%i × %i pixel  %s    %i%%"
-#| msgid_plural "%i × %i pixels  %s    %i%%"
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i phiogsail"
@@ -1285,7 +1456,7 @@ msgstr[1] "%i × %i phiogsail %s    %i%%"
 msgstr[2] "%i × %i piogsailean %s    %i%%"
 msgstr[3] "%i × %i piogsail %s    %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2632
+#: ../src/eog-window.c:908 ../src/eog-window.c:2655
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Falaich"
@@ -1330,17 +1501,17 @@ msgstr ""
 "Mearachd le clò-bhualadh an fhaidhle:\n"
 "%s"
 
-#: ../src/eog-window.c:2581 ../src/eog-window.c:2596
+#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
 msgid "Error launching System Settings: "
 msgstr "Mearachd le tòiseachadh roghainnean an t-siostaim: "
 
-#: ../src/eog-window.c:2630
+#: ../src/eog-window.c:2653
 msgid "_Open Background Preferences"
 msgstr "F_osgail roghainnean a' chùlaibh"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2646
+#: ../src/eog-window.c:2669
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1349,11 +1520,11 @@ msgstr ""
 "Chaidh an dealbh \"%s\" a shuidheachadh mar chùlaibh an deasg.\n"
 "A bheil thu airson a dhreach atharrachadh?"
 
-#: ../src/eog-window.c:3136
+#: ../src/eog-window.c:3159
 msgid "Saving image locally…"
 msgstr "A' sàbhaladh an deilbh gu ionadail..."
 
-#: ../src/eog-window.c:3214
+#: ../src/eog-window.c:3237
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1362,7 +1533,7 @@ msgstr ""
 "A bheil thu cinnteach gu bheil thu airson\n"
 "\"%s\" a thoirt air falbh gu buan?"
 
-#: ../src/eog-window.c:3217
+#: ../src/eog-window.c:3240
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1383,41 +1554,41 @@ msgstr[3] ""
 "A bheil thu cinnteach gu bheil thu airson\n"
 "%d dealbh a thagh thu a sguabadh às gu buan?"
 
-#: ../src/eog-window.c:3239 ../src/eog-window.c:3505
+#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
 msgid "_Delete"
 msgstr "_Sguab às"
 
-#: ../src/eog-window.c:3242 ../src/eog-window.c:3507
+#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
 msgid "_Yes"
 msgstr "_Tha"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3246 ../src/eog-window.c:3499
+#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
 msgid "Do _not ask again during this session"
 msgstr "_Na faighnich dhìom a-rithist rè an t-seisein seo"
 
-#: ../src/eog-window.c:3290
+#: ../src/eog-window.c:3313
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Cha b' urrainn dhuinn am faidhle deilbh fhaighinn"
 
-#: ../src/eog-window.c:3306
+#: ../src/eog-window.c:3329
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Cha b' urrainn dhuinn fiosrachadh an fhaidhle deilbh fhaighinn"
 
-#: ../src/eog-window.c:3322 ../src/eog-window.c:3566
+#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Cha b' urrainn dhuinn an dealbh a sguabadh às"
 
 #. set dialog error message
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3666
+#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Mearachd le sguabadh às an deilbh %s"
 
-#: ../src/eog-window.c:3467
+#: ../src/eog-window.c:3490
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1426,7 +1597,7 @@ msgstr ""
 "A bheil thu cinnteach gu bheil thu airson\n"
 "\"%s\" a ghluasad dhan sgudail?"
 
-#: ../src/eog-window.c:3470
+#: ../src/eog-window.c:3493
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1435,7 +1606,7 @@ msgstr ""
 "Cha deach sgudal airson \"%s\" a lorg. Bheil thu airson an dealbh seo a "
 "thoirt air falbh gu buan?"
 
-#: ../src/eog-window.c:3475
+#: ../src/eog-window.c:3498
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1456,7 +1627,7 @@ msgstr[3] ""
 "A bheil thu cinnteach gu bheil thu airson\n"
 "an %d dealbh a thagh thu a ghluasad dhan sgudal?"
 
-#: ../src/eog-window.c:3480
+#: ../src/eog-window.c:3503
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1465,34 +1636,32 @@ msgstr ""
 "toirt air falbh gu buan. A bheil thu cinnteach gu bheil thu airson leantainn "
 "air adhart?"
 
-#: ../src/eog-window.c:3544 ../src/eog-window.c:3558
+#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Cha b' urrainn dhuinn an sgudal inntrigeadh."
 
-#: ../src/eog-window.c:4224
+#: ../src/eog-window.c:4247
 msgid "Fit the image to the window"
 msgstr "Co-fhreagair an dealbh ris an uinneag"
 
-#: ../src/eog-window.c:4232 ../src/eog-window.c:4277
-#| msgid "Shrink the image"
+#: ../src/eog-window.c:4255 ../src/eog-window.c:4300
 msgid "Shrink or enlarge the current image"
 msgstr "Lùghdaich no meudaich an dealbh làithreach"
 
-#: ../src/eog-window.c:4335
+#: ../src/eog-window.c:4358
 msgid "Show the current image in fullscreen mode"
 msgstr "Seall an dealbh làithreach sa mhodh làn-sgrìn"
 
-#: ../src/eog-window.c:4412
-#| msgid "Prope_rties"
+#: ../src/eog-window.c:4435
 msgid "Properties"
 msgstr "Roghainnean"
 
-#: ../src/eog-window.c:5545
+#: ../src/eog-window.c:5568
 msgid "The GNOME image viewer."
 msgstr "An Sealladair dhealbhan aig GNOME"
 
-#: ../src/eog-window.c:5548
+#: ../src/eog-window.c:5571
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -1578,9 +1747,6 @@ msgstr ""
 #~ msgid "_Next"
 #~ msgstr "Ai_r adhart"
 
-#~ msgid "Show/Hide the window toolbar."
-#~ msgstr "Seall/Falaich bàr-inneal na h-uinneige."
-
 #~ msgid "External program to use for editing images"
 #~ msgstr "Prògram taobh a-muigh gus dealbhan a dheasachadh"
 
@@ -1618,12 +1784,6 @@ msgstr ""
 #~ msgid "_Tools"
 #~ msgstr "_Innealan"
 
-#~ msgid "Open a file"
-#~ msgstr "Fosgail faidhle"
-
-#~ msgid "Close window"
-#~ msgstr "Dùin an uinneag"
-
 #~ msgid "T_oolbar"
 #~ msgstr "_Bàr-inneal"
 
@@ -1635,9 +1795,6 @@ msgstr ""
 
 #~ msgid "_Contents"
 #~ msgstr "_Clàr-innse"
-
-#~ msgid "Help on this application"
-#~ msgstr "Cobhair air a' phrògram seo"
 
 #~ msgid "About this application"
 #~ msgstr "Mun phrògram seo"
@@ -1660,12 +1817,6 @@ msgstr ""
 
 #~ msgid "Open the selected image with a different application"
 #~ msgstr "Fosgail an dealbh a thagh thu le prògram eile"
-
-#~ msgid "Save the selected images with a different name"
-#~ msgstr "Sàbhail na dealbhan a thagh thu le ainm eile"
-
-#~ msgid "Print the selected image"
-#~ msgstr "Clò-bhuail an dealbh a thagh thu"
 
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Seall na roghainnean is meata-dàta aig an dealbh a thagh thu"
@@ -1706,17 +1857,8 @@ msgstr ""
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Seall an dealbh air a mheud àbhaisteach"
 
-#~ msgid "_Fullscreen"
-#~ msgstr "_Làn-sgrìn"
-
-#~ msgid "Pause Slideshow"
-#~ msgstr "Cuir an taisbeanadh-shleamhnagan 'na stad"
-
 #~ msgid "_Random Image"
 #~ msgstr "Dealbh air t_uaiream"
-
-#~ msgid "Go to a random image of the gallery"
-#~ msgstr "Rach gu dealbh air thuaiream sa ghailearaidh"
 
 #~ msgid "S_lideshow"
 #~ msgstr "Taisbeanadh-sh_leamhnagan"
@@ -1763,6 +1905,3 @@ msgstr ""
 
 #~ msgid "Set as _Desktop Background"
 #~ msgstr "Suidhich mar _Bàrr-deasc Chùl-raon"
-
-#~ msgid "Set the selected image as the desktop background"
-#~ msgstr "Stèidh an ìomhaigh taghte mar cùl-raon a' bhàrr-deasc"
