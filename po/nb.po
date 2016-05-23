@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 3.19.x\n"
+"Project-Id-Version: eog 3.20.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-10 12:49+0100\n"
-"PO-Revision-Date: 2016-01-10 12:53+0100\n"
+"POT-Creation-Date: 2016-05-23 19:10+0200\n"
+"PO-Revision-Date: 2016-05-23 19:11+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -39,6 +39,14 @@ msgid "_Quit"
 msgstr "A_vslutt"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Bla gjennom og roter bilder"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -48,7 +56,7 @@ msgstr ""
 "skrivebordet. Det er integrert med GTK+ utseende og oppførsel for GNOME og "
 "støtter mange bildeformater for isning av enkeltbilder og samlinger."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -61,13 +69,9 @@ msgstr ""
 "eller landskapsorientering."
 
 #: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
-#: ../src/eog-window.c:5542
+#: ../src/eog-window.c:5565
 msgid "Image Viewer"
 msgstr "Bildevisning"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Bla gjennom og roter bilder"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -156,7 +160,7 @@ msgstr "Bytes:"
 msgid "Folder:"
 msgstr "Mappe:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10 ../data/help-overlay.ui.h:1
+#: ../data/eog-image-properties-dialog.ui.h:10
 msgid "General"
 msgstr "Generelt"
 
@@ -228,7 +232,7 @@ msgstr "Lagre som"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3238 ../src/eog-window.c:3241 ../src/eog-window.c:3494
+#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
 msgid "_Cancel"
 msgstr "A_vbryt"
 
@@ -381,7 +385,7 @@ msgstr "Gå til første bilde i samlingen"
 msgid "_First Image"
 msgstr "_Første bilde"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2357
 msgid "Go to the previous image of the gallery"
 msgstr "Gå til forrige bilde i samlingen"
 
@@ -389,7 +393,7 @@ msgstr "Gå til forrige bilde i samlingen"
 msgid "_Previous Image"
 msgstr "F_orrige bilde"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2345
 msgid "Go to the next image of the gallery"
 msgstr "Gå til neste bilde i samlingen"
 
@@ -429,7 +433,7 @@ msgstr "_Normal størrelse"
 msgid "_Best Fit"
 msgstr "_Beste tilpasning"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2372
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Roter bildet 90 grader til venstre"
 
@@ -437,7 +441,7 @@ msgstr "Roter bildet 90 grader til venstre"
 msgid "Rotate Counter_clockwise"
 msgstr "Roter mot k_lokken"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2383
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Roter bildet 90 grader til høyre"
 
@@ -465,123 +469,153 @@ msgstr "For_lat fullskjerm"
 msgid "Leave fullscreen mode"
 msgstr "Forlat fullskjerm"
 
+#: ../data/help-overlay.ui.h:1
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generelt"
+
 #: ../data/help-overlay.ui.h:2
+msgctxt "shortcut window"
 msgid "Open an image file"
 msgstr "Åpne en bildefil"
 
 #: ../data/help-overlay.ui.h:3
+msgctxt "shortcut window"
 msgid "Save the image"
 msgstr "Lagre bildet"
 
 #: ../data/help-overlay.ui.h:4
+msgctxt "shortcut window"
 msgid "Save the image with a new file name"
 msgstr "Lagre bildet med et nytt filnavn"
 
 #: ../data/help-overlay.ui.h:5
+msgctxt "shortcut window"
 msgid "Print the current image"
 msgstr "Skriv ut dette bildet"
 
 #: ../data/help-overlay.ui.h:6
+msgctxt "shortcut window"
 msgid "Close the current window"
 msgstr "Lukk dette vinduet"
 
 #: ../data/help-overlay.ui.h:7
+msgctxt "shortcut window"
 msgid "Close all windows"
 msgstr "Lukk alle vinduer"
 
 #: ../data/help-overlay.ui.h:8
+msgctxt "shortcut window"
 msgid "Set the image as desktop background"
 msgstr "Sett bildet som bakgrunn på skrivebordet"
 
 #: ../data/help-overlay.ui.h:9
+msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
 msgstr "Vis/skjul sidelinjen"
 
 #: ../data/help-overlay.ui.h:10
+msgctxt "shortcut window"
 msgid "Show image properties dialog"
 msgstr "Vis dialog for egenskaper for bildet"
 
 #: ../data/help-overlay.ui.h:11
+msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Åpne programmets brukerhåndbok"
 
 #: ../data/help-overlay.ui.h:12
+msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Zoom"
 
 #: ../data/help-overlay.ui.h:13
+msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Zoom inn"
 
 #: ../data/help-overlay.ui.h:14
+msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Zoom ut"
 
 #: ../data/help-overlay.ui.h:15
+msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Faktisk størrelse"
 
 #: ../data/help-overlay.ui.h:16
-msgid "Best fit  "
+msgctxt "shortcut window"
+msgid "Best fit"
 msgstr "Beste tilpasning "
 
 #: ../data/help-overlay.ui.h:17
+msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Se gjennom bilder"
 
 #: ../data/help-overlay.ui.h:18
+msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Gå til forrige bilde i mappen"
 
 #: ../data/help-overlay.ui.h:19
+msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Gå til neste bilde i mappen"
 
 #: ../data/help-overlay.ui.h:20
+msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Gå til det første bilde i mappen"
 
 #: ../data/help-overlay.ui.h:21
+msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Gå til det siste bilde i mappen"
 
 #: ../data/help-overlay.ui.h:22
+msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Gå til et tilfeldig bilde i mappen"
 
 #: ../data/help-overlay.ui.h:23
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Vis/skjul bildegalleriet"
 
 #: ../data/help-overlay.ui.h:24
+msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotering"
 
 #: ../data/help-overlay.ui.h:25
+msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Roter med klokken"
 
 #: ../data/help-overlay.ui.h:26
+msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Roter mot klokken"
 
 #: ../data/help-overlay.ui.h:27
-msgid "Rotate counter-clockwise"
-msgstr "Roter mot klokken"
-
-#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Fullskjerm"
 
-#: ../data/help-overlay.ui.h:29
+#: ../data/help-overlay.ui.h:28
+msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Start/stopp fullskjerm"
 
-#: ../data/help-overlay.ui.h:30
+#: ../data/help-overlay.ui.h:29
+msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Start/stopp lysbildevisning"
 
-#: ../data/help-overlay.ui.h:31
+#: ../data/help-overlay.ui.h:30
+msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Sett lysbildevisning på pause"
 
@@ -875,7 +909,7 @@ msgstr "Åpne _med"
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3497
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
 msgid "Move to _Trash"
 msgstr "Flytt til _papirkurv"
 
@@ -1067,37 +1101,37 @@ msgstr "Lagre bilde"
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
-#: ../src/eog-image.c:577
+#: ../src/eog-image.c:566
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformasjon på bilde som ikke er lastet."
 
-#: ../src/eog-image.c:605
+#: ../src/eog-image.c:594
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformasjon feilet."
 
-#: ../src/eog-image.c:1085
+#: ../src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke støttet for dette filformatet."
 
-#: ../src/eog-image.c:1229
+#: ../src/eog-image.c:1218
 #, c-format
 msgid "Image loading failed."
 msgstr "Lasting av bilde feilet."
 
-#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
+#: ../src/eog-image.c:1799 ../src/eog-image.c:1919
 #, c-format
 msgid "No image loaded."
 msgstr "Ingen bilder lastet."
 
-#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
+#: ../src/eog-image.c:1807 ../src/eog-image.c:1928
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har ikke tilstrekkelige rettigheter til å lagre filen."
 
-#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
+#: ../src/eog-image.c:1817 ../src/eog-image.c:1939
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oppretting av midlertidig fil feilet."
@@ -1340,7 +1374,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i piksel  %s   %i%%"
 msgstr[1] "%i x %i piksler  %s   %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2632
+#: ../src/eog-window.c:908 ../src/eog-window.c:2655
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Skj_ul"
@@ -1385,17 +1419,17 @@ msgstr ""
 "Feil under utskrift av fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2581 ../src/eog-window.c:2596
+#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
 msgid "Error launching System Settings: "
 msgstr "Feil under oppstart av systeminnstillinger: "
 
-#: ../src/eog-window.c:2630
+#: ../src/eog-window.c:2653
 msgid "_Open Background Preferences"
 msgstr "_Åpne brukervalg for bakgrunn"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2646
+#: ../src/eog-window.c:2669
 #, c-format
 msgid ""
 "The image \"%s\" has been set as Desktop Background.\n"
@@ -1404,11 +1438,11 @@ msgstr ""
 "Bilde «%s» er satt som skrivebordsbakgrunn.\n"
 "Vil du forandre utseende på bildet?"
 
-#: ../src/eog-window.c:3136
+#: ../src/eog-window.c:3159
 msgid "Saving image locally…"
 msgstr "Lagrer bildet lokalt …"
 
-#: ../src/eog-window.c:3214
+#: ../src/eog-window.c:3237
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1417,7 +1451,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "fjerne «%s» permanent?"
 
-#: ../src/eog-window.c:3217
+#: ../src/eog-window.c:3240
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1432,41 +1466,41 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "fjerne %d valgte bilder permanent?"
 
-#: ../src/eog-window.c:3239 ../src/eog-window.c:3505
+#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/eog-window.c:3242 ../src/eog-window.c:3507
+#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3246 ../src/eog-window.c:3499
+#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
 msgid "Do _not ask again during this session"
 msgstr "Ikke spør i_gjen under denne økten"
 
-#: ../src/eog-window.c:3290
+#: ../src/eog-window.c:3313
 #, c-format
 msgid "Couldn't retrieve image file"
 msgstr "Kunne ikke hente bildefil"
 
-#: ../src/eog-window.c:3306
+#: ../src/eog-window.c:3329
 #, c-format
 msgid "Couldn't retrieve image file information"
 msgstr "Kunne ikke hente informasjon om bildefil"
 
-#: ../src/eog-window.c:3322 ../src/eog-window.c:3566
+#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Kunne ikke slette fil"
 
 #. set dialog error message
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3666
+#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
 
-#: ../src/eog-window.c:3467
+#: ../src/eog-window.c:3490
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1475,7 +1509,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "flytte «%s» til papirkurven?"
 
-#: ../src/eog-window.c:3470
+#: ../src/eog-window.c:3493
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -1484,7 +1518,7 @@ msgstr ""
 "Fant ikke papirkurv for «%s». Er du sikker på at du vil fjerne dette bildet "
 "permanent?"
 
-#: ../src/eog-window.c:3475
+#: ../src/eog-window.c:3498
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1499,7 +1533,7 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "flytte %d valgte bilder til papirkurven?"
 
-#: ../src/eog-window.c:3480
+#: ../src/eog-window.c:3503
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1507,32 +1541,32 @@ msgstr ""
 "Noen av de valgte bildene kan ikke flyttes til papirkurven og vil bli "
 "fjernet permanent. Er du sikker på at du vil fortsette?"
 
-#: ../src/eog-window.c:3544 ../src/eog-window.c:3558
+#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: ../src/eog-window.c:4224
+#: ../src/eog-window.c:4247
 msgid "Fit the image to the window"
 msgstr "Tilpass bildet til vinduet"
 
-#: ../src/eog-window.c:4232 ../src/eog-window.c:4277
+#: ../src/eog-window.c:4255 ../src/eog-window.c:4300
 msgid "Shrink or enlarge the current image"
 msgstr "Krymp eller forstørr dette bildet"
 
-#: ../src/eog-window.c:4335
+#: ../src/eog-window.c:4358
 msgid "Show the current image in fullscreen mode"
 msgstr "Vis det aktive bildet i fullskjerm-modus"
 
-#: ../src/eog-window.c:4412
+#: ../src/eog-window.c:4435
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/eog-window.c:5545
+#: ../src/eog-window.c:5568
 msgid "The GNOME image viewer."
 msgstr "Bildevisning for GNOME."
 
-#: ../src/eog-window.c:5548
+#: ../src/eog-window.c:5571
 msgid "translator-credits"
 msgstr ""
 "Kjartan Maraas <kmaraas@gnome.org>\n"
