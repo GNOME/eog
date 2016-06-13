@@ -118,8 +118,11 @@ eog_exif_util_format_date_with_strptime (const gchar *date, const gchar* format)
 		if (!GPOINTER_TO_BOOLEAN (strptime_updates_wday.retval))
 			_calculate_wday_yday (&tm);
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 		/* A strftime-formatted string, to display the date the image was taken.  */
 		dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), format, &tm);
+#pragma GCC diagnostic pop
 		new_date = g_strndup (tmp_date, dlen);
 	}
 
@@ -153,7 +156,10 @@ eog_exif_util_format_date_by_hand (const gchar *date, const gchar* format)
 		tm.tm_sec = result < 6 ? 0 : seconds;
 		tm.tm_min = result < 5 ? 0 : minutes;
 		tm.tm_hour = result < 4 ? 0 : hour;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 		dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), format, &tm);
+#pragma GCC diagnostic pop
 
 		if (dlen == 0)
 			return NULL;
