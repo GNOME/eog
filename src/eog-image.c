@@ -1096,7 +1096,7 @@ eog_image_real_load (EogImage *img,
 					eog_image_set_xmp_data (img, md_reader);
 #endif
 					set_metadata = FALSE;
-                                        priv->metadata_status = EOG_IMAGE_METADATA_READY;
+					priv->metadata_status = EOG_IMAGE_METADATA_READY;
 				}
 
 				if (data2read == EOG_IMAGE_DATA_EXIF)
@@ -1113,7 +1113,10 @@ eog_image_real_load (EogImage *img,
 	if (read_image_data || read_only_dimension) {
 #ifdef HAVE_RSVG
 		if (use_rsvg) {
-			rsvg_handle_close (priv->svg, error);
+			/* Ignore the error if loading failed earlier
+			 * as the error will already be set in that case */
+			rsvg_handle_close (priv->svg,
+			                   (failed ? NULL : error));
 		} else
 #endif
 		if (failed) {
@@ -1124,8 +1127,8 @@ eog_image_real_load (EogImage *img,
 				 * images as well. */
 				g_clear_error (error);
 			}
-	        }
-        }
+		}
+	}
 
 	g_free (buffer);
 
