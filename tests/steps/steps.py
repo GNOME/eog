@@ -49,7 +49,7 @@ def open_file_via_menu(context, filename):
 @then(u'image size is {width:d}x{height:d}')
 def image_size_is(context, width, height):
     size_text = None
-    for attempt in xrange(0, 10):
+    for attempt in range(0, 10):
         size_child = context.app.child(roleName='page tab list').child(translate('Size'))
         size_text = size_child.parent.children[11].text
         if size_text == '':

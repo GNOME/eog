@@ -133,7 +133,7 @@ class App(object):
             self.a11yAppName = self.internCommand
 
         # Trap weird bus errors
-        for attempt in xrange(0, 10):
+        for attempt in range(0, 10):
             try:
                 return self.a11yAppName in [x.name for x in root.applications()]
             except GLib.GError:
