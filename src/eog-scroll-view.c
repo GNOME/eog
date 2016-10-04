@@ -1986,6 +1986,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			priv->frame_changed_id = g_signal_connect (image, "next-frame", 
 								    (GCallback) display_next_frame_cb, view);
 		}
+	} else {
+		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	}
 
 	priv->image = image;
