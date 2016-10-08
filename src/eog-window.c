@@ -1017,14 +1017,14 @@ eog_window_action_open_with (GSimpleAction *action,
 	GAppInfo *app;
 	GFile *file;
 	GList *files = NULL;
-	guint32 index = -1;
+	guint32 index = G_MAXUINT32;
 
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 	window = EOG_WINDOW (user_data);
 
 	index = g_variant_get_uint32 (parameter);
-	if (index < 0)
+	if (G_UNLIKELY (index >= window->priv->appinfo->len))
 		return;
 
 	app = g_ptr_array_index (window->priv->appinfo, index);
