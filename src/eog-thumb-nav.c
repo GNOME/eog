@@ -422,7 +422,8 @@ eog_thumb_nav_init (EogThumbNav *nav)
 			  G_CALLBACK (eog_thumb_nav_stop_scroll),
 			  nav);
 
-	gtk_adjustment_value_changed (priv->adj);
+	/* Update nav button states */
+	eog_thumb_nav_adj_value_changed (priv->adj, nav);
 }
 
 /**
