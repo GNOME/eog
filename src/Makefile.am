@@ -180,7 +180,9 @@ BUILT_SOURCES = 			\
 	eog-resources.c			\
 	$(MARSHAL_OUTPUT)
 
-eog-resources.c: eog.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/data --generate-dependencies eog.gresource.xml)
+eog_resources_deps = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/data --generate-dependencies $(top_srcdir)/src/eog.gresource.xml)
+
+eog-resources.c: $(top_srcdir)/src/eog.gresource.xml $(eog_resources_deps)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) "$<" --target=$@ \
          --sourcedir=$(top_srcdir)/data --c-name _eog --generate-source
 
