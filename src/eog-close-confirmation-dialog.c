@@ -388,7 +388,7 @@ get_text_secondary_label (EogImage *image)
 {
 	gchar *secondary_msg;
 
-	secondary_msg = g_strdup (_("If you don't save, your changes will be lost."));
+	secondary_msg = g_strdup (_("If you don’t save, your changes will be lost."));
 
 	return secondary_msg;
 }
@@ -434,7 +434,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 	image_name = eog_image_get_caption (img);
 
-	str = g_markup_printf_escaped (_("Save changes to image \"%s\" before closing?"),
+	str = g_markup_printf_escaped (_("Save changes to image “%s” before closing?"),
 				       image_name);
 	markup_str = g_strconcat ("<span weight=\"bold\" size=\"larger\">", str, "</span>", NULL);
 	g_free (str);
@@ -685,7 +685,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 	gtk_widget_set_size_request (scrolledwindow, 260, 120);
 
 	/* Secondary label */
-	secondary_label = gtk_label_new (_("If you don't save, "
+	secondary_label = gtk_label_new (_("If you don’t save, "
 					   "all your changes will be lost."));
 
 	gtk_box_pack_start (GTK_BOX (vbox2), secondary_label, FALSE, FALSE, 0);

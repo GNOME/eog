@@ -216,7 +216,7 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 	   be interpreted as the beginning of a pango entity inside
 	   the message area GtkLabel. */
 	pango_escaped_caption = g_markup_escape_text (caption, -1);
-	error_message = g_strdup_printf (_("Could not load image '%s'."),
+	error_message = g_strdup_printf (_("Could not load image “%s”."),
 					 pango_escaped_caption);
 
 	message_details = eog_util_make_valid_utf8 (error->message);
@@ -258,7 +258,7 @@ eog_image_save_error_message_area_new (const gchar  *caption,
 	   be interpreted as the beginning of a pango entity inside
 	   the message area GtkLabel. */
 	pango_escaped_caption = g_markup_escape_text (caption, -1);
-	error_message = g_strdup_printf (_("Could not save image '%s'."),
+	error_message = g_strdup_printf (_("Could not save image “%s”."),
 					 pango_escaped_caption);
 
 	message_details = eog_util_make_valid_utf8 (error->message);
@@ -301,7 +301,7 @@ eog_no_images_error_message_area_new (GFile *file)
 		   for example "&" which will otherwise be interpreted
 		   as a pango markup entity when inserted into a GtkLabel. */
 		pango_escaped_str = g_markup_escape_text (unescaped_str, -1);
-		error_message = g_strdup_printf (_("No images found in '%s'."),
+		error_message = g_strdup_printf (_("No images found in “%s”."),
 						 pango_escaped_str);
 
 		g_free (pango_escaped_str);

@@ -66,7 +66,7 @@ static const GOptionEntry goption_options[] =
 	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
 	{ "single-window", 'w', 0, G_OPTION_ARG_NONE, &single_window, N_("Open in a single window, if multiple windows are open the first one is used"), NULL },
 	{ "version", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	  _print_version_and_exit, N_("Show the application's version"), NULL},
+	  _print_version_and_exit, N_("Show the application’s version"), NULL},
 	{ NULL }
 };
 
@@ -109,7 +109,7 @@ main (int argc, char **argv)
 		gchar *help_msg;
 
 		/* I18N: The '%s' is replaced with eog's command name. */
-		help_msg = g_strdup_printf (_("Run '%s --help' to see a full "
+		help_msg = g_strdup_printf (_("Run “%s --help” to see a full "
 					      "list of available command line "
 					      "options."), argv[0]);
                 g_printerr ("%s\n%s\n", error->message, help_msg);

@@ -371,7 +371,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		g_set_error (error,             /* FIXME: Better error message */
 			     GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
-			     _("Couldn't create temporary file for saving: %s"),
+			     _("Couldn’t create temporary file for saving: %s"),
 			     file);
 		return FALSE;
 	}
@@ -390,7 +390,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		g_set_error (error,
 			     GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
-			     _("Couldn't allocate memory for loading JPEG file"));
+			     _("Couldn’t allocate memory for loading JPEG file"));
 		fclose (outfile);
 		return FALSE;
 	}

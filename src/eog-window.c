@@ -915,7 +915,7 @@ image_file_changed_cb (EogImage *img, EogWindow *window)
 
 	/* The newline character is currently necessary due to a problem
 	 * with the automatic line break. */
-	text = g_strdup_printf (_("The image \"%s\" has been modified by an external application."
+	text = g_strdup_printf (_("The image “%s” has been modified by an external application."
 				  "\nWould you like to reload it?"), eog_image_get_caption (img));
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
@@ -1178,7 +1178,7 @@ eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data)
 		 * - the original filename
 		 * - the current image's position in the queue
 		 * - the total number of images queued for saving */
-		status_message = g_strdup_printf (_("Saving image \"%s\" (%u/%u)"),
+		status_message = g_strdup_printf (_("Saving image “%s” (%u/%u)"),
 					          str_image,
 						  job->current_position + 1,
 						  n_images);
@@ -1603,7 +1603,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	str_image = eog_image_get_uri_for_display (image);
 
-	status_message = g_strdup_printf (_("Opening image \"%s\""),
+	status_message = g_strdup_printf (_("Opening image “%s”"),
 				          str_image);
 
 	g_free (str_image);
@@ -2666,7 +2666,7 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 
 	/* The newline character is currently necessary due to a problem
 	 * with the automatic line break. */
-	text = g_strdup_printf (_("The image \"%s\" has been set as Desktop Background."
+	text = g_strdup_printf (_("The image “%s” has been set as Desktop Background."
 				  "\nWould you like to modify its appearance?"),
 				visible_filename ? visible_filename : basename);
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
@@ -3234,7 +3234,7 @@ show_force_image_delete_confirm_dialog (EogWindow *window,
 	if (n_images == 1) {
 		image = EOG_IMAGE (images->data);
 
-		prompt = g_strdup_printf (_("Are you sure you want to remove\n\"%s\" permanently?"),
+		prompt = g_strdup_printf (_("Are you sure you want to remove\n“%s” permanently?"),
 					  eog_image_get_caption (image));
 	} else {
 		prompt = g_strdup_printf (ngettext ("Are you sure you want to remove\n"
@@ -3310,7 +3310,7 @@ force_image_delete_real (EogImage  *image,
 		g_set_error (error,
 			     EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_IO,
-			     _("Couldn't retrieve image file"));
+			     _("Couldn’t retrieve image file"));
 
 		return FALSE;
 	}
@@ -3326,7 +3326,7 @@ force_image_delete_real (EogImage  *image,
 		g_set_error (error,
 			     EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_IO,
-			     _("Couldn't retrieve image file information"));
+			     _("Couldn’t retrieve image file information"));
 
 		/* free resources */
 		g_object_unref (file);
@@ -3342,7 +3342,7 @@ force_image_delete_real (EogImage  *image,
 		g_set_error (error,
 			     EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_IO,
-			     _("Couldn't delete file"));
+			     _("Couldn’t delete file"));
 
 		/* free resources */
 		g_object_unref (file_info);
@@ -3487,10 +3487,10 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	if (n_images == 1) {
 		image = EOG_IMAGE (images->data);
 		if (can_trash) {
-			prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"),
+			prompt = g_strdup_printf (_("Are you sure you want to move\n“%s” to the trash?"),
 						  eog_image_get_caption (image));
 		} else {
-			prompt = g_strdup_printf (_("A trash for \"%s\" couldn't be found. Do you want to remove "
+			prompt = g_strdup_printf (_("A trash for “%s” couldn’t be found. Do you want to remove "
 						    "this image permanently?"), eog_image_get_caption (image));
 		}
 	} else {
@@ -3500,7 +3500,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 							   "Are you sure you want to move\n"
 							   "the %d selected images to the trash?", n_images), n_images);
 		} else {
-			prompt = g_strdup (_("Some of the selected images can't be moved to the trash "
+			prompt = g_strdup (_("Some of the selected images can’t be moved to the trash "
 					     "and will be removed permanently. Are you sure you want "
 					     "to proceed?"));
 		}
@@ -3564,7 +3564,7 @@ move_to_trash_real (EogImage *image, GError **error)
 		g_set_error (error,
 			     EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
-			     _("Couldn't access trash."));
+			     _("Couldn’t access trash."));
 		return FALSE;
 	}
 
@@ -3578,7 +3578,7 @@ move_to_trash_real (EogImage *image, GError **error)
 			g_set_error (error,
 				     EOG_WINDOW_ERROR,
 				     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
-				     _("Couldn't access trash."));
+				     _("Couldn’t access trash."));
 		}
 	} else {
 		result = g_file_delete (file, NULL, NULL);
@@ -3586,7 +3586,7 @@ move_to_trash_real (EogImage *image, GError **error)
 			g_set_error (error,
 				     EOG_WINDOW_ERROR,
 				     EOG_WINDOW_ERROR_IO,
-				     _("Couldn't delete file"));
+				     _("Couldn’t delete file"));
 		}
 	}
 
