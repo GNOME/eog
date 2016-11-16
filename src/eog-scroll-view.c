@@ -2782,21 +2782,8 @@ eog_scroll_view_new (void)
 static void
 eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
 {
-	GtkWidget *popup;
-	int button, event_time;
-
-	popup = view->priv->menu;
-
-	if (event) {
-		button = event->button;
-		event_time = event->time;
-	} else {
-		button = 0;
-		event_time = gtk_get_current_event_time ();
-	}
-
-	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL,
-			button, event_time);
+	gtk_menu_popup_at_pointer (GTK_MENU (view->priv->menu),
+	                           (const GdkEvent*) event);
 }
 
 static gboolean
