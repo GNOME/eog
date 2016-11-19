@@ -4053,6 +4053,8 @@ eog_window_ui_settings_changed_cb (GSettings *settings,
 
 	if (g_variant_get_boolean (new_state) != g_variant_get_boolean (old_state))
 		g_action_change_state (action, new_state);
+
+	g_variant_unref (new_state);
 }
 
 static void
