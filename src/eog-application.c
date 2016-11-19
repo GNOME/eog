@@ -301,6 +301,7 @@ eog_application_startup (GApplication *application)
 				GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 	}
 	g_object_unref (provider);
+	g_object_unref (css_file);
 
 	/* Add application specific icons to search path */
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
