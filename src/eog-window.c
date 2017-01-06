@@ -420,69 +420,75 @@ eog_window_get_display_profile (GtkWidget *window)
 
 	screen = gtk_widget_get_screen (window);
 
-        if (!GDK_IS_X11_SCREEN (screen))
-                return NULL;
+	if (GDK_IS_X11_SCREEN (screen)) {
+		dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
-	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
+		if (gdk_screen_get_number (screen) > 0)
+			atom_name = g_strdup_printf ("_ICC_PROFILE_%d",
+			                             gdk_screen_get_number (screen));
+		else
+			atom_name = g_strdup ("_ICC_PROFILE");
 
-	if (gdk_screen_get_number (screen) > 0)
-		atom_name = g_strdup_printf ("_ICC_PROFILE_%d", gdk_screen_get_number (screen));
-	else
-		atom_name = g_strdup ("_ICC_PROFILE");
+		icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), atom_name);
 
-	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), atom_name);
+		g_free (atom_name);
 
-	g_free (atom_name);
+		result = XGetWindowProperty (dpy,
+					     GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
+					     icc_atom,
+					     0,
+					     G_MAXLONG,
+					     False,
+					     XA_CARDINAL,
+					     &type,
+					     &format,
+					     &nitems,
+					     &bytes_after,
+		                             (guchar **)&str);
 
-	result = XGetWindowProperty (dpy,
-				     GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
-				     icc_atom,
-				     0,
-				     G_MAXLONG,
-				     False,
-				     XA_CARDINAL,
-				     &type,
-				     &format,
-				     &nitems,
-				     &bytes_after,
-                                     (guchar **)&str);
+		/* TODO: handle bytes_after != 0 */
 
-	/* TODO: handle bytes_after != 0 */
+		if ((result == Success) && (type == XA_CARDINAL) && (nitems > 0)) {
+			switch (format)
+			{
+				case 8:
+					length = nitems;
+					break;
+				case 16:
+					length = sizeof(short) * nitems;
+					break;
+				case 32:
+					length = sizeof(long) * nitems;
+					break;
+				default:
+					eog_debug_message (DEBUG_LCMS,
+					                   "Unable to read profile, not correcting");
 
-	if ((result == Success) && (type == XA_CARDINAL) && (nitems > 0)) {
-		switch (format)
-		{
-			case 8:
-				length = nitems;
-				break;
-			case 16:
-				length = sizeof(short) * nitems;
-				break;
-			case 32:
-				length = sizeof(long) * nitems;
-				break;
-			default:
-				eog_debug_message (DEBUG_LCMS, "Unable to read profile, not correcting");
+					XFree (str);
+					return NULL;
+			}
 
-				XFree (str);
-				return NULL;
+			profile = cmsOpenProfileFromMem (str, length);
+
+			if (G_UNLIKELY (profile == NULL)) {
+				eog_debug_message (DEBUG_LCMS,
+						   "Invalid display profile set, "
+						   "not using it");
+			}
+
+			XFree (str);
 		}
-
-		profile = cmsOpenProfileFromMem (str, length);
-
-		if (G_UNLIKELY (profile == NULL)) {
-			eog_debug_message (DEBUG_LCMS,
-					   "Invalid display profile set, "
-					   "not using it");
-		}
-
-		XFree (str);
+	} else {
+		/* ICC profiles cannot be queried on Wayland yet */
+		eog_debug_message (DEBUG_LCMS,
+		                   "Not an X11 screen. "
+		                   "Cannot fetch display profile.");
 	}
 
 	if (profile == NULL) {
 		profile = cmsCreate_sRGBProfile ();
 		eog_debug_message (DEBUG_LCMS,
-				 "No valid display profile set, assuming sRGB");
+		                   "No valid display profile set, assuming sRGB");
 	}
 
 	return profile;
