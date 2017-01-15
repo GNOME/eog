@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of eog.
-# Copyright (C) 2000-2015 Free Software Foundation, Inc.
+# Copyright (C) 2000-2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the eog package.
 # Eduardo Belloti <ebelloti@terra.com.br>, 2000.
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2001.
@@ -22,24 +22,24 @@
 # André Gondim <In Memoriam>, 2010, 2011.
 # Flamarion Jorge <jorge.flamarion@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2015.
-# Rafael Fontenelle <rffonentenelle@gmail.com>, 2013.
 # Fábio Nogueira <deb-user-ba@ubuntu.com>, 2014.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-10 16:43+0000\n"
-"PO-Revision-Date: 2016-02-10 15:25-0200\n"
-"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=eog&key"
+"words=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-12-13 18:32+0000\n"
+"PO-Revision-Date: 2017-01-15 16:17-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
+"X-Project-Style: gnome\n"
 
 #: ../data/eog-app-menu.xml.h:1
 msgid "Prefere_nces"
@@ -62,6 +62,14 @@ msgid "_Quit"
 msgstr "_Sair"
 
 #: ../data/eog.appdata.xml.in.h:1
+msgid "Eye of GNOME"
+msgstr "Visualizador de Imagens"
+
+#: ../data/eog.appdata.xml.in.h:2 ../data/eog.desktop.in.in.h:2
+msgid "Browse and rotate images"
+msgstr "Navegue e gire imagens"
+
+#: ../data/eog.appdata.xml.in.h:3
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -71,7 +79,7 @@ msgstr ""
 "integra com o visual do GTK+ do GNOME e possui suporte a muitos formatos de "
 "imagem para visualização de imagens singulares ou imagens em uma coleção."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: ../data/eog.appdata.xml.in.h:4
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -83,14 +91,10 @@ msgstr ""
 "fundo da área de trabalho. Ele lê as etiquetas da câmera para girar "
 "automaticamente suas imagens na orientação correta - retrato ou paisagem."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
-#: ../src/eog-window.c:5542
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:311
+#: ../src/eog-window.c:5567
 msgid "Image Viewer"
 msgstr "Visualizador de imagens"
-
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Navegue e gire imagens"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
@@ -111,7 +115,7 @@ msgid "_Save"
 msgstr "_Salvar"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:132
+#: ../src/eog-error-message-area.c:133
 msgid "Save _As…"
 msgstr "Salvar _como…"
 
@@ -201,7 +205,7 @@ msgstr "Flash:"
 
 #: ../data/eog-image-properties-dialog.ui.h:15
 msgid "ISO Speed Rating:"
-msgstr "Sensibilidade ISO"
+msgstr "Sensibilidade ISO:"
 
 #: ../data/eog-image-properties-dialog.ui.h:16
 msgid "Metering Mode:"
@@ -249,9 +253,9 @@ msgstr "Salvar como"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
 #: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
+#: ../src/eog-error-message-area.c:123 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3238 ../src/eog-window.c:3241 ../src/eog-window.c:3494
+#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -404,7 +408,7 @@ msgstr "Vai para a primeira imagem da galeria"
 msgid "_First Image"
 msgstr "_Primeira imagem"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2299
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2359
 msgid "Go to the previous image of the gallery"
 msgstr "Vai para a imagem anterior da galeria"
 
@@ -412,7 +416,7 @@ msgstr "Vai para a imagem anterior da galeria"
 msgid "_Previous Image"
 msgstr "Imagem a_nterior"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2287
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2347
 msgid "Go to the next image of the gallery"
 msgstr "Vai para próxima imagem da galeria"
 
@@ -452,7 +456,7 @@ msgstr "Tamanho _normal"
 msgid "_Best Fit"
 msgstr "_Melhor ajuste"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2314
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2374
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Gira a imagem 90 graus para a esquerda"
 
@@ -460,7 +464,7 @@ msgstr "Gira a imagem 90 graus para a esquerda"
 msgid "Rotate Counter_clockwise"
 msgstr "Girar à e_squerda"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2325
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2385
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Gira a imagem 90 graus para a direita"
 
@@ -496,52 +500,52 @@ msgstr "Geral"
 #: ../data/help-overlay.ui.h:2
 msgctxt "shortcut window"
 msgid "Open an image file"
-msgstr "Abrir um arquivo de imagem"
+msgstr "Abre um arquivo de imagem"
 
 #: ../data/help-overlay.ui.h:3
 msgctxt "shortcut window"
 msgid "Save the image"
-msgstr "Salvar a imagem"
+msgstr "Salva a imagem"
 
 #: ../data/help-overlay.ui.h:4
 msgctxt "shortcut window"
 msgid "Save the image with a new file name"
-msgstr "Salvar a imagem com um novo nome de arquivo"
+msgstr "Salva a imagem com um novo nome de arquivo"
 
 #: ../data/help-overlay.ui.h:5
 msgctxt "shortcut window"
 msgid "Print the current image"
-msgstr "Imprimir a imagem atual"
+msgstr "Imprime a imagem atual"
 
 #: ../data/help-overlay.ui.h:6
 msgctxt "shortcut window"
 msgid "Close the current window"
-msgstr "Fechar a janela atual"
+msgstr "Fecha a janela atual"
 
 #: ../data/help-overlay.ui.h:7
 msgctxt "shortcut window"
 msgid "Close all windows"
-msgstr "Fechar todas as janelas"
+msgstr "Fecha todas as janelas"
 
 #: ../data/help-overlay.ui.h:8
 msgctxt "shortcut window"
 msgid "Set the image as desktop background"
-msgstr "Definir a imagem como plano de fundo da área de trabalho"
+msgstr "Define a imagem como plano de fundo da área de trabalho"
 
 #: ../data/help-overlay.ui.h:9
 msgctxt "shortcut window"
 msgid "Show/Hide the sidebar"
-msgstr "Mostrar/Ocultar a barra lateral"
+msgstr "Mostra/Oculta a barra lateral"
 
 #: ../data/help-overlay.ui.h:10
 msgctxt "shortcut window"
 msgid "Show image properties dialog"
-msgstr "Mostrar o diálogo de propriedades da imagem"
+msgstr "Mostra o diálogo de propriedades da imagem"
 
 #: ../data/help-overlay.ui.h:11
 msgctxt "shortcut window"
 msgid "Open the application manual"
-msgstr "Abrir o manual do aplicativo"
+msgstr "Abre o manual do aplicativo"
 
 #: ../data/help-overlay.ui.h:12
 msgctxt "shortcut window"
@@ -551,23 +555,22 @@ msgstr "Ampliação"
 #: ../data/help-overlay.ui.h:13
 msgctxt "shortcut window"
 msgid "Zoom in"
-msgstr "Ampliar"
+msgstr "Amplia"
 
 #: ../data/help-overlay.ui.h:14
 msgctxt "shortcut window"
 msgid "Zoom out"
-msgstr "Reduzir"
+msgstr "Reduz"
 
 #: ../data/help-overlay.ui.h:15
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Tamanho atual"
 
-# O texto fonte termina com 2 espaços em branco, eu coloquei os mesmos na tradução.(Gustavo)
 #: ../data/help-overlay.ui.h:16
 msgctxt "shortcut window"
 msgid "Best fit"
-msgstr "Melhor ajuste  "
+msgstr "Melhor ajuste"
 
 #: ../data/help-overlay.ui.h:17
 msgctxt "shortcut window"
@@ -577,32 +580,32 @@ msgstr "Navegação por imagens"
 #: ../data/help-overlay.ui.h:18
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
-msgstr "Ir para a imagem anterior da pasta"
+msgstr "Vai para a imagem anterior da pasta"
 
 #: ../data/help-overlay.ui.h:19
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
-msgstr "Ir para próxima imagem da pasta"
+msgstr "Vai para próxima imagem da pasta"
 
 #: ../data/help-overlay.ui.h:20
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
-msgstr "Ir para a primeira imagem da pasta"
+msgstr "Vai para a primeira imagem da pasta"
 
 #: ../data/help-overlay.ui.h:21
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
-msgstr "Ir para a última imagem da pasta"
+msgstr "Vai para a última imagem da pasta"
 
 #: ../data/help-overlay.ui.h:22
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
-msgstr "Ir para uma imagem aleatória da pasta"
+msgstr "Vai para uma imagem aleatória da pasta"
 
 #: ../data/help-overlay.ui.h:23
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
-msgstr "Mostrar/Ocultar a galeria de imagens"
+msgstr "Mostra/Oculta a galeria de imagens"
 
 #: ../data/help-overlay.ui.h:24
 msgctxt "shortcut window"
@@ -612,37 +615,32 @@ msgstr "Rotação"
 #: ../data/help-overlay.ui.h:25
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
-msgstr "Girar no sentido horário"
+msgstr "Gira no sentido horário"
 
 #: ../data/help-overlay.ui.h:26
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
-msgstr "Girar no sentido anti-horário"
+msgstr "Gira no sentido anti-horário"
 
 #: ../data/help-overlay.ui.h:27
-msgctxt "shortcut window"
-msgid "Rotate counter-clockwise"
-msgstr "Girar no sentido anti-horário"
-
-#: ../data/help-overlay.ui.h:28
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Tela cheia"
 
-#: ../data/help-overlay.ui.h:29
+#: ../data/help-overlay.ui.h:28
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
-msgstr "Entrar/Sair da tela cheia"
+msgstr "Entra/Sai da tela cheia"
+
+#: ../data/help-overlay.ui.h:29
+msgctxt "shortcut window"
+msgid "Start/Stop slideshow"
+msgstr "Inicia/Para a apresentação de slides"
 
 #: ../data/help-overlay.ui.h:30
 msgctxt "shortcut window"
-msgid "Start/Stop slideshow"
-msgstr "Iniciar/Parar apresentação de slides"
-
-#: ../data/help-overlay.ui.h:31
-msgctxt "shortcut window"
 msgid "Pause slideshow"
-msgstr "Pausar apresentação"
+msgstr "Pausa a apresentação"
 
 #: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
 msgid "Size"
@@ -707,7 +705,7 @@ msgid ""
 "background-color key is not set, the color is determined by the active GTK+ "
 "theme instead."
 msgstr ""
-"A cor que é usada para preencher a área atrás da imagem. Se a chave  use-"
+"A cor que é usada para preencher a área atrás da imagem. Se a chave use-"
 "background-color não for definida, a cor será determinada pelo tema GTK+ "
 "ativo."
 
@@ -733,7 +731,7 @@ msgid ""
 "quality and is somewhat slower than non-extrapolated images."
 msgstr ""
 "Se a imagem deve ser extrapolada ao ampliar. Isso leva a uma qualidade "
-"embaçada e é um pouco mais lento do que não extrapoladar."
+"embaçada e é um pouco mais lento do que não extrapolada."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:9
 msgid "Transparency indicator"
@@ -871,8 +869,12 @@ msgid "Trash images without asking"
 msgstr "Mover para a lixeira sem perguntar"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:35
+#| msgid ""
+#| "If activated, Eye of GNOME won't ask for confirmation when moving images "
+#| "to the trash. It will still ask if any of the files cannot be moved to "
+#| "the trash and would be deleted instead."
 msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"If activated, Eye of GNOME won’t ask for confirmation when moving images to "
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
@@ -881,17 +883,25 @@ msgstr ""
 "lixeira e em vez disso for excluído."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:36
+#| msgid ""
+#| "Whether the file chooser should show the user's pictures folder if no "
+#| "images are loaded."
 msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
+"Whether the file chooser should show the user’s pictures folder if no images "
 "are loaded."
 msgstr ""
 "O seletor de arquivo deve mostrar a pasta de fotos do usuário se nenhuma "
 "imagem for carregada."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:37
+#| msgid ""
+#| "If activated and no image is loaded in the active window, the file "
+#| "chooser will display the user's pictures folder using the XDG special "
+#| "user directories. If deactivated or the pictures folder has not been set "
+#| "up, it will show the current working directory."
 msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
+"will display the user’s pictures folder using the XDG special user "
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
@@ -907,29 +917,38 @@ msgstr ""
 "A lista de metadados no diálogo de propriedades deve ter sua própria página."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:39
+#| msgid ""
+#| "If activated, the detailed metadata list in the properties dialog will be "
+#| "moved to its own page in the dialog. This should make the dialog more "
+#| "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#| "widget will be embedded on the \"Metadata\" page."
 msgid ""
 "If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
+"be embedded on the “Metadata” page."
 msgstr ""
 "Se ativado, a lista detalhada de metadados no diálogo de propriedades será "
 "movida para sua própria página na caixa de diálogo. Isso deve tornar o "
 "diálogo mais utilizável em telas menores, por exemplo, como as utilizadas "
-"por netbooks. Se desativado, o widget será embutido na página \"Metadata\"."
+"por netbooks. Se desativado, o widget será embutido na página “Metadata”."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:40
 msgid "Active plugins"
 msgstr "Plug-ins ativos"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:41
+#| msgid ""
+#| "List of active plugins. It doesn't contain the \"Location\" of the active "
+#| "plugins. See the .eog-plugin file for obtaining the \"Location\" of a "
+#| "given plugin."
 msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"List of active plugins. It doesn’t contain the “Location” of the active "
+"plugins. See the .eog-plugin file for obtaining the “Location” of a given "
 "plugin."
 msgstr ""
-"Lista de plug-ins ativados. Não contém a sua \"Localização\". Veja o "
-"arquivo .eog-plugin para obter a \"Localização\" de um plug-in."
+"Lista de plug-ins ativados. Não contém a sua “Localização”. Veja o arquivo "
+".eog-plugin para obter a “Localização” de um plug-in."
 
 #: ../data/popup-menus.ui.h:1
 msgid "Open _with"
@@ -939,7 +958,7 @@ msgstr "Abrir _com"
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3497
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
 msgid "Move to _Trash"
 msgstr "Mover para a _lixeira"
 
@@ -981,13 +1000,15 @@ msgid "Question"
 msgstr "Pergunta"
 
 #: ../src/eog-close-confirmation-dialog.c:391
-msgid "If you don't save, your changes will be lost."
+#| msgid "If you don't save, your changes will be lost."
+msgid "If you don’t save, your changes will be lost."
 msgstr "Se você não salvá-la, suas alterações serão perdidas."
 
 #: ../src/eog-close-confirmation-dialog.c:437
 #, c-format
-msgid "Save changes to image \"%s\" before closing?"
-msgstr "Salvar alterações na imagem \"%s\" antes de fechar?"
+#| msgid "Save changes to image \"%s\" before closing?"
+msgid "Save changes to image “%s” before closing?"
+msgstr "Salvar alterações na imagem “%s” antes de fechar?"
 
 #: ../src/eog-close-confirmation-dialog.c:652
 #, c-format
@@ -1005,37 +1026,41 @@ msgstr "S_elecione as imagens para salvar:"
 
 #. Secondary label
 #: ../src/eog-close-confirmation-dialog.c:688
-msgid "If you don't save, all your changes will be lost."
+#| msgid "If you don't save, all your changes will be lost."
+msgid "If you don’t save, all your changes will be lost."
 msgstr "Se você não salvar, todas as suas alterações serão perdidas."
 
-#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
+#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:906
 msgid "_Reload"
 msgstr "_Recarregar"
 
-#: ../src/eog-error-message-area.c:136
+#: ../src/eog-error-message-area.c:137
 msgid "Open with _Document Viewer"
 msgstr "Abrir com _Visualizador de documentos"
 
-#: ../src/eog-error-message-area.c:218
+#: ../src/eog-error-message-area.c:219
 #, c-format
-msgid "Could not load image '%s'."
-msgstr "Não foi possível carregar a imagem \"%s\"."
+#| msgid "Could not load image '%s'."
+msgid "Could not load image “%s”."
+msgstr "Não foi possível carregar a imagem “%s”."
 
-#: ../src/eog-error-message-area.c:260
+#: ../src/eog-error-message-area.c:261
 #, c-format
-msgid "Could not save image '%s'."
-msgstr "Não foi possível salvar a imagem \"%s\"."
+#| msgid "Could not save image '%s'."
+msgid "Could not save image “%s”."
+msgstr "Não foi possível salvar a imagem “%s”."
 
-#: ../src/eog-error-message-area.c:303
+#: ../src/eog-error-message-area.c:304
 #, c-format
-msgid "No images found in '%s'."
-msgstr "Nenhuma imagem encontrada em \"%s\"."
+#| msgid "No images found in '%s'."
+msgid "No images found in “%s”."
+msgstr "Nenhuma imagem encontrada em “%s”."
 
-#: ../src/eog-error-message-area.c:310
+#: ../src/eog-error-message-area.c:311
 msgid "The given locations contain no images."
 msgstr "Os locais informados não contém imagens."
 
-#: ../src/eog-error-message-area.c:349
+#: ../src/eog-error-message-area.c:350
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1046,7 +1071,7 @@ msgstr ""
 "Você gostaria de abrir a imagem com o visualizador de documentos para ver "
 "todas as páginas?"
 
-#: ../src/eog-error-message-area.c:354
+#: ../src/eog-error-message-area.c:355
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1058,13 +1083,13 @@ msgstr ""
 "páginas."
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
+#: ../src/eog-exif-util.c:189 ../src/eog-exif-util.c:191
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d de %B de %Y  %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:274
+#: ../src/eog-exif-util.c:280
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (objetiva)"
@@ -1072,7 +1097,7 @@ msgstr "%.1f (objetiva)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:285
+#: ../src/eog-exif-util.c:291
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (filme 35mm)"
@@ -1131,49 +1156,51 @@ msgstr "Salvar imagem"
 msgid "Open Folder"
 msgstr "Abrir pasta"
 
-#: ../src/eog-image.c:577
+#: ../src/eog-image.c:566
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformação em imagem não carregada."
 
-#: ../src/eog-image.c:605
+#: ../src/eog-image.c:594
 #, c-format
 msgid "Transformation failed."
 msgstr "Falha na transformação."
 
-#: ../src/eog-image.c:1085
+#: ../src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Não há suporte a EXIF para este formato de arquivo."
 
-#: ../src/eog-image.c:1229
+#: ../src/eog-image.c:1221
 #, c-format
 msgid "Image loading failed."
 msgstr "Falha ao carregar imagem."
 
-#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
+#: ../src/eog-image.c:1802 ../src/eog-image.c:1922
 #, c-format
 msgid "No image loaded."
 msgstr "Nenhuma imagem carregada."
 
-#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1931
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Você não possui as permissões necessárias para salvar o arquivo."
 
-#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
+#: ../src/eog-image.c:1820 ../src/eog-image.c:1942
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Falha ao criar arquivo temporário."
 
 #: ../src/eog-image-jpeg.c:374
 #, c-format
-msgid "Couldn't create temporary file for saving: %s"
+#| msgid "Couldn't create temporary file for saving: %s"
+msgid "Couldn’t create temporary file for saving: %s"
 msgstr "Não foi possível criar um arquivo temporário para salvar: %s"
 
 #: ../src/eog-image-jpeg.c:393
 #, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
+#| msgid "Couldn't allocate memory for loading JPEG file"
+msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "Não foi possível alocar memória para carregar o arquivo JPEG"
 
 #: ../src/eog-metadata-details.c:66
@@ -1305,7 +1332,7 @@ msgstr "_Baixo:"
 
 #: ../src/eog-print-image-setup.c:942
 msgid "C_enter:"
-msgstr "Ce_ntralizar"
+msgstr "Ce_ntralizar:"
 
 #: ../src/eog-print-image-setup.c:947
 msgid "None"
@@ -1404,7 +1431,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pixel  %s    %i%%"
 msgstr[1] "%i × %i pixels  %s    %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2632
+#: ../src/eog-window.c:908 ../src/eog-window.c:2655
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Ocultar"
@@ -1413,11 +1440,14 @@ msgstr "_Ocultar"
 #. * with the automatic line break.
 #: ../src/eog-window.c:918
 #, c-format
+#| msgid ""
+#| "The image \"%s\" has been modified by an external application.\n"
+#| "Would you like to reload it?"
 msgid ""
-"The image \"%s\" has been modified by an external application.\n"
+"The image “%s” has been modified by an external application.\n"
 "Would you like to reload it?"
 msgstr ""
-"A imagem \"%s\" foi modificada por um aplicativo externo.\n"
+"A imagem “%s” foi modificada por um aplicativo externo.\n"
 "Você gostaria de recarregá-la?"
 
 #. Translators: This string is displayed in the statusbar
@@ -1427,13 +1457,15 @@ msgstr ""
 #. * - the total number of images queued for saving
 #: ../src/eog-window.c:1181
 #, c-format
-msgid "Saving image \"%s\" (%u/%u)"
-msgstr "Salvando imagem \"%s\" (%u/%u)"
+#| msgid "Saving image \"%s\" (%u/%u)"
+msgid "Saving image “%s” (%u/%u)"
+msgstr "Salvando imagem “%s” (%u/%u)"
 
 #: ../src/eog-window.c:1606
 #, c-format
-msgid "Opening image \"%s\""
-msgstr "Abrindo imagem \"%s\""
+#| msgid "Opening image \"%s\""
+msgid "Opening image “%s”"
+msgstr "Abrindo imagem “%s”"
 
 #. L10N: This the reason why the screensaver is inhibited.
 #: ../src/eog-window.c:2002
@@ -1449,39 +1481,45 @@ msgstr ""
 "Erro ao imprimir arquivo:\n"
 "%s"
 
-#: ../src/eog-window.c:2581 ../src/eog-window.c:2596
+#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
 msgid "Error launching System Settings: "
 msgstr "Erro ao lançar as configurações do sistema: "
 
-#: ../src/eog-window.c:2630
+#: ../src/eog-window.c:2653
 msgid "_Open Background Preferences"
 msgstr "Abrir preferências de plan_o de fundo"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2646
+#: ../src/eog-window.c:2669
 #, c-format
+#| msgid ""
+#| "The image \"%s\" has been set as Desktop Background.\n"
+#| "Would you like to modify its appearance?"
 msgid ""
-"The image \"%s\" has been set as Desktop Background.\n"
+"The image “%s” has been set as Desktop Background.\n"
 "Would you like to modify its appearance?"
 msgstr ""
-"A imagem \"%s\" foi definida como plano de fundo da área de trabalho.\n"
+"A imagem “%s” foi definida como plano de fundo da área de trabalho.\n"
 "Você gostaria de mudar a sua aparência?"
 
-#: ../src/eog-window.c:3136
+#: ../src/eog-window.c:3159
 msgid "Saving image locally…"
 msgstr "Salvando a imagem localmente…"
 
-#: ../src/eog-window.c:3214
+#: ../src/eog-window.c:3237
 #, c-format
+#| msgid ""
+#| "Are you sure you want to remove\n"
+#| "\"%s\" permanently?"
 msgid ""
 "Are you sure you want to remove\n"
-"\"%s\" permanently?"
+"“%s” permanently?"
 msgstr ""
 "Você realmente deseja remover\n"
-"\"%s\" permanentemente?"
+"“%s” permanentemente?"
 
-#: ../src/eog-window.c:3217
+#: ../src/eog-window.c:3240
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1496,59 +1534,68 @@ msgstr[1] ""
 "Você realmente deseja remover\n"
 "as %d imagens selecionadas permanentemente?"
 
-#: ../src/eog-window.c:3239 ../src/eog-window.c:3505
+#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
 msgid "_Delete"
 msgstr "_Excluir"
 
-#: ../src/eog-window.c:3242 ../src/eog-window.c:3507
+#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
 msgid "_Yes"
 msgstr "_Sim"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3246 ../src/eog-window.c:3499
+#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
 msgid "Do _not ask again during this session"
 msgstr "_Não perguntar novamente durante esta sessão"
 
-#: ../src/eog-window.c:3290
+#: ../src/eog-window.c:3313
 #, c-format
-msgid "Couldn't retrieve image file"
+#| msgid "Couldn't retrieve image file"
+msgid "Couldn’t retrieve image file"
 msgstr "Não foi possível obter o arquivo de imagem"
 
-#: ../src/eog-window.c:3306
+#: ../src/eog-window.c:3329
 #, c-format
-msgid "Couldn't retrieve image file information"
+#| msgid "Couldn't retrieve image file information"
+msgid "Couldn’t retrieve image file information"
 msgstr "Não foi possível obter informação de arquivo de imagem"
 
-#: ../src/eog-window.c:3322 ../src/eog-window.c:3566
+#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
 #, c-format
-msgid "Couldn't delete file"
+#| msgid "Couldn't delete file"
+msgid "Couldn’t delete file"
 msgstr "Não foi possível excluir o arquivo"
 
 #. set dialog error message
-#: ../src/eog-window.c:3372 ../src/eog-window.c:3666
+#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Erro ao excluir a imagem %s"
 
-#: ../src/eog-window.c:3467
+#: ../src/eog-window.c:3490
 #, c-format
+#| msgid ""
+#| "Are you sure you want to move\n"
+#| "\"%s\" to the trash?"
 msgid ""
 "Are you sure you want to move\n"
-"\"%s\" to the trash?"
+"“%s” to the trash?"
 msgstr ""
 "Você realmente deseja mover\n"
-"\"%s\" para a lixeira?"
+"“%s” para a lixeira?"
 
-#: ../src/eog-window.c:3470
+#: ../src/eog-window.c:3493
 #, c-format
+#| msgid ""
+#| "A trash for \"%s\" couldn't be found. Do you want to remove this image "
+#| "permanently?"
 msgid ""
-"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr ""
-"Uma lixeira para \"%s\" não pôde ser encontrada. Deseja remover essa imagem "
+"Uma lixeira para “%s” não pôde ser encontrada. Deseja remover essa imagem "
 "permanentemente?"
 
-#: ../src/eog-window.c:3475
+#: ../src/eog-window.c:3498
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1563,40 +1610,44 @@ msgstr[1] ""
 "Você realmente deseja mover\n"
 "as %d imagens selecionadas para a lixeira?"
 
-#: ../src/eog-window.c:3480
+#: ../src/eog-window.c:3503
+#| msgid ""
+#| "Some of the selected images can't be moved to the trash and will be "
+#| "removed permanently. Are you sure you want to proceed?"
 msgid ""
-"Some of the selected images can't be moved to the trash and will be removed "
+"Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
 "Algumas das imagens selecionadas não podem ser movidas para a lixeira e "
 "serão removidas permanentemente. Tem certeza que deseja prosseguir?"
 
-#: ../src/eog-window.c:3544 ../src/eog-window.c:3558
+#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
 #, c-format
-msgid "Couldn't access trash."
+#| msgid "Couldn't access trash."
+msgid "Couldn’t access trash."
 msgstr "Não foi possível acessar a lixeira."
 
-#: ../src/eog-window.c:4224
+#: ../src/eog-window.c:4249
 msgid "Fit the image to the window"
 msgstr "Ajusta a imagem à janela"
 
-#: ../src/eog-window.c:4232 ../src/eog-window.c:4277
+#: ../src/eog-window.c:4257 ../src/eog-window.c:4302
 msgid "Shrink or enlarge the current image"
 msgstr "Encolhe ou aumenta a imagem atual"
 
-#: ../src/eog-window.c:4335
+#: ../src/eog-window.c:4360
 msgid "Show the current image in fullscreen mode"
 msgstr "Mostra a imagem atual em modo de tela cheia"
 
-#: ../src/eog-window.c:4412
+#: ../src/eog-window.c:4437
 msgid "Properties"
 msgstr "Propriedades"
 
-#: ../src/eog-window.c:5545
+#: ../src/eog-window.c:5570
 msgid "The GNOME image viewer."
 msgstr "Visualizador de imagens do GNOME."
 
-#: ../src/eog-window.c:5548
+#: ../src/eog-window.c:5573
 msgid "translator-credits"
 msgstr ""
 "Eduardo Belloti <ebelloti@terra.com.br>\n"
@@ -1618,7 +1669,8 @@ msgstr ""
 "Krix Apolinário <krixapolinario@gmail.com>\n"
 "André Gondim (In memoriam)<In Memorian>\n"
 "Fábio Nogueira <fnogueira@gnome.org>\n"
-"Gustavo Marques <gutodisse@gmail.com>"
+"Gustavo Marques <gutodisse@gmail.com>\n"
+"Rafael Fontenelle <rafaelff@gnome.org>"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1648,7 +1700,8 @@ msgstr ""
 "delas é usada"
 
 #: ../src/main.c:69
-msgid "Show the application's version"
+#| msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Mostra a versão do aplicativo"
 
 #: ../src/main.c:99
@@ -1658,10 +1711,16 @@ msgstr "[ARQUIVO…]"
 #. I18N: The '%s' is replaced with eog's command name.
 #: ../src/main.c:112
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
+#| msgid ""
+#| "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Execute \"%s --help\" para ver a lista completa das opções disponíveis na "
+"Execute “%s --help” para ver a lista completa das opções disponíveis na "
 "linha de comandos."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Rotate counter-clockwise"
+#~ msgstr "Girar no sentido anti-horário"
 
 #~ msgid "Side _Pane"
 #~ msgstr "_Painel lateral"
@@ -1859,9 +1918,6 @@ msgstr ""
 
 #~ msgid "Eye of GNOME Preferences"
 #~ msgstr "Preferências do Visualizador de Imagens"
-
-#~ msgid "Eye of GNOME"
-#~ msgstr "Visualizador de Imagens"
 
 #~ msgid "Running in fullscreen mode"
 #~ msgstr "Executando em modo tela cheia"
