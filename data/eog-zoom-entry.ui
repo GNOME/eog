@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="img_zoom_in">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">zoom-in-symbolic</property>
+  </object>
+  <object class="GtkImage" id="img_zoom_out">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">zoom-out-symbolic</property>
+  </object>
+  <template class="EogZoomEntry" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkButton" id="btn_zoom_out">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Shrink the image</property>
+        <property name="action_name">win.zoom-out</property>
+        <property name="image">img_zoom_out</property>
+        <property name="always_show_image">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="value_entry">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="max_length">5</property>
+        <property name="width_chars">9</property>
+        <property name="text" translatable="yes">2000%</property>
+        <property name="secondary_icon_name">go-down-symbolic</property>
+        <property name="primary_icon_activatable">False</property>
+        <property name="primary_icon_sensitive">False</property>
+        <property name="input_purpose">digits</property>
+        <signal name="activate" handler="eog_zoom_entry_activate_cb" object="EogZoomEntry" swapped="no"/>
+        <signal name="icon-press" handler="eog_zoom_entry_icon_press_cb" object="EogZoomEntry" swapped="no"/>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child type="center">
+      <object class="GtkButton" id="btn_zoom_in">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Enlarge the image</property>
+        <property name="action_name">win.zoom-in</property>
+        <property name="image">img_zoom_in</property>
+        <property name="always_show_image">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <style>
+      <class name="linked"/>
+    </style>
+  </template>
+</interface>

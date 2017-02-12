@@ -34,6 +34,7 @@ EXTRA_DIST =			\
 	eog-image-properties-dialog.ui	\
 	eog-multiple-save-as-dialog.ui	\
 	eog-preferences-dialog.ui \
+	eog-zoom-entry.ui	\
 	help-overlay.ui		\
 	metadata-sidebar.ui	\
 	popup-menus.ui		\
