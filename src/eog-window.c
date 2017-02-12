@@ -56,6 +56,7 @@
 #include "eog-clipboard-handler.h"
 #include "eog-window-activatable.h"
 #include "eog-metadata-sidebar.h"
+#include "eog-zoom-entry.h"
 
 #include "eog-enum-types.h"
 
@@ -131,8 +132,6 @@ struct _EogWindowPrivate {
         GtkWidget           *statusbar;
         GtkWidget           *nav;
 	GtkWidget           *message_area;
-	GtkWidget           *zoom_revealer;
-	GtkWidget           *zoom_scale;
 	GtkWidget           *properties_dlg;
 
 	GMenu               *open_with_menu;
@@ -204,8 +203,6 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
 static void eog_window_finish_saving (EogWindow *window);
-static void eog_window_zoom_scale_value_changed_cb (GtkRange *range,
-						    gpointer user_data);
 static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    gint        response_id,
 						    EogWindow  *window);
@@ -230,21 +227,6 @@ _eog_zoom_shrink_to_boolean (GBinding *binding, const GValue *source,
 
 	is_fit = (mode == EOG_ZOOM_MODE_SHRINK_TO_FIT);
 	g_value_set_variant (target, g_variant_new_boolean (is_fit));
-
-	return TRUE;
-}
-
-static gboolean
-_eog_zoom_button_variant_to_boolean (GBinding *binding, const GValue *source,
-				     GValue *target, gpointer user_data)
-{
-	GVariant *variant = g_value_get_variant (source);
-	g_return_val_if_fail(g_variant_is_of_type (variant,
-						   G_VARIANT_TYPE_BOOLEAN),
-			     FALSE);
-
-	// Use inverted logic, as the button behaves inverted as well
-	g_value_set_boolean(target, !g_variant_get_boolean(variant));
 
 	return TRUE;
 }
@@ -494,19 +476,6 @@ eog_window_get_display_profile (GtkWidget *window)
 	return profile;
 }
 #endif
-
-static void
-update_zoom_scale (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	gdouble zoom;
-
-	g_return_if_fail (EOG_IS_WINDOW (window));
-
-	priv = window->priv;
-	zoom = eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->view));
-	gtk_range_set_value (GTK_RANGE (priv->zoom_scale), zoom);
-}
 
 static void
 update_image_pos (EogWindow *window)
@@ -1632,19 +1601,6 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 
 	update_status_bar (window);
-
-	/* Block signal handler to avoid setting the zoom again.
-	 * Although the ScrollView will usually ignore it, it won't
-	 * do so when the zoom scale clamps the zoom factor to its
-	 * own allowed range. (#747410)
-	 */
-	g_signal_handlers_block_by_func (window->priv->zoom_scale,
-					 eog_window_zoom_scale_value_changed_cb,
-					 window);
-	update_zoom_scale (window);
-	g_signal_handlers_unblock_by_func (window->priv->zoom_scale,
-					   eog_window_zoom_scale_value_changed_cb,
-					   window);
 
 	action_zoom_in =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
@@ -4214,60 +4170,6 @@ eog_window_view_previous_image_cb (EogScrollView *view,
 }
 
 static void
-eog_window_zoom_scale_value_changed_cb (GtkRange *range, gpointer user_data)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	if (priv->view) {
-		gdouble value;
-
-		value = gtk_range_get_value (range);
-		eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (priv->view), value);
-	}
-}
-
-static void
-eog_window_zoom_button_toggled_cb (GtkToggleButton *button, gpointer user_data)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-	GtkWidget *zoom_image;
-	gboolean toggled;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	if (!priv->view) {
-		return;
-	}
-
-	toggled = gtk_toggle_button_get_active (button);
-	if (toggled) {
-		zoom_image = gtk_image_new_from_icon_name ("zoom-out-symbolic",
-							   GTK_ICON_SIZE_BUTTON);
-		gtk_widget_set_tooltip_text (GTK_WIDGET (button),
-					     _("Fit the image to the window"));
-		eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (priv->view), FALSE);
-	} else {
-		zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
-							   GTK_ICON_SIZE_BUTTON);
-		eog_scroll_view_set_zoom_mode (EOG_SCROLL_VIEW (priv->view),
-					       EOG_ZOOM_MODE_SHRINK_TO_FIT);
-		gtk_widget_set_tooltip_text (GTK_WIDGET (button),
-					     _("Shrink or enlarge the current image"));
-	}
-
-	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->zoom_revealer), toggled);
-	gtk_button_set_image (GTK_BUTTON (button), zoom_image);
-}
-
-static void
 eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -4279,8 +4181,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *popup_menu;
 	GtkWidget *hpaned;
 	GtkWidget *headerbar;
-	GtkWidget *zoom_button;
-	GtkWidget *zoom_image;
+	GtkWidget *zoom_entry;
 	GtkWidget *menu_button;
 	GtkWidget *menu_image;
 	GtkWidget *fullscreen_button;
@@ -4300,6 +4201,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_window_set_titlebar (GTK_WINDOW (window), headerbar);
 	gtk_widget_show (headerbar);
 
+#if 0
 	zoom_button = gtk_toggle_button_new ();
 	zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
 						   GTK_ICON_SIZE_BUTTON);
@@ -4339,6 +4241,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_container_add (GTK_CONTAINER (priv->zoom_revealer),
 			   priv->zoom_scale);
 	gtk_widget_show (priv->zoom_scale);
+#endif
 
 	menu_button = gtk_menu_button_new ();
 	menu_image = gtk_image_new_from_icon_name ("open-menu-symbolic",
@@ -4457,11 +4360,6 @@ eog_window_construct_ui (EogWindow *window)
 					     G_BINDING_SYNC_CREATE,
 					     _eog_zoom_shrink_to_boolean,
 					     NULL, NULL, NULL);
-		g_object_bind_property_full (action, "state",
-					     zoom_button, "active",
-					     G_BINDING_SYNC_CREATE,
-					     _eog_zoom_button_variant_to_boolean,
-					     NULL, NULL, NULL);
 	}
 	g_settings_bind (priv->view_settings, EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
 			 priv->view, "scrollwheel-zoom", G_SETTINGS_BIND_GET);
@@ -4491,6 +4389,11 @@ eog_window_construct_ui (EogWindow *window)
 			 FALSE);
 
 	gtk_widget_show_all (hpaned);
+
+	zoom_entry = eog_zoom_entry_new (EOG_SCROLL_VIEW (priv->view),
+	                                 G_MENU (gtk_builder_get_object (builder,
+	                                                                 "zoom-menu")));
+	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar), zoom_entry);
 
 	priv->thumbview = g_object_ref (eog_thumb_view_new ());
 

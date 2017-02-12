@@ -25,14 +25,15 @@ NOINST_H_FILES =			\
 	eog-metadata-reader-jpg.h	\
 	eog-metadata-reader-png.h	\
 	eog-pixbuf-util.h		\
-	eog-plugin-engine.h             \
+	eog-plugin-engine.h		\
 	eog-preferences-dialog.h	\
 	eog-print.h			\
-	eog-print-image-setup.h         \
-	eog-print-preview.h             \
+	eog-print-image-setup.h		\
+	eog-print-preview.h		\
 	eog-save-as-dialog-helper.h	\
 	eog-session.h			\
 	eog-util.h			\
+	eog-zoom-entry.h		\
 	zoom.h
 
 INST_H_FILES =				\
@@ -63,7 +64,7 @@ libeog_c_files = 			\
 	eog-application.c		\
 	eog-application-activatable.c	\
 	eog-clipboard-handler.c		\
-	eog-close-confirmation-dialog.c \
+	eog-close-confirmation-dialog.c	\
 	eog-debug.c			\
 	eog-error-message-area.c	\
 	eog-file-chooser.c		\
@@ -78,11 +79,11 @@ libeog_c_files = 			\
 	eog-metadata-reader-jpg.c	\
 	eog-metadata-reader-png.c	\
 	eog-pixbuf-util.c		\
-	eog-plugin-engine.c            	\
+	eog-plugin-engine.c		\
 	eog-preferences-dialog.c	\
 	eog-print.c			\
-	eog-print-image-setup.c         \
-	eog-print-preview.c           	\
+	eog-print-image-setup.c		\
+	eog-print-preview.c		\
 	eog-properties-dialog.c		\
 	eog-save-as-dialog-helper.c	\
 	eog-scroll-view.c		\
@@ -97,6 +98,7 @@ libeog_c_files = 			\
 	eog-util.c			\
 	eog-window-activatable.c	\
 	eog-window.c			\
+	eog-zoom-entry.c		\
 	zoom.c
 
 libeog_la_SOURCES =			\

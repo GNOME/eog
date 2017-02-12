@@ -19,8 +19,8 @@
 #include "zoom.h"
 
 /* Maximum zoom factor */
-#define MAX_ZOOM_FACTOR 20
-#define MIN_ZOOM_FACTOR 0.02
+#define MAX_ZOOM_FACTOR EOG_SCROLL_VIEW_MAX_ZOOM_FACTOR
+#define MIN_ZOOM_FACTOR EOG_SCROLL_VIEW_MIN_ZOOM_FACTOR
 
 /* Default increment for zooming.  The current zoom factor is multiplied or
  * divided by this amount on every zooming step.  For consistency, you should
@@ -77,7 +77,7 @@ typedef enum {
 
 /* Drag 'n Drop */
 static GtkTargetEntry target_table[] = {
-	{ "text/uri-list", 0, 0},
+        { "text/uri-list", 0, 0},
 };
 
 enum {
@@ -182,11 +182,11 @@ static void set_zoom_fit (EogScrollView *view);
 /* static void request_paint_area (EogScrollView *view, GdkRectangle *area); */
 static void set_minimum_zoom_factor (EogScrollView *view);
 static void view_on_drag_begin_cb (GtkWidget *widget, GdkDragContext *context,
-				   gpointer user_data);
+                                   gpointer user_data);
 static void view_on_drag_data_get_cb (GtkWidget *widget,
-				      GdkDragContext*drag_context,
-				      GtkSelectionData *data, guint info,
-				      guint time, gpointer user_data);
+                                      GdkDragContext*drag_context,
+                                      GtkSelectionData *data, guint info,
+                                      guint time, gpointer user_data);
 static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
 static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
                                                   gint *y, gint *width,
@@ -198,7 +198,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (EogScrollView, eog_scroll_view, GTK_TYPE_GRID)
 
 /*===================================
     widget size changing handler &
-        util functions
+	util functions
   ---------------------------------*/
 
 static cairo_surface_t *
@@ -208,9 +208,9 @@ create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 	cairo_t *cr;
 
 	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
-						     CAIRO_CONTENT_COLOR | CAIRO_CONTENT_ALPHA,
-						     gdk_pixbuf_get_width (pixbuf),
-						     gdk_pixbuf_get_height (pixbuf));
+	                                             CAIRO_CONTENT_COLOR | CAIRO_CONTENT_ALPHA,
+	                                             gdk_pixbuf_get_width (pixbuf),
+	                                             gdk_pixbuf_get_height (pixbuf));
 	cr = cairo_create (surface);
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 	cairo_paint (cr);
@@ -273,10 +273,10 @@ compute_scaled_size (EogScrollView *view, double zoom, int *width, int *height)
  */
 static void
 compute_center_zoom_offsets (EogScrollView *view,
-			     double old_zoom, double new_zoom,
-			     int width, int height,
-			     double zoom_x_anchor, double zoom_y_anchor,
-			     int *xofs, int *yofs)
+                             double old_zoom, double new_zoom,
+                             int width, int height,
+                             double zoom_x_anchor, double zoom_y_anchor,
+                             int *xofs, int *yofs)
 {
 	EogScrollViewPrivate *priv;
 	int old_scaled_width, old_scaled_height;
@@ -286,7 +286,7 @@ compute_center_zoom_offsets (EogScrollView *view,
 	priv = view->priv;
 
 	compute_scaled_size (view, old_zoom,
-			     &old_scaled_width, &old_scaled_height);
+	                     &old_scaled_width, &old_scaled_height);
 
 	if (old_scaled_width < width)
 		view_cx = (zoom_x_anchor * old_scaled_width) / old_zoom;
@@ -299,7 +299,7 @@ compute_center_zoom_offsets (EogScrollView *view,
 		view_cy = (priv->yofs + zoom_y_anchor * height) / old_zoom;
 
 	compute_scaled_size (view, new_zoom,
-			     &new_scaled_width, &new_scaled_height);
+	                     &new_scaled_width, &new_scaled_height);
 
 	if (new_scaled_width < width)
 		*xofs = 0;
@@ -349,16 +349,16 @@ update_scrollbar_values (EogScrollView *view)
 		priv->xofs = CLAMP (priv->xofs, 0, upper - page_size);
 
 		g_signal_handlers_block_matched (
-			priv->hadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
+		        priv->hadj, G_SIGNAL_MATCH_DATA,
+		        0, 0, NULL, NULL, view);
 
 		gtk_adjustment_configure (priv->hadj, priv->xofs, lower,
-					  upper, step_increment,
-					  page_increment, page_size);
+		                          upper, step_increment,
+		                          page_increment, page_size);
 
 		g_signal_handlers_unblock_matched (
-			priv->hadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
+		        priv->hadj, G_SIGNAL_MATCH_DATA,
+		        0, 0, NULL, NULL, view);
 	}
 
 	if (gtk_widget_get_visible (GTK_WIDGET (priv->vbar))) {
@@ -371,16 +371,16 @@ update_scrollbar_values (EogScrollView *view)
 		priv->yofs = CLAMP (priv->yofs, 0, upper - page_size);
 
 		g_signal_handlers_block_matched (
-			priv->vadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
+		        priv->vadj, G_SIGNAL_MATCH_DATA,
+		        0, 0, NULL, NULL, view);
 
 		gtk_adjustment_configure (priv->vadj, priv->yofs, lower,
-					  upper, step_increment,
-					  page_increment, page_size);
+		                          upper, step_increment,
+		                          page_increment, page_size);
 
 		g_signal_handlers_unblock_matched (
-			priv->vadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
+		        priv->vadj, G_SIGNAL_MATCH_DATA,
+		        0, 0, NULL, NULL, view);
 	}
 }
 
@@ -400,15 +400,15 @@ eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
 	view->priv->cursor = new_cursor;
 
 	switch (new_cursor) {
-		case EOG_SCROLL_VIEW_CURSOR_NORMAL:
-			gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
-			break;
-                case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
-			cursor = gdk_cursor_new_for_display (display, GDK_BLANK_CURSOR);
-                        break;
-		case EOG_SCROLL_VIEW_CURSOR_DRAG:
-			cursor = gdk_cursor_new_for_display (display, GDK_FLEUR);
-			break;
+	        case EOG_SCROLL_VIEW_CURSOR_NORMAL:
+		        gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
+		        break;
+	        case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
+		        cursor = gdk_cursor_new_for_display (display, GDK_BLANK_CURSOR);
+		        break;
+	        case EOG_SCROLL_VIEW_CURSOR_DRAG:
+		        cursor = gdk_cursor_new_for_display (display, GDK_FLEUR);
+		        break;
 	}
 
 	if (cursor) {
@@ -455,7 +455,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	bar_width = req.width;
 
 	eog_debug_message (DEBUG_WINDOW, "Widget Size allocate: %i, %i   Bar: %i, %i\n",
-			   width, height, bar_width, bar_height);
+	                   width, height, bar_width, bar_height);
 
 	hbar_visible = vbar_visible = FALSE;
 	if (priv->zoom_mode == EOG_ZOOM_MODE_SHRINK_TO_FIT)
@@ -471,7 +471,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 		else
 			vbar_visible = TRUE;
 	}
-        else if (img_height > height) {
+	else if (img_height > height) {
 		vbar_visible = TRUE;
 		if (img_width <= (width - bar_width))
 			hbar_visible = FALSE;
@@ -524,7 +524,7 @@ is_image_movable (EogScrollView *view)
 }
 
 /*===================================
-          drawing core
+	  drawing core
   ---------------------------------*/
 
 static void
@@ -570,8 +570,8 @@ create_background_surface (EogScrollView *view)
 
 	get_transparency_params (view, &check_size, &check_1, &check_2);
 	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
-						     CAIRO_CONTENT_COLOR_ALPHA,
-						     check_size * 2, check_size * 2);
+	                                             CAIRO_CONTENT_COLOR_ALPHA,
+	                                             check_size * 2, check_size * 2);
 	cairo_t* cr = cairo_create (surface);
 
 	/* Use source operator to make fully transparent work */
@@ -617,14 +617,14 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	/* Check bounds & Compute offsets */
 	if (gtk_widget_get_visible (priv->hbar)) {
 		x = CLAMP (x, 0, gtk_adjustment_get_upper (priv->hadj)
-				 - gtk_adjustment_get_page_size (priv->hadj));
+		                 - gtk_adjustment_get_page_size (priv->hadj));
 		xofs = x - priv->xofs;
 	} else
 		xofs = 0;
 
 	if (gtk_widget_get_visible (priv->vbar)) {
 		y = CLAMP (y, 0, gtk_adjustment_get_upper (priv->vadj)
-				 - gtk_adjustment_get_page_size (priv->vadj));
+		                 - gtk_adjustment_get_page_size (priv->vadj));
 		yofs = y - priv->yofs;
 	} else
 		yofs = 0;
@@ -659,21 +659,21 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 		return;
 
 	g_signal_handlers_block_matched (
-		priv->hadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
+	        priv->hadj, G_SIGNAL_MATCH_DATA,
+	        0, 0, NULL, NULL, view);
 	g_signal_handlers_block_matched (
-		priv->vadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
+	        priv->vadj, G_SIGNAL_MATCH_DATA,
+	        0, 0, NULL, NULL, view);
 
 	gtk_adjustment_set_value (priv->hadj, x);
 	gtk_adjustment_set_value (priv->vadj, y);
 
 	g_signal_handlers_unblock_matched (
-		priv->hadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
+	        priv->hadj, G_SIGNAL_MATCH_DATA,
+	        0, 0, NULL, NULL, view);
 	g_signal_handlers_unblock_matched (
-		priv->vadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
+	        priv->vadj, G_SIGNAL_MATCH_DATA,
+	        0, 0, NULL, NULL, view);
 }
 
 /* Scrolls the image view by the specified offsets.  Notifies the adjustments
@@ -701,7 +701,7 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 	priv = view->priv;
 
 	scroll_to (view, gtk_adjustment_get_value (priv->hadj),
-		   gtk_adjustment_get_value (priv->vadj), FALSE);
+	           gtk_adjustment_get_value (priv->vadj), FALSE);
 }
 
 
@@ -729,8 +729,8 @@ set_minimum_zoom_factor (EogScrollView *view)
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	view->priv->min_zoom = MAX (1.0 / gdk_pixbuf_get_width (view->priv->pixbuf),
-				    MAX(1.0 / gdk_pixbuf_get_height (view->priv->pixbuf),
-					MIN_ZOOM_FACTOR) );
+	                            MAX(1.0 / gdk_pixbuf_get_height (view->priv->pixbuf),
+	                                MIN_ZOOM_FACTOR) );
 	return;
 }
 
@@ -751,7 +751,7 @@ set_minimum_zoom_factor (EogScrollView *view)
  **/
 static void
 set_zoom (EogScrollView *view, double zoom,
-	  gboolean have_anchor, int anchorx, int anchory)
+          gboolean have_anchor, int anchorx, int anchory)
 {
 	EogScrollViewPrivate *priv;
 	GtkAllocation allocation;
@@ -787,9 +787,9 @@ set_zoom (EogScrollView *view, double zoom,
 	}
 
 	compute_center_zoom_offsets (view, priv->zoom, zoom,
-				     allocation.width, allocation.height,
-				     x_rel, y_rel,
-				     &xofs, &yofs);
+	                             allocation.width, allocation.height,
+	                             x_rel, y_rel,
+	                             &xofs, &yofs);
 
 	/* set new values */
 	priv->xofs = xofs; /* (img_width * x_rel * zoom) - anchorx; */
@@ -840,9 +840,9 @@ set_zoom_fit (EogScrollView *view)
 	gtk_widget_get_allocation (GTK_WIDGET(priv->display), &allocation);
 
 	new_zoom = zoom_fit_scale (allocation.width, allocation.height,
-				   gdk_pixbuf_get_width (priv->pixbuf),
-				   gdk_pixbuf_get_height (priv->pixbuf),
-				   priv->upscale);
+	                           gdk_pixbuf_get_width (priv->pixbuf),
+	                           gdk_pixbuf_get_height (priv->pixbuf),
+	                           priv->upscale);
 
 	if (new_zoom > MAX_ZOOM_FACTOR)
 		new_zoom = MAX_ZOOM_FACTOR;
@@ -1014,9 +1014,9 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 		return FALSE;
 
 	switch (event->button) {
-		case 1:
-		case 2:
-                        if (event->button == 1 && !priv->scroll_wheel_zoom &&
+	        case 1:
+	        case 2:
+		        if (event->button == 1 && !priv->scroll_wheel_zoom &&
 			    !(event->state & GDK_CONTROL_MASK))
 				break;
 
@@ -1032,8 +1032,8 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 
 				return TRUE;
 			}
-		default:
-			break;
+	        default:
+		        break;
 	}
 
 	return FALSE;
@@ -1053,16 +1053,16 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 		return FALSE;
 
 	switch (event->button) {
-		case 1:
-		case 2:
-			drag_to (view, event->x, event->y);
+	        case 1:
+	        case 2:
+		        drag_to (view, event->x, event->y);
 			priv->dragging = FALSE;
 
 			eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
-			break;
+		        break;
 
-		default:
-			break;
+	        default:
+		        break;
 	}
 
 	return TRUE;
@@ -1119,23 +1119,23 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 		return FALSE;
 	}
 
-        if (priv->scroll_wheel_zoom) {
+	if (priv->scroll_wheel_zoom) {
 		if (event->state & GDK_SHIFT_MASK)
 			scroll_by (view, yofs, xofs);
 		else if (event->state & GDK_CONTROL_MASK)
 			scroll_by (view, xofs, yofs);
 		else
 			set_zoom (view, priv->zoom * zoom_factor,
-				  TRUE, event->x, event->y);
+			          TRUE, event->x, event->y);
 	} else {
 		if (event->state & GDK_SHIFT_MASK)
 			scroll_by (view, yofs, xofs);
 		else if (event->state & GDK_CONTROL_MASK)
 			set_zoom (view, priv->zoom * zoom_factor,
-				  TRUE, event->x, event->y);
+			          TRUE, event->x, event->y);
 		else
 			scroll_by (view, xofs, yofs);
-        }
+	}
 
 	return TRUE;
 }
@@ -1194,7 +1194,7 @@ eog_scroll_view_size_allocate (GtkWidget *widget, GtkAllocation *alloc)
 	check_scrollbar_visibility (view, alloc);
 
 	GTK_WIDGET_CLASS (eog_scroll_view_parent_class)->size_allocate (widget
-									,alloc);
+	                                                                ,alloc);
 }
 
 static void
@@ -1237,8 +1237,8 @@ display_size_change (GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 
 static gboolean
 eog_scroll_view_focus_in_event (GtkWidget     *widget,
-			    GdkEventFocus *event,
-			    gpointer data)
+                            GdkEventFocus *event,
+                            gpointer data)
 {
 	g_signal_stop_emission_by_name (G_OBJECT (widget), "focus_in_event");
 	return FALSE;
@@ -1246,8 +1246,8 @@ eog_scroll_view_focus_in_event (GtkWidget     *widget,
 
 static gboolean
 eog_scroll_view_focus_out_event (GtkWidget     *widget,
-			     GdkEventFocus *event,
-			     gpointer data)
+                             GdkEventFocus *event,
+                             gpointer data)
 {
 	g_signal_stop_emission_by_name (G_OBJECT (widget), "focus_out_event");
 	return FALSE;
@@ -1316,24 +1316,24 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 	                                  &scaled_width, &scaled_height);
 
 	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n",
-			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
+	                   priv->zoom, xofs, yofs, scaled_width, scaled_height);
 
 	/* Paint the background */
 	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
 	cairo_rectangle (cr, 0, 0, allocation.width, allocation.height);
 	if (priv->transp_style != EOG_TRANSP_BACKGROUND)
 		cairo_rectangle (cr, MAX (0, xofs), MAX (0, yofs),
-				 scaled_width, scaled_height);
+		                 scaled_width, scaled_height);
 	if (priv->override_bg_color != NULL)
 		background_color = priv->override_bg_color;
 	else if (priv->use_bg_color)
 		background_color = priv->background_color;
 	if (background_color != NULL)
 		cairo_set_source_rgba (cr,
-				       background_color->red,
-				       background_color->green,
-				       background_color->blue,
-				       background_color->alpha);
+		                       background_color->red,
+		                       background_color->green,
+		                       background_color->blue,
+		                       background_color->alpha);
 	else
 		cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
 	cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -1435,8 +1435,8 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 
 static void
 zoom_gesture_begin_cb (GtkGestureZoom   *gesture,
-		       GdkEventSequence *sequence,
-		       EogScrollView    *view)
+                       GdkEventSequence *sequence,
+                       EogScrollView    *view)
 {
 	gdouble center_x, center_y;
 	EogScrollViewPrivate *priv;
@@ -1445,7 +1445,7 @@ zoom_gesture_begin_cb (GtkGestureZoom   *gesture,
 
 	/* Displace dragging point to gesture center */
 	gtk_gesture_get_bounding_box_center (GTK_GESTURE (gesture),
-                                             &center_x, &center_y);
+	                                     &center_x, &center_y);
 	priv->drag_anchor_x = center_x;
 	priv->drag_anchor_y = center_y;
 	priv->drag_ofs_x = priv->xofs;
@@ -1453,13 +1453,13 @@ zoom_gesture_begin_cb (GtkGestureZoom   *gesture,
 	priv->dragging = TRUE;
 	priv->initial_zoom = priv->zoom;
 
-        gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 }
 
 static void
 zoom_gesture_update_cb (GtkGestureZoom   *gesture,
-			GdkEventSequence *sequence,
-			EogScrollView    *view)
+                        GdkEventSequence *sequence,
+                        EogScrollView    *view)
 {
 	gdouble center_x, center_y, scale;
 	EogScrollViewPrivate *priv;
@@ -1467,29 +1467,29 @@ zoom_gesture_update_cb (GtkGestureZoom   *gesture,
 	priv = view->priv;
 	scale = gtk_gesture_zoom_get_scale_delta (gesture);
 	gtk_gesture_get_bounding_box_center (GTK_GESTURE (gesture),
-                                             &center_x, &center_y);
+	                                     &center_x, &center_y);
 
 	drag_to (view, center_x, center_y);
 	set_zoom (view, priv->initial_zoom * scale, TRUE,
-		  center_x, center_y);
+	          center_x, center_y);
 }
 
 static void
 zoom_gesture_end_cb (GtkGestureZoom   *gesture,
-		     GdkEventSequence *sequence,
-		     EogScrollView    *view)
+                     GdkEventSequence *sequence,
+                     EogScrollView    *view)
 {
 	EogScrollViewPrivate *priv;
 
 	priv = view->priv;
 	priv->dragging = FALSE;
-        eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
+	eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
 }
 
 static void
 rotate_gesture_begin_cb (GtkGesture       *gesture,
-			 GdkEventSequence *sequence,
-			 EogScrollView    *view)
+                         GdkEventSequence *sequence,
+                         EogScrollView    *view)
 {
 	EogScrollViewPrivate *priv;
 
@@ -1499,15 +1499,15 @@ rotate_gesture_begin_cb (GtkGesture       *gesture,
 
 static void
 pan_gesture_pan_cb (GtkGesturePan   *gesture,
-		    GtkPanDirection  direction,
-		    gdouble          offset,
-		    EogScrollView   *view)
+                    GtkPanDirection  direction,
+                    gdouble          offset,
+                    EogScrollView   *view)
 {
 	EogScrollViewPrivate *priv;
 
 	if (eog_scroll_view_scrollbars_visible (view)) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
-				       GTK_EVENT_SEQUENCE_DENIED);
+		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
 	}
 
@@ -1529,8 +1529,8 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 
 static void
 pan_gesture_end_cb (GtkGesture       *gesture,
-		    GdkEventSequence *sequence,
-		    EogScrollView    *view)
+                    GdkEventSequence *sequence,
+                    EogScrollView    *view)
 {
 	EogScrollViewPrivate *priv;
 
@@ -1549,22 +1549,22 @@ pan_gesture_end_cb (GtkGesture       *gesture,
 
 static gboolean
 scroll_view_check_angle (gdouble angle,
-			 gdouble min,
-			 gdouble max,
-			 gdouble threshold)
+                         gdouble min,
+                         gdouble max,
+                         gdouble threshold)
 {
 	if (min < max) {
 		return (angle > min - threshold &&
-			angle < max + threshold);
+		        angle < max + threshold);
 	} else {
 		return (angle < max + threshold ||
-			angle > min - threshold);
+		        angle > min - threshold);
 	}
 }
 
 static EogRotationState
 scroll_view_get_rotate_state (EogScrollView *view,
-			      gdouble        delta)
+                              gdouble        delta)
 {
 	EogScrollViewPrivate *priv;
 
@@ -1574,22 +1574,22 @@ scroll_view_get_rotate_state (EogScrollView *view,
 	switch (priv->rotate_state) {
 	case EOG_ROTATION_0:
 		if (scroll_view_check_angle (delta, G_PI * 7 / 4,
-					     G_PI / 4, THRESHOLD))
+		                             G_PI / 4, THRESHOLD))
 			return priv->rotate_state;
 		break;
 	case EOG_ROTATION_90:
 		if (scroll_view_check_angle (delta, G_PI / 4,
-					     G_PI * 3 / 4, THRESHOLD))
+		                             G_PI * 3 / 4, THRESHOLD))
 			return priv->rotate_state;
 		break;
 	case EOG_ROTATION_180:
 		if (scroll_view_check_angle (delta, G_PI * 3 / 4,
-					     G_PI * 5 / 4, THRESHOLD))
+		                             G_PI * 5 / 4, THRESHOLD))
 			return priv->rotate_state;
 		break;
 	case EOG_ROTATION_270:
 		if (scroll_view_check_angle (delta, G_PI * 5 / 4,
-					     G_PI * 7 / 4, THRESHOLD))
+		                             G_PI * 7 / 4, THRESHOLD))
 			return priv->rotate_state;
 		break;
 	default:
@@ -1610,17 +1610,17 @@ scroll_view_get_rotate_state (EogScrollView *view,
 
 static void
 rotate_gesture_angle_changed_cb (GtkGestureRotate *rotate,
-				 gdouble           angle,
-				 gdouble           delta,
-				 EogScrollView    *view)
+                                 gdouble           angle,
+                                 gdouble           delta,
+                                 EogScrollView    *view)
 {
 	EogRotationState rotate_state;
 	EogScrollViewPrivate *priv;
 	gint angle_diffs [N_EOG_ROTATIONS][N_EOG_ROTATIONS] = {
-		{ 0,   90,  180, 270 },
-		{ 270, 0,   90,  180 },
-		{ 180, 270, 0,   90 },
-		{ 90,  180, 270, 0 }
+	        { 0,   90,  180, 270 },
+	        { 270, 0,   90,  180 },
+	        { 180, 270, 0,   90 },
+	        { 90,  180, 270, 0 }
 	};
 	gint rotate_angle;
 
@@ -1669,11 +1669,11 @@ image_changed_cb (EogImage *img, gpointer data)
 	update_pixbuf (EOG_SCROLL_VIEW (data), eog_image_get_pixbuf (img));
 
 	_set_zoom_mode_internal (EOG_SCROLL_VIEW (data),
-				 EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	                         EOG_ZOOM_MODE_SHRINK_TO_FIT);
 }
 
 /*===================================
-         public API
+	 public API
   ---------------------------------*/
 
 void
@@ -1782,12 +1782,12 @@ eog_scroll_view_set_transparency_color (EogScrollView *view, GdkRGBA *color)
 
 void
 eog_scroll_view_set_transparency (EogScrollView        *view,
-				  EogTransparencyStyle  style)
+                                  EogTransparencyStyle  style)
 {
 	EogScrollViewPrivate *priv;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
-	
+
 	priv = view->priv;
 
 	if (priv->transp_style != style) {
@@ -1800,9 +1800,9 @@ eog_scroll_view_set_transparency (EogScrollView        *view,
 /* zoom api */
 
 static double preferred_zoom_levels[] = {
-	1.0 / 100, 1.0 / 50, 1.0 / 20,
-	1.0 / 10.0, 1.0 / 5.0, 1.0 / 3.0, 1.0 / 2.0, 1.0 / 1.5,
-	1.0, 1 / 0.75, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+        1.0 / 100, 1.0 / 50, 1.0 / 20,
+        1.0 / 10.0, 1.0 / 5.0, 1.0 / 3.0, 1.0 / 2.0, 1.0 / 1.5,
+        1.0, 1 / 0.75, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
         11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0
 };
 static const gint n_zoom_levels = (sizeof (preferred_zoom_levels) / sizeof (double));
@@ -1826,7 +1826,7 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 
 		for (i = 0; i < n_zoom_levels; i++) {
 			if (preferred_zoom_levels [i] - priv->zoom
-					> DOUBLE_EQUAL_MAX_DIFF) {
+			                > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
@@ -1862,7 +1862,7 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 
 		for (i = n_zoom_levels - 1; i >= 0; i--) {
 			if (priv->zoom - preferred_zoom_levels [i]
-					> DOUBLE_EQUAL_MAX_DIFF) {
+			                > DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
@@ -1925,7 +1925,7 @@ eog_scroll_view_get_zoom_is_max (EogScrollView *view)
 static void
 display_next_frame_cb (EogImage *image, gint delay, gpointer data)
 {
- 	EogScrollViewPrivate *priv;
+	EogScrollViewPrivate *priv;
 	EogScrollView *view;
 
 	if (!EOG_IS_SCROLL_VIEW (data))
@@ -1936,7 +1936,7 @@ display_next_frame_cb (EogImage *image, gint delay, gpointer data)
 
 	update_pixbuf (view, eog_image_get_pixbuf (image));
 
-	gtk_widget_queue_draw (GTK_WIDGET (priv->display)); 
+	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 }
 
 void
@@ -1966,12 +1966,12 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			update_pixbuf (view, eog_image_get_pixbuf (image));
 			/* priv->progressive_state = PROGRESSIVE_NONE; */
 			_set_zoom_mode_internal (view,
-						 EOG_ZOOM_MODE_SHRINK_TO_FIT);
+			                         EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
 		}
 #if 0
 		else if ((is_zoomed_in (view) && priv->interp_type_in != CAIRO_FILTER_NEAREST) ||
-			 (is_zoomed_out (view) && priv->interp_type_out != CAIRO_FILTER_NEAREST))
+		         (is_zoomed_out (view) && priv->interp_type_out != CAIRO_FILTER_NEAREST))
 		{
 			/* paint antialiased image version */
 			priv->progressive_state = PROGRESSIVE_POLISHING;
@@ -1980,11 +1980,11 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 #endif
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
-							   (GCallback) image_changed_cb, view);
+		                                           (GCallback) image_changed_cb, view);
 		if (eog_image_is_animation (image) == TRUE ) {
 			eog_image_start_animation (image);
-			priv->frame_changed_id = g_signal_connect (image, "next-frame", 
-								    (GCallback) display_next_frame_cb, view);
+			priv->frame_changed_id = g_signal_connect (image, "next-frame",
+			                                            (GCallback) display_next_frame_cb, view);
 		}
 	} else {
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
@@ -2034,8 +2034,8 @@ eog_scroll_view_scrollbars_visible (EogScrollView *view)
 
 static gboolean
 sv_string_to_rgba_mapping (GValue   *value,
-			    GVariant *variant,
-			    gpointer  user_data)
+                            GVariant *variant,
+                            gpointer  user_data)
 {
 	GdkRGBA color;
 
@@ -2051,8 +2051,8 @@ sv_string_to_rgba_mapping (GValue   *value,
 
 static GVariant*
 sv_rgba_to_string_mapping (const GValue       *value,
-			    const GVariantType *expected_type,
-			    gpointer            user_data)
+                            const GVariantType *expected_type,
+                            gpointer            user_data)
 {
 	GVariant *variant = NULL;
 	GdkRGBA *color;
@@ -2112,8 +2112,8 @@ _set_overlay_timeout (EogScrollView *view)
 
 static gboolean
 _enter_overlay_event_cb (GtkWidget *widget,
-			 GdkEvent *event,
-			 gpointer user_data)
+                         GdkEvent *event,
+                         gpointer user_data)
 {
 	EogScrollView *view = EOG_SCROLL_VIEW (user_data);
 
@@ -2174,14 +2174,14 @@ eog_scroll_view_init (EogScrollView *view)
 
 	priv->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 	g_signal_connect (priv->hadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
+	                  G_CALLBACK (adjustment_changed_cb),
+	                  view);
 
 	priv->hbar = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, priv->hadj);
 	priv->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0, 100, 0, 10, 10, 100));
 	g_signal_connect (priv->vadj, "value_changed",
-			  G_CALLBACK (adjustment_changed_cb),
-			  view);
+	                  G_CALLBACK (adjustment_changed_cb),
+	                  view);
 
 	priv->vbar = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, priv->vadj);
 
@@ -2189,219 +2189,219 @@ eog_scroll_view_init (EogScrollView *view)
 	gtk_grid_attach (GTK_GRID (view), priv->overlay, 0, 0, 1, 1);
 
 	priv->display = g_object_new (GTK_TYPE_DRAWING_AREA,
-				      "can-focus", TRUE,
-				      NULL);
+	                              "can-focus", TRUE,
+	                              NULL);
 
 	gtk_widget_add_events (GTK_WIDGET (priv->display),
-			       GDK_EXPOSURE_MASK
-			       | GDK_TOUCHPAD_GESTURE_MASK
-			       | GDK_BUTTON_PRESS_MASK
-			       | GDK_BUTTON_RELEASE_MASK
-			       | GDK_POINTER_MOTION_MASK
-			       | GDK_POINTER_MOTION_HINT_MASK
-			       | GDK_TOUCH_MASK
-			       | GDK_SCROLL_MASK
-			       | GDK_KEY_PRESS_MASK);
+	                       GDK_EXPOSURE_MASK
+	                       | GDK_TOUCHPAD_GESTURE_MASK
+	                       | GDK_BUTTON_PRESS_MASK
+	                       | GDK_BUTTON_RELEASE_MASK
+	                       | GDK_POINTER_MOTION_MASK
+	                       | GDK_POINTER_MOTION_HINT_MASK
+	                       | GDK_TOUCH_MASK
+	                       | GDK_SCROLL_MASK
+	                       | GDK_KEY_PRESS_MASK);
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
-			  G_CALLBACK (display_size_change), view);
+	                  G_CALLBACK (display_size_change), view);
 	g_signal_connect (G_OBJECT (priv->display), "draw",
-			  G_CALLBACK (display_draw), view);
+	                  G_CALLBACK (display_draw), view);
 	g_signal_connect (G_OBJECT (priv->display), "map_event",
-			  G_CALLBACK (display_map_event), view);
+	                  G_CALLBACK (display_map_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "button_press_event",
-			  G_CALLBACK (eog_scroll_view_button_press_event),
-			  view);
+	                  G_CALLBACK (eog_scroll_view_button_press_event),
+	                  view);
 	g_signal_connect (G_OBJECT (priv->display), "motion_notify_event",
-			  G_CALLBACK (eog_scroll_view_motion_event), view);
+	                  G_CALLBACK (eog_scroll_view_motion_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "button_release_event",
-			  G_CALLBACK (eog_scroll_view_button_release_event),
-			  view);
+	                  G_CALLBACK (eog_scroll_view_button_release_event),
+	                  view);
 	g_signal_connect (G_OBJECT (priv->display), "scroll_event",
-			  G_CALLBACK (eog_scroll_view_scroll_event), view);
+	                  G_CALLBACK (eog_scroll_view_scroll_event), view);
 	g_signal_connect (G_OBJECT (priv->display), "focus_in_event",
-			  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
+	                  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
 	g_signal_connect (G_OBJECT (priv->display), "focus_out_event",
-			  G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
+	                  G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
 
 	g_signal_connect (G_OBJECT (view), "key_press_event",
-			  G_CALLBACK (display_key_press_event), view);
+	                  G_CALLBACK (display_key_press_event), view);
 
 	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
-			     target_table, G_N_ELEMENTS (target_table),
-			     GDK_ACTION_COPY | GDK_ACTION_MOVE |
-			     GDK_ACTION_LINK | GDK_ACTION_ASK);
+	                     target_table, G_N_ELEMENTS (target_table),
+	                     GDK_ACTION_COPY | GDK_ACTION_MOVE |
+	                     GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
-			  G_CALLBACK (view_on_drag_data_get_cb), view);
+	                  G_CALLBACK (view_on_drag_data_get_cb), view);
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
-			  G_CALLBACK (view_on_drag_begin_cb), view);
+	                  G_CALLBACK (view_on_drag_begin_cb), view);
 
 	gtk_container_add (GTK_CONTAINER (priv->overlay), priv->display);
 
 	gtk_widget_set_hexpand (priv->display, TRUE);
 	gtk_widget_set_vexpand (priv->display, TRUE);
 	gtk_grid_attach (GTK_GRID (view), priv->hbar,
-			 0, 1, 1, 1);
+	                 0, 1, 1, 1);
 	gtk_widget_set_hexpand (priv->hbar, TRUE);
 	gtk_grid_attach (GTK_GRID (view), priv->vbar,
-			 1, 0, 1, 1);
+	                 1, 0, 1, 1);
 	gtk_widget_set_vexpand (priv->vbar, TRUE);
 
 	g_settings_bind (settings, EOG_CONF_VIEW_USE_BG_COLOR, view,
-			 "use-background-color", G_SETTINGS_BIND_DEFAULT);
+	                 "use-background-color", G_SETTINGS_BIND_DEFAULT);
 	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_BACKGROUND_COLOR,
-				      view, "background-color",
-				      G_SETTINGS_BIND_DEFAULT,
-				      sv_string_to_rgba_mapping,
-				      sv_rgba_to_string_mapping, NULL, NULL);
+	                              view, "background-color",
+	                              G_SETTINGS_BIND_DEFAULT,
+	                              sv_string_to_rgba_mapping,
+	                              sv_rgba_to_string_mapping, NULL, NULL);
 	g_settings_bind_with_mapping (settings, EOG_CONF_VIEW_TRANS_COLOR,
-				      view, "transparency-color",
-				      G_SETTINGS_BIND_GET,
-				      sv_string_to_rgba_mapping,
-				      sv_rgba_to_string_mapping, NULL, NULL);
+	                              view, "transparency-color",
+	                              G_SETTINGS_BIND_GET,
+	                              sv_string_to_rgba_mapping,
+	                              sv_rgba_to_string_mapping, NULL, NULL);
 	g_settings_bind (settings, EOG_CONF_VIEW_TRANSPARENCY, view,
-			 "transparency-style", G_SETTINGS_BIND_GET);
+	                 "transparency-style", G_SETTINGS_BIND_GET);
 	g_settings_bind (settings, EOG_CONF_VIEW_EXTRAPOLATE, view,
-			 "antialiasing-in", G_SETTINGS_BIND_GET);
+	                 "antialiasing-in", G_SETTINGS_BIND_GET);
 	g_settings_bind (settings, EOG_CONF_VIEW_INTERPOLATE, view,
-			 "antialiasing-out", G_SETTINGS_BIND_GET);
+	                 "antialiasing-out", G_SETTINGS_BIND_GET);
 
 	g_object_unref (settings);
 
 	priv->zoom_gesture = gtk_gesture_zoom_new (GTK_WIDGET (view));
 	g_signal_connect (priv->zoom_gesture, "begin",
-			  G_CALLBACK (zoom_gesture_begin_cb), view);
+	                  G_CALLBACK (zoom_gesture_begin_cb), view);
 	g_signal_connect (priv->zoom_gesture, "update",
-			  G_CALLBACK (zoom_gesture_update_cb), view);
+	                  G_CALLBACK (zoom_gesture_update_cb), view);
 	g_signal_connect (priv->zoom_gesture, "end",
-			  G_CALLBACK (zoom_gesture_end_cb), view);
+	                  G_CALLBACK (zoom_gesture_end_cb), view);
 	g_signal_connect (priv->zoom_gesture, "cancel",
-			  G_CALLBACK (zoom_gesture_end_cb), view);
+	                  G_CALLBACK (zoom_gesture_end_cb), view);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->zoom_gesture),
-						    GTK_PHASE_CAPTURE);
+	                                            GTK_PHASE_CAPTURE);
 
 	priv->rotate_gesture = gtk_gesture_rotate_new (GTK_WIDGET (view));
 	gtk_gesture_group (priv->rotate_gesture, priv->zoom_gesture);
 	g_signal_connect (priv->rotate_gesture, "angle-changed",
-			  G_CALLBACK (rotate_gesture_angle_changed_cb), view);
+	                  G_CALLBACK (rotate_gesture_angle_changed_cb), view);
 	g_signal_connect (priv->rotate_gesture, "begin",
-			  G_CALLBACK (rotate_gesture_begin_cb), view);
+	                  G_CALLBACK (rotate_gesture_begin_cb), view);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->rotate_gesture),
-						    GTK_PHASE_CAPTURE);
+	                                            GTK_PHASE_CAPTURE);
 
 	priv->pan_gesture = gtk_gesture_pan_new (GTK_WIDGET (view),
-						 GTK_ORIENTATION_HORIZONTAL);
+	                                         GTK_ORIENTATION_HORIZONTAL);
 	g_signal_connect (priv->pan_gesture, "pan",
-			  G_CALLBACK (pan_gesture_pan_cb), view);
+	                  G_CALLBACK (pan_gesture_pan_cb), view);
 	g_signal_connect (priv->pan_gesture, "end",
-			  G_CALLBACK (pan_gesture_end_cb), view);
-	gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (priv->pan_gesture), 
-					   TRUE);
+	                  G_CALLBACK (pan_gesture_end_cb), view);
+	gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (priv->pan_gesture),
+	                                   TRUE);
 	gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->pan_gesture),
-						    GTK_PHASE_CAPTURE);
+	                                            GTK_PHASE_CAPTURE);
 
 	/* left revealer */
 	priv->left_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->left_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->left_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->left_revealer, GTK_ALIGN_START);
 	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start(priv->left_revealer, 12);
 	gtk_widget_set_margin_end(priv->left_revealer, 12);
 	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
-				 priv->left_revealer);
+	                         priv->left_revealer);
 
 	/* right revealer */
 	priv->right_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->right_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->right_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->right_revealer, GTK_ALIGN_END);
 	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_margin_start (priv->right_revealer, 12);
 	gtk_widget_set_margin_end (priv->right_revealer, 12);
 	gtk_overlay_add_overlay(GTK_OVERLAY (priv->overlay),
-				priv->right_revealer);
+	                        priv->right_revealer);
 
 	/* bottom revealer */
 	priv->bottom_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->bottom_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+	                                  GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
 	gtk_revealer_set_transition_duration (GTK_REVEALER (priv->bottom_revealer),
-					      OVERLAY_REVEAL_ANIM_TIME);
+	                                      OVERLAY_REVEAL_ANIM_TIME);
 	gtk_widget_set_halign (priv->bottom_revealer, GTK_ALIGN_CENTER);
 	gtk_widget_set_valign (priv->bottom_revealer, GTK_ALIGN_END);
 	gtk_widget_set_margin_bottom (priv->bottom_revealer, 12);
 	gtk_overlay_add_overlay (GTK_OVERLAY (priv->overlay),
-				 priv->bottom_revealer);
+	                         priv->bottom_revealer);
 
 	/* overlaid buttons */
 	GtkWidget *button = gtk_button_new_from_icon_name ("go-next-symbolic",
-							   GTK_ICON_SIZE_BUTTON);
+	                                                   GTK_ICON_SIZE_BUTTON);
 
 	gtk_container_add(GTK_CONTAINER (priv->right_revealer), button);
 	gtk_actionable_set_action_name(GTK_ACTIONABLE (button), "win.go-next");
 	gtk_widget_set_tooltip_text (button,
-				     _("Go to the next image of the gallery"));
+	                             _("Go to the next image of the gallery"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
 
 
 	button = gtk_button_new_from_icon_name("go-previous-symbolic",
-					       GTK_ICON_SIZE_BUTTON);
+	                                       GTK_ICON_SIZE_BUTTON);
 
 	gtk_container_add(GTK_CONTAINER (priv->left_revealer), button);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE(button),
-					"win.go-previous");
+	                                "win.go-previous");
 	gtk_widget_set_tooltip_text (button,
-				     _("Go to the previous image of the gallery"));
+	                             _("Go to the previous image of the gallery"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
 
 
 	/* group rotate buttons into a box */
 	GtkWidget* bottomBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_style_context_add_class (gtk_widget_get_style_context (bottomBox),
-				     GTK_STYLE_CLASS_LINKED);
+	                             GTK_STYLE_CLASS_LINKED);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-left-symbolic",
-						GTK_ICON_SIZE_BUTTON);
+	                                        GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
-					"win.rotate-270");
+	                                "win.rotate-270");
 	gtk_widget_set_tooltip_text (button,
-				     _("Rotate the image 90 degrees to the left"));
+	                             _("Rotate the image 90 degrees to the left"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
 
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	button = gtk_button_new_from_icon_name ("object-rotate-right-symbolic",
-						GTK_ICON_SIZE_BUTTON);
+	                                        GTK_ICON_SIZE_BUTTON);
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
-					"win.rotate-90");
+	                                "win.rotate-90");
 	gtk_widget_set_tooltip_text (button,
-				     _("Rotate the image 90 degrees to the right"));
+	                             _("Rotate the image 90 degrees to the right"));
 	gtk_style_context_add_class (gtk_widget_get_style_context (button),
-				     GTK_STYLE_CLASS_OSD);
+	                             GTK_STYLE_CLASS_OSD);
 	gtk_container_add (GTK_CONTAINER (bottomBox), button);
 
 	gtk_container_add (GTK_CONTAINER (priv->bottom_revealer), bottomBox);
 
 	/* Display overlay buttons on mouse movement */
 	g_signal_connect (priv->display,
-			  "motion-notify-event",
-			  G_CALLBACK (_motion_notify_cb),
-			  view);
+	                  "motion-notify-event",
+	                  G_CALLBACK (_motion_notify_cb),
+	                  view);
 
 	/* Don't hide overlay buttons when above */
 	gtk_widget_add_events (GTK_WIDGET (priv->overlay),
-			       GDK_ENTER_NOTIFY_MASK);
+	                       GDK_ENTER_NOTIFY_MASK);
 	g_signal_connect (priv->overlay,
-			  "enter-notify-event",
-			  G_CALLBACK (_enter_overlay_event_cb),
-			  view);
+	                  "enter-notify-event",
+	                  G_CALLBACK (_enter_overlay_event_cb),
+	                  view);
 }
 
 static void
@@ -2460,7 +2460,7 @@ eog_scroll_view_dispose (GObject *object)
 
 static void
 eog_scroll_view_get_property (GObject *object, guint property_id,
-			      GValue *value, GParamSpec *pspec)
+                              GValue *value, GParamSpec *pspec)
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
@@ -2512,7 +2512,7 @@ eog_scroll_view_get_property (GObject *object, guint property_id,
 
 static void
 eog_scroll_view_set_property (GObject *object, guint property_id,
-			      const GValue *value, GParamSpec *pspec)
+                              const GValue *value, GParamSpec *pspec)
 {
 	EogScrollView *view;
 
@@ -2570,8 +2570,8 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	widget_class = (GtkWidgetClass*) klass;
 
 	gobject_class->dispose = eog_scroll_view_dispose;
-        gobject_class->set_property = eog_scroll_view_set_property;
-        gobject_class->get_property = eog_scroll_view_get_property;
+	gobject_class->set_property = eog_scroll_view_set_property;
+	gobject_class->get_property = eog_scroll_view_get_property;
 
 	/**
 	 * EogScrollView:antialiasing-in:
@@ -2580,9 +2580,9 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * while being zoomed in.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_ANTIALIAS_IN,
-		g_param_spec_boolean ("antialiasing-in", NULL, NULL, TRUE,
-				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_ANTIALIAS_IN,
+	        g_param_spec_boolean ("antialiasing-in", NULL, NULL, TRUE,
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 	/**
 	 * EogScrollView:antialiasing-out:
 	 *
@@ -2590,9 +2590,9 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * while being zoomed out.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_ANTIALIAS_OUT,
-		g_param_spec_boolean ("antialiasing-out", NULL, NULL, TRUE,
-				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_ANTIALIAS_OUT,
+	        g_param_spec_boolean ("antialiasing-out", NULL, NULL, TRUE,
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:background-color:
@@ -2602,15 +2602,15 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * active GTK theme.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_BACKGROUND_COLOR,
-		g_param_spec_boxed ("background-color", NULL, NULL,
-				    GDK_TYPE_RGBA,
-				    G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_BACKGROUND_COLOR,
+	        g_param_spec_boxed ("background-color", NULL, NULL,
+	                            GDK_TYPE_RGBA,
+	                            G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	g_object_class_install_property (
-		gobject_class, PROP_USE_BG_COLOR,
-		g_param_spec_boolean ("use-background-color", NULL, NULL, FALSE,
-				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_USE_BG_COLOR,
+	        g_param_spec_boolean ("use-background-color", NULL, NULL, FALSE,
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:zoom-multiplier:
@@ -2619,10 +2619,10 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * scrolling with the scrollwheel to determine the next zoom factor.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_ZOOM_MULTIPLIER,
-		g_param_spec_double ("zoom-multiplier", NULL, NULL,
-				     -G_MAXDOUBLE, G_MAXDOUBLE - 1.0, 0.05,
-				     G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_ZOOM_MULTIPLIER,
+	        g_param_spec_double ("zoom-multiplier", NULL, NULL,
+	                             -G_MAXDOUBLE, G_MAXDOUBLE - 1.0, 0.05,
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:scrollwheel-zoom:
@@ -2631,9 +2631,9 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * used for scrolling a zoomed image.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_SCROLLWHEEL_ZOOM,
-		g_param_spec_boolean ("scrollwheel-zoom", NULL, NULL, TRUE,
-				      G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_SCROLLWHEEL_ZOOM,
+	        g_param_spec_boolean ("scrollwheel-zoom", NULL, NULL, TRUE,
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:image:
@@ -2641,9 +2641,9 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * This is the currently display #EogImage.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_IMAGE,
-		g_param_spec_object ("image", NULL, NULL, EOG_TYPE_IMAGE,
-				     G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_IMAGE,
+	        g_param_spec_object ("image", NULL, NULL, EOG_TYPE_IMAGE,
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	/**
 	 * EogScrollView:transparency-color:
@@ -2652,73 +2652,73 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	 * if #EogScrollView:transparency-style is set to %EOG_TRANSP_COLOR.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_TRANSP_COLOR,
-		g_param_spec_boxed ("transparency-color", NULL, NULL,
-				    GDK_TYPE_RGBA,
-				    G_PARAM_WRITABLE | G_PARAM_STATIC_NAME));
-	
+	        gobject_class, PROP_TRANSP_COLOR,
+	        g_param_spec_boxed ("transparency-color", NULL, NULL,
+	                            GDK_TYPE_RGBA,
+	                            G_PARAM_WRITABLE | G_PARAM_STATIC_NAME));
+
 	/**
 	 * EogScrollView:transparency-style:
 	 *
 	 * Determines how to fill the shown image's transparent areas.
 	 */
 	g_object_class_install_property (
-		gobject_class, PROP_TRANSPARENCY_STYLE,
-		g_param_spec_enum ("transparency-style", NULL, NULL,
-				   EOG_TYPE_TRANSPARENCY_STYLE,
-				   EOG_TRANSP_CHECKED,
-				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_TRANSPARENCY_STYLE,
+	        g_param_spec_enum ("transparency-style", NULL, NULL,
+	                           EOG_TYPE_TRANSPARENCY_STYLE,
+	                           EOG_TRANSP_CHECKED,
+	                           G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	g_object_class_install_property (
-		gobject_class, PROP_ZOOM_MODE,
-		g_param_spec_enum ("zoom-mode", NULL, NULL,
-				   EOG_TYPE_ZOOM_MODE,
-				   EOG_ZOOM_MODE_SHRINK_TO_FIT,
-				   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
+	        gobject_class, PROP_ZOOM_MODE,
+	        g_param_spec_enum ("zoom-mode", NULL, NULL,
+	                           EOG_TYPE_ZOOM_MODE,
+	                           EOG_ZOOM_MODE_SHRINK_TO_FIT,
+	                           G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
-		g_signal_new ("zoom_changed",
-			      EOG_TYPE_SCROLL_VIEW,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__DOUBLE,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_DOUBLE);
+	        g_signal_new ("zoom_changed",
+	                      EOG_TYPE_SCROLL_VIEW,
+	                      G_SIGNAL_RUN_LAST,
+	                      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
+	                      NULL, NULL,
+	                      g_cclosure_marshal_VOID__DOUBLE,
+	                      G_TYPE_NONE, 1,
+	                      G_TYPE_DOUBLE);
 	view_signals [SIGNAL_ROTATION_CHANGED] =
-		g_signal_new ("rotation-changed",
-			      EOG_TYPE_SCROLL_VIEW,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogScrollViewClass, rotation_changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__DOUBLE,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_DOUBLE);
+	        g_signal_new ("rotation-changed",
+	                      EOG_TYPE_SCROLL_VIEW,
+	                      G_SIGNAL_RUN_LAST,
+	                      G_STRUCT_OFFSET (EogScrollViewClass, rotation_changed),
+	                      NULL, NULL,
+	                      g_cclosure_marshal_VOID__DOUBLE,
+	                      G_TYPE_NONE, 1,
+	                      G_TYPE_DOUBLE);
 
 	view_signals [SIGNAL_NEXT_IMAGE] =
-		g_signal_new ("next-image",
-			      EOG_TYPE_SCROLL_VIEW,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogScrollViewClass, next_image),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
+	        g_signal_new ("next-image",
+	                      EOG_TYPE_SCROLL_VIEW,
+	                      G_SIGNAL_RUN_LAST,
+	                      G_STRUCT_OFFSET (EogScrollViewClass, next_image),
+	                      NULL, NULL,
+	                      g_cclosure_marshal_VOID__VOID,
+	                      G_TYPE_NONE, 0);
 	view_signals [SIGNAL_PREVIOUS_IMAGE] =
-		g_signal_new ("previous-image",
-			      EOG_TYPE_SCROLL_VIEW,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogScrollViewClass, previous_image),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
+	        g_signal_new ("previous-image",
+	                      EOG_TYPE_SCROLL_VIEW,
+	                      G_SIGNAL_RUN_LAST,
+	                      G_STRUCT_OFFSET (EogScrollViewClass, previous_image),
+	                      NULL, NULL,
+	                      g_cclosure_marshal_VOID__VOID,
+	                      G_TYPE_NONE, 0);
 
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
 }
 
 static void
 view_on_drag_begin_cb (GtkWidget        *widget,
-		       GdkDragContext   *context,
-		       gpointer          user_data)
+                       GdkDragContext   *context,
+                       gpointer          user_data)
 {
 	EogScrollView *view;
 	EogImage *image;
@@ -2740,11 +2740,11 @@ view_on_drag_begin_cb (GtkWidget        *widget,
 
 static void
 view_on_drag_data_get_cb (GtkWidget        *widget,
-			  GdkDragContext   *drag_context,
-			  GtkSelectionData *data,
-			  guint             info,
-			  guint             time,
-			  gpointer          user_data)
+                          GdkDragContext   *drag_context,
+                          GtkSelectionData *data,
+                          guint             info,
+                          guint             time,
+                          gpointer          user_data)
 {
 	EogScrollView *view;
 	EogImage *image;
@@ -2771,10 +2771,10 @@ eog_scroll_view_new (void)
 	GtkWidget *widget;
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
-			       "can-focus", TRUE,
-			       "row-homogeneous", FALSE,
-			       "column-homogeneous", FALSE,
-			       NULL);
+	                       "can-focus", TRUE,
+	                       "row-homogeneous", FALSE,
+	                       "column-homogeneous", FALSE,
+	                       NULL);
 
 	return widget;
 }
@@ -2788,7 +2788,7 @@ eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
 
 static gboolean
 view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event,
-			       gpointer user_data)
+                               gpointer user_data)
 {
 	/* Ignore double-clicks and triple-clicks */
 	if (gdk_event_triggers_context_menu ((const GdkEvent*) event)
@@ -2811,7 +2811,7 @@ eog_scroll_view_popup_menu_handler (GtkWidget *widget, gpointer user_data)
 
 void
 eog_scroll_view_set_popup (EogScrollView *view,
-			   GtkMenu *menu)
+                           GtkMenu *menu)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 	g_return_if_fail (view->priv->menu == NULL);
@@ -2819,13 +2819,13 @@ eog_scroll_view_set_popup (EogScrollView *view,
 	view->priv->menu = g_object_ref (menu);
 
 	gtk_menu_attach_to_widget (GTK_MENU (view->priv->menu),
-				   GTK_WIDGET (view),
-				   NULL);
+	                           GTK_WIDGET (view),
+	                           NULL);
 
 	g_signal_connect (G_OBJECT (view), "button_press_event",
-			  G_CALLBACK (view_on_button_press_event_cb), NULL);
+	                  G_CALLBACK (view_on_button_press_event_cb), NULL);
 	g_signal_connect (G_OBJECT (view), "popup-menu",
-			  G_CALLBACK (eog_scroll_view_popup_menu_handler), NULL);
+	                  G_CALLBACK (eog_scroll_view_popup_menu_handler), NULL);
 }
 
 static gboolean
@@ -2871,7 +2871,7 @@ _eog_scroll_view_update_bg_color (EogScrollView *view)
 
 void
 eog_scroll_view_set_background_color (EogScrollView *view,
-				      const GdkRGBA *color)
+                                      const GdkRGBA *color)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
@@ -2881,7 +2881,7 @@ eog_scroll_view_set_background_color (EogScrollView *view,
 
 void
 eog_scroll_view_override_bg_color (EogScrollView *view,
-				   const GdkRGBA *color)
+                                   const GdkRGBA *color)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
@@ -2909,23 +2909,23 @@ eog_scroll_view_set_use_bg_color (EogScrollView *view, gboolean use)
 
 void
 eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view,
-				       gboolean       scroll_wheel_zoom)
+                                       gboolean       scroll_wheel_zoom)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
 	if (view->priv->scroll_wheel_zoom != scroll_wheel_zoom) {
-	        view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
+		view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
 		g_object_notify (G_OBJECT (view), "scrollwheel-zoom");
 	}
 }
 
 void
 eog_scroll_view_set_zoom_multiplier (EogScrollView *view,
-				     gdouble        zoom_multiplier)
+                                     gdouble        zoom_multiplier)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-        view->priv->zoom_multiplier = 1.0 + zoom_multiplier;
+	view->priv->zoom_multiplier = 1.0 + zoom_multiplier;
 
 	g_object_notify (G_OBJECT (view), "zoom-multiplier");
 }
@@ -2941,7 +2941,7 @@ _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode)
 		eog_scroll_view_zoom_fit (view);
 	else
 		view->priv->zoom_mode = mode;
-	
+
 	if (notify)
 		g_object_notify (G_OBJECT (view), "zoom-mode");
 }
@@ -2962,7 +2962,7 @@ EogZoomMode
 eog_scroll_view_get_zoom_mode (EogScrollView *view)
 {
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view),
-			      EOG_ZOOM_MODE_SHRINK_TO_FIT);
+	                      EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
 	return view->priv->zoom_mode;
 }
@@ -3036,7 +3036,7 @@ eog_scroll_view_event_is_over_image (EogScrollView *view, const GdkEvent *ev)
 	priv = view->priv;
 	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
 
-	if (G_UNLIKELY (priv->pixbuf == NULL 
+	if (G_UNLIKELY (priv->pixbuf == NULL
 	    || window != ((GdkEventAny*) ev)->window))
 		return FALSE;
 

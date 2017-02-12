@@ -62,6 +62,9 @@ typedef enum {
 	EOG_ZOOM_MODE_SHRINK_TO_FIT
 } EogZoomMode;
 
+#define EOG_SCROLL_VIEW_MAX_ZOOM_FACTOR (20)
+#define EOG_SCROLL_VIEW_MIN_ZOOM_FACTOR (0.02)
+
 GType    eog_scroll_view_get_type         (void) G_GNUC_CONST;
 GtkWidget* eog_scroll_view_new            (void);
 
