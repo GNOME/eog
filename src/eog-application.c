@@ -213,8 +213,8 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.set-wallpaper",	"<Ctrl>F8", NULL,
 		"win.manual",		"F1", NULL,
 
-		"win.go-previous",	"Left", "BackSpace", NULL,
-		"win.go-next",		"Right", NULL,
+		"win.go-previous",	"BackSpace", NULL,
+		/* "win.go-next",	NULL,*/
 		"win.go-first",		"<Alt>Home", "Home", NULL,
 		"win.go-last",		"<Alt>End", "End", NULL,
 		"win.go-random",	"<Ctrl>m", NULL,

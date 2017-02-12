@@ -4781,16 +4781,56 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 	return TRUE;
 }
 
+/*
+ * Imported from gedit-window.c:
+ * GtkWindow catches keybindings for the menu items _before_ passing them to
+ * the focused widget. This is unfortunate and means that trying to use
+ * Return to activate a menu entry will instead skip to the next image.
+ * Here we override GtkWindow's handler to do the same things that it
+ * does, but in the opposite order and then we chain up to the grand
+ * parent handler, skipping gtk_window_key_press_event.
+ */
 static gint
 eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
+	static gpointer grand_parent_class = NULL;
+
 	gint result = FALSE;
 	gboolean handle_selection = FALSE;
 	GdkModifierType modifiers;
 
+	if (grand_parent_class == NULL)
+	{
+		grand_parent_class = g_type_class_peek_parent (eog_window_parent_class);
+	}
+
+	/* handle focus widget key events */
+	if (!handle_selection) {
+		handle_selection = gtk_window_propagate_key_event (GTK_WINDOW (widget), event);
+	}
+
+	/* handle mnemonics and accelerators */
+	if (!handle_selection) {
+		handle_selection = gtk_window_activate_key (GTK_WINDOW (widget), event);
+	}
+
+	/* This part is disabled for now as it overrides the arrow key handlers
+	 * below which are still needed in RTL scenarios */
+#if 0
+	/* Chain up, invokes binding set on window */
+	if (!handle_selection) {
+		handle_selection = GTK_WIDGET_CLASS (grand_parent_class)->key_press_event (widget, event);
+	}
+#endif
+
+	/* If the workaround already handled the key event return early */
+	if(handle_selection)
+		return TRUE;
+
 	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
+#if 0
 	case GDK_KEY_space:
 		if ((event->state & modifiers) == GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
@@ -4810,6 +4850,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		result = TRUE;
 		break;
+#endif
 	case GDK_KEY_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
@@ -4821,7 +4862,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 	case GDK_KEY_Left:
-	case GDK_KEY_Up:
+	/* case GDK_KEY_Up: */
 		if ((event->state & modifiers) == 0) {
 			/* Left and Up move to previous image */
 			if (is_rtl) { /* move to next in RTL mode */
@@ -4833,7 +4874,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 	case GDK_KEY_Right:
-	case GDK_KEY_Down:
+	/* case GDK_KEY_Down: */
 		if ((event->state & modifiers) == 0) {
 			/* Right and Down move to next image */
 			if (is_rtl) { /* move to previous in RTL mode */
