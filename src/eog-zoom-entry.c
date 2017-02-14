@@ -160,6 +160,8 @@ get_popup (EogZoomEntry *zoom_entry)
 	                  zoom_entry);
 	gtk_entry_get_icon_area (GTK_ENTRY (zoom_entry->priv->value_entry),
 	                         GTK_ENTRY_ICON_SECONDARY, &rect);
+	gtk_popover_set_relative_to (GTK_POPOVER (zoom_entry->priv->popup),
+	                             zoom_entry->priv->value_entry);
 	gtk_popover_set_pointing_to (GTK_POPOVER (zoom_entry->priv->popup), &rect);
 	gtk_popover_set_position (GTK_POPOVER (zoom_entry->priv->popup), GTK_POS_BOTTOM);
 	gtk_widget_set_size_request (zoom_entry->priv->popup, 150, -1);
