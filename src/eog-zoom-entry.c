@@ -208,6 +208,7 @@ eog_zoom_entry_constructed (GObject *object)
 	                  "zoom-changed",
 	                  G_CALLBACK (eog_zoom_entry_view_zoom_changed_cb),
 	                  zoom_entry);
+	eog_zoom_entry_reset_zoom_level (zoom_entry);
 
 	zoom_entry->priv->zoom_free_section =
 	                g_menu_model_get_item_link (G_MENU_MODEL (zoom_entry->priv->menu),
