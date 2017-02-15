@@ -74,10 +74,9 @@ static const struct {
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogZoomEntry, eog_zoom_entry, GTK_TYPE_BOX);
 
-//static guint signals[LAST_SIGNAL] = { 0 };
-
 static void eog_zoom_entry_reset_zoom_level (EogZoomEntry *entry);
 static void eog_zoom_entry_set_zoom_level (EogZoomEntry *entry, gdouble zoom);
+static void eog_zoom_entry_update_sensitivity (EogZoomEntry *entry);
 
 
 static void
@@ -198,6 +197,16 @@ eog_zoom_entry_view_zoom_changed_cb (EogScrollView *view, gdouble zoom,
 }
 
 static void
+button_sensitivity_changed_cb (GObject    *gobject,
+                               GParamSpec *pspec,
+                               gpointer    user_data)
+{
+	g_return_if_fail (EOG_IS_ZOOM_ENTRY (user_data));
+
+	eog_zoom_entry_update_sensitivity (EOG_ZOOM_ENTRY (user_data));
+}
+
+static void
 eog_zoom_entry_constructed (GObject *object)
 {
 	EogZoomEntry *zoom_entry = EOG_ZOOM_ENTRY (object);
@@ -214,6 +223,14 @@ eog_zoom_entry_constructed (GObject *object)
 	                g_menu_model_get_item_link (G_MENU_MODEL (zoom_entry->priv->menu),
 	                                            1, G_MENU_LINK_SECTION);
 	eog_zoom_entry_populate_free_zoom_section (zoom_entry);
+
+	g_signal_connect (zoom_entry->priv->btn_zoom_in, "notify::sensitive",
+	                  G_CALLBACK (button_sensitivity_changed_cb),
+	                  zoom_entry);
+	g_signal_connect (zoom_entry->priv->btn_zoom_out, "notify::sensitive",
+	                  G_CALLBACK (button_sensitivity_changed_cb),
+	                  zoom_entry);
+	eog_zoom_entry_update_sensitivity (zoom_entry);
 }
 
 static void
@@ -268,6 +285,21 @@ eog_zoom_entry_reset_zoom_level (EogZoomEntry *entry)
 {
 	const gdouble zoom = eog_scroll_view_get_zoom (entry->priv->view);
 	eog_zoom_entry_set_zoom_level (entry, zoom);
+}
+
+static void
+eog_zoom_entry_update_sensitivity (EogZoomEntry *entry)
+{
+	const gboolean current_state =
+	                gtk_widget_is_sensitive (entry->priv->value_entry);
+	const gboolean new_state =
+	                gtk_widget_is_sensitive (entry->priv->btn_zoom_in)
+	                | gtk_widget_is_sensitive (entry->priv->btn_zoom_out);
+
+	if (current_state != new_state) {
+		gtk_widget_set_sensitive (entry->priv->value_entry, new_state);
+	}
+
 }
 
 static void
