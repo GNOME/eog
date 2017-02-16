@@ -1,15 +1,15 @@
 # Kazakh translation of eog.
 # Copyright (C) 2010 HZ
 # This file is distributed under the same license as the eog package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010-2016.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-12-13 18:32+0000\n"
-"PO-Revision-Date: 2016-12-14 08:56+0500\n"
+"POT-Creation-Date: 2017-02-12 19:48+0000\n"
+"PO-Revision-Date: 2017-02-16 13:19+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -70,15 +70,15 @@ msgstr ""
 "камера тегтерін автоматты түрде оқып, суреттерді дұрыс бағдарда бұрайды (тік "
 "не жатық)."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:311
-#: ../src/eog-window.c:5567
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:312
+#: ../src/eog-window.c:5508
 msgid "Image Viewer"
 msgstr "Суреттер көрсетушісі"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #: ../data/eog.desktop.in.in.h:4
 msgid "Picture;Slideshow;Graphics;"
-msgstr "Сурет;Слайдшоу;Графика;"
+msgstr "Picture;Slideshow;Graphics;Сурет;Слайдшоу;Графика;"
 
 #: ../data/eog-gear-menu.ui.h:1
 msgid "_Open…"
@@ -180,7 +180,7 @@ msgstr "Фокустық қашықтығы:"
 
 #: ../data/eog-image-properties-dialog.ui.h:14
 msgid "Flash:"
-msgstr "Жарқылдау(вспышка):"
+msgstr "Жарқылдау:"
 
 #: ../data/eog-image-properties-dialog.ui.h:15
 msgid "ISO Speed Rating:"
@@ -234,7 +234,7 @@ msgstr "Қалайша сақтау"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:123 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
+#: ../src/eog-window.c:3223 ../src/eog-window.c:3226 ../src/eog-window.c:3479
 msgid "_Cancel"
 msgstr "Ба_с тарту"
 
@@ -379,6 +379,19 @@ msgstr "Слайдшоу"
 msgid "Plugins"
 msgstr "Плагиндер"
 
+#: ../data/eog-zoom-entry.ui.h:1 ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Суретті кішірейту"
+
+#: ../data/eog-zoom-entry.ui.h:3 ../src/eog-zoom-entry.c:72
+#, no-c-format
+msgid "2000%"
+msgstr "2000%"
+
+#: ../data/eog-zoom-entry.ui.h:4 ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Суретті үлкейту"
+
 #: ../data/fullscreen-toolbar.ui.h:1
 msgid "Go to the first image of the gallery"
 msgstr "Галереяның алғашқы суретіне өту"
@@ -411,17 +424,9 @@ msgstr "Галереяның соңғы суретіне өту"
 msgid "_Last Image"
 msgstr "_Соңғы сурет"
 
-#: ../data/fullscreen-toolbar.ui.h:9
-msgid "Enlarge the image"
-msgstr "Суретті үлкейту"
-
 #: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Zoom In"
 msgstr "Үлке_йту"
-
-#: ../data/fullscreen-toolbar.ui.h:11
-msgid "Shrink the image"
-msgstr "Суретті кішірейту"
 
 #: ../data/fullscreen-toolbar.ui.h:12
 msgid "Zoom _Out"
@@ -919,13 +924,17 @@ msgstr "Көм_егімен ашу"
 msgid "_Copy"
 msgstr "_Көшіру"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3482
 msgid "Move to _Trash"
 msgstr "Қоқы_с шелегіне тастау"
 
 #: ../data/popup-menus.ui.h:9
 msgid "Show Containing _Folder"
 msgstr "_Орналасқан бумасын ашу"
+
+#: ../data/popup-menus.ui.h:10
+msgid "_Best fit"
+msgstr "Жақ_сырақ сыю"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Fullscreen with double-click"
@@ -987,7 +996,7 @@ msgstr "Сақ_тауға тиісті суреттерді таңдаңыз:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Сақтамасаңыз, барлық өзгерістер қайтарылмастай жоғалады."
 
-#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:906
+#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:881
 msgid "_Reload"
 msgstr "Қа_йта жүктеу"
 
@@ -1372,20 +1381,20 @@ msgstr " (қате Юникод)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:568
+#: ../src/eog-window.c:543
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i пиксель  %s    %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2655
+#: ../src/eog-window.c:883 ../src/eog-window.c:2617
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Жасыру"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:918
+#: ../src/eog-window.c:893
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1399,22 +1408,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1181
+#: ../src/eog-window.c:1156
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "\"%s\" суретін сақтау (%u/%u)"
 
-#: ../src/eog-window.c:1606
+#: ../src/eog-window.c:1581
 #, c-format
 msgid "Opening image “%s”"
 msgstr "\"%s\" суреті ашылуда"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2002
+#: ../src/eog-window.c:1964
 msgid "Viewing a slideshow"
 msgstr "Слайдшоуды қарау"
 
-#: ../src/eog-window.c:2221
+#: ../src/eog-window.c:2183
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1423,17 +1432,17 @@ msgstr ""
 "Файлды баспаға шығару қатесі:\n"
 "%s"
 
-#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
+#: ../src/eog-window.c:2566 ../src/eog-window.c:2581
 msgid "Error launching System Settings: "
 msgstr "Жүйе баптауларын жөнелту қатесі:"
 
-#: ../src/eog-window.c:2653
+#: ../src/eog-window.c:2615
 msgid "_Open Background Preferences"
 msgstr "Фон баптауларын а_шу"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2669
+#: ../src/eog-window.c:2631
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1442,11 +1451,11 @@ msgstr ""
 "\"%s\" суреті жұмыс үстел түсқағазы ретінде орнатылған.\n"
 "Оның сыртқы түрін өзгертуді қалайсыз ба?"
 
-#: ../src/eog-window.c:3159
+#: ../src/eog-window.c:3121
 msgid "Saving image locally…"
 msgstr "Суретті жергілікті сақтау…"
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3199
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1455,7 +1464,7 @@ msgstr ""
 "\"%s\" толығымен өшіруді\n"
 "шынымен қалайсыз ба?"
 
-#: ../src/eog-window.c:3240
+#: ../src/eog-window.c:3202
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1467,41 +1476,41 @@ msgstr[0] ""
 "Таңдалған %d суретті толығымен өшіруді\n"
 "шынымен қалайсыз ба?"
 
-#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
+#: ../src/eog-window.c:3224 ../src/eog-window.c:3490
 msgid "_Delete"
 msgstr "Ө_шіру"
 
-#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
+#: ../src/eog-window.c:3227 ../src/eog-window.c:3492
 msgid "_Yes"
 msgstr "_Иә"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
+#: ../src/eog-window.c:3231 ../src/eog-window.c:3484
 msgid "Do _not ask again during this session"
 msgstr "Бұ_л сессияда енді келесіде сұрамау"
 
-#: ../src/eog-window.c:3313
+#: ../src/eog-window.c:3275
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Сурет файлын алу мүмкін емес"
 
-#: ../src/eog-window.c:3329
+#: ../src/eog-window.c:3291
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Сурет файлының ақпаратын алу мүмкін емес"
 
-#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
+#: ../src/eog-window.c:3307 ../src/eog-window.c:3551
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Файлды өшіру мүмкін емес"
 
 #. set dialog error message
-#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
+#: ../src/eog-window.c:3357 ../src/eog-window.c:3651
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s суретін өшіру қатесі"
 
-#: ../src/eog-window.c:3490
+#: ../src/eog-window.c:3452
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1510,7 +1519,7 @@ msgstr ""
 "\"%s\" қоқыс шелегіне тастауды\n"
 "шынымен қалайсыз ба?"
 
-#: ../src/eog-window.c:3493
+#: ../src/eog-window.c:3455
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1519,7 +1528,7 @@ msgstr ""
 "\"%s\" үшін қоқыс шелегін табу мүмкін емес. Бұл суретті толығымен өшіруді "
 "қалайсыз ба?"
 
-#: ../src/eog-window.c:3498
+#: ../src/eog-window.c:3460
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1531,7 +1540,7 @@ msgstr[0] ""
 "Таңдалған %d суретті қоқыс шелегіне тастауды\n"
 "шынымен қалайсыз ба?"
 
-#: ../src/eog-window.c:3503
+#: ../src/eog-window.c:3465
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1539,34 +1548,62 @@ msgstr ""
 "Таңдалған суреттердің кейбіреулерін қоқыс шелегіне тастау мүмкін емес, "
 "сондықтан олар толығымен өшіріледі. Жалғастыруды қалайсыз ба?"
 
-#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
+#: ../src/eog-window.c:3529 ../src/eog-window.c:3543
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Қоқыс шелегіне қатынау мүмкін емес."
 
-#: ../src/eog-window.c:4249
-msgid "Fit the image to the window"
-msgstr "Суретті терезені толығымен алатындай етіп көрсету"
-
-#: ../src/eog-window.c:4257 ../src/eog-window.c:4302
+#: ../src/eog-window.c:4210
 msgid "Shrink or enlarge the current image"
 msgstr "Суретті кішірейту не үлкейту"
 
-#: ../src/eog-window.c:4360
+#: ../src/eog-window.c:4269
 msgid "Show the current image in fullscreen mode"
 msgstr "Ағымдағы суретті толық экранда көрсету"
 
-#: ../src/eog-window.c:4437
+#: ../src/eog-window.c:4346
 msgid "Properties"
 msgstr "Қасиеттері"
 
-#: ../src/eog-window.c:5570
+#: ../src/eog-window.c:5511
 msgid "The GNOME image viewer."
 msgstr "GNOME үшін суреттерді көрсету қолданбасы."
 
-#: ../src/eog-window.c:5573
+#: ../src/eog-window.c:5514
 msgid "translator-credits"
-msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010"
+msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
+
+#: ../src/eog-zoom-entry.c:64
+msgid "33%"
+msgstr "33%"
+
+#: ../src/eog-zoom-entry.c:65
+msgid "50%"
+msgstr "50%"
+
+#: ../src/eog-zoom-entry.c:66
+msgid "100%"
+msgstr "100%"
+
+#: ../src/eog-zoom-entry.c:67
+msgid "133%"
+msgstr "133%"
+
+#: ../src/eog-zoom-entry.c:68
+msgid "200%"
+msgstr "200%"
+
+#: ../src/eog-zoom-entry.c:69
+msgid "500%"
+msgstr "500%"
+
+#: ../src/eog-zoom-entry.c:70
+msgid "1000%"
+msgstr "1000%"
+
+#: ../src/eog-zoom-entry.c:71
+msgid "1500%"
+msgstr "1500%"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1608,6 +1645,9 @@ msgstr "[ФАЙЛ…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Командалық жолдың барлық опцияларын қарау үшін \"%s --help\" енгізіңіз."
+
+#~ msgid "Fit the image to the window"
+#~ msgstr "Суретті терезені толығымен алатындай етіп көрсету"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Rotate counter-clockwise"
