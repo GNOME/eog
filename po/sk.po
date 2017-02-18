@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-12-13 18:32+0000\n"
-"PO-Revision-Date: 2017-01-18 19:55+0100\n"
+"POT-Creation-Date: 2017-02-12 19:48+0000\n"
+"PO-Revision-Date: 2017-02-18 10:30+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -81,8 +81,8 @@ msgstr ""
 "obrázka na výšku alebo na šírku."
 
 # desktop entry name
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:311
-#: ../src/eog-window.c:5567
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:312
+#: ../src/eog-window.c:5508
 msgid "Image Viewer"
 msgstr "Prehliadač obrázkov"
 
@@ -283,7 +283,7 @@ msgstr "Uloženie ako"
 #: ../src/eog-close-confirmation-dialog.c:172
 #: ../src/eog-error-message-area.c:123 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
+#: ../src/eog-window.c:3223 ../src/eog-window.c:3226 ../src/eog-window.c:3479
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -463,6 +463,21 @@ msgid "Plugins"
 msgstr "Zásuvné moduly"
 
 # tooltip
+#: ../data/eog-zoom-entry.ui.h:1 ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Zmenší obrázok"
+
+#: ../data/eog-zoom-entry.ui.h:3 ../src/eog-zoom-entry.c:72
+#, no-c-format
+msgid "2000%"
+msgstr "2000%"
+
+# tooltip
+#: ../data/eog-zoom-entry.ui.h:4 ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Zväčší obrázok"
+
+# tooltip
 #: ../data/fullscreen-toolbar.ui.h:1
 msgid "Go to the first image of the gallery"
 msgstr "Prejde na prvý obrázok galérie"
@@ -502,20 +517,10 @@ msgstr "Prejde na posledný obrázok galérie"
 msgid "_Last Image"
 msgstr "Po_sledný obrázok"
 
-# tooltip
-#: ../data/fullscreen-toolbar.ui.h:9
-msgid "Enlarge the image"
-msgstr "Zväčší obrázok"
-
 # action entry
 #: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Zoom In"
 msgstr "Z_väčšiť"
-
-# tooltip
-#: ../data/fullscreen-toolbar.ui.h:11
-msgid "Shrink the image"
-msgstr "Zmenší obrázok"
 
 # action entry
 #: ../data/fullscreen-toolbar.ui.h:12
@@ -1035,7 +1040,7 @@ msgid "_Copy"
 msgstr "_Kopírovať"
 
 # button
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3482
 msgid "Move to _Trash"
 msgstr "Presunúť do _Koša"
 
@@ -1043,6 +1048,10 @@ msgstr "Presunúť do _Koša"
 #: ../data/popup-menus.ui.h:9
 msgid "Show Containing _Folder"
 msgstr "Zobraziť p_riečinok obrázka"
+
+#: ../data/popup-menus.ui.h:10
+msgid "_Best fit"
+msgstr "Na_jlepšia veľkosť"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Fullscreen with double-click"
@@ -1112,7 +1121,7 @@ msgid "If you don’t save, all your changes will be lost."
 msgstr "Pokiaľ neuložíte, všetky vaše zmeny budú stratené."
 
 # button
-#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:906
+#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:881
 msgid "_Reload"
 msgstr "_Znovu načítať"
 
@@ -1533,7 +1542,7 @@ msgstr " (chybný Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:568
+#: ../src/eog-window.c:543
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1541,14 +1550,14 @@ msgstr[0] "„%i × %i pixelov  %s    %i %%“"
 msgstr[1] "„%i × %i pixel  %s    %i %%“"
 msgstr[2] "„%i × %i pixely  %s    %i %%“"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2655
+#: ../src/eog-window.c:883 ../src/eog-window.c:2617
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "S_kryť"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:918
+#: ../src/eog-window.c:893
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1562,22 +1571,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1181
+#: ../src/eog-window.c:1156
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Ukladá sa obrázok „%s“ (%u/%u)"
 
-#: ../src/eog-window.c:1606
+#: ../src/eog-window.c:1581
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Otvára sa obrázok „%s“"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2002
+#: ../src/eog-window.c:1964
 msgid "Viewing a slideshow"
 msgstr "Zobrazuje sa prezentácia"
 
-#: ../src/eog-window.c:2221
+#: ../src/eog-window.c:2183
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1586,17 +1595,17 @@ msgstr ""
 "Chyba pri tlači obrázka:\n"
 "%s"
 
-#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
+#: ../src/eog-window.c:2566 ../src/eog-window.c:2581
 msgid "Error launching System Settings: "
 msgstr "Chyba pri spúštaní systémových nastavení:"
 
-#: ../src/eog-window.c:2653
+#: ../src/eog-window.c:2615
 msgid "_Open Background Preferences"
 msgstr "O_tvoriť nastavenia pozadia"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2669
+#: ../src/eog-window.c:2631
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1605,11 +1614,11 @@ msgstr ""
 "Obrázok „%s“ bol nastavený ako pozadie pracovnej plochy.\n"
 "Chceli by ste upraviť jeho vzhľad?"
 
-#: ../src/eog-window.c:3159
+#: ../src/eog-window.c:3121
 msgid "Saving image locally…"
 msgstr "Obrázok sa ukladá lokálne…"
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3199
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1618,7 +1627,7 @@ msgstr ""
 "Naozaj chcete trvalo odstrániť\n"
 "„%s“?"
 
-#: ../src/eog-window.c:3240
+#: ../src/eog-window.c:3202
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1637,42 +1646,42 @@ msgstr[2] ""
 "%d vybrané obrázky?"
 
 # GtkActionEnty
-#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
+#: ../src/eog-window.c:3224 ../src/eog-window.c:3490
 msgid "_Delete"
 msgstr "O_dstrániť"
 
-#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
+#: ../src/eog-window.c:3227 ../src/eog-window.c:3492
 msgid "_Yes"
 msgstr "Á_no"
 
 # checkbutton
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
+#: ../src/eog-window.c:3231 ../src/eog-window.c:3484
 msgid "Do _not ask again during this session"
 msgstr "_Počas tejto relácie sa už nepýtať"
 
-#: ../src/eog-window.c:3313
+#: ../src/eog-window.c:3275
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Nepodarilo sa získať súbor obrázka"
 
-#: ../src/eog-window.c:3329
+#: ../src/eog-window.c:3291
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Nepodarilo sa získať informácie o súbore obrázka"
 
-#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
+#: ../src/eog-window.c:3307 ../src/eog-window.c:3551
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Nebolo možné odstrániť súbor"
 
 #. set dialog error message
-#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
+#: ../src/eog-window.c:3357 ../src/eog-window.c:3651
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba pri odstraňovaní obrázka %s"
 
-#: ../src/eog-window.c:3490
+#: ../src/eog-window.c:3452
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1681,7 +1690,7 @@ msgstr ""
 "Naozaj chcete presunúť\n"
 "obrázok „%s“ do Koša?"
 
-#: ../src/eog-window.c:3493
+#: ../src/eog-window.c:3455
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1689,7 +1698,7 @@ msgid ""
 msgstr ""
 "Nie je možné nájsť Kôš pre „%s“. Chcete natrvalo odstrániť tento obrázok?"
 
-#: ../src/eog-window.c:3498
+#: ../src/eog-window.c:3460
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1707,7 +1716,7 @@ msgstr[2] ""
 "Naozaj chcete presunúť\n"
 "%d zvolené obrázky do koša?"
 
-#: ../src/eog-window.c:3503
+#: ../src/eog-window.c:3465
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1715,36 +1724,31 @@ msgstr ""
 "Niektoré z vybraných obrázkov nemôžu byť presunuté do koša a budú trvale "
 "odstránené. Naozaj chcete pokračovať?"
 
-#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
+#: ../src/eog-window.c:3529 ../src/eog-window.c:3543
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Nepodarilo sa získať prístup ku Košu."
 
 # tooltip
-#: ../src/eog-window.c:4249
-msgid "Fit the image to the window"
-msgstr "Prispôsobí obrázok veľkosti okna"
-
-# tooltip
-#: ../src/eog-window.c:4257 ../src/eog-window.c:4302
+#: ../src/eog-window.c:4210
 msgid "Shrink or enlarge the current image"
 msgstr "Zmenší alebo zväčší aktuálny obrázok"
 
 # tooltip
-#: ../src/eog-window.c:4360
+#: ../src/eog-window.c:4269
 msgid "Show the current image in fullscreen mode"
 msgstr "Zobrazí aktuálny obrázok na celú obrazovku"
 
 # action entry
-#: ../src/eog-window.c:4437
+#: ../src/eog-window.c:4346
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: ../src/eog-window.c:5570
+#: ../src/eog-window.c:5511
 msgid "The GNOME image viewer."
 msgstr "Prehliadač obrázkov pre prostredie GNOME."
 
-#: ../src/eog-window.c:5573
+#: ../src/eog-window.c:5514
 msgid "translator-credits"
 msgstr ""
 "Laco Gubík <lacogubik@gmail.com>\n"
@@ -1753,6 +1757,38 @@ msgstr ""
 "Peter Tuhársky <tuharsky@misbb.sk>\n"
 "Richard Stanislavský <kenny.vv@gmail.com>\n"
 "Dušan Kazik <prescott66@gmail.com>"
+
+#: ../src/eog-zoom-entry.c:64
+msgid "33%"
+msgstr "33%"
+
+#: ../src/eog-zoom-entry.c:65
+msgid "50%"
+msgstr "50%"
+
+#: ../src/eog-zoom-entry.c:66
+msgid "100%"
+msgstr "100%"
+
+#: ../src/eog-zoom-entry.c:67
+msgid "133%"
+msgstr "133%"
+
+#: ../src/eog-zoom-entry.c:68
+msgid "200%"
+msgstr "200%"
+
+#: ../src/eog-zoom-entry.c:69
+msgid "500%"
+msgstr "500%"
+
+#: ../src/eog-zoom-entry.c:70
+msgid "1000%"
+msgstr "1000%"
+
+#: ../src/eog-zoom-entry.c:71
+msgid "1500%"
+msgstr "1500%"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1802,6 +1838,10 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Úplný zoznam dostupných možností príkazového riadka získate spustením „%s --"
 "help“."
+
+# tooltip
+#~ msgid "Fit the image to the window"
+#~ msgstr "Prispôsobí obrázok veľkosti okna"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Rotate counter-clockwise"
