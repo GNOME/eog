@@ -57,19 +57,10 @@ struct _EogZoomEntry {
 	EogZoomEntryPrivate *priv;
 };
 
-static const struct {
-	const gchar *name;
-	const double level;
-} zoom_levels[] = {
-	{ N_("33%"), (1.0/3.0) },
-	{ N_("50%"), (1.0/2.0) },
-	{ N_("100%"), 1.0 },
-	{ N_("133%"), (1.0/0.75) },
-	{ N_("200%"), 2.0 },
-	{ N_("500%"), 5.0 },
-	{ N_("1000%"), 10.0 },
-	{ N_("1500%"), 15.0 },
-	{ N_("2000%"), 20.0 }
+static const gdouble zoom_levels[] = {
+	(1.0/3.0), (1.0/2.0),
+	1.0, /* 100% */
+	(1.0/0.75), 2.0, 5.0, 10.0, 15.0, 20.0
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogZoomEntry, eog_zoom_entry, GTK_TYPE_BOX);
@@ -78,29 +69,39 @@ static void eog_zoom_entry_reset_zoom_level (EogZoomEntry *entry);
 static void eog_zoom_entry_set_zoom_level (EogZoomEntry *entry, gdouble zoom);
 static void eog_zoom_entry_update_sensitivity (EogZoomEntry *entry);
 
+static gchar*
+eog_zoom_entry_format_zoom_value (gdouble value)
+{
+	gchar *name;
+	/* Mimic the zoom calculation from EogWindow to get matching displays */
+	const gint zoom_percent = (gint) floor (value * 100. + 0.5);
+
+	name = g_strdup_printf("%d%%", zoom_percent);
+
+	return name;
+}
 
 static void
 eog_zoom_entry_populate_free_zoom_section (EogZoomEntry *zoom_entry)
 {
 	guint   i;
-	gint    width = 0;
 
 	for (i = 0; i < G_N_ELEMENTS (zoom_levels); i++) {
 		GMenuItem *item;
-		gint       length;
+		gchar *name;
 
-		if (zoom_levels[i].level > EOG_SCROLL_VIEW_MAX_ZOOM_FACTOR)
+
+		if (zoom_levels[i] > EOG_SCROLL_VIEW_MAX_ZOOM_FACTOR)
 			break;
 
-		length = g_utf8_strlen (zoom_levels[i].name, -1);
-		if (length > width)
-			width = length;
+		name = eog_zoom_entry_format_zoom_value (zoom_levels[i]);
 
-		item = g_menu_item_new (zoom_levels[i].name, NULL);
+		item = g_menu_item_new (name, NULL);
 		g_menu_item_set_action_and_target (item, "win.zoom-set",
-		                                   "d", zoom_levels[i].level);
+		                                   "d", zoom_levels[i]);
 		g_menu_append_item (G_MENU (zoom_entry->priv->zoom_free_section), item);
 		g_object_unref (item);
+		g_free (name);
 	}
 }
 
@@ -269,13 +270,10 @@ static void
 eog_zoom_entry_set_zoom_level (EogZoomEntry *entry, gdouble zoom)
 {
 	gchar *zoom_str;
-	gdouble zoom_percent;
 
-	/* Mimic the zoom calculation from EogWindow to get matching displays */
 	zoom = CLAMP (zoom, EOG_SCROLL_VIEW_MIN_ZOOM_FACTOR,
 	              EOG_SCROLL_VIEW_MAX_ZOOM_FACTOR);
-	zoom_percent = floor (zoom * 100. + 0.5);
-	zoom_str = g_strdup_printf ("%d%%", (gint) zoom_percent);
+	zoom_str = eog_zoom_entry_format_zoom_value (zoom);
 	gtk_entry_set_text (GTK_ENTRY (entry->priv->value_entry), zoom_str);
 	g_free (zoom_str);
 }
@@ -359,7 +357,8 @@ eog_zoom_entry_init (EogZoomEntry *entry)
 	                          entry);
 }
 
-GtkWidget* eog_zoom_entry_new(EogScrollView *view, GMenu *menu)
+GtkWidget*
+eog_zoom_entry_new(EogScrollView *view, GMenu *menu)
 {
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), NULL);
 	g_return_val_if_fail (G_IS_MENU (menu), NULL);
