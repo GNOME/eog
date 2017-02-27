@@ -118,11 +118,16 @@ eog_zoom_entry_activate_cb (GtkEntry *gtk_entry, EogZoomEntry *entry)
 		eog_zoom_entry_reset_zoom_level (entry);
 		return;
 	}
-
 	zoom_perc = g_strtod (text, &end_ptr);
-	if (end_ptr && end_ptr[0] != '\0' && end_ptr[0] != '%') {
-		eog_zoom_entry_reset_zoom_level (entry);
-		return;
+
+	if (end_ptr) {
+		/* Skip whitespace after the digits */
+		while (end_ptr[0] != '\0' && g_ascii_isspace (end_ptr[0]))
+			end_ptr++;
+		if (end_ptr[0] != '\0' && end_ptr[0] != '%') {
+			eog_zoom_entry_reset_zoom_level (entry);
+			return;
+		}
 	}
 
 	eog_scroll_view_set_zoom (entry->priv->view, zoom_perc / 100.0);
