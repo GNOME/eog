@@ -76,7 +76,9 @@ eog_zoom_entry_format_zoom_value (gdouble value)
 	/* Mimic the zoom calculation from EogWindow to get matching displays */
 	const gint zoom_percent = (gint) floor (value * 100. + 0.5);
 
-	name = g_strdup_printf("%d%%", zoom_percent);
+	/** L10N: This is a percentage value used for the image zoom.
+	 * This should be translated similar to the statusbar zoom value. */
+	name = g_strdup_printf(_("%d%%"), zoom_percent);
 
 	return name;
 }
