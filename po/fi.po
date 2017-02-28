@@ -15,10 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-12 19:48+0000\n"
-"PO-Revision-Date: 2017-02-15 20:36+0200\n"
+"POT-Creation-Date: 2017-02-27 19:07+0000\n"
+"PO-Revision-Date: 2017-02-28 21:03+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -392,12 +392,7 @@ msgstr "Liitännäiset"
 msgid "Shrink the image"
 msgstr "Pienennä kuvaa"
 
-#: ../data/eog-zoom-entry.ui.h:3 ../src/eog-zoom-entry.c:72
-#, no-c-format
-msgid "2000%"
-msgstr "2000 %"
-
-#: ../data/eog-zoom-entry.ui.h:4 ../data/fullscreen-toolbar.ui.h:9
+#: ../data/eog-zoom-entry.ui.h:2 ../data/fullscreen-toolbar.ui.h:9
 msgid "Enlarge the image"
 msgstr "Suurenna kuvaa"
 
@@ -939,8 +934,6 @@ msgid "Show Containing _Folder"
 msgstr "Näytä sisältävä _kansio"
 
 #: ../data/popup-menus.ui.h:10
-#| msgctxt "shortcut window"
-#| msgid "Best fit"
 msgid "_Best fit"
 msgstr "_Paras sovitus"
 
@@ -1604,37 +1597,12 @@ msgstr ""
 "  Jiri Grönroos https://launchpad.net/~jiri-gronroos\n"
 "  Jussi Aalto https://launchpad.net/~jtaalto-deactivatedaccount"
 
-#: ../src/eog-zoom-entry.c:64
-msgid "33%"
-msgstr "33 %"
-
-#: ../src/eog-zoom-entry.c:65
-msgid "50%"
-msgstr "50 %"
-
-#: ../src/eog-zoom-entry.c:66
-msgid "100%"
-msgstr "100 %"
-
-#: ../src/eog-zoom-entry.c:67
-msgid "133%"
-msgstr "133 %"
-
-#: ../src/eog-zoom-entry.c:68
-msgid "200%"
-msgstr "200 %"
-
-#: ../src/eog-zoom-entry.c:69
-msgid "500%"
-msgstr "500 %"
-
-#: ../src/eog-zoom-entry.c:70
-msgid "1000%"
-msgstr "1000 %"
-
-#: ../src/eog-zoom-entry.c:71
-msgid "1500%"
-msgstr "1500 %"
+#. * L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
+#: ../src/eog-zoom-entry.c:81
+#, c-format
+msgid "%d%%"
+msgstr "%d% %"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1677,6 +1645,33 @@ msgstr "[TIEDOSTO…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Näet kaikki komentorivivalitsimet komennolla ”%s --help”"
+
+#~ msgid "2000%"
+#~ msgstr "2000 %"
+
+#~ msgid "33%"
+#~ msgstr "33 %"
+
+#~ msgid "50%"
+#~ msgstr "50 %"
+
+#~ msgid "100%"
+#~ msgstr "100 %"
+
+#~ msgid "133%"
+#~ msgstr "133 %"
+
+#~ msgid "200%"
+#~ msgstr "200 %"
+
+#~ msgid "500%"
+#~ msgstr "500 %"
+
+#~ msgid "1000%"
+#~ msgstr "1000 %"
+
+#~ msgid "1500%"
+#~ msgstr "1500 %"
 
 #~ msgid "Fit the image to the window"
 #~ msgstr "Sovita kuva ikkunaan"
