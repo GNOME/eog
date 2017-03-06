@@ -5,15 +5,15 @@
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2002-2004,2007-2008,2010-2013.
 # Phạm Thành Long <lngt@ngonngu.net>, 2007.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2014, 2015, 2016.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-26 16:46+0000\n"
-"PO-Revision-Date: 2016-03-27 08:49+0700\n"
+"POT-Creation-Date: 2017-03-05 09:40+0000\n"
+"PO-Revision-Date: 2017-03-06 07:26+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -57,8 +57,8 @@ msgid ""
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"“Eye of GNOME” là ứng dụng xem ảnh chính thức dành cho môi trường máy tính "
-"để bàn GNOME. Nó thống nhất với “look and feel” GTK+ của GNOME, và hỗ trợ "
+"“Mắt của GNOME” là ứng dụng xem ảnh chính thức dành cho môi trường máy tính "
+"để bàn GNOME. Nó thống nhất với “xem và cảm nhận” GTK+ của GNOME, và hỗ trợ "
 "nhiều định dạng ảnh khác nhau để xem từng ảnh hay nhiều ảnh trong một bộ sưu "
 "tập."
 
@@ -69,12 +69,12 @@ msgid ""
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"“Eye of GNOME” cũng cho phép xem các ảnh ở chế độ trình diễn toàn màn hình "
+"“Mắt của GNOME” cũng cho phép xem các ảnh ở chế độ trình diễn toàn màn hình "
 "hay đặt một ảnh làm ảnh nền cho màn hình. Nó đọc thẻ của máy ảnh để tự động "
 "quay ảnh của bạn theo hướng đứng hay ngang cho phù hợp."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:310
-#: ../src/eog-window.c:5565
+#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:312
+#: ../src/eog-window.c:5508
 msgid "Image Viewer"
 msgstr "Xem ảnh"
 
@@ -99,7 +99,7 @@ msgid "_Save"
 msgstr "_Lưu"
 
 #: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:132
+#: ../src/eog-error-message-area.c:133
 msgid "Save _As…"
 msgstr "Lưu _dạng…"
 
@@ -237,9 +237,9 @@ msgstr "Lưu ảnh bằng tên mới"
 
 #: ../data/eog-multiple-save-as-dialog.ui.h:2
 #: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:122 ../src/eog-file-chooser.c:456
+#: ../src/eog-error-message-area.c:123 ../src/eog-file-chooser.c:456
 #: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3261 ../src/eog-window.c:3264 ../src/eog-window.c:3517
+#: ../src/eog-window.c:3223 ../src/eog-window.c:3226 ../src/eog-window.c:3479
 msgid "_Cancel"
 msgstr "T_hôi"
 
@@ -384,6 +384,14 @@ msgstr "Trình chiếu ảnh"
 msgid "Plugins"
 msgstr "Phần bổ sung"
 
+#: ../data/eog-zoom-entry.ui.h:1 ../data/fullscreen-toolbar.ui.h:11
+msgid "Shrink the image"
+msgstr "Co ảnh"
+
+#: ../data/eog-zoom-entry.ui.h:2 ../data/fullscreen-toolbar.ui.h:9
+msgid "Enlarge the image"
+msgstr "Phóng to ảnh"
+
 #: ../data/fullscreen-toolbar.ui.h:1
 msgid "Go to the first image of the gallery"
 msgstr "Đến ảnh đầu tiên trong tập ảnh"
@@ -392,7 +400,7 @@ msgstr "Đến ảnh đầu tiên trong tập ảnh"
 msgid "_First Image"
 msgstr "Ảnh đầ_u tiên"
 
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2356
+#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2359
 msgid "Go to the previous image of the gallery"
 msgstr "Quay về ảnh trước đó trong tập ảnh"
 
@@ -400,7 +408,7 @@ msgstr "Quay về ảnh trước đó trong tập ảnh"
 msgid "_Previous Image"
 msgstr "Ảnh t_rước"
 
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2344
+#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2347
 msgid "Go to the next image of the gallery"
 msgstr "Đến ảnh kế tiếp trong tập ảnh"
 
@@ -416,17 +424,9 @@ msgstr "Đến ảnh cuối trong tập ảnh"
 msgid "_Last Image"
 msgstr "Ảnh c_uối cùng"
 
-#: ../data/fullscreen-toolbar.ui.h:9
-msgid "Enlarge the image"
-msgstr "Phóng to ảnh"
-
 #: ../data/fullscreen-toolbar.ui.h:10
 msgid "_Zoom In"
 msgstr "Phóng _to"
-
-#: ../data/fullscreen-toolbar.ui.h:11
-msgid "Shrink the image"
-msgstr "Co ảnh"
 
 #: ../data/fullscreen-toolbar.ui.h:12
 msgid "Zoom _Out"
@@ -440,7 +440,7 @@ msgstr "_Cỡ bình thường"
 msgid "_Best Fit"
 msgstr "_Vừa khít"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2371
+#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2374
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Quay ảnh 90 độ sang trái"
 
@@ -448,7 +448,7 @@ msgstr "Quay ảnh 90 độ sang trái"
 msgid "Rotate Counter_clockwise"
 msgstr "Xoay ngượ_c chiều kim đồng hồ"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2382
+#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2385
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Quay ảnh 90 độ sang phải"
 
@@ -852,7 +852,7 @@ msgstr "Cho vào thùng rác không cần hỏi"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:35
 msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"If activated, Eye of GNOME won’t ask for confirmation when moving images to "
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
@@ -861,14 +861,14 @@ msgstr ""
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:36
 msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
+"Whether the file chooser should show the user’s pictures folder if no images "
 "are loaded."
 msgstr "Có hiện thư mục ảnh của người dùng khi không tải ảnh hay không."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:37
 msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
+"will display the user’s pictures folder using the XDG special user "
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
@@ -879,19 +879,19 @@ msgstr ""
 #: ../data/org.gnome.eog.gschema.xml.in.h:38
 msgid ""
 "Whether the metadata list in the properties dialog should have its own page."
-msgstr "Có dùng trang riêng cho metadata trong hộp thoại thuộc tính không."
+msgstr "Có dùng trang riêng cho siêu dữ liệu trong hộp thoại thuộc tính không."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:39
 msgid ""
 "If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
+"be embedded on the “Metadata” page."
 msgstr ""
-"Nếu kích hoạt, danh sách metadata chi tiết trong hộp thoại thuộc tính sẽ "
+"Nếu kích hoạt, danh sách siêu dữ liệu chi tiết trong hộp thoại thuộc tính sẽ "
 "chuyển qua một trang riêng. Việc này giúp làm hộp thoại hữu dụng hơn trên "
 "màn hình nhỏ, như netbook. Nếu tắt, toàn bộ sẽ được nhúng trong trang "
-"\"Metadata\"."
+"“Metadata”."
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:40
 msgid "Active plugins"
@@ -899,8 +899,8 @@ msgstr "Phần bổ sung hoạt động"
 
 #: ../data/org.gnome.eog.gschema.xml.in.h:41
 msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"List of active plugins. It doesn’t contain the “Location” of the active "
+"plugins. See the .eog-plugin file for obtaining the “Location” of a given "
 "plugin."
 msgstr ""
 "Danh sách các phần bổ sung còn hoạt động. Nó không chứa “Vị trí” của phần bổ "
@@ -915,13 +915,17 @@ msgstr "Mở _bằng"
 msgid "_Copy"
 msgstr "_Chép"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3520
+#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3482
 msgid "Move to _Trash"
 msgstr "Chuyển vào _thùng rác"
 
 #: ../data/popup-menus.ui.h:9
 msgid "Show Containing _Folder"
 msgstr "Hiện thư mục _chứa ảnh"
+
+#: ../data/popup-menus.ui.h:10
+msgid "_Best fit"
+msgstr "_Vừa khít"
 
 #: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
 msgid "Fullscreen with double-click"
@@ -957,12 +961,12 @@ msgid "Question"
 msgstr "Câu hỏi"
 
 #: ../src/eog-close-confirmation-dialog.c:391
-msgid "If you don't save, your changes will be lost."
+msgid "If you don’t save, your changes will be lost."
 msgstr "Nếu không lưu, các thay đổi sẽ bị mất."
 
 #: ../src/eog-close-confirmation-dialog.c:437
 #, c-format
-msgid "Save changes to image \"%s\" before closing?"
+msgid "Save changes to image “%s” before closing?"
 msgstr "Lưu thay đổi vào ảnh \"%s\" trước khi đóng nhé?"
 
 #: ../src/eog-close-confirmation-dialog.c:652
@@ -978,37 +982,37 @@ msgstr "_Chọn ảnh bạn muốn lưu:"
 
 #. Secondary label
 #: ../src/eog-close-confirmation-dialog.c:688
-msgid "If you don't save, all your changes will be lost."
+msgid "If you don’t save, all your changes will be lost."
 msgstr "Nếu không lưu, tất cả thay đổi sẽ bị mất."
 
-#: ../src/eog-error-message-area.c:127 ../src/eog-window.c:906
+#: ../src/eog-error-message-area.c:128 ../src/eog-window.c:881
 msgid "_Reload"
 msgstr "_Tải lại ảnh"
 
-#: ../src/eog-error-message-area.c:136
+#: ../src/eog-error-message-area.c:137
 msgid "Open with _Document Viewer"
 msgstr "Mở bằng bộ Xem tài liệu"
 
-#: ../src/eog-error-message-area.c:218
+#: ../src/eog-error-message-area.c:219
 #, c-format
-msgid "Could not load image '%s'."
+msgid "Could not load image “%s”."
 msgstr "Không thể tải ảnh “%s”."
 
-#: ../src/eog-error-message-area.c:260
+#: ../src/eog-error-message-area.c:261
 #, c-format
-msgid "Could not save image '%s'."
+msgid "Could not save image “%s”."
 msgstr "Không thể lưu ảnh “%s”."
 
-#: ../src/eog-error-message-area.c:303
+#: ../src/eog-error-message-area.c:304
 #, c-format
-msgid "No images found in '%s'."
+msgid "No images found in “%s”."
 msgstr "Không tìm thấy ảnh trong “%s”."
 
-#: ../src/eog-error-message-area.c:310
+#: ../src/eog-error-message-area.c:311
 msgid "The given locations contain no images."
 msgstr "Các vị trí đã cho không chứa ảnh."
 
-#: ../src/eog-error-message-area.c:349
+#: ../src/eog-error-message-area.c:350
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1017,7 +1021,7 @@ msgstr ""
 "Ảnh này chứa nhiều trang. Bộ xem ảnh chỉ có thể hiển thị trang đầu.\n"
 "Bạn có thực sự muốn mở ảnh bằng bộ Xem tài liệu để xem tất cả các trang?"
 
-#: ../src/eog-error-message-area.c:354
+#: ../src/eog-error-message-area.c:355
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1027,13 +1031,13 @@ msgstr ""
 "Bạn có lẽ nên cài đặt bộ Xem tài liệu để xem tất cả các trang."
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
+#: ../src/eog-exif-util.c:189 ../src/eog-exif-util.c:191
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:274
+#: ../src/eog-exif-util.c:280
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (ống kính)"
@@ -1041,7 +1045,7 @@ msgstr "%.1f (ống kính)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:285
+#: ../src/eog-exif-util.c:291
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (phim 35mm)"
@@ -1098,49 +1102,49 @@ msgstr "Lưu ảnh"
 msgid "Open Folder"
 msgstr "Mở thư mục"
 
-#: ../src/eog-image.c:577
+#: ../src/eog-image.c:566
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Chuyển dạng trên ảnh đã bỏ tải."
 
-#: ../src/eog-image.c:605
+#: ../src/eog-image.c:594
 #, c-format
 msgid "Transformation failed."
 msgstr "Gặp lỗi khi chuyển dạng."
 
-#: ../src/eog-image.c:1085
+#: ../src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Không hỗ trợ EXIF cho định dạng tập tin này."
 
-#: ../src/eog-image.c:1229
+#: ../src/eog-image.c:1221
 #, c-format
 msgid "Image loading failed."
 msgstr "Gặp lỗi khi tải ảnh."
 
-#: ../src/eog-image.c:1810 ../src/eog-image.c:1930
+#: ../src/eog-image.c:1802 ../src/eog-image.c:1922
 #, c-format
 msgid "No image loaded."
 msgstr "Chưa tải ảnh nào."
 
-#: ../src/eog-image.c:1818 ../src/eog-image.c:1939
+#: ../src/eog-image.c:1810 ../src/eog-image.c:1931
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Bạn không có quyền lưu tập tin."
 
-#: ../src/eog-image.c:1828 ../src/eog-image.c:1950
+#: ../src/eog-image.c:1820 ../src/eog-image.c:1942
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Gặp lỗi khi tạo tập tin tạm."
 
 #: ../src/eog-image-jpeg.c:374
 #, c-format
-msgid "Couldn't create temporary file for saving: %s"
+msgid "Couldn’t create temporary file for saving: %s"
 msgstr "Không thể tạo tập tin tạm để lưu: %s"
 
 #: ../src/eog-image-jpeg.c:393
 #, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
+msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "Không thể cấp phát bộ nhớ để tải ảnh JPEG"
 
 #: ../src/eog-metadata-details.c:66
@@ -1211,7 +1215,7 @@ msgstr[0] "%i x %i điểm ảnh"
 
 #: ../src/eog-metadata-sidebar.c:155 ../src/eog-properties-dialog.c:182
 msgid "Unknown"
-msgstr "Không rõ"
+msgstr "Không biết"
 
 #: ../src/eog-metadata-sidebar.c:219
 msgid "%a, %d %B %Y"
@@ -1306,11 +1310,11 @@ msgstr "Đơn _vị:"
 
 #: ../src/eog-print-image-setup.c:993
 msgid "Millimeters"
-msgstr "Mili-mét"
+msgstr "Mi-li-mét"
 
 #: ../src/eog-print-image-setup.c:995
 msgid "Inches"
-msgstr "Inch"
+msgstr "Insơ"
 
 #: ../src/eog-print-image-setup.c:1024
 msgid "Preview"
@@ -1362,23 +1366,23 @@ msgstr " (Unicode không hợp lệ)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:568
+#: ../src/eog-window.c:543
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i điểm ảnh  %s    %i%%"
 
-#: ../src/eog-window.c:908 ../src/eog-window.c:2655
+#: ../src/eog-window.c:883 ../src/eog-window.c:2617
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Ẩ_n"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:918
+#: ../src/eog-window.c:893
 #, c-format
 msgid ""
-"The image \"%s\" has been modified by an external application.\n"
+"The image “%s” has been modified by an external application.\n"
 "Would you like to reload it?"
 msgstr ""
 "Ảnh \"%s\" đã thay đổi bởi ứng dụng khác.\n"
@@ -1389,22 +1393,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1181
+#: ../src/eog-window.c:1156
 #, c-format
-msgid "Saving image \"%s\" (%u/%u)"
+msgid "Saving image “%s” (%u/%u)"
 msgstr "Đang lưu ảnh “%s” (%u/%u)"
 
-#: ../src/eog-window.c:1606
+#: ../src/eog-window.c:1581
 #, c-format
-msgid "Opening image \"%s\""
+msgid "Opening image “%s”"
 msgstr "Đang mở ảnh \"%s\""
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:2002
+#: ../src/eog-window.c:1964
 msgid "Viewing a slideshow"
 msgstr "Xem trình chiếu"
 
-#: ../src/eog-window.c:2221
+#: ../src/eog-window.c:2183
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1413,39 +1417,39 @@ msgstr ""
 "Gặp lỗi khi in tập tin:\n"
 "%s"
 
-#: ../src/eog-window.c:2604 ../src/eog-window.c:2619
+#: ../src/eog-window.c:2566 ../src/eog-window.c:2581
 msgid "Error launching System Settings: "
 msgstr "Lỗi khởi động cài đặt hệ thống: "
 
-#: ../src/eog-window.c:2653
+#: ../src/eog-window.c:2615
 msgid "_Open Background Preferences"
 msgstr "_Mở Tùy thích nền"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2669
+#: ../src/eog-window.c:2631
 #, c-format
 msgid ""
-"The image \"%s\" has been set as Desktop Background.\n"
+"The image “%s” has been set as Desktop Background.\n"
 "Would you like to modify its appearance?"
 msgstr ""
-"Ảnh \"%s\" đã được dùng làm ảnh nền màn hình.\n"
+"Ảnh “%s” đã được dùng làm ảnh nền màn hình.\n"
 "Bạn có muốn thay đổi cách thể hiện không?"
 
-#: ../src/eog-window.c:3159
+#: ../src/eog-window.c:3121
 msgid "Saving image locally…"
 msgstr "Đang lưu ảnh cục bộ…"
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3199
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
-"\"%s\" permanently?"
+"“%s” permanently?"
 msgstr ""
 "Bạn có chắc muốn xóa\n"
 "“%s” vĩnh viễn không?"
 
-#: ../src/eog-window.c:3240
+#: ../src/eog-window.c:3202
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1457,58 +1461,58 @@ msgstr[0] ""
 "Bạn có chắc muốn xóa bỏ\n"
 "%d ảnh đã chọn vĩnh viễn không?"
 
-#: ../src/eog-window.c:3262 ../src/eog-window.c:3528
+#: ../src/eog-window.c:3224 ../src/eog-window.c:3490
 msgid "_Delete"
 msgstr "_Xóa"
 
-#: ../src/eog-window.c:3265 ../src/eog-window.c:3530
+#: ../src/eog-window.c:3227 ../src/eog-window.c:3492
 msgid "_Yes"
 msgstr "_Có"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3269 ../src/eog-window.c:3522
+#: ../src/eog-window.c:3231 ../src/eog-window.c:3484
 msgid "Do _not ask again during this session"
 msgstr "Đừng _hỏi lại trong phiên làm việc này"
 
-#: ../src/eog-window.c:3313
+#: ../src/eog-window.c:3275
 #, c-format
-msgid "Couldn't retrieve image file"
+msgid "Couldn’t retrieve image file"
 msgstr "Không thể khôi phục tập tin ảnh"
 
-#: ../src/eog-window.c:3329
+#: ../src/eog-window.c:3291
 #, c-format
-msgid "Couldn't retrieve image file information"
+msgid "Couldn’t retrieve image file information"
 msgstr "Không thể khôi phục thông tin tập tin ảnh"
 
-#: ../src/eog-window.c:3345 ../src/eog-window.c:3589
+#: ../src/eog-window.c:3307 ../src/eog-window.c:3551
 #, c-format
-msgid "Couldn't delete file"
+msgid "Couldn’t delete file"
 msgstr "Không thể xóa tập tin"
 
 #. set dialog error message
-#: ../src/eog-window.c:3395 ../src/eog-window.c:3689
+#: ../src/eog-window.c:3357 ../src/eog-window.c:3651
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Gặp lỗi khi xóa bỏ ảnh %s"
 
-#: ../src/eog-window.c:3490
+#: ../src/eog-window.c:3452
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
-"\"%s\" to the trash?"
+"“%s” to the trash?"
 msgstr ""
 "Bạn có chắc muốn chuyển\n"
 "“%s” vào thùng rác không?"
 
-#: ../src/eog-window.c:3493
+#: ../src/eog-window.c:3455
 #, c-format
 msgid ""
-"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr ""
 "Không tìm thấy thùng rác cho “%s”. Bạn có muốn xóa bỏ vĩnh viễn ảnh này?"
 
-#: ../src/eog-window.c:3498
+#: ../src/eog-window.c:3460
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1520,42 +1524,45 @@ msgstr[0] ""
 "Bạn có chắc muốn chuyển\n"
 "%d ảnh đã chọn vào thùng rác không?"
 
-#: ../src/eog-window.c:3503
+#: ../src/eog-window.c:3465
 msgid ""
-"Some of the selected images can't be moved to the trash and will be removed "
+"Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
 "Một số ảnh đã chọn không thể chuyển được vào thùng rác và sẽ bị xóa bỏ vĩnh "
 "viễn. Bạn có chắc muốn tiếp tục không?"
 
-#: ../src/eog-window.c:3567 ../src/eog-window.c:3581
+#: ../src/eog-window.c:3529 ../src/eog-window.c:3543
 #, c-format
-msgid "Couldn't access trash."
+msgid "Couldn’t access trash."
 msgstr "Không thể truy cập thùng rác."
 
-#: ../src/eog-window.c:4247
-msgid "Fit the image to the window"
-msgstr "Ảnh vừa khít cửa sổ"
-
-#: ../src/eog-window.c:4255 ../src/eog-window.c:4300
+#: ../src/eog-window.c:4210
 msgid "Shrink or enlarge the current image"
 msgstr "Co hay giãn ảnh hiện tại"
 
-#: ../src/eog-window.c:4358
+#: ../src/eog-window.c:4269
 msgid "Show the current image in fullscreen mode"
 msgstr "Hiện ảnh hiện thời trong chế độ toàn màn hình"
 
-#: ../src/eog-window.c:4435
+#: ../src/eog-window.c:4346
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: ../src/eog-window.c:5568
+#: ../src/eog-window.c:5511
 msgid "The GNOME image viewer."
 msgstr "Bộ xem ảnh GNOME."
 
-#: ../src/eog-window.c:5571
+#: ../src/eog-window.c:5514
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME <gnome-vi-list@gnome.org>"
+
+#. L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
+#: ../src/eog-zoom-entry.c:81
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1583,7 +1590,7 @@ msgid ""
 msgstr "Mở trong cửa sổ đơn, nếu có nhiều cửa sổ, dùng cửa sổ đầu"
 
 #: ../src/main.c:69
-msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Hiển thị phiên bản của ứng dụng"
 
 #: ../src/main.c:99
@@ -1593,8 +1600,11 @@ msgstr "[TẬP TIN…]"
 #. I18N: The '%s' is replaced with eog's command name.
 #: ../src/main.c:112
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Chạy lệnh “%s --help” để xem danh sách tất cả các tùy chọn dòng lệnh."
+
+#~ msgid "Fit the image to the window"
+#~ msgstr "Ảnh vừa khít cửa sổ"
 
 #~ msgid "Side _Pane"
 #~ msgstr "Khung _lề"
