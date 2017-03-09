@@ -6,7 +6,7 @@
 # Andras Timar <timar at gnome dot hu>, 2002, 2003, 2004.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
 # Zoltán Máthé <mathzoltan at gmail dot com>, 2008.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017.
 # Balázs Meskó <meskobalazs at gmail dot com>, 2011.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2015.
 msgid ""
@@ -14,16 +14,16 @@ msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 01:29+0000\n"
-"PO-Revision-Date: 2017-02-22 15:58+0100\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"POT-Creation-Date: 2017-03-07 13:32+0000\n"
+"PO-Revision-Date: 2017-03-09 23:26+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/eog-app-menu.xml.h:1
 msgid "Prefere_nces"
@@ -388,12 +388,7 @@ msgstr "Bővítmények"
 msgid "Shrink the image"
 msgstr "Kép kicsinyítése"
 
-#: ../data/eog-zoom-entry.ui.h:3 ../src/eog-zoom-entry.c:72
-#, no-c-format
-msgid "2000%"
-msgstr "2000%"
-
-#: ../data/eog-zoom-entry.ui.h:4 ../data/fullscreen-toolbar.ui.h:9
+#: ../data/eog-zoom-entry.ui.h:2 ../data/fullscreen-toolbar.ui.h:9
 msgid "Enlarge the image"
 msgstr "Kép nagyítása"
 
@@ -1592,37 +1587,12 @@ msgstr ""
 "Meskó Balázs <meskobalazs at gmail dot com>\n"
 "Tímár András <timar at gnome dot hu>"
 
-#: ../src/eog-zoom-entry.c:64
-msgid "33%"
-msgstr "33%"
-
-#: ../src/eog-zoom-entry.c:65
-msgid "50%"
-msgstr "50%"
-
-#: ../src/eog-zoom-entry.c:66
-msgid "100%"
-msgstr "100%"
-
-#: ../src/eog-zoom-entry.c:67
-msgid "133%"
-msgstr "133%"
-
-#: ../src/eog-zoom-entry.c:68
-msgid "200%"
-msgstr "200%"
-
-#: ../src/eog-zoom-entry.c:69
-msgid "500%"
-msgstr "500%"
-
-#: ../src/eog-zoom-entry.c:70
-msgid "1000%"
-msgstr "1000%"
-
-#: ../src/eog-zoom-entry.c:71
-msgid "1500%"
-msgstr "1500%"
+#. L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
+#: ../src/eog-zoom-entry.c:81
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1665,6 +1635,33 @@ msgstr "[FÁJL…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot a parancssori kapcsolók listájáért."
+
+#~ msgid "2000%"
+#~ msgstr "2000%"
+
+#~ msgid "33%"
+#~ msgstr "33%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "133%"
+#~ msgstr "133%"
+
+#~ msgid "200%"
+#~ msgstr "200%"
+
+#~ msgid "500%"
+#~ msgstr "500%"
+
+#~ msgid "1000%"
+#~ msgstr "1000%"
+
+#~ msgid "1500%"
+#~ msgstr "1500%"
 
 #~ msgid "Fit the image to the window"
 #~ msgstr "Kép igazítása az ablakhoz"
