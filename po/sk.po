@@ -12,10 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-12 19:48+0000\n"
-"PO-Revision-Date: 2017-02-18 10:30+0100\n"
+"POT-Creation-Date: 2017-02-27 19:07+0000\n"
+"PO-Revision-Date: 2017-03-12 10:45+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 
 # menu
 #: ../data/eog-app-menu.xml.h:1
@@ -467,13 +467,8 @@ msgstr "Zásuvné moduly"
 msgid "Shrink the image"
 msgstr "Zmenší obrázok"
 
-#: ../data/eog-zoom-entry.ui.h:3 ../src/eog-zoom-entry.c:72
-#, no-c-format
-msgid "2000%"
-msgstr "2000%"
-
 # tooltip
-#: ../data/eog-zoom-entry.ui.h:4 ../data/fullscreen-toolbar.ui.h:9
+#: ../data/eog-zoom-entry.ui.h:2 ../data/fullscreen-toolbar.ui.h:9
 msgid "Enlarge the image"
 msgstr "Zväčší obrázok"
 
@@ -1758,37 +1753,12 @@ msgstr ""
 "Richard Stanislavský <kenny.vv@gmail.com>\n"
 "Dušan Kazik <prescott66@gmail.com>"
 
-#: ../src/eog-zoom-entry.c:64
-msgid "33%"
-msgstr "33%"
-
-#: ../src/eog-zoom-entry.c:65
-msgid "50%"
-msgstr "50%"
-
-#: ../src/eog-zoom-entry.c:66
-msgid "100%"
-msgstr "100%"
-
-#: ../src/eog-zoom-entry.c:67
-msgid "133%"
-msgstr "133%"
-
-#: ../src/eog-zoom-entry.c:68
-msgid "200%"
-msgstr "200%"
-
-#: ../src/eog-zoom-entry.c:69
-msgid "500%"
-msgstr "500%"
-
-#: ../src/eog-zoom-entry.c:70
-msgid "1000%"
-msgstr "1000%"
-
-#: ../src/eog-zoom-entry.c:71
-msgid "1500%"
-msgstr "1500%"
+#. * L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
+#: ../src/eog-zoom-entry.c:81
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
 
 #: ../src/main.c:56
 msgid "GNOME Image Viewer"
@@ -1838,6 +1808,33 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Úplný zoznam dostupných možností príkazového riadka získate spustením „%s --"
 "help“."
+
+#~ msgid "2000%"
+#~ msgstr "2000%"
+
+#~ msgid "33%"
+#~ msgstr "33%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "133%"
+#~ msgstr "133%"
+
+#~ msgid "200%"
+#~ msgstr "200%"
+
+#~ msgid "500%"
+#~ msgstr "500%"
+
+#~ msgid "1000%"
+#~ msgstr "1000%"
+
+#~ msgid "1500%"
+#~ msgstr "1500%"
 
 # tooltip
 #~ msgid "Fit the image to the window"
