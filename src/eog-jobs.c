@@ -662,6 +662,57 @@ void eog_job_model_dispose (GObject *object)
 	G_OBJECT_CLASS (eog_job_model_parent_class)->dispose (object);
 }
 
+typedef struct
+{
+	GMutex mutex;
+	GCond cond;
+	GAsyncResult *result;
+} MountData;
+
+static void
+_g_file_mount_enclosing_volume_sync_cb (GObject *source,
+					GAsyncResult *result,
+					gpointer user_data)
+{
+	MountData *data = (MountData *) user_data;
+
+	data->result = g_object_ref (result);
+
+	g_mutex_lock (&data->mutex);
+	g_cond_signal (&data->cond);
+	g_mutex_unlock (&data->mutex);
+}
+
+static gboolean
+_g_file_mount_enclosing_volume_sync (GFile *location,
+				     GMountMountFlags flags,
+				     GMountOperation *mount_operation,
+				     GError **error)
+{
+	MountData *data;
+	gboolean retval;
+
+	data = g_new0 (MountData, 1);
+
+	g_mutex_lock (&data->mutex);
+	g_file_mount_enclosing_volume (location,
+				       flags,
+				       mount_operation,
+				       NULL,
+				       _g_file_mount_enclosing_volume_sync_cb,
+				       data);
+	while (data->result == NULL)
+		g_cond_wait (&data->cond, &data->mutex);
+	g_mutex_unlock (&data->mutex);
+
+	retval = g_file_mount_enclosing_volume_finish (location, data->result, error);
+
+	g_object_unref (data->result);
+	g_free (data);
+
+	return retval;
+}
+
 static void
 filter_files (GSList *files, GList **file_list, GList **error_list)
 {
@@ -675,9 +726,27 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 		file = (GFile *) it->data;
 
 		if (file != NULL) {
+			GError *error = NULL;
+
 			file_info = g_file_query_info (file,
 						       G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-						       0, NULL, NULL);
+						       0, NULL, &error);
+			if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_MOUNTED)) {
+				GMountOperation *operation;
+
+				operation = gtk_mount_operation_new (NULL);
+				if (_g_file_mount_enclosing_volume_sync (file,
+									 G_MOUNT_MOUNT_NONE,
+									 operation,
+									 NULL))
+					file_info = g_file_query_info (file,
+								       G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+								       0, NULL, NULL);
+
+				g_object_unref (operation);
+			}
+			g_clear_error (&error);
+
 			if (file_info == NULL) {
 				type = G_FILE_TYPE_UNKNOWN;
 			} else {
