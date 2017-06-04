@@ -19,16 +19,11 @@ DISTCLEANFILES =
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-installed-tests
 
 MAINTAINERCLEANFILES = \
-	$(srcdir)/aclocal.m4 \
-	$(srcdir)/config.guess \
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_GETTEXT) \
 	$(srcdir)/config.h.in \
-	$(srcdir)/config.sub \
-	$(srcdir)/depcomp \
-	$(srcdir)/gtk-doc.make \
-	$(srcdir)/install-sh \
-	$(srcdir)/ltmain.sh \
-	$(srcdir)/missing \
-	$(srcdir)/mkinstalldirs
+	$(srcdir)/gtk-doc.make
 
 @BEHAVE_INSTALLED_TESTS_RULE@
 INSTALLED_TESTS=about undo sidepane fullscreen wallpaper screenshot_tour1 screenshot_tour2
