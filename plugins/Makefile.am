@@ -52,10 +52,14 @@ plugins_in_files += statusbar-date/statusbar-date.plugin.desktop.in
 endif
 
 # Generate plugin info files
-
-%.plugin: %.plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(AM_V_GEN)$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
 plugins_DATA = $(plugins_in_files:.plugin.desktop.in=.plugin)
+
+# msgfmt 0.19.8 has a bug that adding additional keywords for translation
+# disables the default keywords, so we have to explicitly name them for now.
+$(plugins_DATA): %.plugin: %.plugin.desktop.in $(wildcard $(top_srcdir)/po/*po)
+	$(AM_V_GEN)$(MSGFMT) --desktop --keyword=Name --keyword=Description --template $< -d $(top_srcdir)/po -o $@
+
+
 
 DISTCLEANFILES = $(plugins_DATA)
 CLEANFILES = $(plugins_DATA)

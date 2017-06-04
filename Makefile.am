@@ -2,7 +2,7 @@ if ENABLE_JPEG
 jpeg_DIRS = jpegutils
 endif
 
-SUBDIRS = $(jpeg_DIRS) src plugins po help data doc
+SUBDIRS = $(jpeg_DIRS) src plugins help data doc po
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
@@ -14,10 +14,7 @@ EXTRA_DIST = 			\
 	ChangeLog.pre-git	\
 	tests
 
-DISTCLEANFILES =                \
-        intltool-extract        \
-        intltool-merge          \
-        intltool-update
+DISTCLEANFILES =
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-installed-tests
 
