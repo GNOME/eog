@@ -1,3 +1,5 @@
+EXTRA_DIST = meson.build
+
 @YELP_HELP_RULES@
 
 HELP_ID = eog

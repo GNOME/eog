@@ -12,6 +12,10 @@ EXTRA_DIST = 			\
 	ChangeLog-2.6		\
 	ChangeLog-2.18		\
 	ChangeLog.pre-git	\
+	meson.build		\
+	meson_options.txt	\
+	meson_post_install.py	\
+	po/meson.build		\
 	tests
 
 DISTCLEANFILES =

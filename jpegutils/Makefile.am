@@ -18,6 +18,9 @@ libeog_jpegutils_la_SOURCES +=		\
 	transupp-6b.h
 endif
 
-EXTRA_DIST = README.6b README.8a
+EXTRA_DIST = \
+	README.6b	\
+	README.8a	\
+	meson.build
 
 -include $(top_srcdir)/git.mk

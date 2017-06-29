@@ -64,6 +64,8 @@ $(plugins_DATA): %.plugin: %.plugin.desktop.in $(wildcard $(top_srcdir)/po/*po)
 DISTCLEANFILES = $(plugins_DATA)
 CLEANFILES = $(plugins_DATA)
 
-EXTRA_DIST = $(plugins_in_files)
+EXTRA_DIST = \
+	$(plugins_in_files)	\
+	meson.build
 
 -include $(top_srcdir)/git.mk

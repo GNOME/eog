@@ -204,7 +204,8 @@ EXTRA_DIST = 				\
 	eog.gresource.xml		\
 	eog-enum-types.h.template	\
 	eog-enum-types.c.template	\
-	eog-marshal.list
+	eog-marshal.list		\
+	meson.build
 
 CLEANFILES = $(BUILT_SOURCES)
 

@@ -47,7 +47,8 @@ EXTRA_DIST =			\
 	popup-menus.ui		\
 	$(DESKTOP_IN_FILES)	\
 	$(appdata_in_files)	\
-	eog.convert
+	eog.convert		\
+	meson.build
 
 CLEANFILES = 			\
         $(DESKTOP_FILES)        \
