@@ -123,9 +123,10 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 
 	perc = CLAMP (128.0/(MAX (width, height)), 0, 1);
 
-	thumb = gnome_desktop_thumbnail_scale_down_pixbuf (pixbuf,
-							   width*perc,
-							   height*perc);
+	thumb = gdk_pixbuf_scale_simple (pixbuf,
+					 width*perc,
+					 height*perc,
+					 GDK_INTERP_HYPER);
 
 	return thumb;
 }
@@ -444,7 +445,7 @@ eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 		width  = MAX (width  * factor, 1);
 		height = MAX (height * factor, 1);
 
-		result_pixbuf = gnome_desktop_thumbnail_scale_down_pixbuf (thumbnail, width, height);
+		result_pixbuf = gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
 
 		return result_pixbuf;
 	}
