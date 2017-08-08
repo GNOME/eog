@@ -47,7 +47,6 @@ HELP_FILES = \
 	rename-multiple.page			\
 	shortcuts.page				\
 	slideshow.page				\
-	toolbar.page				\
 	translate.page				\
 	view.page				\
 	zoom.page
