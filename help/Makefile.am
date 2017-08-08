@@ -4,7 +4,6 @@ HELP_ID = eog
 
 HELP_MEDIA = \
 	figures/eog-logo.png			\
-	figures/eog-toolbar-editor.png		\
 	figures/eog-trail.png			\
 	figures/image-view-prefs.png		\
 	figures/multiple-convert.png		\
