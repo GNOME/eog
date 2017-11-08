@@ -11,7 +11,7 @@ $(desktop_DATA): %.desktop: %.desktop.in
 	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 # AppData
-appdatadir = $(datadir)/appdata
+appdatadir = $(datadir)/metainfo
 appdata_in_files = eog.appdata.xml.in
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 $(appdata_DATA): $(appdata_in_files)
