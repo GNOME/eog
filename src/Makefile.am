@@ -198,7 +198,7 @@ eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
 	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --header --internal --prefix=eog_marshal > $@
 
 eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --prototypes --body --prefix=eog_marshal > $@
 
 EXTRA_DIST = 				\
 	eog.gresource.xml		\
