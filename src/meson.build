@@ -185,7 +185,8 @@ eog = executable(
   dependencies: libeog_dep,
   c_args: cflags,
   install: true,
-  install_dir: eog_bindir
+  install_dir: eog_bindir,
+  install_rpath: eog_pkglibdir
 )
 
 if have_gir
