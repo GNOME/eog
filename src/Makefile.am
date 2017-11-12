@@ -205,7 +205,8 @@ EXTRA_DIST = 				\
 	eog-enum-types.h.template	\
 	eog-enum-types.c.template	\
 	eog-marshal.list		\
-	meson.build
+	meson.build			\
+	symbol.map
 
 CLEANFILES = $(BUILT_SOURCES)
 
