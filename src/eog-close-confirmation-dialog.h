@@ -44,7 +44,7 @@ typedef struct _EogCloseConfirmationDialogPrivate 	EogCloseConfirmationDialogPri
 
 struct _EogCloseConfirmationDialog
 {
-	GtkDialog parent;
+	GtkMessageDialog parent;
 
 	/*< private > */
 	EogCloseConfirmationDialogPrivate *priv;
@@ -52,7 +52,7 @@ struct _EogCloseConfirmationDialog
 
 struct _EogCloseConfirmationDialogClass
 {
-	GtkDialogClass parent_class;
+	GtkMessageDialogClass parent_class;
 };
 
 /**
