@@ -87,6 +87,9 @@
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 2 * 1000
 #define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
+#define EOG_RECENT_FILES_GROUP  "Graphics"
+#define EOG_RECENT_FILES_APP_NAME "Image Viewer"
+
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
 
 #define is_rtl (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
@@ -811,6 +814,53 @@ update_selection_ui_visibility (EogWindow *window)
 	}
 }
 
+static gboolean
+add_file_to_recent_files (GFile *file)
+{
+	gchar *text_uri;
+	GFileInfo *file_info;
+	GtkRecentData *recent_data;
+	static gchar *groups[2] = { EOG_RECENT_FILES_GROUP , NULL };
+
+	if (file == NULL) return FALSE;
+
+	/* The password gets stripped here because ~/.recently-used.xbel is
+	 * readable by everyone (chmod 644). It also makes the workaround
+	 * for the bug with gtk_recent_info_get_uri_display() easier
+	 * (see the comment in eog_window_update_recent_files_menu()). */
+	text_uri = g_file_get_uri (file);
+
+	if (text_uri == NULL)
+		return FALSE;
+
+	file_info = g_file_query_info (file,
+	                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+	                               0, NULL, NULL);
+	if (file_info == NULL)
+		return FALSE;
+
+	recent_data = g_slice_new (GtkRecentData);
+	recent_data->display_name = NULL;
+	recent_data->description = NULL;
+	recent_data->mime_type = (gchar *) g_file_info_get_content_type (file_info);
+	recent_data->app_name = EOG_RECENT_FILES_APP_NAME;
+	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
+	recent_data->groups = groups;
+	recent_data->is_private = FALSE;
+
+	gtk_recent_manager_add_full (gtk_recent_manager_get_default (),
+	                             text_uri,
+	                             recent_data);
+
+	g_free (recent_data->app_exec);
+	g_free (text_uri);
+	g_object_unref (file_info);
+
+	g_slice_free (GtkRecentData, recent_data);
+
+	return FALSE;
+}
+
 static void
 image_thumb_changed_cb (EogImage *image, gpointer data)
 {
@@ -915,6 +965,7 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
+	GFile *file;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -946,6 +997,12 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	update_status_bar (window);
 
 	eog_window_update_open_with_menu (window, image);
+
+	file = eog_image_get_file (image);
+	g_idle_add_full (G_PRIORITY_LOW,
+			 (GSourceFunc) add_file_to_recent_files,
+			 file,
+			 (GDestroyNotify) g_object_unref);
 
 	if (eog_image_is_multipaged (image)) {
 		GtkWidget *info_bar;
