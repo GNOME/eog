@@ -647,11 +647,8 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 
 	window = gtk_widget_get_window (GTK_WIDGET (priv->display));
 
-	/* Scroll the window area and process exposure synchronously. */
-
 	if (!gtk_gesture_is_recognized (priv->zoom_gesture)) {
 		gdk_window_scroll (window, -xofs, -yofs);
-		gdk_window_process_updates (window, TRUE);
 	}
 
  out:
