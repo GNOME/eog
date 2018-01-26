@@ -67,7 +67,7 @@ gboolean eog_util_file_is_persistent (GFile *file);
 
 G_GNUC_INTERNAL
 void     eog_util_show_file_in_filemanager   (GFile *file,
-					      GdkScreen *screen);
+                                              GtkWindow *toplevel);
 
 G_END_DECLS
 

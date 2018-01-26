@@ -3018,7 +3018,7 @@ eog_window_action_open_containing_folder (GSimpleAction *action,
 	g_return_if_fail (file != NULL);
 
 	eog_util_show_file_in_filemanager (file,
-				gtk_widget_get_screen (GTK_WIDGET (user_data)));
+					   GTK_WINDOW (user_data));
 }
 
 static void
