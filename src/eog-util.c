@@ -53,8 +53,8 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 	if (section)
 		uri = g_strdup_printf ("help:eog/%s", section);
 
-	gtk_show_uri (NULL, ((uri != NULL) ? uri : "help:eog"),
-		      gtk_get_current_event_time (), &error);
+	gtk_show_uri_on_window (parent, ((uri != NULL) ? uri : "help:eog"),
+                                gtk_get_current_event_time (), &error);
 
 	g_free (uri);
 
