@@ -1236,8 +1236,8 @@ eog_window_obtain_desired_size (EogImage  *image,
 				gint       height,
 				EogWindow *window)
 {
-	GdkScreen *screen;
-	GdkRectangle monitor;
+	GdkMonitor *monitor;
+	GdkRectangle monitor_rect;
 	GtkAllocation allocation;
 	gint final_width, final_height;
 	gint screen_width, screen_height;
@@ -1275,15 +1275,14 @@ eog_window_obtain_desired_size (EogImage  *image,
 	eog_debug_message (DEBUG_WINDOW, "Initial Window Size: %d x %d", window_width, window_height);
 
 
-	screen = gtk_window_get_screen (GTK_WINDOW (window));
+	monitor = gdk_display_get_monitor_at_window (
+				gtk_widget_get_display (GTK_WIDGET (window)),
+				gtk_widget_get_window (GTK_WIDGET (window)));
 
-	gdk_screen_get_monitor_geometry (screen,
-			gdk_screen_get_monitor_at_window (screen,
-				gtk_widget_get_window (GTK_WIDGET (window))),
-			&monitor);
+	gdk_monitor_get_geometry (monitor, &monitor_rect);
 
-	screen_width  = monitor.width;
-	screen_height = monitor.height;
+	screen_width  = monitor_rect.width;
+	screen_height = monitor_rect.height;
 
 	eog_debug_message (DEBUG_WINDOW, "Screen Size: %d x %d", screen_width, screen_height);
 
