@@ -51,6 +51,10 @@ typedef enum {
 	EJA_OTHER
 } EogJpegApp1Type;
 
+/* This enables color profile generation from Exif valus. However it's
+ * uncertain how well maintained that information is since applications like
+ * GIMP ignore this data. */
+#define EOG_METADATA_READER_JPG_GEN_PROFILE_FROM_EXIF_VALUES 0
 
 #define EOG_JPEG_MARKER_START   0xFF
 #define EOG_JPEG_MARKER_SOI     0xD8
@@ -541,6 +545,11 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 		color_space = exif_get_short (entry->data, o);
 
 		switch (color_space) {
+#if EOG_METADATA_READER_JPG_GEN_PROFILE_FROM_EXIF_VALUES == 0
+		case 0xFFFF:
+			eog_debug_message (DEBUG_LCMS, "JPEG is uncalibrated. "
+						       "Fallback to sRGB.");
+#endif
 		case 1:
 			eog_debug_message (DEBUG_LCMS, "JPEG is sRGB");
 
@@ -554,6 +563,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 			//profile = cmsCreate_Adobe1998Profile ();
 
 			break;
+#if EOG_METADATA_READER_JPG_GEN_PROFILE_FROM_EXIF_VALUES != 0
 		case 0xFFFF:
 		  	{
 			cmsCIExyY whitepoint;
@@ -625,6 +635,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 
 			break;
 			}
+#endif
 		}
 
 		exif_data_unref (exif);
