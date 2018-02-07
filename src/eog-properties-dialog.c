@@ -39,10 +39,6 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#include <exempi/xmpconsts.h>
-#endif
 #if HAVE_EXIF || HAVE_EXEMPI
 #define HAVE_METADATA 1
 #endif
@@ -217,61 +213,6 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	g_free (bytes_str);
 }
 
-#if HAVE_EXEMPI
-static void
-eog_xmp_set_label (XmpPtr xmp,
-		   const char *ns,
-		   const char *propname,
-		   GtkWidget *w)
-{
-	uint32_t options;
-
-	XmpStringPtr value = xmp_string_new ();
-
-	if (xmp_get_property (xmp, ns, propname, value, &options)) {
-		if (XMP_IS_PROP_SIMPLE (options)) {
-			gtk_label_set_text (GTK_LABEL (w), xmp_string_cstr (value));
-		} else if (XMP_IS_PROP_ARRAY (options)) {
-			XmpIteratorPtr iter = xmp_iterator_new (xmp,
-							        ns,
-								propname,
-								XMP_ITER_JUSTLEAFNODES);
-
-			GString *string = g_string_new ("");
-
-			if (iter) {
-				gboolean first = TRUE;
-
-				while (xmp_iterator_next (iter, NULL, NULL, value, &options)
-				       && !XMP_IS_PROP_QUALIFIER (options)) {
-
-					if (!first) {
-						g_string_append_printf(string, ", ");
-					} else {
-						first = FALSE;
-					}
-
-					g_string_append_printf (string,
-								"%s",
-								xmp_string_cstr (value));
-				}
-
-				xmp_iterator_free (iter);
-			}
-
-			gtk_label_set_text (GTK_LABEL (w), string->str);
-			g_string_free (string, TRUE);
-		}
-	} else {
-		/* Property was not found */
-		/* Clear label so it won't show bogus data */
-		gtk_label_set_text (GTK_LABEL (w), NULL);
-	}
-
-	xmp_string_free (value);
-}
-#endif
-
 #if HAVE_METADATA
 static void
 pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
@@ -283,7 +224,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	GExiv2Metadata    *exif_data;
 #endif
 #if HAVE_EXEMPI
-	XmpPtr      xmp_data;
+	GExiv2Metadata     *xmp_data;
 #endif
 
 	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (prop_dlg));
@@ -361,37 +302,29 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 #endif
 
 #if HAVE_EXEMPI
-	xmp_data = (XmpPtr) eog_image_get_xmp_info (image);
+	xmp_data = (GExiv2Metadata *) eog_image_get_xmp_info (image);
 
  	if (xmp_data != NULL) {
-		eog_xmp_set_label (xmp_data,
-				   NS_IPTC4XMP,
-				   "Location",
-				   priv->xmp_location_label);
+		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_location_label),
+				xmp_data, "Xmp.dc.location");
 
-		eog_xmp_set_label (xmp_data,
-				   NS_DC,
-				   "description",
-				   priv->xmp_description_label);
+		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_description_label),
+				xmp_data, "Xmp.dc.description");
 
-		eog_xmp_set_label (xmp_data,
-				   NS_DC,
-				   "subject",
-				   priv->xmp_keywords_label);
+		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_keywords_label),
+				xmp_data, "Xmp.dc.subject");
 
-		eog_xmp_set_label (xmp_data,
-				   NS_DC,
-        	                   "creator",
-				   priv->xmp_creator_label);
+		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_creator_label),
+				xmp_data, "Xmp.dc.creator");
 
-		eog_xmp_set_label (xmp_data,
-				   NS_DC,
-				   "rights",
-				   priv->xmp_rights_label);
+		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_rights_label),
+				xmp_data, "Xmp.dc.rights");
 
+#if 0
 		eog_metadata_details_xmp_update (EOG_METADATA_DETAILS (priv->metadata_details), xmp_data);
+#endif
 
-		xmp_free (xmp_data);
+		g_clear_object (&xmp_data);
 	} else {
 		/* Image has no XMP data */
 

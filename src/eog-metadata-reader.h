@@ -26,9 +26,6 @@
 #if HAVE_EXIF
 #include "eog-exif-util.h"
 #endif
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
 #if HAVE_LCMS
 #include <lcms2.h>
 #endif
@@ -94,7 +91,7 @@ GExiv2Metadata*         eog_metadata_reader_get_exif_data	(EogMetadataReader *em
 
 #ifdef HAVE_EXEMPI
 G_GNUC_INTERNAL
-XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *emr);
+GExiv2Metadata*         eog_metadata_reader_get_xmp_data	(EogMetadataReader *emr);
 #endif
 
 #if 0

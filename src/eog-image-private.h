@@ -28,10 +28,6 @@
 #include <librsvg/rsvg.h>
 #endif
 
-#ifdef HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
-
 G_BEGIN_DECLS
 
 struct _EogImagePrivate {
@@ -75,7 +71,7 @@ struct _EogImagePrivate {
 	GExiv2Metadata   *exif;
 #endif
 #ifdef HAVE_EXEMPI
- 	XmpPtr   xmp;
+	GExiv2Metadata   *xmp;
 #endif
 
 #ifdef HAVE_LCMS

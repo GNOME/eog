@@ -29,9 +29,6 @@
 #if HAVE_EXIF
 #include <gexiv2/gexiv2.h>
 #endif
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
 
 G_BEGIN_DECLS
 
@@ -70,7 +67,7 @@ void                eog_metadata_details_update      (EogMetadataDetails *detail
 #if HAVE_EXEMPI
 G_GNUC_INTERNAL
 void                eog_metadata_details_xmp_update  (EogMetadataDetails *view,
-						      XmpPtr          xmp_data);
+						      GExiv2Metadata          *xmp_data);
 #endif
 
 G_END_DECLS

@@ -44,11 +44,6 @@
 #include "eog-exif-util.h"
 #endif
 
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#include <exempi/xmpconsts.h>
-#endif
-
 /* There's no exempi support in the sidebar yet */
 #if HAVE_EXIF  /*|| HAVE_EXEMPI */
 #define HAVE_METADATA 1

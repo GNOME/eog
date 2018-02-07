@@ -487,15 +487,21 @@ static gpointer
 eog_metadata_reader_jpg_get_xmp_data (EogMetadataReaderJpg *emr )
 {
 	EogMetadataReaderJpgPrivate *priv;
-	XmpPtr xmp = NULL;
+	GExiv2Metadata *xmp = NULL;
 
 	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
 
 	priv = emr->priv;
 
 	if (priv->xmp_chunk != NULL) {
-		xmp = xmp_new (((const char*)priv->xmp_chunk)+EOG_XMP_OFFSET,
-			       priv->xmp_len-EOG_XMP_OFFSET);
+		GError *error = NULL;
+        xmp = gexiv2_metadata_new ();
+        if (!gexiv2_metadata_open_buf (xmp, (guint8 *)priv->xmp_chunk+EOG_XMP_OFFSET,
+			       priv->xmp_len-EOG_XMP_OFFSET, &error)) {
+			g_warning ("Failed to parse XMP data : %s", error->message);
+			g_clear_error (&error);
+			g_clear_object (&xmp);
+		}
 	}
 
 	return (gpointer)xmp;

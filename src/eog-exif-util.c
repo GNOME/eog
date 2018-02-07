@@ -310,8 +310,10 @@ const gchar *
 eog_exif_data_get_value (EogExifData *exif_data, const char *tag_id, gchar *buffer, guint buf_size)
 {
 	char *data = gexiv2_metadata_get_tag_string (exif_data, tag_id);
-	strncpy (buffer, data, buf_size - 1);
-	g_free (data);
+	if (data != NULL) {
+		strncpy (buffer, data, buf_size - 1);
+		g_free (data);
+	}
 
 	return buffer;
 }

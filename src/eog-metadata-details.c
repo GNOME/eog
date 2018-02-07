@@ -29,10 +29,6 @@
 #if HAVE_EXIF
 #include <gexiv2/gexiv2.h>
 #endif
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#include <exempi/xmpconsts.h>
-#endif
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -591,7 +587,7 @@ eog_metadata_details_update (EogMetadataDetails *details, ExifData *data)
 }
 #endif /* HAVE_EXIF */
 
-#ifdef HAVE_EXEMPI
+#ifdef HAVE_EXEMPI_
 typedef struct {
 	const char *id;
 	MetadataCategory category;
@@ -610,7 +606,7 @@ static XmpNsCategory xmp_ns_category_map[] = {
 };
 
 static MetadataCategory
-get_xmp_category (XmpStringPtr schema)
+get_xmp_category (const char *schema)
 {
 	MetadataCategory cat = XMP_CATEGORY_OTHER;
 	const char *s = xmp_string_cstr(schema);
@@ -664,7 +660,7 @@ xmp_entry_insert (EogMetadataDetails *view, XmpStringPtr xmp_schema,
 }
 
 void
-eog_metadata_details_xmp_update (EogMetadataDetails *view, XmpPtr data)
+eog_metadata_details_xmp_update (EogMetadataDetails *view, GExiv2Metadata *data)
 {
 	g_return_if_fail (EOG_IS_METADATA_DETAILS (view));
 

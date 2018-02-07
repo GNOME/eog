@@ -45,10 +45,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#if HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
-
 #define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
 
 static void eog_application_load_accelerators (void);
@@ -279,9 +275,8 @@ eog_application_startup (GApplication *application)
 	g_application_set_resource_base_path (application, "/org/gnome/eog");
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
-#ifdef HAVE_EXEMPI
-	xmp_init();
-#endif
+    gexiv2_initialize ();
+
 	eog_debug_init ();
 	eog_job_scheduler_init ();
 	eog_thumbnail_init ();
@@ -334,10 +329,6 @@ eog_application_startup (GApplication *application)
 static void
 eog_application_shutdown (GApplication *application)
 {
-#ifdef HAVE_EXEMPI
-	xmp_terminate();
-#endif
-
 	G_APPLICATION_CLASS (eog_application_parent_class)->shutdown (application);
 }
 

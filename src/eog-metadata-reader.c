@@ -85,7 +85,7 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 #endif
 
 #ifdef HAVE_EXEMPI
-XmpPtr
+GExiv2Metadata*
 eog_metadata_reader_get_xmp_data (EogMetadataReader *emr)
 {
 	return EOG_METADATA_READER_GET_INTERFACE (emr)->get_xmp_ptr (emr);

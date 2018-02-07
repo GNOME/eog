@@ -118,8 +118,13 @@ if enable_libexif
   assert(libexif_dep.found() and cc.has_header('gexiv2/gexiv2.h', dependencies: libexif_dep),
          'libexif support requested but library not found. Please use -Dlibexif=false')
 
-  common_deps += libexif_dep
-  config_h.set10('HAVE_EXIF', true)
+  if enable_libexif
+    common_deps += libexif_dep
+    config_h.set10('HAVE_EXIF', true,
+                   description: 'EXIF Support.')
+    config_h.set10('HAVE_EXEMPI', true,
+                   description: 'XMP Support.')
+  endif
 endif
 
 # Little CMS (optional)
@@ -127,13 +132,6 @@ enable_cms = get_option('cms')
 if enable_cms
   common_deps += dependency('lcms2')
   config_h.set10('HAVE_LCMS', true)
-endif
-
-# Exempi (optional)
-enable_xmp = get_option('xmp')
-if enable_xmp
-  common_deps += dependency('exempi-2.0', version: '>= 1.99.5')
-  config_h.set10('HAVE_EXEMPI', true)
 endif
 
 # Jpeg (semi-optional)
@@ -226,7 +224,7 @@ output += '  Source code location .......:  ' + meson.source_root() + '\n'
 output += '  Compiler ...................:  ' + cc.get_id() + '\n'
 output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
 output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'
-output += '  XMP support ................:  ' + enable_xmp.to_string() + '\n'
+output += '  XMP support ................:  ' + enable_libexif.to_string() + '\n'
 output += '  JPEG support ...............:  ' + enable_libjpeg.to_string() + '\n'
 output += '  Colour management support ..:  ' + enable_cms.to_string() + '\n'
 output += '  GObject Introspection.......:  ' + enable_introspection.to_string() + '\n'

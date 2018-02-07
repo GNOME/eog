@@ -56,10 +56,6 @@
 #include <gexiv2/gexiv2.h>
 #endif
 
-#ifdef HAVE_EXEMPI
-#include <exempi/xmp.h>
-#endif
-
 #ifdef HAVE_LCMS
 #include <lcms2.h>
 #ifndef EXIF_TAG_GAMMA
@@ -136,7 +132,7 @@ eog_image_free_mem_private (EogImage *image)
 
 #ifdef HAVE_EXEMPI
 		if (priv->xmp != NULL) {
-			xmp_free (priv->xmp);
+			g_object_unref (priv->xmp);
 			priv->xmp = NULL;
 		}
 #endif
@@ -794,7 +790,7 @@ eog_image_set_xmp_data (EogImage *img, EogMetadataReader *md_reader)
 	priv = img->priv;
 
 	if (priv->xmp) {
-		xmp_free (priv->xmp);
+		g_object_unref (priv->xmp);
 	}
 	priv->xmp = eog_metadata_reader_get_xmp_data (md_reader);
 }
@@ -2048,7 +2044,9 @@ eog_image_get_exif_info (EogImage *img)
 
 	g_mutex_lock (&priv->status_mutex);
 
-	g_object_ref (priv->exif);
+	if (priv->exif != NULL) {
+		g_object_ref (priv->exif);
+	}
 	data = priv->exif;
 
 	g_mutex_unlock (&priv->status_mutex);
@@ -2078,7 +2076,7 @@ eog_image_get_xmp_info (EogImage *img)
  	priv = img->priv;
 
 	g_mutex_lock (&priv->status_mutex);
- 	data = (gpointer) xmp_copy (priv->xmp);
+	data = (gpointer) g_object_ref (priv->xmp);
 	g_mutex_unlock (&priv->status_mutex);
 #endif
 
