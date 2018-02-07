@@ -72,7 +72,7 @@ struct _EogImagePrivate {
 	gboolean          autorotate;
 	gint              orientation;
 #ifdef HAVE_EXIF
-	ExifData         *exif;
+	GExiv2Metadata   *exif;
 #endif
 #ifdef HAVE_EXEMPI
  	XmpPtr   xmp;

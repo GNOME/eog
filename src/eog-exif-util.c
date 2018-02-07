@@ -50,7 +50,7 @@
 #define GPOINTER_TO_BOOLEAN(i) ((gboolean) ((GPOINTER_TO_INT (i) == 2) ? TRUE : FALSE))
 #endif
 
-typedef ExifData EogExifData;
+typedef GExiv2Metadata EogExifData;
 
 /* Define EogExifData type */
 G_DEFINE_BOXED_TYPE(EogExifData, eog_exif_data, eog_exif_data_copy, eog_exif_data_free)
@@ -200,7 +200,7 @@ eog_exif_util_format_date (const gchar *date)
 void
 eog_exif_util_set_label_text (GtkLabel *label,
 			      EogExifData *exif_data,
-			      gint tag_id)
+			      const char *tag_id)
 {
 	gchar exif_buffer[512];
 	const gchar *buf_ptr;
@@ -209,13 +209,17 @@ eog_exif_util_set_label_text (GtkLabel *label,
 	g_return_if_fail (GTK_IS_LABEL (label));
 
 	if (exif_data) {
-		buf_ptr = eog_exif_data_get_value (exif_data, tag_id,
-						   exif_buffer, 512);
+		if (g_str_has_suffix (tag_id, "FNumber")) {
+			label_text = g_strdup_printf ("f/%.1f", gexiv2_metadata_get_fnumber (exif_data));
+		} else {
+			buf_ptr = eog_exif_data_get_value (exif_data, tag_id,
+							   exif_buffer, 512);
 
-		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
-			label_text = eog_exif_util_format_date (buf_ptr);
-		else
-			label_text = eog_util_make_valid_utf8 (buf_ptr);
+			if (g_str_has_suffix (tag_id, "DateTimeOriginal") && buf_ptr)
+				label_text = eog_exif_util_format_date (buf_ptr);
+			else
+				label_text = eog_util_make_valid_utf8 (buf_ptr);
+		}
 	}
 
 	gtk_label_set_text (label, label_text);
@@ -224,20 +228,20 @@ eog_exif_util_set_label_text (GtkLabel *label,
 
 void
 eog_exif_util_format_datetime_label (GtkLabel *label, EogExifData *exif_data,
-				     gint tag_id, const gchar *format)
+				     const char *tag_id, const gchar *format)
 {
 	gchar exif_buffer[512];
 	const gchar *buf_ptr;
 	gchar *label_text = NULL;
 
 	g_return_if_fail (GTK_IS_LABEL (label));
-	g_warn_if_fail (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL);
+	g_warn_if_fail (g_str_has_suffix (tag_id, "DateTimeOriginal"));
 
 	if (exif_data) {
 		buf_ptr = eog_exif_data_get_value (exif_data, tag_id,
 						   exif_buffer, 512);
 
-		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
+		if (g_str_has_suffix (tag_id, "DateTimeOriginal") && buf_ptr)
 #ifdef HAVE_STRPTIME
 			label_text = eog_exif_util_format_date_with_strptime (buf_ptr, format);
 #else
@@ -253,45 +257,19 @@ void
 eog_exif_util_set_focal_length_label_text (GtkLabel *label,
 					   EogExifData *exif_data)
 {
-	ExifEntry *entry = NULL, *entry35mm = NULL;
-	ExifByteOrder byte_order;
-	gfloat f_val = 0.0;
 	gchar *fl_text = NULL,*fl35_text = NULL;
 
 	/* If no ExifData is supplied the label will be
 	 * cleared later as fl35_text is NULL. */
-	if (exif_data != NULL) {
-		entry = exif_data_get_entry (exif_data, EXIF_TAG_FOCAL_LENGTH);
-		entry35mm = exif_data_get_entry (exif_data,
-					    EXIF_TAG_FOCAL_LENGTH_IN_35MM_FILM);
-		byte_order = exif_data_get_byte_order (exif_data);
-	}
 
-	if (entry && G_LIKELY (entry->format == EXIF_FORMAT_RATIONAL)) {
-		ExifRational value;
-
-		/* Decode value by hand as libexif is not necessarily returning
-		 * it in the format we want it to be.
-		 */
-		value = exif_get_rational (entry->data, byte_order);
-		/* Guard against div by zero */
-		if (G_LIKELY(value.denominator != 0))
-			f_val = (gfloat)value.numerator/
-				(gfloat)value.denominator;
-
+	if (exif_data != NULL && gexiv2_metadata_has_tag (exif_data, "Exif.Photo.FocalLength")) {
 		/* TRANSLATORS: This is the actual focal length used when
 		   the image was taken.*/
-		fl_text = g_strdup_printf (_("%.1f (lens)"), f_val);
+		fl_text = g_strdup_printf (_("%.1f (lens)"), gexiv2_metadata_get_focal_length (exif_data));
 
 	}
-	if (entry35mm && G_LIKELY (entry35mm->format == EXIF_FORMAT_SHORT)) {
-		ExifShort s_val;
-
-		s_val = exif_get_short (entry35mm->data, byte_order);
-
-		/* Print as float to get a similar look as above. */
-		/* TRANSLATORS: This is the equivalent focal length assuming
-		   a 35mm film camera. */
+	if (exif_data != NULL && gexiv2_metadata_has_tag (exif_data, "Exif.Photo.FocalLengthIn35mmFilm")) {
+		long s_val = gexiv2_metadata_get_tag_long (exif_data, "Exif.Photo.FocalLengthIn35mmFilm");
 		fl35_text = g_strdup_printf(_("%.1f (35mm film)"),(float)s_val);
 	}
 
@@ -329,24 +307,19 @@ eog_exif_util_set_focal_length_label_text (GtkLabel *label,
  * Returns: a pointer to @buffer.
  */
 const gchar *
-eog_exif_data_get_value (EogExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
+eog_exif_data_get_value (EogExifData *exif_data, const char *tag_id, gchar *buffer, guint buf_size)
 {
-	ExifEntry *exif_entry;
-	const gchar *exif_value;
+	char *data = gexiv2_metadata_get_tag_string (exif_data, tag_id);
+	strncpy (buffer, data, buf_size - 1);
+	g_free (data);
 
-        exif_entry = exif_data_get_entry (exif_data, tag_id);
-
-	buffer[0] = 0;
-
-	exif_value = exif_entry_get_value (exif_entry, buffer, buf_size);
-
-	return exif_value;
+	return buffer;
 }
 
 EogExifData *
 eog_exif_data_copy (EogExifData *data)
 {
-	exif_data_ref (data);
+	g_object_ref (data);
 
 	return data;
 }
@@ -354,5 +327,5 @@ eog_exif_data_copy (EogExifData *data)
 void
 eog_exif_data_free (EogExifData *data)
 {
-	exif_data_unref (data);
+	g_object_unref (data);
 }

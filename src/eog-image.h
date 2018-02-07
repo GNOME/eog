@@ -33,7 +33,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #ifdef HAVE_EXIF
-#include <libexif/exif-data.h>
+#include <gexiv2/gexiv2.h>
 #include "eog-exif-util.h"
 #endif
 
@@ -165,7 +165,7 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
 #if HAVE_EXIF
-ExifData*      eog_image_get_exif_info            (EogImage   *img);
+GExiv2Metadata*      eog_image_get_exif_info            (EogImage   *img);
 #endif
 
 gpointer          eog_image_get_xmp_info             (EogImage   *img);

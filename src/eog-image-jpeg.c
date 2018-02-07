@@ -49,7 +49,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib/gi18n.h>
 #if HAVE_EXIF
-#include <libexif/exif-data.h>
+#include <gexiv2/gexiv2.h>
 #endif
 
 #ifdef G_OS_WIN32
@@ -299,6 +299,8 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* handle EXIF/IPTC data explicitly */
 #if HAVE_EXIF
+    // FIXME: Make this possible with GExiv2
+#if 0
 	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
@@ -310,6 +312,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		jpeg_write_marker (&dstinfo, JPEG_APP0+1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
 	}
+#endif
 #else
 	if (priv->exif_chunk != NULL) {
 		jpeg_write_marker (&dstinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
@@ -431,6 +434,8 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	/* write EXIF/IPTC data explicitly */
 #if HAVE_EXIF
 	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
+    // FIXME: Make possible with GExiv2
+#if 0
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
 	{
@@ -441,6 +446,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
 	}
+#endif
 #else
 	if (priv->exif_chunk != NULL) {
 		jpeg_write_marker (&cinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);

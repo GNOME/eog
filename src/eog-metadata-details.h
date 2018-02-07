@@ -27,7 +27,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #if HAVE_EXIF
-#include <libexif/exif-data.h>
+#include <gexiv2/gexiv2.h>
 #endif
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -65,7 +65,7 @@ GtkWidget          *eog_metadata_details_new         (void);
 #if HAVE_EXIF
 G_GNUC_INTERNAL
 void                eog_metadata_details_update      (EogMetadataDetails *details,
-						      ExifData       *data);
+						      GExiv2Metadata       *data);
 #endif
 #if HAVE_EXEMPI
 G_GNUC_INTERNAL

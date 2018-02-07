@@ -58,7 +58,7 @@ statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 	EogImage *image;
 	gchar *date = NULL;
 	gchar time_buffer[32];
-	ExifData *exif_data;
+	GExiv2Metadata *exif_data;
 
 	if (eog_thumb_view_get_n_selected (view) == 0)
 		return;
@@ -76,7 +76,7 @@ statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 	exif_data = eog_image_get_exif_info (image);
 	if (exif_data) {
 		date = eog_exif_util_format_date (
-			eog_exif_data_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
+			eog_exif_data_get_value (exif_data, "Exif.Photo.DateTimeOriginal", time_buffer, 32));
 		eog_exif_data_free (exif_data);
 	}
 

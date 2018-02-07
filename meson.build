@@ -114,8 +114,8 @@ endif
 # EXIF (optional)
 enable_libexif = get_option('libexif')
 if enable_libexif
-  libexif_dep = dependency('libexif', version: '>= 0.6.14', required: false)
-  assert(libexif_dep.found() and cc.has_header('libexif/exif-data.h', dependencies: libexif_dep),
+  libexif_dep = dependency('gexiv2', version: '>= 0.10.4', required: false)
+  assert(libexif_dep.found() and cc.has_header('gexiv2/gexiv2.h', dependencies: libexif_dep),
          'libexif support requested but library not found. Please use -Dlibexif=false')
 
   common_deps += libexif_dep

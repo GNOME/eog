@@ -27,8 +27,7 @@
 #include "eog-util.h"
 
 #if HAVE_EXIF
-#include <libexif/exif-entry.h>
-#include <libexif/exif-utils.h>
+#include <gexiv2/gexiv2.h>
 #endif
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -82,8 +81,9 @@ typedef struct {
 	MetadataCategory category;
 } ExifTagCategory;
 
-#ifdef HAVE_EXIF
+#ifdef HAVE_EXIF_
 static ExifTagCategory exif_tag_category_map[] = {
+#if 0
 	{ EXIF_TAG_INTEROPERABILITY_INDEX,    EXIF_CATEGORY_CAMERA},
 	{ EXIF_TAG_INTEROPERABILITY_VERSION,  EXIF_CATEGORY_CAMERA},
 	{ EXIF_TAG_IMAGE_WIDTH,               EXIF_CATEGORY_IMAGE_DATA},
@@ -187,6 +187,7 @@ static ExifTagCategory exif_tag_category_map[] = {
 	{ EXIF_TAG_DEVICE_SETTING_DESCRIPTION, EXIF_CATEGORY_CAMERA},
 	{ EXIF_TAG_SUBJECT_DISTANCE_RANGE, EXIF_CATEGORY_IMAGE_TAKING_CONDITIONS},
 	{ EXIF_TAG_IMAGE_UNIQUE_ID	, EXIF_CATEGORY_IMAGE_DATA},
+#endif
 	{ -1, -1 }
 };
 #endif
@@ -274,11 +275,14 @@ eog_metadata_details_class_init (EogMetadataDetailsClass *klass)
 	object_class->dispose = eog_metadata_details_dispose;
 }
 
-#ifdef HAVE_EXIF
+#ifdef HAVE_EXIF_
 static MetadataCategory
 get_exif_category (ExifEntry *entry)
 {
 	MetadataCategory cat = EXIF_CATEGORY_OTHER;
+
+	return cat;
+#if 0
 	int i;
 
 	/* Some GPS tag IDs overlap with other ones, so check the IFD */
@@ -295,6 +299,7 @@ get_exif_category (ExifEntry *entry)
 	}
 
 	return cat;
+#endif
 }
 #endif
 
@@ -349,7 +354,7 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 	return path;
 }
 
-#ifdef HAVE_EXIF
+#ifdef HAVE_EXIF_
 
 static const char *
 eog_exif_entry_get_value (ExifEntry    *e,
@@ -531,7 +536,7 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 }
 #endif
 
-#ifdef HAVE_EXIF
+#ifdef HAVE_EXIF_
 static void
 exif_content_cb (ExifContent *content, gpointer data)
 {
@@ -573,7 +578,7 @@ eog_metadata_details_reset (EogMetadataDetails *details)
 	}
 }
 
-#ifdef HAVE_EXIF
+#ifdef HAVE_EXIF_
 void
 eog_metadata_details_update (EogMetadataDetails *details, ExifData *data)
 {

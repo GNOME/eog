@@ -53,9 +53,7 @@
 
 #ifdef HAVE_EXIF
 #include "eog-exif-util.h"
-#include <libexif/exif-data.h>
-#include <libexif/exif-utils.h>
-#include <libexif/exif-loader.h>
+#include <gexiv2/gexiv2.h>
 #endif
 
 #ifdef HAVE_EXEMPI
@@ -126,10 +124,7 @@ eog_image_free_mem_private (EogImage *image)
 #endif
 
 #ifdef HAVE_EXIF
-		if (priv->exif != NULL) {
-			exif_data_unref (priv->exif);
-			priv->exif = NULL;
-		}
+		g_clear_object (&priv->exif);
 #endif
 
 		if (priv->exif_chunk != NULL) {
@@ -361,8 +356,6 @@ eog_image_update_exif_data (EogImage *image)
 {
 #ifdef HAVE_EXIF
 	EogImagePrivate *priv;
-	ExifEntry *entry;
-	ExifByteOrder bo;
 
 	eog_debug (DEBUG_IMAGE_DATA);
 
@@ -372,40 +365,19 @@ eog_image_update_exif_data (EogImage *image)
 
 	if (priv->exif == NULL) return;
 
-	bo = exif_data_get_byte_order (priv->exif);
-
 	/* Update image width */
-	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_X_DIMENSION);
-	if (entry != NULL && (priv->width >= 0)) {
-		if (entry->format == EXIF_FORMAT_LONG)
-			exif_set_long (entry->data, bo, priv->width);
-		else if (entry->format == EXIF_FORMAT_SHORT)
-			exif_set_short (entry->data, bo, priv->width);
-		else
-			g_warning ("Exif entry has unsupported size");
+	if (gexiv2_metadata_has_tag (priv->exif, "Exif.Photo.PixelXDimension")) {
+		gexiv2_metadata_set_tag_long (priv->exif, "Exif.Photo.PixelXDimension", priv->width);
 	}
 
 	/* Update image height */
-	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_Y_DIMENSION);
-	if (entry != NULL && (priv->height >= 0)) {
-		if (entry->format == EXIF_FORMAT_LONG)
-			exif_set_long (entry->data, bo, priv->height);
-		else if (entry->format == EXIF_FORMAT_SHORT)
-			exif_set_short (entry->data, bo, priv->height);
-		else
-			g_warning ("Exif entry has unsupported size");
+	if (gexiv2_metadata_has_tag (priv->exif, "Exif.Photo.PixelYDimension")) {
+		gexiv2_metadata_set_tag_long (priv->exif, "Exif.Photo.PixelYDimension", priv->height);
 	}
 
 	/* Update image orientation */
-	entry = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
-	if (entry != NULL) {
-		if (entry->format == EXIF_FORMAT_LONG)
-			exif_set_long (entry->data, bo, 1);
-		else if (entry->format == EXIF_FORMAT_SHORT)
-			exif_set_short (entry->data, bo, 1);
-		else
-			g_warning ("Exif entry has unsupported size");
-
+	if (gexiv2_metadata_has_tag (priv->exif, "Exif.Photo.Orientation")) {
+		gexiv2_metadata_set_tag_long (priv->exif, "Exif.Photo.Orientation", 1);
 		priv->orientation = 1;
 	}
 #endif
@@ -726,7 +698,7 @@ eog_image_set_orientation (EogImage *img)
 {
 	EogImagePrivate *priv;
 #ifdef HAVE_EXIF
-	ExifData* exif;
+	GExiv2Metadata* exif;
 #endif
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
@@ -734,19 +706,14 @@ eog_image_set_orientation (EogImage *img)
 	priv = img->priv;
 
 #ifdef HAVE_EXIF
-	exif = (ExifData*) eog_image_get_exif_info (img);
+	exif = (GExiv2Metadata*) eog_image_get_exif_info (img);
 
 	if (exif != NULL) {
-		ExifByteOrder o = exif_data_get_byte_order (exif);
-
-		ExifEntry *entry = exif_data_get_entry (exif,
-							EXIF_TAG_ORIENTATION);
-
-		if (entry && entry->data != NULL) {
-			priv->orientation = exif_get_short (entry->data, o);
+		if (gexiv2_metadata_has_tag (exif, "Exif.Photo.Orientation")) {
+			priv->orientation = gexiv2_metadata_get_tag_long (exif, "Exif.Photo.Orientation");
 		}
 
-		exif_data_unref (exif);
+		g_object_unref (exif);
 	} else
 #endif
 	{
@@ -844,9 +811,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 
 #ifdef HAVE_EXIF
 	g_mutex_lock (&priv->status_mutex);
-	if (priv->exif) {
-		exif_data_unref (priv->exif);
-	}
+	g_clear_object (&priv->exif);
 	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
 	g_mutex_unlock (&priv->status_mutex);
 
@@ -2071,11 +2036,11 @@ eog_image_cancel_load (EogImage *img)
 }
 
 #ifdef HAVE_EXIF
-ExifData *
+GExiv2Metadata *
 eog_image_get_exif_info (EogImage *img)
 {
 	EogImagePrivate *priv;
-	ExifData *data = NULL;
+	GExiv2Metadata *data = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
@@ -2083,7 +2048,7 @@ eog_image_get_exif_info (EogImage *img)
 
 	g_mutex_lock (&priv->status_mutex);
 
-	exif_data_ref (priv->exif);
+	g_object_ref (priv->exif);
 	data = priv->exif;
 
 	g_mutex_unlock (&priv->status_mutex);

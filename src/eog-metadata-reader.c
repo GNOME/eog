@@ -77,7 +77,7 @@ eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint
 }
 
 #ifdef HAVE_EXIF
-ExifData*
+GExiv2Metadata*
 eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 {
 	return EOG_METADATA_READER_GET_INTERFACE (emr)->get_exif_data (emr);

@@ -458,13 +458,19 @@ static gpointer
 eog_metadata_reader_jpg_get_exif_data (EogMetadataReaderJpg *emr)
 {
 	EogMetadataReaderJpgPrivate *priv;
-	ExifData *data = NULL;
+	GExiv2Metadata *data = NULL;
 
 	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
 	priv = emr->priv;
 
 	if (priv->exif_chunk != NULL) {
-		data = exif_data_new_from_data (priv->exif_chunk, priv->exif_len);
+		GError *error = NULL;
+		data = gexiv2_metadata_new ();
+		if (!gexiv2_metadata_from_app1_segment (data, priv->exif_chunk, priv->exif_len, &error)) {
+			g_warning ("Failed to read exif data. %s", error->message);
+			g_clear_error (&error);
+			g_clear_object (&data);
+		}
 	}
 
 	return data;
@@ -526,23 +532,12 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 
 #ifdef HAVE_EXIF
 	if (!profile && priv->exif_chunk != NULL) {
-		ExifEntry *entry;
-		ExifByteOrder o;
 		gint color_space;
-		ExifData *exif = eog_metadata_reader_jpg_get_exif_data (emr);
+		GExiv2Metadata *exif = eog_metadata_reader_jpg_get_exif_data (emr);
 
 		if (!exif) return NULL;
 
-		o = exif_data_get_byte_order (exif);
-
-		entry = exif_data_get_entry (exif, EXIF_TAG_COLOR_SPACE);
-
-		if (entry == NULL) {
-			exif_data_unref (exif);
-			return NULL;
-		}
-
-		color_space = exif_get_short (entry->data, o);
+		color_space = gexiv2_metadata_get_tag_long (exif, "Exif.Photo.ColorSpace");
 
 		switch (color_space) {
 #if EOG_METADATA_READER_JPG_GEN_PROFILE_FROM_EXIF_VALUES == 0
@@ -638,7 +633,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 #endif
 		}
 
-		exif_data_unref (exif);
+		g_object_unref (exif);
 	}
 #endif
 	return profile;

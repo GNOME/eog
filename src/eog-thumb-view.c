@@ -30,7 +30,7 @@
 
 #ifdef HAVE_EXIF
 #include "eog-exif-util.h"
-#include <libexif/exif-data.h>
+#include <gexiv2/gexiv2.h>
 #endif
 
 #include <gtk/gtk.h>
@@ -476,7 +476,7 @@ thumbview_get_tooltip_string (EogImage *image)
 	const char *mime_str;
 	gchar *tooltip_string;
 #ifdef HAVE_EXIF
-	ExifData *exif_data;
+	GExiv2Metadata *exif_data;
 #endif
 
 	bytes = g_format_size (eog_image_get_bytes (image));
@@ -528,7 +528,7 @@ thumbview_get_tooltip_string (EogImage *image)
 	}
 
 #ifdef HAVE_EXIF
-	exif_data = (ExifData *) eog_image_get_exif_info (image);
+	exif_data = (GExiv2Metadata *) eog_image_get_exif_info (image);
 
 	if (exif_data) {
 		gchar *extra_info, *tmp, *date;
@@ -537,7 +537,7 @@ thumbview_get_tooltip_string (EogImage *image)
 		gchar time_buffer[32];
 
 		date = eog_exif_util_format_date (
-			eog_exif_data_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
+			eog_exif_data_get_value (exif_data, "Exif.Photo.DateTimeOriginal", time_buffer, 32));
 
 		if (date) {
 			extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
@@ -550,7 +550,7 @@ thumbview_get_tooltip_string (EogImage *image)
 
 			tooltip_string = tmp;
 		}
-		exif_data_unref (exif_data);
+		g_object_unref (exif_data);
 	}
 #endif
 

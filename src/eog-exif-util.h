@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <libexif/exif-data.h>
+#include <gexiv2/gexiv2.h>
 
 G_BEGIN_DECLS
 
@@ -38,25 +38,25 @@ G_BEGIN_DECLS
 
 gchar       *eog_exif_util_format_date           (const gchar *date);
 void         eog_exif_util_format_datetime_label (GtkLabel *label,
-                                                  ExifData *exif_data,
-                                                  gint tag_id,
+                                                  GExiv2Metadata *exif_data,
+                                                  const char *tag_id,
                                                   const gchar *format);
 void         eog_exif_util_set_label_text        (GtkLabel *label,
-                                                  ExifData *exif_data,
-                                                  gint tag_id);
+                                                  GExiv2Metadata *exif_data,
+                                                  const char *tag_id);
 
 void         eog_exif_util_set_focal_length_label_text (GtkLabel *label,
-                                                        ExifData *exif_data);
+                                                        GExiv2Metadata *exif_data);
 
 
-const gchar *eog_exif_data_get_value             (ExifData *exif_data,
-                                                  gint tag_id, gchar *buffer,
+const gchar *eog_exif_data_get_value             (GExiv2Metadata *exif_data,
+                                                  const char *tag_id, gchar *buffer,
                                                   guint buf_size);
 
 GType        eog_exif_data_get_type              (void) G_GNUC_CONST;
 
-ExifData    *eog_exif_data_copy                  (ExifData *data);
-void         eog_exif_data_free                  (ExifData *data);
+GExiv2Metadata *eog_exif_data_copy                  (GExiv2Metadata *data);
+void         eog_exif_data_free                  (GExiv2Metadata *data);
 
 G_END_DECLS
 

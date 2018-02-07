@@ -280,7 +280,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	EogPropertiesDialogPrivate *priv;
 	GtkNotebook *notebook;
 #if HAVE_EXIF
-	ExifData    *exif_data;
+	GExiv2Metadata    *exif_data;
 #endif
 #if HAVE_EXEMPI
 	XmpPtr      xmp_data;
@@ -325,37 +325,39 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	}
 
 #if HAVE_EXIF
-	exif_data = (ExifData *) eog_image_get_exif_info (image);
+	exif_data = (GExiv2Metadata *) eog_image_get_exif_info (image);
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_aperture_label),
-				      exif_data, EXIF_TAG_FNUMBER);
+				      exif_data, "Exif.Photo.FNumber");
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_exposure_label),
-				      exif_data, EXIF_TAG_EXPOSURE_TIME);
+				      exif_data, "Exif.Photo.ExposureTime");
 
 	eog_exif_util_set_focal_length_label_text (GTK_LABEL (priv->exif_focal_label), exif_data);
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_flash_label),
-				      exif_data, EXIF_TAG_FLASH);
+				      exif_data, "Exif.Photo.Flash");
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_iso_label),
-				      exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
+				      exif_data, "Exif.Photo.ISOSpeedRatings");
 
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_metering_label),
-				      exif_data, EXIF_TAG_METERING_MODE);
+				      exif_data, "Exif.Photo.MeteringMode");
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_model_label),
-				      exif_data, EXIF_TAG_MODEL);
+				      exif_data, "Exif.Image.Model");
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_date_label),
-				      exif_data, EXIF_TAG_DATE_TIME_ORIGINAL);
+				      exif_data, "Exif.Photo.DateTimeOriginal");
 
+	/*
 	eog_metadata_details_update (EOG_METADATA_DETAILS (priv->metadata_details),
 				 exif_data);
+				 */
 
 	/* exif_data_unref can handle NULL-values */
-	exif_data_unref(exif_data);
+	g_clear_object (&exif_data);
 #endif
 
 #if HAVE_EXEMPI

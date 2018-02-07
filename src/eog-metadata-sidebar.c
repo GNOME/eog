@@ -40,8 +40,7 @@
 #include "eog-window.h"
 
 #ifdef HAVE_EXIF
-#include <libexif/exif-data.h>
-#include <libexif/exif-tag.h>
+#include <gexiv2/gexiv2.h>
 #include "eog-exif-util.h"
 #endif
 
@@ -191,39 +190,39 @@ eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 	EogMetadataSidebarPrivate *priv = sidebar->priv;
 #if HAVE_EXIF
 	EogImage *img = priv->image;
-	ExifData *exif_data = NULL;
+	GExiv2Metadata *exif_data = NULL;
 
 	if (img) {
 		exif_data = eog_image_get_exif_info (img);
 	}
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->aperture_label),
-				      exif_data, EXIF_TAG_FNUMBER);
+				      exif_data, "Exif.Photo.FNumber");
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exposure_label),
 				      exif_data,
-				      EXIF_TAG_EXPOSURE_TIME);
+				      "Exif.Photo.ExposureTime");
 	eog_exif_util_set_focal_length_label_text (
 				       GTK_LABEL (priv->focallen_label),
 				       exif_data);
 	eog_exif_util_set_label_text (GTK_LABEL (priv->iso_label),
 				      exif_data,
-				      EXIF_TAG_ISO_SPEED_RATINGS);
+				      "Exif.Photo.ISOSpeedRatings");
 	eog_exif_util_set_label_text (GTK_LABEL (priv->metering_label),
 				      exif_data,
-				      EXIF_TAG_METERING_MODE);
+				      "Exif.Photo.MeteringMode");
 	eog_exif_util_set_label_text (GTK_LABEL (priv->model_label),
-				      exif_data, EXIF_TAG_MODEL);
+				      exif_data, "Exif.Image.Model");
 	eog_exif_util_format_datetime_label (GTK_LABEL (priv->date_label),
 					     exif_data,
-					     EXIF_TAG_DATE_TIME_ORIGINAL,
+					     "Exif.Photo.DateTimeOriginal",
 					     _("%a, %d %B %Y"));
 	eog_exif_util_format_datetime_label (GTK_LABEL (priv->time_label),
 					     exif_data,
-					     EXIF_TAG_DATE_TIME_ORIGINAL,
+					     "Exif.Photo.DateTimeOriginal",
 					     _("%X"));
 
 	/* exif_data_unref can handle NULL-values */
-	exif_data_unref(exif_data);
+	g_clear_object (&exif_data);
 #endif /* HAVE_EXIF */
 }
 #endif /* HAVE_METADATA */

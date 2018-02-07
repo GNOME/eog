@@ -89,7 +89,7 @@ void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr,
 
 #ifdef HAVE_EXIF
 G_GNUC_INTERNAL
-ExifData*         eog_metadata_reader_get_exif_data	(EogMetadataReader *emr);
+GExiv2Metadata*         eog_metadata_reader_get_exif_data	(EogMetadataReader *emr);
 #endif
 
 #ifdef HAVE_EXEMPI
