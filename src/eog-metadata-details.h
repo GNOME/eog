@@ -63,8 +63,6 @@ GtkWidget          *eog_metadata_details_new         (void);
 G_GNUC_INTERNAL
 void                eog_metadata_details_update      (EogMetadataDetails *details,
 						      GExiv2Metadata       *data);
-#endif
-#if HAVE_EXEMPI
 G_GNUC_INTERNAL
 void                eog_metadata_details_xmp_update  (EogMetadataDetails *view,
 						      GExiv2Metadata          *xmp_data);

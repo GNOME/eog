@@ -240,7 +240,7 @@ eog_metadata_details_init (EogMetadataDetails *details)
 	priv = details->priv;
 
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (2, G_TYPE_STRING, G_TYPE_STRING));
-	priv->id_path_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
+	priv->id_path_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, g_free);
 	priv->id_path_hash_mnote = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 
 	/* Tag name column */
@@ -587,21 +587,22 @@ eog_metadata_details_update (EogMetadataDetails *details, ExifData *data)
 }
 #endif /* HAVE_EXIF */
 
-#ifdef HAVE_EXEMPI_
+#ifdef HAVE_EXEMPI
 typedef struct {
 	const char *id;
 	MetadataCategory category;
 } XmpNsCategory;
 
 static XmpNsCategory xmp_ns_category_map[] = {
-	{ NS_EXIF,                  XMP_CATEGORY_EXIF},
-	{ NS_TIFF,                  XMP_CATEGORY_EXIF},
-	{ NS_XAP,                   XMP_CATEGORY_EXIF},
-	{ NS_XAP_RIGHTS,            XMP_CATEGORY_RIGHTS},
-	{ NS_EXIF_AUX,              XMP_CATEGORY_EXIF},
-	{ NS_DC,                    XMP_CATEGORY_IPTC},
-	{ NS_IPTC4XMP,              XMP_CATEGORY_IPTC},
-	{ NS_CC,                    XMP_CATEGORY_RIGHTS},
+	{ "Xmp.exif",               XMP_CATEGORY_EXIF},
+	{ "Xmp.tiff",               XMP_CATEGORY_EXIF},
+	{ "Xmp.xmp",                XMP_CATEGORY_EXIF},
+	{ "Xmp.xmpRights",          XMP_CATEGORY_RIGHTS},
+	{ "Xmp.aux",                XMP_CATEGORY_EXIF},
+	{ "Xmp.dc",                 XMP_CATEGORY_IPTC},
+	{ "Xmp.iptc",               XMP_CATEGORY_IPTC},
+	{ "Xmp.Iptc4xmpCore",       XMP_CATEGORY_IPTC},
+/*	{ NS_CC,                    XMP_CATEGORY_RIGHTS}, */
 	{ NULL, -1}
 };
 
@@ -609,11 +610,10 @@ static MetadataCategory
 get_xmp_category (const char *schema)
 {
 	MetadataCategory cat = XMP_CATEGORY_OTHER;
-	const char *s = xmp_string_cstr(schema);
 	int i;
 
 	for (i = 0; xmp_ns_category_map[i].id != NULL; i++) {
-		if (strcmp (xmp_ns_category_map[i].id, s) == 0) {
+		if (g_str_has_prefix (schema, xmp_ns_category_map[i].id)) {
 			cat = xmp_ns_category_map[i].category;
 			break;
 		}
@@ -623,39 +623,28 @@ get_xmp_category (const char *schema)
 }
 
 static void
-xmp_entry_insert (EogMetadataDetails *view, XmpStringPtr xmp_schema,
-		  XmpStringPtr xmp_path, XmpStringPtr xmp_prop)
+xmp_entry_insert (EogMetadataDetails *view, const char *xmp_key, const char *xmp_value)
 {
 	GtkTreeStore *store;
 	EogMetadataDetailsPrivate *priv;
 	MetadataCategory cat;
 	char *path;
-	gchar *key;
 
 	priv = view->priv;
 
-	key = g_strconcat (xmp_string_cstr (xmp_schema), ":",
-			   xmp_string_cstr (xmp_path), NULL);
-
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 
-	path = g_hash_table_lookup (priv->id_path_hash, key);
+	path = g_hash_table_lookup (priv->id_path_hash, xmp_key);
 
 	if (path != NULL) {
-		set_row_data (store, path, NULL,
-			      xmp_string_cstr (xmp_path),
-			      xmp_string_cstr (xmp_prop));
-
-		g_free(key);
+		set_row_data (store, path, NULL, xmp_key, xmp_value);
 	}
 	else {
-		cat = get_xmp_category (xmp_schema);
+		cat = get_xmp_category (xmp_key);
 
-		path = set_row_data (store, NULL, exif_categories[cat].path,
-				     xmp_string_cstr(xmp_path),
-				     xmp_string_cstr(xmp_prop));
+		path = set_row_data (store, NULL, exif_categories[cat].path, xmp_key, xmp_value);
 
-		g_hash_table_insert (priv->id_path_hash, key, path);
+		g_hash_table_insert (priv->id_path_hash, (gpointer) xmp_key, path);
 	}
 }
 
@@ -665,19 +654,14 @@ eog_metadata_details_xmp_update (EogMetadataDetails *view, GExiv2Metadata *data)
 	g_return_if_fail (EOG_IS_METADATA_DETAILS (view));
 
 	if (data) {
-		XmpIteratorPtr iter = xmp_iterator_new(data, NULL, NULL, XMP_ITER_JUSTLEAFNODES);
-		XmpStringPtr the_schema = xmp_string_new ();
-		XmpStringPtr the_path = xmp_string_new ();
-		XmpStringPtr the_prop = xmp_string_new ();
-
-		while (xmp_iterator_next (iter, the_schema, the_path, the_prop, NULL)) {
-			xmp_entry_insert (view, the_schema, the_path, the_prop);
+		char **iter, **tags;
+		iter = tags = gexiv2_metadata_get_xmp_tags (data);
+		while (iter != NULL && *iter != NULL) {
+			xmp_entry_insert (view, *iter, gexiv2_metadata_get_tag_string (data, *iter));
+			iter++;
 		}
 
-		xmp_string_free (the_prop);
-		xmp_string_free (the_path);
-		xmp_string_free (the_schema);
-		xmp_iterator_free (iter);
+		g_strfreev (tags);
 	}
 }
 #endif

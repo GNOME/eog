@@ -320,9 +320,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		eog_exif_util_set_label_text (GTK_LABEL (priv->xmp_rights_label),
 				xmp_data, "Xmp.dc.rights");
 
-#if 0
 		eog_metadata_details_xmp_update (EOG_METADATA_DETAILS (priv->metadata_details), xmp_data);
-#endif
 
 		g_clear_object (&xmp_data);
 	} else {
