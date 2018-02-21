@@ -172,7 +172,7 @@ pkg.generate(
   subdirs: eog_api_name,
   requires: 'gtk+-3.0',
   variables: [
-    'exec_prefix=' + eog_libexecdir,
+    'exec_prefix=' + eog_prefix,
     'pluginsdir=' + eog_pluginsdir
   ]
 )

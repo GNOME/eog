@@ -22,12 +22,11 @@ eog_prefix = get_option('prefix')
 eog_datadir = join_paths(eog_prefix, get_option('datadir'))
 eog_includedir = join_paths(eog_prefix, get_option('includedir'))
 eog_libdir = join_paths(eog_prefix, get_option('libdir'))
-eog_libexecdir = join_paths(eog_prefix, get_option('libexecdir'))
 eog_localedir = join_paths(eog_prefix, get_option('localedir'))
 
 eog_pkgdatadir = join_paths(eog_datadir, meson.project_name())
 eog_pkglibdir = join_paths(eog_libdir, meson.project_name())
-eog_pkglibexecdir = join_paths(eog_libexecdir, meson.project_name())
+eog_pkglibexecdir = join_paths(eog_prefix, get_option('libexecdir'), meson.project_name())
 
 eog_pluginsdir = join_paths(eog_pkglibdir, 'plugins')
 eog_schemadir = join_paths(eog_datadir, 'glib-2.0', 'schemas')
