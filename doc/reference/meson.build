@@ -17,7 +17,7 @@ private_headers = [
   'eog-print-preview.h'
 ]
 
-if not have_exif
+if not enable_libexif
   private_headers += 'eog-exif-util.h'
 endif
 

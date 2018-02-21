@@ -5,7 +5,7 @@ plugins = [
   'reload'
 ]
 
-if have_exif
+if enable_libexif
   plugins += 'statusbar-date'
 endif
 

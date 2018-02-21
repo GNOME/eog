@@ -104,135 +104,86 @@ eog_deps = [
 ]
 
 # ZLIB support (required)
-have_zlib = false
-if cc.has_header('zlib.h')
+if not cc.has_header('zlib.h') or not (cc.has_function('inflate') and cc.has_function('crc32'))
   zlib_dep = cc.find_library('z', required: false)
-  have_zlib =  zlib_dep.found() and (cc.has_function('inflate', dependencies: zlib_dep) or cc.has_function('crc32', dependencies: zlib_dep))
+  assert(zlib_dep.found() and cc.has_function('inflate', dependencies: zlib_dep) and cc.has_function('crc32', dependencies: zlib_dep),
+         'No sufficient zlib library found on your system')
 
-  if have_zlib
-    eog_deps += zlib_dep
-  endif
+  eog_deps += zlib_dep
 endif
-assert(have_zlib, 'No sufficient zlib library found on your system')
 
 # EXIF (optional)
-have_exif = false
-if get_option('libexif')
+enable_libexif = get_option('libexif')
+if enable_libexif
   libexif_dep = dependency('libexif', version: '>= 0.6.14', required: false)
-  have_exif = libexif_dep.found() and cc.has_header('libexif/exif-data.h', dependencies: libexif_dep)
+  assert(libexif_dep.found() and cc.has_header('libexif/exif-data.h', dependencies: libexif_dep),
+         'libexif support requested but library not found. Please use -Dlibexif=false')
 
-  if have_exif
-    eog_deps += libexif_dep
-    config_h.set10('HAVE_EXIF', true,
-                   description: 'EXIF Support.')
-  endif
+  eog_deps += libexif_dep
+  config_h.set10('HAVE_EXIF', true)
 endif
 
 # Little CMS (optional)
-have_lcms = false
-if get_option('cms')
-  libcms_dep = dependency('lcms2', required: false)
-  have_lcms = libcms_dep.found()
-
-  if have_lcms
-    eog_deps += libcms_dep
-    config_h.set10('HAVE_LCMS', true,
-                   description: 'Little CMS Support.')
-  endif
+enable_cms = get_option('cms')
+if enable_cms
+  eog_deps += dependency('lcms2')
+  config_h.set10('HAVE_LCMS', true)
 endif
 
 # Exempi (optional)
-have_exempi = false
-if get_option('xmp')
-  libexempi_dep = dependency('exempi-2.0', version: '>= 1.99.5', required: false)
-  have_exempi = libexempi_dep.found()
-
-  if have_exempi
-    eog_deps += libexempi_dep
-    config_h.set10('HAVE_EXEMPI', true,
-                   description: 'XMP Support.')
-  endif
+enable_xmp = get_option('xmp')
+if enable_xmp
+  eog_deps += dependency('exempi-2.0', version: '>= 1.99.5')
+  config_h.set10('HAVE_EXEMPI', true)
 endif
 
 # Jpeg (semi-optional)
 jpeg_deps = []
 
-have_jpeg = false
-have_jpeg_80 = false
-
-if get_option('libjpeg')
+enable_libjpeg = get_option('libjpeg')
+if enable_libjpeg
   libjpeg_dep = dependency('libjpeg', required: false)
-  if libjpeg_dep.found()
-    have_jpeg = cc.has_function('jpeg_destroy_decompress', dependencies: libjpeg_dep) and cc.has_header('jpeglib.h', dependencies: libjpeg_dep)
+  assert(cc.has_function('jpeg_destroy_decompress', dependencies: libjpeg_dep) and cc.has_header('jpeglib.h', dependencies: libjpeg_dep),
+         'libjpeg support requested but library not found. Please use -Dlibjpeg=false (some programs using GTK+ may not work properly)')
 
-    if have_jpeg
-      jpeg_deps += libjpeg_dep
+  jpeg_deps += libjpeg_dep
 
-      have_progressive = cc.has_function('jpeg_simple_progression', dependencies: libjpeg_dep)
-      if not have_progressive
-        message('JPEG library does not support progressive saving.')
-      endif
-
-      message('Checking libjpeg version is 8 or greater')
-      jpeg_80_check_src = '''
-        #include <stdio.h>
-        #include <jpeglib.h>
-        #if JPEG_LIB_VERSION < 80
-        #error "wrong version"
-        #endif
-      '''
-      have_jpeg_80 = cc.compiles(jpeg_80_check_src, dependencies: libjpeg_dep)
-    else
-      error_msg = '*** JPEG loader will not be built (JPEG header file not found) ***\n'
-    endif
-  else
-    error_msg = '*** JPEG loader will not be built (JPEG library not found) ***\n'
+  if not cc.has_function('jpeg_simple_progression', dependencies: libjpeg_dep)
+    message('JPEG library does not support progressive saving.')
   endif
 
-  if not have_jpeg
-    error_msg += '*** You can build without it by passing -Dlibjpeg=false to\n'
-    error_msg += '*** meson but some programs using GTK+ may not work properly\n'
-    error(error_msg)
-  endif
+  jpeg_80_check_src = '''
+    #include <stdio.h>
+    #include <jpeglib.h>
+    #if JPEG_LIB_VERSION < 80
+    #error "wrong version"
+    #endif
+  '''
+  have_jpeg_80 = cc.compiles(jpeg_80_check_src, dependencies: libjpeg_dep, name: 'libjpeg version is 8 or greater')
 
-  config_h.set10('HAVE_JPEG', true,
-                 description: 'Jpeg Support.')
+  config_h.set10('HAVE_JPEG', true)
 endif
-config_h.set('HAVE_LIBJPEG', have_jpeg,
-             description: 'libjpeg is Present.')
+config_h.set('HAVE_LIBJPEG', enable_libjpeg)
 
 # introspection support
-have_gir = false
-if get_option('introspection')
-  gir_dep = dependency('gobject-introspection-1.0', version: '>= 0.6.7', required: false)
-  have_gir = gir_dep.found()
-
-  if have_gir
-    eog_deps += gir_dep
-  endif
+enable_introspection = get_option('introspection')
+if enable_introspection
+  eog_deps += dependency('gobject-introspection-1.0', version: '>= 0.6.7')
 endif
-config_h.set('HAVE_INTROSPECTION', have_gir)
+config_h.set('HAVE_INTROSPECTION', enable_introspection)
 
 # RSVG (optional for scaling svg image)
-have_rsvg = false
-if get_option('librsvg')
-  librsvg_dep = dependency('librsvg-2.0', version: '>= 2.36.2', required: false)
-  have_rsvg = librsvg_dep.found()
-
-  if have_rsvg
-    eog_deps += librsvg_dep
-  endif
+enable_librsvg = get_option('librsvg')
+if enable_librsvg
+  eog_deps += dependency('librsvg-2.0', version: '>= 2.36.2')
 endif
-config_h.set('HAVE_RSVG', have_rsvg,
-             description: 'RSVG Support.')
+config_h.set('HAVE_RSVG', enable_librsvg)
 
 # libX11 (required for TotemScrSaver and Color Profiling)
 gdk_dep = dependency('gdk-3.0', required: false)
 
-if have_lcms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
-  libx11_dep = dependency('x11', required: false)
-  assert(libx11_dep.found(), 'X development libraries (libX11) not found')
-  eog_deps += libx11_dep
+if enable_cms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
+  eog_deps += dependency('x11')
 endif
 
 gnome = import('gnome')
@@ -246,7 +197,7 @@ top_inc = include_directories('.')
 
 subdir('data')
 
-if have_jpeg
+if enable_libjpeg
   subdir('jpegutils')
 endif
 
@@ -278,9 +229,9 @@ output = 'Configure summary:\n\n'
 output += '  Source code location .......:  ' + meson.source_root() + '\n'
 output += '  Compiler ...................:  ' + cc.get_id() + '\n'
 output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
-output += '  EXIF support ...............:  ' + have_exif.to_string() + '\n'
-output += '  XMP support ................:  ' + have_exempi.to_string() + '\n'
-output += '  JPEG support ...............:  ' + have_jpeg.to_string() + '\n'
-output += '  Colour management support ..:  ' + have_lcms.to_string() + '\n'
-output += '  GObject Introspection.......:  ' + have_gir.to_string() + '\n'
+output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'
+output += '  XMP support ................:  ' + enable_xmp.to_string() + '\n'
+output += '  JPEG support ...............:  ' + enable_libjpeg.to_string() + '\n'
+output += '  Colour management support ..:  ' + enable_cms.to_string() + '\n'
+output += '  GObject Introspection.......:  ' + enable_introspection.to_string() + '\n'
 message(output)

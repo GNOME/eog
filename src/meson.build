@@ -88,12 +88,12 @@ sources = files(
   'zoom.c'
 )
 
-if have_exif
+if enable_libexif
   headers += files('eog-exif-util.h')
   sources += files('eog-exif-util.c')
 endif
 
-if have_exif or have_exempi
+if enable_libexif or enable_exempi
   sources += files('eog-metadata-details.c')
 endif
 
@@ -187,7 +187,7 @@ eog = executable(
   install_rpath: eog_pkglibdir
 )
 
-if have_gir
+if enable_introspection
   gir_sources = sources + headers
 
   gir_dir = join_paths(eog_pkgdatadir, 'gir-' + eog_gir_version)
