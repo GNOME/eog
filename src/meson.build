@@ -174,8 +174,7 @@ pkg.generate(
   variables: [
     'exec_prefix=' + eog_libexecdir,
     'pluginsdir=' + eog_pluginsdir
-  ],
-  install_dir: join_paths(eog_libdir, 'pkgconfig')
+  ]
 )
 
 eog = executable(
@@ -185,7 +184,6 @@ eog = executable(
   dependencies: libeog_dep,
   c_args: cflags,
   install: true,
-  install_dir: eog_bindir,
   install_rpath: eog_pkglibdir
 )
 
