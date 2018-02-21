@@ -9,8 +9,6 @@ project(
 eog_version = meson.project_version()
 version_array = eog_version.split('.')
 eog_major_version = version_array[0].to_int()
-eog_minor_version = version_array[1].to_int()
-eog_micro_version = version_array[2].to_int()
 
 eog_api_version = '@0@.0'.format(eog_major_version)
 eog_api_name = '@0@-@1@'.format(meson.project_name(), eog_api_version)
@@ -31,8 +29,6 @@ eog_pkglibexecdir = join_paths(eog_prefix, get_option('libexecdir'), meson.proje
 eog_pluginsdir = join_paths(eog_pkglibdir, 'plugins')
 eog_schemadir = join_paths(eog_datadir, 'glib-2.0', 'schemas')
 
-eog_debug = get_option('buildtype').contains('debug')
-
 cc = meson.get_compiler('c')
 
 config_h = configuration_data()
@@ -41,8 +37,6 @@ config_h = configuration_data()
 set_defines = [
   # package
   ['PACKAGE', meson.project_name()],
-  ['PACKAGE_BUGREPORT', 'http://bugzilla.gnome.org/enter_bug.cgi?product=' + meson.project_name()],
-  ['PACKAGE_URL', 'https://wiki.gnome.org/Apps/EyeOfGnome'],
   ['VERSION', eog_version],
   # i18n
   ['GETTEXT_PACKAGE', meson.project_name()]
@@ -70,7 +64,7 @@ config_h.set('HAVE_STRPTIME', cc.has_function('strptime'))
 common_flags = ['-DHAVE_CONFIG_H']
 
 compiler_flags = []
-if eog_debug
+if get_option('buildtype').contains('debug')
   test_cflags = [
     '-Werror=format=2',
     '-Werror=implicit-function-declaration',
