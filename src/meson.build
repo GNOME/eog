@@ -158,7 +158,7 @@ libeog = shared_library(
   link_args: ldflags,
   link_depends: symbol_map,
   install: true,
-  install_dir: join_paths(get_option('libdir'), meson.project_name())
+  install_dir: eog_pkglibdir
 )
 
 libeog_dep = declare_dependency(
