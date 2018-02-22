@@ -1,10 +1,5 @@
 src_inc = include_directories('.')
 
-cflags = [
-  '-DEOG_DATA_DIR="@0@"'.format(eog_datadir),
-  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir)
-]
-
 enum_headers = files(
   'eog-scroll-view.h',
   'eog-window.h'
@@ -137,10 +132,10 @@ deps = common_deps + [
   cc.find_library('m')
 ]
 
-libeog_cflags = cflags + [
-  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
-  '-DEOG_PREFIX="@0@"'.format(eog_prefix),
+cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
+  '-DEOG_DATA_DIR="@0@"'.format(eog_datadir),
+  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
   '-DLIBDIR="@0@"'.format(eog_libdir)
 ]
 
@@ -168,7 +163,7 @@ libeog = shared_library(
   sources: sources,
   include_directories: top_inc,
   dependencies: deps,
-  c_args: libeog_cflags,
+  c_args: cflags,
   link_args: ldflags,
   link_depends: symbol_map,
   install: true,
@@ -196,6 +191,11 @@ pkg.generate(
 )
 
 deps = [libeog_dep]
+
+cflags = [
+  '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
+  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir)
+]
 
 if enable_introspection
   deps += gir_dep
