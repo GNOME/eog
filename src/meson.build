@@ -203,7 +203,6 @@ if enable_introspection
     nsversion: eog_api_version,
     namespace: eog_gir_ns,
     includes: 'Gtk-3.0',
-    extra_args: '--warn-all',
     install: true,
     install_dir_gir: gir_dir,
     install_dir_typelib: typelib_dir
