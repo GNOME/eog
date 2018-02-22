@@ -7,10 +7,12 @@ endif
 libjpegutils = static_library(
   'eog-jpegutils',
   sources: sources,
-  include_directories: top_inc
+  include_directories: top_inc,
+  dependencies: libjpeg_dep
 )
 
-jpeg_deps += declare_dependency(
-  link_with: libjpegutils,
-  include_directories: include_directories('.')
+libjpegutils_dep = declare_dependency(
+  include_directories: include_directories('.'),
+  dependencies: libjpeg_dep,
+  link_with: libjpegutils
 )

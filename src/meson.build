@@ -129,7 +129,7 @@ sources += gnome.genmarshal(
   internal: true
 )
 
-deps = eog_deps + jpeg_deps
+deps = eog_deps
 
 libeog_cflags = cflags + [
   '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
@@ -143,6 +143,10 @@ symbol_map = join_paths(meson.current_source_dir(), 'symbol.map')
 ldflags = []
 if have_version_script
   ldflags += '-Wl,--version-script,@0@'.format(symbol_map)
+endif
+
+if enable_libjpeg
+  deps += libjpegutils_dep
 endif
 
 libeog = shared_library(

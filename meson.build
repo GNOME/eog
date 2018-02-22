@@ -138,15 +138,11 @@ if enable_xmp
 endif
 
 # Jpeg (semi-optional)
-jpeg_deps = []
-
 enable_libjpeg = get_option('libjpeg')
 if enable_libjpeg
   libjpeg_dep = dependency('libjpeg', required: false)
   assert(cc.has_function('jpeg_destroy_decompress', dependencies: libjpeg_dep) and cc.has_header('jpeglib.h', dependencies: libjpeg_dep),
          'libjpeg support requested but library not found. Please use -Dlibjpeg=false (some programs using GTK+ may not work properly)')
-
-  jpeg_deps += libjpeg_dep
 
   if not cc.has_function('jpeg_simple_progression', dependencies: libjpeg_dep)
     message('JPEG library does not support progressive saving.')
