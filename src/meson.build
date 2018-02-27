@@ -129,7 +129,13 @@ sources += gnome.genmarshal(
   internal: true
 )
 
-deps = eog_deps
+deps = common_deps + [
+  gio_unix_dep,
+  gnome_desktop_dep,
+  libpeas_gtk_dep,
+  zlib_dep,
+  cc.find_library('m')
+]
 
 libeog_cflags = cflags + [
   '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
@@ -145,8 +151,16 @@ if have_version_script
   ldflags += '-Wl,--version-script,@0@'.format(symbol_map)
 endif
 
+if enable_introspection
+  deps += gir_dep
+endif
+
 if enable_libjpeg
   deps += libjpegutils_dep
+endif
+
+if enable_x11
+  deps += x11_dep
 endif
 
 libeog = shared_library(
@@ -164,7 +178,7 @@ libeog = shared_library(
 libeog_dep = declare_dependency(
   link_with: libeog,
   include_directories: src_inc,
-  dependencies: eog_deps
+  dependencies: common_deps
 )
 
 pkg.generate(
@@ -181,11 +195,17 @@ pkg.generate(
   ]
 )
 
+deps = [libeog_dep]
+
+if enable_introspection
+  deps += gir_dep
+endif
+
 eog = executable(
   meson.project_name(),
   'main.c',
   include_directories: top_inc,
-  dependencies: libeog_dep,
+  dependencies: deps,
   c_args: cflags,
   install: true,
   install_rpath: eog_pkglibdir

@@ -88,18 +88,20 @@ have_version_script = host_machine.system().contains('linux') and cc.has_argumen
 glib_req_version = '>= 2.53.4'
 peas_req_version = '>= 0.7.4'
 
-eog_deps = [
-  dependency('gtk+-3.0', version: '>= 3.22.0'),
-  dependency('glib-2.0', version: glib_req_version),
-  dependency('gio-2.0', version: glib_req_version),
-  dependency('gio-unix-2.0', version: glib_req_version),
-  dependency('gnome-desktop-3.0', version: '>= 2.91.2'),
+gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
+gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
+libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
+
+# runtime dependencies
+dependency('gsettings-desktop-schemas', version: '>= 2.91.92')
+dependency('shared-mime-info', version: '>= 0.20')
+
+common_deps = [
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
-  dependency('shared-mime-info', version: '>= 0.20'),
-  dependency('gsettings-desktop-schemas', version: '>= 2.91.92'),
-  dependency('libpeas-1.0', version: peas_req_version),
-  dependency('libpeas-gtk-1.0', version: peas_req_version),
-  cc.find_library('m')
+  dependency('gio-2.0', version: glib_req_version),
+  dependency('glib-2.0', version: glib_req_version),
+  dependency('gtk+-3.0', version: '>= 3.22.0'),
+  dependency('libpeas-1.0', version: peas_req_version)
 ]
 
 # ZLIB support (required)
@@ -107,8 +109,6 @@ if not cc.has_header('zlib.h') or not (cc.has_function('inflate') and cc.has_fun
   zlib_dep = cc.find_library('z', required: false)
   assert(zlib_dep.found() and cc.has_function('inflate', dependencies: zlib_dep) and cc.has_function('crc32', dependencies: zlib_dep),
          'No sufficient zlib library found on your system')
-
-  eog_deps += zlib_dep
 endif
 
 # EXIF (optional)
@@ -118,21 +118,21 @@ if enable_libexif
   assert(libexif_dep.found() and cc.has_header('libexif/exif-data.h', dependencies: libexif_dep),
          'libexif support requested but library not found. Please use -Dlibexif=false')
 
-  eog_deps += libexif_dep
+  common_deps += libexif_dep
   config_h.set10('HAVE_EXIF', true)
 endif
 
 # Little CMS (optional)
 enable_cms = get_option('cms')
 if enable_cms
-  eog_deps += dependency('lcms2')
+  common_deps += dependency('lcms2')
   config_h.set10('HAVE_LCMS', true)
 endif
 
 # Exempi (optional)
 enable_xmp = get_option('xmp')
 if enable_xmp
-  eog_deps += dependency('exempi-2.0', version: '>= 1.99.5')
+  common_deps += dependency('exempi-2.0', version: '>= 1.99.5')
   config_h.set10('HAVE_EXEMPI', true)
 endif
 
@@ -163,22 +163,23 @@ config_h.set('HAVE_LIBJPEG', enable_libjpeg)
 # introspection support
 enable_introspection = get_option('introspection')
 if enable_introspection
-  eog_deps += dependency('gobject-introspection-1.0', version: '>= 0.6.7')
+  gir_dep = dependency('gobject-introspection-1.0', version: '>= 0.6.7')
 endif
 config_h.set('HAVE_INTROSPECTION', enable_introspection)
 
 # RSVG (optional for scaling svg image)
 enable_librsvg = get_option('librsvg')
 if enable_librsvg
-  eog_deps += dependency('librsvg-2.0', version: '>= 2.36.2')
+  common_deps += dependency('librsvg-2.0', version: '>= 2.36.2')
 endif
 config_h.set('HAVE_RSVG', enable_librsvg)
 
 # libX11 (required for TotemScrSaver and Color Profiling)
 gdk_dep = dependency('gdk-3.0', required: false)
 
-if enable_cms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
-  eog_deps += dependency('x11')
+enable_x11 = enable_cms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
+if enable_x11
+  x11_dep = dependency('x11')
 endif
 
 gnome = import('gnome')
