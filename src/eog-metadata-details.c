@@ -596,13 +596,13 @@ typedef struct {
 static XmpNsCategory xmp_ns_category_map[] = {
 	{ "Xmp.exif",               XMP_CATEGORY_EXIF},
 	{ "Xmp.tiff",               XMP_CATEGORY_EXIF},
-	{ "Xmp.xmp",                XMP_CATEGORY_EXIF},
 	{ "Xmp.xmpRights",          XMP_CATEGORY_RIGHTS},
+	{ "Xmp.xmp",                XMP_CATEGORY_EXIF},
 	{ "Xmp.aux",                XMP_CATEGORY_EXIF},
 	{ "Xmp.dc",                 XMP_CATEGORY_IPTC},
 	{ "Xmp.iptc",               XMP_CATEGORY_IPTC},
 	{ "Xmp.Iptc4xmpCore",       XMP_CATEGORY_IPTC},
-/*	{ NS_CC,                    XMP_CATEGORY_RIGHTS}, */
+	{ "Xmp.cc",                 XMP_CATEGORY_RIGHTS},
 	{ NULL, -1}
 };
 
