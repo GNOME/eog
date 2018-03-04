@@ -95,7 +95,6 @@ eog_deps = [
   dependency('gio-unix-2.0', version: glib_req_version),
   dependency('gnome-desktop-3.0', version: '>= 2.91.2'),
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
-  dependency('gtk+-unix-print-3.0', version: '>= 3.5.4'),
   dependency('shared-mime-info', version: '>= 0.20'),
   dependency('gsettings-desktop-schemas', version: '>= 2.91.92'),
   dependency('libpeas-1.0', version: peas_req_version),
