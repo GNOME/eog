@@ -134,7 +134,7 @@ deps = common_deps + [
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_DATA_DIR="@0@"'.format(eog_datadir),
+  '-DEOG_DATA_DIR="@0@"'.format(eog_pkgdatadir),
   '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
   '-DLIBDIR="@0@"'.format(eog_libdir)
 ]
