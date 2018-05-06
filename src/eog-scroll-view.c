@@ -1491,7 +1491,7 @@ rotate_gesture_begin_cb (GtkGesture       *gesture,
 	EogScrollViewPrivate *priv;
 
 	priv = view->priv;
-	priv->rotate_state = EOG_TRANSFORM_NONE;
+	priv->rotate_state = EOG_ROTATION_0;
 }
 
 static void
