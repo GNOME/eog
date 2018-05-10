@@ -88,7 +88,7 @@ if enable_libexif
   sources += files('eog-exif-util.c')
 endif
 
-if enable_libexif or enable_exempi
+if enable_libexif or enable_xmp
   sources += files('eog-metadata-details.c')
 endif
 
