@@ -286,6 +286,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    EOG_LIST_STORE_EOG_JOB, NULL,
 				    -1);
 
+		g_object_unref (image);
 		g_object_unref (thumbnail);
 	}
 
