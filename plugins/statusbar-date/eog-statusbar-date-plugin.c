@@ -53,11 +53,9 @@ enum {
 };
 
 static void
-statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
+statusbar_set_date (GtkLabel *label, EogThumbView *view)
 {
 	EogImage *image;
-	gchar *date = NULL;
-	gchar time_buffer[32];
 	ExifData *exif_data;
 
 	if (eog_thumb_view_get_n_selected (view) == 0)
@@ -65,34 +63,28 @@ statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 
 	image = eog_thumb_view_get_first_selected_image (view);
 
-	gtk_statusbar_pop (statusbar, 0);
-
 	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
 		if (!eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, NULL)) {
-			gtk_widget_hide (GTK_WIDGET (statusbar));
+			gtk_label_set_text (label, NULL);
 		}
 	}
 
 	exif_data = eog_image_get_exif_info (image);
 	if (exif_data) {
-		date = eog_exif_util_format_date (
-			eog_exif_data_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
+		/* A strftime-formatted string, to display the date the image was taken.  */
+		eog_exif_util_format_datetime_label (label, exif_data,
+		                                     EXIF_TAG_DATE_TIME_ORIGINAL,
+		                                     _("%a, %d %B %Y  %X"));
 		eog_exif_data_free (exif_data);
-	}
-
-	if (date) {
-		gtk_statusbar_push (statusbar, 0, date);
-		gtk_widget_show (GTK_WIDGET (statusbar));
-		g_free (date);
 	} else {
-		gtk_widget_hide (GTK_WIDGET (statusbar));
+		gtk_label_set_text (label, NULL);
 	}
 }
 
 static void
 selection_changed_cb (EogThumbView *view, EogStatusbarDatePlugin *plugin)
 {
-	statusbar_set_date (GTK_STATUSBAR (plugin->statusbar_date), view);
+	statusbar_set_date (GTK_LABEL (plugin->statusbar_date), view);
 }
 
 static void
@@ -150,7 +142,7 @@ eog_statusbar_date_plugin_dispose (GObject *object)
 
 	if (plugin->window != NULL) {
 		g_object_unref (plugin->window);
-		plugin->window = NULL;		
+		plugin->window = NULL;
 	}
 
 	G_OBJECT_CLASS (eog_statusbar_date_plugin_parent_class)->dispose (object);
@@ -166,7 +158,7 @@ eog_statusbar_date_plugin_activate (EogWindowActivatable *activatable)
 
 	eog_debug (DEBUG_PLUGINS);
 
-	plugin->statusbar_date = gtk_statusbar_new ();
+	plugin->statusbar_date = gtk_label_new (NULL);
 	gtk_widget_set_size_request (plugin->statusbar_date, 200, 10);
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  plugin->statusbar_date,
@@ -176,8 +168,9 @@ eog_statusbar_date_plugin_activate (EogWindowActivatable *activatable)
 						    "selection_changed",
 						    G_CALLBACK (selection_changed_cb), plugin);
 
-	statusbar_set_date (GTK_STATUSBAR (plugin->statusbar_date),
+	statusbar_set_date (GTK_LABEL (plugin->statusbar_date),
 			    EOG_THUMB_VIEW (eog_window_get_thumb_view (window)));
+	gtk_widget_show (plugin->statusbar_date);
 }
 
 static void
