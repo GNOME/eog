@@ -11,10 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.1.92\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-28 17:37+0000\n"
-"PO-Revision-Date: 2017-08-27 21:38+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
+"POT-Creation-Date: 2018-06-05 10:41+0000\n"
+"PO-Revision-Date: 2018-08-22 00:01+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -22,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.1.1\n"
 
 # src/preferences.c:219
 #: data/eog-app-menu.ui:7
@@ -73,7 +72,7 @@ msgstr ""
 "會讀取數位相機的標籤自動將您的影像旋轉到正確的直式或橫式方向。"
 
 # src/preferences-dialog.glade.h:32
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5508
+#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5564
 msgid "Image Viewer"
 msgstr "影像檢視器"
 
@@ -256,8 +255,8 @@ msgstr "另存新檔"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3223 src/eog-window.c:3226
-#: src/eog-window.c:3479
+#: src/eog-file-chooser.c:472 src/eog-window.c:3279 src/eog-window.c:3282
+#: src/eog-window.c:3535
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -424,7 +423,7 @@ msgstr "移至影像集的第一張影像"
 msgid "_First Image"
 msgstr "第一幅影像(_F)"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2359
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "移至影像集的上一張影像"
 
@@ -432,7 +431,7 @@ msgstr "移至影像集的上一張影像"
 msgid "_Previous Image"
 msgstr "上一幅影像(_P)"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2347
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "移至影像集的下一張影像"
 
@@ -468,7 +467,7 @@ msgstr "正常大小(_N)"
 msgid "_Best Fit"
 msgstr "最適大小(_B)"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2374
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "向左 90 度旋轉該影像"
 
@@ -476,7 +475,7 @@ msgstr "向左 90 度旋轉該影像"
 msgid "Rotate Counter_clockwise"
 msgstr "逆時針方向旋轉(_C)"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2385
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "向右 90 度旋轉該影像"
 
@@ -548,13 +547,13 @@ msgstr "將影像設定為桌面背景"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show/Hide the sidebar"
-msgstr "顯示/隱藏側邊欄"
+msgid "Show image properties dialog"
+msgstr "顯示影像屬性對話盒"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "顯示影像屬性對話盒"
+msgid "Show/Hide the sidebar"
+msgstr "顯示/隱藏側邊欄"
 
 #: data/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -656,7 +655,7 @@ msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "暫停播放投影片"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:969
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
 msgid "Size"
 msgstr "大小"
 
@@ -871,7 +870,7 @@ msgstr "關閉主視窗且不詢問是否儲存變更。"
 
 #: data/org.gnome.eog.gschema.xml.in:103
 msgid "Trash images without asking"
-msgstr "無需確認便將影像移至回收筒"
+msgstr "無需確認便將影像移至垃圾桶"
 
 #: data/org.gnome.eog.gschema.xml.in:104
 msgid ""
@@ -879,8 +878,8 @@ msgid ""
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
-"如果啟用，《GNOME 之眼》在將影像移至回收筒時不會要求確認。但是當檔案中有任何"
-"一個無法移至回收筒而必須直接刪除時仍會先詢問。"
+"如果啟用，《GNOME 之眼》在將影像移至垃圾桶時不會要求確認。但是當檔案中有任何"
+"一個無法移至垃圾桶而必須直接刪除時仍會先詢問。"
 
 #: data/org.gnome.eog.gschema.xml.in:108
 msgid ""
@@ -935,9 +934,9 @@ msgstr "以此開啟(_W)"
 msgid "_Copy"
 msgstr "複製(_C)"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3482
+#: data/popup-menus.ui:35 src/eog-window.c:3538
 msgid "Move to _Trash"
-msgstr "移至回收筒(_T)"
+msgstr "移至垃圾桶(_T)"
 
 #: data/popup-menus.ui:49
 msgid "Show Containing _Folder"
@@ -955,7 +954,6 @@ msgstr "雙擊全螢幕模式"
 #. TRANSLATORS: Do NOT translate or transliterate this text!
 #. This is an icon file name
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-#| msgid "Fullscreen"
 msgid "view-fullscreen"
 msgstr "view-fullscreen"
 
@@ -991,37 +989,33 @@ msgstr "在視窗狀態列中顯示影像日期"
 msgid "Close _without Saving"
 msgstr "關閉但不儲存(_W)"
 
-#: src/eog-close-confirmation-dialog.c:212
-msgid "Question"
-msgstr "問題"
-
-#: src/eog-close-confirmation-dialog.c:391
+#: src/eog-close-confirmation-dialog.c:383
 msgid "If you don’t save, your changes will be lost."
 msgstr "如果不儲存，您的變更就會消失。"
 
-#: src/eog-close-confirmation-dialog.c:437
+#: src/eog-close-confirmation-dialog.c:404
 #, c-format
 msgid "Save changes to image “%s” before closing?"
 msgstr "關閉前要儲存修改到影像「%s」嗎？"
 
-#: src/eog-close-confirmation-dialog.c:652
+#: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] "還有 %d 張影像含有未儲存的變更。是否在關閉前儲存變更？"
 
-#: src/eog-close-confirmation-dialog.c:669
+#: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
 msgstr "請選擇要儲存的影像(_E):"
 
 #. Secondary label
-#: src/eog-close-confirmation-dialog.c:688
+#: src/eog-close-confirmation-dialog.c:603
 msgid "If you don’t save, all your changes will be lost."
 msgstr "如果不儲存，您所有的變更將會消失。"
 
 # src/window.c:704
-#: src/eog-error-message-area.c:128 src/eog-window.c:881
+#: src/eog-error-message-area.c:128 src/eog-window.c:931
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
@@ -1145,30 +1139,37 @@ msgid "Open Folder"
 msgstr "開啟資料夾"
 
 #: src/eog-image.c:566
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "改變未載入的影像。"
 
 #: src/eog-image.c:594
+#, c-format
 msgid "Transformation failed."
 msgstr "轉換失敗。"
 
 #: src/eog-image.c:1074
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "本檔案格式不支 EXIF。"
 
 #: src/eog-image.c:1221
+#, c-format
 msgid "Image loading failed."
 msgstr "載入影像失敗。"
 
 #: src/eog-image.c:1802 src/eog-image.c:1922
+#, c-format
 msgid "No image loaded."
 msgstr "沒有載入影像。"
 
 #: src/eog-image.c:1810 src/eog-image.c:1931
+#, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "您沒有儲存檔案所需的權限。"
 
 #: src/eog-image.c:1820 src/eog-image.c:1942
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "建立暫存檔失敗。"
 
@@ -1178,6 +1179,7 @@ msgid "Couldn’t create temporary file for saving: %s"
 msgstr "無法建立暫存檔來儲存： %s"
 
 #: src/eog-image-jpeg.c:393
+#, c-format
 msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "無法分配記憶體來載入 JPEG 檔案"
 
@@ -1274,91 +1276,91 @@ msgid "Image Settings"
 msgstr "影像設定"
 
 # src/window.c:704
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:896
 msgid "Image"
 msgstr "影像"
 
-#: src/eog-print-image-setup.c:898
+#: src/eog-print-image-setup.c:897
 msgid "The image whose printing properties will be set up"
 msgstr "要進行列印設定的影像"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:903
 msgid "Page Setup"
 msgstr "頁面設定"
 
-#: src/eog-print-image-setup.c:905
+#: src/eog-print-image-setup.c:904
 msgid "The information for the page where the image will be printed"
 msgstr "將列印影像的頁面資訊"
 
-#: src/eog-print-image-setup.c:931
+#: src/eog-print-image-setup.c:930
 msgid "Position"
 msgstr "位置"
 
 #
 #
-#: src/eog-print-image-setup.c:935
+#: src/eog-print-image-setup.c:934
 msgid "_Left:"
 msgstr "左(_L):"
 
 #
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:936
 msgid "_Right:"
 msgstr "右(_R):"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:937
 msgid "_Top:"
 msgstr "上(_T):"
 
-#: src/eog-print-image-setup.c:939
+#: src/eog-print-image-setup.c:938
 msgid "_Bottom:"
 msgstr "下(_B):"
 
-#: src/eog-print-image-setup.c:942
+#: src/eog-print-image-setup.c:941
 msgid "C_enter:"
 msgstr "置中(_C):"
 
-#: src/eog-print-image-setup.c:947
+#: src/eog-print-image-setup.c:946
 msgid "None"
 msgstr "沒有"
 
-#: src/eog-print-image-setup.c:949
+#: src/eog-print-image-setup.c:948
 msgid "Horizontal"
 msgstr "水平"
 
-#: src/eog-print-image-setup.c:951
+#: src/eog-print-image-setup.c:950
 msgid "Vertical"
 msgstr "垂直"
 
-#: src/eog-print-image-setup.c:953
+#: src/eog-print-image-setup.c:952
 msgid "Both"
 msgstr "兩者"
 
 # src/preferences-dialog.glade.h:32
-#: src/eog-print-image-setup.c:972
+#: src/eog-print-image-setup.c:971
 msgid "_Width:"
 msgstr "寬度(_W):"
 
-#: src/eog-print-image-setup.c:974
+#: src/eog-print-image-setup.c:973
 msgid "_Height:"
 msgstr "高度(_H):"
 
-#: src/eog-print-image-setup.c:977
+#: src/eog-print-image-setup.c:976
 msgid "_Scaling:"
 msgstr "比率(_S):"
 
-#: src/eog-print-image-setup.c:988
+#: src/eog-print-image-setup.c:987
 msgid "_Unit:"
 msgstr "單位(_U):"
 
-#: src/eog-print-image-setup.c:993
+#: src/eog-print-image-setup.c:992
 msgid "Millimeters"
 msgstr "毫米"
 
-#: src/eog-print-image-setup.c:995
+#: src/eog-print-image-setup.c:994
 msgid "Inches"
 msgstr "英吋"
 
-#: src/eog-print-image-setup.c:1024
+#: src/eog-print-image-setup.c:1023
 msgid "Preview"
 msgstr "預覽"
 
@@ -1390,6 +1392,7 @@ msgid "Taken on"
 msgstr "拍攝日"
 
 #: src/eog-uri-converter.c:989
+#, c-format
 msgid "At least two file names are equal."
 msgstr "最少有兩個檔案的名稱相同。"
 
@@ -1407,20 +1410,20 @@ msgstr "（無效的萬國碼）"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i 像素  %s    %i%%"
 
-#: src/eog-window.c:883 src/eog-window.c:2617
+#: src/eog-window.c:933 src/eog-window.c:2673
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隱藏(_D)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:893
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1435,23 +1438,23 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1156
+#: src/eog-window.c:1213
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "儲存影像「%s」(%u/%u)"
 
 # src/window.c:704
-#: src/eog-window.c:1581
+#: src/eog-window.c:1637
 #, c-format
 msgid "Opening image “%s”"
 msgstr "正在開啟影像「%s」"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:1964
+#: src/eog-window.c:2020
 msgid "Viewing a slideshow"
 msgstr "以幻燈片檢視"
 
-#: src/eog-window.c:2183
+#: src/eog-window.c:2239
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1460,17 +1463,17 @@ msgstr ""
 "列印檔案時發生錯誤：\n"
 "%s"
 
-#: src/eog-window.c:2566 src/eog-window.c:2581
+#: src/eog-window.c:2622 src/eog-window.c:2637
 msgid "Error launching System Settings: "
 msgstr "錯誤的執行系統設定值："
 
-#: src/eog-window.c:2615
+#: src/eog-window.c:2671
 msgid "_Open Background Preferences"
 msgstr "開啟背景偏好設定(_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:2631
+#: src/eog-window.c:2687
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1479,11 +1482,11 @@ msgstr ""
 "影像「%s」已被設為桌面背景。\n"
 "您是否想要修改它的外觀？"
 
-#: src/eog-window.c:3121
+#: src/eog-window.c:3177
 msgid "Saving image locally…"
 msgstr "將影像儲存到本地端…"
 
-#: src/eog-window.c:3199
+#: src/eog-window.c:3255
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1492,7 +1495,7 @@ msgstr ""
 "確定要將「%s」\n"
 "永久移除嗎？"
 
-#: src/eog-window.c:3202
+#: src/eog-window.c:3258
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1505,54 +1508,57 @@ msgstr[0] ""
 "永久移除嗎？"
 
 # src/window.c:704
-#: src/eog-window.c:3224 src/eog-window.c:3490
+#: src/eog-window.c:3280 src/eog-window.c:3546
 msgid "_Delete"
 msgstr "刪除(_D)"
 
-#: src/eog-window.c:3227 src/eog-window.c:3492
+#: src/eog-window.c:3283 src/eog-window.c:3548
 msgid "_Yes"
 msgstr "是(_Y)"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3231 src/eog-window.c:3484
+#: src/eog-window.c:3287 src/eog-window.c:3540
 msgid "Do _not ask again during this session"
 msgstr "在這個作業階段中不要再詢問(_N)"
 
-#: src/eog-window.c:3275
+#: src/eog-window.c:3331
+#, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "無法取回影像檔案"
 
-#: src/eog-window.c:3291
+#: src/eog-window.c:3347
+#, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "無法取回影像檔案資訊"
 
-#: src/eog-window.c:3307 src/eog-window.c:3551
+#: src/eog-window.c:3363 src/eog-window.c:3607
+#, c-format
 msgid "Couldn’t delete file"
 msgstr "無法刪除檔案"
 
 #. set dialog error message
-#: src/eog-window.c:3357 src/eog-window.c:3651
+#: src/eog-window.c:3413 src/eog-window.c:3707
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "當刪除影像 %s 時發生錯誤"
 
-#: src/eog-window.c:3452
+#: src/eog-window.c:3508
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "“%s” to the trash?"
 msgstr ""
 "確定要將\n"
-"「%s」移至回收筒嗎？"
+"「%s」移至垃圾桶嗎？"
 
-#: src/eog-window.c:3455
+#: src/eog-window.c:3511
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
-msgstr "找不到「%s」的回收筒。是否要永久移除這個影像？"
+msgstr "找不到「%s」的垃圾桶。是否要永久移除這個影像？"
 
-#: src/eog-window.c:3460
+#: src/eog-window.c:3516
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1562,36 +1568,37 @@ msgid_plural ""
 "the %d selected images to the trash?"
 msgstr[0] ""
 "確定要將選取的 %d 張影像\n"
-"永久移至回收筒嗎？"
+"永久移至垃圾桶嗎？"
 
-#: src/eog-window.c:3465
+#: src/eog-window.c:3521
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
-msgstr "有部分被選取的影像不能移至回收筒，因而將被直接刪除。您確定要繼續嗎？"
+msgstr "有部分被選取的影像不能移至垃圾桶，因而將被直接刪除。您確定要繼續嗎？"
 
-#: src/eog-window.c:3529 src/eog-window.c:3543
+#: src/eog-window.c:3585 src/eog-window.c:3599
+#, c-format
 msgid "Couldn’t access trash."
-msgstr "無法存取回收筒。"
+msgstr "無法存取垃圾桶。"
 
-#: src/eog-window.c:4210
+#: src/eog-window.c:4266
 msgid "Shrink or enlarge the current image"
 msgstr "縮小或放大目前影像"
 
-#: src/eog-window.c:4269
+#: src/eog-window.c:4325
 msgid "Show the current image in fullscreen mode"
 msgstr "以全螢幕模式顯示目前的影像"
 
-#: src/eog-window.c:4346
+#: src/eog-window.c:4402
 msgid "Properties"
 msgstr "屬性"
 
 # src/window.c:166
-#: src/eog-window.c:5511
+#: src/eog-window.c:5567
 msgid "The GNOME image viewer."
 msgstr "GNOME 影像檢視器。"
 
-#: src/eog-window.c:5514
+#: src/eog-window.c:5570
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
@@ -1652,6 +1659,9 @@ msgstr "[檔案…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
+
+#~ msgid "Question"
+#~ msgstr "問題"
 
 #~ msgid "2000%"
 #~ msgstr "2000%"
