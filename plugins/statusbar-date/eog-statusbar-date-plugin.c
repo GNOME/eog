@@ -33,7 +33,6 @@
 #include <eog-debug.h>
 #include <eog-scroll-view.h>
 #include <eog-image.h>
-#include <eog-thumb-view.h>
 #include <eog-exif-util.h>
 #include <eog-window.h>
 #include <eog-window-activatable.h>
@@ -53,23 +52,16 @@ enum {
 };
 
 static void
-statusbar_set_date (GtkLabel *label, EogThumbView *view)
+statusbar_set_date (GtkLabel *label, EogScrollView *view)
 {
 	EogImage *image;
-	ExifData *exif_data;
+	ExifData *exif_data = NULL;
 
-	if (eog_thumb_view_get_n_selected (view) == 0)
-		return;
+	image = eog_scroll_view_get_image (view);
 
-	image = eog_thumb_view_get_first_selected_image (view);
+	if (image && eog_image_has_data (image, EOG_IMAGE_DATA_EXIF))
+		exif_data = eog_image_get_exif_info (image);
 
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
-		if (!eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, NULL)) {
-			gtk_label_set_text (label, NULL);
-		}
-	}
-
-	exif_data = eog_image_get_exif_info (image);
 	if (exif_data) {
 		/* A strftime-formatted string, to display the date the image was taken.  */
 		eog_exif_util_format_datetime_label (label, exif_data,
@@ -79,11 +71,18 @@ statusbar_set_date (GtkLabel *label, EogThumbView *view)
 	} else {
 		gtk_label_set_text (label, NULL);
 	}
+
+	if (image)
+		g_object_unref (image);
 }
 
 static void
-selection_changed_cb (EogThumbView *view, EogStatusbarDatePlugin *plugin)
+image_changed_cb (EogScrollView *view,
+		  GParamSpec *spec,
+		  EogStatusbarDatePlugin *plugin)
 {
+	g_return_if_fail (EOG_IS_STATUSBAR_DATE_PLUGIN (plugin));
+
 	statusbar_set_date (GTK_LABEL (plugin->statusbar_date), view);
 }
 
@@ -154,7 +153,7 @@ eog_statusbar_date_plugin_activate (EogWindowActivatable *activatable)
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
 	EogWindow *window = plugin->window;
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
-	GtkWidget *thumbview = eog_window_get_thumb_view (window);
+	GtkWidget *view = eog_window_get_view (window);
 
 	eog_debug (DEBUG_PLUGINS);
 
@@ -164,12 +163,12 @@ eog_statusbar_date_plugin_activate (EogWindowActivatable *activatable)
 			  plugin->statusbar_date,
 			  FALSE, FALSE, 0);
 
-	plugin->signal_id = g_signal_connect_after (G_OBJECT (thumbview),
-						    "selection_changed",
-						    G_CALLBACK (selection_changed_cb), plugin);
+	plugin->signal_id = g_signal_connect (G_OBJECT (view), "notify::image",
+					      G_CALLBACK (image_changed_cb),
+					      plugin);
 
 	statusbar_set_date (GTK_LABEL (plugin->statusbar_date),
-			    EOG_THUMB_VIEW (eog_window_get_thumb_view (window)));
+			    EOG_SCROLL_VIEW (view));
 	gtk_widget_show (plugin->statusbar_date);
 }
 
@@ -179,7 +178,7 @@ eog_statusbar_date_plugin_deactivate (EogWindowActivatable *activatable)
 	EogStatusbarDatePlugin *plugin = EOG_STATUSBAR_DATE_PLUGIN (activatable);
 	EogWindow *window = plugin->window;
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
-	GtkWidget *view = eog_window_get_thumb_view (window);
+	GtkWidget *view = eog_window_get_view (window);
 
 	g_signal_handler_disconnect (view, plugin->signal_id);
 
