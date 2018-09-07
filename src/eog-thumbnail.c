@@ -53,7 +53,6 @@ typedef struct {
 	char    *thumb_path;
 	time_t   mtime;
 	char    *mime_type;
-	gboolean thumb_exists;
 	gboolean failed_thumb_exists;
 	gboolean can_read;
 } EogThumbData;
@@ -93,15 +92,16 @@ get_valid_thumbnail (EogThumbData *data, GError **error)
 
 	g_return_val_if_fail (data != NULL, NULL);
 
-	/* does a thumbnail under the path exists? */
-	if (data->thumb_exists) {
-		thumb = gdk_pixbuf_new_from_file (data->thumb_path, error);
+	thumb = gdk_pixbuf_new_from_file (data->thumb_path, error);
 
-		/* is this thumbnail file up to date? */
-		if (thumb != NULL && !gnome_desktop_thumbnail_is_valid (thumb, data->uri_str, data->mtime)) {
-			g_object_unref (thumb);
-			thumb = NULL;
-		}
+	/* It's no error if the thumbnail does not exist */
+	if (error && g_error_matches (*error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+		g_clear_error (error);
+
+	/* is this thumbnail file up to date? */
+	if (thumb != NULL && !gnome_desktop_thumbnail_is_valid (thumb, data->uri_str, data->mtime)) {
+		g_object_unref (thumb);
+		thumb = NULL;
 	}
 
 	return thumb;
@@ -178,8 +178,6 @@ eog_thumb_data_new (GFile *file, GError **error)
 								G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		data->mime_type = g_strdup (g_file_info_get_content_type (file_info));
 
-		data->thumb_exists = (g_file_info_get_attribute_byte_string (file_info,
-					                                     G_FILE_ATTRIBUTE_THUMBNAIL_PATH) != NULL);
 		data->failed_thumb_exists = g_file_info_get_attribute_boolean (file_info,
 									       G_FILE_ATTRIBUTE_THUMBNAILING_FAILED);
 		data->can_read = TRUE;
