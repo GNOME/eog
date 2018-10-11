@@ -2,7 +2,6 @@ subdir('icons')
 
 resource_data = files(
   'pixmaps/thumbnail-frame.png',
-  'eog-app-menu.ui',
   'eog-gear-menu.ui',
   'eog-image-properties-dialog.ui',
   'eog-multiple-save-as-dialog.ui',
