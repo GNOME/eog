@@ -4248,7 +4248,6 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *headerbar;
 	GtkWidget *zoom_entry;
 	GtkWidget *file_menu_button;
-	GtkWidget *file_menu_image;
 	GtkWidget *gear_menu_button;
 	GtkWidget *gear_menu_image;
 	GtkWidget *fullscreen_button;
@@ -4266,6 +4265,33 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_header_bar_set_title (GTK_HEADER_BAR (headerbar),
 				  g_get_application_name ());
 	gtk_window_set_titlebar (GTK_WINDOW (window), headerbar);
+
+	file_menu_button = gtk_menu_button_new ();
+	gtk_button_set_label (GTK_BUTTON (file_menu_button), g_get_application_name ());
+	g_object_bind_property (GTK_WINDOW(window), "title", GTK_BUTTON(file_menu_button), "label", 0);
+
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-file-menu.ui");
+	builder_object = gtk_builder_get_object (builder, "file-menu");
+	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (file_menu_button),
+					G_MENU_MODEL (builder_object));
+
+	gtk_header_bar_set_custom_title (GTK_HEADER_BAR (headerbar), file_menu_button);
+	gtk_widget_show (file_menu_button);
+
+	action = G_ACTION (g_property_action_new ("toggle-file-menu",
+						  file_menu_button, "active"));
+	g_action_map_add_action (G_ACTION_MAP (window), action);
+	g_object_unref (action);
+
+	priv->open_with_menu = g_menu_new ();
+	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
+	builder_object = gtk_builder_get_object (builder, "open-with-menu");
+	g_menu_append_section (G_MENU (builder_object),
+			       NULL,
+			       G_MENU_MODEL (priv->open_with_menu));
+	priv->file_menu_builder = builder;
+	builder = NULL;
+
 	gtk_widget_show (headerbar);
 
 #if 0
@@ -4330,33 +4356,6 @@ eog_window_construct_ui (EogWindow *window)
 						  gear_menu_button, "active"));
 	g_action_map_add_action (G_ACTION_MAP (window), action);
 	g_object_unref (action);
-
-	file_menu_button = gtk_menu_button_new ();
-	file_menu_image = gtk_image_new_from_icon_name ("document-properties-symbolic",
-						   GTK_ICON_SIZE_BUTTON);
-	gtk_button_set_image (GTK_BUTTON (file_menu_button), file_menu_image);
-
-	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-file-menu.ui");
-	builder_object = gtk_builder_get_object (builder, "file-menu");
-	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (file_menu_button),
-					G_MENU_MODEL (builder_object));
-
-	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), file_menu_button);
-	gtk_widget_show (file_menu_button);
-
-	action = G_ACTION (g_property_action_new ("toggle-file-menu",
-						  file_menu_button, "active"));
-	g_action_map_add_action (G_ACTION_MAP (window), action);
-	g_object_unref (action);
-
-	priv->open_with_menu = g_menu_new ();
-	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
-	builder_object = gtk_builder_get_object (builder, "open-with-menu");
-	g_menu_append_section (G_MENU (builder_object),
-			       NULL,
-			       G_MENU_MODEL (priv->open_with_menu));
-	priv->file_menu_builder = builder;
-	builder = NULL;
 
 	fullscreen_button = gtk_button_new_from_icon_name ("view-fullscreen-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
