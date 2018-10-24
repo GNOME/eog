@@ -141,6 +141,7 @@ struct _EogWindowPrivate {
 	GPtrArray           *appinfo;
 
 	GtkBuilder          *gear_menu_builder;
+	GtkBuilder          *file_menu_builder;
 
 	GtkWidget           *fullscreen_popup;
 	GSource             *fullscreen_timeout_source;
@@ -4246,8 +4247,10 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *hpaned;
 	GtkWidget *headerbar;
 	GtkWidget *zoom_entry;
-	GtkWidget *menu_button;
-	GtkWidget *menu_image;
+	GtkWidget *file_menu_button;
+	GtkWidget *file_menu_image;
+	GtkWidget *gear_menu_button;
+	GtkWidget *gear_menu_image;
 	GtkWidget *fullscreen_button;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -4307,23 +4310,53 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (priv->zoom_scale);
 #endif
 
-	menu_button = gtk_menu_button_new ();
-	menu_image = gtk_image_new_from_icon_name ("open-menu-symbolic",
+	gear_menu_button = gtk_menu_button_new ();
+	gear_menu_image = gtk_image_new_from_icon_name ("open-menu-symbolic",
 						   GTK_ICON_SIZE_BUTTON);
-	gtk_button_set_image (GTK_BUTTON (menu_button), menu_image);
+	gtk_button_set_image (GTK_BUTTON (gear_menu_button), gear_menu_image);
 
 	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-gear-menu.ui");
 	builder_object = gtk_builder_get_object (builder, "gear-menu");
-	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button),
+	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (gear_menu_button),
 					G_MENU_MODEL (builder_object));
 
-	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
-	gtk_widget_show (menu_button);
+	priv->gear_menu_builder = builder;
+	builder = NULL;
+
+	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), gear_menu_button);
+	gtk_widget_show (gear_menu_button);
 
 	action = G_ACTION (g_property_action_new ("toggle-gear-menu",
-						  menu_button, "active"));
+						  gear_menu_button, "active"));
 	g_action_map_add_action (G_ACTION_MAP (window), action);
 	g_object_unref (action);
+
+	file_menu_button = gtk_menu_button_new ();
+	file_menu_image = gtk_image_new_from_icon_name ("document-properties-symbolic",
+						   GTK_ICON_SIZE_BUTTON);
+	gtk_button_set_image (GTK_BUTTON (file_menu_button), file_menu_image);
+
+	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-file-menu.ui");
+	builder_object = gtk_builder_get_object (builder, "file-menu");
+	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (file_menu_button),
+					G_MENU_MODEL (builder_object));
+
+	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), file_menu_button);
+	gtk_widget_show (file_menu_button);
+
+	action = G_ACTION (g_property_action_new ("toggle-file-menu",
+						  file_menu_button, "active"));
+	g_action_map_add_action (G_ACTION_MAP (window), action);
+	g_object_unref (action);
+
+	priv->open_with_menu = g_menu_new ();
+	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
+	builder_object = gtk_builder_get_object (builder, "open-with-menu");
+	g_menu_append_section (G_MENU (builder_object),
+			       NULL,
+			       G_MENU_MODEL (priv->open_with_menu));
+	priv->file_menu_builder = builder;
+	builder = NULL;
 
 	fullscreen_button = gtk_button_new_from_icon_name ("view-fullscreen-symbolic",
 							   GTK_ICON_SIZE_BUTTON);
@@ -4333,15 +4366,6 @@ eog_window_construct_ui (EogWindow *window)
 				    _("Show the current image in fullscreen mode"));
 	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
 	gtk_widget_show (fullscreen_button);
-
-	priv->open_with_menu = g_menu_new ();
-	priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
-	builder_object = gtk_builder_get_object (builder, "open-with-menu");
-	g_menu_append_section (G_MENU (builder_object),
-			       NULL,
-			       G_MENU_MODEL (priv->open_with_menu));
-	priv->gear_menu_builder = builder;
-	builder = NULL;
 
 	priv->cbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
@@ -4718,6 +4742,7 @@ eog_window_dispose (GObject *object)
 	}
 
 	g_clear_object (&priv->gear_menu_builder);
+	g_clear_object (&priv->file_menu_builder);
 
 	peas_engine_garbage_collect (PEAS_ENGINE (EOG_APP->priv->plugin_engine));
 
@@ -5315,6 +5340,27 @@ eog_window_get_gear_menu_section (EogWindow *window, const gchar *id)
 	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
 
 	object = gtk_builder_get_object (window->priv->gear_menu_builder, id);
+	if (object == NULL || !G_IS_MENU (object))
+		return NULL;
+
+	return G_MENU (object);
+}
+
+
+/**
+ * eog_window_get_file_menu_section:
+ * @window: an #EogWindow.
+ * @id: the ID for the menu section to look up
+ *
+ * Return value: (transfer none): a #GMenu or %NULL on failure
+ **/
+GMenu *
+eog_window_get_file_menu_section (EogWindow *window, const gchar *id)
+{
+	GObject *object;
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	object = gtk_builder_get_object (window->priv->file_menu_builder, id);
 	if (object == NULL || !G_IS_MENU (object))
 		return NULL;
 

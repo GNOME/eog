@@ -104,6 +104,8 @@ EogWindowMode eog_window_get_mode       (EogWindow       *window);
 void          eog_window_set_mode       (EogWindow       *window,
 					 EogWindowMode    mode);
 
+GMenu        *eog_window_get_file_menu_section (EogWindow   *window,
+						const gchar *id);
 GMenu        *eog_window_get_gear_menu_section (EogWindow   *window,
 						const gchar *id);
 
