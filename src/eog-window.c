@@ -4267,7 +4267,14 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_window_set_titlebar (GTK_WINDOW (window), headerbar);
 
 	file_menu_button = gtk_menu_button_new ();
+	gtk_button_set_relief (GTK_BUTTON (file_menu_button), GTK_RELIEF_NONE);
 	gtk_button_set_label (GTK_BUTTON (file_menu_button), g_get_application_name ());
+	gtk_button_set_always_show_image (GTK_BUTTON (file_menu_button), TRUE);
+	gtk_button_set_image_position (GTK_BUTTON (file_menu_button), GTK_POS_RIGHT);
+	gtk_button_set_image (GTK_BUTTON (file_menu_button),
+			      gtk_image_new_from_icon_name ("pan-down-symbolic",
+							    GTK_ICON_SIZE_BUTTON));
+
 	g_object_bind_property (GTK_WINDOW(window), "title", GTK_BUTTON(file_menu_button), "label", 0);
 
 	builder = gtk_builder_new_from_resource ("/org/gnome/eog/ui/eog-file-menu.ui");
