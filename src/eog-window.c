@@ -138,6 +138,7 @@ struct _EogWindowPrivate {
 	GtkWidget           *properties_dlg;
 
 	GMenu               *open_with_menu;
+	GMenu               *view_menu;
 	GPtrArray           *appinfo;
 
 	GtkBuilder          *gear_menu_builder;
@@ -4340,6 +4341,13 @@ eog_window_construct_ui (EogWindow *window)
 	g_menu_append_section (G_MENU (builder_object),
 			       NULL,
 			       G_MENU_MODEL (priv->open_with_menu));
+
+	priv->view_menu = g_menu_new ();
+	//priv->appinfo = g_ptr_array_new_with_free_func (g_object_unref);
+	builder_object = gtk_builder_get_object (builder, "view-menu");
+	g_menu_append_section (G_MENU (builder_object),
+			       NULL,
+			       G_MENU_MODEL (priv->view_menu));
 	priv->gear_menu_builder = builder;
 	builder = NULL;
 
