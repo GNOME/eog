@@ -1,9 +1,5 @@
 icon_sizes = [
-  '16x16',
-  '22x22',
-  '24x24',
-  '32x32',
-  '256x256'
+  'scalable'
 ]
 
 foreach icon_size: icon_sizes
@@ -14,8 +10,8 @@ foreach icon_size: icon_sizes
 endforeach
 
 install_data(
-  'scalable/apps/eog-symbolic.svg',
-  install_dir: join_paths(eog_datadir, 'icons', 'hicolor', 'scalable', 'apps')
+  'symbolic/apps/org.gnome.eog-symbolic.svg',
+  install_dir: join_paths(eog_datadir, 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
 icon_sizes = [
