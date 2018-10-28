@@ -36,11 +36,11 @@ sources = [
 ]
 
 media = [
-  'figures/eog-logo.png',
-  'figures/eog-trail.png',
   'figures/image-view-prefs.png',
   'figures/multiple-convert.png',
   'figures/multiple-rename-count.png',
+  'figures/org.gnome.eog.svg',
+  'figures/org.gnome.eog-symbolic.svg',
   'figures/plugins-all.png',
   'figures/plugin-send-by-mail.png',
   'figures/prefs-plugins-date.png',
