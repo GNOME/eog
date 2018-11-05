@@ -985,6 +985,11 @@ eog_image_real_load (EogImage *img,
 			file_path = g_file_get_path (priv->file);
 			rsvg_handle_set_base_uri (priv->svg, file_path);
 			g_free (file_path);
+
+			/* Use 96dpi when rendering SVG documents with units
+			 * different then pixels. This value is specified in
+			 * the CSS standard on which SVG depends. */
+			rsvg_handle_set_dpi_x_y (priv->svg, 96.0, 96.0);
 		}
 #endif
 
