@@ -1,5 +1,5 @@
 # Esperanto translation for eog.
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the eog package.
 # Dani RODRÍGUEZ < >, 2009.
 # Aisano < >, 2010.
@@ -17,54 +17,54 @@
 # Ryan LORTIE < >, 2012.
 # Daniel PUENTES <blatberk@openmailbox.org>, 2015.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2009, 2010, 2011, 2015.
+# Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-11 16:30+0000\n"
-"PO-Revision-Date: 2015-02-11 22:30+0100\n"
-"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
-"Language-Team: Esperanto <gnome-l10n-eo@lists.launchpad.net>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
+"POT-Creation-Date: 2018-10-03 19:21+0000\n"
+"PO-Revision-Date: 2018-11-09 12:22+0100\n"
+"Last-Translator: Carmen Bianca Bakker <carmen@carmenbianca.eu>\n"
+"Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.2\n"
 "X-Project-Style: gnome\n"
 "X-DamnedLies-Scope: partial\n"
 
-#: ../data/eog-app-menu.xml.h:1
-msgid "_Statusbar"
-msgstr "_Statobreto"
-
-#: ../data/eog-app-menu.xml.h:2 ../data/fullscreen-toolbar.ui.h:20
-msgid "_Image Gallery"
-msgstr "B_ildgalerio"
-
-#: ../data/eog-app-menu.xml.h:3
-msgid "Side _Pane"
-msgstr "Flanka _panelo"
-
-#: ../data/eog-app-menu.xml.h:4
+#: data/eog-app-menu.ui:7
 msgid "Prefere_nces"
 msgstr "_Agordoj"
 
-#: ../data/eog-app-menu.xml.h:5 ../data/eog-preferences-dialog.ui.h:2
+#: data/eog-app-menu.ui:13
+msgid "_Keyboard Shortcuts"
+msgstr "_Klavkombinoj"
+
+#: data/eog-app-menu.ui:17 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_Helpo"
 
-#: ../data/eog-app-menu.xml.h:6
+#: data/eog-app-menu.ui:21
 msgid "_About"
 msgstr "_Pri"
 
-#: ../data/eog-app-menu.xml.h:7
+#: data/eog-app-menu.ui:25
 msgid "_Quit"
 msgstr "Ĉ_esi"
 
-#: ../data/eog.appdata.xml.in.h:1
+#: data/eog.appdata.xml.in:6
+msgid "Eye of GNOME"
+msgstr "Okulo de GNOME"
+
+#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+msgid "Browse and rotate images"
+msgstr "Foliumi kaj turni bildojn"
+
+#: data/eog.appdata.xml.in:9
 msgid ""
 "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK+ look and feel of GNOME, and supports many image "
@@ -74,7 +74,7 @@ msgstr ""
 "integriĝas kun la GTK+-a fasado de GNOME, kaj subtenas multajn bildajn "
 "dosierformojn, eblante vidigi bildojn sole aŭ kolektive."
 
-#: ../data/eog.appdata.xml.in.h:2
+#: data/eog.appdata.xml.in:14
 msgid ""
 "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
 "mode or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -85,466 +85,622 @@ msgstr ""
 "agordi bildon kiel labortabla ekranfono. Ĝi legas la markojn de la fotilo "
 "por aŭtomate turni viajn bildojn al vertikala aŭ horizontala orientiĝo."
 
-#: ../data/eog.desktop.in.in.h:1 ../src/eog-application.c:325
-#: ../src/eog-window.c:5482
+#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5564
 msgid "Image Viewer"
 msgstr "Bildomontrilo"
 
-#: ../data/eog.desktop.in.in.h:2
-msgid "Browse and rotate images"
-msgstr "Foliumi kaj turni bildojn"
+#. TRANSLATORS: Do NOT translate or transliterate this text!
+#. This is an icon file name
+#: data/eog.desktop.in.in:9
+msgid "eog"
+msgstr "eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#: ../data/eog.desktop.in.in.h:4
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/eog.desktop.in.in:24
 msgid "Picture;Slideshow;Graphics;"
-msgstr "Bildo;Lumbildprezentado;Grafiko;"
+msgstr "Bildo;Bildoprezento;Bilda prezento;Prezento;Grafiko;"
 
-#: ../data/eog-gear-menu.ui.h:1
+#: data/eog-gear-menu.ui:6
 msgid "_Open…"
 msgstr "_Malfermi…"
 
-#: ../data/eog-gear-menu.ui.h:2
-#| msgid "Open _with"
+#: data/eog-gear-menu.ui:10
 msgid "Open _With"
 msgstr "Malfermi _per"
 
-#: ../data/eog-gear-menu.ui.h:3 ../data/popup-menus.ui.h:2
-#: ../src/eog-close-confirmation-dialog.c:178 ../src/eog-file-chooser.c:465
+#: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
 msgid "_Save"
 msgstr "Kon_servi"
 
-#: ../data/eog-gear-menu.ui.h:4 ../data/popup-menus.ui.h:3
-#: ../src/eog-error-message-area.c:129
+#: data/eog-gear-menu.ui:21 data/popup-menus.ui:17
+#: src/eog-error-message-area.c:133
 msgid "Save _As…"
 msgstr "Konservi _kiel…"
 
-#: ../data/eog-gear-menu.ui.h:5 ../data/popup-menus.ui.h:4
+#: data/eog-gear-menu.ui:27 data/popup-menus.ui:23
 msgid "_Print…"
 msgstr "_Presi…"
 
-#: ../data/eog-gear-menu.ui.h:6 ../data/popup-menus.ui.h:8
+#: data/eog-gear-menu.ui:31 data/popup-menus.ui:45
 msgid "Set as Wa_llpaper"
 msgstr "Fiksi kiel _ekranfono"
 
-#: ../data/eog-gear-menu.ui.h:7
-#| msgid "Slideshow"
+#: data/eog-gear-menu.ui:37
 msgid "Sli_deshow"
 msgstr "Bil_doprezento"
 
-#: ../data/eog-gear-menu.ui.h:8 ../data/popup-menus.ui.h:7
+#: data/eog-gear-menu.ui:41
+msgid "S_ide Pane"
+msgstr "Flanka _panelo"
+
+#: data/eog-gear-menu.ui:45
+msgid "Image _Gallery"
+msgstr "Bild_galerio"
+
+#: data/eog-gear-menu.ui:49
+msgid "S_tatus Bar"
+msgstr "S_tatobreto"
+
+#: data/eog-gear-menu.ui:55 data/popup-menus.ui:41
 msgid "Prope_rties"
 msgstr "At_ributoj"
 
-#: ../data/eog-image-properties-dialog.ui.h:1
+#: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
 msgstr "Atributoj de bildo"
 
-#: ../data/eog-image-properties-dialog.ui.h:2
-msgid "_Previous"
-msgstr "_Antaŭa"
+#: data/eog-image-properties-dialog.ui:31
+msgid "Previous"
+msgstr "Antaŭa"
 
-#: ../data/eog-image-properties-dialog.ui.h:3
-msgid "_Next"
-msgstr "_Sekva"
+#: data/eog-image-properties-dialog.ui:43
+msgid "Next"
+msgstr "Sekva"
 
-#: ../data/eog-image-properties-dialog.ui.h:4
-#: ../data/eog-preferences-dialog.ui.h:3
-msgid "_Close"
-msgstr "_Fermi"
-
-#: ../data/eog-image-properties-dialog.ui.h:5
+#: data/eog-image-properties-dialog.ui:115
 msgid "Name:"
 msgstr "Nomo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:6
+#: data/eog-image-properties-dialog.ui:131
 msgid "Width:"
 msgstr "Larĝo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:7
+#: data/eog-image-properties-dialog.ui:146
 msgid "Height:"
 msgstr "Alto:"
 
-#: ../data/eog-image-properties-dialog.ui.h:8
+#: data/eog-image-properties-dialog.ui:161
 msgid "Type:"
 msgstr "Tipo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:9
+#: data/eog-image-properties-dialog.ui:176
 msgid "Bytes:"
 msgstr "Bajtoj:"
 
-#: ../data/eog-image-properties-dialog.ui.h:10
+#: data/eog-image-properties-dialog.ui:191
 msgid "Folder:"
 msgstr "Dosierujo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:11
+#: data/eog-image-properties-dialog.ui:288
 msgid "General"
 msgstr "Ĝenerale"
 
-#: ../data/eog-image-properties-dialog.ui.h:12
+#: data/eog-image-properties-dialog.ui:321
 msgid "Aperture Value:"
 msgstr "Apertura valoro:"
 
-#: ../data/eog-image-properties-dialog.ui.h:13
+#: data/eog-image-properties-dialog.ui:337
 msgid "Exposure Time:"
 msgstr "Ekspona daŭro:"
 
-#: ../data/eog-image-properties-dialog.ui.h:14
+#: data/eog-image-properties-dialog.ui:353
 msgid "Focal Length:"
 msgstr "Fokusa distanco:"
 
-#: ../data/eog-image-properties-dialog.ui.h:15
+#: data/eog-image-properties-dialog.ui:369
 msgid "Flash:"
 msgstr "Fulmilo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:16
+#: data/eog-image-properties-dialog.ui:385
 msgid "ISO Speed Rating:"
 msgstr "Rapideca pritakso de ISO:"
 
-#: ../data/eog-image-properties-dialog.ui.h:17
+#: data/eog-image-properties-dialog.ui:401
 msgid "Metering Mode:"
 msgstr "Mezur-reĝimo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:18
+#: data/eog-image-properties-dialog.ui:417
 msgid "Camera Model:"
 msgstr "Kameraa modelo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:19
+#: data/eog-image-properties-dialog.ui:434
 msgid "Date/Time:"
 msgstr "Dato/Tempo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:20
+#: data/eog-image-properties-dialog.ui:464
 msgid "Description:"
 msgstr "Priskribo:"
 
-#: ../data/eog-image-properties-dialog.ui.h:21
+#: data/eog-image-properties-dialog.ui:480
 msgid "Location:"
 msgstr "Loko:"
 
-#: ../data/eog-image-properties-dialog.ui.h:22
+#: data/eog-image-properties-dialog.ui:496
 msgid "Keywords:"
 msgstr "Ŝlosilvortoj:"
 
-#: ../data/eog-image-properties-dialog.ui.h:23
+#: data/eog-image-properties-dialog.ui:512
 msgid "Author:"
 msgstr "Aŭtoro:"
 
-#: ../data/eog-image-properties-dialog.ui.h:24
+#: data/eog-image-properties-dialog.ui:528
 msgid "Copyright:"
 msgstr "Kopirajto:"
 
-#: ../data/eog-image-properties-dialog.ui.h:25
+#: data/eog-image-properties-dialog.ui:807
+#: data/eog-image-properties-dialog.ui:856
 msgid "Details"
 msgstr "Detaloj"
 
-#: ../data/eog-image-properties-dialog.ui.h:26
+#: data/eog-image-properties-dialog.ui:832
 msgid "Metadata"
 msgstr "Metadatumoj"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:1
+#: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
 msgstr "Konservi kiel"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:2
-#: ../src/eog-close-confirmation-dialog.c:172
-#: ../src/eog-error-message-area.c:119 ../src/eog-file-chooser.c:456
-#: ../src/eog-file-chooser.c:464 ../src/eog-file-chooser.c:472
-#: ../src/eog-window.c:3170 ../src/eog-window.c:3173 ../src/eog-window.c:3426
+#: data/eog-multiple-save-as-dialog.ui:32
+#: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
+#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
+#: src/eog-file-chooser.c:472 src/eog-window.c:3279 src/eog-window.c:3282
+#: src/eog-window.c:3535
 msgid "_Cancel"
 msgstr "_Nuligi"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:3
-#: ../src/eog-close-confirmation-dialog.c:184
-#| msgid "Save As"
+#: data/eog-multiple-save-as-dialog.ui:46
+#: src/eog-close-confirmation-dialog.c:184
 msgid "Save _As"
 msgstr "Konservi _kiel"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:5
-#, no-c-format
+#: data/eog-multiple-save-as-dialog.ui:102
 msgid "<b>%f:</b> original filename"
 msgstr "<b>%f:</b> originala dosiernomo"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:7
-#, no-c-format
+#: data/eog-multiple-save-as-dialog.ui:120
 msgid "<b>%n:</b> counter"
 msgstr "<b>%n:</b> nombrilo"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:8
-#| msgid "Filename format:"
+#: data/eog-multiple-save-as-dialog.ui:146
 msgid "_Filename format:"
 msgstr "_Dosiernoma formo:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:9
-#| msgid "Destination folder:"
+#: data/eog-multiple-save-as-dialog.ui:162
 msgid "_Destination folder:"
 msgstr "_Celdosierujo:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:10
+#: data/eog-multiple-save-as-dialog.ui:179
 msgid "Choose a folder"
 msgstr "Elektu dosierujon"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:11
+#: data/eog-multiple-save-as-dialog.ui:226
 msgid "File Path Specifications"
 msgstr "Dosiervojaj specifoj"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:12
-#| msgid "Start counter at:"
+#: data/eog-multiple-save-as-dialog.ui:268
 msgid "_Start counter at:"
 msgstr "_Eknombri je:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:13
-#| msgid "Replace spaces with underscores"
+#: data/eog-multiple-save-as-dialog.ui:301
 msgid "_Replace spaces with underscores"
 msgstr "_Anstataŭigi spacojn per substrekoj"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:14
+#: data/eog-multiple-save-as-dialog.ui:324
 msgid "Options"
 msgstr "Opcioj"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:15
+#: data/eog-multiple-save-as-dialog.ui:361
 msgid "Rename from:"
 msgstr "Alinomigi de:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:16
+#: data/eog-multiple-save-as-dialog.ui:375
 msgid "To:"
 msgstr "Al:"
 
-#: ../data/eog-multiple-save-as-dialog.ui.h:17
+#: data/eog-multiple-save-as-dialog.ui:424
 msgid "File Name Preview"
 msgstr "Antaŭmontro de dosiernomo"
 
-#: ../data/eog-preferences-dialog.ui.h:1
+#: data/eog-preferences-dialog.ui:15
 msgid "Preferences"
 msgstr "Agordoj"
 
-#: ../data/eog-preferences-dialog.ui.h:4
+#: data/eog-preferences-dialog.ui:59
 msgid "Image Enhancements"
 msgstr "Plibonigoj de bildo"
 
-#: ../data/eog-preferences-dialog.ui.h:5
+#: data/eog-preferences-dialog.ui:82
 msgid "Smooth images when zoomed _out"
 msgstr "Glatigi bild_ojn kiam malzomita"
 
-#: ../data/eog-preferences-dialog.ui.h:6
+#: data/eog-preferences-dialog.ui:97
 msgid "Smooth images when zoomed _in"
 msgstr "Glatigi b_ildojn kiam zomita"
 
-#: ../data/eog-preferences-dialog.ui.h:7
+#: data/eog-preferences-dialog.ui:112
 msgid "_Automatic orientation"
 msgstr "_Aŭtomata orientiĝo"
 
-#: ../data/eog-preferences-dialog.ui.h:8
+#: data/eog-preferences-dialog.ui:152
 msgid "Background"
 msgstr "Fono"
 
-#: ../data/eog-preferences-dialog.ui.h:9
+#: data/eog-preferences-dialog.ui:175
 msgid "As custom color:"
 msgstr "Kiel propra koloro:"
 
-#: ../data/eog-preferences-dialog.ui.h:10
-#: ../data/org.gnome.eog.gschema.xml.in.h:3
+#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "Fonkoloro"
 
-#: ../data/eog-preferences-dialog.ui.h:11
+#: data/eog-preferences-dialog.ui:228
 msgid "Transparent Parts"
 msgstr "Travideblaj partoj"
 
-#: ../data/eog-preferences-dialog.ui.h:12
+#: data/eog-preferences-dialog.ui:252
 msgid "As check _pattern"
 msgstr "Kiel kvadrata _desegno"
 
-#: ../data/eog-preferences-dialog.ui.h:13
+#: data/eog-preferences-dialog.ui:273
 msgid "As custom c_olor:"
 msgstr "Kiel propra k_oloro:"
 
-#: ../data/eog-preferences-dialog.ui.h:14
+#: data/eog-preferences-dialog.ui:293
 msgid "Color for Transparent Areas"
 msgstr "Koloro por travideblaj zonoj"
 
-#: ../data/eog-preferences-dialog.ui.h:15
+#: data/eog-preferences-dialog.ui:311
 msgid "As _background"
 msgstr "Kiel _fono"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: data/eog-preferences-dialog.ui:347
 msgid "Image View"
 msgstr "Vido de bildo"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: data/eog-preferences-dialog.ui:371
 msgid "Image Zoom"
 msgstr "Pligrandigo de bildo"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: data/eog-preferences-dialog.ui:389
 msgid "E_xpand images to fit screen"
 msgstr "E_tendi bildojn plenekrane"
 
-#: ../data/eog-preferences-dialog.ui.h:19
+#: data/eog-preferences-dialog.ui:409
 msgid "Sequence"
 msgstr "Sekvenco"
 
 #. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
-#: ../data/eog-preferences-dialog.ui.h:21
+#: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Tempo inter bildoj:"
 
-#: ../data/eog-preferences-dialog.ui.h:22
+#: data/eog-preferences-dialog.ui:482
 msgid "_Loop sequence"
 msgstr "_Iteracia sinsekvo"
 
-#: ../data/eog-preferences-dialog.ui.h:23
+#: data/eog-preferences-dialog.ui:520
 msgid "Slideshow"
 msgstr "Bildoprezento"
 
-#: ../data/eog-preferences-dialog.ui.h:24
+#: data/eog-preferences-dialog.ui:554
 msgid "Plugins"
 msgstr "Kromprogramoj"
 
-#: ../data/fullscreen-toolbar.ui.h:1
-msgid "Go to the first image of the gallery"
-msgstr "Iri al unua bildo de la galerio"
-
-#: ../data/fullscreen-toolbar.ui.h:2
-msgid "_First Image"
-msgstr "_Unua bildo"
-
-#: ../data/fullscreen-toolbar.ui.h:3 ../src/eog-scroll-view.c:2960
-msgid "Go to the previous image of the gallery"
-msgstr "Iri al antaŭa bildo de la galerio"
-
-#: ../data/fullscreen-toolbar.ui.h:4
-msgid "_Previous Image"
-msgstr "_Antaŭa bildo"
-
-#: ../data/fullscreen-toolbar.ui.h:5 ../src/eog-scroll-view.c:2948
-msgid "Go to the next image of the gallery"
-msgstr "Iri al sekva bildo de la galerio"
-
-#: ../data/fullscreen-toolbar.ui.h:6
-msgid "_Next Image"
-msgstr "_Sekva bildo"
-
-#: ../data/fullscreen-toolbar.ui.h:7
-msgid "Go to the last image of the gallery"
-msgstr "Iri al lasta bildo de la galerio"
-
-#: ../data/fullscreen-toolbar.ui.h:8
-msgid "_Last Image"
-msgstr "_Lasta bildo"
-
-#: ../data/fullscreen-toolbar.ui.h:9
-msgid "Enlarge the image"
-msgstr "Pligrandigas la bildon"
-
-#: ../data/fullscreen-toolbar.ui.h:10
-msgid "_Zoom In"
-msgstr "E_nzomi"
-
-#: ../data/fullscreen-toolbar.ui.h:11
+#: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
+#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Ŝrumpi la bildon"
 
-#: ../data/fullscreen-toolbar.ui.h:12
-msgid "Zoom _Out"
-msgstr "E_lzomi"
+#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+msgid "Enlarge the image"
+msgstr "Pligrandigas la bildon"
 
-#: ../data/fullscreen-toolbar.ui.h:13
+#: data/fullscreen-toolbar.ui:13
+msgid "Go to the first image of the gallery"
+msgstr "Iri al unua bildo de la galerio"
+
+#: data/fullscreen-toolbar.ui:15
+msgid "_First Image"
+msgstr "_Unua bildo"
+
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+msgid "Go to the previous image of the gallery"
+msgstr "Iri al antaŭa bildo de la galerio"
+
+#: data/fullscreen-toolbar.ui:30
+msgid "_Previous Image"
+msgstr "_Antaŭa bildo"
+
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+msgid "Go to the next image of the gallery"
+msgstr "Iri al sekva bildo de la galerio"
+
+#: data/fullscreen-toolbar.ui:45
+msgid "_Next Image"
+msgstr "_Sekva bildo"
+
+#: data/fullscreen-toolbar.ui:58
+msgid "Go to the last image of the gallery"
+msgstr "Iri al lasta bildo de la galerio"
+
+#: data/fullscreen-toolbar.ui:60
+msgid "_Last Image"
+msgstr "_Lasta bildo"
+
+#: data/fullscreen-toolbar.ui:85
+msgid "_Zoom In"
+msgstr "_Zomi"
+
+#: data/fullscreen-toolbar.ui:100
+msgid "Zoom _Out"
+msgstr "Z_omi"
+
+#: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Normala grando"
 
-#: ../data/fullscreen-toolbar.ui.h:14
+#: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "_Plej bona adekvateco"
 
-#: ../data/fullscreen-toolbar.ui.h:15 ../src/eog-scroll-view.c:2975
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Turni la bildon 90 gradoj maldekstrume"
 
-#: ../data/fullscreen-toolbar.ui.h:16
-#| msgid "Rotate Counterc_lockwise"
+#: data/fullscreen-toolbar.ui:155
 msgid "Rotate Counter_clockwise"
 msgstr "Turni _maldekstrumen"
 
-#: ../data/fullscreen-toolbar.ui.h:17 ../src/eog-scroll-view.c:2986
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Turni la bildon laŭ 90 gradoj dekstrume"
 
-#: ../data/fullscreen-toolbar.ui.h:18
+#: data/fullscreen-toolbar.ui:170
 msgid "_Rotate Clockwise"
 msgstr "Tu_rni dekstrume"
 
-#: ../data/fullscreen-toolbar.ui.h:19
+#: data/fullscreen-toolbar.ui:193
 msgid "Changes the visibility of the image gallery pane in the current window"
 msgstr "Ŝanĝi la videblecon de la bildgaleripanelo en nuna fenestro"
 
-#: ../data/fullscreen-toolbar.ui.h:21
-msgid "Pause or resume the slideshow"
-msgstr "Pauẑigi aŭ daŭrigi la bildserion"
+#: data/fullscreen-toolbar.ui:195
+msgid "_Image Gallery"
+msgstr "B_ildgalerio"
 
-#: ../data/metadata-sidebar.ui.h:1 ../src/eog-print-image-setup.c:969
+#: data/fullscreen-toolbar.ui:218
+msgid "Pause or resume the slideshow"
+msgstr "Pauẑigi aŭ daŭrigi la bildoprezenton"
+
+#: data/fullscreen-toolbar.ui:233
+msgid "_Leave Fullscreen"
+msgstr "_Forlasi tutekranan reĝimon"
+
+#: data/fullscreen-toolbar.ui:235
+msgid "Leave fullscreen mode"
+msgstr "Forlasi plenekranan reĝimon"
+
+#: data/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Ĝenerala"
+
+#: data/help-overlay.ui:19
+msgctxt "shortcut window"
+msgid "Open an image file"
+msgstr "Malfermi bilddosieron"
+
+#: data/help-overlay.ui:26
+msgctxt "shortcut window"
+msgid "Save the image"
+msgstr "Konservi la bildon"
+
+#: data/help-overlay.ui:33
+msgctxt "shortcut window"
+msgid "Save the image with a new file name"
+msgstr "Konservi la bildon kun nova dosiernomo"
+
+#: data/help-overlay.ui:40
+msgctxt "shortcut window"
+msgid "Print the current image"
+msgstr "Presi la aktualan bildon"
+
+#: data/help-overlay.ui:47
+msgctxt "shortcut window"
+msgid "Close the current window"
+msgstr "Fermi la aktualan fenestron"
+
+#: data/help-overlay.ui:54
+msgctxt "shortcut window"
+msgid "Close all windows"
+msgstr "Fermi ĉiujn fenestrojn"
+
+#: data/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Set the image as desktop background"
+msgstr "Agordi la bildon kiel ekranfono"
+
+#: data/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Show image properties dialog"
+msgstr "Montri bildan ecan dialogon"
+
+#: data/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Show/Hide the sidebar"
+msgstr "Montri/kaŝi la flankpanelon"
+
+#: data/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Open the application manual"
+msgstr "Malfermi la manlibron de la aplikaĵo"
+
+#: data/help-overlay.ui:90
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Zomi"
+
+#: data/help-overlay.ui:94 data/help-overlay.ui:109
+msgctxt "shortcut window"
+msgid "Zoom in"
+msgstr "Zomi"
+
+#: data/help-overlay.ui:101 data/help-overlay.ui:116
+msgctxt "shortcut window"
+msgid "Zoom out"
+msgstr "Malzomi"
+
+#: data/help-overlay.ui:123
+msgctxt "shortcut window"
+msgid "Actual size"
+msgstr "Aktuala grando"
+
+#: data/help-overlay.ui:130
+msgctxt "shortcut window"
+msgid "Best fit"
+msgstr "Optimuma adapto"
+
+#: data/help-overlay.ui:138
+msgctxt "shortcut window"
+msgid "Browsing Images"
+msgstr "Foliumi bildojn"
+
+#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Iri al antaŭa bildo en la dosierujo"
+
+#: data/help-overlay.ui:164
+msgctxt "shortcut window"
+msgid "Go to the next image in the folder"
+msgstr "Iri al sekva bildo en la dosierujo"
+
+#: data/help-overlay.ui:171
+msgctxt "shortcut window"
+msgid "Go to the first image in the folder"
+msgstr "Iri al la unua bildo en la dosierujo"
+
+#: data/help-overlay.ui:178
+msgctxt "shortcut window"
+msgid "Go to the last image in the folder"
+msgstr "Iri al la lasta bildo en la dosierujo"
+
+#: data/help-overlay.ui:185
+msgctxt "shortcut window"
+msgid "Go to a random image in the folder"
+msgstr "Iri al hazarda bildo en la dosierujo"
+
+#: data/help-overlay.ui:192
+msgctxt "shortcut window"
+msgid "Show/Hide the image gallery"
+msgstr "Montri/kaŝi la bildgalerion"
+
+#: data/help-overlay.ui:200
+msgctxt "shortcut window"
+msgid "Rotation"
+msgstr "Rotacio"
+
+#: data/help-overlay.ui:204 data/help-overlay.ui:219
+msgctxt "shortcut window"
+msgid "Rotate clockwise"
+msgstr "Turni dekstrume"
+
+#: data/help-overlay.ui:211 data/help-overlay.ui:226
+msgctxt "shortcut window"
+msgid "Rotate counterclockwise"
+msgstr "Turni maldekstrumen"
+
+#: data/help-overlay.ui:234
+msgctxt "shortcut window"
+msgid "Fullscreen"
+msgstr "Tutekrana reĝimo"
+
+#: data/help-overlay.ui:239
+msgctxt "shortcut window"
+msgid "Enter/Leave fullscreen"
+msgstr "Baskuligi tutekranan reĝimon"
+
+#: data/help-overlay.ui:246
+msgctxt "shortcut window"
+msgid "Start/Stop slideshow"
+msgstr "Komenci/haltigi bildoprezenton"
+
+#: data/help-overlay.ui:253
+msgctxt "shortcut window"
+msgid "Pause slideshow"
+msgstr "Paŭzigi bildoprezenton"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
 msgid "Size"
 msgstr "Grando"
 
-#: ../data/metadata-sidebar.ui.h:2
-#| msgid "Type:"
+#: data/metadata-sidebar.ui:46
 msgid "Type"
 msgstr "Tipo"
 
-#: ../data/metadata-sidebar.ui.h:3
-#| msgid "File size:"
+#: data/metadata-sidebar.ui:63
 msgid "File Size"
 msgstr "Dosiergrando"
 
-#: ../data/metadata-sidebar.ui.h:4
-#| msgid "Folder:"
+#: data/metadata-sidebar.ui:82
 msgid "Folder"
 msgstr "Dosierujo"
 
-#: ../data/metadata-sidebar.ui.h:5
-#| msgid "Aperture Value:"
+#: data/metadata-sidebar.ui:99
 msgid "Aperture"
 msgstr "Aperturo"
 
-#: ../data/metadata-sidebar.ui.h:6
-#, fuzzy
-#| msgid "Exposure Time:"
+#: data/metadata-sidebar.ui:116
 msgid "Exposure"
-msgstr "Impreso"
+msgstr "Ekspono"
 
-#: ../data/metadata-sidebar.ui.h:7
+#: data/metadata-sidebar.ui:133
 msgid "ISO"
 msgstr "ISO"
 
-#: ../data/metadata-sidebar.ui.h:8
-#| msgid "Metering Mode:"
+#: data/metadata-sidebar.ui:151
 msgid "Metering"
 msgstr "Mezurado"
 
-#: ../data/metadata-sidebar.ui.h:9 ../src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Kamerao"
 
-#: ../data/metadata-sidebar.ui.h:10
+#: data/metadata-sidebar.ui:187
 msgid "Date"
 msgstr "Dato"
 
-#: ../data/metadata-sidebar.ui.h:11
+#: data/metadata-sidebar.ui:204
 msgid "Time"
 msgstr "Tempo"
 
-#: ../data/metadata-sidebar.ui.h:12
-#| msgid "Focal Length:"
+#: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "Fokusa distanco"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:1
+#: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
 msgstr "Aŭtomata orientiĝo"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:2
+#: data/org.gnome.eog.gschema.xml.in:12
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
-msgstr "Ĉu la bildo devus rotaci aŭtomate baziĝante sur EXIF-orientiĝo?"
+msgstr "Ĉu la bildo devus turni aŭtomate baziĝante sur EXIF-orientiĝo."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:4
+#: data/org.gnome.eog.gschema.xml.in:17
 msgid ""
 "The color that is used to fill the area behind the image. If the use-"
 "background-color key is not set, the color is determined by the active GTK+ "
@@ -554,11 +710,11 @@ msgstr ""
 "background-color ne estas agordita, la koloro estas do difinita de la aktiva "
 "GTK+-etoso."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:5
+#: data/org.gnome.eog.gschema.xml.in:21
 msgid "Interpolate Image"
 msgstr "Interpoli bildon"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:6
+#: data/org.gnome.eog.gschema.xml.in:22
 msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
 "quality but is somewhat slower than non-interpolated images."
@@ -566,11 +722,11 @@ msgstr ""
 "Ĉu la bildo estus interpolita aŭ malpligrandigita. Tio kondukas al plibona "
 "kvalito sed ĝi estas iom malplirapida ol neinterpolataj bildoj."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:7
+#: data/org.gnome.eog.gschema.xml.in:26
 msgid "Extrapolate Image"
 msgstr "Ekstrapoli bildon"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:8
+#: data/org.gnome.eog.gschema.xml.in:27
 msgid ""
 "Whether the image should be extrapolated on zoom-in. This leads to blurry "
 "quality and is somewhat slower than non-extrapolated images."
@@ -578,11 +734,11 @@ msgstr ""
 "Ĉu la bildo estus ekstrapolita aŭ pligrandigita. Tio kondukas al konfuza "
 "kvalito sed ĝi estas iom malplirapida ol neekstrapolataj bildoj."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:9
+#: data/org.gnome.eog.gschema.xml.in:31
 msgid "Transparency indicator"
 msgstr "Travidebleca indikilo"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:10
+#: data/org.gnome.eog.gschema.xml.in:32
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
@@ -592,20 +748,19 @@ msgstr ""
 "CHECK_PATTERN, COLOR kaj NONE. Se COLOR estas elektita, do la ŝlosilo trans-"
 "color difinas la valoron de la uzata koloro."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:11
+#: data/org.gnome.eog.gschema.xml.in:36
 msgid "Scroll wheel zoom"
 msgstr "Rulumi por pligrandigi"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:12
+#: data/org.gnome.eog.gschema.xml.in:37
 msgid "Whether the scroll wheel should be used for zooming."
-msgstr "Ĉu la rulumilo estus uzata por pligrandigo?"
+msgstr "Ĉu la rulumilo estu uzata por pligrandigo."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:13
+#: data/org.gnome.eog.gschema.xml.in:41
 msgid "Zoom multiplier"
 msgstr "Pligrandig-obligilo"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:15
-#, no-c-format
+#: data/org.gnome.eog.gschema.xml.in:42
 msgid ""
 "The multiplier to be applied when using the mouse scroll wheel for zooming. "
 "This value defines the zooming step used for each scroll event. For example, "
@@ -617,11 +772,11 @@ msgstr ""
 "egalas al 5% de pligrandigo po unuopa rulumo kaj 1.00 egalas al 100% de "
 "pligrandigo."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:16
+#: data/org.gnome.eog.gschema.xml.in:46
 msgid "Transparency color"
 msgstr "Travidebleca koloro"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:17
+#: data/org.gnome.eog.gschema.xml.in:47
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -629,34 +784,33 @@ msgstr ""
 "Se la ŝlosilo pri travidebleco estas agordita per COLOR, do ĉi tiu ŝlosilo "
 "difinas la koloron, kiu estas uzata por indiki travideblecon."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:18
+#: data/org.gnome.eog.gschema.xml.in:51
 msgid "Use a custom background color"
 msgstr "Uzi propran fonkoloron"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:19
+#: data/org.gnome.eog.gschema.xml.in:52
 msgid ""
 "If this is active, the color set by the background-color key will be used to "
 "fill the area behind the image. If it is not set, the current GTK+ theme "
 "will determine the fill color."
 msgstr ""
-"Se ĉi tiu estas enŝaltita, la koloro agordita per la ŝlosilo background-"
-"color estos uzata por plenigi la areon malantaŭ la bildo. Se ĝi ne estas "
-"agordita, la aktuala GTK+-etoso difinos la plenumkoloron."
+"Se ĉi tiu estas ŝaltita, la koloro agordita per la ŝlosilo background-color "
+"estos uzata por plenigi la areon malantaŭ la bildo. Se ĝi ne estas agordita, "
+"la aktuala GTK+-etoso difinos la plenumkoloron."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:20
+#: data/org.gnome.eog.gschema.xml.in:58
 msgid "Loop through the image sequence"
 msgstr "Iteracii per la bildosinsekvo"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:21
+#: data/org.gnome.eog.gschema.xml.in:59
 msgid "Whether the sequence of images should be shown in an endless loop."
 msgstr "Ĉu la sinsekvo de bildoj devus montri en senfina iteracio."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:23
-#, no-c-format
+#: data/org.gnome.eog.gschema.xml.in:63
 msgid "Allow zoom greater than 100% initially"
 msgstr "Permesi pligrandigi pli ol 100% komence"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:24
+#: data/org.gnome.eog.gschema.xml.in:64
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -664,27 +818,27 @@ msgstr ""
 "Se ĉi tiu estas agordita kiel FALSE etaj bildoj ne estos streĉita por adapti "
 "al ekrano komence."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:25
+#: data/org.gnome.eog.gschema.xml.in:68
 msgid "Delay in seconds until showing the next image"
 msgstr "Malfruo je sekundoj ĝis la montro de la sekva bildo"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:26
+#: data/org.gnome.eog.gschema.xml.in:69
 msgid ""
 "A value greater than 0 determines the seconds an image stays on screen until "
 "the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 "Valoro pli granda ol 0 fiksas la sekundojn, kiuj pasas inter du sekvaj "
-"aŭtomate ŝanĝitaj bildoj. Nulo elŝaltas la aŭtomatan ciklon."
+"aŭtomate ŝanĝitaj bildoj. Nulo malŝaltas la aŭtomatan ciklon."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:27
+#: data/org.gnome.eog.gschema.xml.in:75
 msgid "Show/Hide the window statusbar."
 msgstr "Montri/kaŝi la fenestran statusobreton."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:28
+#: data/org.gnome.eog.gschema.xml.in:79
 msgid "Show/Hide the image gallery pane."
 msgstr "Montri/kaŝi la bildgalerian fenestron."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:29
+#: data/org.gnome.eog.gschema.xml.in:83
 msgid ""
 "Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
 "for right."
@@ -692,147 +846,165 @@ msgstr ""
 "La pozicio de la bildgaleria fenestro. Agordu al 0 por malsupre, 1 por "
 "maldekstre, 2 por supre kaj 3 por dekstre."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:30
+#: data/org.gnome.eog.gschema.xml.in:87
 msgid "Whether the image gallery pane should be resizable."
-msgstr "Ĉu la bildgaleripanelo estus aligrandigebla?"
+msgstr "Ĉu la bildgaleripanelo estu aligrandigebla."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:31
+#: data/org.gnome.eog.gschema.xml.in:91
 msgid "Show/Hide the window side pane."
 msgstr "Montri/kaŝi la fenestran flankopanelon."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:32
+#: data/org.gnome.eog.gschema.xml.in:95
 msgid "Show/Hide the image gallery pane scroll buttons."
 msgstr "Montri/kaŝi la bildgaleripanelajn rulumilojn."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:33
+#: data/org.gnome.eog.gschema.xml.in:99
 msgid "Close main window without asking to save changes."
 msgstr "Malfermi ĉefan fenestron sen demandi pri konservi ŝanĝojn."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:34
+#: data/org.gnome.eog.gschema.xml.in:103
 msgid "Trash images without asking"
 msgstr "Rubigi bildojn sen demandi"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:35
+#: data/org.gnome.eog.gschema.xml.in:104
 msgid ""
-"If activated, Eye of GNOME won't ask for confirmation when moving images to "
+"If activated, Eye of GNOME won’t ask for confirmation when moving images to "
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
-"Se enŝaltite, Okulo de GNOME ne demandos konfirmon kiam vi movas bildojn en "
-"la rubujon. Ĝi ankoraŭ demandos se iu ajn el la dosieroj ne moveblas en la "
+"Se ŝaltita, Okulo de GNOME ne demandos konfirmon kiam vi movas bildojn en la "
+"rubujon. Ĝi ankoraŭ demandos se iu ajn el la dosieroj ne moveblas en la "
 "rubujon kaj do anstataŭe estos viŝata."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:36
+#: data/org.gnome.eog.gschema.xml.in:108
 msgid ""
-"Whether the file chooser should show the user's pictures folder if no images "
+"Whether the file chooser should show the user’s pictures folder if no images "
 "are loaded."
 msgstr ""
 "Ĉu la dosierelektilo montru la bildodosierujon de la uzanto se neniu bildo "
-"estas ŝargita?"
+"estas ŝargita."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:37
+#: data/org.gnome.eog.gschema.xml.in:109
 msgid ""
 "If activated and no image is loaded in the active window, the file chooser "
-"will display the user's pictures folder using the XDG special user "
+"will display the user’s pictures folder using the XDG special user "
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 msgstr ""
-"Se enŝaltite, kaj neniu bildo estas ŝargita en la aktiva fenestro, la "
+"Se ŝaltita, kaj neniu bildo estas ŝargita en la aktiva fenestro, la "
 "dosierelektilo montros la bildodosierujon de la uzanto uzante la specialajn "
-"XDG-dosierujojn. Se elŝaltita, aŭ se neniu bildodosierujo estas agordita, la "
-"nuna dosierujo estas montrata."
+"XDG-dosierujojn. Se malŝaltita, aŭ se neniu bildodosierujo estas agordita, "
+"la nuna dosierujo estas montrata."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:38
+#: data/org.gnome.eog.gschema.xml.in:113
 msgid ""
 "Whether the metadata list in the properties dialog should have its own page."
 msgstr ""
-"Ĉu la listo kun metadatumoj en la atributo-dialogujo havu sian propran paĝon?"
+"Ĉu la listo kun metadatumoj en la atributo-dialogujo havu sian propran paĝon."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:39
+#: data/org.gnome.eog.gschema.xml.in:114
 msgid ""
 "If activated, the detailed metadata list in the properties dialog will be "
 "moved to its own page in the dialog. This should make the dialog more usable "
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the \"Metadata\" page."
+"be embedded on the “Metadata” page."
 msgstr ""
-"Se enŝaltite, la detala listo kun metadatumoj en la atributo-dialogujo estos "
+"Se ŝaltita, la detala listo kun metadatumoj en la atributo-dialogujo estos "
 "movata al propra paĝo en la dialogujo. Tio igu la dialogujon pli uzebla sur "
-"malgrandaj ekranoj, ekzemple retlibroj. Se elŝaltita, la listo estas "
+"malgrandaj ekranoj, ekzemple retlibroj. Se malŝaltita, la listo estas "
 "montrata sur la paĝo kun metadatumoj."
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:40
+#: data/org.gnome.eog.gschema.xml.in:120
 msgid "Active plugins"
 msgstr "Aktivaj kromprogramoj"
 
-#: ../data/org.gnome.eog.gschema.xml.in.h:41
+#: data/org.gnome.eog.gschema.xml.in:121
 msgid ""
-"List of active plugins. It doesn't contain the \"Location\" of the active "
-"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"List of active plugins. It doesn’t contain the “Location” of the active "
+"plugins. See the .eog-plugin file for obtaining the “Location” of a given "
 "plugin."
 msgstr ""
-"Listo de aktivaj kromprogramoj. Ĝi ne enhavas la \"Lokon\" de aktivaj "
-"kromprogramoj. Vidu la dosieron .eog-plugin por trovi la \"Lokon\" de "
-"specifa kromprogramo."
+"Listo de aktivaj kromprogramoj. Ĝi ne enhavas la “Lokon” de aktivaj "
+"kromprogramoj. Vidu la dosieron .eog-plugin por trovi la “Lokon” de specifa "
+"kromprogramo."
 
-#: ../data/popup-menus.ui.h:1
+#: data/popup-menus.ui:6
 msgid "Open _with"
 msgstr "Malfermi _per"
 
-#: ../data/popup-menus.ui.h:5
+#: data/popup-menus.ui:29
 msgid "_Copy"
 msgstr "_Kopii"
 
-#: ../data/popup-menus.ui.h:6 ../src/eog-window.c:3429
+#: data/popup-menus.ui:35 src/eog-window.c:3538
 msgid "Move to _Trash"
 msgstr "Movi _rubujen"
 
-#: ../data/popup-menus.ui.h:9
+#: data/popup-menus.ui:49
 msgid "Show Containing _Folder"
 msgstr "Malfermi enhavan _dosierujon"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:1
+#: data/popup-menus.ui:57
+msgid "_Best fit"
+msgstr "_Optimuma adapto"
+
+#: plugins/fullscreen/fullscreen.plugin.desktop.in:5
 msgid "Fullscreen with double-click"
 msgstr "Plenekrane per duklako"
 
-#: ../plugins/fullscreen/fullscreen.plugin.desktop.in.h:2
+#. TRANSLATORS: Do NOT translate or transliterate this text!
+#. This is an icon file name
+#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
+msgid "view-fullscreen"
+msgstr "view-fullscreen"
+
+#: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Aktivigi plenekranan reĝimon per duobla klako"
 
-#: ../plugins/reload/eog-reload-plugin.c:150
-#: ../plugins/reload/reload.plugin.desktop.in.h:1
+#: plugins/reload/eog-reload-plugin.c:185
+#: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Reŝargi la bildon"
 
-#: ../plugins/reload/reload.plugin.desktop.in.h:2
+#. TRANSLATORS: Do NOT translate or transliterate this text!
+#. This is an icon file name
+#: plugins/reload/reload.plugin.desktop.in:8
+msgid "view-refresh"
+msgstr "view-refresh"
+
+#: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
 msgstr "Reŝargi la nunan bildon"
 
-#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:1
+#. A strftime-formatted string, to display the date the image was taken.
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
+#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %d %B %Y  %X"
+
+#: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
 msgstr "Dato en statobreto"
 
-#: ../plugins/statusbar-date/statusbar-date.plugin.desktop.in.h:2
+#: plugins/statusbar-date/statusbar-date.plugin.desktop.in:6
 msgid "Shows the image date in the window statusbar"
 msgstr "Montri la daton de la bildo en la fenestra statobreto"
 
-#: ../src/eog-close-confirmation-dialog.c:166
+#: src/eog-close-confirmation-dialog.c:166
 msgid "Close _without Saving"
 msgstr "Fermi _sen konseri"
 
-#: ../src/eog-close-confirmation-dialog.c:212
-msgid "Question"
-msgstr "Demando"
-
-#: ../src/eog-close-confirmation-dialog.c:391
-msgid "If you don't save, your changes will be lost."
+#: src/eog-close-confirmation-dialog.c:383
+msgid "If you don’t save, your changes will be lost."
 msgstr "Se vi ne konservas, viaj ŝanĝoj perdiĝos."
 
-#: ../src/eog-close-confirmation-dialog.c:437
+#: src/eog-close-confirmation-dialog.c:404
 #, c-format
-msgid "Save changes to image \"%s\" before closing?"
-msgstr "Ĉu konservi ŝanĝojn de la bildo \"%s\" antaŭ eliro?"
+msgid "Save changes to image “%s” before closing?"
+msgstr "Ĉu konservi ŝanĝojn de la bildo “%s” antaŭ ol fermi?"
 
-#: ../src/eog-close-confirmation-dialog.c:652
+#: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -842,46 +1014,65 @@ msgstr[0] ""
 msgstr[1] ""
 "Estas %d bildoj kun nekonservitaj ŝanĝoj. Ĉu konservi ŝanĝojn antaŭ fermi?"
 
-#: ../src/eog-close-confirmation-dialog.c:669
+#: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
 msgstr "_Elektu la bildojn kiujn vi volas konservi:"
 
 #. Secondary label
-#: ../src/eog-close-confirmation-dialog.c:688
-msgid "If you don't save, all your changes will be lost."
+#: src/eog-close-confirmation-dialog.c:603
+msgid "If you don’t save, all your changes will be lost."
 msgstr "Se vi ne konservas, ĉiuj viaj ŝanĝoj perdiĝos."
 
-#: ../src/eog-error-message-area.c:124 ../src/eog-window.c:885
+#: src/eog-error-message-area.c:128 src/eog-window.c:931
 msgid "_Reload"
 msgstr "_Reŝargi"
 
-#: ../src/eog-error-message-area.c:171
-#, c-format
-msgid "Could not load image '%s'."
-msgstr "Ne eblis ŝargi bildon '%s'."
+#: src/eog-error-message-area.c:137
+msgid "Open with _Document Viewer"
+msgstr "Malferi per _Dokumentmontrilo"
 
-#: ../src/eog-error-message-area.c:213
+#: src/eog-error-message-area.c:219
 #, c-format
-msgid "Could not save image '%s'."
-msgstr "Ne eblis konservi bildon '%s'."
+msgid "Could not load image “%s”."
+msgstr "Ne eblis ŝargi bildon “%s”."
 
-#: ../src/eog-error-message-area.c:256
+#: src/eog-error-message-area.c:261
 #, c-format
-msgid "No images found in '%s'."
-msgstr "Neniu bildoj trovis en '%s'."
+msgid "Could not save image “%s”."
+msgstr "Ne eblis konservi bildon “%s”."
 
-#: ../src/eog-error-message-area.c:263
+#: src/eog-error-message-area.c:304
+#, c-format
+msgid "No images found in “%s”."
+msgstr "Neniu bildoj trovis en “%s”."
+
+#: src/eog-error-message-area.c:311
 msgid "The given locations contain no images."
 msgstr "La difinita lokoj ne enhavas bildojn."
 
-#. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:183 ../src/eog-exif-util.c:185
-msgid "%a, %d %B %Y  %X"
-msgstr "%a, %d %B %Y  %X"
+#: src/eog-error-message-area.c:350
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"Do you want to open the image with the Document Viewer to see all pages?"
+msgstr ""
+"Ĉi tiu bildo enhavas plurajn paĝojn. Bildomontrilo montras nur la unuan "
+"paĝon.\n"
+"Ĉu vi volas malfermi la bildon per la Dokumentmontrilo por vidi ĉiujn paĝojn?"
+
+#: src/eog-error-message-area.c:355
+msgid ""
+"This image contains multiple pages. Image Viewer displays only the first "
+"page.\n"
+"You may want to install the Document Viewer to see all pages."
+msgstr ""
+"Ĉi tiu bildo enhavas plurajn paĝojn. Bildomontrilo montras nur la unuan "
+"paĝon.\n"
+"Vi povus instali la Dokumentmontrilon por vidi ĉiujn paĝojn."
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-exif-util.c:274
+#: src/eog-exif-util.c:284
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (lenso)"
@@ -889,16 +1080,16 @@ msgstr "%.1f (lenso)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-exif-util.c:285
+#: src/eog-exif-util.c:295
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm filmo)"
 
-#: ../src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:119
 msgid "File format is unknown or unsupported"
 msgstr "Mistero aŭ malsubton dosieroformato"
 
-#: ../src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:124
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
@@ -906,277 +1097,274 @@ msgstr ""
 "Bildomontrilo ne povas determini subtenata skribebla dosierformo bazita sur "
 "la dosiernomo."
 
-#: ../src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:125
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Bonvolu provi malsaman dosiersufikson kiel .png aŭ .jpg."
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:160
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: ../src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:212
 msgid "All files"
 msgstr "Ĉiuj dosieroj"
 
-#: ../src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:217
 msgid "Supported image files"
 msgstr "Subtenataj bildodosieroj"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:289 ../src/eog-properties-dialog.c:139
-#: ../src/eog-properties-dialog.c:141 ../src/eog-thumb-view.c:516
+#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
+#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:515
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "bildero"
 msgstr[1] "bilderoj"
 
-#: ../src/eog-file-chooser.c:457 ../src/eog-file-chooser.c:473
-#| msgid "_Open…"
+#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
 msgid "_Open"
 msgstr "_Malfermi"
 
-#: ../src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:459
 msgid "Open Image"
 msgstr "Malfermi bildon"
 
-#: ../src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:467
 msgid "Save Image"
 msgstr "Konservi bildon"
 
-#: ../src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:475
 msgid "Open Folder"
 msgstr "Malfermi dosierujon"
 
-#: ../src/eog-image.c:613
+#: src/eog-image.c:566
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformo sur malsarĝis bildon."
 
-#: ../src/eog-image.c:641
+#: src/eog-image.c:594
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformo malsukcesis."
 
-#: ../src/eog-image.c:1138
+#: src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF ne estas subtenata por ĉi tiu dosierformo."
 
-#: ../src/eog-image.c:1287
+#: src/eog-image.c:1221
 #, c-format
 msgid "Image loading failed."
-msgstr "Malsukcesis ŝarĝi bildon."
+msgstr "Malsukcesis ŝargi bildon."
 
-#: ../src/eog-image.c:1868 ../src/eog-image.c:1988
+#: src/eog-image.c:1802 src/eog-image.c:1922
 #, c-format
 msgid "No image loaded."
 msgstr "Neniu bildo sarĝis."
 
-#: ../src/eog-image.c:1876 ../src/eog-image.c:1997
+#: src/eog-image.c:1810 src/eog-image.c:1931
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Vi ne havi la necesajn permesojn por savi la dosieron."
 
-#: ../src/eog-image.c:1886 ../src/eog-image.c:2008
+#: src/eog-image.c:1820 src/eog-image.c:1942
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Malsukcesis krei provizoran dosieron."
 
-#: ../src/eog-image-jpeg.c:374
+#: src/eog-image-jpeg.c:374
 #, c-format
-msgid "Couldn't create temporary file for saving: %s"
+msgid "Couldn’t create temporary file for saving: %s"
 msgstr "Ne eblis krei provizoran dosieron por konservi: %s"
 
-#: ../src/eog-image-jpeg.c:393
+#: src/eog-image-jpeg.c:393
 #, c-format
-msgid "Couldn't allocate memory for loading JPEG file"
+msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "Ne eblis krei memoron por ŝargi JPEG-dosieron"
 
-#: ../src/eog-metadata-details.c:66
+#: src/eog-metadata-details.c:66
 msgid "Image Data"
 msgstr "Bilda dateno"
 
-#: ../src/eog-metadata-details.c:67
+#: src/eog-metadata-details.c:67
 msgid "Image Taking Conditions"
 msgstr "Statoj kiam bildo faris"
 
-#: ../src/eog-metadata-details.c:68
+#: src/eog-metadata-details.c:68
 msgid "GPS Data"
 msgstr "GPS-dateno"
 
-#: ../src/eog-metadata-details.c:69
+#: src/eog-metadata-details.c:69
 msgid "Maker Note"
 msgstr "Noto de faristo"
 
-#: ../src/eog-metadata-details.c:70
+#: src/eog-metadata-details.c:70
 msgid "Other"
 msgstr "Alia"
 
-#: ../src/eog-metadata-details.c:72
+#: src/eog-metadata-details.c:72
 msgid "XMP Exif"
 msgstr "XMP-Exif"
 
-#: ../src/eog-metadata-details.c:73
+#: src/eog-metadata-details.c:73
 msgid "XMP IPTC"
 msgstr "XMP IPTC"
 
-#: ../src/eog-metadata-details.c:74
+#: src/eog-metadata-details.c:74
 msgid "XMP Rights Management"
 msgstr "XMP-administrado de rajtoj"
 
-#: ../src/eog-metadata-details.c:75
+#: src/eog-metadata-details.c:75
 msgid "XMP Other"
 msgstr "XMP Alia"
 
-#: ../src/eog-metadata-details.c:251
+#: src/eog-metadata-details.c:251
 msgid "Tag"
 msgstr "Etikedo"
 
-#: ../src/eog-metadata-details.c:258
+#: src/eog-metadata-details.c:258
 msgid "Value"
 msgstr "Valoro"
 
-#: ../src/eog-metadata-details.c:436
+#: src/eog-metadata-details.c:434
 msgid "North"
 msgstr "Nordo"
 
-#: ../src/eog-metadata-details.c:439
+#: src/eog-metadata-details.c:437
 msgid "East"
 msgstr "Oriento"
 
-#: ../src/eog-metadata-details.c:442
+#: src/eog-metadata-details.c:440
 msgid "West"
 msgstr "Okcidento"
 
-#: ../src/eog-metadata-details.c:445
+#: src/eog-metadata-details.c:443
 msgid "South"
 msgstr "Sudo"
 
-#: ../src/eog-metadata-sidebar.c:109
+#: src/eog-metadata-sidebar.c:144
 #, c-format
-#| msgid "%i × %i pixel  %s    %i%%"
-#| msgid_plural "%i × %i pixels  %s    %i%%"
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i x %i rastrumero"
 msgstr[1] "%i × %i rastrumeroj"
 
-#: ../src/eog-metadata-sidebar.c:120 ../src/eog-properties-dialog.c:156
+#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
 msgid "Unknown"
 msgstr "Nekonate"
 
-#: ../src/eog-metadata-sidebar.c:189
+#: src/eog-metadata-sidebar.c:219
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: ../src/eog-metadata-sidebar.c:193
+#: src/eog-metadata-sidebar.c:223
 #, c-format
 msgid "%X"
 msgstr "%X"
 
-#: ../src/eog-preferences-dialog.c:125
+#: src/eog-preferences-dialog.c:125
 #, c-format
 msgid "%lu second"
 msgid_plural "%lu seconds"
 msgstr[0] "%lu sekundo"
 msgstr[1] "%lu sekundoj"
 
-#: ../src/eog-print.c:371
+#: src/eog-print.c:371
 msgid "Image Settings"
 msgstr "Bildagordoj"
 
-#: ../src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:896
 msgid "Image"
 msgstr "Bildo"
 
-#: ../src/eog-print-image-setup.c:898
+#: src/eog-print-image-setup.c:897
 msgid "The image whose printing properties will be set up"
 msgstr "La bildo kies pres-atributoj estos agordi"
 
-#: ../src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:903
 msgid "Page Setup"
 msgstr "Agordoj de paĝo"
 
-#: ../src/eog-print-image-setup.c:905
+#: src/eog-print-image-setup.c:904
 msgid "The information for the page where the image will be printed"
 msgstr "La informoj por la paĝo kie la bildo presos"
 
-#: ../src/eog-print-image-setup.c:931
+#: src/eog-print-image-setup.c:930
 msgid "Position"
 msgstr "Pozicio"
 
-#: ../src/eog-print-image-setup.c:935
+#: src/eog-print-image-setup.c:934
 msgid "_Left:"
 msgstr "Ma_ldekstre:"
 
-#: ../src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:936
 msgid "_Right:"
 msgstr "Dekst_re:"
 
-#: ../src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:937
 msgid "_Top:"
 msgstr "Su_pre:"
 
-#: ../src/eog-print-image-setup.c:939
+#: src/eog-print-image-setup.c:938
 msgid "_Bottom:"
 msgstr "Su_be:"
 
-#: ../src/eog-print-image-setup.c:942
+#: src/eog-print-image-setup.c:941
 msgid "C_enter:"
 msgstr "M_eze:"
 
-#: ../src/eog-print-image-setup.c:947
+#: src/eog-print-image-setup.c:946
 msgid "None"
 msgstr "Neniu"
 
-#: ../src/eog-print-image-setup.c:949
+#: src/eog-print-image-setup.c:948
 msgid "Horizontal"
 msgstr "Horizontale"
 
-#: ../src/eog-print-image-setup.c:951
+#: src/eog-print-image-setup.c:950
 msgid "Vertical"
 msgstr "Vertikale"
 
-#: ../src/eog-print-image-setup.c:953
+#: src/eog-print-image-setup.c:952
 msgid "Both"
 msgstr "Ambaŭ"
 
-#: ../src/eog-print-image-setup.c:972
+#: src/eog-print-image-setup.c:971
 msgid "_Width:"
 msgstr "_Larĝo:"
 
-#: ../src/eog-print-image-setup.c:974
+#: src/eog-print-image-setup.c:973
 msgid "_Height:"
 msgstr "_Alto:"
 
-#: ../src/eog-print-image-setup.c:977
+#: src/eog-print-image-setup.c:976
 msgid "_Scaling:"
 msgstr "_Skalado:"
 
-#: ../src/eog-print-image-setup.c:988
+#: src/eog-print-image-setup.c:987
 msgid "_Unit:"
 msgstr "_Unuo:"
 
-#: ../src/eog-print-image-setup.c:993
+#: src/eog-print-image-setup.c:992
 msgid "Millimeters"
 msgstr "Milimetroj"
 
-#: ../src/eog-print-image-setup.c:995
+#: src/eog-print-image-setup.c:994
 msgid "Inches"
 msgstr "Coloj"
 
-#: ../src/eog-print-image-setup.c:1024
+#: src/eog-print-image-setup.c:1023
 msgid "Preview"
 msgstr "Antaŭrigardo"
 
-#: ../src/eog-properties-dialog.c:745
+#: src/eog-properties-dialog.c:776
 msgid "Show the folder which contains this file in the file manager"
 msgstr ""
 "Montri la dosierujon kiu enhavas ĉi tiu dosieron en la dosieradministrilo"
 
-#: ../src/eog-save-as-dialog-helper.c:162
+#: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "kiel ĝi estas"
 
@@ -1190,25 +1378,25 @@ msgstr "kiel ĝi estas"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../src/eog-statusbar.c:126
+#: src/eog-statusbar.c:118
 #, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: ../src/eog-thumb-view.c:544
+#: src/eog-thumb-view.c:543
 msgid "Taken on"
 msgstr "Fari je"
 
-#: ../src/eog-uri-converter.c:982
+#: src/eog-uri-converter.c:989
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Almenaŭ du dosieroj estas egalaj."
 
-#: ../src/eog-util.c:68
+#: src/eog-util.c:68
 msgid "Could not display help for Image Viewer"
 msgstr "Ne eblis montri helpon por Bildomontrilo"
 
-#: ../src/eog-util.c:116
+#: src/eog-util.c:116
 msgid " (invalid Unicode)"
 msgstr " (nevalida unikodo)"
 
@@ -1218,60 +1406,50 @@ msgstr " (nevalida unikodo)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: ../src/eog-window.c:542
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i rastrumero  %s    %i%%"
 msgstr[1] "%i × %i rastrumeroj  %s    %i%%"
 
-#: ../src/eog-window.c:887 ../src/eog-window.c:2573
+#: src/eog-window.c:933 src/eog-window.c:2673
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "K_aŝi"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:897
+#: src/eog-window.c:943
 #, c-format
 msgid ""
-"The image \"%s\" has been modified by an external application.\n"
+"The image “%s” has been modified by an external application.\n"
 "Would you like to reload it?"
 msgstr ""
-"La bildo \"%s\" estis modifita de ekstera aplikaĵo.\n"
-"Vi volas reŝarĝi ĝin?"
+"La bildo “%s” estis aliigita de ekstera aplikaĵo.\n"
+"Vi volas reŝargi ĝin?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1135
+#: src/eog-window.c:1213
 #, c-format
-msgid "Saving image \"%s\" (%u/%u)"
-msgstr "Konservas bildoj \"%s\" (%u/%u)"
+msgid "Saving image “%s” (%u/%u)"
+msgstr "Konservante bildon “%s” (%u/%u)"
 
-#: ../src/eog-window.c:1539
+#: src/eog-window.c:1637
 #, c-format
-msgid "Opening image \"%s\""
-msgstr "Malfermas bildo \"%s\""
-
-#: ../src/eog-window.c:1823
-#| msgid "_Fullscreen"
-msgid "_Leave Fullscreen"
-msgstr "_Forlasi tutekranan reĝimon"
-
-#: ../src/eog-window.c:1829
-#| msgid "Open in fullscreen mode"
-msgid "Leave fullscreen mode"
-msgstr "Forlasi plenekranan reĝimon"
+msgid "Opening image “%s”"
+msgstr "Malfermante bildon “%s”"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: ../src/eog-window.c:1943
+#: src/eog-window.c:2020
 msgid "Viewing a slideshow"
-msgstr "Vidanta bildoserion"
+msgstr "Vidanta bildoprezenton"
 
-#: ../src/eog-window.c:2162
+#: src/eog-window.c:2239
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1280,39 +1458,39 @@ msgstr ""
 "Eraro dum presi dosieron:\n"
 "%s"
 
-#: ../src/eog-window.c:2522 ../src/eog-window.c:2537
+#: src/eog-window.c:2622 src/eog-window.c:2637
 msgid "Error launching System Settings: "
 msgstr "Eraro dum lanĉis Sistemagordojs: "
 
-#: ../src/eog-window.c:2571
+#: src/eog-window.c:2671
 msgid "_Open Background Preferences"
 msgstr "_Malfermi fonajn agordojn"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: ../src/eog-window.c:2587
+#: src/eog-window.c:2687
 #, c-format
 msgid ""
-"The image \"%s\" has been set as Desktop Background.\n"
+"The image “%s” has been set as Desktop Background.\n"
 "Would you like to modify its appearance?"
 msgstr ""
-"La bildo \"%s\" estis difinita kiel labortabla fono.\n"
-"Ĉu vi volas modifi ĝian aperon?"
+"La bildo “%s” estis agordita kiel ekranfono.\n"
+"Ĉu vi volas aliigi ĝian aperon?"
 
-#: ../src/eog-window.c:3068
+#: src/eog-window.c:3177
 msgid "Saving image locally…"
 msgstr "Konservi bildoj loke…"
 
-#: ../src/eog-window.c:3146
+#: src/eog-window.c:3255
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
-"\"%s\" permanently?"
+"“%s” permanently?"
 msgstr ""
-"Ĉu vi estas certa ke vi volas forigi na\n"
-"\"%s\" permanente?"
+"Ĉu vi certe volas forigi\n"
+"“%s” daŭre?"
 
-#: ../src/eog-window.c:3149
+#: src/eog-window.c:3258
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1327,60 +1505,57 @@ msgstr[1] ""
 "Ĉu vi certe volas forigi\n"
 "la %d elektitajn bildojn permanente?"
 
-#: ../src/eog-window.c:3171 ../src/eog-window.c:3437
-#| msgid "_Delete Image"
+#: src/eog-window.c:3280 src/eog-window.c:3546
 msgid "_Delete"
 msgstr "_Forigi"
 
-#: ../src/eog-window.c:3174 ../src/eog-window.c:3439
+#: src/eog-window.c:3283 src/eog-window.c:3548
 msgid "_Yes"
 msgstr "_Jes"
 
 #. add 'dont ask again' button
-#: ../src/eog-window.c:3178 ../src/eog-window.c:3431
-#| msgid "_Do not ask again during this session"
+#: src/eog-window.c:3287 src/eog-window.c:3540
 msgid "Do _not ask again during this session"
 msgstr "Ne _demandi denove dum ĉi tiu seanco"
 
-#: ../src/eog-window.c:3222
+#: src/eog-window.c:3331
 #, c-format
-msgid "Couldn't retrieve image file"
-msgstr "Ne povis reakiri bildodosieron"
+msgid "Couldn’t retrieve image file"
+msgstr "Ne povis akiri bilddosieron"
 
-#: ../src/eog-window.c:3238
+#: src/eog-window.c:3347
 #, c-format
-msgid "Couldn't retrieve image file information"
-msgstr "Ne povis reakiri bildodosieran informon"
+msgid "Couldn’t retrieve image file information"
+msgstr "Ne povis akiri bildodosieran informon"
 
-#: ../src/eog-window.c:3254 ../src/eog-window.c:3498
+#: src/eog-window.c:3363 src/eog-window.c:3607
 #, c-format
-msgid "Couldn't delete file"
+msgid "Couldn’t delete file"
 msgstr "Ne eblis forigi dosieron"
 
 #. set dialog error message
-#: ../src/eog-window.c:3304 ../src/eog-window.c:3598
+#: src/eog-window.c:3413 src/eog-window.c:3707
 #, c-format
 msgid "Error on deleting image %s"
-msgstr "Eraro dum forigis bildon %s"
+msgstr "Eraro dum forigado de bildo %s"
 
-#: ../src/eog-window.c:3399
+#: src/eog-window.c:3508
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
-"\"%s\" to the trash?"
+"“%s” to the trash?"
 msgstr ""
-"Ĉu vi estas certa ke vi volas movi na\n"
-"\"%s\" rubujen?"
+"Ĉu vi certe volas movi\n"
+"“%s” rubujen?"
 
-#: ../src/eog-window.c:3402
+#: src/eog-window.c:3511
 #, c-format
 msgid ""
-"A trash for \"%s\" couldn't be found. Do you want to remove this image "
+"A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
-msgstr ""
-"Rubujo por \"%s\" ne eblis trovi. Ĉu vi volas forigi tiun bildon konstante?"
+msgstr "Ne eblis trovi rubujon por “%s”. Ĉu vi volas daŭre forigi tiun bildon?"
 
-#: ../src/eog-window.c:3407
+#: src/eog-window.c:3516
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1395,42 +1570,36 @@ msgstr[1] ""
 "Ĉu vi certe volas movi\n"
 "la %d elektitajn bildojn rubujen?"
 
-#: ../src/eog-window.c:3412
+#: src/eog-window.c:3521
 msgid ""
-"Some of the selected images can't be moved to the trash and will be removed "
+"Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
-"Iom elektitajn bildojn ne povas esti movitaj al la rubujo kaj estos forigita "
-"daŭre. Ĉu vi estas certa ke vi volas daŭrigi?"
+"Oni ne povas movi kelkajn el la elektitaj bildoj rubujen, kaj ili foriĝos "
+"daŭre. Ĉu vi certe volas daŭrigi?"
 
-#: ../src/eog-window.c:3476 ../src/eog-window.c:3490
+#: src/eog-window.c:3585 src/eog-window.c:3599
 #, c-format
-msgid "Couldn't access trash."
+msgid "Couldn’t access trash."
 msgstr "Ne eblis atingi rubujon."
 
-#: ../src/eog-window.c:4156
-msgid "Fit the image to the window"
-msgstr "Adapti la bildon al la fenestro"
-
-#: ../src/eog-window.c:4163 ../src/eog-window.c:4209
-#| msgid "Shrink the image"
+#: src/eog-window.c:4266
 msgid "Shrink or enlarge the current image"
 msgstr "Ŝrumpi aŭ pligandigi la nunan bildon"
 
-#: ../src/eog-window.c:4259
+#: src/eog-window.c:4325
 msgid "Show the current image in fullscreen mode"
 msgstr "Montri la nunan bildon per tutekrana reĝimo"
 
-#: ../src/eog-window.c:4338
-#| msgid "Prope_rties"
+#: src/eog-window.c:4402
 msgid "Properties"
 msgstr "Atributoj"
 
-#: ../src/eog-window.c:5485
+#: src/eog-window.c:5567
 msgid "The GNOME image viewer."
 msgstr "La bildomontrilo de GNOME."
 
-#: ../src/eog-window.c:5488
+#: src/eog-window.c:5570
 msgid "translator-credits"
 msgstr ""
 "Aisano\n"
@@ -1448,50 +1617,73 @@ msgstr ""
 "Tiffany ANTOPOLSKI\n"
 "Ryan LORTIE\n"
 "Daniel PUENTES\n"
-"Kristjan SCHMIDT"
+"Kristjan SCHMIDT\n"
+"Carmen Bianca BAKKER <carmen@carmenbianca.eu>"
 
-#: ../src/main.c:56
+#. L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
+#: src/eog-zoom-entry.c:81
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/main.c:56
 msgid "GNOME Image Viewer"
 msgstr "Bildomontrilo de GNOME"
 
-#: ../src/main.c:63
+#: src/main.c:63
 msgid "Open in fullscreen mode"
 msgstr "Malfermi en tutekrana reĝimo"
 
-#: ../src/main.c:64
+#: src/main.c:64
 msgid "Disable image gallery"
-msgstr "Elŝalti bildgalerion"
+msgstr "Malŝalti bildgalerion"
 
-#: ../src/main.c:65
+#: src/main.c:65
 msgid "Open in slideshow mode"
-msgstr "Malfermi per bildoseria reĝimo"
+msgstr "Malfermi per bildoprezenta reĝimo"
 
-#: ../src/main.c:66
+#: src/main.c:66
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Lanĉi novan instancon anstataŭ reuzo de ekzistanta"
 
-#: ../src/main.c:67
+#: src/main.c:67
 msgid ""
 "Open in a single window, if multiple windows are open the first one is used"
 msgstr ""
 "Malfermi en unusola fenestro, se pluraj fenestroj malfermiĝis la unua estos "
 "uzata"
 
-#: ../src/main.c:69
-msgid "Show the application's version"
+#: src/main.c:69
+msgid "Show the application’s version"
 msgstr "Montri la version de la programo"
 
-#: ../src/main.c:99
+#: src/main.c:99
 msgid "[FILE…]"
 msgstr "[DOSIERO…]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:112
+#: src/main.c:112
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Rulu '%s --help' por vidi kompletan liston de disponeblaj komandliniaj "
+"Rulu “%s --help” por vidi kompletan liston de disponeblaj komandliniaj "
 "opcioj."
+
+#~ msgid "_Previous"
+#~ msgstr "_Antaŭa"
+
+#~ msgid "_Next"
+#~ msgstr "_Sekva"
+
+#~ msgid "_Close"
+#~ msgstr "_Fermi"
+
+#~ msgid "Question"
+#~ msgstr "Demando"
+
+#~ msgid "Fit the image to the window"
+#~ msgstr "Adapti la bildon al la fenestro"
 
 #~ msgid "Show “_%s”"
 #~ msgstr "Montri \"_%s\""
@@ -1525,9 +1717,6 @@ msgstr ""
 
 #~ msgid "_About Image Viewer"
 #~ msgstr "_Pri Bildomontrilo"
-
-#~ msgid "Show/Hide the window toolbar."
-#~ msgstr "Montri/kaŝi la fenestran ilobreton."
 
 #~ msgid "External program to use for editing images"
 #~ msgstr "Eksteraj programoj uzeblaj por redakti bildojn"
@@ -1563,12 +1752,6 @@ msgstr ""
 #~ msgid "_Tools"
 #~ msgstr "_Iloj"
 
-#~ msgid "Open a file"
-#~ msgstr "Malfermi dosieron"
-
-#~ msgid "Close window"
-#~ msgstr "Fermi la fenestron"
-
 #~ msgid "T_oolbar"
 #~ msgstr "Il_obreto"
 
@@ -1580,9 +1763,6 @@ msgstr ""
 
 #~ msgid "_Contents"
 #~ msgstr "_Enhavo"
-
-#~ msgid "Help on this application"
-#~ msgstr "Helpo pri ĉi tiu aplikaĵo"
 
 #~ msgid "About this application"
 #~ msgstr "Pri ĉi tiu aplikaĵo"
@@ -1601,12 +1781,6 @@ msgstr ""
 
 #~ msgid "Open the selected image with a different application"
 #~ msgstr "Malfermi la elektita bildo per malsama aplikaĵo"
-
-#~ msgid "Save the selected images with a different name"
-#~ msgstr "Konservi la elektitan bildon sub malsama nomo"
-
-#~ msgid "Print the selected image"
-#~ msgstr "Presi la elektitan bildon"
 
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Montri la atributojn kaj metadatumojn de la seleka bildo"
@@ -1644,26 +1818,14 @@ msgstr ""
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Montri la bildon en normala amplekso"
 
-#~ msgid "Pause Slideshow"
-#~ msgstr "Paŭzigi la bildserion"
-
 #~ msgid "_Random Image"
 #~ msgstr "_Hazarda bildo"
-
-#~ msgid "Go to a random image of the gallery"
-#~ msgstr "Iri al hazarda bildo de la galerio"
 
 #~ msgid "S_lideshow"
 #~ msgstr "Bi_ldoprezento"
 
 #~ msgid "Start a slideshow view of the images"
 #~ msgstr "Lanĉi bildoserian vidon de la bildoj"
-
-#~ msgid "Previous"
-#~ msgstr "Antaŭa"
-
-#~ msgid "Next"
-#~ msgstr "Sekva"
 
 #~ msgid "Right"
 #~ msgstr "Dekstre"
@@ -1703,9 +1865,6 @@ msgstr ""
 #~ msgid "_Switch image after:"
 #~ msgstr "Ŝanĝi bildon po_st:"
 
-#~ msgid "Set as _Desktop Background"
-#~ msgstr "Fiksi kiel labortabla fono"
-
 #~ msgid "Eye of GNOME Preferences"
 #~ msgstr "Agordoj de Okulo de GNOMEo"
 
@@ -1714,9 +1873,6 @@ msgstr ""
 
 #~ msgid "_Retry"
 #~ msgstr "_Reprovi"
-
-#~ msgid "Eye of GNOME"
-#~ msgstr "Okulo de GNOMEo"
 
 #~ msgid "All Images"
 #~ msgstr "Ĉiuj bildoj"
