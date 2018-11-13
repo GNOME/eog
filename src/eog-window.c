@@ -2555,7 +2555,6 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 				gtk_widget_realize (window->priv->thumbview);
 
 			gtk_widget_show (priv->nav);
-			gtk_widget_grab_focus (priv->thumbview);
 		} else {
 			/* Make sure the focus widget is realized to
 			 * avoid warnings on keypress events.
@@ -2566,9 +2565,6 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 				gtk_widget_realize (priv->view);
 
 			gtk_widget_hide (priv->nav);
-
-			if (gtk_widget_get_realized (priv->view))
-				gtk_widget_grab_focus (priv->view);
 		}
 		g_simple_action_set_state (action, state);
 		g_settings_set_boolean (priv->ui_settings,
