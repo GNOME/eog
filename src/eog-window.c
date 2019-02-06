@@ -57,6 +57,7 @@
 #include "eog-window-activatable.h"
 #include "eog-metadata-sidebar.h"
 #include "eog-zoom-entry.h"
+#include "eog-rename-dialog.h"
 
 #include "eog-enum-types.h"
 
