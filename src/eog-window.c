@@ -2779,6 +2779,52 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 }
 
 static void
+eog_job_rename_cb (EogJobRename *job, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	g_signal_handlers_disconnect_by_func (job,
+					      eog_job_rename_cb,
+					      window);
+
+	if (window->priv->rename_job) {
+		g_object_unref (window->priv->rename_job);
+		window->priv->rename_job = NULL;
+	}
+
+	/* check if job contains any error */
+	if (EOG_JOB (job)->error == NULL) {
+		update_status_bar (window);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->image));
+
+	} else {
+		GtkWidget *message_area;
+		message_area = eog_image_save_error_message_area_new (
+					eog_image_get_caption (job->image),
+					EOG_JOB (job)->error);
+
+		g_signal_connect (message_area,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+
+		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->image));
+
+		eog_window_set_message_area (window, message_area);
+
+		gtk_info_bar_set_default_response (GTK_INFO_BAR (message_area),
+						   GTK_RESPONSE_CANCEL);
+
+		gtk_widget_show (message_area);
+
+		update_status_bar (window);
+	}
+}
+
+static void
 eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
