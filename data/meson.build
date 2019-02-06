@@ -5,6 +5,7 @@ resource_data = files(
   'eog-gear-menu.ui',
   'eog-image-properties-dialog.ui',
   'eog-multiple-save-as-dialog.ui',
+  'eog-rename-dialog.ui',
   'eog-preferences-dialog.ui',
   'eog-zoom-entry.ui',
   'eog.css',
