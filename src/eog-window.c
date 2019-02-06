@@ -187,6 +187,7 @@ static void eog_window_action_toggle_fullscreen (GSimpleAction *action, GVariant
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_window_action_save (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_action_save_as (GSimpleAction *action, GVariant *variant, gpointer user_data);
+static void eog_window_action_rename (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_action_toggle_slideshow (GSimpleAction *action, GVariant *state, gpointer user_data);
 static void eog_window_action_pause_slideshow (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
@@ -208,6 +209,7 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 						 gpointer      user_data);
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
+static gboolean eog_window_rename_images (EogWindow *window, EogImage *images, const gchar *name);
 static void eog_window_finish_saving (EogWindow *window);
 static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    gint        response_id,
@@ -3003,6 +3005,66 @@ eog_window_action_save_as (GSimpleAction *action,
 			  window);
 
 	eog_job_scheduler_add_job (priv->save_job);
+}
+
+static gboolean
+eog_window_rename_images (EogWindow   *window,
+                          EogImage    *image,
+                          const gchar *name)
+{
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (window->priv->rename_job != NULL)
+		return FALSE;
+
+	priv->rename_job = eog_job_rename_new (image, name);
+
+	g_signal_connect (priv->rename_job,
+			  "finished",
+			  G_CALLBACK (eog_job_rename_cb),
+			  window);
+
+	return TRUE;
+}
+
+static void
+eog_window_action_rename (GSimpleAction *action,
+                          GVariant      *variant,
+                          gpointer      user_data)
+{
+
+	EogWindowPrivate *priv;
+	EogWindow        *window;
+	EogImage         *image;
+	GtkWidget        *dialog;
+
+	window = EOG_WINDOW (user_data);
+	priv   = window->priv;
+
+	image = priv->image;
+
+	dialog = eog_rename_dialog_new (GTK_WINDOW (window), eog_image_get_caption (image));
+
+	gtk_widget_show_all (dialog);
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_OK) {
+		gtk_widget_destroy (dialog);
+		return;
+	}
+
+	const gchar *new_name = eog_rename_dialog_get_new_name (dialog);
+
+	if (window->priv->rename_job != NULL) {
+		return;
+	}
+
+	if (eog_window_rename_images (window, image, new_name)) {
+		eog_job_scheduler_add_job (priv->rename_job);
+	}
+
+	gtk_widget_destroy (dialog);
 }
 
 static void
