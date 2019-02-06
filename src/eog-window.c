@@ -157,6 +157,7 @@ struct _EogWindowPrivate {
 	EogJob              *save_job;
 	GFile               *last_save_as_folder;
 	EogJob              *copy_job;
+	EogJob              *rename_job;
 
         guint                image_info_message_cid;
         guint                tip_message_cid;
