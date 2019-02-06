@@ -1860,6 +1860,79 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 	return success;
 }
 
+void
+eog_image_rename (EogImage *img, const gchar *new_name, GError **error)
+{
+	EogImagePrivate *priv;
+	EogImageStatus prev_status;
+	GFile *img_file, *new_file;
+	GFileInfo *info;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	priv = img->priv;
+
+	prev_status = priv->status;
+	priv->status = EOG_IMAGE_STATUS_SAVING;
+
+	if (priv->image == NULL) {
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_NOT_LOADED,
+			     _("No image loaded."));
+		return;
+	}
+
+	if (!check_if_file_is_writable (priv->file)) {
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_NOT_RENAMED,
+			     _("You do not have the permissions necessary to rename the file."));
+		return;
+	}
+
+	img_file = priv->file;
+
+	info = g_file_query_info (priv->file,
+				  G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+				  G_FILE_QUERY_INFO_NONE,
+				  NULL,
+				  error);
+
+	if (!info) {
+		g_set_error (error, EOG_IMAGE_ERROR,
+	        	     EOG_IMAGE_ERROR_UNKNOWN,
+	        	     _("Cannot load the image information"));
+
+		return;
+	}
+
+	/* Only make a rename if the names differ */
+	if (g_strcmp0 (g_file_info_get_display_name (info), new_name) != 0) {
+
+		new_file = g_file_set_display_name (img_file, new_name, NULL, error);
+
+		if (!new_file) {
+			g_set_error (error, EOG_IMAGE_ERROR,
+				     EOG_IMAGE_ERROR_NOT_RENAMED,
+				     _("Error renaming image"));
+
+			return;
+		}
+
+		priv->file = new_file;
+		g_object_unref(img_file);
+
+		/* Remove cached caption */
+		if (priv->caption)
+		{
+			g_free(priv->caption);
+			priv->caption = NULL;
+		}
+
+		priv->status = prev_status;
+	}
+	g_object_unref (info);
+}
+
 static gboolean
 eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
