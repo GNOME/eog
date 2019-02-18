@@ -1,0 +1,134 @@
+name: eog
+version: git
+summary: Eye of GNOME Image Viewer
+description: |
+  The Eye of GNOME is the official image viewer for the GNOME desktop.
+  It integrates with the GTK+ look and feel of GNOME, and supports many image
+  formats for viewing single images or images in a collection.
+
+  The Eye of GNOME also allows to view the images in a fullscreen slideshow mode
+  or set an image as the desktop wallpaper.
+  It reads the camera tags to automatically rotate your images in the correct
+  portrait or landscape orientation.
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict
+base: core18
+
+passthrough:
+  layout:
+    /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0:
+      symlink: $SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0
+    /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:
+      symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog
+    /usr/share/eog:
+      symlink: $SNAP/usr/share/eog
+    /usr/share/xml/iso-codes:
+      symlink: $SNAP/gnome-platform/usr/share/xml/iso-codes
+
+plugs:
+  gnome-3-28-1804:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-28-1804
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+
+slots:
+  # for GtkApplication registration
+  eog:
+    interface: dbus
+    bus: session
+    name: org.gnome.eog.ApplicationService
+
+apps:
+  eog:
+    command: desktop-launch eog
+    plugs:
+      - desktop
+      - desktop-legacy
+      - home
+      - gsettings
+      - network
+      - unity7
+      - mount-observe
+      - wayland
+    desktop: usr/share/applications/eog.desktop
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/eog:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:$LD_LIBRARY_PATH
+      GI_TYPELIB_PATH: $SNAP/usr/lib/eog/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/girepository-1.0:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/gnome-platform/usr/lib/python3/dist-packages
+      
+parts:
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - build-essential
+      - libgtk-3-dev
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
+
+  eog:
+    after: [desktop-gnome-platform]
+    source: .
+    source-type: git
+    plugin: meson
+    meson-parameters: [--prefix=/usr, -Dintrospection=true]
+    organize:
+      snap/eog/current/usr: usr
+    override-build: |
+      sed -i.bak -e 's|=eog$|=${SNAP}/meta/gui/eog.png|g' data/eog.desktop.in.in
+      sed -i.bak -e 's|symlink_media: true|symlink_media: false|g' help/meson.build
+      snapcraftctl build
+      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
+      cp ../src/data/icons/256x256/apps/eog.png $SNAPCRAFT_PART_INSTALL/meta/gui/
+      cp snapbuild/data/eog.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+    build-packages:
+      - appstream-util
+      - desktop-file-utils
+      - gettext
+      - gnome-common
+      - gsettings-desktop-schemas-dev
+      - gobject-introspection
+      - gtk-doc-tools
+      - intltool
+      - libatk1.0-dev
+      - libexempi-dev
+      - libexif-dev
+      - libgdk-pixbuf2.0-dev
+      - libgirepository1.0-dev
+      - libglib2.0-dev
+      - libgnome-desktop-3-dev
+      - libgtk-3-dev
+      - libjpeg-dev
+      - liblcms2-dev
+      - libpeas-dev
+      - librsvg2-dev
+      - pkg-config
+      - shared-mime-info
+      - valac
+      - yelp-tools
+      - zlib1g-dev
+
+  libraries:
+    plugin: nil
+    stage-packages:
+      - libexif12
+      - libexempi3
+    prime:
+      - "usr/lib/*/libexif*"
+      - "usr/lib/*/libexempi*"
