@@ -974,9 +974,7 @@ eog_image_real_load (EogImage *img,
 		}
 
 		if (!strcmp (mime_type, "image/svg+xml")
-#if LIBRSVG_CHECK_FEATURE(SVGZ)
 		    || !strcmp (mime_type, "image/svg+xml-compressed")
-#endif
 		) {
 			gchar *file_path;
 			/* Keep the object for rendering */
