@@ -976,12 +976,9 @@ eog_image_real_load (EogImage *img,
 		if (!strcmp (mime_type, "image/svg+xml")
 		    || !strcmp (mime_type, "image/svg+xml-compressed")
 		) {
-			gchar *file_path;
 			/* Keep the object for rendering */
 			priv->svg = rsvg_handle_new ();
-			file_path = g_file_get_path (priv->file);
-			rsvg_handle_set_base_uri (priv->svg, file_path);
-			g_free (file_path);
+			rsvg_handle_set_base_gfile (priv->svg, priv->file);
 
 			/* Use 96dpi when rendering SVG documents with units
 			 * different then pixels. This value is specified in
