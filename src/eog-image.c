@@ -1036,11 +1036,7 @@ eog_image_real_load (EogImage     *img,
 
 				res = rsvg_handle_write (priv->svg, buffer,
 							 bytes_read, error);
-
-				if (G_UNLIKELY (!res)) {
-					failed = TRUE;
-					break;
-				}
+				g_assert (res && *error == NULL);
 			} else
 #endif
 			if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
@@ -1114,10 +1110,9 @@ eog_image_real_load (EogImage     *img,
 	if (read_image_data || read_only_dimension) {
 #ifdef HAVE_RSVG
 		if (use_rsvg) {
-			/* Ignore the error if loading failed earlier
-			 * as the error will already be set in that case */
-			rsvg_handle_close (priv->svg,
-			                   (failed ? NULL : error));
+			if (!rsvg_handle_close (priv->svg, error)) {
+				failed = TRUE;
+			}
 		} else
 #endif
 		if (failed) {
