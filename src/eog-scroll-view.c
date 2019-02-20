@@ -2154,7 +2154,6 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->min_zoom = MIN_ZOOM_FACTOR;
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
-	//priv->uta = NULL;
 	priv->interp_type_in = CAIRO_FILTER_GOOD;
 	priv->interp_type_out = CAIRO_FILTER_GOOD;
 	priv->scroll_wheel_zoom = FALSE;
