@@ -894,10 +894,10 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 }
 
 static gboolean
-eog_image_real_load (EogImage *img,
-		     guint     data2read,
-		     EogJob   *job,
-		     GError  **error)
+eog_image_real_load (EogImage     *img,
+		     EogImageData  data2read,
+		     EogJob       *job,
+		     GError      **error)
 {
 	EogImagePrivate *priv;
 	GFileInputStream *input_stream;
