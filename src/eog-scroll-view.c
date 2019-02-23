@@ -607,11 +607,6 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 	GtkAllocation allocation;
 	int xofs, yofs;
 	GdkWindow *window;
-#if 0
-	int src_x, src_y;
-	int dest_x, dest_y;
-	int twidth, theight;
-#endif
 
 	priv = view->priv;
 
@@ -1967,15 +1962,6 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			                         EOG_ZOOM_MODE_SHRINK_TO_FIT);
 
 		}
-#if 0
-		else if ((is_zoomed_in (view) && priv->interp_type_in != CAIRO_FILTER_NEAREST) ||
-		         (is_zoomed_out (view) && priv->interp_type_out != CAIRO_FILTER_NEAREST))
-		{
-			/* paint antialiased image version */
-			priv->progressive_state = PROGRESSIVE_POLISHING;
-			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-		}
-#endif
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
 		                                           (GCallback) image_changed_cb, view);
@@ -2154,7 +2140,6 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->min_zoom = MIN_ZOOM_FACTOR;
 	priv->zoom_mode = EOG_ZOOM_MODE_SHRINK_TO_FIT;
 	priv->upscale = FALSE;
-	//priv->uta = NULL;
 	priv->interp_type_in = CAIRO_FILTER_GOOD;
 	priv->interp_type_out = CAIRO_FILTER_GOOD;
 	priv->scroll_wheel_zoom = FALSE;
