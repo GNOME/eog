@@ -7,15 +7,14 @@
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
 # Gintautas Miliauskas <gintas@akl.lt>, 2007, 2008, 2010.
 # Algimantas Margevičius <gymka@mail.ru>, 2011.
-# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015, 2016, 2017.
+# Aurimas Černius <aurisc4@gmail.com>, 2010-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-28 17:37+0000\n"
-"PO-Revision-Date: 2017-08-22 23:30+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
+"POT-Creation-Date: 2019-01-30 12:35+0000\n"
+"PO-Revision-Date: 2019-02-24 17:45+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -23,28 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.7\n"
-
-#: data/eog-app-menu.ui:7
-msgid "Prefere_nces"
-msgstr "_Nuostatos"
-
-#: data/eog-app-menu.ui:13
-msgid "_Keyboard Shortcuts"
-msgstr "_Klaviatūros trumpiniai"
-
-#: data/eog-app-menu.ui:17 data/eog-preferences-dialog.ui:21
-msgid "_Help"
-msgstr "_Žinynas"
-
-#: data/eog-app-menu.ui:21
-msgid "_About"
-msgstr "_Apie"
-
-#: data/eog-app-menu.ui:25
-msgid "_Quit"
-msgstr "_Išeiti"
+"%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 3.30.1\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -75,15 +54,15 @@ msgstr ""
 "veiksenoje bei nustatyti paveikslėlį kaip darbastalio foną. Ji automatiškai "
 "skaito fotoaparato žymas ir pasuka paveikslėlius į teisingą padėtį."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5508
+#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Paveikslėlių peržiūros programa"
 
 #. TRANSLATORS: Do NOT translate or transliterate this text!
 #. This is an icon file name
 #: data/eog.desktop.in.in:9
-msgid "eog"
-msgstr "eog"
+msgid "org.gnome.eog"
+msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -98,7 +77,8 @@ msgid "_Open…"
 msgstr "_Atverti…"
 
 #: data/eog-gear-menu.ui:10
-msgid "Open _With"
+#| msgid "Open _With"
+msgid "Op_en With"
 msgstr "Atverti _su"
 
 #: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
@@ -120,24 +100,46 @@ msgid "Set as Wa_llpaper"
 msgstr "Nustatyti kaip _foną"
 
 #: data/eog-gear-menu.ui:37
+#| msgid "Image Properties"
+msgid "Image Prope_rties"
+msgstr "Paveikslėlio s_avybės"
+
+#: data/eog-gear-menu.ui:43
 msgid "Sli_deshow"
 msgstr "Skai_drių rodymas"
 
-#: data/eog-gear-menu.ui:41
+#: data/eog-gear-menu.ui:50
+msgid "Sho_w"
+msgstr "_Rodyti"
+
+#: data/eog-gear-menu.ui:52
 msgid "S_ide Pane"
 msgstr "Šoninis _polangis"
 
-#: data/eog-gear-menu.ui:45
+#: data/eog-gear-menu.ui:56
 msgid "Image _Gallery"
 msgstr "Paveikslėlių _galerija"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:60
 msgid "S_tatus Bar"
 msgstr "_Būsenos juosta"
 
-#: data/eog-gear-menu.ui:55 data/popup-menus.ui:41
-msgid "Prope_rties"
-msgstr "Sa_vybės"
+#: data/eog-gear-menu.ui:68
+msgid "Prefere_nces"
+msgstr "_Nuostatos"
+
+#: data/eog-gear-menu.ui:72
+msgid "_Keyboard Shortcuts"
+msgstr "_Klaviatūros trumpiniai"
+
+#: data/eog-gear-menu.ui:76 data/eog-preferences-dialog.ui:21
+msgid "_Help"
+msgstr "_Žinynas"
+
+#: data/eog-gear-menu.ui:80
+#| msgid "Image Viewer"
+msgid "_About Image Viewer"
+msgstr "_Apie paveikslėlių peržiūros programą"
 
 #: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
@@ -247,8 +249,8 @@ msgstr "Įrašyti kaip"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3223 src/eog-window.c:3226
-#: src/eog-window.c:3479
+#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
+#: src/eog-window.c:3539
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
@@ -407,7 +409,7 @@ msgstr "Pereiti prie pirmo galerijos paveikslėlio"
 msgid "_First Image"
 msgstr "_Pirmas paveikslėlis"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2359
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
 msgid "Go to the previous image of the gallery"
 msgstr "Pereiti prie ankstesnio galerijos paveikslėlio"
 
@@ -415,7 +417,7 @@ msgstr "Pereiti prie ankstesnio galerijos paveikslėlio"
 msgid "_Previous Image"
 msgstr "_Ankstesnis paveikslėlis"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2347
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
 msgid "Go to the next image of the gallery"
 msgstr "Pereiti prie kito galerijos paveikslėlio"
 
@@ -447,7 +449,7 @@ msgstr "_Normalus dydis"
 msgid "_Best Fit"
 msgstr "Geriausiai _tinkantis"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2374
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Pasukti paveikslėlį 90 laipsnių į kairę"
 
@@ -455,7 +457,7 @@ msgstr "Pasukti paveikslėlį 90 laipsnių į kairę"
 msgid "Rotate Counter_clockwise"
 msgstr "Pasukti prieš _laikrodžio rodyklę"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2385
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Pasukti paveikslėlį 90 laipsnių į dešinę"
 
@@ -525,13 +527,13 @@ msgstr "Nustatyti paveikslėlį kaip darbalaukio foną"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show/Hide the sidebar"
-msgstr "Rodyti/slėpti šoninį polangį"
+msgid "Show image properties dialog"
+msgstr "Rodyti paveikslėlio savybių dialogą"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "Rodyti paveikslėlio savybių dialogą"
+msgid "Show/Hide the sidebar"
+msgstr "Rodyti/slėpti šoninį polangį"
 
 #: data/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -633,7 +635,7 @@ msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Pristabdyti skaidrių rodymą"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:969
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
 msgid "Size"
 msgstr "Dydis"
 
@@ -925,9 +927,13 @@ msgstr "Atverti _su"
 msgid "_Copy"
 msgstr "_Kopijuoti:"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3482
+#: data/popup-menus.ui:35 src/eog-window.c:3542
 msgid "Move to _Trash"
 msgstr "Perkelti į ši_ukšlinę"
+
+#: data/popup-menus.ui:41
+msgid "Prope_rties"
+msgstr "Sa_vybės"
 
 #: data/popup-menus.ui:49
 msgid "Show Containing _Folder"
@@ -944,8 +950,6 @@ msgstr "Viso ekrano veiksena dvigubu spustelėjimu"
 #. TRANSLATORS: Do NOT translate or transliterate this text!
 #. This is an icon file name
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-#| msgctxt "shortcut window"
-#| msgid "Fullscreen"
 msgid "view-fullscreen"
 msgstr "view-fullscreen"
 
@@ -968,6 +972,12 @@ msgstr "view-refresh"
 msgid "Reload current image"
 msgstr "Įkelti iš naujo esamą paveikslėlį"
 
+#. A strftime-formatted string, to display the date the image was taken.
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
+#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+msgid "%a, %d %B %Y  %X"
+msgstr "%Y %B %d (%a) %X"
+
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
 msgstr "Data būsenos juostoje"
@@ -980,20 +990,16 @@ msgstr "Parodo paveikslėlio datą lango būsenos juostoje"
 msgid "Close _without Saving"
 msgstr "Užverti _neįrašant"
 
-#: src/eog-close-confirmation-dialog.c:212
-msgid "Question"
-msgstr "Klausimas"
-
-#: src/eog-close-confirmation-dialog.c:391
+#: src/eog-close-confirmation-dialog.c:383
 msgid "If you don’t save, your changes will be lost."
 msgstr "Jei neįrašysite, jūsų atlikti pakeitimai bus prarasti."
 
-#: src/eog-close-confirmation-dialog.c:437
+#: src/eog-close-confirmation-dialog.c:404
 #, c-format
 msgid "Save changes to image “%s” before closing?"
 msgstr "Įrašyti paveikslėlio „%s“ pakeitimus prieš užveriant?"
 
-#: src/eog-close-confirmation-dialog.c:652
+#: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -1008,16 +1014,16 @@ msgstr[2] ""
 "Yra %d paveikslėlių, turinčių neįrašytų pakeitimų. Įrašyti pakeitimus prieš "
 "užveriant?"
 
-#: src/eog-close-confirmation-dialog.c:669
+#: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
 msgstr "_Pasirinkite paveikslėlius, kuriuos norite įrašyti:"
 
 #. Secondary label
-#: src/eog-close-confirmation-dialog.c:688
+#: src/eog-close-confirmation-dialog.c:603
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Jei neįrašysite, visi jūsų atlikti pakeitimai bus prarasti."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:881
+#: src/eog-error-message-area.c:128 src/eog-window.c:932
 msgid "_Reload"
 msgstr "Įkelti iš _naujo"
 
@@ -1064,11 +1070,6 @@ msgstr ""
 "Šiame paveikslėlyje yra keli puslapiai. Paveikslėlių žiūryklė rodo tik "
 "pirmąjį.\n"
 "Visiems puslapiams pamatyti galite įdiegti dokumentų žiūryklę."
-
-#. A strftime-formatted string, to display the date the image was taken.
-#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
-msgid "%a, %d %B %Y  %X"
-msgstr "%Y %B %d (%a) %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1141,30 +1142,37 @@ msgid "Open Folder"
 msgstr "Atverti aplanką"
 
 #: src/eog-image.c:566
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Neįkelto paveikslėlio transformacija."
 
 #: src/eog-image.c:594
+#, c-format
 msgid "Transformation failed."
 msgstr "Transformuoti nepavyko."
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1079
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Šiam failo formatui EXIF nepalaikomas."
 
-#: src/eog-image.c:1221
+#: src/eog-image.c:1226
+#, c-format
 msgid "Image loading failed."
 msgstr "Nepavyko įkelti paveikslėlio."
 
-#: src/eog-image.c:1802 src/eog-image.c:1922
+#: src/eog-image.c:1807 src/eog-image.c:1927
+#, c-format
 msgid "No image loaded."
 msgstr "Neįkeltas joks paveikslėlis."
 
-#: src/eog-image.c:1810 src/eog-image.c:1931
+#: src/eog-image.c:1815 src/eog-image.c:1936
+#, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Jūs neturite reikiamų teisių failo įrašymui."
 
-#: src/eog-image.c:1820 src/eog-image.c:1942
+#: src/eog-image.c:1825 src/eog-image.c:1947
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "Laikino failo sukūrimas nepavyko."
 
@@ -1174,6 +1182,7 @@ msgid "Couldn’t create temporary file for saving: %s"
 msgstr "Nepavyko sukurti laikinojo failo įrašymui: %s"
 
 #: src/eog-image-jpeg.c:393
+#, c-format
 msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "Nepavyko paskirstyti atminties JPEG failo įkėlimui"
 
@@ -1270,87 +1279,87 @@ msgstr[2] "%lu sekundžių"
 msgid "Image Settings"
 msgstr "Paveikslėlio nustatymai"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:896
 msgid "Image"
 msgstr "Paveikslėlis"
 
-#: src/eog-print-image-setup.c:898
+#: src/eog-print-image-setup.c:897
 msgid "The image whose printing properties will be set up"
 msgstr "Paveikslėlis, kurio spausdinimo nustatymai bus keičiami"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:903
 msgid "Page Setup"
 msgstr "Puslapio sąranka"
 
-#: src/eog-print-image-setup.c:905
+#: src/eog-print-image-setup.c:904
 msgid "The information for the page where the image will be printed"
 msgstr "Informacija apie puslapį, kuriame bus spausdinamas paveikslėlis"
 
-#: src/eog-print-image-setup.c:931
+#: src/eog-print-image-setup.c:930
 msgid "Position"
 msgstr "Pozicija"
 
-#: src/eog-print-image-setup.c:935
+#: src/eog-print-image-setup.c:934
 msgid "_Left:"
 msgstr "_Kairė:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:936
 msgid "_Right:"
 msgstr "_Dešinė:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:937
 msgid "_Top:"
 msgstr "_Viršus:"
 
-#: src/eog-print-image-setup.c:939
+#: src/eog-print-image-setup.c:938
 msgid "_Bottom:"
 msgstr "_Apačia:"
 
-#: src/eog-print-image-setup.c:942
+#: src/eog-print-image-setup.c:941
 msgid "C_enter:"
 msgstr "C_entras:"
 
-#: src/eog-print-image-setup.c:947
+#: src/eog-print-image-setup.c:946
 msgid "None"
 msgstr "Niekaip"
 
-#: src/eog-print-image-setup.c:949
+#: src/eog-print-image-setup.c:948
 msgid "Horizontal"
 msgstr "Horizontaliai"
 
-#: src/eog-print-image-setup.c:951
+#: src/eog-print-image-setup.c:950
 msgid "Vertical"
 msgstr "Vertikaliai"
 
-#: src/eog-print-image-setup.c:953
+#: src/eog-print-image-setup.c:952
 msgid "Both"
 msgstr "Abu"
 
-#: src/eog-print-image-setup.c:972
+#: src/eog-print-image-setup.c:971
 msgid "_Width:"
 msgstr "_Plotis:"
 
-#: src/eog-print-image-setup.c:974
+#: src/eog-print-image-setup.c:973
 msgid "_Height:"
 msgstr "_Aukštis:"
 
-#: src/eog-print-image-setup.c:977
+#: src/eog-print-image-setup.c:976
 msgid "_Scaling:"
 msgstr "_Didinimas:"
 
-#: src/eog-print-image-setup.c:988
+#: src/eog-print-image-setup.c:987
 msgid "_Unit:"
 msgstr "_Vienetai:"
 
-#: src/eog-print-image-setup.c:993
+#: src/eog-print-image-setup.c:992
 msgid "Millimeters"
 msgstr "Milimetrai"
 
-#: src/eog-print-image-setup.c:995
+#: src/eog-print-image-setup.c:994
 msgid "Inches"
 msgstr "Coliai"
 
-#: src/eog-print-image-setup.c:1024
+#: src/eog-print-image-setup.c:1023
 msgid "Preview"
 msgstr "Peržiūra"
 
@@ -1382,6 +1391,7 @@ msgid "Taken on"
 msgstr "Fotografuota"
 
 #: src/eog-uri-converter.c:989
+#, c-format
 msgid "At least two file names are equal."
 msgstr "Mažiausiai du failų pavadinimai yra vienodi."
 
@@ -1399,7 +1409,7 @@ msgstr " (netaisyklingas unikodas)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:547
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1407,14 +1417,14 @@ msgstr[0] "%i × %i taško  %s    %i%%"
 msgstr[1] "%i × %i taškų  %s    %i%%"
 msgstr[2] "%i × %i taškų  %s    %i%%"
 
-#: src/eog-window.c:883 src/eog-window.c:2617
+#: src/eog-window.c:934 src/eog-window.c:2677
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Slėpti"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:893
+#: src/eog-window.c:944
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1428,22 +1438,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1156
+#: src/eog-window.c:1218
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Įrašomas paveikslėlis „%s“ (%u/%u)"
 
-#: src/eog-window.c:1581
+#: src/eog-window.c:1642
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Atveriamas paveikslėlis „%s“"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:1964
+#: src/eog-window.c:2028
 msgid "Viewing a slideshow"
 msgstr "Rodomos skaidrės"
 
-#: src/eog-window.c:2183
+#: src/eog-window.c:2247
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1452,17 +1462,17 @@ msgstr ""
 "Klaida spausdintant failą:\n"
 "%s"
 
-#: src/eog-window.c:2566 src/eog-window.c:2581
+#: src/eog-window.c:2626 src/eog-window.c:2641
 msgid "Error launching System Settings: "
 msgstr "Klaida, atveriant sistemos nustatymus:"
 
-#: src/eog-window.c:2615
+#: src/eog-window.c:2675
 msgid "_Open Background Preferences"
 msgstr "_Atverti fono nuostatas"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:2631
+#: src/eog-window.c:2691
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1471,11 +1481,11 @@ msgstr ""
 "Paveikslėlis „%s“ nustatytas kaip darbastalio fonas.\n"
 "Ar norite pakeisti jo išvaizdą?"
 
-#: src/eog-window.c:3121
+#: src/eog-window.c:3181
 msgid "Saving image locally…"
 msgstr "Paveikslėlis įrašomas vietiniame diske…"
 
-#: src/eog-window.c:3199
+#: src/eog-window.c:3259
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1484,7 +1494,7 @@ msgstr ""
 "Ar tikrai norite visam laikui\n"
 "pašalinti „%s“?"
 
-#: src/eog-window.c:3202
+#: src/eog-window.c:3262
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1502,38 +1512,41 @@ msgstr[2] ""
 "Ar tikrai norite visam laikui\n"
 "pašalinti %d pasirinktų paveikslėlių?"
 
-#: src/eog-window.c:3224 src/eog-window.c:3490
+#: src/eog-window.c:3284 src/eog-window.c:3550
 msgid "_Delete"
 msgstr "Iš_trinti"
 
-#: src/eog-window.c:3227 src/eog-window.c:3492
+#: src/eog-window.c:3287 src/eog-window.c:3552
 msgid "_Yes"
 msgstr "_Taip"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3231 src/eog-window.c:3484
+#: src/eog-window.c:3291 src/eog-window.c:3544
 msgid "Do _not ask again during this session"
 msgstr "Daugiau _neklausti šio seanso metu"
 
-#: src/eog-window.c:3275
+#: src/eog-window.c:3335
+#, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Nepavyko gauti paveikslėlio failo"
 
-#: src/eog-window.c:3291
+#: src/eog-window.c:3351
+#, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Nepavyko gauti paveikslėlio failo informacijos"
 
-#: src/eog-window.c:3307 src/eog-window.c:3551
+#: src/eog-window.c:3367 src/eog-window.c:3611
+#, c-format
 msgid "Couldn’t delete file"
 msgstr "Nepavyko ištrinti failo"
 
 #. set dialog error message
-#: src/eog-window.c:3357 src/eog-window.c:3651
+#: src/eog-window.c:3417 src/eog-window.c:3711
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Trinant paveikslėlį %s įvyko klaida"
 
-#: src/eog-window.c:3452
+#: src/eog-window.c:3512
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1542,14 +1555,14 @@ msgstr ""
 "Ar tikrai norite perkelti\n"
 "„%s“ į šiukšlinę?"
 
-#: src/eog-window.c:3455
+#: src/eog-window.c:3515
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "„%s“ šiukšlinė nerasta. Ar norite šį paveikslėlį ištrinti negrįžtamai?"
 
-#: src/eog-window.c:3460
+#: src/eog-window.c:3520
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1567,7 +1580,7 @@ msgstr[2] ""
 "Ar tikrai norite perkelti %d pasirinktų\n"
 "paveikslėlių į šiukšlinę?"
 
-#: src/eog-window.c:3465
+#: src/eog-window.c:3525
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1575,27 +1588,28 @@ msgstr ""
 "Kai kurių pasirinktų paveikslėlių negalima perkelti į šiukšlinę, tad jie bus "
 "ištrinti negrįžtamai. Ar tikrai norite tęsti?"
 
-#: src/eog-window.c:3529 src/eog-window.c:3543
+#: src/eog-window.c:3589 src/eog-window.c:3603
+#, c-format
 msgid "Couldn’t access trash."
 msgstr "Nepavyko gauti prieigos prie šiukšlinės."
 
-#: src/eog-window.c:4210
+#: src/eog-window.c:4270
 msgid "Shrink or enlarge the current image"
 msgstr "Sumažinti arba padidinti dabartinį paveikslėlį"
 
-#: src/eog-window.c:4269
+#: src/eog-window.c:4329
 msgid "Show the current image in fullscreen mode"
 msgstr "Rodyti dabartinį paveikslėlį viso ekrano veiksenoje"
 
-#: src/eog-window.c:4346
+#: src/eog-window.c:4406
 msgid "Properties"
 msgstr "Savybės"
 
-#: src/eog-window.c:5511
+#: src/eog-window.c:5571
 msgid "The GNOME image viewer."
 msgstr "GNOME paveikslėlių peržiūros programa."
 
-#: src/eog-window.c:5514
+#: src/eog-window.c:5574
 msgid "translator-credits"
 msgstr ""
 "Paskutinysis vertėjas:\n"
@@ -1652,6 +1666,18 @@ msgstr "[FAILAS…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite „%s --help“."
+
+#~ msgid "_About"
+#~ msgstr "_Apie"
+
+#~ msgid "_Quit"
+#~ msgstr "_Išeiti"
+
+#~ msgid "eog"
+#~ msgstr "eog"
+
+#~ msgid "Question"
+#~ msgstr "Klausimas"
 
 #~ msgid "Fit the image to the window"
 #~ msgstr "Pritaikyti paveikslėlį prie lango"
