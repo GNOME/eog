@@ -1,16 +1,6 @@
 name: eog
 version: git
-summary: Eye of GNOME Image Viewer
-description: |
-  The Eye of GNOME is the official image viewer for the GNOME desktop.
-  It integrates with the GTK+ look and feel of GNOME, and supports many image
-  formats for viewing single images or images in a collection.
-
-  The Eye of GNOME also allows to view the images in a fullscreen slideshow mode
-  or set an image as the desktop wallpaper.
-  It reads the camera tags to automatically rotate your images in the correct
-  portrait or landscape orientation.
-
+adopt-info: eog
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
 base: core18
@@ -53,6 +43,7 @@ slots:
 
 apps:
   eog:
+    common-id: eog.desktop
     command: desktop-launch eog
     plugs:
       - desktop
@@ -63,7 +54,6 @@ apps:
       - unity7
       - mount-observe
       - wayland
-    desktop: usr/share/applications/eog.desktop
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/eog:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:$LD_LIBRARY_PATH
       GI_TYPELIB_PATH: $SNAP/usr/lib/eog/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/girepository-1.0:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0
@@ -86,6 +76,7 @@ parts:
     after: [desktop-gnome-platform]
     source: .
     source-type: git
+    parse-info: [usr/share/metainfo/eog.appdata.xml]
     plugin: meson
     meson-parameters: [--prefix=/usr, -Dintrospection=true]
     organize:
