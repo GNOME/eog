@@ -4,14 +4,14 @@
 #
 # Anita Reitere <nitalynx@gmail.com>, 2010, 2012.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2018.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2018-06-05 10:41+0000\n"
-"PO-Revision-Date: 2018-08-11 12:23+0200\n"
-"Last-Translator: Rudolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"POT-Creation-Date: 2019-01-30 12:35+0000\n"
+"PO-Revision-Date: 2019-03-03 12:51+0200\n"
+"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -20,26 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
 "X-Generator: Lokalize 2.0\n"
-
-#: data/eog-app-menu.ui:7
-msgid "Prefere_nces"
-msgstr "Iestatīju_mi"
-
-#: data/eog-app-menu.ui:13
-msgid "_Keyboard Shortcuts"
-msgstr "_Tastatūras īsinājumtaustiņi"
-
-#: data/eog-app-menu.ui:17 data/eog-preferences-dialog.ui:21
-msgid "_Help"
-msgstr "_Palīdzība"
-
-#: data/eog-app-menu.ui:21
-msgid "_About"
-msgstr "P_ar"
-
-#: data/eog-app-menu.ui:25
-msgid "_Quit"
-msgstr "_Iziet"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -70,15 +50,15 @@ msgstr ""
 "iestatīt attēlu kā darbvirsmas tapeti. Tas nolasa kameras tagus, lai "
 "automātiski pagrieztu attēlus pareizajā portreta vai ainavas orientācijā."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5564
+#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Attēlu skatītājs"
 
 #. TRANSLATORS: Do NOT translate or transliterate this text!
 #. This is an icon file name
 #: data/eog.desktop.in.in:9
-msgid "eog"
-msgstr "eog"
+msgid "org.gnome.eog"
+msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -93,8 +73,9 @@ msgid "_Open…"
 msgstr "_Atvērt..."
 
 #: data/eog-gear-menu.ui:10
-msgid "Open _With"
-msgstr "Atvērt a_r"
+#| msgid "Open _With"
+msgid "Op_en With"
+msgstr "Atvērt _ar"
 
 #: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
 #: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
@@ -115,24 +96,46 @@ msgid "Set as Wa_llpaper"
 msgstr "Iestatīt kā _fonu"
 
 #: data/eog-gear-menu.ui:37
+#| msgid "Image Properties"
+msgid "Image Prope_rties"
+msgstr "Attēla ī_pašības"
+
+#: data/eog-gear-menu.ui:43
 msgid "Sli_deshow"
 msgstr "Slī_drāde"
 
-#: data/eog-gear-menu.ui:41
+#: data/eog-gear-menu.ui:50
+msgid "Sho_w"
+msgstr "_Rādīt"
+
+#: data/eog-gear-menu.ui:52
 msgid "S_ide Pane"
 msgstr "Sānu _rūts"
 
-#: data/eog-gear-menu.ui:45
+#: data/eog-gear-menu.ui:56
 msgid "Image _Gallery"
 msgstr "Attēlu galer_ija"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:60
 msgid "S_tatus Bar"
 msgstr "S_tatusa josla"
 
-#: data/eog-gear-menu.ui:55 data/popup-menus.ui:41
-msgid "Prope_rties"
-msgstr "Ī_pašības"
+#: data/eog-gear-menu.ui:68
+msgid "Prefere_nces"
+msgstr "Iestatīju_mi"
+
+#: data/eog-gear-menu.ui:72
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastatūras īsinājumtaustiņi"
+
+#: data/eog-gear-menu.ui:76 data/eog-preferences-dialog.ui:21
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#: data/eog-gear-menu.ui:80
+#| msgid "Image Viewer"
+msgid "_About Image Viewer"
+msgstr "P_ar attēlu skatītāju"
 
 #: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
@@ -242,8 +245,8 @@ msgstr "Saglabāt kā"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3279 src/eog-window.c:3282
-#: src/eog-window.c:3535
+#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
+#: src/eog-window.c:3539
 msgid "_Cancel"
 msgstr "At_celt"
 
@@ -798,8 +801,8 @@ msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Ja šis ir APLAMS, mazi attēli sākotnēji netiks automātiski izstiepti, lai"
-" atbilstu ekrāna izmēram."
+"Ja šis ir APLAMS, mazi attēli sākotnēji netiks automātiski izstiepti, lai "
+"atbilstu ekrāna izmēram."
 
 #: data/org.gnome.eog.gschema.xml.in:68
 msgid "Delay in seconds until showing the next image"
@@ -855,17 +858,17 @@ msgid ""
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
-"Ja šī iespēja ir ieslēgta, Eye of GNOME pārvietos attēlus uz miskasti bez"
-" vaicāšanas. Ja kādu no datnēm nevarēs pārvietot uz "
-"miskasti, Eye of GNOME tomēr vaicās, pirms to izdzēst."
+"Ja šī iespēja ir ieslēgta, Eye of GNOME pārvietos attēlus uz miskasti bez "
+"vaicāšanas. Ja kādu no datnēm nevarēs pārvietot uz miskasti, Eye of GNOME "
+"tomēr vaicās, pirms to izdzēst."
 
 #: data/org.gnome.eog.gschema.xml.in:108
 msgid ""
 "Whether the file chooser should show the user’s pictures folder if no images "
 "are loaded."
 msgstr ""
-"Vai datņu izvēlētājam vajadzētu rādīt lietotāja attēlu mapi, ja neviens"
-" attēls nav ielādēts."
+"Vai datņu izvēlētājam vajadzētu rādīt lietotāja attēlu mapi, ja neviens "
+"attēls nav ielādēts."
 
 #: data/org.gnome.eog.gschema.xml.in:109
 msgid ""
@@ -918,9 +921,13 @@ msgstr "_Atvērt ar"
 msgid "_Copy"
 msgstr "_Kopēt"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3538
+#: data/popup-menus.ui:35 src/eog-window.c:3542
 msgid "Move to _Trash"
 msgstr "Pārvie_tot uz miskasti"
+
+#: data/popup-menus.ui:41
+msgid "Prope_rties"
+msgstr "Ī_pašības"
 
 #: data/popup-menus.ui:49
 msgid "Show Containing _Folder"
@@ -959,6 +966,12 @@ msgstr "view-refresh"
 msgid "Reload current image"
 msgstr "Pārlādēt pašreizējo attēlu"
 
+#. A strftime-formatted string, to display the date the image was taken.
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
+#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %Y. gada %d. %B, %X"
+
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
 msgstr "Datums statusa joslā"
@@ -986,14 +999,14 @@ msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"%d attēls ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt"
-" izmaiņas?"
+"%d attēls ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt "
+"izmaiņas?"
 msgstr[1] ""
-"%d attēli ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt"
-" izmaiņas?"
+"%d attēli ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt "
+"izmaiņas?"
 msgstr[2] ""
-"%d attēlu ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt"
-" izmaiņas?"
+"%d attēlu ir ar nesaglabātām izmaiņām. Vai pirms aizvēršanas saglabāt "
+"izmaiņas?"
 
 #: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
@@ -1004,7 +1017,7 @@ msgstr "Izvēli_eties attēlus, kurus vēlaties saglabāt:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ja nesaglabāsiet, visas jūsu veiktās izmaiņas tiks zaudētas."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:931
+#: src/eog-error-message-area.c:128 src/eog-window.c:932
 msgid "_Reload"
 msgstr "Pā_rlādēt"
 
@@ -1051,11 +1064,6 @@ msgstr ""
 "Šis attēls satur vairākas lappuses. Attēlu skatītājs var parādīt tikai pirmo "
 "lappusi.\n"
 "Vai vēlaties instalēt dokumentu skatītāju, lai redzētu visas lappuses? "
-
-#. A strftime-formatted string, to display the date the image was taken.
-#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
-msgid "%a, %d %B %Y  %X"
-msgstr "%a, %Y. gada %d. %B, %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1138,27 +1146,27 @@ msgstr "Neielādēta attēla pārveidošana."
 msgid "Transformation failed."
 msgstr "Neizdevās pārveidot."
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1079
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Šis datnes formāts neatbalsta EXIF."
 
-#: src/eog-image.c:1221
+#: src/eog-image.c:1226
 #, c-format
 msgid "Image loading failed."
 msgstr "Neizdevās ielādēt attēlu."
 
-#: src/eog-image.c:1802 src/eog-image.c:1922
+#: src/eog-image.c:1807 src/eog-image.c:1927
 #, c-format
 msgid "No image loaded."
 msgstr "Nav ielādētu attēlu."
 
-#: src/eog-image.c:1810 src/eog-image.c:1931
+#: src/eog-image.c:1815 src/eog-image.c:1936
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Jums nav šīs datnes saglabāšanai nepieciešamo atļauju."
 
-#: src/eog-image.c:1820 src/eog-image.c:1942
+#: src/eog-image.c:1825 src/eog-image.c:1947
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Neizdevās izveidot pagaidu datni."
@@ -1396,7 +1404,7 @@ msgstr " (nederīgs unikods)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:546
+#: src/eog-window.c:547
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1404,14 +1412,14 @@ msgstr[0] "%i × %i pikselis  %s    %i%%"
 msgstr[1] "%i × %i pikseļi  %s    %i%%"
 msgstr[2] "%i × %i pikseļu  %s    %i%%"
 
-#: src/eog-window.c:933 src/eog-window.c:2673
+#: src/eog-window.c:934 src/eog-window.c:2677
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Slē_pt"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:943
+#: src/eog-window.c:944
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1425,22 +1433,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1213
+#: src/eog-window.c:1218
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Saglabā attēlu “%s” (%u/%u)"
 
-#: src/eog-window.c:1637
+#: src/eog-window.c:1642
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Atver attēlu “%s”"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2020
+#: src/eog-window.c:2028
 msgid "Viewing a slideshow"
 msgstr "Skata slaidrādi"
 
-#: src/eog-window.c:2239
+#: src/eog-window.c:2247
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1449,17 +1457,17 @@ msgstr ""
 "Kļūda, drukājot datni:\n"
 "%s"
 
-#: src/eog-window.c:2622 src/eog-window.c:2637
+#: src/eog-window.c:2626 src/eog-window.c:2641
 msgid "Error launching System Settings: "
 msgstr "Kļūda, palaižot sistēmas iestatījumus: "
 
-#: src/eog-window.c:2671
+#: src/eog-window.c:2675
 msgid "_Open Background Preferences"
 msgstr "Atvērt f_ona iestatījumus"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:2687
+#: src/eog-window.c:2691
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1468,11 +1476,11 @@ msgstr ""
 "Attēls “%s“ ir iestatīts kā darbvirsmas fons.\n"
 "Vai vēlaties mainīt tā izskatu?"
 
-#: src/eog-window.c:3177
+#: src/eog-window.c:3181
 msgid "Saving image locally…"
 msgstr "Saglabā attēlu lokāli..."
 
-#: src/eog-window.c:3255
+#: src/eog-window.c:3259
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1481,7 +1489,7 @@ msgstr ""
 "Vai tiešām vēlaties pavisam\n"
 "izdzēst “%s”?"
 
-#: src/eog-window.c:3258
+#: src/eog-window.c:3262
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1499,41 +1507,41 @@ msgstr[2] ""
 "Vai tiešām vēlaties pavisam\n"
 "izdzēst %d izvēlēto attēlu?"
 
-#: src/eog-window.c:3280 src/eog-window.c:3546
+#: src/eog-window.c:3284 src/eog-window.c:3550
 msgid "_Delete"
 msgstr "_Dzēst"
 
-#: src/eog-window.c:3283 src/eog-window.c:3548
+#: src/eog-window.c:3287 src/eog-window.c:3552
 msgid "_Yes"
 msgstr "_Jā"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3287 src/eog-window.c:3540
+#: src/eog-window.c:3291 src/eog-window.c:3544
 msgid "Do _not ask again during this session"
 msgstr "_Neprasīt vairāk šīs sesijas laikā"
 
-#: src/eog-window.c:3331
+#: src/eog-window.c:3335
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Neizdevās saņemt attēla datni"
 
-#: src/eog-window.c:3347
+#: src/eog-window.c:3351
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Neizdevās saņemt informāciju par attēla datni"
 
-#: src/eog-window.c:3363 src/eog-window.c:3607
+#: src/eog-window.c:3367 src/eog-window.c:3611
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Neizdevās izdzēst datni"
 
 #. set dialog error message
-#: src/eog-window.c:3413 src/eog-window.c:3707
+#: src/eog-window.c:3417 src/eog-window.c:3711
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Kļūda, dzēšot attēlu %s"
 
-#: src/eog-window.c:3508
+#: src/eog-window.c:3512
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1542,7 +1550,7 @@ msgstr ""
 "Vai tiešām vēlaties pārvietot\n"
 "“%s” uz miskasti?"
 
-#: src/eog-window.c:3511
+#: src/eog-window.c:3515
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1551,7 +1559,7 @@ msgstr ""
 "Neizdevās atrast miskasti attēlam “%s”. Vai vēlaties dzēst šo attēlu "
 "neatgriezeniski?"
 
-#: src/eog-window.c:3516
+#: src/eog-window.c:3520
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1569,7 +1577,7 @@ msgstr[2] ""
 "Vai tiešām vēlaties pārvietot\n"
 "%d izvēlēto attēlu uz miskasti?"
 
-#: src/eog-window.c:3521
+#: src/eog-window.c:3525
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1577,28 +1585,28 @@ msgstr ""
 "Dažus no izvēlētajiem attēliem nevar pārvietoti uz miskasti, tos var tikai "
 "neatgriezeniski dzēst. Vai vēlaties turpināt?"
 
-#: src/eog-window.c:3585 src/eog-window.c:3599
+#: src/eog-window.c:3589 src/eog-window.c:3603
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Neizdevās piekļūt miskastei."
 
-#: src/eog-window.c:4266
+#: src/eog-window.c:4270
 msgid "Shrink or enlarge the current image"
 msgstr "Samazināt vai palielināt pašreizējo attēlu"
 
-#: src/eog-window.c:4325
+#: src/eog-window.c:4329
 msgid "Show the current image in fullscreen mode"
 msgstr "Parādīt izvēlēto attēlu pilnekrāna režīmā"
 
-#: src/eog-window.c:4402
+#: src/eog-window.c:4406
 msgid "Properties"
 msgstr "Īpašības"
 
-#: src/eog-window.c:5567
+#: src/eog-window.c:5571
 msgid "The GNOME image viewer."
 msgstr "GNOME attēlu skatītājs."
 
-#: src/eog-window.c:5570
+#: src/eog-window.c:5574
 msgid "translator-credits"
 msgstr ""
 "Oskars Zīle <oskars.zile@gmail.com>\n"
@@ -1652,6 +1660,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Palaidiet “%s --help”, lai redzētu pilnu pieejamo komandrindas opciju "
 "sarakstu."
+
+#~ msgid "_About"
+#~ msgstr "P_ar"
+
+#~ msgid "_Quit"
+#~ msgstr "_Iziet"
+
+#~ msgid "eog"
+#~ msgstr "eog"
 
 #~ msgid "Question"
 #~ msgstr "Jautājums"
