@@ -42,7 +42,6 @@ media = [
   'figures/org.gnome.eog.svg',
   'figures/org.gnome.eog-symbolic.svg',
   'figures/plugins-all.png',
-  'figures/plugin-send-by-mail.png',
   'figures/prefs-plugins-date.png',
   'figures/prefs-plugins-fullscreen.png',
   'figures/prefs-plugins.png',
