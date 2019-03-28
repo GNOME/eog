@@ -36,7 +36,6 @@ sources = [
 ]
 
 media = [
-  'figures/image-view-prefs.png',
   'figures/multiple-convert.png',
   'figures/multiple-rename-count.png',
   'figures/org.gnome.eog.svg',
@@ -44,8 +43,7 @@ media = [
   'figures/plugins-all.png',
   'figures/prefs-plugins-date.png',
   'figures/prefs-plugins-fullscreen.png',
-  'figures/prefs-plugins.png',
-  'figures/slideshow-prefs.png'
+  'figures/prefs-plugins.png'
 ]
 
 gnome.yelp(
