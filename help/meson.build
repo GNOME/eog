@@ -41,7 +41,6 @@ media = [
   'figures/org.gnome.eog.svg',
   'figures/org.gnome.eog-symbolic.svg',
   'figures/plugins-all.png',
-  'figures/prefs-plugins-fullscreen.png',
   'figures/prefs-plugins.png'
 ]
 
