@@ -1791,8 +1791,8 @@ fullscreen_clear_timeout (EogWindow *window)
 	eog_debug (DEBUG_WINDOW);
 
 	if (window->priv->fullscreen_timeout_source != NULL) {
-		g_source_unref (window->priv->fullscreen_timeout_source);
 		g_source_destroy (window->priv->fullscreen_timeout_source);
+		g_source_unref (window->priv->fullscreen_timeout_source);
 	}
 
 	window->priv->fullscreen_timeout_source = NULL;
@@ -1823,8 +1823,8 @@ slideshow_clear_timeout (EogWindow *window)
 	eog_debug (DEBUG_WINDOW);
 
 	if (window->priv->slideshow_switch_source != NULL) {
-		g_source_unref (window->priv->slideshow_switch_source);
 		g_source_destroy (window->priv->slideshow_switch_source);
+		g_source_unref (window->priv->slideshow_switch_source);
 	}
 
 	window->priv->slideshow_switch_source = NULL;
