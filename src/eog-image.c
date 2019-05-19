@@ -894,10 +894,10 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 }
 
 static gboolean
-eog_image_real_load (EogImage *img,
-		     guint     data2read,
-		     EogJob   *job,
-		     GError  **error)
+eog_image_real_load (EogImage     *img,
+		     EogImageData  data2read,
+		     EogJob       *job,
+		     GError      **error)
 {
 	EogImagePrivate *priv;
 	GFileInputStream *input_stream;
@@ -974,22 +974,18 @@ eog_image_real_load (EogImage *img,
 		}
 
 		if (!strcmp (mime_type, "image/svg+xml")
-#if LIBRSVG_CHECK_FEATURE(SVGZ)
 		    || !strcmp (mime_type, "image/svg+xml-compressed")
-#endif
 		) {
-			gchar *file_path;
 			/* Keep the object for rendering */
 			priv->svg = rsvg_handle_new ();
-			use_rsvg = (priv->svg != NULL);
-			file_path = g_file_get_path (priv->file);
-			rsvg_handle_set_base_uri (priv->svg, file_path);
-			g_free (file_path);
+			rsvg_handle_set_base_gfile (priv->svg, priv->file);
 
 			/* Use 96dpi when rendering SVG documents with units
 			 * different then pixels. This value is specified in
 			 * the CSS standard on which SVG depends. */
 			rsvg_handle_set_dpi_x_y (priv->svg, 96.0, 96.0);
+
+			use_rsvg = TRUE;
 		}
 #endif
 
