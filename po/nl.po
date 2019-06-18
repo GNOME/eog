@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-30 12:35+0000\n"
-"PO-Revision-Date: 2019-02-24 16:18+0100\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
+"PO-Revision-Date: 2019-06-18 10:00+0200\n"
 "Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -62,12 +62,6 @@ msgstr ""
 #: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Afbeeldingsweergave"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -398,7 +392,6 @@ msgid "Plugins"
 msgstr "Plug-ins"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Afbeelding verkleinen"
 
@@ -414,7 +407,7 @@ msgstr "Naar de eerste afbeelding in het overzicht gaan"
 msgid "_First Image"
 msgstr "_Eerste afbeelding"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "Naar de vorige afbeelding in het overzicht gaan"
 
@@ -422,7 +415,7 @@ msgstr "Naar de vorige afbeelding in het overzicht gaan"
 msgid "_Previous Image"
 msgstr "Vo_rige afbeelding"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "Naar de volgende afbeelding in het overzicht gaan"
 
@@ -446,15 +439,23 @@ msgstr "_Inzoomen"
 msgid "Zoom _Out"
 msgstr "_Uitzoomen"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "De afbeelding in haar oorspronkelijke grootte weergeven"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Normale afmetingen"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Afbeeldingsgrootte aanpassen aan het venster"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "_Passend"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "De afbeelding 90 graden linksom draaien"
 
@@ -462,7 +463,7 @@ msgstr "De afbeelding 90 graden linksom draaien"
 msgid "Rotate Counter_clockwise"
 msgstr "_Tegen de klok in draaien"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "De afbeelding 90 graden rechtsom draaien"
 
@@ -962,12 +963,6 @@ msgstr "_Passend"
 msgid "Fullscreen with double-click"
 msgstr "Volledig scherm bij dubbelklikken"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Omschakelen naar volledig scherm-modus bij dubbelklikken"
@@ -977,12 +972,6 @@ msgstr "Omschakelen naar volledig scherm-modus bij dubbelklikken"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Afbeelding herladen"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
@@ -1684,6 +1673,15 @@ msgstr ""
 "Voer ‘%s --help’ uit om een volledige lijst van alle opdrachtregelopties te "
 "zien."
 
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
+
 #~ msgid "_About"
 #~ msgstr "I_nfo"
 
@@ -1695,6 +1693,3 @@ msgstr ""
 
 #~ msgid "Question"
 #~ msgstr "Vraag"
-
-#~ msgid "Fit the image to the window"
-#~ msgstr "Afbeeldingsgrootte aanpassen aan het venster"
