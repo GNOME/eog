@@ -14,7 +14,7 @@ private_headers = [
   'eog-plugin-engine.h',
   'eog-preferences-dialog.h',
   'eog-print-image-setup.h',
-  'eog-print-preview.h'
+  'eog-print-preview.h',
 ]
 
 if not enable_libexif
@@ -29,7 +29,7 @@ version_xml = 'version.xml'
 configure_file(
   input: version_xml + '.in',
   output: version_xml,
-  configuration: version_conf
+  configuration: version_conf,
 )
 
 gnome.gtkdoc(
@@ -42,5 +42,5 @@ gnome.gtkdoc(
     '--ignore-headers=' + ' '.join(private_headers),
   ],
   gobject_typesfile: meson.project_name() + '.types',
-  install: true
+  install: true,
 )
