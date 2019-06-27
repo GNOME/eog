@@ -17,16 +17,16 @@ eog_gir_ns = 'Eog'
 eog_gir_version = '1.0'
 
 eog_prefix = get_option('prefix')
-eog_datadir = join_paths(eog_prefix, get_option('datadir'))
-eog_libdir = join_paths(eog_prefix, get_option('libdir'))
-eog_localedir = join_paths(eog_prefix, get_option('localedir'))
+eog_datadir = eog_prefix / get_option('datadir')
+eog_libdir = eog_prefix / get_option('libdir')
+eog_localedir = eog_prefix / get_option('localedir')
 
-eog_pkgdatadir = join_paths(eog_datadir, meson.project_name())
-eog_pkglibdir = join_paths(eog_libdir, meson.project_name())
-eog_pkglibexecdir = join_paths(eog_prefix, get_option('libexecdir'), meson.project_name())
+eog_pkgdatadir = eog_datadir / meson.project_name()
+eog_pkglibdir = eog_libdir / meson.project_name()
+eog_pkglibexecdir = eog_prefix / get_option('libexecdir') / meson.project_name()
 
-eog_pluginsdir = join_paths(eog_pkglibdir, 'plugins')
-eog_schemadir = join_paths(eog_datadir, 'glib-2.0', 'schemas')
+eog_pluginsdir = eog_pkglibdir / 'plugins'
+eog_schemadir = eog_datadir / 'glib-2.0/schemas'
 
 cc = meson.get_compiler('c')
 
@@ -185,8 +185,8 @@ gnome = import('gnome')
 i18n = import('i18n')
 pkg = import('pkgconfig')
 
-data_dir = join_paths(meson.source_root(), 'data')
-po_dir = join_paths(meson.source_root(), 'po')
+data_dir = meson.source_root() / 'data'
+po_dir = meson.source_root() / 'po'
 
 top_inc = include_directories('.')
 
