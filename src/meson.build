@@ -2,7 +2,7 @@ src_inc = include_directories('.')
 
 enum_headers = files(
   'eog-scroll-view.h',
-  'eog-window.h'
+  'eog-window.h',
 )
 
 gnome.mkenums(
@@ -15,7 +15,7 @@ gnome.mkenums(
   vtail: '  </@type@>',
   ftail: '</schemalist>',
   install_header: true,
-  install_dir: eog_schemadir
+  install_dir: eog_schemadir,
 )
 
 headers = enum_headers + files(
@@ -38,7 +38,7 @@ headers = enum_headers + files(
   'eog-thumb-view.h',
   'eog-transform.h',
   'eog-uri-converter.h',
-  'eog-window-activatable.h'
+  'eog-window-activatable.h',
 )
 
 sources = files(
@@ -80,7 +80,7 @@ sources = files(
   'eog-window-activatable.c',
   'eog-window.c',
   'eog-zoom-entry.c',
-  'zoom.c'
+  'zoom.c',
 )
 
 if enable_libexif
@@ -94,7 +94,7 @@ endif
 
 install_headers(
   headers,
-  subdir: eog_api_name / meson.project_name()
+  subdir: eog_api_name / meson.project_name(),
 )
 
 sources += gnome.compile_resources(
@@ -103,7 +103,7 @@ sources += gnome.compile_resources(
   source_dir: data_dir,
   c_name: '_eog',
   dependencies: resource_data,
-  export: true
+  export: true,
 )
 
 enum = 'eog-enum-types'
@@ -112,7 +112,7 @@ sources += gnome.mkenums(
   enum,
   sources: headers,
   c_template: enum + '.c.template',
-  h_template: enum + '.h.template'
+  h_template: enum + '.h.template',
 )
 
 marshal = 'eog-marshal'
@@ -121,7 +121,7 @@ sources += gnome.genmarshal(
   marshal,
   sources: marshal + '.list',
   prefix: 'eog_marshal',
-  internal: true
+  internal: true,
 )
 
 deps = common_deps + [
@@ -129,14 +129,14 @@ deps = common_deps + [
   gnome_desktop_dep,
   libpeas_gtk_dep,
   zlib_dep,
-  cc.find_library('m')
+  cc.find_library('m'),
 ]
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
   '-DEOG_DATA_DIR="@0@"'.format(eog_pkgdatadir),
   '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
-  '-DLIBDIR="@0@"'.format(eog_libdir)
+  '-DLIBDIR="@0@"'.format(eog_libdir),
 ]
 
 symbol_map = meson.current_source_dir() / 'symbol.map'
@@ -167,13 +167,13 @@ libeog = shared_library(
   link_args: ldflags,
   link_depends: symbol_map,
   install: true,
-  install_dir: eog_pkglibdir
+  install_dir: eog_pkglibdir,
 )
 
 libeog_dep = declare_dependency(
   link_with: libeog,
   include_directories: src_inc,
-  dependencies: common_deps
+  dependencies: common_deps,
 )
 
 pkg.generate(
@@ -186,15 +186,15 @@ pkg.generate(
   requires: 'gtk+-3.0',
   variables: [
     'exec_prefix=' + eog_prefix,
-    'pluginsdir=' + eog_pluginsdir
-  ]
+    'pluginsdir=' + eog_pluginsdir,
+  ],
 )
 
 deps = [libeog_dep]
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir)
+  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir),
 ]
 
 if enable_introspection
@@ -208,7 +208,7 @@ eog = executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
-  install_rpath: eog_pkglibdir
+  install_rpath: eog_pkglibdir,
 )
 
 if enable_introspection
@@ -225,6 +225,6 @@ if enable_introspection
     includes: 'Gtk-3.0',
     install: true,
     install_dir_gir: gir_dir,
-    install_dir_typelib: typelib_dir
+    install_dir_typelib: typelib_dir,
   )
 endif

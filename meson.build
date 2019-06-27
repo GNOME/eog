@@ -3,7 +3,7 @@ project(
   version: '3.33.3',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0'
+  meson_version: '>= 0.50.0',
 )
 
 eog_version = meson.project_version()
@@ -38,7 +38,7 @@ set_defines = [
   ['PACKAGE', meson.project_name()],
   ['VERSION', eog_version],
   # i18n
-  ['GETTEXT_PACKAGE', meson.project_name()]
+  ['GETTEXT_PACKAGE', meson.project_name()],
 ]
 
 foreach define: set_defines
@@ -73,7 +73,7 @@ if get_option('buildtype').contains('debug')
     '-Werror=pointer-arith',
     '-Werror=return-type',
     '-Wnested-externs',
-    '-Wstrict-prototypes'
+    '-Wstrict-prototypes',
   ]
 
   compiler_flags += cc.get_supported_arguments(test_cflags)
@@ -100,7 +100,7 @@ common_deps = [
   dependency('gio-2.0', version: glib_req_version),
   dependency('glib-2.0', version: glib_req_version),
   dependency('gtk+-3.0', version: '>= 3.22.0'),
-  dependency('libpeas-1.0', version: peas_req_version)
+  dependency('libpeas-1.0', version: peas_req_version),
 ]
 
 # ZLIB support (required)
@@ -212,12 +212,12 @@ endif
 
 configure_file(
   output: 'config.h',
-  configuration: config_h
+  configuration: config_h,
 )
 
 meson.add_install_script(
   'meson_post_install.py',
-  eog_datadir
+  eog_datadir,
 )
 
 output = 'Configure summary:\n\n'
