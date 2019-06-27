@@ -1,5 +1,5 @@
-tests_execdir = join_paths(eog_pkglibexecdir, 'installed-tests')
-tests_metadir = join_paths(eog_datadir, 'installed-tests', meson.project_name())
+tests_execdir = eog_pkglibexecdir / 'installed-tests'
+tests_metadir = eog_datadir / 'installed-tests' / meson.project_name()
 
 tests_data = files(
   'actions.feature',

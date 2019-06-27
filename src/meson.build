@@ -94,7 +94,7 @@ endif
 
 install_headers(
   headers,
-  subdir: join_paths(eog_api_name, meson.project_name())
+  subdir: eog_api_name / meson.project_name()
 )
 
 sources += gnome.compile_resources(
@@ -139,7 +139,7 @@ cflags = [
   '-DLIBDIR="@0@"'.format(eog_libdir)
 ]
 
-symbol_map = join_paths(meson.current_source_dir(), 'symbol.map')
+symbol_map = meson.current_source_dir() / 'symbol.map'
 
 ldflags = []
 if have_version_script
@@ -214,8 +214,8 @@ eog = executable(
 if enable_introspection
   gir_sources = sources + headers
 
-  gir_dir = join_paths(eog_pkgdatadir, 'gir-' + eog_gir_version)
-  typelib_dir = join_paths(eog_pkglibdir, 'girepository-' + eog_gir_version)
+  gir_dir = eog_pkgdatadir / 'gir-' + eog_gir_version
+  typelib_dir = eog_pkglibdir / 'girepository-' + eog_gir_version
 
   gnome.generate_gir(
     eog,
