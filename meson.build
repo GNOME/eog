@@ -26,7 +26,6 @@ eog_pkglibdir = eog_libdir / meson.project_name()
 eog_pkglibexecdir = get_option('libexecdir') / meson.project_name()
 
 eog_pluginsdir = eog_pkglibdir / 'plugins'
-eog_schemadir = eog_datadir / 'glib-2.0/schemas'
 
 cc = meson.get_compiler('c')
 
@@ -84,6 +83,7 @@ add_project_arguments(common_flags + compiler_flags, language: 'c')
 glib_req_version = '>= 2.53.4'
 peas_req_version = '>= 0.7.4'
 
+gio_dep = dependency('gio-2.0', version: glib_req_version)
 gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
 libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
@@ -93,12 +93,18 @@ dependency('gsettings-desktop-schemas', version: '>= 2.91.92')
 dependency('shared-mime-info', version: '>= 0.20')
 
 common_deps = [
+  gio_dep,
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
-  dependency('gio-2.0', version: glib_req_version),
   dependency('glib-2.0', version: glib_req_version),
   dependency('gtk+-3.0', version: '>= 3.22.0'),
   dependency('libpeas-1.0', version: peas_req_version),
 ]
+
+gio_schemasdir = gio_dep.get_pkgconfig_variable(
+  'schemasdir',
+  define_variable: ['datadir', eog_prefix / eog_datadir],
+  default: eog_prefix / eog_datadir / 'glib-2.0/schemas',
+)
 
 # ZLIB support (required)
 if not cc.has_header('zlib.h') or not (cc.has_function('inflate') and cc.has_function('crc32'))
@@ -215,6 +221,7 @@ configure_file(
 meson.add_install_script(
   'meson_post_install.py',
   eog_datadir,
+  gio_schemasdir,
 )
 
 output = 'Configure summary:\n\n'
