@@ -140,11 +140,7 @@ cflags = [
 ]
 
 symbol_map = meson.current_source_dir() / 'symbol.map'
-
-ldflags = []
-if have_version_script
-  ldflags += '-Wl,--version-script,@0@'.format(symbol_map)
-endif
+ldflags = cc.get_supported_link_arguments('-Wl,--version-script,' + symbol_map)
 
 if enable_introspection
   deps += gir_dep
