@@ -81,9 +81,6 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-ldflag = '-Wl,--version-script'
-have_version_script = host_machine.system().contains('linux') and cc.has_argument(ldflag)
-
 glib_req_version = '>= 2.53.4'
 peas_req_version = '>= 0.7.4'
 
