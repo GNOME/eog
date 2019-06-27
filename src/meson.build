@@ -214,7 +214,7 @@ if enable_introspection
   typelib_dir = eog_pkglibdir / 'girepository-' + eog_gir_version
 
   gnome.generate_gir(
-    eog,
+    libeog,
     sources: gir_sources,
     nsversion: eog_api_version,
     namespace: eog_gir_ns,
