@@ -32,8 +32,6 @@ configure_file(
   configuration: version_conf
 )
 
-doc_path = join_paths(eog_datadir, 'gtk-doc', 'html', meson.project_name())
-
 gnome.gtkdoc(
   meson.project_name(),
   main_xml: meson.project_name() + '-docs.xml',
@@ -44,6 +42,5 @@ gnome.gtkdoc(
     '--ignore-headers=' + ' '.join(private_headers),
   ],
   gobject_typesfile: meson.project_name() + '.types',
-  install: true,
-  install_dir: doc_path
+  install: true
 )
