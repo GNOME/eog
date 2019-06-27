@@ -3,7 +3,7 @@ project(
   version: '3.33.3',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.44.0'
+  meson_version: '>= 0.50.0'
 )
 
 eog_version = meson.project_version()
