@@ -54,9 +54,9 @@ schema = 'org.gnome.eog.gschema.xml'
 configure_file(
   input: schema + '.in',
   output: schema,
-  install: true,
-  install_dir: eog_schemadir,
   configuration: schema_conf,
+  install: true,
+  install_dir: gio_schemasdir,
 )
 
 install_data(

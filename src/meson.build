@@ -15,7 +15,7 @@ gnome.mkenums(
   vtail: '  </@type@>',
   ftail: '</schemalist>',
   install_header: true,
-  install_dir: eog_schemadir,
+  install_dir: gio_schemasdir,
 )
 
 headers = enum_headers + files(
