@@ -18,7 +18,6 @@ eog_gir_version = '1.0'
 
 eog_prefix = get_option('prefix')
 eog_datadir = join_paths(eog_prefix, get_option('datadir'))
-eog_includedir = join_paths(eog_prefix, get_option('includedir'))
 eog_libdir = join_paths(eog_prefix, get_option('libdir'))
 eog_localedir = join_paths(eog_prefix, get_option('localedir'))
 
