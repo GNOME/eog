@@ -32,7 +32,7 @@ i18n.merge_file(
   output: desktop,
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(eog_datadir, 'applications')
+  install_dir: eog_datadir / 'applications'
 )
 
 appdata = 'eog.appdata.xml'
@@ -43,7 +43,7 @@ i18n.merge_file(
   output: appdata,
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(eog_datadir, 'metainfo')
+  install_dir: eog_datadir / 'metainfo'
 )
 
 schema_conf = configuration_data()
@@ -61,5 +61,5 @@ configure_file(
 
 install_data(
   'eog.convert',
-  install_dir: join_paths(eog_datadir, 'GConf', 'gsettings')
+  install_dir: eog_datadir / 'GConf/gsettings'
 )
