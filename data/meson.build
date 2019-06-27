@@ -11,7 +11,7 @@ resource_data = files(
   'fullscreen-toolbar.ui',
   'help-overlay.ui',
   'metadata-sidebar.ui',
-  'popup-menus.ui'
+  'popup-menus.ui',
 )
 
 desktop_conf = configuration_data()
@@ -22,7 +22,7 @@ desktop = 'eog.desktop'
 desktop_in = configure_file(
   input: desktop + '.in.in',
   output: desktop + '.in',
-  configuration: desktop_conf
+  configuration: desktop_conf,
 )
 
 i18n.merge_file(
@@ -32,7 +32,7 @@ i18n.merge_file(
   output: desktop,
   po_dir: po_dir,
   install: true,
-  install_dir: eog_datadir / 'applications'
+  install_dir: eog_datadir / 'applications',
 )
 
 appdata = 'eog.appdata.xml'
@@ -43,7 +43,7 @@ i18n.merge_file(
   output: appdata,
   po_dir: po_dir,
   install: true,
-  install_dir: eog_datadir / 'metainfo'
+  install_dir: eog_datadir / 'metainfo',
 )
 
 schema_conf = configuration_data()
@@ -56,10 +56,10 @@ configure_file(
   output: schema,
   install: true,
   install_dir: eog_schemadir,
-  configuration: schema_conf
+  configuration: schema_conf,
 )
 
 install_data(
   'eog.convert',
-  install_dir: eog_datadir / 'GConf/gsettings'
+  install_dir: eog_datadir / 'GConf/gsettings',
 )
