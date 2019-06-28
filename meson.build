@@ -97,6 +97,8 @@ gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
 libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
 
+m_dep = cc.find_library('m')
+
 # runtime dependencies
 dependency('gsettings-desktop-schemas', version: '>= 2.91.92')
 dependency('shared-mime-info', version: '>= 0.20')
