@@ -18,7 +18,7 @@ desktop = 'eog.desktop'
 
 desktop_in = configure_file(
   input: desktop + '.in.in',
-  output: desktop + '.in',
+  output: '@BASENAME@',
   configuration: {'VERSION': eog_version},
 )
 
@@ -43,11 +43,10 @@ i18n.merge_file(
   install_dir: eog_datadir / 'metainfo',
 )
 
-schema = 'org.gnome.eog.gschema.xml'
 
 configure_file(
-  input: schema + '.in',
-  output: schema,
+  input: 'org.gnome.eog.gschema.xml.in',
+  output: '@BASENAME@',
   configuration: {'GETTEXT_PACKAGE': meson.project_name()},
   install: true,
   install_dir: gio_schemasdir,
