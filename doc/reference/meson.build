@@ -21,15 +21,12 @@ if not enable_libexif
   private_headers += 'eog-exif-util.h'
 endif
 
-version_conf = configuration_data()
-version_conf.set('VERSION', eog_version)
-
 version_xml = 'version.xml'
 
 configure_file(
   input: version_xml + '.in',
   output: version_xml,
-  configuration: version_conf,
+  configuration: {'VERSION': eog_version},
 )
 
 gnome.gtkdoc(
