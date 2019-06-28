@@ -21,11 +21,9 @@ if not enable_libexif
   private_headers += 'eog-exif-util.h'
 endif
 
-version_xml = 'version.xml'
-
 configure_file(
-  input: version_xml + '.in',
-  output: version_xml,
+  input: 'version.xml.in',
+  output: '@BASENAME@',
   configuration: {'VERSION': eog_version},
 )
 
