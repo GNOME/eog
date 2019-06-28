@@ -21,7 +21,7 @@ if not enable_libexif
   private_headers += 'eog-exif-util.h'
 endif
 
-configure_file(
+version_xml = configure_file(
   input: 'version.xml.in',
   output: '@BASENAME@',
   configuration: {'VERSION': eog_version},
@@ -31,11 +31,9 @@ gnome.gtkdoc(
   meson.project_name(),
   main_xml: meson.project_name() + '-docs.xml',
   src_dir: src_inc,
+  ignore_headers: private_headers,
   dependencies: libeog_dep,
-  scan_args: [
-    '--rebuild-types',
-    '--ignore-headers=' + ' '.join(private_headers),
-  ],
-  gobject_typesfile: meson.project_name() + '.types',
+  scan_args: '--rebuild-types',
+  content_files: version_xml,
   install: true,
 )
