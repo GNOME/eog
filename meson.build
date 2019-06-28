@@ -27,6 +27,17 @@ eog_pkglibexecdir = get_option('libexecdir') / meson.project_name()
 
 eog_pluginsdir = eog_pkglibdir / 'plugins'
 
+gnome = import('gnome')
+i18n = import('i18n')
+pkg = import('pkgconfig')
+
+source_root = meson.current_source_dir()
+
+data_dir = source_root / 'data'
+po_dir = source_root / 'po'
+
+top_inc = include_directories('.')
+
 cc = meson.get_compiler('c')
 
 config_h = configuration_data()
@@ -184,15 +195,6 @@ if enable_x11
   x11_dep = dependency('x11')
 endif
 
-gnome = import('gnome')
-i18n = import('i18n')
-pkg = import('pkgconfig')
-
-data_dir = meson.source_root() / 'data'
-po_dir = meson.source_root() / 'po'
-
-top_inc = include_directories('.')
-
 subdir('data')
 
 if enable_libjpeg
@@ -225,7 +227,7 @@ meson.add_install_script(
 )
 
 output = 'Configure summary:\n\n'
-output += '  Source code location .......:  ' + meson.source_root() + '\n'
+output += '  Source code location .......:  ' + source_root + '\n'
 output += '  Compiler ...................:  ' + cc.get_id() + '\n'
 output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
 output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'
