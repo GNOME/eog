@@ -209,19 +209,14 @@ eog = executable(
 )
 
 if enable_introspection
-  gir_sources = sources + headers
-
-  gir_dir = eog_pkgdatadir / 'gir-' + eog_gir_version
-  typelib_dir = eog_pkglibdir / 'girepository-' + eog_gir_version
-
   gnome.generate_gir(
     libeog,
-    sources: gir_sources,
+    sources: sources + headers,
     nsversion: eog_api_version,
     namespace: eog_gir_ns,
     includes: 'Gtk-3.0',
     install: true,
-    install_dir_gir: gir_dir,
-    install_dir_typelib: typelib_dir,
+    install_dir_gir: eog_pkgdatadir / 'gir-' + eog_gir_version,
+    install_dir_typelib: eog_pkglibdir / 'girepository-' + eog_gir_version,
   )
 endif
