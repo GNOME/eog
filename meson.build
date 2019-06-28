@@ -74,7 +74,7 @@ common_flags = ['-DHAVE_CONFIG_H']
 
 compiler_flags = []
 if get_option('buildtype').contains('debug')
-  test_cflags = [
+  compiler_flags += cc.get_supported_arguments([
     '-Werror=format=2',
     '-Werror=implicit-function-declaration',
     '-Werror=init-self',
@@ -84,9 +84,7 @@ if get_option('buildtype').contains('debug')
     '-Werror=return-type',
     '-Wnested-externs',
     '-Wstrict-prototypes',
-  ]
-
-  compiler_flags += cc.get_supported_arguments(test_cflags)
+  ])
 endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
