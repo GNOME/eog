@@ -30,15 +30,16 @@ test_names = [
 ]
 
 foreach test_name: test_names
-  tests_conf = configuration_data()
-  tests_conf.set('TESTS_PATH', tests_execdir)
-  tests_conf.set('TEST_NAME', test_name)
+  tests_conf = {
+    'TESTS_PATH': tests_execdir,
+    'TEST_NAME': test_name,
+  }
 
   configure_file(
     input: 'template.test.in',
     output: test_name + '.test',
+    configuration: tests_conf,
     install: true,
     install_dir: tests_metadir,
-    configuration: tests_conf,
   )
 endforeach
