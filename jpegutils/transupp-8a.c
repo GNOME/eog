@@ -49,7 +49,7 @@
 #include <ctype.h>		/* to declare isdigit() */
 
 
-#if TRANSFORMS_SUPPORTED
+#ifdef TRANSFORMS_SUPPORTED
 
 /*
  * Lossless image transformation routines.  These routines work on DCT

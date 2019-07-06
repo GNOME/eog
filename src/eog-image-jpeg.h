@@ -1,7 +1,7 @@
 #ifndef _EOG_IMAGE_JPEG_H_
 #define _EOG_IMAGE_JPEG_H_
 
-#if HAVE_JPEG
+#ifdef HAVE_JPEG
 
 #include <glib.h>
 #include "eog-image.h"
