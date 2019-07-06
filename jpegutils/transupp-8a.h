@@ -17,9 +17,10 @@
  * jpegtran.c for an example of correct usage.
  */
 
-/* If you happen not to want the image transform support, disable it here */
+/* If you happen not to want the image transform support, disable it here
+ * by replacing commenting the following conditional group. */
 #ifndef TRANSFORMS_SUPPORTED
-#define TRANSFORMS_SUPPORTED 1		/* 0 disables transform code */
+#define TRANSFORMS_SUPPORTED
 #endif
 
 /*
@@ -156,7 +157,7 @@ typedef struct {
 } jpeg_transform_info;
 
 
-#if TRANSFORMS_SUPPORTED
+#ifdef TRANSFORMS_SUPPORTED
 
 /* Parse a crop specification (written in X11 geometry style) */
 EXTERN(boolean) jtransform_parse_crop_spec

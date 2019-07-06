@@ -23,13 +23,13 @@
 #define _EOG_METADATA_READER_H_
 
 #include <glib-object.h>
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include "eog-exif-util.h"
 #endif
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
 #endif
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 #include <lcms2.h>
 #endif
 

@@ -45,7 +45,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
 #endif
 

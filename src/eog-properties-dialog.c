@@ -29,7 +29,7 @@
 #include "eog-util.h"
 #include "eog-thumb-view.h"
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include "eog-exif-util.h"
 #endif
 
@@ -39,15 +39,15 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
 #include <exempi/xmpconsts.h>
 #endif
-#if HAVE_EXIF || HAVE_EXEMPI
-#define HAVE_METADATA 1
+#if defined(HAVE_EXIF) || defined(HAVE_EXEMPI)
+#define HAVE_METADATA
 #endif
 
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 #include "eog-metadata-details.h"
 #endif
 
@@ -99,7 +99,7 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *xmp_box;
 	GtkWidget      *xmp_box_label;
 #endif
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 	GtkWidget      *metadata_box;
 	GtkWidget      *metadata_details_expander;
 	GtkWidget      *metadata_details;
@@ -217,7 +217,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	g_free (bytes_str);
 }
 
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 static void
 eog_xmp_set_label (XmpPtr xmp,
 		   const char *ns,
@@ -272,17 +272,17 @@ eog_xmp_set_label (XmpPtr xmp,
 }
 #endif
 
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 static void
 pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 			EogImage            *image)
 {
 	EogPropertiesDialogPrivate *priv;
 	GtkNotebook *notebook;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	ExifData    *exif_data;
 #endif
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 	XmpPtr      xmp_data;
 #endif
 
@@ -293,10 +293,10 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	notebook = GTK_NOTEBOOK (priv->notebook);
 
 	if (TRUE
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	    && !eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)
 #endif
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 	    && !eog_image_has_data (image, EOG_IMAGE_DATA_XMP)
 #endif
 	    ) {
@@ -324,7 +324,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		}
 	}
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	exif_data = (ExifData *) eog_image_get_exif_info (image);
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->exif_aperture_label),
@@ -358,7 +358,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	exif_data_unref(exif_data);
 #endif
 
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 	xmp_data = (XmpPtr) eog_image_get_xmp_info (image);
 
  	if (xmp_data != NULL) {
@@ -679,7 +679,7 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 						     EogPropertiesDialog,
 						     folder_button);
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	gtk_widget_class_bind_template_child_private(wklass,
 						     EogPropertiesDialog,
 						     exif_aperture_label);
@@ -705,7 +705,7 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *klass)
 						     EogPropertiesDialog,
 						     exif_date_label);
 #endif
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 	gtk_widget_class_bind_template_child_private(wklass,
 						     EogPropertiesDialog,
 						     xmp_location_label);
@@ -754,7 +754,7 @@ static void
 eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 {
 	EogPropertiesDialogPrivate *priv;
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 	GtkWidget *sw;
 #endif
 

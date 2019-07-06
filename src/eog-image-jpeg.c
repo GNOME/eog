@@ -34,7 +34,7 @@
 #include "eog-image-jpeg.h"
 #include "eog-image-private.h"
 
-#if HAVE_JPEG
+#ifdef HAVE_JPEG
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -48,7 +48,7 @@
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib/gi18n.h>
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
 
@@ -298,7 +298,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_write_coefficients (&dstinfo, dst_coef_arrays);
 
 	/* handle EXIF/IPTC data explicitly */
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
@@ -429,7 +429,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_start_compress (&cinfo, TRUE);
 
 	/* write EXIF/IPTC data explicitly */
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
