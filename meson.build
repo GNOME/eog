@@ -119,21 +119,21 @@ if enable_libexif
          'libexif support requested but library not found. Please use -Dlibexif=false')
 
   common_deps += libexif_dep
-  config_h.set10('HAVE_EXIF', true)
+  config_h.set('HAVE_EXIF', true)
 endif
 
 # Little CMS (optional)
 enable_cms = get_option('cms')
 if enable_cms
   common_deps += dependency('lcms2')
-  config_h.set10('HAVE_LCMS', true)
+  config_h.set('HAVE_LCMS', true)
 endif
 
 # Exempi (optional)
 enable_xmp = get_option('xmp')
 if enable_xmp
   common_deps += dependency('exempi-2.0', version: '>= 1.99.5')
-  config_h.set10('HAVE_EXEMPI', true)
+  config_h.set('HAVE_EXEMPI', true)
 endif
 
 # Jpeg (semi-optional)
@@ -156,7 +156,7 @@ if enable_libjpeg
   '''
   have_jpeg_80 = cc.compiles(jpeg_80_check_src, dependencies: libjpeg_dep, name: 'libjpeg version is 8 or greater')
 
-  config_h.set10('HAVE_JPEG', true)
+  config_h.set('HAVE_JPEG', true)
 endif
 config_h.set('HAVE_LIBJPEG', enable_libjpeg)
 

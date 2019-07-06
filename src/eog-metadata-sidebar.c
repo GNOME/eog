@@ -45,14 +45,14 @@
 #include "eog-exif-util.h"
 #endif
 
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
 #include <exempi/xmpconsts.h>
 #endif
 
 /* There's no exempi support in the sidebar yet */
-#if HAVE_EXIF  /*|| HAVE_EXEMPI */
-#define HAVE_METADATA 1
+#if defined(HAVE_EXIF) /*|| defined(HAVE_EXEMPI) */
+#define HAVE_METADATA
 #endif
 
 enum {
@@ -73,7 +73,7 @@ struct _EogMetadataSidebarPrivate {
 	GtkWidget *filesize_label;
 	GtkWidget *folder_label;
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	GtkWidget *aperture_label;
 	GtkWidget *exposure_label;
 	GtkWidget *focallen_label;
@@ -184,12 +184,12 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	g_object_unref (parent_file);
 }
 
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 static void
 eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 {
 	EogMetadataSidebarPrivate *priv = sidebar->priv;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	EogImage *img = priv->image;
 	ExifData *exif_data = NULL;
 
@@ -234,7 +234,7 @@ eog_metadata_sidebar_update (EogMetadataSidebar *sidebar)
 	g_return_if_fail (EOG_IS_METADATA_SIDEBAR (sidebar));
 
 	eog_metadata_sidebar_update_general_section (sidebar);
-#if HAVE_METADATA
+#ifdef HAVE_METADATA
 	eog_metadata_sidebar_update_metadata_section (sidebar);
 #endif
 }
@@ -455,7 +455,7 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      folder_label);
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	gtk_widget_class_bind_template_child_private (widget_class,
 						      EogMetadataSidebar,
 						      aperture_label);

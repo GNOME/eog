@@ -164,7 +164,7 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 ExifData*      eog_image_get_exif_info            (EogImage   *img);
 #endif
 
