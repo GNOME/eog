@@ -26,11 +26,11 @@
 #include "eog-metadata-details.h"
 #include "eog-util.h"
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include <libexif/exif-entry.h>
 #include <libexif/exif-utils.h>
 #endif
-#if HAVE_EXEMPI
+#ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
 #include <exempi/xmpconsts.h>
 #endif
