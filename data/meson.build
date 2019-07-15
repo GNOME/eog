@@ -11,18 +11,15 @@ resource_data = files(
   'fullscreen-toolbar.ui',
   'help-overlay.ui',
   'metadata-sidebar.ui',
-  'popup-menus.ui'
+  'popup-menus.ui',
 )
-
-desktop_conf = configuration_data()
-desktop_conf.set('VERSION', eog_version)
 
 desktop = 'eog.desktop'
 
 desktop_in = configure_file(
   input: desktop + '.in.in',
-  output: desktop + '.in',
-  configuration: desktop_conf
+  output: '@BASENAME@',
+  configuration: {'VERSION': eog_version},
 )
 
 i18n.merge_file(
@@ -32,7 +29,7 @@ i18n.merge_file(
   output: desktop,
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(eog_datadir, 'applications')
+  install_dir: eog_datadir / 'applications',
 )
 
 appdata = 'eog.appdata.xml'
@@ -43,23 +40,19 @@ i18n.merge_file(
   output: appdata,
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(eog_datadir, 'metainfo')
+  install_dir: eog_datadir / 'metainfo',
 )
 
-schema_conf = configuration_data()
-schema_conf.set('GETTEXT_PACKAGE', meson.project_name())
-
-schema = 'org.gnome.eog.gschema.xml'
 
 configure_file(
-  input: schema + '.in',
-  output: schema,
+  input: 'org.gnome.eog.gschema.xml.in',
+  output: '@BASENAME@',
+  configuration: {'GETTEXT_PACKAGE': meson.project_name()},
   install: true,
-  install_dir: eog_schemadir,
-  configuration: schema_conf
+  install_dir: gio_schemasdir,
 )
 
 install_data(
   'eog.convert',
-  install_dir: join_paths(eog_datadir, 'GConf', 'gsettings')
+  install_dir: eog_datadir / 'GConf/gsettings',
 )

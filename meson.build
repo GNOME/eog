@@ -3,7 +3,7 @@ project(
   version: '3.33.3',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.44.0'
+  meson_version: '>= 0.50.0',
 )
 
 eog_version = meson.project_version()
@@ -17,17 +17,26 @@ eog_gir_ns = 'Eog'
 eog_gir_version = '1.0'
 
 eog_prefix = get_option('prefix')
-eog_datadir = join_paths(eog_prefix, get_option('datadir'))
-eog_includedir = join_paths(eog_prefix, get_option('includedir'))
-eog_libdir = join_paths(eog_prefix, get_option('libdir'))
-eog_localedir = join_paths(eog_prefix, get_option('localedir'))
+eog_datadir = get_option('datadir')
+eog_libdir = get_option('libdir')
+eog_localedir = get_option('localedir')
 
-eog_pkgdatadir = join_paths(eog_datadir, meson.project_name())
-eog_pkglibdir = join_paths(eog_libdir, meson.project_name())
-eog_pkglibexecdir = join_paths(eog_prefix, get_option('libexecdir'), meson.project_name())
+eog_pkgdatadir = eog_datadir / meson.project_name()
+eog_pkglibdir = eog_libdir / meson.project_name()
+eog_pkglibexecdir = get_option('libexecdir') / meson.project_name()
 
-eog_pluginsdir = join_paths(eog_pkglibdir, 'plugins')
-eog_schemadir = join_paths(eog_datadir, 'glib-2.0', 'schemas')
+eog_pluginsdir = eog_pkglibdir / 'plugins'
+
+gnome = import('gnome')
+i18n = import('i18n')
+pkg = import('pkgconfig')
+
+source_root = meson.current_source_dir()
+
+data_dir = source_root / 'data'
+po_dir = source_root / 'po'
+
+top_inc = include_directories('.')
 
 cc = meson.get_compiler('c')
 
@@ -39,7 +48,7 @@ set_defines = [
   ['PACKAGE', meson.project_name()],
   ['VERSION', eog_version],
   # i18n
-  ['GETTEXT_PACKAGE', meson.project_name()]
+  ['GETTEXT_PACKAGE', meson.project_name()],
 ]
 
 foreach define: set_defines
@@ -65,7 +74,7 @@ common_flags = ['-DHAVE_CONFIG_H']
 
 compiler_flags = []
 if get_option('buildtype').contains('debug')
-  test_cflags = [
+  compiler_flags += cc.get_supported_arguments([
     '-Werror=format=2',
     '-Werror=implicit-function-declaration',
     '-Werror=init-self',
@@ -74,35 +83,39 @@ if get_option('buildtype').contains('debug')
     '-Werror=pointer-arith',
     '-Werror=return-type',
     '-Wnested-externs',
-    '-Wstrict-prototypes'
-  ]
-
-  compiler_flags += cc.get_supported_arguments(test_cflags)
+    '-Wstrict-prototypes',
+  ])
 endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-ldflag = '-Wl,--version-script'
-have_version_script = host_machine.system().contains('linux') and cc.has_argument(ldflag)
-
 glib_req_version = '>= 2.53.4'
 peas_req_version = '>= 0.7.4'
 
+gio_dep = dependency('gio-2.0', version: glib_req_version)
 gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
 libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
+
+m_dep = cc.find_library('m')
 
 # runtime dependencies
 dependency('gsettings-desktop-schemas', version: '>= 2.91.92')
 dependency('shared-mime-info', version: '>= 0.20')
 
 common_deps = [
+  gio_dep,
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
-  dependency('gio-2.0', version: glib_req_version),
   dependency('glib-2.0', version: glib_req_version),
   dependency('gtk+-3.0', version: '>= 3.22.0'),
-  dependency('libpeas-1.0', version: peas_req_version)
+  dependency('libpeas-1.0', version: peas_req_version),
 ]
+
+gio_schemasdir = gio_dep.get_pkgconfig_variable(
+  'schemasdir',
+  define_variable: ['datadir', eog_prefix / eog_datadir],
+  default: eog_prefix / eog_datadir / 'glib-2.0/schemas',
+)
 
 # ZLIB support (required)
 if not cc.has_header('zlib.h') or not (cc.has_function('inflate') and cc.has_function('crc32'))
@@ -119,22 +132,22 @@ if enable_libexif
          'libexif support requested but library not found. Please use -Dlibexif=false')
 
   common_deps += libexif_dep
-  config_h.set('HAVE_EXIF', true)
 endif
+config_h.set('HAVE_EXIF', enable_libexif)
 
 # Little CMS (optional)
 enable_cms = get_option('cms')
 if enable_cms
   common_deps += dependency('lcms2')
-  config_h.set('HAVE_LCMS', true)
 endif
+config_h.set('HAVE_LCMS', enable_cms)
 
 # Exempi (optional)
 enable_xmp = get_option('xmp')
 if enable_xmp
   common_deps += dependency('exempi-2.0', version: '>= 1.99.5')
-  config_h.set('HAVE_EXEMPI', true)
 endif
+config_h.set('HAVE_EXEMPI', enable_xmp)
 
 # Jpeg (semi-optional)
 enable_libjpeg = get_option('libjpeg')
@@ -155,9 +168,8 @@ if enable_libjpeg
     #endif
   '''
   have_jpeg_80 = cc.compiles(jpeg_80_check_src, dependencies: libjpeg_dep, name: 'libjpeg version is 8 or greater')
-
-  config_h.set('HAVE_JPEG', true)
 endif
+config_h.set('HAVE_JPEG', enable_libjpeg)
 config_h.set('HAVE_LIBJPEG', enable_libjpeg)
 
 # introspection support
@@ -182,15 +194,6 @@ if enable_x11
   x11_dep = dependency('x11')
 endif
 
-gnome = import('gnome')
-i18n = import('i18n')
-pkg = import('pkgconfig')
-
-data_dir = join_paths(meson.source_root(), 'data')
-po_dir = join_paths(meson.source_root(), 'po')
-
-top_inc = include_directories('.')
-
 subdir('data')
 
 if enable_libjpeg
@@ -213,16 +216,17 @@ endif
 
 configure_file(
   output: 'config.h',
-  configuration: config_h
+  configuration: config_h,
 )
 
 meson.add_install_script(
   'meson_post_install.py',
-  eog_datadir
+  eog_datadir,
+  gio_schemasdir,
 )
 
 output = 'Configure summary:\n\n'
-output += '  Source code location .......:  ' + meson.source_root() + '\n'
+output += '  Source code location .......:  ' + source_root + '\n'
 output += '  Compiler ...................:  ' + cc.get_id() + '\n'
 output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
 output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'

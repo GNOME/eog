@@ -2,7 +2,7 @@ src_inc = include_directories('.')
 
 enum_headers = files(
   'eog-scroll-view.h',
-  'eog-window.h'
+  'eog-window.h',
 )
 
 gnome.mkenums(
@@ -15,7 +15,7 @@ gnome.mkenums(
   vtail: '  </@type@>',
   ftail: '</schemalist>',
   install_header: true,
-  install_dir: eog_schemadir
+  install_dir: gio_schemasdir,
 )
 
 headers = enum_headers + files(
@@ -38,7 +38,7 @@ headers = enum_headers + files(
   'eog-thumb-view.h',
   'eog-transform.h',
   'eog-uri-converter.h',
-  'eog-window-activatable.h'
+  'eog-window-activatable.h',
 )
 
 sources = files(
@@ -80,7 +80,7 @@ sources = files(
   'eog-window-activatable.c',
   'eog-window.c',
   'eog-zoom-entry.c',
-  'zoom.c'
+  'zoom.c',
 )
 
 if enable_libexif
@@ -94,7 +94,7 @@ endif
 
 install_headers(
   headers,
-  subdir: join_paths(eog_api_name, meson.project_name())
+  subdir: eog_api_name / meson.project_name(),
 )
 
 sources += gnome.compile_resources(
@@ -103,7 +103,7 @@ sources += gnome.compile_resources(
   source_dir: data_dir,
   c_name: '_eog',
   dependencies: resource_data,
-  export: true
+  export: true,
 )
 
 enum = 'eog-enum-types'
@@ -112,7 +112,7 @@ sources += gnome.mkenums(
   enum,
   sources: headers,
   c_template: enum + '.c.template',
-  h_template: enum + '.h.template'
+  h_template: enum + '.h.template',
 )
 
 marshal = 'eog-marshal'
@@ -121,30 +121,26 @@ sources += gnome.genmarshal(
   marshal,
   sources: marshal + '.list',
   prefix: 'eog_marshal',
-  internal: true
+  internal: true,
 )
 
 deps = common_deps + [
   gio_unix_dep,
   gnome_desktop_dep,
   libpeas_gtk_dep,
+  m_dep,
   zlib_dep,
-  cc.find_library('m')
 ]
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_DATA_DIR="@0@"'.format(eog_pkgdatadir),
-  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
-  '-DLIBDIR="@0@"'.format(eog_libdir)
+  '-DEOG_DATA_DIR="@0@"'.format(eog_prefix / eog_pkgdatadir),
+  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_prefix / eog_pluginsdir),
+  '-DLIBDIR="@0@"'.format(eog_prefix / eog_libdir),
 ]
 
-symbol_map = join_paths(meson.current_source_dir(), 'symbol.map')
-
-ldflags = []
-if have_version_script
-  ldflags += '-Wl,--version-script,@0@'.format(symbol_map)
-endif
+symbol_map = meson.current_source_dir() / 'symbol.map'
+ldflags = cc.get_supported_link_arguments('-Wl,--version-script,' + symbol_map)
 
 if enable_introspection
   deps += gir_dep
@@ -167,13 +163,13 @@ libeog = shared_library(
   link_args: ldflags,
   link_depends: symbol_map,
   install: true,
-  install_dir: eog_pkglibdir
+  install_dir: eog_pkglibdir,
 )
 
 libeog_dep = declare_dependency(
   link_with: libeog,
   include_directories: src_inc,
-  dependencies: common_deps
+  dependencies: common_deps,
 )
 
 pkg.generate(
@@ -185,16 +181,17 @@ pkg.generate(
   subdirs: eog_api_name,
   requires: 'gtk+-3.0',
   variables: [
-    'exec_prefix=' + eog_prefix,
-    'pluginsdir=' + eog_pluginsdir
-  ]
+    'exec_prefix=${prefix}',
+    # the equivalent of eog_pluginsdir but using ${libdir} fro variable replacement
+    'pluginsdir=' + ('${libdir}' / meson.project_name() / 'plugins'),
+  ],
 )
 
 deps = [libeog_dep]
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir)
+  '-DEOG_LOCALE_DIR="@0@"'.format(eog_prefix / eog_localedir),
 ]
 
 if enable_introspection
@@ -208,23 +205,18 @@ eog = executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
-  install_rpath: eog_pkglibdir
+  install_rpath: eog_prefix / eog_pkglibdir,
 )
 
 if enable_introspection
-  gir_sources = sources + headers
-
-  gir_dir = join_paths(eog_pkgdatadir, 'gir-' + eog_gir_version)
-  typelib_dir = join_paths(eog_pkglibdir, 'girepository-' + eog_gir_version)
-
   gnome.generate_gir(
-    eog,
-    sources: gir_sources,
+    libeog,
+    sources: sources + headers,
     nsversion: eog_api_version,
     namespace: eog_gir_ns,
     includes: 'Gtk-3.0',
     install: true,
-    install_dir_gir: gir_dir,
-    install_dir_typelib: typelib_dir
+    install_dir_gir: eog_pkgdatadir / 'gir-' + eog_gir_version,
+    install_dir_typelib: eog_pkglibdir / 'girepository-' + eog_gir_version,
   )
 endif
