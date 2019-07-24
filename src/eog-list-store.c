@@ -29,6 +29,16 @@
 
 #include <string.h>
 
+/* signals */
+enum {
+        ADD_STORE,
+        REMOVE_STORE,
+        REFRESH_STORE,
+        LAST_STORE_SIGNAL
+};
+
+static guint store_signals[LAST_STORE_SIGNAL];
+
 struct _EogListStorePrivate {
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
@@ -87,6 +97,37 @@ eog_list_store_class_init (EogListStoreClass *klass)
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
+
+	store_signals[ADD_STORE] =
+        g_signal_new ("add-store",
+                      EOG_TYPE_LIST_STORE,
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (EogListStoreClass, add_store),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE,
+                      1,
+                      GTK_TYPE_TREE_ITER);
+	store_signals[REMOVE_STORE] =
+        g_signal_new ("remove-store",
+                      EOG_TYPE_LIST_STORE,
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (EogListStoreClass, remove_store),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE,
+                      1,
+                      GTK_TYPE_TREE_ITER);
+	store_signals[REFRESH_STORE] =
+        g_signal_new ("refresh-store",
+                      EOG_TYPE_LIST_STORE,
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (EogListStoreClass, refresh_store),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE,
+                      1,
+                      GTK_TYPE_TREE_ITER);
 }
 
 /*
@@ -328,6 +369,8 @@ eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
 	g_object_unref (image);
 
 	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
+	// emit signal remove
+	g_signal_emit (store, store_signals[REMOVE_STORE], 0, &iter);
 }
 
 /**
@@ -354,6 +397,8 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
 			    EOG_LIST_STORE_THUMB_SET, FALSE,
 			    -1);
+	// emit signal add
+	g_signal_emit (store, store_signals[ADD_STORE], 0, &iter);
 }
 
 static void
@@ -941,4 +986,6 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 {
 	eog_list_store_remove_thumbnail_job (store, iter);
 	eog_list_store_add_thumbnail_job (store, iter);
+	// emit signal refresh
+	g_signal_emit (store, store_signals[REFRESH_STORE], 0, &iter);
 }

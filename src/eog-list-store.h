@@ -64,6 +64,11 @@ struct _EogListStore {
 struct _EogListStoreClass {
         GtkListStoreClass parent_class;
 
+	/* signal */
+	void (* add_store) (EogListStore *store, GtkTreeIter *iter);
+	void (* remove_store) (EogListStore *store, GtkTreeIter *iter);
+	void (* refresh_store) (EogListStore *store, GtkTreeIter *iter);
+
 	/* Padding for future expansion */
 	void (* _eog_reserved1) (void);
 	void (* _eog_reserved2) (void);
