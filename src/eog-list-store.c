@@ -965,6 +965,7 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 gboolean
 eog_list_store_get_is_monitoring(EogListStore *store)
 {
+	g_return_val_if_fail(EOG_IS_LIST_STORE(store), FALSE);
 	return store->priv->is_monitoring;
 }
 
@@ -979,6 +980,8 @@ void
 eog_list_store_set_is_monitoring(EogListStore *store,
 				 gboolean is_monitoring)
 {
+	g_return_if_fail(EOG_IS_LIST_STORE(store));
+	
 	if(!is_monitoring)
 	  monitors_free(store);
 
