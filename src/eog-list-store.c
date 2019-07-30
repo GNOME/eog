@@ -30,6 +30,7 @@
 #include <string.h>
 
 struct _EogListStorePrivate {
+  	gboolean is_monitoring;  /* Check if monitoring the directories */
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
@@ -46,17 +47,26 @@ foreach_monitors_free (gpointer data, gpointer user_data)
 }
 
 static void
+monitors_free(GObject *object)
+{
+	EogListStore *store = EOG_LIST_STORE (object);
+	if(store->priv->is_monitoring){
+	  g_list_foreach (store->priv->monitors,
+			  foreach_monitors_free, NULL);
+	  
+	  g_list_free (store->priv->monitors);
+	  
+	  store->priv->monitors = NULL;
+	}
+}
+
+static void
 eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
 
-	g_list_foreach (store->priv->monitors,
-			foreach_monitors_free, NULL);
-
-	g_list_free (store->priv->monitors);
-
-	store->priv->monitors = NULL;
-
+	monitors_free(object);
+	
 	if(store->priv->busy_image != NULL) {
 		g_object_unref (store->priv->busy_image);
 		store->priv->busy_image = NULL;
@@ -152,12 +162,13 @@ eog_list_store_init (EogListStore *self)
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
 	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
 	types[EOG_LIST_STORE_EOG_JOB]   = G_TYPE_POINTER;
-
+	
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
 
 	self->priv = eog_list_store_get_instance_private (self);
 
+	self->priv->is_monitoring = TRUE;
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
@@ -513,8 +524,9 @@ eog_list_store_append_directory (EogListStore *store,
 
 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
 
-	file_monitor = g_file_monitor_directory (file,
-						 0, NULL, NULL);
+	if(store->priv->is_monitoring)
+	  file_monitor = g_file_monitor_directory (file,
+						   0, NULL, NULL);
 
 	if (file_monitor != NULL) {
 		g_signal_connect (file_monitor, "changed",
@@ -941,4 +953,34 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 {
 	eog_list_store_remove_thumbnail_job (store, iter);
 	eog_list_store_add_thumbnail_job (store, iter);
+}
+
+/**
+ * eog_get_is_monitoring:
+ * @store: An #EogListStore.
+ *
+ * Get the state of the monitors.
+ *
+ **/
+gboolean
+eog_list_store_get_is_monitoring(EogListStore *store)
+{
+	return store->priv->is_monitoring;
+}
+
+/**
+ * eog_set_is_monitoring:
+ * @store: An #EogListStore.
+ *
+ * Get the state ofActivate/Deactivate the monitors.
+ *
+ **/
+void
+eog_list_store_set_is_monitoring(EogListStore *store,
+				 gboolean is_monitoring)
+{
+	if(!is_monitoring)
+	  monitors_free(store);
+
+	store->priv->is_monitoring = is_monitoring;
 }
