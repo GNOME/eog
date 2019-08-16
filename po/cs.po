@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-30 12:35+0000\n"
-"PO-Revision-Date: 2019-02-06 12:41+0100\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
+"PO-Revision-Date: 2019-08-16 08:09+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -64,12 +64,6 @@ msgstr ""
 #: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Prohlížeč obrázků"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -397,7 +391,6 @@ msgid "Plugins"
 msgstr "Zásuvné moduly"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Zmenšit obrázek"
 
@@ -413,7 +406,7 @@ msgstr "Přejít na první obrázek v galerii"
 msgid "_First Image"
 msgstr "P_rvní obrázek"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "Přejít na předchozí obrázek v galerii"
 
@@ -421,7 +414,7 @@ msgstr "Přejít na předchozí obrázek v galerii"
 msgid "_Previous Image"
 msgstr "_Předchozí obrázek"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "Přejít na následující obrázek v galerii"
 
@@ -445,15 +438,23 @@ msgstr "Přiblíži_t"
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Zobrazit obrázek v jeho normální velikosti"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Normální velikost"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Přizpůsobit obrázek velikosti okna"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "Nejvhodnější _velikost"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Otočit obrázek o 90 stupňů doleva"
 
@@ -461,7 +462,7 @@ msgstr "Otočit obrázek o 90 stupňů doleva"
 msgid "Rotate Counter_clockwise"
 msgstr "Otočit proti směru _hodinových ručiček"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Otočit obrázek o 90 stupňů doprava"
 
@@ -951,12 +952,6 @@ msgstr "Nejv_hodnější velikost"
 msgid "Fullscreen with double-click"
 msgstr "Celá obrazovka dvojklikem"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Aktivuje dvojklikem režim celé obrazovky"
@@ -965,12 +960,6 @@ msgstr "Aktivuje dvojklikem režim celé obrazovky"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Znovu načíst obrázek"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
