@@ -13,7 +13,7 @@
 # Laurent Richard <laurent.richard@ael.be>, 2006.
 # Robert-André Mauchin <zebob.m@pengzone.org>, 2006-2007.
 # Christophe Bliard <christophe.bliard@trux.info>, 2006.
-# Claude Paroz <claude@2xlibre.net>, 2007-2014.
+# Claude Paroz <claude@2xlibre.net>, 2007-2019.
 # Pierre Lemaire <pierre.lemaire@kamick.org>, 2008.
 # Laurent Coudeur <laurentc@iol.ie>, 2009, 2010.
 # Bruno Brouard <annoa.b@gmail.com>, 2011-12.
@@ -25,16 +25,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-03-01 23:04+0000\n"
-"PO-Revision-Date: 2019-03-14 18:45+0100\n"
-"Last-Translator: Charles Monzat <charles.monzat@free.fr>\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
+"PO-Revision-Date: 2019-08-17 12:40+0200\n"
+"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 3.30.1\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -72,12 +71,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr "Visionneur d’images"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
-
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -110,7 +103,7 @@ msgstr "_Imprimer…"
 
 #: data/eog-gear-menu.ui:31 data/popup-menus.ui:45
 msgid "Set as Wa_llpaper"
-msgstr "Définir comme _papier-peint"
+msgstr "Définir comme _papier peint"
 
 #: data/eog-gear-menu.ui:37
 msgid "Image Prope_rties"
@@ -404,7 +397,6 @@ msgid "Plugins"
 msgstr "Greffons"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Réduit l’image"
 
@@ -452,9 +444,18 @@ msgstr "Zoom a_vant"
 msgid "Zoom _Out"
 msgstr "Zoom a_rrière"
 
+#: data/fullscreen-toolbar.ui:113
+#| msgid "Shows the image date in the window statusbar"
+msgid "Show the image at its normal size"
+msgstr "Affiche l’image à sa taille normale"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "Taille _normale"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Adapte l’image à la taille de la fenêtre"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
@@ -971,12 +972,6 @@ msgstr "_Taille idéale"
 msgid "Fullscreen with double-click"
 msgstr "Plein écran sur double-clic"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Passer en mode plein écran avec un double-clic"
@@ -985,12 +980,6 @@ msgstr "Passer en mode plein écran avec un double-clic"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Recharger l’image"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
