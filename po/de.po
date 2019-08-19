@@ -18,14 +18,15 @@
 # Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2012, 2014-2015.
 # Bernd Homuth <dev@hmt.im>, 2015.
+# Tim Sabsch <tim@sabsch.com>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-30 12:35+0000\n"
-"PO-Revision-Date: 2019-02-26 20:43+0100\n"
-"Last-Translator: Felix Riemann <friemann@gnome.org>\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
+"PO-Revision-Date: 2019-08-19 20:37+0200\n"
+"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -69,12 +70,6 @@ msgstr ""
 #: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -402,7 +397,6 @@ msgid "Plugins"
 msgstr "Erweiterungen"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Das Bild verkleinern"
 
@@ -418,7 +412,7 @@ msgstr "Zum ersten Bild in der Sammlung gehen"
 msgid "_First Image"
 msgstr "_Erstes Bild"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "Zum vorherigen Bild in der Sammlung gehen"
 
@@ -426,7 +420,7 @@ msgstr "Zum vorherigen Bild in der Sammlung gehen"
 msgid "_Previous Image"
 msgstr "_Vorheriges Bild"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "Zum nächsten Bild in der Sammlung gehen"
 
@@ -450,15 +444,23 @@ msgstr "Ver_größern"
 msgid "Zoom _Out"
 msgstr "Ver_kleinern"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Das Bild in Originalgröße anzeigen"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Normale Größe"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Das Bild an die Fenstergröße anpassen"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "Ein_passen"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Das Bild um 90 Grad nach links drehen"
 
@@ -466,7 +468,7 @@ msgstr "Das Bild um 90 Grad nach links drehen"
 msgid "Rotate Counter_clockwise"
 msgstr "_Gegen den Uhrzeigersinn drehen"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Das Bild um 90 Grad nach rechts drehen"
 
@@ -971,12 +973,6 @@ msgstr "Ein_passen"
 msgid "Fullscreen with double-click"
 msgstr "Vollbildmodus durch Doppelklick"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Vollbildmodus durch Doppelklick aktivieren"
@@ -985,12 +981,6 @@ msgstr "Vollbildmodus durch Doppelklick aktivieren"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Bild neu laden"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
@@ -1641,7 +1631,8 @@ msgstr ""
 "Jakob Kramer <jakob.kramer@gmx.de>\n"
 "Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
 "Mario Blättermann <mario.blaettermann@gmail.com>\n"
-"Hendrik Knackstedt <kn.hendrik@gmail.com>"
+"Hendrik Knackstedt <kn.hendrik@gmail.com>\n"
+"Tim Sabsch <tim@sabsch.com>"
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
@@ -1692,6 +1683,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Führen Sie »%s --help« für eine vollständige Liste der verfügbaren Optionen "
 "aus."
+
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
 
 #~ msgid "_About"
 #~ msgstr "_Info"
