@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-02 22:28+0000\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
 "PO-Revision-Date: 2019-01-28 00:00+0900\n"
 "Last-Translator: Shushi Kurose <md81bird@hitaki.net>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -59,12 +59,6 @@ msgstr ""
 #: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "画像ビューアー"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -394,7 +388,6 @@ msgid "Plugins"
 msgstr "プラグイン"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "画像を縮小します"
 
@@ -410,7 +403,7 @@ msgstr "ギャラリーの一番最初の画像を表示します"
 msgid "_First Image"
 msgstr "先頭へ(_F)"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "ギャラリーの前の画像を表示します"
 
@@ -418,7 +411,7 @@ msgstr "ギャラリーの前の画像を表示します"
 msgid "_Previous Image"
 msgstr "前の画像へ(_P)"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "ギャラリーの次の画像を表示します"
 
@@ -442,15 +435,27 @@ msgstr "拡大(_Z)"
 msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
+#: data/fullscreen-toolbar.ui:113
+#, fuzzy
+#| msgid "Shows the image date in the window statusbar"
+msgid "Show the image at its normal size"
+msgstr "ステータスバーに画像のタイムスタンプを表示します"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "通常の大きさ(_N)"
+
+#: data/fullscreen-toolbar.ui:128
+#, fuzzy
+#| msgid "Shows the image date in the window statusbar"
+msgid "Fit the image to the window"
+msgstr "ステータスバーに画像のタイムスタンプを表示します"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "ウィンドウに合わせる(_B)"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "画像を左回りで90°回転させます"
 
@@ -458,7 +463,7 @@ msgstr "画像を左回りで90°回転させます"
 msgid "Rotate Counter_clockwise"
 msgstr "反時計回りに回転する(_C)"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "画像を右回りで90°回転させます"
 
@@ -951,12 +956,6 @@ msgstr "ウィンドウに合わせる(_B)"
 msgid "Fullscreen with double-click"
 msgstr "ダブルクリックでフルスクリーンにする"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "ダブルクリックでフルスクリーンモードに切り替えます"
@@ -965,12 +964,6 @@ msgstr "ダブルクリックでフルスクリーンモードに切り替えま
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "画像の再読み込み"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
@@ -1653,6 +1646,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示"
 "されます"
+
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
 
 #~ msgid "_About"
 #~ msgstr "このアプリケーションについて(_A)"
