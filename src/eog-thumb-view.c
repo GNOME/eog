@@ -638,7 +638,6 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv->visible_range_changed_id = 0;
 	thumbview->priv->image_add_id = 0;
 	thumbview->priv->image_removed_id = 0;
-
 }
 
 /**
@@ -738,6 +737,7 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 	                             G_CALLBACK (eog_thumb_view_row_deleted_cb),
 	                             thumbview);
 
+	thumbview->priv->start_thumb = thumbview->priv->end_thumb = 0;
 	thumbview->priv->n_images = eog_list_store_length (store);
 
 	index = eog_list_store_get_initial_pos (store);
