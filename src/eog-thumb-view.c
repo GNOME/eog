@@ -82,6 +82,7 @@ struct _EogThumbViewPrivate {
 	gint n_images;
 	gulong image_add_id;
 	gulong image_removed_id;
+        gulong store_cleared_id;
 };
 
 G_DEFINE_TYPE_WITH_CODE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW,
@@ -176,6 +177,11 @@ eog_thumb_view_dispose (GObject *object)
 		priv->image_removed_id = 0;
 	}
 
+	if (model && priv->store_cleared_id) {
+       	        g_signal_handler_disconnect (EOG_LIST_STORE(model), priv->store_cleared_id);
+		priv->store_cleared_id = 0;
+	}
+	
 	G_OBJECT_CLASS (eog_thumb_view_parent_class)->dispose (object);
 }
 
@@ -638,7 +644,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv->visible_range_changed_id = 0;
 	thumbview->priv->image_add_id = 0;
 	thumbview->priv->image_removed_id = 0;
-
+	thumbview->priv->store_cleared_id = 0;
 }
 
 /**
@@ -695,6 +701,20 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 	eog_thumb_view_update_columns (view);
 }
 
+static void
+eog_thumb_view_store_cleared_cb (EogListStore *store,
+				 EogThumbView *view)
+{
+  g_return_if_fail (EOG_IS_THUMB_VIEW (view));
+
+  EogThumbViewPrivate *priv = view->priv;
+  
+  priv->start_thumb = priv->end_thumb = 0;
+
+  priv->n_images = 0;
+  eog_thumb_view_update_columns (view);
+}
+
 /**
  * eog_thumb_view_set_model:
  * @thumbview: A #EogThumbView.
@@ -728,6 +748,11 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 			                             priv->image_removed_id);
 
 		}
+		if (priv->store_cleared_id != 0) {
+		  	eog_list_store_clear (EOG_LIST_STORE(existing));
+ 		        g_signal_handler_disconnect (EOG_LIST_STORE(existing),
+			                             priv->store_cleared_id);		  
+		}
 	}
 
 	priv->image_add_id = g_signal_connect (G_OBJECT (store), "row-inserted",
@@ -737,7 +762,11 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 	                             "row-deleted",
 	                             G_CALLBACK (eog_thumb_view_row_deleted_cb),
 	                             thumbview);
-
+	priv->store_cleared_id = g_signal_connect (store,
+	                             "clear-list-store",
+	                             G_CALLBACK (eog_thumb_view_store_cleared_cb),
+	                             thumbview);
+	
 	thumbview->priv->n_images = eog_list_store_length (store);
 
 	index = eog_list_store_get_initial_pos (store);
