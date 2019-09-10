@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-30 12:35+0000\n"
-"PO-Revision-Date: 2019-02-27 14:08+0100\n"
+"POT-Creation-Date: 2019-05-07 19:30+0000\n"
+"PO-Revision-Date: 2019-09-09 12:04+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.30.1\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -59,12 +59,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr "Visualizzatore di immagini"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
-
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -78,7 +72,6 @@ msgid "_Open…"
 msgstr "_Apri…"
 
 #: data/eog-gear-menu.ui:10
-#| msgid "Open _With"
 msgid "Op_en With"
 msgstr "Ap_ri con"
 
@@ -101,7 +94,6 @@ msgid "Set as Wa_llpaper"
 msgstr "Imposta come s_fondo"
 
 #: data/eog-gear-menu.ui:37
-#| msgid "Image Properties"
 msgid "Image Prope_rties"
 msgstr "Prop_rietà dell'immagine"
 
@@ -138,7 +130,6 @@ msgid "_Help"
 msgstr "A_iuto"
 
 #: data/eog-gear-menu.ui:80
-#| msgid "Image Viewer"
 msgid "_About Image Viewer"
 msgstr "I_nformazioni su Visualizzatore di immagini"
 
@@ -402,7 +393,6 @@ msgid "Plugins"
 msgstr "Plugin"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Restringe l'immagine"
 
@@ -418,7 +408,7 @@ msgstr "Va alla prima immagine della galleria"
 msgid "_First Image"
 msgstr "_Prima immagine"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "Va all'immagine precedente della galleria"
 
@@ -426,7 +416,7 @@ msgstr "Va all'immagine precedente della galleria"
 msgid "_Previous Image"
 msgstr "Immagine pr_ecedente"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "Va all'immagine successiva della galleria"
 
@@ -450,15 +440,25 @@ msgstr "Aum_enta ingrandimento"
 msgid "Zoom _Out"
 msgstr "Rid_uci ingrandimento"
 
+#: data/fullscreen-toolbar.ui:113
+#| msgid "Shows the image date in the window statusbar"
+msgid "Show the image at its normal size"
+msgstr "Mostra l'immagine alle sue dimensioni normali"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Dimensione normale"
+
+#: data/fullscreen-toolbar.ui:128
+#| msgid "Shows the image date in the window statusbar"
+msgid "Fit the image to the window"
+msgstr "Adatta l'immagine alla finestra"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "A_datta alle dimensioni"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Ruota l'immagine di 90 gradi verso sinistra"
 
@@ -466,7 +466,7 @@ msgstr "Ruota l'immagine di 90 gradi verso sinistra"
 msgid "Rotate Counter_clockwise"
 msgstr "Ruota in senso _antiorario"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Ruota l'immagine di 90 gradi verso destra"
 
@@ -977,12 +977,6 @@ msgstr "_Adatta alle dimensioni"
 msgid "Fullscreen with double-click"
 msgstr "Schermo intero col doppio-clic"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Attiva la modalità schermo intero con un doppio-clic"
@@ -991,12 +985,6 @@ msgstr "Attiva la modalità schermo intero con un doppio-clic"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Ricarica immagine"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
