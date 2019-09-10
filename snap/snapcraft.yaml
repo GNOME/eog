@@ -124,7 +124,7 @@ parts:
       snap/eog/current/usr: usr
     override-build: |
       sed -i.bak -e 's|=org.gnome.eog$|=${SNAP}/meta/gui/org.gnome.eog.svg|g' data/eog.desktop.in.in
-      sed -i.bak -e 's|symlink_media: true|symlink_media: false|g' help/meson.build
+      sed -i.bak -e 's|media: media,|media: media, symlink_media: false,|g' help/meson.build
       snapcraftctl build
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp ../src/data/icons/scalable/apps/org.gnome.eog.svg $SNAPCRAFT_PART_INSTALL/meta/gui/
