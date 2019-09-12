@@ -25,6 +25,7 @@
 #include <config.h>
 #endif
 
+#include <math.h>
 #include <string.h>
 #include <zlib.h>
 
@@ -489,6 +490,31 @@ eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
  * A maximum output buffer of 5MB should be enough. */
 #define EOG_ICC_INFLATE_BUFFER_LIMIT (1024*1024*5)
 
+/* Apparently an sRGB profile saved in cHRM and gAMA chunks does not compute
+ * a profile that exactly matches the built-in sRGB profile and thus could
+ * cause a slight color deviation. Try catching this case to allow fallback
+ * to the built-in profile instead.
+ */
+static gboolean
+_chrm_matches_srgb(const cmsCIExyY       *whitepoint,
+		   const cmsCIExyYTRIPLE *primaries,
+		         gdouble          gammaValue)
+{
+	/* PNGs gAMA value for 2.2 is only accurate to the 4th decimal point */
+#define DOUBLE_EQUAL_MAX_DIFF 1e-4
+#define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
+
+	return (DOUBLE_EQUAL(gammaValue, 2.2)
+		&& DOUBLE_EQUAL(whitepoint->x, 0.3127)
+		&& DOUBLE_EQUAL(whitepoint->y, 0.329)
+		&& DOUBLE_EQUAL(primaries->Red.x, 0.64)
+		&& DOUBLE_EQUAL(primaries->Red.y, 0.33)
+		&& DOUBLE_EQUAL(primaries->Green.x, 0.3)
+		&& DOUBLE_EQUAL(primaries->Green.y, 0.6)
+		&& DOUBLE_EQUAL(primaries->Blue.x, 0.15)
+		&& DOUBLE_EQUAL(primaries->Blue.y, 0.06));
+}
+
 static gpointer
 eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 {
@@ -574,11 +600,11 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		profile = cmsCreate_sRGBProfile ();
 	}
 
-	if (!profile && priv->cHRM_chunk) {
+	if (!profile && priv->cHRM_chunk && priv->gAMA_chunk) {
 		cmsCIExyY whitepoint;
 		cmsCIExyYTRIPLE primaries;
 		cmsToneCurve *gamma[3];
-		double gammaValue = 2.2; // 2.2 should be a sane default gamma
+		double gammaValue;
 
 		/* This uglyness extracts the chromacity and whitepoint values
 		 * from a PNG's cHRM chunk. These can be accurate up to the
@@ -597,19 +623,23 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		primaries.Blue.x = EXTRACT_DOUBLE_UINT_BLOCK_OFFSET (priv->cHRM_chunk, 6, 100000);
 		primaries.Blue.y = EXTRACT_DOUBLE_UINT_BLOCK_OFFSET (priv->cHRM_chunk, 7, 100000);
 
-		primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
+		whitepoint.Y = primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
 
-		/* If the gAMA_chunk is present use its value which is saved
-		 * the same way as the whitepoint. Use 2.2 as default value if
-		 * the chunk is not present. */
-		if (priv->gAMA_chunk)
-			gammaValue = (double) 1.0/EXTRACT_DOUBLE_UINT_BLOCK_OFFSET (priv->gAMA_chunk, 0, 100000);
+		gammaValue = (double) 1.0/EXTRACT_DOUBLE_UINT_BLOCK_OFFSET (priv->gAMA_chunk, 0, 100000);
+		eog_debug_message (DEBUG_LCMS, "Gamma %.5lf", gammaValue);
 
-		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma (NULL, gammaValue);
-
-		profile = cmsCreateRGBProfile (&whitepoint, &primaries, gamma);
-
-		cmsFreeToneCurve(gamma[0]);
+		/* Catch SRGB in cHRM/gAMA chunks and use accurate built-in
+		 * profile instead of computing one that "gets close". */
+		if(_chrm_matches_srgb (&whitepoint, &primaries, gammaValue)) {
+			eog_debug_message (DEBUG_LCMS, "gAMA and cHRM match sRGB");
+			profile = cmsCreate_sRGBProfile ();
+		} else {
+			gamma[0] = gamma[1] = gamma[2] =
+				cmsBuildGamma (NULL, gammaValue);
+			profile = cmsCreateRGBProfile (&whitepoint, &primaries,
+						       gamma);
+			cmsFreeToneCurve(gamma[0]);
+		}
 	}
 
 	return profile;

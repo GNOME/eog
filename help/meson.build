@@ -32,26 +32,20 @@ sources = [
   'slideshow.page',
   'translate.page',
   'view.page',
-  'zoom.page'
+  'zoom.page',
 ]
 
 media = [
-  'figures/image-view-prefs.png',
   'figures/multiple-convert.png',
   'figures/multiple-rename-count.png',
   'figures/org.gnome.eog.svg',
   'figures/org.gnome.eog-symbolic.svg',
   'figures/plugins-all.png',
-  'figures/plugin-send-by-mail.png',
-  'figures/prefs-plugins-date.png',
-  'figures/prefs-plugins-fullscreen.png',
   'figures/prefs-plugins.png',
-  'figures/slideshow-prefs.png'
 ]
 
 gnome.yelp(
   meson.project_name(),
   sources: sources,
   media: media,
-  symlink_media: true
 )

@@ -5,12 +5,12 @@ msgfmt_plugin_cmd = [
   '--keyword=Description',
   '--template=@INPUT@',
   '-d', po_dir,
-  '--output=@OUTPUT@'
+  '--output=@OUTPUT@',
 ]
 
 plugins = [
   'fullscreen',
-  'reload'
+  'reload',
 ]
 
 if enable_libexif
@@ -24,7 +24,7 @@ foreach plugin: plugins
     include_directories: top_inc,
     dependencies: libeog_dep,
     install: true,
-    install_dir: eog_pluginsdir
+    install_dir: eog_pluginsdir,
   )
 
   plugin_data = plugin + '.plugin'
@@ -37,6 +37,6 @@ foreach plugin: plugins
     output: plugin_data,
     command: msgfmt_plugin_cmd,
     install: true,
-    install_dir: eog_pluginsdir
+    install_dir: eog_pluginsdir,
   )
 endforeach

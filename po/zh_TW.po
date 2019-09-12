@@ -1,5 +1,6 @@
 # Chinese (Hong Kong) translation of eog.
 # Copyright (C) 2000-07 Free Software Foundation, Inc.
+#
 # Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000.
 # Abel Cheung <abel@oaka.org>, 2001-2003.
 # Lawrence Leung <hksarhong@yahoo.com>, 2004.
@@ -7,42 +8,21 @@
 # Woodman Tuen <wmtuen@gmail.com>, 2005-2006.
 # Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2008, 2010.
 # Wei-Lun Chao <chaoweilun@gmail.com>, 2010.
-#
+# pan93412 <pan93412@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.1.92\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2018-06-05 10:41+0000\n"
-"PO-Revision-Date: 2018-08-22 00:01+0800\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
+"POT-Creation-Date: 2019-01-30 12:35+0000\n"
+"PO-Revision-Date: 2019-02-17 23:25+0800\n"
+"Last-Translator: pan93412 <pan93412@gmail.com>\n"
+"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.1.1\n"
-
-# src/preferences.c:219
-#: data/eog-app-menu.ui:7
-msgid "Prefere_nces"
-msgstr "偏好設定(_N)"
-
-#: data/eog-app-menu.ui:13
-msgid "_Keyboard Shortcuts"
-msgstr "鍵盤捷徑鍵(_K)"
-
-#: data/eog-app-menu.ui:17 data/eog-preferences-dialog.ui:21
-msgid "_Help"
-msgstr "求助(_H)"
-
-#: data/eog-app-menu.ui:21
-msgid "_About"
-msgstr "關於(_A)"
-
-#: data/eog-app-menu.ui:25
-msgid "_Quit"
-msgstr "結束(_Q)"
+"X-Generator: Lokalize 18.12.2\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -72,15 +52,15 @@ msgstr ""
 "會讀取數位相機的標籤自動將您的影像旋轉到正確的直式或橫式方向。"
 
 # src/preferences-dialog.glade.h:32
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5564
+#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "影像檢視器"
 
 #. TRANSLATORS: Do NOT translate or transliterate this text!
 #. This is an icon file name
 #: data/eog.desktop.in.in:9
-msgid "eog"
-msgstr "eog"
+msgid "org.gnome.eog"
+msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -96,8 +76,9 @@ msgid "_Open…"
 msgstr "開啟(_O)…"
 
 #: data/eog-gear-menu.ui:10
-msgid "Open _With"
-msgstr "以…開啟(_W)"
+#| msgid "Open _With"
+msgid "Op_en With"
+msgstr "開啟方式(_E)"
 
 #: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
 #: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
@@ -118,24 +99,48 @@ msgid "Set as Wa_llpaper"
 msgstr "設為桌布(_L)"
 
 #: data/eog-gear-menu.ui:37
+#| msgid "Image Properties"
+msgid "Image Prope_rties"
+msgstr "影像屬性(_R)"
+
+#: data/eog-gear-menu.ui:43
 msgid "Sli_deshow"
 msgstr "投影片(_D)"
 
-#: data/eog-gear-menu.ui:41
+#: data/eog-gear-menu.ui:50
+msgid "Sho_w"
+msgstr "顯示(_W)"
+
+#: data/eog-gear-menu.ui:52
 msgid "S_ide Pane"
 msgstr "側邊窗格(_P)"
 
-#: data/eog-gear-menu.ui:45
+#: data/eog-gear-menu.ui:56
 msgid "Image _Gallery"
 msgstr "影像集(_G)"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:60
 msgid "S_tatus Bar"
 msgstr "狀態列(_T)"
 
-#: data/eog-gear-menu.ui:55 data/popup-menus.ui:41
-msgid "Prope_rties"
-msgstr "屬性(_R)"
+# src/preferences.c:219
+#: data/eog-gear-menu.ui:68
+msgid "Prefere_nces"
+msgstr "偏好設定(_N)"
+
+#: data/eog-gear-menu.ui:72
+msgid "_Keyboard Shortcuts"
+msgstr "鍵盤捷徑鍵(_K)"
+
+#: data/eog-gear-menu.ui:76 data/eog-preferences-dialog.ui:21
+msgid "_Help"
+msgstr "求助(_H)"
+
+# src/preferences-dialog.glade.h:32
+#: data/eog-gear-menu.ui:80
+#| msgid "Image Viewer"
+msgid "_About Image Viewer"
+msgstr "關於影像檢視器(_A)"
 
 #: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
@@ -255,8 +260,8 @@ msgstr "另存新檔"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3279 src/eog-window.c:3282
-#: src/eog-window.c:3535
+#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
+#: src/eog-window.c:3539
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -792,8 +797,7 @@ msgstr "表示透明的顏色"
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
-msgstr ""
-"如果表示透明的設定鍵的值是‘COLOR’，這個設定鍵會決定哪一種顏色會用來表示透明。"
+msgstr "如果表示透明的設定鍵的值是‘COLOR’，這個設定鍵會決定哪一種顏色會用來表示透明。"
 
 #: data/org.gnome.eog.gschema.xml.in:51
 msgid "Use a custom background color"
@@ -934,9 +938,13 @@ msgstr "以此開啟(_W)"
 msgid "_Copy"
 msgstr "複製(_C)"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3538
+#: data/popup-menus.ui:35 src/eog-window.c:3542
 msgid "Move to _Trash"
 msgstr "移至垃圾桶(_T)"
+
+#: data/popup-menus.ui:41
+msgid "Prope_rties"
+msgstr "屬性(_R)"
 
 #: data/popup-menus.ui:49
 msgid "Show Containing _Folder"
@@ -977,6 +985,12 @@ msgstr "view-refresh"
 msgid "Reload current image"
 msgstr "重新載入目前的影像"
 
+#. A strftime-formatted string, to display the date the image was taken.
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
+#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+msgid "%a, %d %B %Y  %X"
+msgstr "%Y年%m月%d日%A  %X"
+
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
 msgstr "狀態列中的日期"
@@ -1015,7 +1029,7 @@ msgid "If you don’t save, all your changes will be lost."
 msgstr "如果不儲存，您所有的變更將會消失。"
 
 # src/window.c:704
-#: src/eog-error-message-area.c:128 src/eog-window.c:931
+#: src/eog-error-message-area.c:128 src/eog-window.c:932
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
@@ -1061,11 +1075,6 @@ msgid ""
 msgstr ""
 "這個影像包含多個頁面。影像檢視器只能顯示第一頁。\n"
 "您想要安裝文件檢視器來檢視所有的頁面嗎？"
-
-#. A strftime-formatted string, to display the date the image was taken.
-#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
-msgid "%a, %d %B %Y  %X"
-msgstr "%Y年%m月%d日%A  %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1148,27 +1157,27 @@ msgstr "改變未載入的影像。"
 msgid "Transformation failed."
 msgstr "轉換失敗。"
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1079
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "本檔案格式不支 EXIF。"
 
-#: src/eog-image.c:1221
+#: src/eog-image.c:1226
 #, c-format
 msgid "Image loading failed."
 msgstr "載入影像失敗。"
 
-#: src/eog-image.c:1802 src/eog-image.c:1922
+#: src/eog-image.c:1807 src/eog-image.c:1927
 #, c-format
 msgid "No image loaded."
 msgstr "沒有載入影像。"
 
-#: src/eog-image.c:1810 src/eog-image.c:1931
+#: src/eog-image.c:1815 src/eog-image.c:1936
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "您沒有儲存檔案所需的權限。"
 
-#: src/eog-image.c:1820 src/eog-image.c:1942
+#: src/eog-image.c:1825 src/eog-image.c:1947
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "建立暫存檔失敗。"
@@ -1410,20 +1419,20 @@ msgstr "（無效的萬國碼）"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:546
+#: src/eog-window.c:547
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i 像素  %s    %i%%"
 
-#: src/eog-window.c:933 src/eog-window.c:2673
+#: src/eog-window.c:934 src/eog-window.c:2677
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隱藏(_D)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:943
+#: src/eog-window.c:944
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application.\n"
@@ -1438,23 +1447,23 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1213
+#: src/eog-window.c:1218
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "儲存影像「%s」(%u/%u)"
 
 # src/window.c:704
-#: src/eog-window.c:1637
+#: src/eog-window.c:1642
 #, c-format
 msgid "Opening image “%s”"
 msgstr "正在開啟影像「%s」"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2020
+#: src/eog-window.c:2028
 msgid "Viewing a slideshow"
 msgstr "以幻燈片檢視"
 
-#: src/eog-window.c:2239
+#: src/eog-window.c:2247
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1463,17 +1472,17 @@ msgstr ""
 "列印檔案時發生錯誤：\n"
 "%s"
 
-#: src/eog-window.c:2622 src/eog-window.c:2637
+#: src/eog-window.c:2626 src/eog-window.c:2641
 msgid "Error launching System Settings: "
 msgstr "錯誤的執行系統設定值："
 
-#: src/eog-window.c:2671
+#: src/eog-window.c:2675
 msgid "_Open Background Preferences"
 msgstr "開啟背景偏好設定(_O)"
 
 #. The newline character is currently necessary due to a problem
 #. * with the automatic line break.
-#: src/eog-window.c:2687
+#: src/eog-window.c:2691
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background.\n"
@@ -1482,11 +1491,11 @@ msgstr ""
 "影像「%s」已被設為桌面背景。\n"
 "您是否想要修改它的外觀？"
 
-#: src/eog-window.c:3177
+#: src/eog-window.c:3181
 msgid "Saving image locally…"
 msgstr "將影像儲存到本地端…"
 
-#: src/eog-window.c:3255
+#: src/eog-window.c:3259
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1495,7 +1504,7 @@ msgstr ""
 "確定要將「%s」\n"
 "永久移除嗎？"
 
-#: src/eog-window.c:3258
+#: src/eog-window.c:3262
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1508,41 +1517,41 @@ msgstr[0] ""
 "永久移除嗎？"
 
 # src/window.c:704
-#: src/eog-window.c:3280 src/eog-window.c:3546
+#: src/eog-window.c:3284 src/eog-window.c:3550
 msgid "_Delete"
 msgstr "刪除(_D)"
 
-#: src/eog-window.c:3283 src/eog-window.c:3548
+#: src/eog-window.c:3287 src/eog-window.c:3552
 msgid "_Yes"
 msgstr "是(_Y)"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3287 src/eog-window.c:3540
+#: src/eog-window.c:3291 src/eog-window.c:3544
 msgid "Do _not ask again during this session"
 msgstr "在這個作業階段中不要再詢問(_N)"
 
-#: src/eog-window.c:3331
+#: src/eog-window.c:3335
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "無法取回影像檔案"
 
-#: src/eog-window.c:3347
+#: src/eog-window.c:3351
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "無法取回影像檔案資訊"
 
-#: src/eog-window.c:3363 src/eog-window.c:3607
+#: src/eog-window.c:3367 src/eog-window.c:3611
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "無法刪除檔案"
 
 #. set dialog error message
-#: src/eog-window.c:3413 src/eog-window.c:3707
+#: src/eog-window.c:3417 src/eog-window.c:3711
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "當刪除影像 %s 時發生錯誤"
 
-#: src/eog-window.c:3508
+#: src/eog-window.c:3512
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1551,14 +1560,14 @@ msgstr ""
 "確定要將\n"
 "「%s」移至垃圾桶嗎？"
 
-#: src/eog-window.c:3511
+#: src/eog-window.c:3515
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "找不到「%s」的垃圾桶。是否要永久移除這個影像？"
 
-#: src/eog-window.c:3516
+#: src/eog-window.c:3520
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1570,35 +1579,35 @@ msgstr[0] ""
 "確定要將選取的 %d 張影像\n"
 "永久移至垃圾桶嗎？"
 
-#: src/eog-window.c:3521
+#: src/eog-window.c:3525
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "有部分被選取的影像不能移至垃圾桶，因而將被直接刪除。您確定要繼續嗎？"
 
-#: src/eog-window.c:3585 src/eog-window.c:3599
+#: src/eog-window.c:3589 src/eog-window.c:3603
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "無法存取垃圾桶。"
 
-#: src/eog-window.c:4266
+#: src/eog-window.c:4270
 msgid "Shrink or enlarge the current image"
 msgstr "縮小或放大目前影像"
 
-#: src/eog-window.c:4325
+#: src/eog-window.c:4329
 msgid "Show the current image in fullscreen mode"
 msgstr "以全螢幕模式顯示目前的影像"
 
-#: src/eog-window.c:4402
+#: src/eog-window.c:4406
 msgid "Properties"
 msgstr "屬性"
 
 # src/window.c:166
-#: src/eog-window.c:5567
+#: src/eog-window.c:5571
 msgid "The GNOME image viewer."
 msgstr "GNOME 影像檢視器。"
 
-#: src/eog-window.c:5570
+#: src/eog-window.c:5574
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
@@ -1659,6 +1668,15 @@ msgstr "[檔案…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
+
+#~ msgid "_About"
+#~ msgstr "關於(_A)"
+
+#~ msgid "_Quit"
+#~ msgstr "結束(_Q)"
+
+#~ msgid "eog"
+#~ msgstr "eog"
 
 #~ msgid "Question"
 #~ msgstr "問題"
