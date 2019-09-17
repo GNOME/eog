@@ -1114,10 +1114,13 @@ eog_image_real_load (EogImage     *img,
 	if (read_image_data || read_only_dimension) {
 #ifdef HAVE_RSVG
 		if (use_rsvg) {
-			/* Ignore the error if loading failed earlier
-			 * as the error will already be set in that case */
-			rsvg_handle_close (priv->svg,
-			                   (failed ? NULL : error));
+			if (failed) {
+				/* Ignore the error if loading failed earlier
+				 * as the error will already be set in that case */
+				rsvg_handle_close (priv->svg, NULL);
+			} else {
+				failed = !rsvg_handle_close (priv->svg, error);
+			}
 		} else
 #endif
 		if (failed) {
