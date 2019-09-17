@@ -5,34 +5,13 @@ grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
 base: core18
 
-passthrough:
-  layout:
-    /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0:
-      symlink: $SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0
-    /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:
-      symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog
-    /usr/share/eog:
-      symlink: $SNAP/usr/share/eog
-    /usr/share/xml/iso-codes:
-      symlink: $SNAP/gnome-platform/usr/share/xml/iso-codes
-
-plugs:
-  gnome-3-28-1804:
-    interface: content
-    target: $SNAP/gnome-platform
-    default-provider: gnome-3-28-1804
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0:
+    bind: $SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpeas-1.0
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog
+  /usr/share/eog:
+    bind: $SNAP/usr/share/eog
 
 slots:
   # for GtkApplication registration
@@ -44,35 +23,20 @@ slots:
 apps:
   eog:
     common-id: eog.desktop
-    command: desktop-launch eog
+    command: usr/bin/eog
+    extensions: [gnome-3-28]
     plugs:
-      - desktop
-      - desktop-legacy
       - home
       - gsettings
       - network
-      - unity7
       - mount-observe
-      - wayland
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/eog:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/eog:$LD_LIBRARY_PATH
       GI_TYPELIB_PATH: $SNAP/usr/lib/eog/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/girepository-1.0:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/gnome-platform/usr/lib/python3/dist-packages
       
 parts:
-  desktop-gnome-platform:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: gtk
-    plugin: make
-    make-parameters: ["FLAVOR=gtk3"]
-    build-packages:
-      - build-essential
-      - libgtk-3-dev
-    override-build: |
-      snapcraftctl build
-      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
   cairo:
-    after: [ desktop-gnome-platform ]
     source-branch: '1.16'
     source: git://anongit.freedesktop.org/git/cairo
     plugin: autotools
@@ -124,7 +88,7 @@ parts:
       snap/eog/current/usr: usr
     override-build: |
       sed -i.bak -e 's|=org.gnome.eog$|=${SNAP}/meta/gui/org.gnome.eog.svg|g' data/eog.desktop.in.in
-      sed -i.bak -e 's|symlink_media: true|symlink_media: false|g' help/meson.build
+      sed -i.bak -e 's|media: media,|media: media, symlink_media: false,|g' help/meson.build
       snapcraftctl build
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp ../src/data/icons/scalable/apps/org.gnome.eog.svg $SNAPCRAFT_PART_INSTALL/meta/gui/
