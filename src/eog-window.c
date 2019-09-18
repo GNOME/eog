@@ -3653,8 +3653,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 	GList *it;
 	EogWindowPrivate *priv;
 	EogListStore *list;
-	int pos;
-	EogImage *img;
 	EogWindow *window;
 	int response;
 	int n_images;
@@ -3687,8 +3685,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 
 		if (response != GTK_RESPONSE_OK) return;
 	}
-
-	pos = eog_list_store_get_pos_by_image (list, EOG_IMAGE (images->data));
 
 	/* FIXME: make a nice progress dialog */
 	/* Do the work actually. First try to delete the image from the disk. If this
@@ -3731,21 +3727,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 	/* free list */
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
 	g_list_free (images);
-
-	/* select image at previously saved position */
-	pos = MIN (pos, eog_list_store_length (list) - 1);
-
-	if (pos >= 0) {
-		img = eog_list_store_get_image_by_pos (list, pos);
-
-		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
-						  img,
-						  TRUE);
-
-		if (img != NULL) {
-			g_object_unref (img);
-		}
-	}
 }
 
 static void
@@ -5190,7 +5171,20 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
                                      gpointer      user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
+	EogWindowPrivate *priv = window->priv;
 
+	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview)) == 0) {
+		gint pos = MIN (gtk_tree_path_get_indices (path)[0],
+				eog_list_store_length (priv->store) - 1);
+		EogImage *image = eog_list_store_get_image_by_pos (priv->store, pos);
+
+		if (image != NULL) {
+			eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
+							  image, TRUE);
+			g_object_unref (image);
+		}
+	}
+	
 	update_image_pos (window);
 	update_action_groups_state (window);
 }
