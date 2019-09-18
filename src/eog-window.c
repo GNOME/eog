@@ -3731,21 +3731,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 	/* free list */
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
 	g_list_free (images);
-
-	/* select image at previously saved position */
-	pos = MIN (pos, eog_list_store_length (list) - 1);
-
-	if (pos >= 0) {
-		img = eog_list_store_get_image_by_pos (list, pos);
-
-		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
-						  img,
-						  TRUE);
-
-		if (img != NULL) {
-			g_object_unref (img);
-		}
-	}
 }
 
 static void
@@ -5184,6 +5169,14 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 
+	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (window->priv->thumbview)) == 0){
+	  EogImage *image = eog_list_store_get_image_by_pos (window->priv->store, gtk_tree_path_get_indices (path)[0]);
+ 	  if (image != NULL){
+ 	    eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview), image, TRUE);
+	    g_object_unref (image);
+	  }
+	}
+	
 	update_image_pos (window);
 	update_action_groups_state (window);
 }
