@@ -109,10 +109,6 @@ void            eog_list_store_thumbnail_unset       (EogListStore *store,
 
 void            eog_list_store_thumbnail_refresh     (EogListStore *store,
 						      GtkTreeIter *iter);
-gboolean        eog_list_store_get_monitoring                (EogListStore *store);
-
-void            eog_list_store_set_monitoring                (EogListStore *store,
-								 gboolean is_monitoring);
 
 void            eog_list_store_clear                  (EogListStore *store);
 
