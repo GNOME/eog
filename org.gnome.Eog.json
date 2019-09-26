@@ -55,9 +55,12 @@
         },
         {
             "name" : "libpeas",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Ddemos=false"
+	    ],
             "cleanup" : [
-                "/bin/*",
-                "/lib/peas-demo"
+                "/bin/*"
             ],
             "sources" : [
                 {
