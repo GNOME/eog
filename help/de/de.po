@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog manual\n"
-"POT-Creation-Date: 2019-03-30 22:45+0000\n"
-"PO-Revision-Date: 2019-05-05 17:51+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2019-09-09 01:05+0000\n"
+"PO-Revision-Date: 2019-09-12 18:41+0200\n"
+"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Einen Fehlerbericht zum <app>Bildbetrachter</app> schreiben."
 #: C/develop.page:10 C/documentation.page:9 C/edit.page:11
 #: C/flip-rotate.page:11 C/format-change.page:11 C/formats-save.page:11
 #: C/formats-view.page:12 C/index.page:13 C/introduction.page:11 C/open.page:11
-#: C/plugin-exif-digital.page:12 C/plugin-fullscreen-double-click.page:12
+#: C/plugin-exif-digital.page:13 C/plugin-fullscreen-double-click.page:12
 #: C/plugin-python-console.page:12 C/plugin-send-by-mail.page:12
 #: C/plugin-slideshow-shuffle.page:13 C/plugins.page:13
 #: C/plugin-zoom-width.page:12 C/preferences.page:14 C/print.page:11
@@ -57,7 +57,7 @@ msgstr "Tiffany Antopolski"
 #: C/default.page:19 C/desktop-background.page:15 C/develop.page:15
 #: C/documentation.page:14 C/edit.page:19 C/flip-rotate.page:15
 #: C/format-change.page:19 C/formats-save.page:19 C/formats-view.page:16
-#: C/introduction.page:15 C/open.page:15 C/plugin-exif-digital.page:20
+#: C/introduction.page:15 C/open.page:15 C/plugin-exif-digital.page:21
 #: C/plugin-fullscreen-background.page:16
 #: C/plugin-fullscreen-double-click.page:16 C/plugin-picasa.page:16
 #: C/plugin-python-console.page:16 C/plugin-send-by-mail.page:16
@@ -170,7 +170,7 @@ msgstr ""
 
 #. (itstool) path: credit/name
 #: C/commandline.page:16 C/copy-paste.page:18 C/edit.page:15
-#: C/format-change.page:15 C/formats-save.page:15 C/plugin-exif-digital.page:16
+#: C/format-change.page:15 C/formats-save.page:15 C/plugin-exif-digital.page:17
 #: C/plugin-fullscreen-background.page:12 C/plugin-picasa.page:12
 #: C/plugins.page:17
 msgid "Fabiana Simões"
@@ -1276,12 +1276,12 @@ msgstr ""
 "betrachten."
 
 #. (itstool) path: page/title
-#: C/plugin-exif-digital.page:25
+#: C/plugin-exif-digital.page:26
 msgid "View detailed information about a picture"
 msgstr "Detaillierte Informationen zu einem Bild anzeigen"
 
 #. (itstool) path: page/p
-#: C/plugin-exif-digital.page:27
+#: C/plugin-exif-digital.page:28
 msgid ""
 "Pictures taken by digital cameras are stored with a host of extra "
 "information embedded in them, such as the date that they were taken, what "
@@ -1293,30 +1293,18 @@ msgstr ""
 "Belichtungseinstellungen und in einigen Fällen auch dem Aufnahmeort."
 
 #. (itstool) path: page/p
-#: C/plugin-exif-digital.page:32
+#: C/plugin-exif-digital.page:33
 msgid "This topic shows you how to access this information."
 msgstr ""
 "Dieses Thema erläutert, wie Sie auf diese Informationen zugreifen können."
 
 #. (itstool) path: section/title
-#: C/plugin-exif-digital.page:35
+#: C/plugin-exif-digital.page:36
 msgid "Show the date in the status bar"
 msgstr "Datum in Statusleiste anzeigen"
 
-#. (itstool) path: section/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/plugin-exif-digital.page:37
-msgctxt "_"
-msgid ""
-"external ref='figures/prefs-plugins-date.png' "
-"md5='63c64d05bc97472bd65c3592e1c302ea'"
-msgstr "ok"
-
 #. (itstool) path: section/p
-#: C/plugin-exif-digital.page:38
+#: C/plugin-exif-digital.page:37
 msgid ""
 "You can display the date that a picture was taken in the status bar at the "
 "bottom of the window."
@@ -1325,23 +1313,34 @@ msgstr ""
 "Fensters angezeigt."
 
 #. (itstool) path: section/p
-#: C/plugin-exif-digital.page:40
+#: C/plugin-exif-digital.page:39
 msgid ""
-"To do this, press the menu button in the top-right corner of the window, "
-"select <gui style=\"menuitem\">Preferences</gui> and go to the <gui>Plugins</"
-"gui> tab. Then, check <gui>Date in statusbar</gui>."
+"To show the status bar, press the menu button in the top-right corner of the "
+"window and select <guiseq><gui style=\"menuitem\">Show</gui> <gui style="
+"\"menuitem\">Status Bar</gui></guiseq>."
 msgstr ""
-"Öffnen Sie hierzu das Menü rechts oben im Fenster und klicken Sie auf <gui "
-"style=\"menuitem\">Einstellungen</gui>. Öffnen Sie den Reiter "
+"Um die Statusleiste anzuzeigen, klicken Sie auf den Menüknopf rechts oben im "
+"Fenster und wählen Sie <guiseq><gui style=\"menuitem\">Anzeigen</gui><gui "
+"style=\"menuitem\">Statusleiste</gui></guiseq>."
+
+#. (itstool) path: section/p
+#: C/plugin-exif-digital.page:42
+msgid ""
+"Then, press the menu button in the top-right corner of the window, select "
+"<gui style=\"menuitem\">Preferences</gui> and go to the <gui>Plugins</gui> "
+"tab. Then, check <gui>Date in statusbar</gui>."
+msgstr ""
+"Öffnen Sie anschließend das Menü rechts oben im Fenster und wählen Sie <gui "
+"style=\"menuitem\">Einstellungen</gui>. Öffnen Sie dann den Reiter "
 "<gui>Erweiterungen</gui> und aktivieren Sie <gui>Datum in Statusleiste</gui>."
 
 #. (itstool) path: section/title
-#: C/plugin-exif-digital.page:46
+#: C/plugin-exif-digital.page:48
 msgid "Detailed Exif data"
 msgstr "Detaillierte Exif-Daten"
 
 #. (itstool) path: section/p
-#: C/plugin-exif-digital.page:47
+#: C/plugin-exif-digital.page:49
 msgid ""
 "The detailed information stored with digital photos is called <em>Exif data</"
 "em>. You can view it by installing a plugin for the image viewer."
@@ -1352,7 +1351,7 @@ msgstr ""
 
 #. (itstool) path: item/p
 #. (itstool) path: page/p
-#: C/plugin-exif-digital.page:52 C/plugin-exif-digital.page:84
+#: C/plugin-exif-digital.page:54 C/plugin-exif-digital.page:88
 #: C/plugin-fullscreen-background.page:32 C/plugin-picasa.page:33
 #: C/plugin-python-console.page:30 C/plugin-send-by-mail.page:31
 #: C/plugin-slideshow-shuffle.page:31
@@ -1364,7 +1363,7 @@ msgstr ""
 "\">eog-plugins</link> installieren."
 
 #. (itstool) path: item/p
-#: C/plugin-exif-digital.page:56
+#: C/plugin-exif-digital.page:58
 msgid ""
 "If <sys>eog-plugins</sys> is installed, press the menu button in the top-"
 "right corner of the window, select <gui style=\"menuitem\">Preferences</"
@@ -1377,23 +1376,27 @@ msgstr ""
 "<gui>Exif-Anzeige</gui> und schließen Sie den Dialog."
 
 #. (itstool) path: item/p
-#: C/plugin-exif-digital.page:62
+#: C/plugin-exif-digital.page:64
 msgid ""
-"Enable the <gui style=\"menuitem\">Side Pane</gui> to view the camera "
-"settings used to take the photo. To also view histograms showing the balance "
-"of colors and light/shade in the picture, select <gui>Exif display</gui> in "
-"the <gui>Plugins</gui> tab and click <gui>Preferences</gui>. Check the "
-"histograms you want to view, listed under <gui>Histogram</gui>."
+"Press the menu button in the top-right corner of the window and select "
+"<guiseq><gui style=\"menuitem\">Show</gui><gui style=\"menuitem\">Side Pane</"
+"gui></guiseq> to view the camera settings used to take the photo. To also "
+"view histograms showing the balance of colors and light/shade in the "
+"picture, select <gui>Exif display</gui> in the <gui>Plugins</gui> tab and "
+"click <gui>Preferences</gui>. Check the histograms you want to view, listed "
+"under <gui>Histogram</gui>."
 msgstr ""
-"Klicken Sie auf <gui style=\"menuitem\">Seitenleiste</gui>, um die "
-"Kameraeinstellungen des Bildes anzuzeigen. Um auch ein Histogramm "
-"anzuzeigen, welches die Farbbalance und die Licht- und Schattenwerte "
-"darstellt, wählen Sie <gui>Exif-Anzeige</gui> im Reiter <gui>Erweiterungen</"
-"gui> und klicken Sie auf <gui>Einstellungen</gui>. Schauen Sie sich die "
-"gewünschten Histogramme an, die unter <gui>Histogramm</gui> angezeigt werden."
+"Klicken Sie auf den Menüknopf rechts oben im Fenster und wählen Sie "
+"<guiseq><gui style=\"menuitem\">Ansicht</gui><gui style=\"menuitem"
+"\">Seitenleiste</gui></guiseq>, um die Kameraeinstellungen bei Aufnahme des "
+"Bildes anzuzeigen. Um auch ein Histogramm anzuzeigen, welches die "
+"Farbbalance und die Licht- und Schattenwerte darstellt, wählen Sie <gui>Exif-"
+"Anzeige</gui> im Reiter <gui>Erweiterungen</gui> und klicken Sie auf "
+"<gui>Einstellungen</gui>. Schauen Sie sich die gewünschten Histogramme an, "
+"die unter <gui>Histogramm</gui> angezeigt werden."
 
 #. (itstool) path: item/p
-#: C/plugin-exif-digital.page:69
+#: C/plugin-exif-digital.page:73
 msgid ""
 "You can also view the camera settings used to take the photo in the "
 "statusbar. Select <gui>Exif display</gui> in the <gui>Plugins</gui> tab and "
@@ -1407,12 +1410,12 @@ msgstr ""
 "Statusleiste anzeigen</gui>."
 
 #. (itstool) path: section/title
-#: C/plugin-exif-digital.page:77
+#: C/plugin-exif-digital.page:81
 msgid "Display a photo location map"
 msgstr "Standortkarte eines Fotos anzeigen"
 
 #. (itstool) path: section/p
-#: C/plugin-exif-digital.page:78
+#: C/plugin-exif-digital.page:82
 msgid ""
 "Some cameras are able to attach <em>geolocation</em> information (geotags) "
 "to digital photos. Geotags are usually just the GPS coordinates (latitude "
@@ -1424,7 +1427,7 @@ msgstr ""
 "aufgenommen wurde."
 
 #. (itstool) path: item/p
-#: C/plugin-exif-digital.page:88
+#: C/plugin-exif-digital.page:92
 msgid ""
 "If <sys>eog-plugins</sys> is installed, press the menu button in the top-"
 "right corner of the window, select <gui style=\"menuitem\">Preferences</"
@@ -1437,14 +1440,18 @@ msgstr ""
 "<gui>Karte</gui> und schließen Sie den Dialog."
 
 #. (itstool) path: item/p
-#: C/plugin-exif-digital.page:93
-msgid "Enable the <gui style=\"menuitem\">Side Pane</gui> to show the map."
+#: C/plugin-exif-digital.page:97
+msgid ""
+"Press the menu button in the top-right corner of the window and select "
+"<guiseq><gui style=\"menuitem\">Show</gui><gui style=\"menuitem\">Side Pane</"
+"gui></guiseq> to show the map."
 msgstr ""
-"Klicken Sie auf <gui style=\"menuitem\">Seitenleiste</gui>, um die Karte "
-"anzuzeigen."
+"Klicken Sie auf den Menüknopf rechts oben im Fenster und wählen Sie "
+"<guiseq><gui style=\"menuitem\">Anzeigen</gui><gui style=\"menuitem"
+"\">Seitenleiste</gui></guiseq>, um die Karte anzuzeigen."
 
 #. (itstool) path: section/p
-#: C/plugin-exif-digital.page:96
+#: C/plugin-exif-digital.page:102
 msgid ""
 "The map will show the location that a picture was taken in only if there is "
 "geolocation information attached to the photo. Many cameras do not attach "
@@ -1503,20 +1510,8 @@ msgstr "Den Vollbildmodus durch einen Doppelklick auf ein Bild aktivieren."
 msgid "Full-screen with double-click"
 msgstr "Vollbildmodus durch Doppelklick"
 
-#. (itstool) path: page/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/plugin-fullscreen-double-click.page:24
-msgctxt "_"
-msgid ""
-"external ref='figures/prefs-plugins-fullscreen.png' "
-"md5='64a059b4311233d638a926ed707cce18'"
-msgstr "ok"
-
 #. (itstool) path: page/p
-#: C/plugin-fullscreen-double-click.page:26
+#: C/plugin-fullscreen-double-click.page:23
 msgid ""
 "If you like, you can make it so that pictures are shown full-screen when you "
 "double-click them in the image viewer."
@@ -1525,7 +1520,7 @@ msgstr ""
 "Bilder im Bildbetrachter in den Vollbildmodus geschaltet wird."
 
 #. (itstool) path: page/p
-#: C/plugin-fullscreen-double-click.page:29
+#: C/plugin-fullscreen-double-click.page:26
 msgid ""
 "To do this, press the menu button in the top-right corner of the window, "
 "select <gui style=\"menuitem\">Preferences</gui>, and go to the "
@@ -1538,7 +1533,7 @@ msgstr ""
 "schließen Sie den Dialog."
 
 #. (itstool) path: page/p
-#: C/plugin-fullscreen-double-click.page:33
+#: C/plugin-fullscreen-double-click.page:30
 msgid ""
 "Now, double-clicking on an image will toggle between the fullscreen and "
 "normal (window) modes."
@@ -1933,25 +1928,13 @@ msgstr ""
 msgid "Image view preferences"
 msgstr "Einstellungen zum Betrachten von Bildern"
 
-#. (itstool) path: section/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/preferences.page:32
-msgctxt "_"
-msgid ""
-"external ref='figures/image-view-prefs.png' "
-"md5='e47da013ab0f65ce9da3d6dfa5b0103c'"
-msgstr "ok"
-
 #. (itstool) path: item/title
-#: C/preferences.page:35
+#: C/preferences.page:34
 msgid "Image enhancements"
 msgstr "Bildverbesserungen"
 
 #. (itstool) path: item/p
-#: C/preferences.page:36
+#: C/preferences.page:35
 msgid ""
 "Select <gui>Smooth images when zoomed out</gui> to enable <em>image "
 "smoothing</em> when you zoom in and out. This makes low-resolution "
@@ -1963,7 +1946,7 @@ msgstr ""
 "ausgefransten Ränder geglättet werden."
 
 #. (itstool) path: item/p
-#: C/preferences.page:39
+#: C/preferences.page:38
 msgid ""
 "If you enable <gui>Automatic orientation</gui>, pictures will be "
 "automatically rotated according to their <em>Exif metadata</em>. This is "
@@ -1983,7 +1966,7 @@ msgstr ""
 "\">das gedrehte Bild tatsächlich speichern</link>."
 
 #. (itstool) path: item/p
-#: C/preferences.page:47
+#: C/preferences.page:46
 msgid ""
 "Automatic orientation does not work with all pictures; only pictures taken "
 "using a camera that saves Exif orientation metadata will be rotated."
@@ -1993,12 +1976,22 @@ msgstr ""
 "zur Ausrichtung speichert."
 
 #. (itstool) path: item/title
+#: C/preferences.page:50
+msgid "Background"
+msgstr "Hinter­grund"
+
+#. (itstool) path: item/p
 #: C/preferences.page:51
+msgid "Here you can select a custom background color."
+msgstr "Wählen Sie hier eine eigene Hintergrundfarbe."
+
+#. (itstool) path: item/title
+#: C/preferences.page:54
 msgid "Transparent parts"
 msgstr "Transparente Bildbereiche"
 
 #. (itstool) path: item/p
-#: C/preferences.page:52
+#: C/preferences.page:55
 msgid ""
 "Select one of the following options to determine how the transparent parts "
 "of a picture are displayed, if it has any:"
@@ -2007,22 +2000,22 @@ msgstr ""
 "Bereiche eines Bildes anzeigt werden sollen, falls vorhanden:"
 
 #. (itstool) path: item/p
-#: C/preferences.page:57
+#: C/preferences.page:60
 msgid "<gui>As check pattern:</gui>"
 msgstr "<gui>Als Karo-Muster:</gui>"
 
 #. (itstool) path: item/p
-#: C/preferences.page:58
+#: C/preferences.page:61
 msgid "Displays any transparent parts of the image in a check pattern."
 msgstr "Zeigt die transparenten Teile des Bildes in einem Karo-Muster an."
 
 #. (itstool) path: item/p
-#: C/preferences.page:61
+#: C/preferences.page:64
 msgid "<gui>As custom color:</gui>"
 msgstr "<gui>Als benutzerdefinierte Farbe:</gui>"
 
 #. (itstool) path: item/p
-#: C/preferences.page:62
+#: C/preferences.page:65
 msgid ""
 "Displays any transparent parts of the image in a solid color that you "
 "specify by clicking on the color selector button."
@@ -2031,12 +2024,12 @@ msgstr ""
 "dar. Klicken Sie auf den Farbauswahl-Knopf, um eine Farbe auszuwählen."
 
 #. (itstool) path: item/p
-#: C/preferences.page:66
+#: C/preferences.page:69
 msgid "<gui>As background:</gui>"
 msgstr "<gui>Als Hintergrund:</gui>"
 
 #. (itstool) path: item/p
-#: C/preferences.page:67
+#: C/preferences.page:70
 msgid ""
 "Displays any transparent parts of the image in the <gui>Background</gui> "
 "color, if <gui>As custom color</gui> under <gui>Background</gui> is checked. "
@@ -2047,29 +2040,17 @@ msgstr ""
 "gui> in <gui>Hintergrund</gui> aktiviert ist."
 
 #. (itstool) path: section/title
-#: C/preferences.page:79
+#: C/preferences.page:82
 msgid "Slide show preferences"
 msgstr "Einstellungen für die Diaschau"
 
-#. (itstool) path: section/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/preferences.page:80
-msgctxt "_"
-msgid ""
-"external ref='figures/slideshow-prefs.png' "
-"md5='a615d1b31d908020ef4c39ae212ec583'"
-msgstr "ok"
-
 #. (itstool) path: section/p
-#: C/preferences.page:81
+#: C/preferences.page:83
 msgid "To customize slideshow settings:"
 msgstr "So passen Sie die Einstellungen der Diaschau an:"
 
 #. (itstool) path: item/p
-#: C/preferences.page:84
+#: C/preferences.page:86
 msgid ""
 "Under <gui>Image Zoom</gui> you can select if you would like pictures that "
 "are smaller than the screen to be expanded so that they fit the screen."
@@ -2078,7 +2059,7 @@ msgstr ""
 "werden soll, um an die Größe des Fensters angepasst zu werden."
 
 #. (itstool) path: item/p
-#: C/preferences.page:89
+#: C/preferences.page:91
 msgid ""
 "Under <gui>Sequence</gui> you can select how many seconds each picture "
 "should be displayed for (between 1 and 100) before the next picture is shown."
@@ -2088,7 +2069,7 @@ msgstr ""
 "angezeigt wird."
 
 #. (itstool) path: item/p
-#: C/preferences.page:94
+#: C/preferences.page:96
 msgid ""
 "Check <gui>Loop sequence</gui> if you want the slideshow to repeat "
 "continuously. If unchecked, the slideshow will start at the picture you "
@@ -2099,7 +2080,7 @@ msgstr ""
 "mit dem von Ihnen ausgewählten Bild und endet mit dem letzten Bild im Ordner."
 
 #. (itstool) path: section/title
-#: C/preferences.page:103
+#: C/preferences.page:105
 msgid "Plugin preferences"
 msgstr "Einstellungen für Erweiterungen"
 
@@ -2108,7 +2089,7 @@ msgstr "Einstellungen für Erweiterungen"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/preferences.page:105
+#: C/preferences.page:107
 msgctxt "_"
 msgid ""
 "external ref='figures/plugins-all.png' md5='1f672b89abffd693cc23f668fe7f78e4'"
@@ -2119,7 +2100,7 @@ msgstr "ok"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/preferences.page:106
+#: C/preferences.page:108
 msgctxt "_"
 msgid ""
 "external ref='figures/prefs-plugins.png' "
@@ -2127,7 +2108,7 @@ msgid ""
 msgstr "ok"
 
 #. (itstool) path: section/p
-#: C/preferences.page:108
+#: C/preferences.page:110
 msgid ""
 "Here you can check/uncheck any additional features you would like to "
 "activate or deactivate. The picture on the left shows the plugins that are "
@@ -2138,7 +2119,7 @@ msgstr ""
 "Verfügung stehenden Erweiterungen."
 
 #. (itstool) path: section/p
-#: C/preferences.page:112
+#: C/preferences.page:114
 msgid ""
 "You may also wish to install the <link xref=\"plugins\">eog-plugins package</"
 "link>, which contains plugins providing a number of extra features. After "
@@ -3078,6 +3059,35 @@ msgstr ""
 "Fenster eingepasst wird, selbst wenn Sie die Größe ändern. Klicken Sie "
 "hierzu auf <gui style=\"menuitem\">Einpassen</gui> in der Auswahlliste in "
 "der Kopfleiste."
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/prefs-plugins-date.png' "
+#~ "md5='63c64d05bc97472bd65c3592e1c302ea'"
+#~ msgstr "ok"
+
+#~ msgid "Enable the <gui style=\"menuitem\">Side Pane</gui> to show the map."
+#~ msgstr ""
+#~ "Klicken Sie auf <gui style=\"menuitem\">Seitenleiste</gui>, um die Karte "
+#~ "anzuzeigen."
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/prefs-plugins-fullscreen.png' "
+#~ "md5='64a059b4311233d638a926ed707cce18'"
+#~ msgstr "ok"
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/image-view-prefs.png' "
+#~ "md5='e47da013ab0f65ce9da3d6dfa5b0103c'"
+#~ msgstr "ok"
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/slideshow-prefs.png' "
+#~ "md5='a615d1b31d908020ef4c39ae212ec583'"
+#~ msgstr "ok"
 
 #~ msgctxt "_"
 #~ msgid ""
