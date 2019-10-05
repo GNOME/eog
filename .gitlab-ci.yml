@@ -1,7 +1,7 @@
 include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
 
 variables:
-    BUNDLE: "org.gnome.Eog.Devel.flatpak"
+    BUNDLE: "org.gnome.eog.Devel.flatpak"
 
 flatpak:
     image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
@@ -10,5 +10,5 @@ flatpak:
         MESON_ARGS: "--libdir=/app/lib -Dprofile=Development"
         FLATPAK_MODULE: "eog"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-        APP_ID: "org.gnome.Eog"
+        APP_ID: "org.gnome.eog"
     extends: .flatpak    
