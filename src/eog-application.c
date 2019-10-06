@@ -282,7 +282,6 @@ eog_application_startup (GApplication *application)
 #ifdef HAVE_EXEMPI
 	xmp_init();
 #endif
-	eog_debug_init ();
 	eog_job_scheduler_init ();
 	eog_thumbnail_init ();
 
@@ -445,6 +444,7 @@ eog_application_init (EogApplication *eog_application)
 {
 	EogApplicationPrivate *priv;
 
+	eog_debug_init ();
 	eog_session_init (eog_application);
 
 	eog_application->priv = eog_application_get_instance_private (eog_application);
