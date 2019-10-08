@@ -64,8 +64,6 @@ struct _EogListStore {
 struct _EogListStoreClass {
         GtkListStoreClass parent_class;
 
-        void (* clear_list_store) (EogListStore *store, gpointer data);
-  
 	/* Padding for future expansion */
 	void (* _eog_reserved1) (void);
 	void (* _eog_reserved2) (void);
@@ -113,8 +111,6 @@ gboolean        eog_list_store_get_monitoring                (EogListStore *stor
 
 void            eog_list_store_set_monitoring                (EogListStore *store,
 								 gboolean is_monitoring);
-
-void            eog_list_store_clear                  (EogListStore *store);
 
 G_END_DECLS
 

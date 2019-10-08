@@ -40,13 +40,6 @@ struct _EogListStorePrivate {
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
-enum {
-	SIGNAL_CLEAR_LIST_STORE,
-	SIGNAL_LAST
-};
-
-static gint signals[SIGNAL_LAST];
-
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
 {
@@ -104,14 +97,6 @@ eog_list_store_class_init (EogListStoreClass *klass)
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
-
-	signals[SIGNAL_CLEAR_LIST_STORE] = g_signal_new("clear-list-store",
-							EOG_TYPE_LIST_STORE,
-							G_SIGNAL_RUN_LAST,
-							G_STRUCT_OFFSET(EogListStoreClass, clear_list_store),
-							NULL, NULL,
-							g_cclosure_marshal_VOID__VOID,
-							G_TYPE_NONE, 0);
 }
 
 /*
@@ -354,15 +339,6 @@ eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
 	g_object_unref (image);
 
 	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
-}
-
-void
-eog_list_store_clear (EogListStore *store)
-{
-  g_return_if_fail (EOG_IS_LIST_STORE (store));
-
-  gtk_list_store_clear (GTK_LIST_STORE (store));
-  g_signal_emit (store, signals[SIGNAL_CLEAR_LIST_STORE], 0);
 }
 
 /**
