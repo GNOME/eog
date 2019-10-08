@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-03-24 19:36+0000\n"
-"PO-Revision-Date: 2019-02-13 11:24+0100\n"
+"POT-Creation-Date: 2019-09-17 11:07+0000\n"
+"PO-Revision-Date: 2019-10-06 14:54+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -214,7 +214,7 @@ msgstr "Kameramodel:"
 
 #: data/eog-image-properties-dialog.ui:434
 msgid "Date/Time:"
-msgstr "Dato/tidspunkt:"
+msgstr "Dato/klokkeslæt:"
 
 #: data/eog-image-properties-dialog.ui:464
 msgid "Description:"
@@ -385,7 +385,7 @@ msgstr "_Tid mellem billeder:"
 
 #: data/eog-preferences-dialog.ui:482
 msgid "_Loop sequence"
-msgstr "_Løkkesekvens"
+msgstr "_Sekvens i løkke"
 
 #: data/eog-preferences-dialog.ui:520
 msgid "Slideshow"
@@ -396,7 +396,6 @@ msgid "Plugins"
 msgstr "Udvidelsesmoduler"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Formindsk billedet"
 
@@ -444,9 +443,17 @@ msgstr "Zoom _ind"
 msgid "Zoom _Out"
 msgstr "Zoom _ud"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Vis billedet i dets normale størrelse"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Tilpas billedet til vinduet"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
@@ -681,7 +688,7 @@ msgstr "Dato"
 
 #: data/metadata-sidebar.ui:204
 msgid "Time"
-msgstr "Tidspunkt"
+msgstr "Klokkeslæt"
 
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
@@ -698,9 +705,9 @@ msgstr "Om billedet skal roteres automatisk baseret på EXIF-orientering."
 
 #: data/org.gnome.eog.gschema.xml.in:17
 msgid ""
-"The color that is used to fill the area behind the image. If the "
-"use-background-color key is not set, the color is determined by the active "
-"GTK+ theme instead."
+"The color that is used to fill the area behind the image. If the use-"
+"background-color key is not set, the color is determined by the active GTK+ "
+"theme instead."
 msgstr ""
 "Farven som bliver brugt til at udfylde området bag ved billedet. Hvis nøglen "
 "use-background-color er deaktiveret, vil farven blive bestemt af det aktive "
@@ -765,8 +772,8 @@ msgid ""
 "a 100% zoom increment."
 msgstr ""
 "Den faktor der skal anvendes når musehjulet bruges til at zoome med. Denne "
-"værdi definerer zoom-skridtet som der bruges for hver rullebegivenhed. "
-"F.eks. vil 0.05 resultere i en 5% zoom-stigning for hver rullebegivenhed og "
+"værdi definerer zoom-skridtet som der bruges for hver rullebegivenhed. F."
+"eks. vil 0.05 resultere i en 5% zoom-stigning for hver rullebegivenhed og "
 "1.00 vil resultere i en 100% zoom-stigning."
 
 #: data/org.gnome.eog.gschema.xml.in:46
@@ -791,10 +798,9 @@ msgid ""
 "fill the area behind the image. If it is not set, the current GTK+ theme "
 "will determine the fill color."
 msgstr ""
-"Hvis denne er aktiveret, vil den farve som er defineret af nøglen "
-"background-color blive brugt til at udfylde området bag ved billedet. Hvis "
-"den ikke er aktiveret, vil det nuværende GTK+-tema bestemme "
-"udfyldningsfarven."
+"Hvis denne er aktiveret, vil den farve som er defineret af nøglen background-"
+"color blive brugt til at udfylde området bag ved billedet. Hvis den ikke er "
+"aktiveret, vil det nuværende GTK+-tema bestemme udfyldningsfarven."
 
 #: data/org.gnome.eog.gschema.xml.in:58
 msgid "Loop through the image sequence"
@@ -891,8 +897,8 @@ msgid ""
 "will show the current working directory."
 msgstr ""
 "Hvis aktiveret, og intet billede er indlæst i det aktive vindue, vil "
-"filvælgeren vise brugerens billedmappe ved brug af de specielle "
-"XDG-brugermapper. Hvis deaktiveret, eller hvis billedmappen ikke er blevet "
+"filvælgeren vise brugerens billedmappe ved brug af de specielle XDG-"
+"brugermapper. Hvis deaktiveret, eller hvis billedmappen ikke er blevet "
 "konfigureret, vil den vise den aktuelle arbejdsmappe."
 
 #: data/org.gnome.eog.gschema.xml.in:113
@@ -1139,27 +1145,27 @@ msgstr "Transformation af ikke indlæst billede."
 msgid "Transformation failed."
 msgstr "Transformationen mislykkedes."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1075
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke understøttet for dette filformat."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1222
 #, c-format
 msgid "Image loading failed."
 msgstr "Indlæsning af billede mislykkedes."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1803 src/eog-image.c:1923
 #, c-format
 msgid "No image loaded."
 msgstr "Intet billede indlæst."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1811 src/eog-image.c:1932
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har ikke de nødvendige rettigheder til at gemme filen."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1821 src/eog-image.c:1943
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oprettelse af midlertidig fil mislykkedes."
@@ -1681,4 +1687,3 @@ msgstr ""
 
 #~ msgid "Question"
 #~ msgstr "Spørgsmål"
-
