@@ -906,7 +906,7 @@ eog_image_real_load (EogImage     *img,
 	gchar *mime_type;
 	GdkPixbufLoader *loader = NULL;
 	guchar *buffer;
-	goffset bytes_read, bytes_read_total = 0;
+	goffset bytes_read = 0, bytes_read_total = 0;
 	gboolean failed = FALSE;
 	gboolean first_run = TRUE;
 	gboolean set_metadata = TRUE;
@@ -990,14 +990,7 @@ eog_image_real_load (EogImage     *img,
 #endif
 
 		if (!use_rsvg) {
-			loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
-
-			if (error && *error) {
-				g_error_free (*error);
-				*error = NULL;
-
-				loader = gdk_pixbuf_loader_new ();
-			}
+			loader = gdk_pixbuf_loader_new ();
 
 			g_signal_connect_object (G_OBJECT (loader),
 					 "size-prepared",
@@ -1009,47 +1002,53 @@ eog_image_real_load (EogImage     *img,
 	g_free (mime_type);
 
 	while (!priv->cancel_loading) {
-		/* FIXME: make this async */
-		bytes_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
-						  buffer,
-						  EOG_IMAGE_READ_BUFFER_SIZE,
-						  NULL, error);
-
-		if (bytes_read == 0) {
-			/* End of the file */
-			break;
-		} else if (bytes_read == -1) {
-			failed = TRUE;
-
-			g_set_error (error,
-				     EOG_IMAGE_ERROR,
-				     EOG_IMAGE_ERROR_VFS,
-				     "Failed to read from input stream");
-
-			break;
-		}
-
-		if ((read_image_data || read_only_dimension)) {
 #ifdef HAVE_RSVG
-			if (use_rsvg) {
-				gboolean res;
+		if (use_rsvg && first_run && (read_image_data || read_only_dimension)) {
+			if (rsvg_handle_read_stream_sync (priv->svg,
+							   G_INPUT_STREAM (input_stream),
+							   NULL,
+							   error))
+			{
+				/* The entire file is read by now */
+				bytes_read_total = priv->bytes;
+			} else {
+				failed = TRUE;
+			}
+			break;
+		} else {
+#endif
 
-				res = rsvg_handle_write (priv->svg, buffer,
-							 bytes_read, error);
+			/* FIXME: make this async */
+			bytes_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
+							  buffer,
+							  EOG_IMAGE_READ_BUFFER_SIZE,
+							  NULL, error);
 
-				if (G_UNLIKELY (!res)) {
+			if (bytes_read == 0) {
+				/* End of the file */
+				break;
+			} else if (bytes_read == -1) {
+				failed = TRUE;
+
+				g_set_error (error,
+					     EOG_IMAGE_ERROR,
+					     EOG_IMAGE_ERROR_VFS,
+					     "Failed to read from input stream");
+
+				break;
+			}
+
+			if ((read_image_data || read_only_dimension)) {
+				if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
 					failed = TRUE;
 					break;
 				}
-			} else
-#endif
-			if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
-				failed = TRUE;
-				break;
 			}
-		}
 
-		bytes_read_total += bytes_read;
+			bytes_read_total += bytes_read;
+#ifdef HAVE_RSVG
+		}
+#endif
 
 		/* For now allow calling from outside of jobs */
 		if (job != NULL)
@@ -1112,24 +1111,15 @@ eog_image_real_load (EogImage     *img,
 	}
 
 	if (read_image_data || read_only_dimension) {
-#ifdef HAVE_RSVG
-		if (use_rsvg) {
+		if (!use_rsvg) {
 			if (failed) {
-				/* Ignore the error if loading failed earlier
-				 * as the error will already be set in that case */
-				rsvg_handle_close (priv->svg, NULL);
-			} else {
-				failed = !rsvg_handle_close (priv->svg, error);
-			}
-		} else
-#endif
-		if (failed) {
-			gdk_pixbuf_loader_close (loader, NULL);
-		} else if (!gdk_pixbuf_loader_close (loader, error)) {
-			if (gdk_pixbuf_loader_get_pixbuf (loader) != NULL) {
-				/* Clear error in order to support partial
-				 * images as well. */
-				g_clear_error (error);
+				gdk_pixbuf_loader_close (loader, NULL);
+			} else if (!gdk_pixbuf_loader_close (loader, error)) {
+				if (gdk_pixbuf_loader_get_pixbuf (loader) != NULL) {
+					/* Clear error in order to support partial
+					 * images as well. */
+					g_clear_error (error);
+				}
 			}
 		}
 	}
@@ -1267,6 +1257,7 @@ eog_image_has_data (EogImage *img, EogImageData req_data)
 	if (req_data != 0) {
 		g_warning ("Asking for unknown data, remaining: %i\n", req_data);
 		has_data = FALSE;
+
 	}
 
 	return has_data;
