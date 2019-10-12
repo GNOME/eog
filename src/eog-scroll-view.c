@@ -1072,6 +1072,7 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
 	double zoom_factor;
+	double min_zoom_factor;
 	int xofs, yofs;
 
 	view = EOG_SCROLL_VIEW (data);
@@ -1082,27 +1083,33 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 	xofs = gtk_adjustment_get_page_increment (priv->hadj) / 2;
 	yofs = gtk_adjustment_get_page_increment (priv->vadj) / 2;
 
+	/* Make sure the user visible zoom factor changes */
+	min_zoom_factor = (priv->zoom + 0.01L) / priv->zoom;
+
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
-		zoom_factor = priv->zoom_multiplier;
+		zoom_factor = fmax(priv->zoom_multiplier, min_zoom_factor);
+
 		xofs = 0;
 		yofs = -yofs;
 		break;
 
 	case GDK_SCROLL_LEFT:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
+		zoom_factor = 1.0 / fmax(priv->zoom_multiplier,
+					 min_zoom_factor);
 		xofs = -xofs;
 		yofs = 0;
 		break;
 
 	case GDK_SCROLL_DOWN:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
+		zoom_factor = 1.0 / fmax(priv->zoom_multiplier,
+					 min_zoom_factor);
 		xofs = 0;
 		yofs = yofs;
 		break;
 
 	case GDK_SCROLL_RIGHT:
-		zoom_factor = priv->zoom_multiplier;
+		zoom_factor = fmax(priv->zoom_multiplier, min_zoom_factor);
 		xofs = xofs;
 		yofs = 0;
 		break;
