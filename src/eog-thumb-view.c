@@ -690,6 +690,7 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 {
 	EogThumbViewPrivate *priv = view->priv;
 
+	priv->end_thumb--;
 	priv->n_images--;
 	eog_thumb_view_update_columns (view);
 }
