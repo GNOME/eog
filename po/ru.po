@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-01-30 12:35+0000\n"
-"PO-Revision-Date: 2019-02-27 21:37+0300\n"
+"POT-Creation-Date: 2019-10-12 15:28+0000\n"
+"PO-Revision-Date: 2019-11-13 21:57+0300\n"
 "Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -62,15 +62,9 @@ msgstr ""
 "рабочего стола. Eye of GNOME считывает теги с камеры для автоматического "
 "поворота изображения в правильную ландшафтную или портретную ориентацию."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
+#: data/eog.desktop.in.in:3 src/eog-application.c:311 src/eog-window.c:5568
 msgid "Image Viewer"
 msgstr "Просмотр изображений"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -398,7 +392,6 @@ msgid "Plugins"
 msgstr "Модули"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Уменьшить изображение"
 
@@ -414,7 +407,7 @@ msgstr "Перейти к первому изображению в галере�
 msgid "_First Image"
 msgstr "П_ервое изображение"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
 msgid "Go to the previous image of the gallery"
 msgstr "Перейти к предыдущему изображению в галерее"
 
@@ -422,7 +415,7 @@ msgstr "Перейти к предыдущему изображению в га�
 msgid "_Previous Image"
 msgstr "_Предыдущее изображение"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
 msgid "Go to the next image of the gallery"
 msgstr "Перейти к следующему изображению в галерее"
 
@@ -446,15 +439,23 @@ msgstr "У_величить"
 msgid "Zoom _Out"
 msgstr "У_меньшить"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Масштабировать изображение в натуральный размер"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "_Нормальный размер"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Подогнать размер изображения под размер окна"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "Наилучшая подгонка"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Повернуть изображение на 90 градусов против часовой стрелки"
 
@@ -462,7 +463,7 @@ msgstr "Повернуть изображение на 90 градусов пр�
 msgid "Rotate Counter_clockwise"
 msgstr "Повернуть против часовой _стрелки"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Повернуть изображение на 90 градусов по часовой стрелке"
 
@@ -958,12 +959,6 @@ msgstr "_Наиболее подходящий размер"
 msgid "Fullscreen with double-click"
 msgstr "Полноэкранный режим по двойному щелчку"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Войти в полноэкранный режим по двойному щелчку мыши"
@@ -972,12 +967,6 @@ msgstr "Войти в полноэкранный режим по двойном�
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Перезагрузить изображение"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
@@ -1163,27 +1152,27 @@ msgstr "Преобразование незагруженного изображ
 msgid "Transformation failed."
 msgstr "Не удалось выполнить преобразование."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1075
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF не поддерживается для этого формата файлов."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1225
 #, c-format
 msgid "Image loading failed."
 msgstr "Не удалось загрузить изображение."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1806 src/eog-image.c:1926
 #, c-format
 msgid "No image loaded."
 msgstr "Изображение не загружено."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1814 src/eog-image.c:1935
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Недостаточно прав для сохранения файла."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1824 src/eog-image.c:1946
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Не удалось создать временный файл."
@@ -1678,6 +1667,15 @@ msgstr ""
 "Запустите «%s --help», чтобы вывести список всех доступных параметров "
 "командной строки."
 
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
+
 #~ msgid "_About"
 #~ msgstr "_О приложении"
 
@@ -1689,9 +1687,6 @@ msgstr ""
 
 #~ msgid "Question"
 #~ msgstr "Вопрос"
-
-#~ msgid "Fit the image to the window"
-#~ msgstr "Подогнать размер изображения под размер окна"
 
 #~ msgid "Side _Pane"
 #~ msgstr "_Боковая панель"
