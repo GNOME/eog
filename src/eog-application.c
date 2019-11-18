@@ -126,7 +126,7 @@ static GActionEntry app_entries[] = {
 	{ "view-statusbar", action_toggle_state, NULL, "true", NULL },
 	{ "view-gallery", action_toggle_state, NULL, "true",  NULL },
 	{ "view-sidebar", action_toggle_state, NULL, "true",  NULL },
-	{ "view-stack", action_toggle_state, NULL, "true",  NULL },
+	{ "view-boxtool", action_toggle_state, NULL, "true",  NULL },
 	{ "preferences", action_preferences, NULL, NULL, NULL },
 	{ "about", action_about, NULL, NULL, NULL },
 	{ "help", action_help, NULL, NULL, NULL },
@@ -193,9 +193,9 @@ eog_application_init_app_menu (EogApplication *application)
 	                              _settings_map_set_variant,
 	                              NULL, NULL);
 	action = g_action_map_lookup_action (G_ACTION_MAP (application),
-	                                     "view-stack");
+	                                     "view-boxtool");
 	g_settings_bind_with_mapping (priv->ui_settings,
-	                              EOG_CONF_UI_STACK, action, "state",
+	                              EOG_CONF_UI_BOXTOOL, action, "state",
                                       G_SETTINGS_BIND_DEFAULT,
 	                              _settings_map_get_bool_variant,
 	                              _settings_map_set_variant,
@@ -242,7 +242,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.view-gallery",	"<Ctrl>F9", NULL,
 		"win.view-sidebar",	"F9", NULL,
 		"win.view-fullscreen",	"F11", NULL,
-		"win.view-stack",       NULL, NULL,
+		"win.view-boxtool",       NULL, NULL,
 		"win.view-slideshow",	"F5", NULL,
 		"win.toggle-zoom-fit",	"F", NULL,
 		"win.toggle-gear-menu",	"F10", NULL,
