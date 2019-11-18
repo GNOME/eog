@@ -4365,7 +4365,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
 	gtk_widget_show (priv->cbox);
 
-	priv->boxtool = g_object_ref(gtk_stack_new ());
+	priv->boxtool = g_object_ref(gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
 	gtk_box_pack_start (GTK_BOX (priv->cbox), priv->boxtool, FALSE, FALSE, 0);
 	
 	priv->statusbar = eog_statusbar_new ();
