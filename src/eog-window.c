@@ -125,7 +125,7 @@ struct _EogWindowPrivate {
 	EogWindowMode        mode;
 	EogWindowStatus      status;
 
-        GtkWidget           *stack;
+        GtkWidget           *boxtool;
         GtkWidget           *overlay;
         GtkWidget           *box;
         GtkWidget           *layout;
@@ -622,7 +622,7 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 		"view-sidebar",
 		"view-statusbar",
 		"view-fullscreen",
-		"view-stack", 
+		"view-boxtool", 
 		NULL
 	};
 
@@ -685,7 +685,7 @@ update_action_groups_state (EogWindow *window)
 	EogWindowPrivate *priv;
 	GAction *action_gallery;
 	GAction *action_sidebar;
-	GAction *action_stack;
+	GAction *action_boxtool;
 	GAction *action_fscreen;
 	GAction *action_sshow;
 	GAction *action_print;
@@ -719,11 +719,11 @@ update_action_groups_state (EogWindow *window)
 		g_action_map_lookup_action (G_ACTION_MAP (window),
 					     "print");
 
-	action_stack =
+	action_boxtool =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "view-stack");
+					     "view-boxtool");
 
-	g_assert (action_stack != NULL);
+	g_assert (action_boxtool != NULL);
 	g_assert (action_gallery != NULL);
 	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
@@ -2013,12 +2013,12 @@ update_ui_visibility (EogWindow *window)
 	gtk_widget_set_visible (priv->sidebar, visible);
 
 	visible = g_settings_get_boolean (priv->ui_settings,
-					  EOG_CONF_UI_STACK);
+					  EOG_CONF_UI_BOXTOOL);
 	visible = visible && !fullscreen_mode;
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-stack");
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-boxtool");
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
-	gtk_widget_set_visible (priv->stack, visible);
+	gtk_widget_set_visible (priv->boxtool, visible);
 
 	if (priv->fullscreen_popup != NULL) {
 		gtk_widget_hide (priv->fullscreen_popup);
@@ -2591,10 +2591,10 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 		g_simple_action_set_state (action, state);
 		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR,
 					visible);
-	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-stack") == 0) {
-		gtk_widget_set_visible (priv->stack, visible);
+	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-boxtool") == 0) {
+		gtk_widget_set_visible (priv->boxtool, visible);
 		g_simple_action_set_state (action, state);
-		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_STACK,
+		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_BOXTOOL,
 					visible);
 	}
 }
@@ -4070,7 +4070,7 @@ static const GActionEntry window_actions[] = {
 	{ "view-statusbar",  NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-gallery",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-sidebar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
-	{ "view-stack",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
+	{ "view-boxtool",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-slideshow",  NULL, NULL, "false", eog_window_action_toggle_slideshow },
 	{ "view-fullscreen", NULL, NULL, "false", eog_window_action_toggle_fullscreen },
 	{ "pause-slideshow", NULL, NULL, "false", eog_window_action_pause_slideshow },
@@ -4365,8 +4365,8 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
 	gtk_widget_show (priv->cbox);
 
-	priv->stack = g_object_ref(gtk_stack_new ());
-	gtk_box_pack_start (GTK_BOX (priv->cbox), priv->stack, FALSE, FALSE, 0);
+	priv->boxtool = g_object_ref(gtk_stack_new ());
+	gtk_box_pack_start (GTK_BOX (priv->cbox), priv->boxtool, FALSE, FALSE, 0);
 	
 	priv->statusbar = eog_statusbar_new ();
 	gtk_box_pack_end (GTK_BOX (priv->box),
@@ -4611,9 +4611,9 @@ eog_window_init (EogWindow *window)
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
 					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"));
 
-	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STACK,
+	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_BOXTOOL,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-stack"));
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-boxtool"));
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
@@ -5327,11 +5327,11 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 }
 
 GtkWidget *
-eog_window_get_stack (EogWindow *window)
+eog_window_get_boxtool (EogWindow *window)
 {
   g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
 
-  return window->priv->stack;
+  return window->priv->boxtool;
 }
 
 /**
