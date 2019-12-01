@@ -14,7 +14,7 @@ resource_data = files(
   'popup-menus.ui',
 )
 
-desktop = 'eog.desktop'
+desktop = 'org.gnome.eog.desktop'
 
 desktop_in = configure_file(
   input: desktop + '.in.in',
