@@ -1504,6 +1504,7 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
                     EogScrollView   *view)
 {
 	EogScrollViewPrivate *priv;
+	const gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL;
 
 	if (eog_scroll_view_scrollbars_visible (view)) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
@@ -1518,11 +1519,13 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 
 	if (offset > PAN_ACTION_DISTANCE) {
-		if (direction == GTK_PAN_DIRECTION_LEFT ||
-		    gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL)
-			priv->pan_action = EOG_PAN_ACTION_NEXT;
+		if (direction == GTK_PAN_DIRECTION_LEFT)
+			priv->pan_action = is_rtl ? EOG_PAN_ACTION_PREV
+			                          : EOG_PAN_ACTION_NEXT;
 		else
-			priv->pan_action = EOG_PAN_ACTION_PREV;
+			priv->pan_action = is_rtl ? EOG_PAN_ACTION_NEXT
+			                          : EOG_PAN_ACTION_PREV;
+
 	}
 #undef PAN_ACTION_DISTANCE
 }
