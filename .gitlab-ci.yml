@@ -11,4 +11,14 @@ flatpak:
         FLATPAK_MODULE: "eog"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
         APP_ID: "org.gnome.eog"
-    extends: .flatpak    
+    extends: .flatpak
+
+review:
+    stage: deploy
+    dependencies:
+        - 'flatpak'
+    extends: '.review'
+
+stop_review:
+    stage: deploy
+    extends: '.stop_review'
