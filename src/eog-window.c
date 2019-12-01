@@ -4590,6 +4590,13 @@ eog_window_init (EogWindow *window)
 	                                     "current-image");
 	if (G_LIKELY (action != NULL))
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
+
+	if (g_strcmp0 (PROFILE, "") != 0) {
+		GtkStyleContext *style_context;
+
+		style_context = gtk_widget_get_style_context (GTK_WIDGET (window));
+		gtk_style_context_add_class (style_context, "devel");
+	}
 }
 
 static void
@@ -5573,7 +5580,7 @@ eog_window_show_about_dialog (EogWindow *window)
 			       "documenters", documenters,
 			       "translator-credits", _("translator-credits"),
 			       "website", "https://wiki.gnome.org/Apps/EyeOfGnome",
-			       "logo-icon-name", "org.gnome.eog",
+			       "logo-icon-name", APPLICATION_ID,
 			       "wrap-license", TRUE,
 			       "license-type", GTK_LICENSE_GPL_2_0,
 			       NULL);
