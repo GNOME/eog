@@ -42,8 +42,21 @@ cc = meson.get_compiler('c')
 
 config_h = configuration_data()
 
+if get_option('profile') != 'default'
+  profile = 'Devel'
+  name_suffix = ' (Nightly)'
+  application_id = 'org.gnome.eog.' + profile
+else
+  profile = ''
+  name_suffix = ''
+  application_id = 'org.gnome.eog'
+endif
+
 # defines
 set_defines = [
+  # build profile
+  ['APPLICATION_ID', application_id],
+  ['PROFILE', profile],
   # package
   ['PACKAGE', meson.project_name()],
   ['VERSION', eog_version],
