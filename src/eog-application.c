@@ -49,8 +49,6 @@
 #include <exempi/xmp.h>
 #endif
 
-#define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
-
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
 
@@ -473,7 +471,7 @@ eog_application_get_instance (void)
 
 	if (!instance) {
 		instance = EOG_APPLICATION (g_object_new (EOG_TYPE_APPLICATION,
-							  "application-id", APPLICATION_SERVICE_NAME,
+							  "application-id", APPLICATION_ID,
 							  "flags", G_APPLICATION_HANDLES_OPEN,
 							  NULL));
 	}
