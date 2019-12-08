@@ -5248,6 +5248,14 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	if (n_images == 0) {
 		gint n_files;
 
+		/* Avoid starting up fullscreen with an empty model as
+		 * fullscreen controls might end up disabled */
+		if (priv->status == EOG_WINDOW_STATUS_INIT &&
+		    (priv->mode == EOG_WINDOW_MODE_FULLSCREEN
+		     || priv->mode == EOG_WINDOW_MODE_SLIDESHOW)) {
+			eog_window_stop_fullscreen (window,
+				priv->mode == EOG_WINDOW_MODE_SLIDESHOW);
+		}
 		priv->status = EOG_WINDOW_STATUS_NORMAL;
 		update_action_groups_state (window);
 
