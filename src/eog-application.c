@@ -529,6 +529,10 @@ eog_application_open_window (EogApplication  *application,
 	new_window = GTK_WIDGET (eog_application_get_empty_window (application));
 
 	if (new_window == NULL) {
+		/* Filter out fullscreen flags to avoid going fullscreen
+		 * with functions to leave fullscreen possibly being
+		 * disabled due to the empty model */
+		flags &= ~(EOG_STARTUP_FULLSCREEN | EOG_STARTUP_SLIDE_SHOW);
 		new_window = eog_window_new (flags);
 	}
 
