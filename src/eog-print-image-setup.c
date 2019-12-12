@@ -1168,6 +1168,16 @@ set_initial_values (EogPrintImageSetup *setup)
 	eog_print_preview_set_scale (EOG_PRINT_PREVIEW (priv->preview), max_perc);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->width), 0, width);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->height), 0, height);
+
+	gdouble page_width        = gtk_page_setup_get_page_width (priv->page_setup, priv->current_unit);
+	gdouble page_height       = gtk_page_setup_get_page_height (priv->page_setup, priv->current_unit);
+	gdouble max_left_or_right = page_width  - width;
+	gdouble max_top_or_bottom = page_height - height;
+
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->left  ), 0, max_left_or_right);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->right ), 0, max_left_or_right);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->top   ), 0, max_top_or_bottom);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->bottom), 0, max_top_or_bottom);
 	adjust_width_value(setup, width);
 	adjust_height_value(setup, height);
 
@@ -1385,6 +1395,14 @@ eog_print_image_setup_new (EogImage *image, GtkPageSetup *page_setup)
 					       page_setup);
 
 	connect_signals (EOG_PRINT_IMAGE_SETUP (setup));
+
+	gdouble left       = gtk_spin_button_get_value (GTK_SPIN_BUTTON (EOG_PRINT_IMAGE_SETUP (setup)->priv->left));
+	gdouble top        = gtk_spin_button_get_value (GTK_SPIN_BUTTON (EOG_PRINT_IMAGE_SETUP (setup)->priv->top));
+	if (EOG_PRINT_IMAGE_SETUP (setup)->priv->current_unit == GTK_UNIT_MM) {
+		left *= FACTOR_MM_TO_INCH;
+		top  *= FACTOR_MM_TO_INCH;
+	}
+	eog_print_preview_set_image_position (EOG_PRINT_PREVIEW (EOG_PRINT_IMAGE_SETUP (setup)->priv->preview), left, top);
 	return setup;
 }
 
