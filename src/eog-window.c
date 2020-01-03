@@ -5172,10 +5172,12 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	EogWindowPrivate *priv = window->priv;
+	gint n_images = eog_list_store_length (priv->store);
 
-	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview)) == 0) {
+	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview)) == 0
+	    && n_images > 0) {
 		gint pos = MIN (gtk_tree_path_get_indices (path)[0],
-				eog_list_store_length (priv->store) - 1);
+				n_images - 1);
 		EogImage *image = eog_list_store_get_image_by_pos (priv->store, pos);
 
 		if (image != NULL) {
