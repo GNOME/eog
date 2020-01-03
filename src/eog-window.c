@@ -3390,14 +3390,9 @@ eog_window_force_image_delete (EogWindow *window,
 			       GList     *images)
 {
 	GList    *item;
-	gint      current_position;
-	EogImage *current_image;
 	gboolean  success;
 
 	g_return_if_fail (EOG_WINDOW (window));
-
-	current_position = eog_list_store_get_pos_by_image (window->priv->store,
-							    EOG_IMAGE (images->data));
 
 	/* force delete of each image of the list */
 	for (item = images; item != NULL; item = item->next) {
@@ -3445,22 +3440,6 @@ eog_window_force_image_delete (EogWindow *window,
 	/* free list */
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
 	g_list_free    (images);
-
-	/* select image at previously saved position */
-	current_position = MIN (current_position,
-				eog_list_store_length (window->priv->store) - 1);
-
-	if (current_position >= 0) {
-		current_image = eog_list_store_get_image_by_pos (window->priv->store,
-								 current_position);
-
-		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview),
-						  current_image,
-						  TRUE);
-
-		if (current_image != NULL)
-			g_object_unref (current_image);
-	}
 }
 
 static void
