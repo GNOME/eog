@@ -195,7 +195,7 @@ config_h.set('HAVE_INTROSPECTION', enable_introspection)
 # RSVG (optional for scaling svg image)
 enable_librsvg = get_option('librsvg')
 if enable_librsvg
-  common_deps += dependency('librsvg-2.0', version: '>= 2.40.16')
+  common_deps += dependency('librsvg-2.0', version: '>= 2.40.0')
 endif
 config_h.set('HAVE_RSVG', enable_librsvg)
 
