@@ -5303,7 +5303,24 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 
 	eog_debug (DEBUG_WINDOW);
 
-	window->priv->status = EOG_WINDOW_STATUS_INIT;
+	if(window->priv->status != EOG_WINDOW_STATUS_INIT){
+	  window->priv->status = EOG_WINDOW_STATUS_INIT;
+	} else {
+	  if (window->priv->file_list != NULL) {
+	    g_slist_foreach (window->priv->file_list, (GFunc) g_object_unref, NULL);
+	    g_slist_free (window->priv->file_list);
+	  }
+	  if(window->priv->store != NULL){
+	    g_signal_handlers_disconnect_by_func (window->priv->store,
+						  eog_window_list_store_image_added,
+						  window);
+	    g_signal_handlers_disconnect_by_func (window->priv->store,
+						  eog_window_list_store_image_removed,
+						  window);
+	    g_object_unref (window->priv->store);
+	    window->priv->store = NULL;
+	  }
+	}
 
 	g_slist_foreach (file_list, (GFunc) g_object_ref, NULL);
 	window->priv->file_list = file_list;
