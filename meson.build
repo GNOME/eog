@@ -3,7 +3,7 @@ project(
   version: '3.34.2',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.49.0',
 )
 
 eog_version = meson.project_version()
@@ -89,7 +89,7 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-glib_req_version = '>= 2.53.4'
+glib_req_version = '>= 2.50.3'
 peas_req_version = '>= 0.7.4'
 
 gio_dep = dependency('gio-2.0', version: glib_req_version)
@@ -182,7 +182,7 @@ config_h.set('HAVE_INTROSPECTION', enable_introspection)
 # RSVG (optional for scaling svg image)
 enable_librsvg = get_option('librsvg')
 if enable_librsvg
-  common_deps += dependency('librsvg-2.0', version: '>= 2.44.0')
+  common_deps += dependency('librsvg-2.0', version: '>= 2.40.0')
 endif
 config_h.set('HAVE_RSVG', enable_librsvg)
 
