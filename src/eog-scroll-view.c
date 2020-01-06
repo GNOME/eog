@@ -107,6 +107,7 @@ struct _EogScrollViewPrivate {
 	/* actual image */
 	EogImage *image;
 	guint image_changed_id;
+	guint image_updated_id;
 	guint frame_changed_id;
 	GdkPixbuf *pixbuf;
 	cairo_surface_t *surface;
@@ -231,6 +232,11 @@ free_image_resources (EogScrollView *view)
 	if (priv->image_changed_id > 0) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_id);
 		priv->image_changed_id = 0;
+	}
+
+	if (priv->image_updated_id > 0) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_updated_id);
+		priv->image_updated_id = 0;
 	}
 
 	if (priv->frame_changed_id > 0) {
@@ -1665,6 +1671,12 @@ image_changed_cb (EogImage *img, gpointer data)
 	                         EOG_ZOOM_MODE_SHRINK_TO_FIT);
 }
 
+static void
+image_updated_cb (EogImage *img, gpointer data)
+{
+	update_pixbuf (EOG_SCROLL_VIEW (data), eog_image_get_pixbuf (img));
+}
+
 /*===================================
 	 public API
   ---------------------------------*/
@@ -1965,6 +1977,10 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
 		                                           (GCallback) image_changed_cb, view);
+		
+		priv->image_updated_id = g_signal_connect (image, "updated",
+		                                           (GCallback) image_updated_cb, view);
+
 		if (eog_image_is_animation (image) == TRUE ) {
 			eog_image_start_animation (image);
 			priv->frame_changed_id = g_signal_connect (image, "next-frame",

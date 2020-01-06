@@ -77,6 +77,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (EogImage, eog_image, G_TYPE_OBJECT)
 
 enum {
 	SIGNAL_CHANGED,
+	SIGNAL_UPDATED,
 	SIGNAL_SIZE_PREPARED,
 	SIGNAL_THUMBNAIL_CHANGED,
 	SIGNAL_SAVE_PROGRESS,
@@ -244,6 +245,15 @@ eog_image_class_init (EogImageClass *klass)
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+
+	signals[SIGNAL_UPDATED] =
+	        g_signal_new ("updated", 
+			      EOG_TYPE_IMAGE,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, updated),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
@@ -2163,6 +2173,14 @@ eog_image_modified (EogImage *img)
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	g_signal_emit (G_OBJECT (img), signals[SIGNAL_CHANGED], 0);
+}
+
+void
+eog_image_updated (EogImage *img)
+{
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	g_signal_emit (G_OBJECT (img), signals[SIGNAL_UPDATED], 0);
 }
 
 gchar*
