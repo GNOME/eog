@@ -690,17 +690,7 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 {
 	EogThumbViewPrivate *priv = view->priv;
 
-	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (view)));
-	EogImage *image = eog_list_store_get_image_by_pos (store, priv->end_thumb);
-	if(image){
-	  GtkTreeIter iter;
-	  GtkTreePath *end = gtk_tree_path_new_from_indices (priv->end_thumb, -1);
-	  gtk_tree_model_get_iter (tree_model, &iter, end);
-	  eog_list_store_thumbnail_set (EOG_LIST_STORE (tree_model), &iter);
-	  g_object_unref (G_OBJECT (image));
-	  gtk_tree_path_free (end);
-	}
-
+	priv->end_thumb--;
 	priv->n_images--;
 	eog_thumb_view_update_columns (view);
 }

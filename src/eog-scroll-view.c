@@ -1078,6 +1078,7 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
 	double zoom_factor;
+	double min_zoom_factor;
 	int xofs, yofs;
 
 	view = EOG_SCROLL_VIEW (data);
@@ -1088,27 +1089,33 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 	xofs = gtk_adjustment_get_page_increment (priv->hadj) / 2;
 	yofs = gtk_adjustment_get_page_increment (priv->vadj) / 2;
 
+	/* Make sure the user visible zoom factor changes */
+	min_zoom_factor = (priv->zoom + 0.01L) / priv->zoom;
+
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
-		zoom_factor = priv->zoom_multiplier;
+		zoom_factor = fmax(priv->zoom_multiplier, min_zoom_factor);
+
 		xofs = 0;
 		yofs = -yofs;
 		break;
 
 	case GDK_SCROLL_LEFT:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
+		zoom_factor = 1.0 / fmax(priv->zoom_multiplier,
+					 min_zoom_factor);
 		xofs = -xofs;
 		yofs = 0;
 		break;
 
 	case GDK_SCROLL_DOWN:
-		zoom_factor = 1.0 / priv->zoom_multiplier;
+		zoom_factor = 1.0 / fmax(priv->zoom_multiplier,
+					 min_zoom_factor);
 		xofs = 0;
 		yofs = yofs;
 		break;
 
 	case GDK_SCROLL_RIGHT:
-		zoom_factor = priv->zoom_multiplier;
+		zoom_factor = fmax(priv->zoom_multiplier, min_zoom_factor);
 		xofs = xofs;
 		yofs = 0;
 		break;
@@ -1503,6 +1510,7 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
                     EogScrollView   *view)
 {
 	EogScrollViewPrivate *priv;
+	const gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL;
 
 	if (eog_scroll_view_scrollbars_visible (view)) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
@@ -1517,11 +1525,13 @@ pan_gesture_pan_cb (GtkGesturePan   *gesture,
 	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 
 	if (offset > PAN_ACTION_DISTANCE) {
-		if (direction == GTK_PAN_DIRECTION_LEFT ||
-		    gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL)
-			priv->pan_action = EOG_PAN_ACTION_NEXT;
+		if (direction == GTK_PAN_DIRECTION_LEFT)
+			priv->pan_action = is_rtl ? EOG_PAN_ACTION_PREV
+			                          : EOG_PAN_ACTION_NEXT;
 		else
-			priv->pan_action = EOG_PAN_ACTION_PREV;
+			priv->pan_action = is_rtl ? EOG_PAN_ACTION_NEXT
+			                          : EOG_PAN_ACTION_PREV;
+
 	}
 #undef PAN_ACTION_DISTANCE
 }

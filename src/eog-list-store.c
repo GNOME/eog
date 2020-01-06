@@ -67,8 +67,13 @@ eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
 
-	monitors_free(store);
-	
+	g_list_foreach (store->priv->monitors,
+			foreach_monitors_free, NULL);
+
+	g_list_free (store->priv->monitors);
+
+	store->priv->monitors = NULL;
+
 	if(store->priv->busy_image != NULL) {
 		g_object_unref (store->priv->busy_image);
 		store->priv->busy_image = NULL;
@@ -520,11 +525,14 @@ eog_list_store_append_directory (EogListStore *store,
 				 GFile *file,
 				 GFileType file_type)
 {
-	GFileMonitor *file_monitor = NULL;
+	GFileMonitor *file_monitor;
 	GFileEnumerator *file_enumerator;
 	GFileInfo *file_info;
 
 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
+
+	file_monitor = g_file_monitor_directory (file,
+						 0, NULL, NULL);
 
 	if(is_monitoring)
 	  file_monitor = g_file_monitor_directory (file,
@@ -646,8 +654,8 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 				eog_list_store_append_image_from_file (store, initial_file, caption);
 			}
 			g_object_unref (file);
-		} else if (file_type == G_FILE_TYPE_REGULAR /* &&
-							       g_list_length (file_list) > 1*/) {
+		} else if (file_type == G_FILE_TYPE_REGULAR &&
+			   g_list_length (file_list) > 1) {
 			eog_list_store_append_image_from_file (store, file, caption);
 		}
 
