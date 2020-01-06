@@ -1,9 +1,9 @@
 project(
   'eog', 'c',
-  version: '3.34.2',
+  version: '3.35.3',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.49.0',
 )
 
 eog_version = meson.project_version()
@@ -42,8 +42,21 @@ cc = meson.get_compiler('c')
 
 config_h = configuration_data()
 
+if get_option('profile') != 'default'
+  profile = 'Devel'
+  name_suffix = ' (Nightly)'
+  application_id = 'org.gnome.eog.' + profile
+else
+  profile = ''
+  name_suffix = ''
+  application_id = 'org.gnome.eog'
+endif
+
 # defines
 set_defines = [
+  # build profile
+  ['APPLICATION_ID', application_id],
+  ['PROFILE', profile],
   # package
   ['PACKAGE', meson.project_name()],
   ['VERSION', eog_version],
@@ -89,7 +102,7 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-glib_req_version = '>= 2.53.4'
+glib_req_version = '>= 2.50.3'
 peas_req_version = '>= 0.7.4'
 
 gio_dep = dependency('gio-2.0', version: glib_req_version)
@@ -182,7 +195,7 @@ config_h.set('HAVE_INTROSPECTION', enable_introspection)
 # RSVG (optional for scaling svg image)
 enable_librsvg = get_option('librsvg')
 if enable_librsvg
-  common_deps += dependency('librsvg-2.0', version: '>= 2.44.0')
+  common_deps += dependency('librsvg-2.0', version: '>= 2.40.16')
 endif
 config_h.set('HAVE_RSVG', enable_librsvg)
 

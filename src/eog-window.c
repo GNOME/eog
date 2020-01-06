@@ -3390,14 +3390,9 @@ eog_window_force_image_delete (EogWindow *window,
 			       GList     *images)
 {
 	GList    *item;
-	gint      current_position;
-	EogImage *current_image;
 	gboolean  success;
 
 	g_return_if_fail (EOG_WINDOW (window));
-
-	current_position = eog_list_store_get_pos_by_image (window->priv->store,
-							    EOG_IMAGE (images->data));
 
 	/* force delete of each image of the list */
 	for (item = images; item != NULL; item = item->next) {
@@ -3445,22 +3440,6 @@ eog_window_force_image_delete (EogWindow *window,
 	/* free list */
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
 	g_list_free    (images);
-
-	/* select image at previously saved position */
-	current_position = MIN (current_position,
-				eog_list_store_length (window->priv->store) - 1);
-
-	if (current_position >= 0) {
-		current_image = eog_list_store_get_image_by_pos (window->priv->store,
-								 current_position);
-
-		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview),
-						  current_image,
-						  TRUE);
-
-		if (current_image != NULL)
-			g_object_unref (current_image);
-	}
 }
 
 static void
@@ -3653,8 +3632,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 	GList *it;
 	EogWindowPrivate *priv;
 	EogListStore *list;
-	int pos;
-	EogImage *img;
 	EogWindow *window;
 	int response;
 	int n_images;
@@ -3687,8 +3664,6 @@ eog_window_action_move_to_trash (GSimpleAction *action,
 
 		if (response != GTK_RESPONSE_OK) return;
 	}
-
-	pos = eog_list_store_get_pos_by_image (list, EOG_IMAGE (images->data));
 
 	/* FIXME: make a nice progress dialog */
 	/* Do the work actually. First try to delete the image from the disk. If this
@@ -4575,6 +4550,13 @@ eog_window_init (EogWindow *window)
 	                                     "current-image");
 	if (G_LIKELY (action != NULL))
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
+
+	if (g_strcmp0 (PROFILE, "") != 0) {
+		GtkStyleContext *style_context;
+
+		style_context = gtk_widget_get_style_context (GTK_WIDGET (window));
+		gtk_style_context_add_class (style_context, "devel");
+	}
 }
 
 static void
@@ -5168,13 +5150,20 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
                                      gpointer      user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
+	EogWindowPrivate *priv = window->priv;
+	gint n_images = eog_list_store_length (priv->store);
 
-	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (window->priv->thumbview)) == 0){
-	  EogImage *image = eog_list_store_get_image_by_pos (window->priv->store, gtk_tree_path_get_indices (path)[0]);
- 	  if (image != NULL){
- 	    eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview), image, TRUE);
-	    g_object_unref (image);
-	  }
+	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview)) == 0
+	    && n_images > 0) {
+		gint pos = MIN (gtk_tree_path_get_indices (path)[0],
+				n_images - 1);
+		EogImage *image = eog_list_store_get_image_by_pos (priv->store, pos);
+
+		if (image != NULL) {
+			eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
+							  image, TRUE);
+			g_object_unref (image);
+		}
 	}
 	
 	update_image_pos (window);
@@ -5234,6 +5223,14 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	if (n_images == 0) {
 		gint n_files;
 
+		/* Avoid starting up fullscreen with an empty model as
+		 * fullscreen controls might end up disabled */
+		if (priv->status == EOG_WINDOW_STATUS_INIT &&
+		    (priv->mode == EOG_WINDOW_MODE_FULLSCREEN
+		     || priv->mode == EOG_WINDOW_MODE_SLIDESHOW)) {
+			eog_window_stop_fullscreen (window,
+				priv->mode == EOG_WINDOW_MODE_SLIDESHOW);
+		}
 		priv->status = EOG_WINDOW_STATUS_NORMAL;
 		update_action_groups_state (window);
 
@@ -5566,7 +5563,7 @@ eog_window_show_about_dialog (EogWindow *window)
 			       "documenters", documenters,
 			       "translator-credits", _("translator-credits"),
 			       "website", "https://wiki.gnome.org/Apps/EyeOfGnome",
-			       "logo-icon-name", "org.gnome.eog",
+			       "logo-icon-name", APPLICATION_ID,
 			       "wrap-license", TRUE,
 			       "license-type", GTK_LICENSE_GPL_2_0,
 			       NULL);
