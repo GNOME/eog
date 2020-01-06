@@ -64,8 +64,6 @@ struct _EogListStore {
 struct _EogListStoreClass {
         GtkListStoreClass parent_class;
 
-        void (* clear_list_store) (EogListStore *store, gpointer data);
-  
 	/* Padding for future expansion */
 	void (* _eog_reserved1) (void);
 	void (* _eog_reserved2) (void);
@@ -109,8 +107,6 @@ void            eog_list_store_thumbnail_unset       (EogListStore *store,
 
 void            eog_list_store_thumbnail_refresh     (EogListStore *store,
 						      GtkTreeIter *iter);
-
-void            eog_list_store_clear                  (EogListStore *store);
 
 G_END_DECLS
 
