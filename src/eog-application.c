@@ -235,6 +235,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.toggle-zoom-fit",	"F", NULL,
 		"win.toggle-gear-menu",	"F10", NULL,
 		"win.pause-slideshow",	"p", NULL,
+		"win.show-help-overlay", "<Ctrl>question", NULL,
 
 		NULL /* Terminating NULL */
 	};
