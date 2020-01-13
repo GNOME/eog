@@ -108,17 +108,17 @@ static void on_width_value_changed  (GtkSpinButton *spinbutton, gpointer user_da
 static void on_height_value_changed (GtkSpinButton *spinbutton, gpointer user_data);
 static gboolean on_scale_changed    (GtkRange      *range     , gpointer user_data);
 
-static void adjust_left_value   (gpointer user_data, gdouble new_value);
-static void adjust_right_value  (gpointer user_data, gdouble new_value);
-static void adjust_top_value    (gpointer user_data, gdouble new_value);
-static void adjust_bottom_value (gpointer user_data, gdouble new_value);
-static void adjust_width_value  (gpointer user_data, gdouble new_value);
-static void adjust_height_value (gpointer user_data, gdouble new_value);
-static void adjust_scale_value  (gpointer user_data, gdouble new_value);
-static void adjust_left_range   (gpointer user_data, gdouble new_value);
-static void adjust_right_range  (gpointer user_data, gdouble new_value);
-static void adjust_top_range    (gpointer user_data, gdouble new_value);
-static void adjust_bottom_range (gpointer user_data, gdouble new_value);
+static void adjust_left_value   (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_right_value  (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_top_value    (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_bottom_value (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_width_value  (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_height_value (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_scale_value  (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_left_range   (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_right_range  (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_top_range    (EogPrintImageSetup *setup, gdouble new_value);
+static void adjust_bottom_range (EogPrintImageSetup *setup, gdouble new_value);
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogPrintImageSetup, eog_print_image_setup, GTK_TYPE_GRID);
 
@@ -168,40 +168,33 @@ get_max_percentage (EogPrintImageSetup *setup)
 }
 
 static void
-center_horizontal (gpointer user_data, gdouble page_width,
-	gdouble OLD_width,
-	GtkSpinButton *s_left,
-	GtkSpinButton *s_right,
-	GtkRange      *s_scaling,
+center_horizontal (EogPrintImageSetup *setup,
 	gdouble       factor,
 	gdouble       width,
 	gdouble       height)
 {
-	gdouble left, right;
-	gdouble scale = 0.01*gtk_range_get_value (GTK_RANGE (s_scaling));
-	left = (page_width - width*scale)/2;
-	right = left;
-	adjust_left_value (user_data,left);
-	adjust_right_value(user_data,right);
+	EogPrintImageSetupPrivate *priv;
+	priv = setup->priv;
+	gdouble page_width = gtk_page_setup_get_page_width (priv->page_setup,priv->current_unit);
+	gdouble scale = 0.01*gtk_range_get_value (GTK_RANGE (priv->scaling));
+	gdouble left_is_right = (page_width - width*scale)/2;
+	adjust_left_value (setup,left_is_right);
+	adjust_right_value(setup,left_is_right);
 }
 
 static void
-center_vertical (gpointer user_data, gdouble page_heigth,
-	gdouble OLD_heigth,
-	GtkSpinButton *s_top,
-	GtkSpinButton *s_bottom,
-	GtkRange      *s_scaling,
+center_vertical (EogPrintImageSetup *setup,
 	gdouble       factor,
 	gdouble       width,
 	gdouble       height)
 {
-	gdouble top, bottom;
-
-	gdouble scale = 0.01*gtk_range_get_value (GTK_RANGE (s_scaling));
-	top   = (page_heigth - height*scale)/2;
-	bottom = top;
-	adjust_top_value   (user_data,top);
-	adjust_bottom_value(user_data,bottom);
+	EogPrintImageSetupPrivate *priv;
+	priv = setup->priv;
+	gdouble page_heigth = gtk_page_setup_get_page_height (priv->page_setup, priv->current_unit);
+	gdouble scale = 0.01*gtk_range_get_value (GTK_RANGE (priv->scaling));
+	gdouble top_is_bottom   = (page_heigth - height*scale)/2;
+	adjust_top_value   (setup,top_is_bottom);
+	adjust_bottom_value(setup,top_is_bottom);
 }
 
 static void
@@ -210,7 +203,6 @@ on_center_changed (GtkComboBox *combobox,
 {
 	EogPrintImageSetup *setup;
 	EogPrintImageSetupPrivate *priv;
-	EogImage *image;
 	gint active;
 	gint pix_width, pix_height;
 	gdouble pos_x, pos_y;
@@ -222,46 +214,21 @@ on_center_changed (GtkComboBox *combobox,
 
 	active = gtk_combo_box_get_active (combobox);
 
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	factor = get_scale_to_px_factor (setup);
 	width = (gdouble)pix_width/factor;
 	height = (gdouble)pix_height/factor;
 
 	switch (active) {
 	case CENTER_HORIZONTAL:
-		center_horizontal (user_data, gtk_page_setup_get_page_width (priv->page_setup,
-						       priv->current_unit),
-			gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->width)),
-			GTK_SPIN_BUTTON (priv->left),
-			GTK_SPIN_BUTTON (priv->right),
-			GTK_RANGE       (priv->scaling),
-			factor,width,height);
+		center_horizontal (setup, factor, width, height);
 		break;
 	case CENTER_VERTICAL:
-		center_vertical (user_data, gtk_page_setup_get_page_height (priv->page_setup,
-							priv->current_unit),
-			gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->height)),
-			GTK_SPIN_BUTTON (priv->top),
-			GTK_SPIN_BUTTON (priv->bottom),
-			GTK_RANGE       (priv->scaling),
-			factor,width,height);
+		center_vertical (setup, factor, width, height);
 		break;
 	case CENTER_BOTH:
-		center_horizontal (user_data, gtk_page_setup_get_page_width (priv->page_setup,
-						       priv->current_unit),
-			gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->width)),
-			GTK_SPIN_BUTTON (priv->left),
-			GTK_SPIN_BUTTON (priv->right),
-			GTK_RANGE       (priv->scaling),
-			factor,width,height);
-		center_vertical (user_data, gtk_page_setup_get_page_height (priv->page_setup,
-							priv->current_unit),
-			gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->height)),
-			GTK_SPIN_BUTTON (priv->top),
-			GTK_SPIN_BUTTON (priv->bottom),
-			GTK_RANGE       (priv->scaling),
-			factor,width,height);
+		center_horizontal (setup, factor, width, height);
+		center_vertical   (setup, factor, width, height);
 		break;
 	case CENTER_NONE:
 	default:
@@ -303,24 +270,22 @@ on_scale_changed (GtkRange     *range,
 	EogPrintImageSetupPrivate *priv;
 	EogPrintImageSetup *setup;
 	gdouble factor;
-	EogImage *image;
 
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	priv = setup->priv;
 
 	center_state = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 
 	factor = get_scale_to_px_factor (setup);
 
 	width = (gdouble)pix_width/factor;
 	height = (gdouble)pix_height/factor;
 
-	left   = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left  ));
-	right  = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->right ));
-	top    = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->top   ));
+	left   = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
+	right  = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->right));
+	top    = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->top));
 	bottom = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->bottom));
 
 	scale = CLAMP (0.01*gtk_range_get_value (range), 0, get_max_percentage (setup));
@@ -399,10 +364,8 @@ on_scale_changed (GtkRange     *range,
 }
 
 static void
-adjust_scale_value (gpointer user_data, gdouble new_value)
+adjust_scale_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->scaling, on_scale_changed, setup);
 	gtk_range_set_value (GTK_RANGE (priv->scaling), new_value);
@@ -421,24 +384,21 @@ on_left_value_changed (GtkSpinButton *spinbutton,
 		       gpointer       user_data)
 {
 	EogPrintImageSetupPrivate *priv;
-
-	priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state  = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble left       = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
 	gdouble top        = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->top));
 	gdouble scale      = gtk_range_get_value (GTK_RANGE (priv->scaling));
 	gdouble page_width = gtk_page_setup_get_page_width (priv->page_setup,
 								priv->current_unit);
-	EogImage *image;
 	gint pix_width, pix_height;
 	gdouble factor, width;
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	factor = get_scale_to_px_factor (setup);
 	width = (gdouble)pix_width/factor;
-	gdouble right      = page_width - 0.01*scale*width - left;
+	gdouble right = page_width - 0.01*scale*width - left;
 	adjust_right_value(user_data,right);
 	switch (center_state)
 	{
@@ -459,10 +419,8 @@ on_left_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_left_value (gpointer user_data, gdouble new_value)
+adjust_left_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->left, on_left_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->left), new_value);
@@ -470,10 +428,8 @@ adjust_left_value (gpointer user_data, gdouble new_value)
 }
 
 static void
-adjust_left_range (gpointer user_data, gdouble range)
+adjust_left_range (EogPrintImageSetup *setup, gdouble range)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->left, on_left_value_changed, setup);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->left),0, range);
@@ -486,20 +442,18 @@ on_right_value_changed (GtkSpinButton *spinbutton,
 {
 	EogPrintImageSetupPrivate *priv;
 
-	priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state  = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble right      = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->right));
 	gdouble top        = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->top));
 	gdouble scale      = gtk_range_get_value (GTK_RANGE (priv->scaling));
 	gdouble page_width = gtk_page_setup_get_page_width (priv->page_setup,
 								priv->current_unit);
-	EogImage *image;
 	gint pix_width, pix_height;
 	gdouble factor, width;
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	factor = get_scale_to_px_factor (setup);
 	width = (gdouble)pix_width/factor;
 	gdouble left      = page_width - 0.01*scale*width - right;
@@ -523,10 +477,8 @@ on_right_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_right_value (gpointer user_data, gdouble new_value)
+adjust_right_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->right, on_right_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->right), new_value);
@@ -534,10 +486,8 @@ adjust_right_value (gpointer user_data, gdouble new_value)
 }
 
 static void
-adjust_right_range (gpointer user_data, gdouble range)
+adjust_right_range (EogPrintImageSetup *setup, gdouble range)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->right, on_right_value_changed, setup);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->right),0, range);
@@ -550,20 +500,18 @@ on_top_value_changed (GtkSpinButton *spinbutton,
 {
 	EogPrintImageSetupPrivate *priv;
 
-	priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state   = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble left        = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
 	gdouble top         = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->top));
 	gdouble scale       = gtk_range_get_value (GTK_RANGE (priv->scaling));
 	gdouble page_height = gtk_page_setup_get_page_height (priv->page_setup,
 								priv->current_unit);
-	EogImage *image;
 	gint pix_width, pix_height;
 	gdouble factor, height;
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	factor = get_scale_to_px_factor (setup);
 	height = (gdouble)pix_height/factor;
 	gdouble bottom      = page_height - 0.01*scale*height - top;
@@ -587,10 +535,8 @@ on_top_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_top_value (gpointer user_data, gdouble new_value)
+adjust_top_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->top, on_top_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->top), new_value);
@@ -598,10 +544,8 @@ adjust_top_value (gpointer user_data, gdouble new_value)
 }
 
 static void
-adjust_top_range (gpointer user_data, gdouble range)
+adjust_top_range (EogPrintImageSetup *setup, gdouble range)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->top, on_top_value_changed, setup);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->top),0, range);
@@ -614,20 +558,18 @@ on_bottom_value_changed (GtkSpinButton *spinbutton,
 {
 	EogPrintImageSetupPrivate *priv;
 
-	priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state   = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble left        = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
 	gdouble bottom      = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->bottom));
 	gdouble scale       = gtk_range_get_value (GTK_RANGE (priv->scaling));
 	gdouble page_height = gtk_page_setup_get_page_height (priv->page_setup,
 								priv->current_unit);
-	EogImage *image;
 	gint pix_width, pix_height;
 	gdouble factor, height;
-	image = priv->image;
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	factor = get_scale_to_px_factor (setup);
 	height = (gdouble)pix_height/factor;
 	gdouble top         = page_height - 0.01*scale*height - bottom;
@@ -651,10 +593,8 @@ on_bottom_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_bottom_value (gpointer user_data, gdouble new_value)
+adjust_bottom_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->bottom, on_bottom_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->bottom), new_value);
@@ -662,10 +602,8 @@ adjust_bottom_value (gpointer user_data, gdouble new_value)
 }
 
 static void
-adjust_bottom_range (gpointer user_data, gdouble range)
+adjust_bottom_range (EogPrintImageSetup *setup, gdouble range)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->bottom, on_bottom_value_changed, setup);
 	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->bottom),0, range);
@@ -676,9 +614,10 @@ static void
 on_width_value_changed (GtkSpinButton *spinbutton,
 			gpointer       user_data)
 {
-	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	EogPrintImageSetupPrivate *priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state  = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble width      = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->width));
 	gdouble left       = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
@@ -691,11 +630,9 @@ on_width_value_changed (GtkSpinButton *spinbutton,
 								priv->current_unit);
 
 	gdouble right,bottom;
-	EogImage *image;
 	gint pix_width, pix_height;
-	image = priv->image;
 
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	gdouble width_previous  = 0.01*scale_previous * (gdouble)pix_width/factor;
 
 	gdouble scale  = (width/width_previous) * scale_previous;
@@ -754,10 +691,8 @@ on_width_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_width_value (gpointer user_data, gdouble new_value)
+adjust_width_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->width, on_width_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->width), new_value);
@@ -768,9 +703,10 @@ static void
 on_height_value_changed (GtkSpinButton *spinbutton,
 			gpointer       user_data)
 {
-	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	EogPrintImageSetupPrivate *priv;
 	EogPrintImageSetup *setup;
 	setup = EOG_PRINT_IMAGE_SETUP (user_data);
+	priv = setup->priv;
 	gint center_state  = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->center));
 	gdouble height     = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->height));
 	gdouble left       = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->left));
@@ -783,11 +719,9 @@ on_height_value_changed (GtkSpinButton *spinbutton,
 								priv->current_unit);
 
 	gdouble right,bottom;
-	EogImage *image;
 	gint pix_width, pix_height;
-	image = priv->image;
 
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	gdouble height_previous = 0.01*scale_previous * (gdouble)pix_height/factor;
 
 	gdouble scale = (height/height_previous) * scale_previous;
@@ -797,10 +731,10 @@ on_height_value_changed (GtkSpinButton *spinbutton,
 	adjust_width_value(user_data,width);
 	gdouble max_left_or_right = page_width  - width;
 	gdouble max_top_or_bottom = page_height - height;
-	adjust_left_range  (user_data, max_left_or_right);
-	adjust_right_range (user_data, max_left_or_right);
-	adjust_top_range   (user_data, max_top_or_bottom);
-	adjust_bottom_range(user_data, max_top_or_bottom);
+	adjust_left_range  (setup, max_left_or_right);
+	adjust_right_range (setup, max_left_or_right);
+	adjust_top_range   (setup, max_top_or_bottom);
+	adjust_bottom_range(setup, max_top_or_bottom);
 
 	switch (center_state)
 	{
@@ -846,10 +780,8 @@ on_height_value_changed (GtkSpinButton *spinbutton,
 }
 
 static void
-adjust_height_value (gpointer user_data, gdouble new_value)
+adjust_height_value (EogPrintImageSetup *setup, gdouble new_value)
 {
-	EogPrintImageSetup *setup;
-	setup = EOG_PRINT_IMAGE_SETUP (user_data);
 	EogPrintImageSetupPrivate *priv = setup->priv;
 	g_signal_handlers_block_by_func (priv->height, on_height_value_changed, setup);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->height), new_value);
@@ -1014,6 +946,7 @@ on_preview_image_key_pressed (GtkWidget *widget,
 			      GdkEventKey *event,
 			      gpointer user_data)
 {
+	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
 	EogPrintPreview *preview = EOG_PRINT_PREVIEW (widget);
 	gfloat scale;
 
@@ -1035,7 +968,7 @@ on_preview_image_key_pressed (GtkWidget *widget,
 		break;
 	}
 
-	adjust_scale_value(user_data,100*scale);
+	gtk_range_set_value (GTK_RANGE (priv->scaling), 100*scale);
 	return TRUE;
 }
 
@@ -1142,18 +1075,16 @@ static void
 set_initial_values (EogPrintImageSetup *setup)
 {
 	EogPrintImageSetupPrivate *priv;
-	EogImage *image;
 	gint pix_width, pix_height;
 	gdouble factor;
 	gdouble width, height;
 	gdouble max_perc;
 
 	priv = setup->priv;
-	image = priv->image;
 
 	factor = get_scale_to_px_factor (setup);
 
-	eog_image_get_size (image, &pix_width, &pix_height);
+	eog_image_get_size (priv->image, &pix_width, &pix_height);
 	width = (gdouble)pix_width/factor;
 	height = (gdouble)pix_height/factor;
 
@@ -1166,8 +1097,8 @@ set_initial_values (EogPrintImageSetup *setup)
 	gtk_range_set_increments (GTK_RANGE (priv->scaling), max_perc, 10*max_perc);
 	adjust_scale_value(setup, 100*max_perc);
 	eog_print_preview_set_scale (EOG_PRINT_PREVIEW (priv->preview), max_perc);
-	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->width), 0, width);
-	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->height), 0, height);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->width), 1, width);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->height), 1, height);
 
 	gdouble page_width        = gtk_page_setup_get_page_width (priv->page_setup, priv->current_unit);
 	gdouble page_height       = gtk_page_setup_get_page_height (priv->page_setup, priv->current_unit);
