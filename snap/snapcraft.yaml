@@ -18,11 +18,11 @@ slots:
   eog:
     interface: dbus
     bus: session
-    name: org.gnome.eog.ApplicationService
+    name: org.gnome.eog
 
 apps:
   eog:
-    common-id: eog.desktop
+    common-id: org.gnome.eog.desktop
     command: usr/bin/eog
     extensions: [gnome-3-28]
     plugs:
@@ -87,12 +87,12 @@ parts:
     organize:
       snap/eog/current/usr: usr
     override-build: |
-      sed -i.bak -e 's|=org.gnome.eog$|=${SNAP}/meta/gui/org.gnome.eog.svg|g' data/eog.desktop.in.in
+      sed -i.bak -e 's|=org.gnome.eog$|=${SNAP}/meta/gui/org.gnome.eog.svg|g' data/org.gnome.eog.desktop.in.in
       sed -i.bak -e 's|media: media,|media: media, symlink_media: false,|g' help/meson.build
       snapcraftctl build
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp ../src/data/icons/scalable/apps/org.gnome.eog.svg $SNAPCRAFT_PART_INSTALL/meta/gui/
-      cp snapbuild/data/eog.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+      cp snapbuild/data/org.gnome.eog.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
     build-packages:
       - appstream-util
       - desktop-file-utils
