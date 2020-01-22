@@ -244,6 +244,10 @@ eog_thumb_view_clear_range (EogThumbView *thumbview,
 	gint thumb = start_thumb;
 	gboolean result;
 
+	/* if it is the first range we return */
+	if (start_thumb < 0)
+	     return;  
+
 	g_assert (start_thumb <= end_thumb);
 
 	path = gtk_tree_path_new_from_indices (start_thumb, -1);
@@ -293,8 +297,10 @@ eog_thumb_view_update_visible_range (EogThumbView *thumbview,
 		return;
 	}
 
-	if (old_start_thumb < start_thumb)
-		eog_thumb_view_clear_range (thumbview, old_start_thumb, MIN (start_thumb - 1, old_end_thumb));
+	if (old_start_thumb < start_thumb){
+	  gint offset = start_thumb - old_start_thumb;
+	        eog_thumb_view_clear_range (thumbview, old_start_thumb - offset, MIN ( (start_thumb - 1) - offset, old_end_thumb));
+	}
 
 	if (old_end_thumb > end_thumb)
 		eog_thumb_view_clear_range (thumbview, MAX (end_thumb + 1, old_start_thumb), old_end_thumb);
