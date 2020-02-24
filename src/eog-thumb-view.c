@@ -1060,3 +1060,47 @@ eog_thumb_view_set_thumbnail_popup (EogThumbView *thumbview,
 			  G_CALLBACK (thumbview_on_button_press_event_cb), NULL);
 
 }
+
+void
+eog_thumb_view_resize_thumbnails (EogThumbView *thumbview,
+				  EogListStoreZoomThumbnails zoom,
+				  GtkAllocation *alloc_widget)
+{
+	g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
+
+	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview)));
+	if(!eog_list_store_zoom_thumbnails (store, zoom))
+	  return;
+
+	GtkAllocation alloc_view;
+	if (!alloc_widget)
+	  gtk_widget_get_allocation (GTK_WIDGET(thumbview), &alloc_view);
+	else
+	  alloc_view = *alloc_widget;
+
+	gint val_zoom = eog_list_store_get_zoom_value (store);
+	g_warning("%s : (1) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
+
+	val_zoom = alloc_view.width/ val_zoom;
+	g_warning("%s : (2) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
+	gtk_icon_view_set_columns(GTK_ICON_VIEW(thumbview), val_zoom);
+
+	val_zoom = alloc_view.width / val_zoom;
+	g_warning("%s : (3) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
+	gtk_cell_renderer_set_fixed_size (thumbview->priv->pixbuf_cell, val_zoom, val_zoom);
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	gint thumb = thumbview->priv->start_thumb;
+	gboolean result;
+
+
+	path = gtk_tree_path_new_from_indices (thumbview->priv->start_thumb, -1);
+	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
+	     result && thumb <= thumbview->priv->end_thumb;
+	     result = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter), thumb++) {
+		eog_list_store_thumbnail_refresh (store, &iter);
+	}
+	gtk_tree_path_free (path);
+	//	g_warning("%s : Alloc(%d, %d)(%d, %d) NbCols(%d)", __func__, alloc_view.x, alloc_view.y, alloc_view.width, alloc_view.height, (alloc_view.width - 6 + 4) / val_zoom);
+	return;
+}

@@ -36,10 +36,16 @@ struct _EogListStorePrivate {
 	GdkPixbuf *busy_image;    /* Loading image icon */
 	GdkPixbuf *missing_image; /* Missing image icon */
 	GMutex mutex;             /* Mutex for saving the jobs in the model */
+        gint sizes_thumbnails[3];
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
+#define EOG_LIST_STORE_THUMB_SIZE        90
+#define EOG_LIST_STORE_THUMB_SIZE_MIDDLE 173
+#define EOG_LIST_STORE_THUMB_SIZE_BIG    256
+
+static  gint size_thumbnails = 0;
 static gboolean is_monitoring = TRUE;
 
 static void
@@ -179,6 +185,12 @@ eog_list_store_init (EogListStore *self)
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
+	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE] = EOG_LIST_STORE_THUMB_SIZE;
+	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_MIDDLE] = EOG_LIST_STORE_THUMB_SIZE_MIDDLE;
+	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_BIG] = EOG_LIST_STORE_THUMB_SIZE_BIG;
+
+        size_thumbnails = EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE;
+	
 	self->priv->busy_image = eog_list_store_get_icon ("image-loading");
 	self->priv->missing_image = eog_list_store_get_icon ("image-missing");
 
@@ -266,6 +278,43 @@ is_file_in_list_store_file (EogListStore *store,
 	g_free (uri_str);
 
 	return result;
+}
+
+gint eog_list_store_get_zoom_value (EogListStore *store)
+{
+	g_return_val_if_fail (EOG_IS_LIST_STORE (store), TRUE);
+	return store->priv->sizes_thumbnails[size_thumbnails];
+}
+gboolean
+eog_list_store_zoom_thumbnails (EogListStore *store,  EogListStoreZoomThumbnails zoom)
+{
+	g_return_val_if_fail (EOG_IS_LIST_STORE (store), FALSE);
+
+	gboolean can_resize = FALSE;
+
+	switch (zoom){
+	case EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE:
+	case EOG_LIST_STORE_THUMBNAIL_SIZE_MIDDLE:
+	case EOG_LIST_STORE_THUMBNAIL_SIZE_BIG:
+	  size_thumbnails = zoom;
+	  can_resize = TRUE;
+	  break;
+	case EOG_LIST_STORE_THUMBNAIL_ZOOM_IN:
+	  if ( (size_thumbnails + 1) < EOG_LIST_STORE_THUMBNAIL_SIZE){
+	    size_thumbnails += 1;
+	    can_resize = TRUE;
+	  }
+	  break;
+	case EOG_LIST_STORE_THUMBNAIL_ZOOM_OUT:
+	  if ( (size_thumbnails - 1) > -1){
+	    size_thumbnails -= 1;
+	    can_resize = TRUE;
+	  }
+	  break;
+	default:
+	  break;
+	}
+	return can_resize;
 }
 
 static void
@@ -654,8 +703,8 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 				eog_list_store_append_image_from_file (store, initial_file, caption);
 			}
 			g_object_unref (file);
-		} else if (file_type == G_FILE_TYPE_REGULAR &&
-			   g_list_length (file_list) > 1) {
+		} else if (file_type == G_FILE_TYPE_REGULAR /* &&
+							       g_list_length (file_list) > 1*/) {
 			eog_list_store_append_image_from_file (store, file, caption);
 		}
 
@@ -878,7 +927,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 		return;
 	}
 
-	job = eog_job_thumbnail_new (image);
+	job = eog_job_thumbnail_new (image, store->priv->sizes_thumbnails[size_thumbnails]);
 
 	g_signal_connect (job,
 			  "finished",

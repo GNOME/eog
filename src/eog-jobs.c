@@ -1349,7 +1349,7 @@ eog_job_thumbnail_run (EogJob *job)
 	original_height = g_strdup (gdk_pixbuf_get_option (job_thumbnail->thumbnail, "tEXt::Thumb::Image::Height"));
 
 	pixbuf = eog_thumbnail_fit_to_size (job_thumbnail->thumbnail,
-					    EOG_LIST_STORE_THUMB_SIZE);
+					    job_thumbnail->size_thumbnail);
 
 	g_object_unref (job_thumbnail->thumbnail);
 	job_thumbnail->thumbnail = eog_thumbnail_add_frame (pixbuf);
@@ -1392,7 +1392,7 @@ eog_job_thumbnail_run (EogJob *job)
 }
 
 EogJob *
-eog_job_thumbnail_new (EogImage *image)
+eog_job_thumbnail_new (EogImage *image, guint size_thumbnail)
 {
 	EogJobThumbnail *job;
 
@@ -1401,6 +1401,7 @@ eog_job_thumbnail_new (EogImage *image)
 	if (image)
 		job->image = g_object_ref (image);
 
+	job->size_thumbnail = size_thumbnail;
 	/* show info for debugging */
 	eog_debug_message (DEBUG_JOBS,
 			   "%s (%p) job was CREATED",

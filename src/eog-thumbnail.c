@@ -121,7 +121,7 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
 
-	perc = CLAMP (128.0/(MAX (width, height)), 0, 1);
+	perc = CLAMP (/*128.0*/256.0/(MAX (width, height)), 0, 1);
 
 	thumb = gdk_pixbuf_scale_simple (pixbuf,
 					 width*perc,
@@ -157,7 +157,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	data = g_slice_new0 (EogThumbData);
 
 	data->uri_str    = g_file_get_uri (file);
-	data->thumb_path = gnome_desktop_thumbnail_path_for_uri (data->uri_str, GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
+	data->thumb_path = gnome_desktop_thumbnail_path_for_uri (data->uri_str, GNOME_DESKTOP_THUMBNAIL_SIZE_LARGE);
 
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
@@ -429,8 +429,12 @@ eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 
 	width = gdk_pixbuf_get_width (thumbnail);
 	height = gdk_pixbuf_get_height (thumbnail);
+	//	g_warning("%s : size(%d, %d)", __func__, width, height);
+	if (width == dimension || height == dimension)
+	  return gdk_pixbuf_copy (thumbnail);
 
-	if (width > dimension || height > dimension) {
+	//We zoom in thumbnails which are smaller than dimension
+	/* if (width > dimension || height > dimension) { */
 		GdkPixbuf *result_pixbuf;
 		gfloat factor;
 
@@ -439,15 +443,16 @@ eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 		} else {
 			factor = (gfloat) dimension / (gfloat) height;
 		}
+		//		  g_warning("%s : size(%d, %d) with factor(%f)", __func__, width, height, factor);
+		  width  = MAX (width  * factor, 1);
+		  height = MAX (height * factor, 1);
 
-		width  = MAX (width  * factor, 1);
-		height = MAX (height * factor, 1);
+		  result_pixbuf = (width > dimension || height > dimension) ? gnome_desktop_thumbnail_scale_down_pixbuf (thumbnail, width, height)
+		    : gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
 
-		result_pixbuf = gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
-
-		return result_pixbuf;
-	}
-	return gdk_pixbuf_copy (thumbnail);
+		  return result_pixbuf;
+	/* } */
+	/* return gdk_pixbuf_copy (thumbnail); */
 }
 
 /**
@@ -529,7 +534,7 @@ void
 eog_thumbnail_init (void)
 {
 	if (factory == NULL) {
-		factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
+		factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_LARGE);
 	}
 
 	if (frame == NULL) {

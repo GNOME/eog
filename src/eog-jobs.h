@@ -228,6 +228,7 @@ struct _EogJobThumbnail
 
 	EogImage        *image;
 	GdkPixbuf       *thumbnail;
+        guint            size_thumbnail;
 };
 
 struct _EogJobThumbnailClass
@@ -288,7 +289,8 @@ EogJob  *eog_job_save_as_new        (GList           *images,
 
 /* EogJobThumbnail */
 GType    eog_job_thumbnail_get_type (void) G_GNUC_CONST;
-EogJob  *eog_job_thumbnail_new      (EogImage        *image);
+EogJob  *eog_job_thumbnail_new      (EogImage        *image,
+				     guint            size_thumbnail);
 
 /* EogJobTransform */
 GType 	 eog_job_transform_get_type (void) G_GNUC_CONST;

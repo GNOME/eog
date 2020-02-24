@@ -189,9 +189,7 @@ static void view_on_drag_data_get_cb (GtkWidget *widget,
                                       GtkSelectionData *data, guint info,
                                       guint time, gpointer user_data);
 static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
-static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
-                                                  gint *y, gint *width,
-                                                  gint *height);
+
 static gboolean _eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b);
 
 
@@ -2976,7 +2974,7 @@ eog_scroll_view_get_zoom_mode (EogScrollView *view)
 	return view->priv->zoom_mode;
 }
 
-static gboolean
+gboolean
 eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
                                   gint *width, gint *height)
 {
