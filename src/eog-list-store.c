@@ -574,14 +574,11 @@ eog_list_store_append_directory (EogListStore *store,
 				 GFile *file,
 				 GFileType file_type)
 {
-	GFileMonitor *file_monitor;
+	GFileMonitor *file_monitor = NULL;
 	GFileEnumerator *file_enumerator;
 	GFileInfo *file_info;
 
 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
-
-	file_monitor = g_file_monitor_directory (file,
-						 0, NULL, NULL);
 
 	if(is_monitoring)
 	  file_monitor = g_file_monitor_directory (file,
@@ -1024,7 +1021,6 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 gboolean
 eog_list_store_get_monitoring(/* EogListStore *store */void)
 {
-  //g_return_val_if_fail(EOG_IS_LIST_STORE(store), FALSE);
 	return is_monitoring;
 }
 
@@ -1038,47 +1034,8 @@ eog_list_store_get_monitoring(/* EogListStore *store */void)
  *
  **/
 void
-eog_list_store_set_monitoring(/* EogListStore *store, */
-			      gboolean set_monitoring/* , */
-			      /* GSList *directories */)
+eog_list_store_set_monitoring(gboolean set_monitoring)
 {
-  //	g_return_if_fail(EOG_IS_LIST_STORE(store));
-
-
-	/* if (!set_monitoring) { */
-	/* 	monitors_free(store); */
-        /* }  else if (directories != NULL) {		 */
-	/* 	GFileMonitor *file_monitor = NULL; */
-	/* 	GFileInfo *file_info = NULL; */
-	/* 	GFileType file_type; */
-
-	/* 	GSList *it; */
-	/* 	for (it = directories; it != NULL; it = it->next){ */
-	/* 		GFile *file = (GFile *)it->data; */
-	/* 		file_info = g_file_query_info (file, */
-	/* 					       G_FILE_ATTRIBUTE_STANDARD_TYPE"," */
-	/* 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, */
-	/* 					       0, NULL, NULL); */
-	/* 		if (file_info == NULL) */
-	/* 		  continue; */
-		  
-	/* 		file_type = g_file_info_get_file_type (file_info); */
-	/* 		if (file_type == G_FILE_TYPE_DIRECTORY) { */
-	/* 		  file_monitor = g_file_monitor_directory (file, */
-	/* 							   0, NULL, NULL); */
-		    
-	/* 		  if (file_monitor != NULL) { */
-	/* 		    g_signal_connect (file_monitor, "changed", */
-	/* 				      G_CALLBACK (file_monitor_changed_cb), store); */
-		      
-	/* 		    store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor); */
-		      
-	/* 		  } */
-	/* 		} */
-	/* 		g_object_unref (file_info); */
-	/* 		g_object_unref (file); */
-	/* 	} */
-	/* } */
 	is_monitoring = set_monitoring;
 }
 
@@ -1133,4 +1090,5 @@ eog_list_store_set_monitoring_with_files(EogListStore *store,
 			g_object_unref (file);
 		}
 	}
+	is_monitoring = set_monitoring;
 }

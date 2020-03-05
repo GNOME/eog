@@ -121,9 +121,7 @@ void            eog_list_store_thumbnail_refresh     (EogListStore *store,
 						      GtkTreeIter *iter);
 gboolean        eog_list_store_get_monitoring        (/* EogListStore *store */void);
 
-void            eog_list_store_set_monitoring        (/* EogListStore *store, */
-						      gboolean is_monitoring/* , */
-						      /* GSList *files */);
+void            eog_list_store_set_monitoring        (gboolean is_monitoring);
 
 void            eog_list_store_set_monitoring_with_files        (EogListStore *store,
 								 gboolean is_monitoring,
