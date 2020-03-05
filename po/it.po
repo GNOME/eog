@@ -1,5 +1,5 @@
 # Italian translation for Eye Of Gnome
-# Copyright (C) 2001-2019 The Free Software Foundation, Inc.
+# Copyright (C) 2001-2019, 2020 The Free Software Foundation, Inc.
 # This file is distributed under the same license as eog package.
 # Christopher R. Gabriel <cgabriel@pluto.linux.it>
 # Lapo Calamandrei <lapo@it.gnome.org>, 2003.
@@ -7,14 +7,14 @@
 # Alessio Frusciante <algol@firenze.linux.it>, 2003, 2004, 2005, 2006.
 # Milo Casagrande <milo@ubuntu.com>, 2008, 2009.
 # Davide Falanga <davide.falanga@alice.it>, 2009.
-# Gianvito Cavasoli <gianvito@gmx.it>, 2010-2019.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2010-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-05-07 19:30+0000\n"
-"PO-Revision-Date: 2019-09-09 12:04+0200\n"
+"POT-Creation-Date: 2020-02-28 13:05+0000\n"
+"PO-Revision-Date: 2020-02-29 11:22+0100\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -22,13 +22,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Gtranslator 3.34.0\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Sfoglia e ruota le immagini"
 
@@ -54,18 +54,6 @@ msgstr ""
 "diapositive a schermo intero oppure di impostare un'immagine come sfondo. "
 "Legge le etichette della fotocamera per ruotare automaticamente le immagini "
 "nel corretto orientamento verticale od orizzontale."
-
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "Visualizzatore di immagini"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Immagini;Diapositive;Grafica;"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -249,7 +237,7 @@ msgstr "Salva come"
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
 #: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-window.c:3518
 msgid "_Cancel"
 msgstr "_Annulla"
 
@@ -408,7 +396,7 @@ msgstr "Va alla prima immagine della galleria"
 msgid "_First Image"
 msgstr "_Prima immagine"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Va all'immagine precedente della galleria"
 
@@ -416,7 +404,7 @@ msgstr "Va all'immagine precedente della galleria"
 msgid "_Previous Image"
 msgstr "Immagine pr_ecedente"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Va all'immagine successiva della galleria"
 
@@ -441,7 +429,6 @@ msgid "Zoom _Out"
 msgstr "Rid_uci ingrandimento"
 
 #: data/fullscreen-toolbar.ui:113
-#| msgid "Shows the image date in the window statusbar"
 msgid "Show the image at its normal size"
 msgstr "Mostra l'immagine alle sue dimensioni normali"
 
@@ -450,7 +437,6 @@ msgid "_Normal Size"
 msgstr "_Dimensione normale"
 
 #: data/fullscreen-toolbar.ui:128
-#| msgid "Shows the image date in the window statusbar"
 msgid "Fit the image to the window"
 msgstr "Adatta l'immagine alla finestra"
 
@@ -458,7 +444,7 @@ msgstr "Adatta l'immagine alla finestra"
 msgid "_Best Fit"
 msgstr "A_datta alle dimensioni"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Ruota l'immagine di 90 gradi verso sinistra"
 
@@ -466,7 +452,7 @@ msgstr "Ruota l'immagine di 90 gradi verso sinistra"
 msgid "Rotate Counter_clockwise"
 msgstr "Ruota in senso _antiorario"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Ruota l'immagine di 90 gradi verso destra"
 
@@ -552,62 +538,72 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Apre il manuale dell'applicazione"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Mostra/Nasconde il menù dell'applicazione"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Scorciatoie da tastiera"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Ingrandimento"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Aumenta l'ingrandimento"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Riduce l'ingrandimento"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Dimensione reale"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Adatta al meglio"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Esplorando le immagini"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
+#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Va all'immagine precedente nella cartella"
 
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:178
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Va all'immagine successiva nella cartella"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:185
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Va alla prima immagine nella cartella"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:192
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Va all'ultima immagine nella cartella"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:199
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Va a un'immagine casuale nella cartella"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:206
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Mostra/Nasconde la galleria immagini"
@@ -615,42 +611,92 @@ msgstr "Mostra/Nasconde la galleria immagini"
 # questa compare in Proprietà -> Generiche 
 # indica la posizione nel file system
 #
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotazione"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:218 data/help-overlay.ui:233
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Ruota in senso orario"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:225 data/help-overlay.ui:240
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Ruota in senso antiorario"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:248
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Schermo intero"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:253
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Entra/Lascia lo schermo intero"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:260
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Avvia/Interrompe le diapositive"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:267
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Mette in pausa le diapositive"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/help-overlay.ui:275
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Comune"
+
+#: data/help-overlay.ui:280
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Copia negli appunti"
+
+#: data/help-overlay.ui:287
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Annulla"
+
+#: data/help-overlay.ui:294
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Sposta nel cestino"
+
+#: data/help-overlay.ui:301
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Elimina l'immagine definitivamente"
+
+#: data/help-overlay.ui:309
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Scorrimento"
+
+#: data/help-overlay.ui:314
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Scorre a sinistra in un'immagine grande"
+
+#: data/help-overlay.ui:321
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Scorre a destra in un'immagine grande"
+
+#: data/help-overlay.ui:328
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Scorre sopra in un'immagine grande"
+
+#: data/help-overlay.ui:335
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Scorre sotto in un'immagine grande"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Dimensione"
 
@@ -699,6 +745,19 @@ msgstr "Ora"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "Lunghezza focale"
+
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5558
+msgid "Image Viewer"
+msgstr "Visualizzatore di immagini"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Immagini;Diapositive;Grafica;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -957,7 +1016,7 @@ msgstr "A_pri con"
 msgid "_Copy"
 msgstr "_Copia"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:35 src/eog-window.c:3521
 msgid "Move to _Trash"
 msgstr "Sposta nel _cestino"
 
@@ -1172,27 +1231,27 @@ msgstr "Trasformazione su immagine non caricata."
 msgid "Transformation failed."
 msgstr "Trasformazione non riuscita."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF non supportato per questo formato di file."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1215
 #, c-format
 msgid "Image loading failed."
 msgstr "Caricamento immagine non riuscito."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1797 src/eog-image.c:1917
 #, c-format
 msgid "No image loaded."
 msgstr "Nessuna immagine caricata."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1805 src/eog-image.c:1926
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Permessi non sufficienti per salvare il file."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1815 src/eog-image.c:1937
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Creazione del file temporaneo non riuscita."
@@ -1298,87 +1357,87 @@ msgstr[1] "%lu secondi"
 msgid "Image Settings"
 msgstr "Impostazioni immagine"
 
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Immagine"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "L'immagine le cui proprietà di stampa saranno impostate"
 
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Impostazione pagina"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Le informazioni sulla pagina su cui l'immagine sarà stampata"
 
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Posizione"
 
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "_Sinistra:"
 
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "_Destra:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "_Alto:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "_Basso:"
 
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "C_entrata:"
 
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Nessuna"
 
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "Orizzontale"
 
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "Verticale"
 
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "Entrambe"
 
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "_Larghezza:"
 
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "Alte_zza:"
 
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "S_calatura:"
 
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "_Unità:"
 
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Millimetri"
 
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Pollici"
 
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Anteprima"
 
@@ -1528,16 +1587,16 @@ msgstr[1] ""
 "le %d immagini selezionate?"
 
 # copiata da epiphany
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3284 src/eog-window.c:3529
 msgid "_Delete"
 msgstr "_Elimina"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3287 src/eog-window.c:3531
 msgid "_Yes"
 msgstr "_Si"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3291 src/eog-window.c:3523
 msgid "Do _not ask again during this session"
 msgstr "_Non chiedere nuovamente durante questa sessione"
 
@@ -1551,18 +1610,18 @@ msgstr "Impossibile recuperare il file immagine"
 msgid "Couldn’t retrieve image file information"
 msgstr "Impossibile recuperare le informazioni del file immagine"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3367 src/eog-window.c:3590
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Impossibile eliminare il file"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3412 src/eog-window.c:3686
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errore nell'eliminare l'immagine «%s»"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1572,7 +1631,7 @@ msgstr ""
 "nel cestino?"
 
 # (ndt) quella è un'immagine...
-#: src/eog-window.c:3515
+#: src/eog-window.c:3494
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1581,7 +1640,7 @@ msgstr ""
 "Impossibile spostare nel cestino «%s». Eliminare definitivamente questa "
 "immagine? "
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3499
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1596,7 +1655,7 @@ msgstr[1] ""
 "Spostare le %d immagini selezionate\n"
 "nel cestino?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3504
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1604,28 +1663,28 @@ msgstr ""
 "Alcune delle immagini selezionate non possono essere spostate nel cestino e "
 "saranno eliminate definitivamente. Procedere?"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3568 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Impossibile accedere al cestino."
 
-#: src/eog-window.c:4270
+#: src/eog-window.c:4230
 msgid "Shrink or enlarge the current image"
 msgstr "Restringe o ingrandisce l'attuale immagine"
 
-#: src/eog-window.c:4329
+#: src/eog-window.c:4289
 msgid "Show the current image in fullscreen mode"
 msgstr "Mostra l'immagine corrente nella modalità schermo intero"
 
-#: src/eog-window.c:4406
+#: src/eog-window.c:4366
 msgid "Properties"
 msgstr "Proprietà"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "Il visualizzatore di immagini per GNOME."
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "Gianvito Cavasoli <gianvito@gmx.it>\n"
