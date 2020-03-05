@@ -6,13 +6,13 @@
 # Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>, 2004, 2005, 2006.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011, 2012, 2014.
 # Andika Triwidada <andika@gmail.com>, 2010-2015.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-05-07 19:30+0000\n"
-"PO-Revision-Date: 2019-05-08 16:42+0700\n"
+"POT-Creation-Date: 2020-02-01 23:00+0000\n"
+"PO-Revision-Date: 2020-02-03 16:15+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -20,13 +20,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Ramban dan putar gambar"
 
@@ -51,18 +51,6 @@ msgstr ""
 "penuh atau menata suatu gambar sebagai gambar latar destop. Dia membaca tag "
 "kamera untuk secara otomatis memutar gambar Anda dalam orientasi potret atau "
 "lansekap yang benar."
-
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "Penampil Gambar"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Gambar;Salindia;Grafis;"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -239,7 +227,7 @@ msgstr "Simpan Sebagai"
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
 #: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-window.c:3518
 msgid "_Cancel"
 msgstr "_Batal"
 
@@ -408,7 +396,7 @@ msgstr "Menuju gambar pertama dalam galeri"
 msgid "_First Image"
 msgstr "Gambar _Pertama"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Menuju gambar sebelumnya dalam galeri"
 
@@ -416,7 +404,7 @@ msgstr "Menuju gambar sebelumnya dalam galeri"
 msgid "_Previous Image"
 msgstr "Gambar _Sebelumnya"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Menuju gambar selanjutnya dalam galeri"
 
@@ -456,7 +444,7 @@ msgstr "Menyesuaikan gambar dengan jendela aplikasi"
 msgid "_Best Fit"
 msgstr "Sesuai Jende_la"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Memutar gambar 90 derajat ke kiri"
 
@@ -464,7 +452,7 @@ msgstr "Memutar gambar 90 derajat ke kiri"
 msgid "Rotate Counter_clockwise"
 msgstr "Putar Ber_lawanan Jarum Jam"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Memutar gambar 90 derajat ke kanan"
 
@@ -547,102 +535,163 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Buka manual aplikasi"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Tampilkan/sembunyikan menu aplikasi"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Pintasan papan tik"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Zum"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Perbesar"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Perkecil"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Ukuran sebenarnya"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Sesuai jendela"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Meramban Gambar"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
+#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Menuju gambar sebelumnya dalam folder"
 
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:178
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Menuju gambar selanjutnya dalam folder"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:185
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Menuju gambar pertama dalam folder"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:192
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Menuju gambar terakhir dalam folder"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:199
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Menuju gambar acak dalam folder"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:206
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Tampilkan/sembunyikan galeri gambar"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotasi"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:218 data/help-overlay.ui:233
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Putar searah jarum jam"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:225 data/help-overlay.ui:240
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Putar berlawanan jarum jam"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:248
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Layar Penuh"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:253
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Masuk/tinggalkan layar penuh"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:260
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Mulai/berhenti pertunjukan salindia"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:267
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Jeda pertunjukan salindia"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/help-overlay.ui:275
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Umum"
+
+#: data/help-overlay.ui:280
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Salin ke papan klip"
+
+#: data/help-overlay.ui:287
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Tak jadi"
+
+#: data/help-overlay.ui:294
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Buang ke Tempat Sampah"
+
+#: data/help-overlay.ui:301
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Hapus gambar permanen"
+
+# Ada "slider" skala di samping kanannya.
+#: data/help-overlay.ui:309
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Menggulir"
+
+#: data/help-overlay.ui:314
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Gulir ke kiri dalam gambar besar"
+
+#: data/help-overlay.ui:321
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Gulir ke kanan dalam gambar besar"
+
+#: data/help-overlay.ui:328
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Gulir ke atas dalam gambar besar"
+
+#: data/help-overlay.ui:335
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Gulir ke bawah dalam gambar besar"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Ukuran"
 
@@ -689,6 +738,19 @@ msgstr "Waktu"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "Panjang Fokus"
+
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5558
+msgid "Image Viewer"
+msgstr "Penampil Gambar"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Gambar;Salindia;Grafis;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -838,11 +900,11 @@ msgstr ""
 
 #: data/org.gnome.eog.gschema.xml.in:75
 msgid "Show/Hide the window statusbar."
-msgstr "Menampilkan/menyembunyikan baris status."
+msgstr "Tampilkan/sembunyikan baris status."
 
 #: data/org.gnome.eog.gschema.xml.in:79
 msgid "Show/Hide the image gallery pane."
-msgstr "Menampilkan/menyembunyikan panel galeri gambar."
+msgstr "Tampilkan/sembunyikan panel galeri gambar."
 
 #: data/org.gnome.eog.gschema.xml.in:83
 msgid ""
@@ -858,11 +920,11 @@ msgstr "Apakah panel galeri gambar bisa diubah ukurannya."
 
 #: data/org.gnome.eog.gschema.xml.in:91
 msgid "Show/Hide the window side pane."
-msgstr "Menampilkan/menyembunyikan panel samping."
+msgstr "Tampilkan/sembunyikan panel samping."
 
 #: data/org.gnome.eog.gschema.xml.in:95
 msgid "Show/Hide the image gallery pane scroll buttons."
-msgstr "Menampilkan/menyembunyikan tombol gulung untuk panel galeri gambar."
+msgstr "Tampilkan/sembunyikan tombol gulung untuk panel galeri gambar."
 
 #: data/org.gnome.eog.gschema.xml.in:99
 msgid "Close main window without asking to save changes."
@@ -945,7 +1007,7 @@ msgstr "Buka _dengan"
 msgid "_Copy"
 msgstr "_Salin"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:35 src/eog-window.c:3521
 msgid "Move to _Trash"
 msgstr "Buang ke _Tempat Sampah"
 
@@ -990,7 +1052,7 @@ msgstr "Tanggal di baris status"
 
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:6
 msgid "Shows the image date in the window statusbar"
-msgstr "Menampilkan tanggal milik gambar pada baris status"
+msgstr "Tampilkan tanggal milik gambar pada baris status"
 
 #: src/eog-close-confirmation-dialog.c:166
 msgid "Close _without Saving"
@@ -1154,27 +1216,27 @@ msgstr "Transformasi pada gambar yang belum dimuat."
 msgid "Transformation failed."
 msgstr "Transformasi gagal."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF tidak didukung pada format berkas ini."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1215
 #, c-format
 msgid "Image loading failed."
 msgstr "Gagal memuat gambar."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1797 src/eog-image.c:1917
 #, c-format
 msgid "No image loaded."
 msgstr "Tak ada gambar yang dimuat."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1805 src/eog-image.c:1926
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Anda tak memiliki hak yang diperlukan untuk menyimpan berkas."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1815 src/eog-image.c:1937
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Gagal membuat berkas temporer."
@@ -1281,88 +1343,88 @@ msgstr[1] "%lu detik"
 msgid "Image Settings"
 msgstr "Pengaturan Gambar"
 
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Gambar"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "Gambar dengan properti pencetakan yang akan disetel"
 
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Atur Halaman"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Informasi halaman tempat gambar akan dicetak"
 
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Posisi"
 
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "K_iri:"
 
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "_Kanan:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "A_tas:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "_Bawah:"
 
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "T_engah:"
 
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Nihil"
 
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "_Horisontal"
 
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "_Vertikal"
 
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "Keduanya"
 
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "_Lebar:"
 
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "_Tinggi:"
 
 # Ada "slider" skala di samping kanannya.
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "_Skala:"
 
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "Sat_uan:"
 
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Milimeter"
 
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Inci"
 
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Pratinjau"
 
@@ -1511,16 +1573,16 @@ msgstr[1] ""
 "Anda yakin ingin menghapus\n"
 "%d gambar yang dipilih secara permanen?"
 
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3284 src/eog-window.c:3529
 msgid "_Delete"
 msgstr "_Hapus"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3287 src/eog-window.c:3531
 msgid "_Yes"
 msgstr "_Ya"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3291 src/eog-window.c:3523
 msgid "Do _not ask again during this session"
 msgstr "Ja_ngan tanya lagi selama sesi ini"
 
@@ -1534,18 +1596,18 @@ msgstr "Tidak dapat mengambil berkas gambar"
 msgid "Couldn’t retrieve image file information"
 msgstr "Tidak dapat mengambil informasi berkas gambar"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3367 src/eog-window.c:3590
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Tidak dapat menghapus berkas"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3412 src/eog-window.c:3686
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Galat menghapus berkas %s"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1554,7 +1616,7 @@ msgstr ""
 "Apakah Anda yakin ingin memindahkan\n"
 "\"%s\" ke tempat sampah?"
 
-#: src/eog-window.c:3515
+#: src/eog-window.c:3494
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1562,7 +1624,7 @@ msgid ""
 msgstr ""
 "Tempat sampah untuk \"%s\" tidak ditemukan. Hapus gambar secara permanen?"
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3499
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1577,7 +1639,7 @@ msgstr[1] ""
 "Pindahkan %d gambar yang dipilih\n"
 "ke tempat sampah?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3504
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1585,35 +1647,35 @@ msgstr ""
 "Beberapa gambar tidak dapat dipindahkan ke tempat sampah dan harus dihapus "
 "permanen. Apakah Anda yakin ingin melanjutkan?"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3568 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Tidak dapat mengakses tempat sampah."
 
-#: src/eog-window.c:4270
+#: src/eog-window.c:4230
 msgid "Shrink or enlarge the current image"
 msgstr "Memperkecil atau memperbesar gambar saat ini"
 
-#: src/eog-window.c:4329
+#: src/eog-window.c:4289
 msgid "Show the current image in fullscreen mode"
-msgstr "Menampilkan gambar dalam modus layar penuh"
+msgstr "Tampilkan gambar dalam modus layar penuh"
 
-#: src/eog-window.c:4406
+#: src/eog-window.c:4366
 msgid "Properties"
 msgstr "Properti"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "Penampil gambar GNOME."
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst  <rizahnst@gnome.org>, 2004, 2005, 2006.\n"
 "Mohammad DAMT <mdamt@bisnisweb.com>, 2003, 2004, 2005.\n"
 "Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011.\n"
 "Andika Triwidada <andika@gmail.com>, 2010-2014, 2016.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020."
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
@@ -1651,7 +1713,7 @@ msgstr ""
 
 #: src/main.c:69
 msgid "Show the application’s version"
-msgstr "Menampilkan versi aplikasi"
+msgstr "Tampilkan versi aplikasi"
 
 #: src/main.c:99
 msgid "[FILE…]"
