@@ -3078,3 +3078,39 @@ eog_scroll_view_event_is_over_image (EogScrollView *view, const GdkEvent *ev)
 
 	return TRUE;
 }
+
+
+void
+eog_scroll_view_set_visible_arrows_revealer (EogScrollView *view, gboolean visible)
+{
+        g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        gtk_widget_set_visible (GTK_WIDGET(priv->left_revealer), visible);
+        gtk_widget_set_visible (GTK_WIDGET(priv->right_revealer), visible);
+	
+	return;
+}
+
+void
+eog_scroll_view_set_visible_rotations_revealer (EogScrollView *view, gboolean visible)
+{
+        g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        gtk_widget_set_visible (GTK_WIDGET(priv->bottom_revealer), visible);
+	
+	return;
+}
+
+gboolean
+eog_scroll_view_get_visible_rotations_revealer (EogScrollView *view)
+{
+        g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        return gtk_widget_get_visible (GTK_WIDGET(priv->bottom_revealer));
+}

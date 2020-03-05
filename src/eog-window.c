@@ -677,6 +677,8 @@ _eog_window_enable_gallery_actions (EogWindow *window, gboolean enable)
 	_eog_window_enable_action_group (G_ACTION_MAP (window),
 					 gallery_actions,
 					 enable);
+
+	eog_scroll_view_set_visible_arrows_revealer (EOG_SCROLL_VIEW (window->priv->view), enable);
 }
 
 static void
@@ -974,7 +976,8 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
-	GFile *file;
+	GFile *file_parent, *file;
+	GFileInfo *file_info;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -1008,6 +1011,35 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	eog_window_update_open_with_menu (window, image);
 
 	file = eog_image_get_file (image);
+	file_parent = g_file_get_parent (file);
+	file_info = g_file_query_info (file_parent,
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+				       G_FILE_QUERY_INFO_NONE,
+				       NULL,
+				       NULL);
+	gboolean is_writable = g_file_info_get_attribute_boolean (file_info,
+								  G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	gboolean is_visible = eog_scroll_view_get_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view));
+	if(!is_writable && is_visible)
+	  eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), FALSE);
+	else if (!is_visible){
+	  eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), TRUE);
+	} else {
+	  if (file_info != NULL)
+	    g_object_unref (file_info);
+	  file_info = g_file_query_info (file,
+					 G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+					 G_FILE_QUERY_INFO_NONE,
+					 NULL,
+					 NULL);
+	  is_writable = g_file_info_get_attribute_boolean (file_info,
+							   G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	  if(!is_writable && is_visible)
+	    eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), FALSE);
+	  else if (!is_visible)
+	    eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), TRUE);
+	}
+	
 	g_idle_add_full (G_PRIORITY_LOW,
 			 (GSourceFunc) add_file_to_recent_files,
 			 file,
@@ -5282,6 +5314,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 		g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 	}
+
 }
 
 /**
