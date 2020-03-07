@@ -1,4 +1,3 @@
-
 include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
 
 variables:
@@ -25,6 +24,6 @@ stop_review:
     extends: '.stop_review'
 
 nightly:
-  extends: '.publish_nightly'
-  dependencies:
-    - 'flatpak'
+    extends: '.publish_nightly'
+    dependencies:
+        - 'flatpak'
