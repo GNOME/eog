@@ -481,6 +481,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		}
 		g_object_unref (file_info);
 		break;
+	case G_FILE_MONITOR_EVENT_MOVED_OUT:
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			EogImage *image;
@@ -492,6 +493,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			eog_list_store_remove (store, &iter);
 		}
 		break;
+	case G_FILE_MONITOR_EVENT_MOVED_IN:
 	case G_FILE_MONITOR_EVENT_CREATED:
 		if (!is_file_in_list_store_file (store, file, NULL)) {
 			file_info = g_file_query_info (file,
@@ -526,14 +528,31 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		}
 		g_object_unref (file_info);
 		break;
+	case G_FILE_MONITOR_EVENT_RENAMED:
+		if (is_file_in_list_store_file (store, file, &iter)) {
+			file_info = g_file_query_info (other_file,
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+						       0, NULL, NULL);
+			if (file_info == NULL) {
+				break;
+			}
+
+			mimetype = g_file_info_get_content_type (file_info);
+			if (eog_image_is_supported_mime_type (mimetype)) {
+				const gchar *caption = g_file_info_get_display_name (file_info);
+				eog_list_store_append_image_from_file (store, other_file, caption);
+				eog_list_store_remove (store, &iter);
+			}
+
+			g_object_unref (file_info);
+		}
+		break;
 	case G_FILE_MONITOR_EVENT_CHANGED:
 	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
 	case G_FILE_MONITOR_EVENT_UNMOUNTED:
 	case G_FILE_MONITOR_EVENT_MOVED:
-	case G_FILE_MONITOR_EVENT_RENAMED:
-	case G_FILE_MONITOR_EVENT_MOVED_IN:
-	case G_FILE_MONITOR_EVENT_MOVED_OUT:
-		break;
+	        break;
 	}
 }
 
@@ -582,7 +601,7 @@ eog_list_store_append_directory (EogListStore *store,
 
 	if(is_monitoring)
 	  file_monitor = g_file_monitor_directory (file,
-						   0, NULL, NULL);
+						   G_FILE_MONITOR_WATCH_MOVES, NULL, NULL);
 
 	if (file_monitor != NULL) {
 		g_signal_connect (file_monitor, "changed",
