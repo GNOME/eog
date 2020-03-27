@@ -1065,28 +1065,21 @@ app_chooser_dialog_response_cb (GtkDialog *dialog,
 
 	g_list_free (files);
 	g_object_unref (file);
+
 out:
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void
-eog_window_action_open_with (GSimpleAction *action,
-                            GVariant       *parameter,
-                            gpointer        user_data)
+eog_window_open_file_chooser_dialog (EogWindow *window)
 {
-	EogWindow *window;
 	GtkWidget *dialog;
 	GFileInfo *file_info;
 	GFile *file;
 	const gchar *mime_type = NULL;
 
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-	window = EOG_WINDOW (user_data);
-
 	file = eog_image_get_file (window->priv->image);
-	file_info = g_file_query_info (file,
-				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				       0, NULL, NULL);
+	file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, 0, NULL, NULL);
 	mime_type = g_content_type_get_mime_type (
 			g_file_info_get_content_type (file_info));
 	g_object_unref (file_info);
@@ -1103,6 +1096,25 @@ eog_window_action_open_with (GSimpleAction *action,
 				 window, 0);
 
 	g_object_unref (file);
+}
+
+static void
+eog_window_action_open_with (GSimpleAction *action,
+                            GVariant       *parameter,
+                            gpointer        user_data)
+{
+	EogWindow *window;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	window = EOG_WINDOW (user_data);
+
+	if (eog_util_is_running_inside_flatpak ()) {
+		GFile *file = eog_image_get_file (window->priv->image);
+
+		eog_util_open_file_with_flatpak_portal (file);
+	} else {
+		eog_window_open_file_chooser_dialog (window);
+	}
 }
 
 static void

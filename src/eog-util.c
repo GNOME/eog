@@ -22,6 +22,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/* For O_PATH */
+#define _GNU_SOURCE
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -37,12 +40,16 @@
 #include "eog-debug.h"
 
 #include <errno.h>
+#include <fcntl.h>
 #include <string.h>
 #include <glib.h>
 #include <glib/gprintf.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#include <gio/gunixfdlist.h>
 #include <glib/gi18n.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 void
 eog_util_show_help (const gchar *section, GtkWindow *parent)
@@ -502,4 +509,177 @@ eog_util_show_file_in_filemanager (GFile *file, GtkWindow *toplevel)
 	/* Fallback to gtk_show_uri() if launch over DBus is not possible */
 	if (!done)
 		_eog_util_show_file_in_filemanager_fallback (file, toplevel);
+}
+
+/* Portal */
+
+gboolean
+eog_util_is_running_inside_flatpak (void)
+{
+	return g_file_test ("/.flatpak-info", G_FILE_TEST_EXISTS);
+}
+
+static void
+response_cb (GDBusConnection *connection, const char *sender_name, const char *object_path, const char *interface_name, const char *signal_name, GVariant *parameters, gpointer user_data)
+{
+	GFile *file = G_FILE (user_data);
+	guint32 response;
+	guint signal_id;
+
+	signal_id = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (file), "signal-id"));
+	g_dbus_connection_signal_unsubscribe (connection, signal_id);
+
+	g_variant_get (parameters, "(u@a{sv})", &response, NULL);
+	if (response == 0) {
+		g_debug ("Opening file");
+	} else if (response == 1) {
+		g_debug ("User cancelled opening file");
+	} else {
+		g_warning ("Failed to open file via portal");
+	}
+}
+
+static void
+open_file_complete_cb (GObject *source, GAsyncResult *result, gpointer user_data)
+{
+	GDBusProxy *proxy = G_DBUS_PROXY (source);
+	GFile *file = G_FILE (user_data);
+	GVariant *return_value = NULL;
+	const char *handle;
+	char *object_path = NULL;
+	GError *error = NULL;
+
+	return_value = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, NULL, result, &error);
+	if (!return_value) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("Failed to open file via portal: %s", error->message);
+
+		goto out;
+	}
+
+	g_variant_get (return_value, "(o)", &object_path);
+	handle = (const char *)g_object_get_data (G_OBJECT (file), "handle");
+	if (strcmp (handle, object_path) != 0) {
+		GDBusConnection *connection;
+		guint signal_id;
+
+		connection = g_dbus_proxy_get_connection (proxy);
+		signal_id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (file), "signal-id"));
+		g_dbus_connection_signal_unsubscribe (connection, signal_id);
+
+		signal_id = g_dbus_connection_signal_subscribe (connection,
+			"org.freedesktop.portal.Desktop",
+			"org.freedesktop.portal.Request",
+			"Response",
+			handle,
+			NULL,
+			G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE,
+			response_cb,
+			file,
+			NULL);
+		g_object_set_data (G_OBJECT (file), "signal-id", GUINT_TO_POINTER (signal_id));
+	}
+
+out:
+	if (return_value)
+		g_variant_unref (return_value);
+	if (object_path)
+		g_free (object_path);
+}
+
+static void
+open_with_flatpak_portal_cb (GObject *source, GAsyncResult *result, gpointer user_data)
+{
+	GVariantBuilder builder;
+	GUnixFDList *fd_list;
+	GFile *file;
+	GDBusProxy *proxy;
+	GDBusConnection *connection;
+	GError  *error = NULL;
+	guint signal_id;
+	char *sender, *token, *handle;
+	int fd;
+
+	file = G_FILE (user_data);
+	fd = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (file), "fd"));
+
+	proxy = g_dbus_proxy_new_for_bus_finish (result, &error);
+	if (!proxy) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("Failed to create D-Bus proxy for OpenURI portal: %s", error->message);
+
+		close (fd);
+		return;
+	}
+
+	connection = g_dbus_proxy_get_connection (proxy);
+	sender = g_strdup (g_dbus_connection_get_unique_name (connection) + 1);
+	for (guint i = 0; sender[i] != '\0'; i++) {
+		if (sender[i] == '.') {
+			sender[i] = '_';
+		}
+	}
+
+	token = g_strdup_printf ("eog%u", g_random_int ());
+	handle = g_strdup_printf ("/org/freedesktop/portal/desktop/request/%s/%s", sender, token);
+
+	g_object_set_data_full (G_OBJECT (file), "handle", handle, g_free);
+	g_free (sender);
+
+	signal_id = g_dbus_connection_signal_subscribe (connection,
+			"org.freedesktop.portal.Desktop",
+			"org.freedesktop.portal.Request",
+			"Response",
+			handle,
+			NULL,
+			G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE,
+			response_cb,
+			file,
+			NULL);
+	g_object_set_data (G_OBJECT (file), "signal-id", GUINT_TO_POINTER (signal_id));
+
+	g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
+	g_variant_builder_add (&builder, "{sv}", "handle_token", g_variant_new_string (token));
+	g_variant_builder_add (&builder, "{sv}", "ask", g_variant_new ("b", TRUE));
+	g_free (token);
+
+	fd_list = g_unix_fd_list_new_from_array (&fd, 1);
+	g_dbus_proxy_call_with_unix_fd_list (proxy,
+			"OpenFile",
+			g_variant_new ("(s@h@a{sv})",
+			               "",
+			              g_variant_new ("h", 0),
+				            g_variant_builder_end (&builder)),
+			G_DBUS_CALL_FLAGS_NONE,
+			-1,
+			fd_list,
+			NULL,
+			open_file_complete_cb,
+			file);
+	g_object_unref (fd_list);
+}
+
+void
+eog_util_open_file_with_flatpak_portal (GFile *file)
+{
+	const gchar *path;
+	int fd;
+
+	path = g_file_get_path (file);
+	fd = open (path, O_PATH | O_CLOEXEC);
+	if (fd == -1) {
+		g_warning ("Failed to open %s: %s", path, g_strerror (errno));
+		return;
+	}
+
+	g_object_set_data (G_OBJECT (file), "fd", GINT_TO_POINTER (fd));
+	g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+			G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+			NULL,
+			"org.freedesktop.portal.Desktop",
+			"/org/freedesktop/portal/desktop",
+			"org.freedesktop.portal.OpenURI",
+			NULL,
+			open_with_flatpak_portal_cb,
+			file);
 }
