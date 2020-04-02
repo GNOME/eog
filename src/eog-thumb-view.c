@@ -1079,14 +1079,11 @@ eog_thumb_view_resize_thumbnails (EogThumbView *thumbview,
 	  alloc_view = *alloc_widget;
 
 	gint val_zoom = eog_list_store_get_zoom_value (store);
-	g_warning("%s : (1) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
 
 	val_zoom = alloc_view.width/ val_zoom;
-	g_warning("%s : (2) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
 	gtk_icon_view_set_columns(GTK_ICON_VIEW(thumbview), val_zoom);
 
 	val_zoom = alloc_view.width / val_zoom;
-	g_warning("%s : (3) val_zoom(%d) with width(%d)", __func__, val_zoom, alloc_view.width);
 	gtk_cell_renderer_set_fixed_size (thumbview->priv->pixbuf_cell, val_zoom, val_zoom);
 	GtkTreePath *path;
 	GtkTreeIter iter;
