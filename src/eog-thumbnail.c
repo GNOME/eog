@@ -447,8 +447,7 @@ eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 		  width  = MAX (width  * factor, 1);
 		  height = MAX (height * factor, 1);
 
-		  result_pixbuf = (width > dimension || height > dimension) ? gnome_desktop_thumbnail_scale_down_pixbuf (thumbnail, width, height)
-		    : gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
+		  result_pixbuf = gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
 
 		  return result_pixbuf;
 	/* } */
