@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EOG\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2018-12-09 18:01+0000\n"
-"PO-Revision-Date: 2018-12-24 17:59+0100\n"
+"POT-Creation-Date: 2020-03-21 21:04+0000\n"
+"PO-Revision-Date: 2020-04-04 14:10+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <f.t.public@gmail.com>\n"
 "Language: fur\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Voli di GNOME"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Sgarfe e zire imagjins"
 
@@ -49,27 +49,9 @@ msgstr ""
 "etichetis de fotocjamare par voltâ in automatic lis fotos tal orientament, "
 "verticâl o orizontâl, just."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "Visualizadôr di imagjins"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Figure;Imagjin;Diapositive;Grafics;"
-
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
-msgstr "_Vierç..."
+msgstr "_Vierç…"
 
 #: data/eog-gear-menu.ui:10
 msgid "Op_en With"
@@ -83,11 +65,11 @@ msgstr "_Salve"
 #: data/eog-gear-menu.ui:21 data/popup-menus.ui:17
 #: src/eog-error-message-area.c:133
 msgid "Save _As…"
-msgstr "S_alve come..."
+msgstr "S_alve come…"
 
 #: data/eog-gear-menu.ui:27 data/popup-menus.ui:23
 msgid "_Print…"
-msgstr "Stam_pe..."
+msgstr "Stam_pe…"
 
 #: data/eog-gear-menu.ui:31 data/popup-menus.ui:45
 msgid "Set as Wa_llpaper"
@@ -242,7 +224,7 @@ msgstr "Salve cul non"
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
 #: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-window.c:3518
 msgid "_Cancel"
 msgstr "_Anule"
 
@@ -385,7 +367,6 @@ msgid "Plugins"
 msgstr "Plugins"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Strenç la imagjin"
 
@@ -401,7 +382,7 @@ msgstr "Va ae prime imagjin de galarie"
 msgid "_First Image"
 msgstr "Prime _imagjin"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2356
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Va ae imagjin precedente de galarie"
 
@@ -409,7 +390,7 @@ msgstr "Va ae imagjin precedente de galarie"
 msgid "_Previous Image"
 msgstr "Imagjin _precedent"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2344
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Va ae prossime imagjin de galarie"
 
@@ -433,15 +414,23 @@ msgstr "_Ingrandis"
 msgid "Zoom _Out"
 msgstr "_Rimpiçulis"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Mostre la figure te sô dimension normâl"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "Dimension _normâl"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Adate la imagjin aes dimensions dal barcon"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "_Adate as dimensions"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2371
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Zire la imagjin di 90 grâts a çampe"
 
@@ -449,7 +438,7 @@ msgstr "Zire la imagjin di 90 grâts a çampe"
 msgid "Rotate Counter_clockwise"
 msgstr "Zire in sens _antiorari"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2382
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Zire la imagjin di 90 grâts a diestre"
 
@@ -533,102 +522,162 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Vierç il manuâl de aplicazion"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Mostre/Plate il menù de aplicazion"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Scurtis di tastiere"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Ingrandiment"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Ingrandìs"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Impiçulìs"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Dimension atuâl"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Adate as dimensions"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Esplore imagjins"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
+#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Va ae imagjin precedente de cartele"
 
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:178
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Va ae imagjin sucessive de cartele"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:185
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Va ae prime imagjin de cartele"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:192
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Va ae ultime imagjin de cartele"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:199
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Va a une imagjin a câs de cartele"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:206
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
-msgstr "Mostre/Plate la galarie des imagjins."
+msgstr "Mostre/Plate la galarie des imagjins"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotazion"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:218 data/help-overlay.ui:233
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Zire in sens orari"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:225 data/help-overlay.ui:240
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Zire in sens antiorari"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:248
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "A plen visôr"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:253
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Jentre/Jes dal plen visôr"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:260
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Tache/Ferme Presentazion"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:267
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Met in pause Presentazion"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/help-overlay.ui:275
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Comun"
+
+#: data/help-overlay.ui:280
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Copie intes notis"
+
+#: data/help-overlay.ui:287
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Disfe"
+
+#: data/help-overlay.ui:294
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Môf te Scovacere"
+
+#: data/help-overlay.ui:301
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Elimine imagjin par simpri"
+
+#: data/help-overlay.ui:309
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Scoriment"
+
+#: data/help-overlay.ui:314
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Scor a çampe intune imagjin largje"
+
+#: data/help-overlay.ui:321
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Scor a drete intune imagjin largje"
+
+#: data/help-overlay.ui:328
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Scor in sù intune imagjin largje"
+
+#: data/help-overlay.ui:335
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Scor in jù intune imagjin largje"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Dimension"
 
@@ -676,6 +725,19 @@ msgstr "Ore"
 msgid "Focal Length"
 msgstr "Lungjece focâl"
 
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5558
+msgid "Image Viewer"
+msgstr "Visualizadôr di imagjins"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Figure;Imagjin;Diapositive;Grafics;"
+
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
 msgstr "Orientament automatic"
@@ -695,7 +757,7 @@ msgid ""
 msgstr ""
 "Il colôr che al sarà doprât par jemplâ la aree daûr la imagjin. Se la clâf "
 "use-background-color no je configurade, il colôr al è determinât dal teme GTK"
-"+ atîf"
+"+ atîf."
 
 #: data/org.gnome.eog.gschema.xml.in:21
 msgid "Interpolate Image"
@@ -932,7 +994,7 @@ msgstr "Vierç c_un"
 msgid "_Copy"
 msgstr "_Copie"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:35 src/eog-window.c:3521
 msgid "Move to _Trash"
 msgstr "Sposte te _Scovacere"
 
@@ -952,12 +1014,6 @@ msgstr "_Adate aes dimensions"
 msgid "Fullscreen with double-click"
 msgstr "A plen visôr cul dopli clic"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Ative la modalitât a plen visôr cuntun dopli clic"
@@ -966,12 +1022,6 @@ msgstr "Ative la modalitât a plen visôr cuntun dopli clic"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Torne cjame imagjin"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
@@ -1149,27 +1199,27 @@ msgstr "Trasformazion suntune imagjin no cjamade."
 msgid "Transformation failed."
 msgstr "Trasformazion falide."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF no supuartât par chest formât di file."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1215
 #, c-format
 msgid "Image loading failed."
 msgstr "Cjariament de imagjin falît."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1797 src/eog-image.c:1917
 #, c-format
 msgid "No image loaded."
 msgstr "Nissune imagjin cjariade."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1805 src/eog-image.c:1926
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "No tu âs i permès par podê salvâ il file."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1815 src/eog-image.c:1937
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Creazion dal file temporani falide."
@@ -1275,87 +1325,87 @@ msgstr[1] "%lu seconts"
 msgid "Image Settings"
 msgstr "Impostazions de imagjin"
 
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Imagjin"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "La imagjin pe cuâl e vegnin configuradis lis propietâts di stampe"
 
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Imposte pagjine"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Lis informazions pe pagjine dulà che la imagjin e vegnarà stampade"
 
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Posizion"
 
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "Ça_mpe:"
 
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "_Diestre:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "_Alt:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "_Bas:"
 
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "C_entre in:"
 
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Nissune"
 
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "Orizontâl"
 
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "Verticâl"
 
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "Ducj e doi i sens"
 
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "_Largjece:"
 
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "_Altece:"
 
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "_Ridimensionament:"
 
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "_Unitât:"
 
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Millimetris"
 
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Poleârs"
 
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Anteprime"
 
@@ -1397,7 +1447,7 @@ msgstr "No si pues mostrâ il jutori par Visualizadôr di Imagjins"
 
 #: src/eog-util.c:116
 msgid " (invalid Unicode)"
-msgstr "(Unicode no valit)"
+msgstr " (Unicode no valit)"
 
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
@@ -1459,7 +1509,7 @@ msgstr ""
 
 #: src/eog-window.c:2626 src/eog-window.c:2641
 msgid "Error launching System Settings: "
-msgstr "Erôr fasint partî Impostazions di Sisteme:"
+msgstr "Erôr fasint partî Impostazions di sisteme: "
 
 #: src/eog-window.c:2675
 msgid "_Open Background Preferences"
@@ -1478,7 +1528,7 @@ msgstr ""
 
 #: src/eog-window.c:3181
 msgid "Saving image locally…"
-msgstr "O salvi la imagjin localmentri..."
+msgstr "O salvi la imagjin localmentri…"
 
 #: src/eog-window.c:3259
 #, c-format
@@ -1504,16 +1554,16 @@ msgstr[1] ""
 "Sigûrs di gjavâ\n"
 "lis %d imagjins selezionadis par simpri?"
 
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3284 src/eog-window.c:3529
 msgid "_Delete"
 msgstr "_Elimine"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3287 src/eog-window.c:3531
 msgid "_Yes"
 msgstr "_Sì"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3291 src/eog-window.c:3523
 msgid "Do _not ask again during this session"
 msgstr "_No sta domandâ plui in cheste session"
 
@@ -1527,18 +1577,18 @@ msgstr "Impussibil recuperâ il file imagjin"
 msgid "Couldn’t retrieve image file information"
 msgstr "Impussibil recuperâ lis informazions dal file imagjin"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3367 src/eog-window.c:3590
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Impussibil eliminâ il file"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3412 src/eog-window.c:3686
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Erôr te eliminazion de imagjin %s"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1547,7 +1597,7 @@ msgstr ""
 "Sigûrs di volê spostâ\n"
 "“%s” te scovacere?"
 
-#: src/eog-window.c:3515
+#: src/eog-window.c:3494
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1556,7 +1606,7 @@ msgstr ""
 "Une scovacere par “%s” no je stade cjatade. Vûstu eliminâ cheste imagjin par "
 "simpri?"
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3499
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1571,7 +1621,7 @@ msgstr[1] ""
 "Sigûrs di volê spostâ\n"
 "lis %d imagjins selezionadis te Scovacere?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3504
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1579,28 +1629,28 @@ msgstr ""
 "Cualchidune des imagjins selezionadis no puedin jessi spostadis te scovacere "
 "e a saran eliminadis par simpri. Sigûrs di procedi?"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3568 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Impussibil acedi ae scovacere."
 
-#: src/eog-window.c:4270
+#: src/eog-window.c:4230
 msgid "Shrink or enlarge the current image"
 msgstr "Strenç o ingrandìs la imagjin atuâl"
 
-#: src/eog-window.c:4329
+#: src/eog-window.c:4289
 msgid "Show the current image in fullscreen mode"
 msgstr "Mostre la imagjin atuâl a plen visôr"
 
-#: src/eog-window.c:4406
+#: src/eog-window.c:4366
 msgid "Properties"
 msgstr "Propietâts"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "Il Visualizadôr di Imagjins di GNOME."
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "Andrea Decorte <adecorte@gmail.com>\n"
@@ -1655,6 +1705,15 @@ msgstr ""
 "Eseguìs “%s --help” par viodi la liste di dutis lis opzions disponibilis te "
 "rie di comant."
 
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
+
 #~ msgid "_About"
 #~ msgstr "_Informazions su"
 
@@ -1693,9 +1752,6 @@ msgstr ""
 
 #~ msgid "1500%"
 #~ msgstr "1500%"
-
-#~ msgid "Fit the image to the window"
-#~ msgstr "Adate la imagjin aes dimensions dal barcon"
 
 #~ msgid "Side _Pane"
 #~ msgstr "_Panel in bande"
@@ -1806,9 +1862,6 @@ msgstr ""
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Mostre lis propietâts e i metadâts de figure selezionade"
 
-#~ msgid "_Undo"
-#~ msgstr "An_ule"
-
 #~ msgid "Undo the last change in the image"
 #~ msgstr "Anule l'ultin cambiament fat ae figure"
 
@@ -1841,9 +1894,6 @@ msgstr ""
 
 #~ msgid "Copy the selected image to the clipboard"
 #~ msgstr "Copie la figure selezionade in tis notis"
-
-#~ msgid "Show the image at its normal size"
-#~ msgstr "Mostre la figure te sô dimension normâl"
 
 #~ msgid "_Random Image"
 #~ msgstr "Figure a câs"
@@ -1958,9 +2008,6 @@ msgstr ""
 #~ "Tu varessis di vê ricevût une copie de GNU General Public License insieme "
 #~ "cun chest program; se nol è cussì, scrîf a Free Software Foundation, "
 #~ "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA "
-
-#~ msgid "Move to Trash"
-#~ msgstr "Sposte te Scovacere"
 
 #~ msgid "_File"
 #~ msgstr "_File"
