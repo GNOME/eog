@@ -226,7 +226,7 @@ eog_application_init_accelerators (GtkApplication *application)
 					"<Ctrl>plus", NULL,
 		"win.zoom-out",		"<Ctrl>minus",
 					"<Ctrl>KP_Subtract", NULL,
-		"win.zoom-normal",	"<Ctrl>0", NULL,
+		"win.zoom-normal",	"<Ctrl>0", "<Ctrl>KP_0", NULL,
 
 		"win.view-gallery",	"<Ctrl>F9", NULL,
 		"win.view-sidebar",	"F9", NULL,
