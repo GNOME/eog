@@ -100,7 +100,7 @@ eog_metadata_reader_get_icc_profile (EogMetadataReader *emr)
 }
 #endif
 
-/* Default vfunc that simply clears the output if not overriden by the
+/* Default vfunc that simply clears the output if not overridden by the
    implementing class. This mimics the old behaviour of get_exif_chunk(). */
 static void
 _eog_metadata_reader_default_get_raw_exif (EogMetadataReader *emr,
@@ -112,7 +112,7 @@ _eog_metadata_reader_default_get_raw_exif (EogMetadataReader *emr,
 	*length = 0;
 }
 
-/* Default vfunc that simply returns NULL if not overriden by the implementing
+/* Default vfunc that simply returns NULL if not overridden by the implementing
    class. Mimics the old fallback behaviour of the getter functions. */
 static gpointer
 _eog_metadata_reader_default_get_null (EogMetadataReader *emr)

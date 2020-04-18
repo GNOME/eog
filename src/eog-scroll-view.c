@@ -42,7 +42,7 @@
 #define CHECK_LIGHT "#cccccc"
 #define CHECK_WHITE "#ffffff"
 
-/* Time used for the realing animation of the overlaid buttons */
+/* Time used for the revealing animation of the overlaid buttons */
 #define OVERLAY_REVEAL_ANIM_TIME (500U) /* ms */
 
 /* from cairo-image-surface.c */
@@ -2013,7 +2013,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
  * eog_scroll_view_get_image:
  * @view: An #EogScrollView.
  *
- * Gets the the currently displayed #EogImage.
+ * Gets the currently displayed #EogImage.
  *
  * Returns: (transfer full): An #EogImage.
  **/

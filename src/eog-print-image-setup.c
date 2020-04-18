@@ -190,9 +190,9 @@ center_vertical (EogPrintImageSetup *setup,
 {
 	EogPrintImageSetupPrivate *priv;
 	priv = setup->priv;
-	gdouble page_heigth = gtk_page_setup_get_page_height (priv->page_setup, priv->current_unit);
+	gdouble page_height = gtk_page_setup_get_page_height (priv->page_setup, priv->current_unit);
 	gdouble scale = 0.01*gtk_range_get_value (GTK_RANGE (priv->scaling));
-	gdouble top_is_bottom   = (page_heigth - height*scale)/2;
+	gdouble top_is_bottom   = (page_height - height*scale)/2;
 	adjust_top_value   (setup,top_is_bottom);
 	adjust_bottom_value(setup,top_is_bottom);
 }

@@ -1958,7 +1958,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		success = gdk_pixbuf_save (priv->image, tmp_file_path, target->format, error, NULL);
 	}
 
-	if (success && !direct_copy) { /* not required if we alredy copied the file directly */
+	if (success && !direct_copy) { /* not required if we already copied the file directly */
 		/* try to move result file to target uri */
 		success = tmp_file_move_to_uri (img, tmp_file, target->file, target->overwrite, error);
 	}
