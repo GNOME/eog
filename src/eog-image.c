@@ -990,7 +990,14 @@ eog_image_real_load (EogImage     *img,
 #endif
 
 		if (!use_rsvg) {
-			loader = gdk_pixbuf_loader_new ();
+			loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
+
+			if (error && *error) {
+				g_error_free (*error);
+				*error = NULL;
+
+				loader = gdk_pixbuf_loader_new ();
+			}
 
 			g_signal_connect_object (G_OBJECT (loader),
 					 "size-prepared",
