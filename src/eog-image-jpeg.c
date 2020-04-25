@@ -299,7 +299,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* handle EXIF/IPTC data explicitly */
 #ifdef HAVE_EXIF
-	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
+	/* exif_chunk and exif are mutually exclusive, this is what we assure here */
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
 	{
@@ -430,7 +430,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* write EXIF/IPTC data explicitly */
 #ifdef HAVE_EXIF
-	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
+	/* exif_chunk and exif are mutually exclusive, this is what we assure here */
 	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
 	{
