@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.1.92\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-01-29 21:34+0000\n"
-"PO-Revision-Date: 2020-02-20 11:53+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
+"POT-Creation-Date: 2020-03-21 21:04+0000\n"
+"PO-Revision-Date: 2020-05-02 01:16+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,7 @@ msgstr "求助(_H)"
 # src/preferences-dialog.glade.h:32
 #: data/eog-gear-menu.ui:80
 msgid "_About Image Viewer"
-msgstr "關於影像檢視器(_A)"
+msgstr "關於《影像檢視器》(_A)"
 
 #: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
@@ -219,7 +219,7 @@ msgstr "作者："
 
 #: data/eog-image-properties-dialog.ui:528
 msgid "Copyright:"
-msgstr "版權："
+msgstr "著作權："
 
 # src/preferences-dialog.glade.h:7
 #: data/eog-image-properties-dialog.ui:807
@@ -229,7 +229,7 @@ msgstr "詳細資料"
 
 #: data/eog-image-properties-dialog.ui:832
 msgid "Metadata"
-msgstr "中繼資料"
+msgstr "中介資料"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
@@ -250,21 +250,21 @@ msgstr "儲存為(_A)"
 
 #: data/eog-multiple-save-as-dialog.ui:102
 msgid "<b>%f:</b> original filename"
-msgstr "<b>%f:</b> 原始檔案名稱"
+msgstr "<b>%f</b>：原始檔案名稱"
 
 #: data/eog-multiple-save-as-dialog.ui:120
 msgid "<b>%n:</b> counter"
-msgstr "<b>%n:</b> 計數"
+msgstr "<b>%n</b>：計數"
 
 #: data/eog-multiple-save-as-dialog.ui:146
 msgid "_Filename format:"
-msgstr "檔案名稱格式(_F):"
+msgstr "檔案名稱格式(_F)："
 
 # src/tb-image.c:33
 # src/window.c:181
 #: data/eog-multiple-save-as-dialog.ui:162
 msgid "_Destination folder:"
-msgstr "目的地資料夾(_D):"
+msgstr "目的地資料夾(_D)："
 
 #: data/eog-multiple-save-as-dialog.ui:179
 msgid "Choose a folder"
@@ -276,7 +276,7 @@ msgstr "檔案路徑規則"
 
 #: data/eog-multiple-save-as-dialog.ui:268
 msgid "_Start counter at:"
-msgstr "開始計數於(_S):"
+msgstr "開始計數於(_S)："
 
 #: data/eog-multiple-save-as-dialog.ui:301
 msgid "_Replace spaces with underscores"
@@ -289,11 +289,11 @@ msgstr "選項"
 
 #: data/eog-multiple-save-as-dialog.ui:361
 msgid "Rename from:"
-msgstr "重新命名格式:"
+msgstr "重新命名從："
 
 #: data/eog-multiple-save-as-dialog.ui:375
 msgid "To:"
-msgstr "到:"
+msgstr "到："
 
 #: data/eog-multiple-save-as-dialog.ui:424
 msgid "File Name Preview"
@@ -344,7 +344,7 @@ msgstr "以方格表示(_P)"
 
 #: data/eog-preferences-dialog.ui:273
 msgid "As custom c_olor:"
-msgstr "以自選顏色表示(_O):"
+msgstr "以自選顏色表示(_O)："
 
 #: data/eog-preferences-dialog.ui:293
 msgid "Color for Transparent Areas"
@@ -374,7 +374,7 @@ msgstr "播放順序"
 #. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
-msgstr "兩張影像之間的時間(_T):"
+msgstr "兩張影像之間的時間(_T)："
 
 #: data/eog-preferences-dialog.ui:482
 msgid "_Loop sequence"
@@ -405,7 +405,7 @@ msgstr "移至影像集的第一張影像"
 msgid "_First Image"
 msgstr "第一幅影像(_F)"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2352
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "移至影像集的上一張影像"
 
@@ -413,7 +413,7 @@ msgstr "移至影像集的上一張影像"
 msgid "_Previous Image"
 msgstr "上一幅影像(_P)"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2340
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "移至影像集的下一張影像"
 
@@ -458,7 +458,7 @@ msgstr "圖片符合視窗尺寸"
 msgid "_Best Fit"
 msgstr "最適大小(_B)"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2367
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "向左 90 度旋轉該影像"
 
@@ -466,7 +466,7 @@ msgstr "向左 90 度旋轉該影像"
 msgid "Rotate Counter_clockwise"
 msgstr "逆時針方向旋轉(_C)"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2378
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "向右 90 度旋轉該影像"
 
@@ -965,7 +965,7 @@ msgstr ""
 #: data/org.gnome.eog.gschema.xml.in:113
 msgid ""
 "Whether the metadata list in the properties dialog should have its own page."
-msgstr "屬性對話盒中的中繼資料列表是否要自成一個頁面。"
+msgstr "屬性對話盒中的中介資料列表是否要自成一個頁面。"
 
 #: data/org.gnome.eog.gschema.xml.in:114
 msgid ""
@@ -974,9 +974,9 @@ msgid ""
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
 "be embedded on the “Metadata” page."
 msgstr ""
-"如果在使用中，在屬性對話盒中的詳細中繼資料列表會移至對話盒中自己的頁面。這樣"
+"如果在使用中，在屬性對話盒中的詳細中介資料列表會移至對話盒中自己的頁面。這樣"
 "會讓對話盒在小型螢幕上更易於使用，例如用於輕省筆電。如果停用則此元件會內嵌於"
-"「中繼資料」頁面。"
+"「中介資料」頁面。"
 
 #: data/org.gnome.eog.gschema.xml.in:120
 msgid "Active plugins"
@@ -1069,7 +1069,7 @@ msgstr[0] "還有 %d 張影像含有未儲存的變更。是否在關閉前儲�
 
 #: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
-msgstr "請選擇要儲存的影像(_E):"
+msgstr "請選擇要儲存的影像(_E)："
 
 #. Secondary label
 #: src/eog-close-confirmation-dialog.c:603
@@ -1122,7 +1122,7 @@ msgid ""
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
 "這個影像包含多個頁面。影像檢視器只能顯示第一頁。\n"
-"您想要安裝文件檢視器來檢視所有的頁面嗎？"
+"您可以安裝文件檢視器來檢視所有的頁面。"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1272,7 +1272,7 @@ msgstr "XMP IPTC"
 
 #: src/eog-metadata-details.c:74
 msgid "XMP Rights Management"
-msgstr "XMP 版權管理"
+msgstr "XMP 權利管理"
 
 # src/preferences-dialog.glade.h:26
 #: src/eog-metadata-details.c:75
@@ -1357,24 +1357,24 @@ msgstr "位置"
 #
 #: src/eog-print-image-setup.c:1198
 msgid "_Left:"
-msgstr "左(_L):"
+msgstr "左(_L)："
 
 #
 #: src/eog-print-image-setup.c:1200
 msgid "_Right:"
-msgstr "右(_R):"
+msgstr "右(_R)："
 
 #: src/eog-print-image-setup.c:1201
 msgid "_Top:"
-msgstr "上(_T):"
+msgstr "上(_T)："
 
 #: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
-msgstr "下(_B):"
+msgstr "下(_B)："
 
 #: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
-msgstr "置中(_C):"
+msgstr "置中(_C)："
 
 #: src/eog-print-image-setup.c:1210
 msgid "None"
@@ -1395,23 +1395,23 @@ msgstr "兩者"
 # src/preferences-dialog.glade.h:32
 #: src/eog-print-image-setup.c:1235
 msgid "_Width:"
-msgstr "寬度(_W):"
+msgstr "寬度(_W)："
 
 #: src/eog-print-image-setup.c:1237
 msgid "_Height:"
-msgstr "高度(_H):"
+msgstr "高度(_H)："
 
 #: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
-msgstr "比率(_S):"
+msgstr "縮放(_S)："
 
 #: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
-msgstr "單位(_U):"
+msgstr "單位(_U)："
 
 #: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
-msgstr "毫米"
+msgstr "公釐"
 
 #: src/eog-print-image-setup.c:1258
 msgid "Inches"
@@ -1696,7 +1696,7 @@ msgstr "以投影片模式開啟"
 
 #: src/main.c:66
 msgid "Start a new instance instead of reusing an existing one"
-msgstr "啟動新的實體而非重複使用既存的"
+msgstr "啟動新的實體而非重複使用既有實體"
 
 #: src/main.c:67
 msgid ""
