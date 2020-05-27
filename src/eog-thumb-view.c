@@ -76,6 +76,7 @@ struct _EogThumbViewPrivate {
 	gint end_thumb;   /* the last visible thumbnail  */
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
 	GtkCellRenderer *pixbuf_cell;
+	GtkCellRenderer *text_cell;
 	gint visible_range_changed_id;
 
 	GtkOrientation orientation;
@@ -117,7 +118,7 @@ eog_thumb_view_constructed (GObject *object)
 					thumbview->priv->pixbuf_cell,
 					"pixbuf", EOG_LIST_STORE_THUMBNAIL,
 					NULL);
-
+	
 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumbview),
 					  GTK_SELECTION_MULTIPLE);
 
@@ -644,6 +645,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv->visible_range_changed_id = 0;
 	thumbview->priv->image_add_id = 0;
 	thumbview->priv->image_removed_id = 0;
+	thumbview->priv->text_cell = NULL;
 }
 
 /**
@@ -1100,4 +1102,39 @@ eog_thumb_view_resize_thumbnails (EogThumbView *thumbview,
 	gtk_tree_path_free (path);
 	//	g_warning("%s : Alloc(%d, %d)(%d, %d) NbCols(%d)", __func__, alloc_view.x, alloc_view.y, alloc_view.width, alloc_view.height, (alloc_view.width - 6 + 4) / val_zoom);
 	return;
+}
+
+
+void
+eog_thumb_view_set_text (EogThumbView *thumbview,
+			 gboolean set_ellipsize)
+{
+  g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
+
+  if (!thumbview->priv->text_cell) {
+	thumbview->priv->text_cell = gtk_cell_renderer_text_new ();
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (thumbview),
+				    thumbview->priv->text_cell,
+				    FALSE);
+  }
+  
+  if (set_ellipsize)
+    g_object_set (thumbview->priv->text_cell,
+		  "ellipsize", PANGO_ELLIPSIZE_END,
+		  "width", 0,
+		  "yalign", 0.5,
+		  "xalign", 0.5,
+		  NULL);
+  
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
+  				  thumbview->priv->text_cell,
+  				  "text", EOG_LIST_STORE_EOG_NAME,
+  				  NULL);
+
+  g_object_set (thumbview->priv->pixbuf_cell,
+		"width", -1,
+		NULL);
+    
+  /* g_object_set(thumbview, "activate-on-single-click", TRUE, "margin", 0, "item-padding", 0, NULL); */
+
 }
