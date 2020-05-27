@@ -1352,8 +1352,8 @@ eog_job_thumbnail_run (EogJob *job)
 					    job_thumbnail->size_thumbnail);
 
 	g_object_unref (job_thumbnail->thumbnail);
-	job_thumbnail->thumbnail = eog_thumbnail_add_frame (pixbuf);
-	g_object_unref (pixbuf);
+	job_thumbnail->thumbnail = pixbuf;//eog_thumbnail_add_frame (pixbuf);
+	//	g_object_unref (pixbuf);
 
 	if (original_width) {
 		sscanf (original_width, "%i", &width);
