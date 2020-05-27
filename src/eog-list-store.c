@@ -175,7 +175,8 @@ eog_list_store_init (EogListStore *self)
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
 	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
 	types[EOG_LIST_STORE_EOG_JOB]   = G_TYPE_POINTER;
-
+	types[EOG_LIST_STORE_EOG_NAME]  = G_TYPE_STRING;
+	
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
 
@@ -351,6 +352,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    EOG_LIST_STORE_THUMB_SET, TRUE,
 				    EOG_LIST_STORE_EOG_JOB, NULL,
+				    EOG_LIST_STORE_EOG_NAME, eog_image_get_caption(image),
 				    -1);
 
 		g_object_unref (image);
