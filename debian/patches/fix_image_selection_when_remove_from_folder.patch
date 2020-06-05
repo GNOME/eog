@@ -1,0 +1,67 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ eog (3.33.3-1) unstable; urgency=medium
+ .
+   * Non-maintainer upload.
+   * Add patch to activate and deactivate monitoring
+Author: krifa75 <yahiaoui.fakhri@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-09-18
+
+Index: eog-3.33.3/src/eog-window.c
+===================================================================
+--- eog-3.33.3.orig/src/eog-window.c
++++ eog-3.33.3/src/eog-window.c
+@@ -3731,21 +3731,6 @@ eog_window_action_move_to_trash (GSimple
+ 	/* free list */
+ 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+ 	g_list_free (images);
+-
+-	/* select image at previously saved position */
+-	pos = MIN (pos, eog_list_store_length (list) - 1);
+-
+-	if (pos >= 0) {
+-		img = eog_list_store_get_image_by_pos (list, pos);
+-
+-		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview),
+-						  img,
+-						  TRUE);
+-
+-		if (img != NULL) {
+-			g_object_unref (img);
+-		}
+-	}
+ }
+ 
+ static void
+@@ -5184,6 +5169,14 @@ eog_window_list_store_image_removed (Gtk
+ {
+ 	EogWindow *window = EOG_WINDOW (user_data);
+ 
++	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (window->priv->thumbview)) == 0){
++	  EogImage *image = eog_list_store_get_image_by_pos (window->priv->store, gtk_tree_path_get_indices (path)[0]);
++ 	  if (image != NULL){
++ 	    eog_thumb_view_set_current_image (EOG_THUMB_VIEW (window->priv->thumbview), image, TRUE);
++	    g_object_unref (image);
++	  }
++	}
++	
+ 	update_image_pos (window);
+ 	update_action_groups_state (window);
+ }

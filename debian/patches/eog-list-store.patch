@@ -1,0 +1,235 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ eog (3.33.3-1) unstable; urgency=medium
+ .
+   * Non-maintainer upload.
+   * Add patch to activate and deactivate monitoring
+Author: krifa75 <yahiaoui.fakhri@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-09-04
+
+Index: eog-3.33.3/src/eog-list-store.c
+===================================================================
+--- eog-3.33.3.orig/src/eog-list-store.c
++++ eog-3.33.3/src/eog-list-store.c
+@@ -30,6 +30,7 @@
+ #include <string.h>
+ 
+ struct _EogListStorePrivate {
++  	gboolean is_monitoring;  /* Check if monitoring the directories */
+ 	GList *monitors;          /* Monitors for the directories */
+ 	gint initial_image;       /* The image that should be selected firstly by the view. */
+ 	GdkPixbuf *busy_image;    /* Loading image icon */
+@@ -39,6 +40,13 @@ struct _EogListStorePrivate {
+ 
+ G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
+ 
++enum {
++	SIGNAL_CLEAR_LIST_STORE,
++	SIGNAL_LAST
++};
++
++static gint signals[SIGNAL_LAST];
++
+ static void
+ foreach_monitors_free (gpointer data, gpointer user_data)
+ {
+@@ -46,17 +54,26 @@ foreach_monitors_free (gpointer data, gp
+ }
+ 
+ static void
++monitors_free(EogListStore *store)
++{
++  g_return_if_fail(EOG_IS_LIST_STORE(store));
++	if(store->priv->is_monitoring){
++	  g_list_foreach (store->priv->monitors,
++			  foreach_monitors_free, NULL);
++	  
++	  g_list_free (store->priv->monitors);
++	  
++	  store->priv->monitors = NULL;
++	}
++}
++
++static void
+ eog_list_store_dispose (GObject *object)
+ {
+ 	EogListStore *store = EOG_LIST_STORE (object);
+ 
+-	g_list_foreach (store->priv->monitors,
+-			foreach_monitors_free, NULL);
+-
+-	g_list_free (store->priv->monitors);
+-
+-	store->priv->monitors = NULL;
+-
++	monitors_free(store);
++	
+ 	if(store->priv->busy_image != NULL) {
+ 		g_object_unref (store->priv->busy_image);
+ 		store->priv->busy_image = NULL;
+@@ -87,6 +104,14 @@ eog_list_store_class_init (EogListStoreC
+ 
+ 	object_class->dispose = eog_list_store_dispose;
+ 	object_class->finalize = eog_list_store_finalize;
++
++	signals[SIGNAL_CLEAR_LIST_STORE] = g_signal_new("clear-list-store",
++							EOG_TYPE_LIST_STORE,
++							G_SIGNAL_RUN_LAST,
++							G_STRUCT_OFFSET(EogListStoreClass, clear_list_store),
++							NULL, NULL,
++							g_cclosure_marshal_VOID__VOID,
++							G_TYPE_NONE, 0);
+ }
+ 
+ /*
+@@ -158,6 +183,7 @@ eog_list_store_init (EogListStore *self)
+ 
+ 	self->priv = eog_list_store_get_instance_private (self);
+ 
++	self->priv->is_monitoring = TRUE;
+ 	self->priv->monitors = NULL;
+ 	self->priv->initial_image = -1;
+ 
+@@ -173,6 +199,8 @@ eog_list_store_init (EogListStore *self)
+ 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (self),
+ 					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+ 					      GTK_SORT_ASCENDING);
++
++	g_warning("%s : called\n", __func__);
+ }
+ 
+ /**
+@@ -330,6 +358,15 @@ eog_list_store_remove (EogListStore *sto
+ 	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
+ }
+ 
++void
++eog_list_store_clear (EogListStore *store)
++{
++  g_return_if_fail (EOG_IS_LIST_STORE (store));
++
++  gtk_list_store_clear (GTK_LIST_STORE (store));
++  g_signal_emit (store, signals[SIGNAL_CLEAR_LIST_STORE], 0);
++}
++
+ /**
+  * eog_list_store_append_image:
+  * @store: An #EogListStore.
+@@ -507,14 +544,15 @@ eog_list_store_append_directory (EogList
+ 				 GFile *file,
+ 				 GFileType file_type)
+ {
+-	GFileMonitor *file_monitor;
++	GFileMonitor *file_monitor = NULL;
+ 	GFileEnumerator *file_enumerator;
+ 	GFileInfo *file_info;
+ 
+ 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
+ 
+-	file_monitor = g_file_monitor_directory (file,
+-						 0, NULL, NULL);
++	if(store->priv->is_monitoring)
++	  file_monitor = g_file_monitor_directory (file,
++						   0, NULL, NULL);
+ 
+ 	if (file_monitor != NULL) {
+ 		g_signal_connect (file_monitor, "changed",
+@@ -604,7 +642,7 @@ eog_list_store_add_files (EogListStore *
+ 		if (file_type == G_FILE_TYPE_DIRECTORY) {
+ 			eog_list_store_append_directory (store, file, file_type);
+ 		} else if (file_type == G_FILE_TYPE_REGULAR &&
+-			   g_list_length (file_list) == 1) {
++			   g_list_length (file_list) == 1 && store->priv->is_monitoring) {
+ 
+ 			initial_file = g_file_dup (file);
+ 
+@@ -632,8 +670,8 @@ eog_list_store_add_files (EogListStore *
+ 				eog_list_store_append_image_from_file (store, initial_file, caption);
+ 			}
+ 			g_object_unref (file);
+-		} else if (file_type == G_FILE_TYPE_REGULAR &&
+-			   g_list_length (file_list) > 1) {
++		} else if (file_type == G_FILE_TYPE_REGULAR /* &&
++							       g_list_length (file_list) > 1*/) {
+ 			eog_list_store_append_image_from_file (store, file, caption);
+ 		}
+ 
+@@ -942,3 +980,36 @@ eog_list_store_thumbnail_refresh (EogLis
+ 	eog_list_store_remove_thumbnail_job (store, iter);
+ 	eog_list_store_add_thumbnail_job (store, iter);
+ }
++
++/**
++ * eog_get_is_monitoring:
++ * @store: An #EogListStore.
++ *
++ * Get the state of the monitors.
++ *
++ **/
++gboolean
++eog_list_store_get_monitoring(EogListStore *store)
++{
++	g_return_val_if_fail(EOG_IS_LIST_STORE(store), FALSE);
++	return store->priv->is_monitoring;
++}
++
++/**
++ * eog_set_is_monitoring:
++ * @store: An #EogListStore.
++ *
++ * Set the state of monitors.
++ *
++ **/
++void
++eog_list_store_set_monitoring(EogListStore *store,
++				 gboolean is_monitoring)
++{
++	g_return_if_fail(EOG_IS_LIST_STORE(store));
++	
++	if(!is_monitoring)
++	  monitors_free(store);
++
++	store->priv->is_monitoring = is_monitoring;
++}
+Index: eog-3.33.3/src/eog-list-store.h
+===================================================================
+--- eog-3.33.3.orig/src/eog-list-store.h
++++ eog-3.33.3/src/eog-list-store.h
+@@ -64,6 +64,7 @@ struct _EogListStore {
+ struct _EogListStoreClass {
+         GtkListStoreClass parent_class;
+ 
++  void (* clear_list_store) (EogListStore *store, gpointer data);
+ 	/* Padding for future expansion */
+ 	void (* _eog_reserved1) (void);
+ 	void (* _eog_reserved2) (void);
+@@ -107,6 +108,12 @@ void            eog_list_store_thumbnail
+ 
+ void            eog_list_store_thumbnail_refresh     (EogListStore *store,
+ 						      GtkTreeIter *iter);
++gboolean        eog_list_store_get_monitoring                (EogListStore *store);
++
++void            eog_list_store_set_monitoring                (EogListStore *store,
++								 gboolean is_monitoring);
++
++void eog_list_store_clear (EogListStore *store);
+ 
+ G_END_DECLS
+ 
