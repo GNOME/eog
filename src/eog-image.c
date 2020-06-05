@@ -809,9 +809,9 @@ eog_image_real_autorotate (EogImage *img)
 	type = (priv->orientation >= 1 && priv->orientation <= 8 ?
 		lookup[priv->orientation - 1] : EOG_TRANSFORM_NONE);
 
-	if (type != EOG_TRANSFORM_NONE) {
+	/* if (type != EOG_TRANSFORM_NONE) { */
 		img->priv->trans_autorotate = eog_transform_new (type);
-	}
+	/* } */
 
 	/* Disable auto orientation for next loads */
 	priv->autorotate = FALSE;
