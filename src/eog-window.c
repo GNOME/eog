@@ -939,12 +939,11 @@ image_file_changed_cb (EogImage *img, EogWindow *window)
 					      GTK_ICON_SIZE_DIALOG);
 	label = gtk_label_new (NULL);
 
-	/* The newline character is currently necessary due to a problem
-	 * with the automatic line break. */
 	text = g_strdup_printf (_("The image “%s” has been modified by an external application."
-				  "\nWould you like to reload it?"), eog_image_get_caption (img));
+				  " Would you like to reload it?"), eog_image_get_caption (img));
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
+	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 	g_free (text);
 	g_free (markup);
 
@@ -2686,13 +2685,12 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	if (!visible_filename)
 		basename = g_path_get_basename (filename);
 
-	/* The newline character is currently necessary due to a problem
-	 * with the automatic line break. */
 	text = g_strdup_printf (_("The image “%s” has been set as Desktop Background."
-				  "\nWould you like to modify its appearance?"),
+				  " Would you like to modify its appearance?"),
 				visible_filename ? visible_filename : basename);
 	markup = g_markup_printf_escaped ("<b>%s</b>", text);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
+	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 	g_free (markup);
 	g_free (text);
 	if (!visible_filename)
