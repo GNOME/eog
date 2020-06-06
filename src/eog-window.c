@@ -78,7 +78,7 @@
 #include <lcms2.h>
 #endif
 
-#define EOG_WINDOW_MIN_WIDTH  440
+#define EOG_WINDOW_MIN_WIDTH  360
 #define EOG_WINDOW_MIN_HEIGHT 350
 
 #define EOG_WINDOW_DEFAULT_WIDTH  540
