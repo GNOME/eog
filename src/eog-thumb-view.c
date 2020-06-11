@@ -1106,8 +1106,9 @@ eog_thumb_view_resize_thumbnails (EogThumbView *thumbview,
 
 
 void
-eog_thumb_view_set_text (EogThumbView *thumbview,
-			 gboolean set_ellipsize)
+eog_thumb_view_display_text (EogThumbView *thumbview,
+			     gboolean display,
+			     gboolean set_ellipsize)
 {
   g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
 
@@ -1117,24 +1118,29 @@ eog_thumb_view_set_text (EogThumbView *thumbview,
 				    thumbview->priv->text_cell,
 				    FALSE);
   }
-  
-  if (set_ellipsize)
-    g_object_set (thumbview->priv->text_cell,
-		  "ellipsize", PANGO_ELLIPSIZE_END,
-		  "width", 0,
-		  "yalign", 0.5,
-		  "xalign", 0.5,
-		  NULL);
-  
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
-  				  thumbview->priv->text_cell,
-  				  "text", EOG_LIST_STORE_EOG_NAME,
-  				  NULL);
 
+  if (!display) {
+    g_object_set (thumbview->priv->text_cell, "visible", display);
+  } else {
+  
+    if (set_ellipsize)
+      g_object_set (thumbview->priv->text_cell,
+		    "ellipsize", PANGO_ELLIPSIZE_END,
+		    "width", 0,
+		    "yalign", 0.5,
+		    "xalign", 0.5,
+		    NULL);
+    
+    gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
+				    thumbview->priv->text_cell,
+				    "text", EOG_LIST_STORE_EOG_NAME,
+				    NULL);
+    
   g_object_set (thumbview->priv->pixbuf_cell,
 		"width", -1,
 		NULL);
-    
+  g_object_set (thumbview->priv->text_cell, "visible", display);
+  }
   /* g_object_set(thumbview, "activate-on-single-click", TRUE, "margin", 0, "item-padding", 0, NULL); */
 
 }

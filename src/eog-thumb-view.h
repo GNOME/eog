@@ -86,8 +86,9 @@ void        eog_thumb_view_resize_thumbnails        (EogThumbView *thumbview,
 						     EogListStoreZoomThumbnails zoom,
 						     GtkAllocation *alloc_view);
 
-void        eog_thumb_view_set_text                 (EogThumbView *thumbview,
-						     gboolean set_ellipsize);
+void        eog_thumb_view_display_text                 (EogThumbView *thumbview,
+							 gboolean display,
+							 gboolean set_ellipsize);
 
 G_END_DECLS
 
