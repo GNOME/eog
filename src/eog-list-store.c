@@ -26,6 +26,7 @@
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
 #include "eog-jobs.h"
+#include "eog-sort-order.h"
 
 #include <string.h>
 
@@ -94,10 +95,10 @@ eog_list_store_class_init (EogListStoreClass *klass)
 */
 
 static gint
-eog_list_store_compare_func (GtkTreeModel *model,
-			     GtkTreeIter *a,
-			     GtkTreeIter *b,
-			     gpointer user_data)
+eog_list_store_compare_filename (GtkTreeModel *model,
+			         GtkTreeIter *a,
+			         GtkTreeIter *b,
+			         gpointer user_data)
 {
 	gint r_value;
 
@@ -119,6 +120,148 @@ eog_list_store_compare_func (GtkTreeModel *model,
 
 	return r_value;
 }
+
+static gint
+eog_list_store_compare_filename_reverse (GtkTreeModel *model,
+			                 GtkTreeIter *a,
+			                 GtkTreeIter *b,
+			                 gpointer user_data)
+{
+	gint r_value;
+
+	EogImage *image_a, *image_b;
+
+	gtk_tree_model_get (model, a,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_a,
+			    -1);
+
+	gtk_tree_model_get (model, b,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
+			    -1);
+
+	r_value = strcmp (eog_image_get_collate_key (image_b),
+			  eog_image_get_collate_key (image_a));
+
+	g_object_unref (G_OBJECT (image_a));
+	g_object_unref (G_OBJECT (image_b));
+
+	return r_value;
+}
+
+static gint
+eog_list_store_compare_mtime (GtkTreeModel *model,
+			      GtkTreeIter *a,
+			      GtkTreeIter *b,
+			      gpointer user_data)
+{
+	gint r_value;
+
+	EogImage *image_a, *image_b;
+
+	gtk_tree_model_get (model, a,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_a,
+			    -1);
+
+	gtk_tree_model_get (model, b,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
+			    -1);
+
+	r_value = eog_image_get_time_modified (image_a) > eog_image_get_time_modified (image_b);
+
+	g_object_unref (G_OBJECT (image_a));
+	g_object_unref (G_OBJECT (image_b));
+
+	return r_value;
+}
+
+static gint
+eog_list_store_compare_mtime_reverse (GtkTreeModel *model,
+			              GtkTreeIter *a,
+			              GtkTreeIter *b,
+			              gpointer user_data)
+{
+	gint r_value;
+
+	EogImage *image_a, *image_b;
+
+	gtk_tree_model_get (model, a,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_a,
+			    -1);
+
+	gtk_tree_model_get (model, b,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
+			    -1);
+
+	r_value = eog_image_get_time_modified (image_a) < eog_image_get_time_modified (image_b);
+
+	g_object_unref (G_OBJECT (image_a));
+	g_object_unref (G_OBJECT (image_b));
+
+	return r_value;
+}
+
+static gint
+eog_list_store_compare_filesize (GtkTreeModel *model,
+			         GtkTreeIter *a,
+			         GtkTreeIter *b,
+			         gpointer user_data)
+{
+	gint r_value;
+
+	EogImage *image_a, *image_b;
+
+	gtk_tree_model_get (model, a,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_a,
+			    -1);
+
+	gtk_tree_model_get (model, b,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
+			    -1);
+
+	r_value = eog_image_get_filesize (image_a) > eog_image_get_filesize (image_b);
+
+	g_object_unref (G_OBJECT (image_a));
+	g_object_unref (G_OBJECT (image_b));
+
+	return r_value;
+}
+
+static gint
+eog_list_store_compare_filesize_reverse (GtkTreeModel *model,
+			                 GtkTreeIter *a,
+			                 GtkTreeIter *b,
+			                 gpointer user_data)
+{
+	gint r_value;
+
+	EogImage *image_a, *image_b;
+
+	gtk_tree_model_get (model, a,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_a,
+			    -1);
+
+	gtk_tree_model_get (model, b,
+			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
+			    -1);
+
+	r_value = eog_image_get_filesize (image_a) < eog_image_get_filesize (image_b);
+
+	g_object_unref (G_OBJECT (image_a));
+	g_object_unref (G_OBJECT (image_b));
+
+	return r_value;
+}
+
+static gint
+(*eog_list_store_compare_functions[6]) (GtkTreeModel *model,
+			                GtkTreeIter *a,
+			                GtkTreeIter *b,
+			                gpointer user_data) = { eog_list_store_compare_filename,
+                                                                eog_list_store_compare_filename_reverse,
+                                                                eog_list_store_compare_mtime,
+                                                                eog_list_store_compare_mtime_reverse,
+                                                                eog_list_store_compare_filesize,
+                                                                eog_list_store_compare_filesize_reverse };
 
 static GdkPixbuf *
 eog_list_store_get_icon (const gchar *icon_name)
@@ -167,7 +310,7 @@ eog_list_store_init (EogListStore *self)
 	g_mutex_init (&self->priv->mutex);
 
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
-						 eog_list_store_compare_func,
+						 eog_list_store_compare_functions[ eog_get_sort_algorithm() ],
 						 NULL, NULL);
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (self),
@@ -941,4 +1084,19 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 {
 	eog_list_store_remove_thumbnail_job (store, iter);
 	eog_list_store_add_thumbnail_job (store, iter);
+}
+
+/**
+ * eog_list_store_resort:
+ * @store: An #EogListStore.
+ *
+ * Resorts the store according to eog_get_sort_algorithm().
+ *
+ **/
+void
+eog_list_store_resort (EogListStore *store)
+{
+	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
+						 eog_list_store_compare_functions[ eog_get_sort_algorithm() ],
+						 NULL, NULL);
 }

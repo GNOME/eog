@@ -67,4 +67,6 @@
 
 #define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active-plugins"
 
+#define EOG_CONF_SORT_ALGORITHM                 "sort-algorithm"
+
 #endif /* __EOG_CONFIG_KEYS_H__ */

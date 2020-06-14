@@ -57,6 +57,7 @@
 #include "eog-window-activatable.h"
 #include "eog-metadata-sidebar.h"
 #include "eog-zoom-entry.h"
+#include "eog-sort-order.h"
 
 #include "eog-enum-types.h"
 
@@ -210,6 +211,7 @@ static void eog_window_finish_saving (EogWindow *window);
 static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    gint        response_id,
 						    EogWindow  *window);
+static void eog_window_sort_action_selected (GSimpleAction *action, GVariant *state, gpointer user_data);
 
 static GQuark
 eog_window_error_quark (void)
@@ -4013,6 +4015,12 @@ static const GActionEntry window_actions[] = {
 	{ "view-fullscreen", NULL, NULL, "false", eog_window_action_toggle_fullscreen },
 	{ "pause-slideshow", NULL, NULL, "false", eog_window_action_pause_slideshow },
 	{ "toggle-zoom-fit", NULL, NULL, "true",  eog_window_action_toggle_zoom_fit },
+    { "sort-a-z",                   NULL, NULL, "true",  eog_window_sort_action_selected },
+    { "sort-z-a",                   NULL, NULL, "false", eog_window_sort_action_selected },
+    { "sort-last-modified",         NULL, NULL, "false", eog_window_sort_action_selected },
+    { "sort-first-modified",        NULL, NULL, "false", eog_window_sort_action_selected },
+    { "sort-smallest-to-largest",   NULL, NULL, "false", eog_window_sort_action_selected },
+    { "sort-largest-to-smallest",   NULL, NULL, "false", eog_window_sort_action_selected },
 };
 
 static void
@@ -5598,3 +5606,51 @@ eog_window_close (EogWindow *window)
 		gtk_widget_destroy (GTK_WIDGET (window));
 	}
 }
+
+static void
+eog_window_sort_action_selected (GSimpleAction *action,
+				     GVariant      *state,
+				     gpointer       user_data)
+{
+    const static gchar* ids[] = {
+        "sort-a-z",
+        "sort-z-a",
+        "sort-last-modified",
+        "sort-first-modified",
+        "sort-smallest-to-largest",
+        "sort-largest-to-smallest"};
+    const static gint ids_len = 6;
+
+	EogWindow *window;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	window = EOG_WINDOW (user_data);
+
+    // Enable selected.
+    g_simple_action_set_state (action, g_variant_new_boolean(True));
+
+    // Disable others.
+    for (int i = 0; i < ids_len; ++i) {
+        GAction *other_action =
+            g_action_map_lookup_action (G_ACTION_MAP (window), ids[i]);
+        if (other_action) {
+            if (other_action == action) {
+                // Set the sort order.
+                eog_set_sort_algorithm (i);
+                EogThumbView *thumbview = EOG_THUMB_VIEW (window->priv->thumbview);
+                GtkTreeModel *model = gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview));
+                EogListStore *liststore = EOG_LIST_STORE (model);
+                eog_list_store_resort (liststore);
+                // Set preference. Must test with updated schema first!
+                //g_settings_set_int (window->priv->ui_settings, EOG_CONF_SORT_ALGORITHM, i);
+            }
+            else {
+                g_simple_action_set_state (other_action, g_variant_new_boolean(False));
+            }
+        }
+    }
+}
+
