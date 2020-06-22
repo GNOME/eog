@@ -109,6 +109,7 @@ gio_dep = dependency('gio-2.0', version: glib_req_version)
 gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
 libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
+libportal_dep = dependency('libportal', version: '>= 0.3')
 
 m_dep = cc.find_library('m')
 
