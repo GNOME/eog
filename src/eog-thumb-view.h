@@ -82,6 +82,8 @@ void        eog_thumb_view_set_current_image	    (EogThumbView *thumbview,
 void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *thumbview,
 						     GtkMenu      *menu);
 
+void        eog_thumb_view_resort		    (EogThumbView *thumbview);
+
 G_END_DECLS
 
 #endif /* EOG_THUMB_VIEW_H */

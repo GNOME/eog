@@ -27,5 +27,5 @@ eog_get_sort_algorithm (void)
 void
 eog_set_sort_algorithm (gint algorithm)
 {
-  EogSortAlgorithm = algorithm;
+	EogSortAlgorithm = algorithm;
 }

@@ -1096,6 +1096,10 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 void
 eog_list_store_resort (EogListStore *store)
 {
+	if (store == NULL) {
+		return;
+	}
+
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
 						 eog_list_store_compare_functions[ eog_get_sort_algorithm() ],
 						 NULL, NULL);

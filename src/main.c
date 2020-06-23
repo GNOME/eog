@@ -33,7 +33,7 @@
 #include "eog-application.h"
 #include "eog-application-internal.h"
 #include "eog-plugin-engine.h"
-#include "eog-sort-order.h"
+//#include "eog-sort-order.h"
 #include "eog-util.h"
 
 #include <string.h>
@@ -47,7 +47,7 @@ static gboolean slide_show = FALSE;
 static gboolean disable_gallery = FALSE;
 static gboolean force_new_instance = FALSE;
 static gboolean single_window = FALSE;
-static gboolean sort_algorithm = FALSE;
+//static gint sort_algorithm = -1;
 
 static gboolean
 _print_version_and_exit (const gchar *option_name,
@@ -67,7 +67,7 @@ static const GOptionEntry goption_options[] =
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slideshow mode"), NULL  },
 	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
 	{ "single-window", 'w', 0, G_OPTION_ARG_NONE, &single_window, N_("Open in a single window, if multiple windows are open the first one is used"), NULL },
-	{ "sort", 0, 0, G_OPTION_ARG_INT, &sort_algorithm, N_("Sort image gallery by algorithm N (valid values 0-5, default 0)"), "N" },
+	//{ "sort", 0, 0, G_OPTION_ARG_INT, &sort_algorithm, N_("Sort image gallery by algorithm N (valid values 0-5, default 0)"), "N" },
 	{ "version", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	  _print_version_and_exit, N_("Show the application’s version"), NULL},
 	{ NULL }
@@ -88,8 +88,12 @@ set_startup_flags (void)
   if (single_window)
     flags |= EOG_STARTUP_SINGLE_WINDOW;
 
-  if (sort_algorithm)
-    eog_set_sort_algorithm (sort_algorithm);
+  //if (sort_algorithm)
+    //if (sort_algorithm >= 0 && sort_algorithm <= 5)
+        //flags |= EOG_STARTUP_SORT_ALGORITHM;
+        // Need to store value of sort_algorithm somewhere, too.
+    //else
+        //g_print("Invalid sorting algorithm selected (%i), defaulting to 0.\n", sort_algorithm);
 }
 
 int
@@ -127,10 +131,6 @@ main (int argc, char **argv)
         }
 	g_option_context_free (ctx);
 
-	if (eog_get_sort_algorithm() > 5 || eog_get_sort_algorithm() < 0) {
-		g_print("Invalid sorting algorithm selected (%i), defaulting to 0.\n", eog_get_sort_algorithm());
-		eog_set_sort_algorithm(0);
-	}
 	set_startup_flags ();
 
 	EOG_APP->priv->flags = flags;
