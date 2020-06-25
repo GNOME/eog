@@ -26,16 +26,21 @@
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
 #include "eog-jobs.h"
-
+#include "eog-config-keys.h"
 #include <string.h>
 
 struct _EogListStorePrivate {
+	GSettings           *ui_settings;
+
   //  	gboolean is_monitoring;  /* Check if monitoring the directories */
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
 	GdkPixbuf *missing_image; /* Missing image icon */
 	GMutex mutex;             /* Mutex for saving the jobs in the model */
+
+	gint thumb_size;
+	gboolean add_frame;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
@@ -175,7 +180,10 @@ eog_list_store_init (EogListStore *self)
 
 	self->priv = eog_list_store_get_instance_private (self);
 
-	//	self->priv->is_monitoring = TRUE;
+	self->priv->ui_settings = g_settings_new (EOG_CONF_UI);
+	self->priv->thumb_size = g_settings_get_enum (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_SIZE);
+	self->priv->add_frame = g_settings_get_boolean (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_ADD_FRAME);
+
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
@@ -878,7 +886,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 		return;
 	}
 
-	job = eog_job_thumbnail_new (image);
+	job = eog_job_thumbnail_new (image, store->priv->add_frame, store->priv->thumb_size);
 
 	g_signal_connect (job,
 			  "finished",
