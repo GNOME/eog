@@ -1,13 +1,131 @@
-eog (3.35.93) buster; urgency=medium
+eog (3.36.2) unstable; urgency=medium
 
-  * Non-maintainer upload.
-  * Add patch to activate and deactivate monitoring
+  * New upstream release
 
- -- krifa75 <yahiaoui.fakhri@gmail.com>  Tue, 30 Jul 2019 16:40:48 +0200
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 30 Apr 2020 12:05:09 +0200
+
+eog (3.36.1-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sat, 28 Mar 2020 22:31:12 -0400
+
+eog (3.36.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/control.in: Bump Standards-Version to 4.5.0 (no further changes)
+
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 08 Mar 2020 17:33:47 +0100
+
+eog (3.35.92-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 02 Mar 2020 15:20:56 +0100
+
+eog (3.35.91-1) experimental; urgency=medium
+
+  * New upstream release
+  * control, compat: Move to declaring compat via debhelper-compat & level 12
+
+ -- Iain Lane <laney@debian.org>  Thu, 20 Feb 2020 10:06:33 +0000
+
+eog (3.34.1-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Tim Lunn <tim@feathertop.org>  Tue, 08 Oct 2019 18:24:54 +1100
+
+eog (3.34.0-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 10 Sep 2019 09:32:19 +0200
+
+eog (3.33.91-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 21 Aug 2019 13:35:23 +0200
+
+eog (3.33.90-2) experimental; urgency=medium
+
+  * debian/rules:
+    - include the private library subdir in the call to dh_girepository 
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 12 Aug 2019 17:41:35 +0200
+
+eog (3.33.90-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/control.in:
+    - updated meson and librsvg requirements
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 09 Aug 2019 17:23:29 +0200
+
+eog (3.32.1-1) experimental; urgency=medium
+
+  * New upstream release
+  * d/p/EogWindow-Don-t-unref-timer-sources-before-destroying-the.patch:
+    - remove, included in the new version
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 09 Apr 2019 10:52:56 +0200
+
+eog (3.32.0-2) experimental; urgency=medium
+
+  * d/p/EogWindow-Don-t-unref-timer-sources-before-destroying-the.patch:
+    - Don't unref timer sources before destroying them.
+      Resolves a segfault in slideshow mode (lp: #1823148)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 08 Apr 2019 10:49:46 +0200
+
+eog (3.32.0-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- Jeremy Bicha <jbicha@debian.org>  Tue, 12 Mar 2019 20:11:28 -0400
+
+eog (3.31.90-1) experimental; urgency=medium
+
+  * New upstream development release
+  * Build-Depend on dh-sequence-gir and dh-sequence-gnome
+
+ -- Jeremy Bicha <jbicha@debian.org>  Wed, 06 Feb 2019 15:09:38 -0500
+
+eog (3.28.4-2) unstable; urgency=medium
+
+  * Restore -Wl,-O1 to our LDFLAGS
+  * Bump Standards-Version to 4.3.0
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sun, 23 Dec 2018 20:07:15 -0500
+
+eog (3.28.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * Drop unneeded dh_translations overrides
+
+ -- Jeremy Bicha <jbicha@debian.org>  Tue, 09 Oct 2018 23:05:39 -0400
+
+eog (3.28.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+  * Set Rules-Requires-Root to no
+  * Standards-Version: 4.1.5 (no changes required)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 26 Jul 2018 10:56:47 +0100
+
+eog (3.28.2-1) unstable; urgency=medium
+
+  * New upstream release
+  * Bump Standards-Version to 4.1.4
+  * Update debian/gbp.conf
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sun, 20 May 2018 17:21:34 -0400
 
 eog (3.28.1-1) unstable; urgency=medium
 
-  * New upstream release 
+  * New upstream release
 
  -- Tim Lunn <tim@feathertop.org>  Sat, 14 Apr 2018 13:36:44 +1000
 

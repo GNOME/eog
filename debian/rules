@@ -1,11 +1,10 @@
 #! /usr/bin/make -f
--include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-O1 -Wl,-z,defs -Wl,--as-needed
 
 %:
-	dh $@ --with gir,gnome
+	dh $@
 
 override_dh_auto_configure:
 	dh_auto_configure -- -Dgtk_doc=true
@@ -13,14 +12,5 @@ override_dh_auto_configure:
 override_dh_missing:
 	dh_missing --fail-missing
 
-# override_dh_girepository:
-# 	dh_girepository -ldebian/tmp/usr/share/eog/gir-1.0/ /usr/lib/$(DEB_HOST_MULTIARCH)/eog/girepository-1.0/
-
-# Needed by Ubuntu
-override_dh_translations:
-	ninja -C obj-$(DEB_HOST_GNU_TYPE) eog-pot
-	dh_translations
-
-override_dh_auto_clean:
-	dh_auto_clean
-	rm -f po/eog.pot
+override_dh_girepository:
+	dh_girepository -ldebian/tmp/usr/share/eog/gir-1.0/ /usr/lib/$(DEB_HOST_MULTIARCH)/eog /usr/lib/$(DEB_HOST_MULTIARCH)/eog/girepository-1.0/
