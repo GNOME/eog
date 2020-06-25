@@ -119,7 +119,7 @@ get_nothumb_pixbuf (void)
 	return GDK_PIXBUF (g_object_ref (nothumb_once.retval));
 }
 
-/*  Since we connect in the costructor we are sure this handler will be called
+/*  Since we connect in the constructor we are sure this handler will be called
  *  before the user ones
  */
 static void

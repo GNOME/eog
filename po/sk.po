@@ -13,23 +13,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-03-19 20:09+0000\n"
-"PO-Revision-Date: 2019-03-24 20:35+0100\n"
+"POT-Creation-Date: 2020-01-29 21:34+0000\n"
+"PO-Revision-Date: 2020-01-30 07:06+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0\n"
-"X-Generator: Gtranslator 3.30.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Oko prostredia GNOME"
 
 # desltop entry comment
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Prehliada a otáča obrázky"
 
@@ -55,25 +55,6 @@ msgstr ""
 "prečítať značky fotoaparátu a na základe toho správne nastaviť orientáciu "
 "obrázka na výšku alebo na šírku."
 
-# desktop entry name
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "Prehliadač obrázkov"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "org.gnome.eog"
-msgstr "org.gnome.eog"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Obrázok;Prezentácia;Grafika;Prehliadanie;"
-
 # action entry
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -81,7 +62,6 @@ msgstr "_Otvoriť…"
 
 # action entry
 #: data/eog-gear-menu.ui:10
-#| msgid "Open _With"
 msgid "Op_en With"
 msgstr "Otvoriť _s"
 
@@ -109,7 +89,6 @@ msgstr "_Nastaviť ako pozadie"
 
 # GtkDialog title
 #: data/eog-gear-menu.ui:37
-#| msgid "Image Properties"
 msgid "Image Prope_rties"
 msgstr "V_lastnosti obrázka"
 
@@ -153,7 +132,6 @@ msgstr "_Pomocník"
 
 # desktop entry name
 #: data/eog-gear-menu.ui:80
-#| msgid "Image Viewer"
 msgid "_About Image Viewer"
 msgstr "_O aplikácii Prehliadač obrázkov"
 
@@ -293,7 +271,7 @@ msgstr "Uloženie ako"
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
 #: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-window.c:3518
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -471,7 +449,6 @@ msgstr "Zásuvné moduly"
 
 # tooltip
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Zmenší obrázok"
 
@@ -491,7 +468,7 @@ msgid "_First Image"
 msgstr "P_rvý obrázok"
 
 # tooltip
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2352
 msgid "Go to the previous image of the gallery"
 msgstr "Prejde na predchádzajúci obrázok galérie"
 
@@ -501,7 +478,7 @@ msgid "_Previous Image"
 msgstr "_Predchádzajúci obrázok"
 
 # tooltip
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2340
 msgid "Go to the next image of the gallery"
 msgstr "Prejde na nasledujúci obrázok galérie"
 
@@ -530,10 +507,20 @@ msgstr "Z_väčšiť"
 msgid "Zoom _Out"
 msgstr "Z_menšiť"
 
+# tooltip
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Zobrazí obrázok v jeho pôvodnej veľkosti"
+
 # action entry
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "No_rmálna veľkosť"
+
+# tooltip
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Prispôsobí obrázok veľkosti okna"
 
 # action entry
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
@@ -541,7 +528,7 @@ msgid "_Best Fit"
 msgstr "Na_jlepšia veľkosť"
 
 # tooltip
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2367
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Otočí obrázok o 90 stupňov doľava"
 
@@ -551,7 +538,7 @@ msgid "Rotate Counter_clockwise"
 msgstr "Otočiť _proti smeru hodinových ručičiek"
 
 # tooltip
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2378
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Otočí obrázok o 90 stupňov doprava"
 
@@ -642,103 +629,167 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Otvorenie príručky pre túto aplikáciu"
 
-#: data/help-overlay.ui:90
+# cmd desc
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Zobrazenie/skrytie ponuky aplikácie"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Klávesové skratky"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Priblíženie"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Zväčšenie"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Zmenšenie"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Aktuálna veľkosť"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Najlepšia veľkosť"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Prehliadanie obrázkov"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
+#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "Prejdenie na predchádzajúci obrázok v priečinku"
 
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:178
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Prejdenie na nasledujúci obrázok v priečinku"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:185
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Prejdenie na prvý obrázok v priečinku"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:192
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Prejdenie na posledný obrázok v priečinku"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:199
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Prejdenie na náhodný obrázok v priečinku"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:206
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Zobrazenie alebo skrytie galérie obrázkov"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Otočenie"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:218 data/help-overlay.ui:233
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Otočenie doprava"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:225 data/help-overlay.ui:240
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Otočenie doľava"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:248
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Režim na celú obrazovku"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:253
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Zahájenie alebo opustenie režimu na celú obrazovku"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:260
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Spustenie alebo zastavenie prezentácie"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:267
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Pozastavenie prezentácie"
 
+#: data/help-overlay.ui:275
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Spoločné"
+
+#: data/help-overlay.ui:280
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Kopírovanie do schránky"
+
+# action entry
+#: data/help-overlay.ui:287
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Vrátenie späť"
+
+# button
+#: data/help-overlay.ui:294
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Presun do Koša"
+
+#: data/help-overlay.ui:301
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Trvalé odstránenie obrázku"
+
+# label
+#: data/help-overlay.ui:309
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Rolovanie"
+
+#: data/help-overlay.ui:314
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Rolovanie doľava vo veľkom obrázku"
+
+#: data/help-overlay.ui:321
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Rolovanie doprava vo veľkom obrázku"
+
+#: data/help-overlay.ui:328
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Rolovanie nahor vo veľkom obrázku"
+
+#: data/help-overlay.ui:335
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Rolovanie nadol vo veľkom obrázku"
+
 # frame
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Veľkosť"
 
@@ -791,6 +842,20 @@ msgstr "Čas"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "Ohnisková vzdialenosť"
+
+# desktop entry name
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5558
+msgid "Image Viewer"
+msgstr "Prehliadač obrázkov"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Obrázok;Prezentácia;Grafika;Prehliadanie;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -1028,7 +1093,7 @@ msgid ""
 msgstr ""
 "Zoznam aktívnych zásuvných modulov. Neobsahuje „Umiestnenie“ aktívnych "
 "zásuvných modulov. Ak chcete zistiť „Umiestnenie“ aktívnych modulov pozrite "
-"si, prosím, súbor .eog-plugin"
+"si, prosím, súbor .eog-plugin."
 
 # action entry
 #: data/popup-menus.ui:6
@@ -1041,7 +1106,7 @@ msgid "_Copy"
 msgstr "_Kopírovať"
 
 # button
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:35 src/eog-window.c:3521
 msgid "Move to _Trash"
 msgstr "Presunúť do _Koša"
 
@@ -1063,12 +1128,6 @@ msgstr "Na_jlepšia veľkosť"
 msgid "Fullscreen with double-click"
 msgstr "Režim na celú obrazovku pomocou dvojitého kliknutia"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
-
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
 msgstr "Aktivuje režim na celú obrazovku dvojitým kliknutím"
@@ -1078,12 +1137,6 @@ msgstr "Aktivuje režim na celú obrazovku dvojitým kliknutím"
 #: plugins/reload/reload.plugin.desktop.in:5
 msgid "Reload Image"
 msgstr "Znovu načítať obrázok"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
 
 # plugin description
 #: plugins/reload/reload.plugin.desktop.in:9
@@ -1273,27 +1326,27 @@ msgstr "Transformácia nenačítaného obrázka."
 msgid "Transformation failed."
 msgstr "Transformácia zlyhala."
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1074
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Tento formát súboru nepodporuje EXIF."
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1215
 #, c-format
 msgid "Image loading failed."
 msgstr "Načítanie obrázka zlyhalo."
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1797 src/eog-image.c:1917
 #, c-format
 msgid "No image loaded."
 msgstr "Nenačítal sa žiaden obrázok."
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1805 src/eog-image.c:1926
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Nemáte práva potrebné na uloženie súboru."
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1815 src/eog-image.c:1937
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Nepodarilo sa vytvoriť dočasný súbor."
@@ -1405,107 +1458,107 @@ msgid "Image Settings"
 msgstr "Nastavenia obrázka"
 
 # property nick
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Obrázok"
 
 # property blurb
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "Obrázok, ktorému sa nastavia vlastnosti pre tlač"
 
 # probperty nick
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Nastavenie stránky"
 
 # property blurb
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Informácie pre stránku, kde bude obrázok vytlačený"
 
 # frame
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Pozícia"
 
 # label
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "_Vľavo:"
 
 # label
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "V_pravo:"
 
 # label
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "_Hore:"
 
 # label
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "_Dole:"
 
 # label
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "Vy_centrovanie:"
 
 # vycentrovanie
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Žiadne"
 
 # vycentrovanie
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "Vodorovné"
 
 # vycentrovanie
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "Zvislé"
 
 # vycentrovanie
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "Obe"
 
 # label
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "Ší_rka:"
 
 # label
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "_Výška:"
 
 # label
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "_Mierka:"
 
 # label
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "_Jednotky:"
 
 # jednotky
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Milimetre"
 
 # jednotky
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Palce"
 
 # frame
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Náhľad"
 
@@ -1560,9 +1613,9 @@ msgstr " (chybný Unicode)"
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
-msgstr[0] "„%i × %i pixelov  %s    %i %%“"
-msgstr[1] "„%i × %i pixel  %s    %i %%“"
-msgstr[2] "„%i × %i pixely  %s    %i %%“"
+msgstr[0] "%i × %i pixelov  %s    %i %%"
+msgstr[1] "%i × %i pixel  %s    %i %%"
+msgstr[2] "%i × %i pixely  %s    %i %%"
 
 #: src/eog-window.c:934 src/eog-window.c:2677
 msgctxt "MessageArea"
@@ -1611,7 +1664,7 @@ msgstr ""
 
 #: src/eog-window.c:2626 src/eog-window.c:2641
 msgid "Error launching System Settings: "
-msgstr "Chyba pri spúštaní systémových nastavení:"
+msgstr "Chyba pri spúštaní systémových nastavení: "
 
 #: src/eog-window.c:2675
 msgid "_Open Background Preferences"
@@ -1660,17 +1713,17 @@ msgstr[2] ""
 "%d vybrané obrázky?"
 
 # GtkActionEnty
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3284 src/eog-window.c:3529
 msgid "_Delete"
 msgstr "O_dstrániť"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3287 src/eog-window.c:3531
 msgid "_Yes"
 msgstr "Á_no"
 
 # checkbutton
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3291 src/eog-window.c:3523
 msgid "Do _not ask again during this session"
 msgstr "_Počas tejto relácie sa už nepýtať"
 
@@ -1684,18 +1737,18 @@ msgstr "Nepodarilo sa získať súbor obrázka"
 msgid "Couldn’t retrieve image file information"
 msgstr "Nepodarilo sa získať informácie o súbore obrázka"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3367 src/eog-window.c:3590
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Nebolo možné odstrániť súbor"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3412 src/eog-window.c:3686
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba pri odstraňovaní obrázka %s"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1704,7 +1757,7 @@ msgstr ""
 "Naozaj chcete presunúť\n"
 "obrázok „%s“ do Koša?"
 
-#: src/eog-window.c:3515
+#: src/eog-window.c:3494
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1712,7 +1765,7 @@ msgid ""
 msgstr ""
 "Nie je možné nájsť Kôš pre „%s“. Chcete natrvalo odstrániť tento obrázok?"
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3499
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1730,7 +1783,7 @@ msgstr[2] ""
 "Naozaj chcete presunúť\n"
 "%d zvolené obrázky do koša?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3504
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1738,31 +1791,31 @@ msgstr ""
 "Niektoré z vybraných obrázkov nemôžu byť presunuté do koša a budú trvale "
 "odstránené. Naozaj chcete pokračovať?"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3568 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Nepodarilo sa získať prístup ku Košu."
 
 # tooltip
-#: src/eog-window.c:4270
+#: src/eog-window.c:4230
 msgid "Shrink or enlarge the current image"
 msgstr "Zmenší alebo zväčší aktuálny obrázok"
 
 # tooltip
-#: src/eog-window.c:4329
+#: src/eog-window.c:4289
 msgid "Show the current image in fullscreen mode"
 msgstr "Zobrazí aktuálny obrázok na celú obrazovku"
 
 # action entry
-#: src/eog-window.c:4406
+#: src/eog-window.c:4366
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "Prehliadač obrázkov pre prostredie GNOME."
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "Laco Gubík <lacogubik@gmail.com>\n"
@@ -1828,6 +1881,15 @@ msgstr ""
 "Úplný zoznam dostupných možností príkazového riadka získate spustením „%s --"
 "help“."
 
+#~ msgid "org.gnome.eog"
+#~ msgstr "org.gnome.eog"
+
+#~ msgid "view-fullscreen"
+#~ msgstr "view-fullscreen"
+
+#~ msgid "view-refresh"
+#~ msgstr "view-refresh"
+
 # action entry
 #~ msgid "_About"
 #~ msgstr "O _programe"
@@ -1869,10 +1931,6 @@ msgstr ""
 
 #~ msgid "1500%"
 #~ msgstr "1500%"
-
-# tooltip
-#~ msgid "Fit the image to the window"
-#~ msgstr "Prispôsobí obrázok veľkosti okna"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Rotate counter-clockwise"
@@ -2015,10 +2073,6 @@ msgstr ""
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "Zobrazí vlastnosti a meta-údaje vybraného obrázka"
 
-# action entry
-#~ msgid "_Undo"
-#~ msgstr "Vrátiť _späť"
-
 # tooltip
 #~ msgid "Undo the last change in the image"
 #~ msgstr "Vráti späť poslednú úpravu obrázka"
@@ -2058,10 +2112,6 @@ msgstr ""
 # tooltip
 #~ msgid "Copy the selected image to the clipboard"
 #~ msgstr "Skopíruje vybraný obrázok do schránky"
-
-# tooltip
-#~ msgid "Show the image at its normal size"
-#~ msgstr "Zobrazí obrázok v jeho pôvodnej veľkosti"
 
 # action entry
 #~ msgid "_Random Image"

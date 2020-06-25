@@ -42,8 +42,11 @@
 #define CHECK_LIGHT "#cccccc"
 #define CHECK_WHITE "#ffffff"
 
-/* Time used for the realing animation of the overlaid buttons */
+/* Time used for the revealing animation of the overlaid buttons */
 #define OVERLAY_REVEAL_ANIM_TIME (500U) /* ms */
+
+/* from cairo-image-surface.c */
+#define MAX_IMAGE_SIZE 32767
 
 /* Signal IDs */
 enum {
@@ -206,12 +209,29 @@ create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 {
 	cairo_surface_t *surface;
 	cairo_t *cr;
+	gint w, h;
+	gboolean size_invalid = FALSE;
+
+	w = gdk_pixbuf_get_width (pixbuf);
+	h = gdk_pixbuf_get_height (pixbuf);
+
+	if (w > MAX_IMAGE_SIZE || h > MAX_IMAGE_SIZE) {
+		g_warning ("Image dimensions too large to process");
+		w = 50;
+		h = 50;
+		size_invalid = TRUE;
+	}
 
 	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
 	                                             CAIRO_CONTENT_COLOR | CAIRO_CONTENT_ALPHA,
-	                                             gdk_pixbuf_get_width (pixbuf),
-	                                             gdk_pixbuf_get_height (pixbuf));
+	                                             w, h);
+
+	if (size_invalid) {
+		return surface;
+	}
+
 	cairo_surface_set_device_scale (surface, 1.0, 1.0);
+
 	cr = cairo_create (surface);
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 	cairo_paint (cr);
@@ -1993,7 +2013,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
  * eog_scroll_view_get_image:
  * @view: An #EogScrollView.
  *
- * Gets the the currently displayed #EogImage.
+ * Gets the currently displayed #EogImage.
  *
  * Returns: (transfer full): An #EogImage.
  **/
