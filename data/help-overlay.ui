@@ -153,13 +153,23 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="title" translatable="yes" context="shortcut window">Go to the previous image in the folder</property>
+                <property name="direction">GTK_TEXT_DIR_LTR</property>
+                <property name="title" translatable="yes" context="shortcut window">Go to the next image in the folder</property>
                 <property name="shortcut-type">gesture-two-finger-swipe-left</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_RTL</property>
+                <property name="title" translatable="yes" context="shortcut window">Go to the next image in the folder</property>
+                <property name="shortcut-type">gesture-two-finger-swipe-right</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_LTR</property>
                 <property name="title" translatable="yes" context="shortcut window">Go to the previous image in the folder</property>
                 <property name="shortcut-type">gesture-two-finger-swipe-right</property>
               </object>
@@ -167,6 +177,15 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_RTL</property>
+                <property name="title" translatable="yes" context="shortcut window">Go to the previous image in the folder</property>
+                <property name="shortcut-type">gesture-two-finger-swipe-left</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_LTR</property>
                 <property name="accelerator">Left</property>
                 <property name="title" translatable="yes" context="shortcut window">Go to the previous image in the folder</property>
               </object>
@@ -174,7 +193,24 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_RTL</property>
                 <property name="accelerator">Right</property>
+                <property name="title" translatable="yes" context="shortcut window">Go to the previous image in the folder</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_LTR</property>
+                <property name="accelerator">Right</property>
+                <property name="title" translatable="yes" context="shortcut window">Go to the next image in the folder</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="direction">GTK_TEXT_DIR_RTL</property>
+                <property name="accelerator">Left</property>
                 <property name="title" translatable="yes" context="shortcut window">Go to the next image in the folder</property>
               </object>
             </child>

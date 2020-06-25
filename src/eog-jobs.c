@@ -1318,11 +1318,6 @@ static void
 eog_job_thumbnail_run (EogJob *job)
 {
 	EogJobThumbnail *job_thumbnail;
-	gchar           *original_width;
-	gchar           *original_height;
-	gint             width;
-	gint             height;
-	GdkPixbuf       *pixbuf;
 
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
@@ -1339,36 +1334,42 @@ eog_job_thumbnail_run (EogJob *job)
 	job_thumbnail->thumbnail = eog_thumbnail_load (job_thumbnail->image,
 						       &job->error);
 
-	if (!job_thumbnail->thumbnail) {
-		job->finished = TRUE;
-		return;
-	}
+	if (job_thumbnail->thumbnail) {
+		GdkPixbuf *pixbuf;
+		gchar     *original_width;
+		gchar     *original_height;
+		gint       width;
+		gint       height;
 
-	/* create the image thumbnail */
-	original_width  = g_strdup (gdk_pixbuf_get_option (job_thumbnail->thumbnail, "tEXt::Thumb::Image::Width"));
-	original_height = g_strdup (gdk_pixbuf_get_option (job_thumbnail->thumbnail, "tEXt::Thumb::Image::Height"));
+		/* create the image thumbnail */
+		original_width  = g_strdup (gdk_pixbuf_get_option
+					    (job_thumbnail->thumbnail,
+					     "tEXt::Thumb::Image::Width"));
+		original_height = g_strdup (gdk_pixbuf_get_option
+					    (job_thumbnail->thumbnail,
+					     "tEXt::Thumb::Image::Height"));
 
-	pixbuf = eog_thumbnail_fit_to_size (job_thumbnail->thumbnail,
-					    job_thumbnail->size_thumbnail);
+		pixbuf = eog_thumbnail_fit_to_size (job_thumbnail->thumbnail,
+						    job_thumbnail->size_thumbnail);
 
-	g_object_unref (job_thumbnail->thumbnail);
-	job_thumbnail->thumbnail = pixbuf;//eog_thumbnail_add_frame (pixbuf);
-	//	g_object_unref (pixbuf);
+		g_object_unref (job_thumbnail->thumbnail);
+		job_thumbnail->thumbnail = pixbuf;
 
-	if (original_width) {
-		sscanf (original_width, "%i", &width);
-		g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
-				   EOG_THUMBNAIL_ORIGINAL_WIDTH,
-				   GINT_TO_POINTER (width));
-		g_free (original_width);
-	}
+		if (original_width) {
+			sscanf (original_width, "%i", &width);
+			g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
+					   EOG_THUMBNAIL_ORIGINAL_WIDTH,
+					   GINT_TO_POINTER (width));
+			g_free (original_width);
+		}
 
-	if (original_height) {
-		sscanf (original_height, "%i", &height);
-		g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
-				   EOG_THUMBNAIL_ORIGINAL_HEIGHT,
-				   GINT_TO_POINTER (height));
-		g_free (original_height);
+		if (original_height) {
+			sscanf (original_height, "%i", &height);
+			g_object_set_data (G_OBJECT (job_thumbnail->thumbnail),
+					   EOG_THUMBNAIL_ORIGINAL_HEIGHT,
+					   GINT_TO_POINTER (height));
+			g_free (original_height);
+		}
 	}
 
 	/* show info for debugging */

@@ -23,22 +23,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-03-24 19:37+0000\n"
-"PO-Revision-Date: 2019-04-11 18:17+0800\n"
-"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"POT-Creation-Date: 2020-06-20 14:56+0000\n"
+"PO-Revision-Date: 2020-06-23 17:38-0400\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "GNOME 之眼"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "浏览及旋转图像"
 
@@ -60,18 +60,6 @@ msgid ""
 msgstr ""
 "GNOME 之眼也可以全屏幻灯片播放的方式查看图片，或者将图片设置为桌面壁纸。它会"
 "自动读取相机的标签来自动旋转您的照片，从而正确的横向/纵向显示它们。"
-
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "图像查看器"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Picture;Slideshow;Graphics;图片;幻灯片;图像;"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -250,7 +238,7 @@ msgstr "另存为"
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
 #: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-window.c:3518
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -376,7 +364,7 @@ msgstr "将图像扩展以适合屏幕(_X)"
 msgid "Sequence"
 msgstr "序列"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "图像之间的时间(_T)："
@@ -394,7 +382,6 @@ msgid "Plugins"
 msgstr "插件"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "缩小图像"
 
@@ -410,7 +397,7 @@ msgstr "转到图片廊中第一张图像"
 msgid "_First Image"
 msgstr "第一张图像(_F)"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "转到图片廊中上一张图像"
 
@@ -418,7 +405,7 @@ msgstr "转到图片廊中上一张图像"
 msgid "_Previous Image"
 msgstr "上一张图像(_P)"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "转到图片廊中下一张图像"
 
@@ -442,15 +429,23 @@ msgstr "放大(_Z)"
 msgid "Zoom _Out"
 msgstr "缩小(_O)"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "以正常大小显示图像"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "正常大小(_N)"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "使图像适合窗口"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "最佳匹配(_B)"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "将图像逆时针旋转 90 度"
 
@@ -458,7 +453,7 @@ msgstr "将图像逆时针旋转 90 度"
 msgid "Rotate Counter_clockwise"
 msgstr "逆时针旋转(_C)"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "将图像顺时针旋转 90 度"
 
@@ -542,102 +537,164 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "手动打开应用程序"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "显示/隐藏应用程序菜单"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "键盘快捷键"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "缩放"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "放大"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "缩小"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "实际大小"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "最佳匹配"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "浏览图像"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
-msgctxt "shortcut window"
-msgid "Go to the previous image in the folder"
-msgstr "转到文件夹中上一张图像"
-
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "转到文件夹中下一张图像"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
+#: data/help-overlay.ui:198
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "转到文件夹中上一张图像"
+
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "转到文件夹中第一张图像"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "转到文件夹中最后一张图像"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "转到文件夹中任意一张图像"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "显示/隐藏图片廊"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:250
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "旋转"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:254 data/help-overlay.ui:269
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "顺时针旋转"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "逆时针旋转"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:284
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "全屏"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:289
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "进入/退出全屏"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "开始/停止幻灯片放映"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "暂停放映"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/help-overlay.ui:311
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "通用"
+
+#: data/help-overlay.ui:316
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "复制到剪贴板"
+
+#: data/help-overlay.ui:323
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "撤销"
+
+#: data/help-overlay.ui:330
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "移至回收站"
+
+#: data/help-overlay.ui:337
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "永久删除图像"
+
+#: data/help-overlay.ui:345
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "滚动"
+
+#: data/help-overlay.ui:350
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "在大图像中向左滚动"
+
+#: data/help-overlay.ui:357
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "在大图像中向右滚动"
+
+#: data/help-overlay.ui:364
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "在大图像中向上滚动"
+
+#: data/help-overlay.ui:371
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "在大图像中向下滚动"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "大小"
 
@@ -684,6 +741,19 @@ msgstr "时间"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "焦距"
+
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5558
+msgid "Image Viewer"
+msgstr "图像查看器"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Picture;Slideshow;Graphics;图片;幻灯片;图像;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -914,7 +984,7 @@ msgstr "打开方式(_W)"
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:35 src/eog-window.c:3521
 msgid "Move to _Trash"
 msgstr "移至回收站(_T)"
 
@@ -1111,27 +1181,27 @@ msgstr "转换未加载的图像。"
 msgid "Transformation failed."
 msgstr "转换失败。"
 
-#: src/eog-image.c:1079
+#: src/eog-image.c:1081
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "这种文件格式不支持 EXIF。"
 
-#: src/eog-image.c:1226
+#: src/eog-image.c:1222
 #, c-format
 msgid "Image loading failed."
 msgstr "图像载入失败。"
 
-#: src/eog-image.c:1807 src/eog-image.c:1927
+#: src/eog-image.c:1804 src/eog-image.c:1924
 #, c-format
 msgid "No image loaded."
 msgstr "没有载入图像。"
 
-#: src/eog-image.c:1815 src/eog-image.c:1936
+#: src/eog-image.c:1812 src/eog-image.c:1933
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "您没有保存此文件必须的权限。"
 
-#: src/eog-image.c:1825 src/eog-image.c:1947
+#: src/eog-image.c:1822 src/eog-image.c:1944
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "临时文件创建失败。"
@@ -1236,88 +1306,88 @@ msgstr[0] "%lu 秒"
 msgid "Image Settings"
 msgstr "图像设置"
 
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "图像"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "要设置打印属性的图像"
 
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "页面设置"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "即将用来打印图像的页面的信息"
 
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "位置"
 
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "左(_L)："
 
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "右(_R)："
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "上(_T)："
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "下(_B)："
 
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "中(_E)："
 
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "无"
 
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "水平"
 
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "垂直"
 
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "双向"
 
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "宽度(_W)："
 
 # SUN CHANGED MESSAGE
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "高度(_H)："
 
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "缩放(_S)："
 
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "单位(_U)："
 
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "毫米"
 
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "英寸"
 
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "预览"
 
@@ -1461,16 +1531,16 @@ msgstr[0] ""
 "您确定要永久删除选中的\n"
 "这 %d 张图像吗？"
 
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3284 src/eog-window.c:3529
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3287 src/eog-window.c:3531
 msgid "_Yes"
 msgstr "是(_Y)"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3291 src/eog-window.c:3523
 msgid "Do _not ask again during this session"
 msgstr "在该会话期间不再询问(_N)"
 
@@ -1484,18 +1554,18 @@ msgstr "无法获取图像文件"
 msgid "Couldn’t retrieve image file information"
 msgstr "无法获取图像文件信息"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3367 src/eog-window.c:3590
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "无法删除文件"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3412 src/eog-window.c:3686
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "删除图像 %s 出错"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1504,14 +1574,14 @@ msgstr ""
 "您真的想要将“%s”\n"
 "移至回收站吗？"
 
-#: src/eog-window.c:3515
+#: src/eog-window.c:3494
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "无法找到可用于“%s”的回收站。您想要将此图像永久移除吗？"
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3499
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1523,34 +1593,34 @@ msgstr[0] ""
 "您真的想要将 %d 个\n"
 "选中的图像移至回收站吗？"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3504
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "有些所选择的图像无法移动到回收站并将永久移除。您确定要这样进行吗？"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3568 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "无法访问回收站。"
 
-#: src/eog-window.c:4270
+#: src/eog-window.c:4230
 msgid "Shrink or enlarge the current image"
 msgstr "缩小或放大当前图像"
 
-#: src/eog-window.c:4329
+#: src/eog-window.c:4289
 msgid "Show the current image in fullscreen mode"
 msgstr "在全屏模式中显示当前图像"
 
-#: src/eog-window.c:4406
+#: src/eog-window.c:4366
 msgid "Properties"
 msgstr "属性"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5561
 msgid "The GNOME image viewer."
 msgstr "GNOME 图像查看器。"
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5564
 msgid "translator-credits"
 msgstr ""
 "开源软件国际化之简体中文组\n"
@@ -1628,9 +1698,6 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 
 #~ msgid "Question"
 #~ msgstr "问题"
-
-#~ msgid "Fit the image to the window"
-#~ msgstr "使图像适合窗口"
 
 #~ msgid "Side _Pane"
 #~ msgstr "侧边栏(_P)"
@@ -1740,9 +1807,6 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 #~ msgid "Show the properties and metadata of the selected image"
 #~ msgstr "显示选中图像的属性和元数据"
 
-#~ msgid "_Undo"
-#~ msgstr "撤销(_U)"
-
 #~ msgid "Undo the last change in the image"
 #~ msgstr "撤销上一次对图像的修改"
 
@@ -1772,9 +1836,6 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 
 #~ msgid "Copy the selected image to the clipboard"
 #~ msgstr "复制选中图像到剪贴板"
-
-#~ msgid "Show the image at its normal size"
-#~ msgstr "以正常大小显示图像"
 
 #~ msgid "_Random Image"
 #~ msgstr "随机图像(_R)"
