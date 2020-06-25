@@ -1120,7 +1120,7 @@ eog_thumb_view_display_text (EogThumbView *thumbview,
   }
 
   if (!display) {
-    g_object_set (thumbview->priv->text_cell, "visible", display);
+    g_object_set (thumbview->priv->text_cell, "visible", display, NULL);
   } else {
   
     if (set_ellipsize)
@@ -1139,7 +1139,7 @@ eog_thumb_view_display_text (EogThumbView *thumbview,
   g_object_set (thumbview->priv->pixbuf_cell,
 		"width", -1,
 		NULL);
-  g_object_set (thumbview->priv->text_cell, "visible", display);
+  g_object_set (thumbview->priv->text_cell, "visible", display, NULL);
   }
   /* g_object_set(thumbview, "activate-on-single-click", TRUE, "margin", 0, "item-padding", 0, NULL); */
 
