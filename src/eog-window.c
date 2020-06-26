@@ -4492,28 +4492,29 @@ eog_window_construct_ui (EogWindow *window)
 
 	eog_window_set_drag_dest (window);
 
-	//if ((priv->flags & EOG_STARTUP_SORT_ALGORITHM)) {
-		// Apply command line option for sort algorithm.
-		// If invalid, use saved setting instead.
-	//}
-
 	// Apply preferred sort algorithm.
-	if (sort_order_setting_exists ()) {
-		gint preferred_sort_algorithm = g_settings_get_int (priv->ui_settings, EOG_CONF_UI_SORT_ALGORITHM);
+	gint preferred_sort_algorithm = 0;
 
-		for (gint i = 0; i < sort_algorithm_ids_len; ++i) {
-			GAction *action = g_action_map_lookup_action (G_ACTION_MAP (window),
-								      sort_algorithm_ids[i]);
-			if (i == preferred_sort_algorithm) {
-				eog_set_sort_algorithm (i);
-			}
-
-			// Check/uncheck the box.
-			g_simple_action_set_state (action, g_variant_new_boolean (i == preferred_sort_algorithm));
-		}
+	if (priv->flags & EOG_STARTUP_SORT_ALGORITHM) {
+		// Use startup flag if there is one. The order would have been
+		// set already in main.c.
+		preferred_sort_algorithm = eog_get_sort_algorithm ();
+	}
+	else if (sort_order_setting_exists ()) {
+		// Then use the preference.
+		preferred_sort_algorithm = g_settings_get_int (priv->ui_settings, EOG_CONF_UI_SORT_ALGORITHM);
+		eog_set_sort_algorithm (preferred_sort_algorithm);
 	}
 	else {
+		// Neither startup flag or preference exists.
 		g_warning ("Could not find sort order setting in schema. Defaulting to A-Z.\n");
+	}
+
+	// Check/uncheck the boxes for the sort actions.
+	for (gint i = 0; i < sort_algorithm_ids_len; ++i) {
+		GAction *action = g_action_map_lookup_action (G_ACTION_MAP (window),
+							      sort_algorithm_ids[i]);
+		g_simple_action_set_state (action, g_variant_new_boolean (i == preferred_sort_algorithm));
 	}
 }
 
