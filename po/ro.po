@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ro\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-01-29 21:34+0000\n"
-"PO-Revision-Date: 2020-03-21 22:02+0100\n"
+"POT-Creation-Date: 2020-07-01 13:38+0000\n"
+"PO-Revision-Date: 2020-07-01 21:38+0200\n"
 "Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
 "Language: ro\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/eog.appdata.xml.in:6
@@ -228,8 +228,8 @@ msgstr "Salvează ca"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3518
+#: src/eog-file-chooser.c:472 src/eog-window.c:3281 src/eog-window.c:3284
+#: src/eog-window.c:3516
 msgid "_Cancel"
 msgstr "_Anulează"
 
@@ -354,7 +354,7 @@ msgstr "E_xtinde imaginea pentru a umple ecranul"
 msgid "Sequence"
 msgstr "Secvență"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Timp între imagini:"
@@ -387,7 +387,7 @@ msgstr "Mergi la prima imagine din galerie"
 msgid "_First Image"
 msgstr "P_rima imagine"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2352
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Mergi la imaginea precedentă din galerie"
 
@@ -395,7 +395,7 @@ msgstr "Mergi la imaginea precedentă din galerie"
 msgid "_Previous Image"
 msgstr "Imaginea _precedentă"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2340
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Mergi la imaginea următoare din galerie"
 
@@ -435,7 +435,7 @@ msgstr "Potrivește dimensiunea imaginii în fereastră"
 msgid "_Best Fit"
 msgstr "Cea mai _bună potrivire"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2367
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotește imaginea 90 de grade către stânga"
 
@@ -443,7 +443,7 @@ msgstr "Rotește imaginea 90 de grade către stânga"
 msgid "Rotate Counter_clockwise"
 msgstr "Rotește în sens _antiorar"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2378
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotește imaginea 90 de grade către dreapta"
 
@@ -567,117 +567,119 @@ msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Răsfoire imagini"
 
-#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
-msgctxt "shortcut window"
-msgid "Go to the previous image in the folder"
-msgstr "Mergi la imaginea precedentă din dosar"
-
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Mergi la imaginea următoare din dosar"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
+#: data/help-overlay.ui:198
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Mergi la imaginea precedentă din dosar"
+
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Mergi la prima imagine din dosar"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Mergi la ultima imagine din dosar"
 
-#: data/help-overlay.ui:199
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Mergi la o imagine aleatoare din dosar"
 
-#: data/help-overlay.ui:206
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Afișează/ascunde panoul pentru galeria de imagini"
 
-#: data/help-overlay.ui:214
+#: data/help-overlay.ui:250
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotație"
 
-#: data/help-overlay.ui:218 data/help-overlay.ui:233
+#: data/help-overlay.ui:254 data/help-overlay.ui:269
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Rotește în sens orar"
 
-#: data/help-overlay.ui:225 data/help-overlay.ui:240
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Rotește în sens antiorar"
 
-#: data/help-overlay.ui:248
+#: data/help-overlay.ui:284
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Pe tot ecranul"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:289
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Părăsește _modul pe tot ecranul"
 
-#: data/help-overlay.ui:260
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Pornește/Întrerupe succesiunea de imagini"
 
-#: data/help-overlay.ui:267
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Suspendă succesiunea de imagini"
 
-#: data/help-overlay.ui:275
+#: data/help-overlay.ui:311
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "Comune"
 
-#: data/help-overlay.ui:280
+#: data/help-overlay.ui:316
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "Copiază în clipboard"
 
-#: data/help-overlay.ui:287
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "Anulează"
 
-#: data/help-overlay.ui:294
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "Mută la coșul de gunoi"
 
-#: data/help-overlay.ui:301
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "Șterge imaginea permanent"
 
-#: data/help-overlay.ui:309
+#: data/help-overlay.ui:345
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "Derulare"
 
-#: data/help-overlay.ui:314
+#: data/help-overlay.ui:350
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "Derulează la stânga într-o imagine mare"
 
-#: data/help-overlay.ui:321
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "Derulează la dreapta într-o imagine mare"
 
-#: data/help-overlay.ui:328
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "Derulează în sus într-o imagine mare"
 
-#: data/help-overlay.ui:335
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "Derulează în jos într-o imagine mare"
@@ -731,7 +733,7 @@ msgid "Focal Length"
 msgstr "Distanța focală"
 
 #: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
-#: src/eog-window.c:5558
+#: src/eog-window.c:5556
 msgid "Image Viewer"
 msgstr "Vizualizator de imagini"
 
@@ -997,7 +999,7 @@ msgstr "Desc_hide cu"
 msgid "_Copy"
 msgstr "_Copiază"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3521
+#: data/popup-menus.ui:35 src/eog-window.c:3519
 msgid "Move to _Trash"
 msgstr "Mu_tă la coșul de gunoi"
 
@@ -1210,27 +1212,27 @@ msgstr "Transformare asupra unei imagini neîncărcate."
 msgid "Transformation failed."
 msgstr "Transformarea a eșuat."
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1081
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF nu este suportat pentru acest tip de fișier."
 
-#: src/eog-image.c:1215
+#: src/eog-image.c:1222
 #, c-format
 msgid "Image loading failed."
 msgstr "Încărcarea imaginii a eșuat."
 
-#: src/eog-image.c:1797 src/eog-image.c:1917
+#: src/eog-image.c:1804 src/eog-image.c:1924
 #, c-format
 msgid "No image loaded."
 msgstr "Nicio imagine încărcată."
 
-#: src/eog-image.c:1805 src/eog-image.c:1926
+#: src/eog-image.c:1812 src/eog-image.c:1933
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Nu aveți permisiunile necesare pentru a salva fișierul."
 
-#: src/eog-image.c:1815 src/eog-image.c:1937
+#: src/eog-image.c:1822 src/eog-image.c:1944
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Fișierul temporar nu a putut fi creat."
@@ -1476,43 +1478,41 @@ msgstr[0] "%i × %i pixel  %s    %i%%"
 msgstr[1] "%i × %i pixeli  %s    %i%%"
 msgstr[2] "%i × %i de pixeli  %s    %i%%"
 
-#: src/eog-window.c:934 src/eog-window.c:2677
+#: src/eog-window.c:934 src/eog-window.c:2676
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Ascun_de"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:944
+#: src/eog-window.c:942
 #, c-format
 msgid ""
-"The image “%s” has been modified by an external application.\n"
-"Would you like to reload it?"
+"The image “%s” has been modified by an external application. Would you like "
+"to reload it?"
 msgstr ""
-"Imaginea „%s” a fost modificată de către o aplicație externă.\n"
-"Doriți să o reîncărcați?"
+"Imaginea „%s” a fost modificată de către o aplicație externă. Doriți să o "
+"reîncărcați?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1218
+#: src/eog-window.c:1217
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Se salvează imaginea „%s” (%u/%u)"
 
-#: src/eog-window.c:1642
+#: src/eog-window.c:1641
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Se deschide imaginea „%s”"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2028
+#: src/eog-window.c:2027
 msgid "Viewing a slideshow"
 msgstr "Vizualizarea unei prezentări de diapozitive"
 
-#: src/eog-window.c:2247
+#: src/eog-window.c:2246
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1521,30 +1521,28 @@ msgstr ""
 "Eroare la tipărirea fișierului:\n"
 "%s"
 
-#: src/eog-window.c:2626 src/eog-window.c:2641
+#: src/eog-window.c:2625 src/eog-window.c:2640
 msgid "Error launching System Settings: "
 msgstr "Eroare la lansarea configurațiilor sistemului: "
 
-#: src/eog-window.c:2675
+#: src/eog-window.c:2674
 msgid "_Open Background Preferences"
 msgstr "_Deschide preferințele de fundal"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:2691
+#: src/eog-window.c:2688
 #, c-format
 msgid ""
-"The image “%s” has been set as Desktop Background.\n"
-"Would you like to modify its appearance?"
+"The image “%s” has been set as Desktop Background. Would you like to modify "
+"its appearance?"
 msgstr ""
-"Imaginea „%s” a fost configurată ca fundal al desktopului.\n"
-"Doriți să-i modificați aspectul?"
+"Imaginea „%s” a fost configurată ca fundal al desktopului. Doriți să-i "
+"modificați aspectul?"
 
-#: src/eog-window.c:3181
+#: src/eog-window.c:3179
 msgid "Saving image locally…"
 msgstr "Se salvează imaginea local…"
 
-#: src/eog-window.c:3259
+#: src/eog-window.c:3257
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1553,7 +1551,7 @@ msgstr ""
 "Sigur doriți să eliminați\n"
 "„%s” permanent?"
 
-#: src/eog-window.c:3262
+#: src/eog-window.c:3260
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1571,41 +1569,41 @@ msgstr[2] ""
 "Doriți să eliminați permanent\n"
 "%d de imagini selectate?"
 
-#: src/eog-window.c:3284 src/eog-window.c:3529
+#: src/eog-window.c:3282 src/eog-window.c:3527
 msgid "_Delete"
 msgstr "Ș_terge"
 
-#: src/eog-window.c:3287 src/eog-window.c:3531
+#: src/eog-window.c:3285 src/eog-window.c:3529
 msgid "_Yes"
 msgstr "_Da"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3523
+#: src/eog-window.c:3289 src/eog-window.c:3521
 msgid "Do _not ask again during this session"
 msgstr "_Nu întreba din nou în această sesiune"
 
-#: src/eog-window.c:3335
+#: src/eog-window.c:3333
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Nu s-a putut prelua fișierul de imagine"
 
-#: src/eog-window.c:3351
+#: src/eog-window.c:3349
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Nu s-au putut prelua informațiile fișierului de imagine"
 
-#: src/eog-window.c:3367 src/eog-window.c:3590
+#: src/eog-window.c:3365 src/eog-window.c:3588
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Nu s-a putut șterge fișierul"
 
 #. set dialog error message
-#: src/eog-window.c:3412 src/eog-window.c:3686
+#: src/eog-window.c:3410 src/eog-window.c:3684
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Eroare la ștergerea imaginii %s"
 
-#: src/eog-window.c:3491
+#: src/eog-window.c:3489
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1614,7 +1612,7 @@ msgstr ""
 "Sigur doriți să mutați\n"
 "„%s” la gunoi?"
 
-#: src/eog-window.c:3494
+#: src/eog-window.c:3492
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1623,7 +1621,7 @@ msgstr ""
 "Nu s-a putut găsit coșul de gunoi pentru „%s”. Doriți să ștergeți permanent "
 "această imagine?"
 
-#: src/eog-window.c:3499
+#: src/eog-window.c:3497
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1641,7 +1639,7 @@ msgstr[2] ""
 "Doriți să mutați %d de imagini\n"
 "selectată în coșul de gunoi?"
 
-#: src/eog-window.c:3504
+#: src/eog-window.c:3502
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1649,28 +1647,28 @@ msgstr ""
 "O parte din imaginile selectate nu au putut fi mutate la coșul de gunoi și "
 "voi fi șterse definitiv. Doriți să continuați?"
 
-#: src/eog-window.c:3568 src/eog-window.c:3582
+#: src/eog-window.c:3566 src/eog-window.c:3580
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Nu s-a putut accesa coșul de gunoi."
 
-#: src/eog-window.c:4230
+#: src/eog-window.c:4228
 msgid "Shrink or enlarge the current image"
 msgstr "Micșorează sau mărește imaginea curentă"
 
-#: src/eog-window.c:4289
+#: src/eog-window.c:4287
 msgid "Show the current image in fullscreen mode"
 msgstr "Afișează imaginea curentă pe tot ecranul"
 
-#: src/eog-window.c:4366
+#: src/eog-window.c:4364
 msgid "Properties"
 msgstr "Proprietăți"
 
-#: src/eog-window.c:5561
+#: src/eog-window.c:5559
 msgid "The GNOME image viewer."
 msgstr "Vizualizatorul de imagini pentru GNOME."
 
-#: src/eog-window.c:5564
+#: src/eog-window.c:5562
 msgid "translator-credits"
 msgstr ""
 "Mugurel Tudor <mugurelu@gnome.ro>\n"
