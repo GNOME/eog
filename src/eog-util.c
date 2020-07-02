@@ -520,7 +520,8 @@ open_with_flatpak_portal_cb (GObject *source, GAsyncResult *result, gpointer use
 	XdpPortal *portal = XDP_PORTAL (source);
 	g_autoptr(GError) error = NULL;
 
-	if (!xdp_portal_open_uri_finish (portal, result, &error))
+	if (!xdp_portal_open_uri_finish (portal, result, &error)
+	    && !g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
 	{
 		g_warning ("Failed to open file via portal: %s", error->message);
 	}
