@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-05-02 20:08+0000\n"
-"PO-Revision-Date: 2020-06-24 08:49+0500\n"
+"POT-Creation-Date: 2020-07-01 13:38+0000\n"
+"PO-Revision-Date: 2020-07-02 09:16+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -24,7 +24,7 @@ msgstr "GNOME көзі"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
-msgstr "Суреттерді шолу мен айналдыру"
+msgstr "Суреттерді шолу және бұру"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
@@ -223,8 +223,8 @@ msgstr "Қалайша сақтау"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3518
+#: src/eog-file-chooser.c:472 src/eog-window.c:3281 src/eog-window.c:3284
+#: src/eog-window.c:3516
 msgid "_Cancel"
 msgstr "Ба_с тарту"
 
@@ -349,7 +349,7 @@ msgstr "Суреттерді экранды толық алатындай жа_�
 msgid "Sequence"
 msgstr "Тізбектей"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Суреттер арасындағы уақыт:"
@@ -729,7 +729,7 @@ msgid "Focal Length"
 msgstr "Фокустық қашықтығы"
 
 #: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
-#: src/eog-window.c:5558
+#: src/eog-window.c:5556
 msgid "Image Viewer"
 msgstr "Суреттер көрсетушісі"
 
@@ -987,7 +987,7 @@ msgstr "Көм_егімен ашу"
 msgid "_Copy"
 msgstr "_Көшіру"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3521
+#: data/popup-menus.ui:35 src/eog-window.c:3519
 msgid "Move to _Trash"
 msgstr "Қоқы_с шелегіне тастау"
 
@@ -1451,43 +1451,40 @@ msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i пиксель  %s    %i%%"
 
-#: src/eog-window.c:934 src/eog-window.c:2677
+#: src/eog-window.c:934 src/eog-window.c:2676
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Жасыру"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:944
+#: src/eog-window.c:942
 #, c-format
 msgid ""
-"The image “%s” has been modified by an external application.\n"
-"Would you like to reload it?"
+"The image “%s” has been modified by an external application. Would you like "
+"to reload it?"
 msgstr ""
-"\"%s\" суреті сыртқы қолданбамен өзгертілген.\n"
-"Оны қайта жүктеуді қалайсыз ба?"
+"\"%s\" суреті сыртқы қолданбамен өзгертілген. Оны қайта жүктеуді қалайсыз ба?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1218
+#: src/eog-window.c:1217
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "\"%s\" суретін сақтау (%u/%u)"
 
-#: src/eog-window.c:1642
+#: src/eog-window.c:1641
 #, c-format
 msgid "Opening image “%s”"
 msgstr "\"%s\" суреті ашылуда"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2028
+#: src/eog-window.c:2027
 msgid "Viewing a slideshow"
 msgstr "Слайдшоуды қарау"
 
-#: src/eog-window.c:2247
+#: src/eog-window.c:2246
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1496,30 +1493,28 @@ msgstr ""
 "Файлды баспаға шығару қатесі:\n"
 "%s"
 
-#: src/eog-window.c:2626 src/eog-window.c:2641
+#: src/eog-window.c:2625 src/eog-window.c:2640
 msgid "Error launching System Settings: "
 msgstr "Жүйе баптауларын жөнелту қатесі: "
 
-#: src/eog-window.c:2675
+#: src/eog-window.c:2674
 msgid "_Open Background Preferences"
 msgstr "Фон баптауларын а_шу"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:2691
+#: src/eog-window.c:2688
 #, c-format
 msgid ""
-"The image “%s” has been set as Desktop Background.\n"
-"Would you like to modify its appearance?"
+"The image “%s” has been set as Desktop Background. Would you like to modify "
+"its appearance?"
 msgstr ""
-"\"%s\" суреті жұмыс үстел түсқағазы ретінде орнатылған.\n"
-"Оның сыртқы түрін өзгертуді қалайсыз ба?"
+"\"%s\" суреті жұмыс үстел тұсқағазы ретінде орнатылған. Оның сыртқы түрін "
+"өзгертуді қалайсыз ба?"
 
-#: src/eog-window.c:3181
+#: src/eog-window.c:3179
 msgid "Saving image locally…"
 msgstr "Суретті жергілікті сақтау…"
 
-#: src/eog-window.c:3259
+#: src/eog-window.c:3257
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1528,7 +1523,7 @@ msgstr ""
 "\"%s\" толығымен өшіруді\n"
 "шынымен қалайсыз ба?"
 
-#: src/eog-window.c:3262
+#: src/eog-window.c:3260
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1540,41 +1535,41 @@ msgstr[0] ""
 "Таңдалған %d суретті толығымен өшіруді\n"
 "шынымен қалайсыз ба?"
 
-#: src/eog-window.c:3284 src/eog-window.c:3529
+#: src/eog-window.c:3282 src/eog-window.c:3527
 msgid "_Delete"
 msgstr "Ө_шіру"
 
-#: src/eog-window.c:3287 src/eog-window.c:3531
+#: src/eog-window.c:3285 src/eog-window.c:3529
 msgid "_Yes"
 msgstr "_Иә"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3523
+#: src/eog-window.c:3289 src/eog-window.c:3521
 msgid "Do _not ask again during this session"
 msgstr "Бұ_л сессияда енді келесіде сұрамау"
 
-#: src/eog-window.c:3335
+#: src/eog-window.c:3333
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Сурет файлын алу мүмкін емес"
 
-#: src/eog-window.c:3351
+#: src/eog-window.c:3349
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Сурет файлының ақпаратын алу мүмкін емес"
 
-#: src/eog-window.c:3367 src/eog-window.c:3590
+#: src/eog-window.c:3365 src/eog-window.c:3588
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Файлды өшіру мүмкін емес"
 
 #. set dialog error message
-#: src/eog-window.c:3412 src/eog-window.c:3686
+#: src/eog-window.c:3410 src/eog-window.c:3684
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s суретін өшіру қатесі"
 
-#: src/eog-window.c:3491
+#: src/eog-window.c:3489
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1583,7 +1578,7 @@ msgstr ""
 "\"%s\" қоқыс шелегіне тастауды\n"
 "шынымен қалайсыз ба?"
 
-#: src/eog-window.c:3494
+#: src/eog-window.c:3492
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1592,7 +1587,7 @@ msgstr ""
 "\"%s\" үшін қоқыс шелегін табу мүмкін емес. Бұл суретті толығымен өшіруді "
 "қалайсыз ба?"
 
-#: src/eog-window.c:3499
+#: src/eog-window.c:3497
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1604,7 +1599,7 @@ msgstr[0] ""
 "Таңдалған %d суретті қоқыс шелегіне тастауды\n"
 "шынымен қалайсыз ба?"
 
-#: src/eog-window.c:3504
+#: src/eog-window.c:3502
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1612,28 +1607,28 @@ msgstr ""
 "Таңдалған суреттердің кейбіреулерін қоқыс шелегіне тастау мүмкін емес, "
 "сондықтан олар толығымен өшіріледі. Жалғастыруды қалайсыз ба?"
 
-#: src/eog-window.c:3568 src/eog-window.c:3582
+#: src/eog-window.c:3566 src/eog-window.c:3580
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Қоқыс шелегіне қатынау мүмкін емес."
 
-#: src/eog-window.c:4230
+#: src/eog-window.c:4228
 msgid "Shrink or enlarge the current image"
 msgstr "Суретті кішірейту не үлкейту"
 
-#: src/eog-window.c:4289
+#: src/eog-window.c:4287
 msgid "Show the current image in fullscreen mode"
 msgstr "Ағымдағы суретті толық экранда көрсету"
 
-#: src/eog-window.c:4366
+#: src/eog-window.c:4364
 msgid "Properties"
 msgstr "Қасиеттері"
 
-#: src/eog-window.c:5561
+#: src/eog-window.c:5559
 msgid "The GNOME image viewer."
 msgstr "GNOME үшін суреттерді көрсету қолданбасы."
 
-#: src/eog-window.c:5564
+#: src/eog-window.c:5562
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
