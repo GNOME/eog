@@ -544,5 +544,6 @@ eog_util_open_file_with_flatpak_portal (GFile *file, GtkWindow *window)
 			     XDP_OPEN_URI_FLAG_ASK,
 			     NULL,
 			     open_with_flatpak_portal_cb,
-			     parent);
+			     NULL);
+	xdp_parent_free (parent);
 }
