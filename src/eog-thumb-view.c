@@ -337,7 +337,9 @@ static void
 eog_thumb_view_visible_range_changed (EogThumbView *thumbview)
 {
 	if (thumbview->priv->visible_range_changed_id == 0) {
-		g_idle_add ((GSourceFunc)visible_range_changed_cb, thumbview);
+		thumbview->priv->visible_range_changed_id =
+		       g_idle_add ((GSourceFunc)visible_range_changed_cb,
+				   thumbview);
 	}
 }
 
