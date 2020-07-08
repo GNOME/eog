@@ -135,6 +135,8 @@ void          eog_window_show_preferences_dialog (EogWindow *window);
 
 void          eog_window_close          (EogWindow *window);
 
+GtkWidget    *eog_window_get_boxtool (EogWindow *window);
+
 G_END_DECLS
 
 #endif

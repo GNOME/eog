@@ -30,6 +30,7 @@
 #include <string.h>
 
 struct _EogListStorePrivate {
+  	gboolean is_monitoring;  /* Check if monitoring the directories */
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
@@ -46,17 +47,26 @@ foreach_monitors_free (gpointer data, gpointer user_data)
 }
 
 static void
+monitors_free(EogListStore *store)
+{
+  g_return_if_fail(EOG_IS_LIST_STORE(store));
+	if(store->priv->is_monitoring){
+	  g_list_foreach (store->priv->monitors,
+			  foreach_monitors_free, NULL);
+	  
+	  g_list_free (store->priv->monitors);
+	  
+	  store->priv->monitors = NULL;
+	}
+}
+
+static void
 eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
 
-	g_list_foreach (store->priv->monitors,
-			foreach_monitors_free, NULL);
-
-	g_list_free (store->priv->monitors);
-
-	store->priv->monitors = NULL;
-
+	monitors_free(store);
+	
 	if(store->priv->busy_image != NULL) {
 		g_object_unref (store->priv->busy_image);
 		store->priv->busy_image = NULL;
@@ -158,6 +168,7 @@ eog_list_store_init (EogListStore *self)
 
 	self->priv = eog_list_store_get_instance_private (self);
 
+	self->priv->is_monitoring = TRUE;
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
@@ -507,14 +518,15 @@ eog_list_store_append_directory (EogListStore *store,
 				 GFile *file,
 				 GFileType file_type)
 {
-	GFileMonitor *file_monitor;
+	GFileMonitor *file_monitor = NULL;
 	GFileEnumerator *file_enumerator;
 	GFileInfo *file_info;
 
 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
 
-	file_monitor = g_file_monitor_directory (file,
-						 0, NULL, NULL);
+	if(store->priv->is_monitoring)
+	  file_monitor = g_file_monitor_directory (file,
+						   0, NULL, NULL);
 
 	if (file_monitor != NULL) {
 		g_signal_connect (file_monitor, "changed",
@@ -604,7 +616,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		if (file_type == G_FILE_TYPE_DIRECTORY) {
 			eog_list_store_append_directory (store, file, file_type);
 		} else if (file_type == G_FILE_TYPE_REGULAR &&
-			   g_list_length (file_list) == 1) {
+			   g_list_length (file_list) == 1 && store->priv->is_monitoring) {
 
 			initial_file = g_file_dup (file);
 
@@ -632,8 +644,8 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 				eog_list_store_append_image_from_file (store, initial_file, caption);
 			}
 			g_object_unref (file);
-		} else if (file_type == G_FILE_TYPE_REGULAR &&
-			   g_list_length (file_list) > 1) {
+		} else if (file_type == G_FILE_TYPE_REGULAR /* &&
+							       g_list_length (file_list) > 1*/) {
 			eog_list_store_append_image_from_file (store, file, caption);
 		}
 
@@ -941,4 +953,72 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 {
 	eog_list_store_remove_thumbnail_job (store, iter);
 	eog_list_store_add_thumbnail_job (store, iter);
+}
+
+/**
+ * eog_get_is_monitoring:
+ * @store: An #EogListStore.
+ *
+ * Get the state of the monitors.
+ *
+ **/
+gboolean
+eog_list_store_get_monitoring(EogListStore *store)
+{
+	g_return_val_if_fail(EOG_IS_LIST_STORE(store), FALSE);
+	return store->priv->is_monitoring;
+}
+
+/**
+ * eog_set_is_monitoring:
+ * @store: An #EogListStore.
+ * @is_monitoring: A #gboolean setting the state of monitors
+ * @directories: A #GSList containing the list of directories to monitors
+ *
+ * Set the state of monitors with a new list of directories.
+ *
+ **/
+void
+eog_list_store_set_monitoring(EogListStore *store,
+			      gboolean is_monitoring,
+			      GSList *directories)
+{
+	g_return_if_fail(EOG_IS_LIST_STORE(store));
+
+
+	if (!is_monitoring) {
+		monitors_free(store);
+	} else if (directories != NULL) {		
+		GFileMonitor *file_monitor = NULL;
+		GFileInfo *file_info = NULL;
+		GFileType file_type;
+
+		GSList *it;
+		for (it = directories; it != NULL; it = it->next){
+			GFile *file = (GFile *)it->data;
+			file_info = g_file_query_info (file,
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+						       0, NULL, NULL);
+			if (file_info == NULL)
+			  continue;
+		  
+			file_type = g_file_info_get_file_type (file_info);
+			if (file_type == G_FILE_TYPE_DIRECTORY) {
+			  file_monitor = g_file_monitor_directory (file,
+								   0, NULL, NULL);
+		    
+			  if (file_monitor != NULL) {
+			    g_signal_connect (file_monitor, "changed",
+					      G_CALLBACK (file_monitor_changed_cb), store);
+		      
+			    store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
+		      
+			  }
+			}
+			g_object_unref (file_info);
+			g_object_unref (file);
+		}
+	}
+	store->priv->is_monitoring = is_monitoring;
 }
