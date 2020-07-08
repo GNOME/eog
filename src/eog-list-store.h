@@ -47,15 +47,6 @@ typedef struct _EogListStorePrivate EogListStorePrivate;
 #define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStoreClass))
 
 typedef enum {
-	EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE = 0,
-	EOG_LIST_STORE_THUMBNAIL_SIZE_MIDDLE,
-	EOG_LIST_STORE_THUMBNAIL_SIZE_BIG,
-	EOG_LIST_STORE_THUMBNAIL_SIZE,
-	EOG_LIST_STORE_THUMBNAIL_ZOOM_IN,
-	EOG_LIST_STORE_THUMBNAIL_ZOOM_OUT
-} EogListStoreZoomThumbnails;
-
-typedef enum {
 	EOG_LIST_STORE_THUMBNAIL = 0,
 	EOG_LIST_STORE_THUMB_SET,
 	EOG_LIST_STORE_EOG_IMAGE,
@@ -84,11 +75,6 @@ GType           eog_list_store_get_type 	     (void) G_GNUC_CONST;
 GtkListStore   *eog_list_store_new 		     (void);
 
 GtkListStore   *eog_list_store_new_from_glist 	     (GList *list);
-
-gboolean        eog_list_store_zoom_thumbnails       (EogListStore *store,
-						      EogListStoreZoomThumbnails zoom);
-
-gint            eog_list_store_get_zoom_value        (EogListStore *store);
 
 void            eog_list_store_append_image 	     (EogListStore *store,
 						      EogImage     *image);

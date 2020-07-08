@@ -26,27 +26,35 @@
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
 #include "eog-jobs.h"
-
+#include "eog-config-keys.h"
 #include <string.h>
 
+#define EOG_LIST_STORE_THUMB_SIZE 90
+
 struct _EogListStorePrivate {
+	GSettings           *ui_settings;
+
   //  	gboolean is_monitoring;  /* Check if monitoring the directories */
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
 	GdkPixbuf *missing_image; /* Missing image icon */
 	GMutex mutex;             /* Mutex for saving the jobs in the model */
-        gint sizes_thumbnails[3];
+
+	gint thumb_size;
+	gboolean add_frame;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
-#define EOG_LIST_STORE_THUMB_SIZE        90
-#define EOG_LIST_STORE_THUMB_SIZE_MIDDLE 173
-#define EOG_LIST_STORE_THUMB_SIZE_BIG    256
-
-static  gint size_thumbnails = 0;
 static gboolean is_monitoring = TRUE;
+
+enum
+{
+	PROP_0,
+	PROP_SIZE_THUMBNAIL,
+        PROP_FRAME_THUMBNAIL
+};
 
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
@@ -104,12 +112,36 @@ eog_list_store_finalize (GObject *object)
 }
 
 static void
+eog_list_store_set_property (GObject    *object,
+                               guint       prop_id,
+                               const GValue     *value,
+                               GParamSpec *pspec)
+{
+    EogListStorePrivate *priv = EOG_LIST_STORE(object)->priv;
+
+    switch (prop_id){
+        case PROP_SIZE_THUMBNAIL:
+            priv->thumb_size = g_value_get_int (value);
+            break;
+         case PROP_FRAME_THUMBNAIL:
+	    priv->add_frame = g_value_get_boolean (value);
+	    break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    }
+}
+
+static void
 eog_list_store_class_init (EogListStoreClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
+	object_class->set_property = eog_list_store_set_property;
+
+	g_object_class_install_property(object_class, PROP_SIZE_THUMBNAIL, g_param_spec_int("size-thumbnail", "", "", 90, 256, 90, G_PARAM_WRITABLE));
+	g_object_class_install_property(object_class, PROP_FRAME_THUMBNAIL, g_param_spec_boolean("add-frame", "", "", TRUE, G_PARAM_WRITABLE));
 }
 
 /*
@@ -182,16 +214,13 @@ eog_list_store_init (EogListStore *self)
 
 	self->priv = eog_list_store_get_instance_private (self);
 
-	//	self->priv->is_monitoring = TRUE;
+	self->priv->ui_settings = g_settings_new (EOG_CONF_UI);
+        self->priv->thumb_size = g_settings_get_enum (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_SIZE);
+        self->priv->add_frame = g_settings_get_boolean (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_ADD_FRAME);
+	
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
-	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE] = EOG_LIST_STORE_THUMB_SIZE;
-	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_MIDDLE] = EOG_LIST_STORE_THUMB_SIZE_MIDDLE;
-	self->priv->sizes_thumbnails[EOG_LIST_STORE_THUMBNAIL_SIZE_BIG] = EOG_LIST_STORE_THUMB_SIZE_BIG;
-
-        size_thumbnails = EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE;
-	
 	self->priv->busy_image = eog_list_store_get_icon ("image-loading");
 	self->priv->missing_image = eog_list_store_get_icon ("image-missing");
 
@@ -281,43 +310,6 @@ is_file_in_list_store_file (EogListStore *store,
 	return result;
 }
 
-gint eog_list_store_get_zoom_value (EogListStore *store)
-{
-	g_return_val_if_fail (EOG_IS_LIST_STORE (store), TRUE);
-	return store->priv->sizes_thumbnails[size_thumbnails];
-}
-gboolean
-eog_list_store_zoom_thumbnails (EogListStore *store,  EogListStoreZoomThumbnails zoom)
-{
-	g_return_val_if_fail (EOG_IS_LIST_STORE (store), FALSE);
-
-	gboolean can_resize = FALSE;
-
-	switch (zoom){
-	case EOG_LIST_STORE_THUMBNAIL_SIZE_LITTLE:
-	case EOG_LIST_STORE_THUMBNAIL_SIZE_MIDDLE:
-	case EOG_LIST_STORE_THUMBNAIL_SIZE_BIG:
-	  size_thumbnails = zoom;
-	  can_resize = TRUE;
-	  break;
-	case EOG_LIST_STORE_THUMBNAIL_ZOOM_IN:
-	  if ( (size_thumbnails + 1) < EOG_LIST_STORE_THUMBNAIL_SIZE){
-	    size_thumbnails += 1;
-	    can_resize = TRUE;
-	  }
-	  break;
-	case EOG_LIST_STORE_THUMBNAIL_ZOOM_OUT:
-	  if ( (size_thumbnails - 1) > -1){
-	    size_thumbnails -= 1;
-	    can_resize = TRUE;
-	  }
-	  break;
-	default:
-	  break;
-	}
-	return can_resize;
-}
-
 static void
 eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 {
@@ -352,7 +344,6 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    EOG_LIST_STORE_THUMB_SET, TRUE,
 				    EOG_LIST_STORE_EOG_JOB, NULL,
-				    EOG_LIST_STORE_EOG_NAME, eog_image_get_caption(image),
 				    -1);
 
 		g_object_unref (image);
@@ -945,7 +936,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 		return;
 	}
 
-	job = eog_job_thumbnail_new (image, store->priv->sizes_thumbnails[size_thumbnails]);
+	job = eog_job_thumbnail_new (image, store->priv->add_frame, store->priv->thumb_size);
 
 	g_signal_connect (job,
 			  "finished",
