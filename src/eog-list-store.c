@@ -26,23 +26,54 @@
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
 #include "eog-jobs.h"
-
+#include "eog-config-keys.h"
 #include <string.h>
 
+#define EOG_LIST_STORE_THUMB_SIZE 90
+
 struct _EogListStorePrivate {
+	GSettings           *ui_settings;
+
+  //  	gboolean is_monitoring;  /* Check if monitoring the directories */
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
 	GdkPixbuf *missing_image; /* Missing image icon */
 	GMutex mutex;             /* Mutex for saving the jobs in the model */
+
+	gint thumb_size;
+	gboolean add_frame;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
+
+static gboolean is_monitoring = TRUE;
+
+enum
+{
+	PROP_0,
+	PROP_SIZE_THUMBNAIL,
+        PROP_FRAME_THUMBNAIL
+};
 
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
 {
 	g_file_monitor_cancel (G_FILE_MONITOR (data));
+}
+
+static void
+monitors_free(EogListStore *store)
+{
+  g_return_if_fail(EOG_IS_LIST_STORE(store));
+	if(is_monitoring){
+	  g_list_foreach (store->priv->monitors,
+			  foreach_monitors_free, NULL);
+	  
+	  g_list_free (store->priv->monitors);
+	  
+	  store->priv->monitors = NULL;
+	}
 }
 
 static void
@@ -81,12 +112,36 @@ eog_list_store_finalize (GObject *object)
 }
 
 static void
+eog_list_store_set_property (GObject    *object,
+                               guint       prop_id,
+                               const GValue     *value,
+                               GParamSpec *pspec)
+{
+    EogListStorePrivate *priv = EOG_LIST_STORE(object)->priv;
+
+    switch (prop_id){
+        case PROP_SIZE_THUMBNAIL:
+            priv->thumb_size = g_value_get_int (value);
+            break;
+         case PROP_FRAME_THUMBNAIL:
+	    priv->add_frame = g_value_get_boolean (value);
+	    break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    }
+}
+
+static void
 eog_list_store_class_init (EogListStoreClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
+	object_class->set_property = eog_list_store_set_property;
+
+	g_object_class_install_property(object_class, PROP_SIZE_THUMBNAIL, g_param_spec_int("size-thumbnail", "", "", 90, 256, 90, G_PARAM_WRITABLE));
+	g_object_class_install_property(object_class, PROP_FRAME_THUMBNAIL, g_param_spec_boolean("add-frame", "", "", TRUE, G_PARAM_WRITABLE));
 }
 
 /*
@@ -152,12 +207,17 @@ eog_list_store_init (EogListStore *self)
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
 	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
 	types[EOG_LIST_STORE_EOG_JOB]   = G_TYPE_POINTER;
-
+	types[EOG_LIST_STORE_EOG_NAME]  = G_TYPE_STRING;
+	
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
 
 	self->priv = eog_list_store_get_instance_private (self);
 
+	self->priv->ui_settings = g_settings_new (EOG_CONF_UI);
+        self->priv->thumb_size = g_settings_get_enum (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_SIZE);
+        self->priv->add_frame = g_settings_get_boolean (self->priv->ui_settings, EOG_CONF_UI_IMAGE_GALLERY_THUMB_ADD_FRAME);
+	
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
@@ -414,6 +474,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		}
 		g_object_unref (file_info);
 		break;
+	case G_FILE_MONITOR_EVENT_MOVED_OUT:
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			EogImage *image;
@@ -425,6 +486,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			eog_list_store_remove (store, &iter);
 		}
 		break;
+	case G_FILE_MONITOR_EVENT_MOVED_IN:
 	case G_FILE_MONITOR_EVENT_CREATED:
 		if (!is_file_in_list_store_file (store, file, NULL)) {
 			file_info = g_file_query_info (file,
@@ -459,14 +521,31 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		}
 		g_object_unref (file_info);
 		break;
+	case G_FILE_MONITOR_EVENT_RENAMED:
+		if (is_file_in_list_store_file (store, file, &iter)) {
+			file_info = g_file_query_info (other_file,
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+						       0, NULL, NULL);
+			if (file_info == NULL) {
+				break;
+			}
+
+			mimetype = g_file_info_get_content_type (file_info);
+			if (eog_image_is_supported_mime_type (mimetype)) {
+				const gchar *caption = g_file_info_get_display_name (file_info);
+				eog_list_store_append_image_from_file (store, other_file, caption);
+				eog_list_store_remove (store, &iter);
+			}
+
+			g_object_unref (file_info);
+		}
+		break;
 	case G_FILE_MONITOR_EVENT_CHANGED:
 	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
 	case G_FILE_MONITOR_EVENT_UNMOUNTED:
 	case G_FILE_MONITOR_EVENT_MOVED:
-	case G_FILE_MONITOR_EVENT_RENAMED:
-	case G_FILE_MONITOR_EVENT_MOVED_IN:
-	case G_FILE_MONITOR_EVENT_MOVED_OUT:
-		break;
+	        break;
 	}
 }
 
@@ -507,14 +586,15 @@ eog_list_store_append_directory (EogListStore *store,
 				 GFile *file,
 				 GFileType file_type)
 {
-	GFileMonitor *file_monitor;
+	GFileMonitor *file_monitor = NULL;
 	GFileEnumerator *file_enumerator;
 	GFileInfo *file_info;
 
 	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
 
-	file_monitor = g_file_monitor_directory (file,
-						 0, NULL, NULL);
+	if(is_monitoring)
+	  file_monitor = g_file_monitor_directory (file,
+						   G_FILE_MONITOR_WATCH_MOVES, NULL, NULL);
 
 	if (file_monitor != NULL) {
 		g_signal_connect (file_monitor, "changed",
@@ -604,7 +684,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		if (file_type == G_FILE_TYPE_DIRECTORY) {
 			eog_list_store_append_directory (store, file, file_type);
 		} else if (file_type == G_FILE_TYPE_REGULAR &&
-			   g_list_length (file_list) == 1) {
+			   g_list_length (file_list) == 1 && is_monitoring) {
 
 			initial_file = g_file_dup (file);
 
@@ -632,8 +712,8 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 				eog_list_store_append_image_from_file (store, initial_file, caption);
 			}
 			g_object_unref (file);
-		} else if (file_type == G_FILE_TYPE_REGULAR &&
-			   g_list_length (file_list) > 1) {
+		} else if (file_type == G_FILE_TYPE_REGULAR /* &&
+							       g_list_length (file_list) > 1*/) {
 			eog_list_store_append_image_from_file (store, file, caption);
 		}
 
@@ -856,7 +936,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 		return;
 	}
 
-	job = eog_job_thumbnail_new (image);
+	job = eog_job_thumbnail_new (image, store->priv->add_frame, store->priv->thumb_size);
 
 	g_signal_connect (job,
 			  "finished",
@@ -941,4 +1021,86 @@ eog_list_store_thumbnail_refresh (EogListStore *store,
 {
 	eog_list_store_remove_thumbnail_job (store, iter);
 	eog_list_store_add_thumbnail_job (store, iter);
+}
+
+/**
+ * eog_get_is_monitoring:
+ * @store: An #EogListStore.
+ *
+ * Get the state of the monitors.
+ *
+ **/
+gboolean
+eog_list_store_get_monitoring(/* EogListStore *store */void)
+{
+	return is_monitoring;
+}
+
+/**
+ * eog_set_is_monitoring:
+ * @store: An #EogListStore.
+ * @is_monitoring: A #gboolean setting the state of monitors
+ * @directories: A #GSList containing the list of directories to monitors
+ *
+ * Set the state of monitors with a new list of directories.
+ *
+ **/
+void
+eog_list_store_set_monitoring(gboolean set_monitoring)
+{
+	is_monitoring = set_monitoring;
+}
+
+/**
+ * eog_set_is_monitoring:
+ * @store: An #EogListStore.
+ * @is_monitoring: A #gboolean setting the state of monitors
+ * @directories: A #GSList containing the list of directories to monitors
+ *
+ * Set the state of monitors with a new list of directories.
+ *
+ **/
+void
+eog_list_store_set_monitoring_with_files(EogListStore *store,
+					 gboolean set_monitoring,
+					 GSList *directories)
+{
+  	g_return_if_fail(EOG_IS_LIST_STORE(store));
+
+
+	if (!set_monitoring) {
+		monitors_free(store);
+        }  else if (directories != NULL) {
+		GFileMonitor *file_monitor = NULL;
+		GFileInfo *file_info = NULL;
+		GFileType file_type;
+
+		GSList *it;
+		for (it = directories; it != NULL; it = it->next){
+			GFile *file = (GFile *)it->data;
+			file_info = g_file_query_info (file,
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+						       0, NULL, NULL);
+			if (file_info == NULL)
+			  continue;
+		  
+			file_type = g_file_info_get_file_type (file_info);
+			if (file_type == G_FILE_TYPE_DIRECTORY) {
+			  file_monitor = g_file_monitor_directory (file,
+								   0, NULL, NULL);
+		    
+			  if (file_monitor != NULL) {
+			    g_signal_connect (file_monitor, "changed",
+					      G_CALLBACK (file_monitor_changed_cb), store);
+		      
+			    store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
+		      
+			  }
+			}
+			g_object_unref (file_info);
+			g_object_unref (file);
+		}
+	}
+	is_monitoring = set_monitoring;
 }

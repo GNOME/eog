@@ -125,6 +125,7 @@ struct _EogWindowPrivate {
 	EogWindowMode        mode;
 	EogWindowStatus      status;
 
+        GtkWidget           *boxtool;
         GtkWidget           *overlay;
         GtkWidget           *box;
         GtkWidget           *layout;
@@ -617,6 +618,7 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 		"view-sidebar",
 		"view-statusbar",
 		"view-fullscreen",
+		"view-boxtool", 
 		NULL
 	};
 
@@ -671,6 +673,8 @@ _eog_window_enable_gallery_actions (EogWindow *window, gboolean enable)
 	_eog_window_enable_action_group (G_ACTION_MAP (window),
 					 gallery_actions,
 					 enable);
+
+	eog_scroll_view_set_visible_arrows_revealer (EOG_SCROLL_VIEW (window->priv->view), enable);
 }
 
 static void
@@ -679,6 +683,7 @@ update_action_groups_state (EogWindow *window)
 	EogWindowPrivate *priv;
 	GAction *action_gallery;
 	GAction *action_sidebar;
+	GAction *action_boxtool;
 	GAction *action_fscreen;
 	GAction *action_sshow;
 	GAction *action_print;
@@ -712,6 +717,11 @@ update_action_groups_state (EogWindow *window)
 		g_action_map_lookup_action (G_ACTION_MAP (window),
 					     "print");
 
+	action_boxtool =
+		g_action_map_lookup_action (G_ACTION_MAP (window),
+					     "view-boxtool");
+
+	g_assert (action_boxtool != NULL);
 	g_assert (action_gallery != NULL);
 	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
@@ -961,7 +971,8 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
-	GFile *file;
+	GFile *file_parent, *file;
+	GFileInfo *file_info;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -993,6 +1004,35 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	update_status_bar (window);
 
 	file = eog_image_get_file (image);
+	file_parent = g_file_get_parent (file);
+	file_info = g_file_query_info (file_parent,
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+				       G_FILE_QUERY_INFO_NONE,
+				       NULL,
+				       NULL);
+	gboolean is_writable = g_file_info_get_attribute_boolean (file_info,
+								  G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	gboolean is_visible = eog_scroll_view_get_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view));
+	if(!is_writable && is_visible)
+	  eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), FALSE);
+	else if (!is_visible){
+	  eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), TRUE);
+	} else {
+	  if (file_info != NULL)
+	    g_object_unref (file_info);
+	  file_info = g_file_query_info (file,
+					 G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+					 G_FILE_QUERY_INFO_NONE,
+					 NULL,
+					 NULL);
+	  is_writable = g_file_info_get_attribute_boolean (file_info,
+							   G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	  if(!is_writable && is_visible)
+	    eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), FALSE);
+	  else if (!is_visible)
+	    eog_scroll_view_set_visible_rotations_revealer (EOG_SCROLL_VIEW (priv->view), TRUE);
+	}
+	
 	g_idle_add_full (G_PRIORITY_LOW,
 			 (GSourceFunc) add_file_to_recent_files,
 			 file,
@@ -1976,6 +2016,14 @@ update_ui_visibility (EogWindow *window)
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
 	gtk_widget_set_visible (priv->sidebar, visible);
 
+	visible = g_settings_get_boolean (priv->ui_settings,
+					  EOG_CONF_UI_BOXTOOL);
+	visible = visible && !fullscreen_mode;
+	action = g_action_map_lookup_action (G_ACTION_MAP (window), "view-boxtool");
+	g_assert (action != NULL);
+	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
+	gtk_widget_set_visible (priv->boxtool, visible);
+
 	if (priv->fullscreen_popup != NULL) {
 		gtk_widget_hide (priv->fullscreen_popup);
 	}
@@ -2546,6 +2594,11 @@ eog_window_action_show_hide_bar (GSimpleAction *action,
 		gtk_widget_set_visible (priv->sidebar, visible);
 		g_simple_action_set_state (action, state);
 		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR,
+					visible);
+	} else if (g_ascii_strcasecmp (g_action_get_name (G_ACTION (action)), "view-boxtool") == 0) {
+		gtk_widget_set_visible (priv->boxtool, visible);
+		g_simple_action_set_state (action, state);
+		g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_BOXTOOL,
 					visible);
 	}
 }
@@ -3980,6 +4033,7 @@ static const GActionEntry window_actions[] = {
 	{ "view-statusbar",  NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-gallery",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-sidebar",    NULL, NULL, "true",  eog_window_action_show_hide_bar },
+	{ "view-boxtool",      NULL, NULL, "true",  eog_window_action_show_hide_bar },
 	{ "view-slideshow",  NULL, NULL, "false", eog_window_action_toggle_slideshow },
 	{ "view-fullscreen", NULL, NULL, "false", eog_window_action_toggle_fullscreen },
 	{ "pause-slideshow", NULL, NULL, "false", eog_window_action_pause_slideshow },
@@ -4268,6 +4322,9 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
 	gtk_widget_show (priv->cbox);
 
+	priv->boxtool = g_object_ref(gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
+	gtk_box_pack_start (GTK_BOX (priv->cbox), priv->boxtool, FALSE, FALSE, 0);
+	
 	priv->statusbar = eog_statusbar_new ();
 	gtk_box_pack_end (GTK_BOX (priv->box),
 			  GTK_WIDGET (priv->statusbar),
@@ -4507,6 +4564,10 @@ eog_window_init (EogWindow *window)
 	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
 					  G_CALLBACK (eog_window_ui_settings_changed_cb),
 					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"));
+
+	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_BOXTOOL,
+					  G_CALLBACK (eog_window_ui_settings_changed_cb),
+					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-boxtool"));
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
@@ -5205,6 +5266,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 		g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 	}
+
 }
 
 /**
@@ -5223,7 +5285,24 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 
 	eog_debug (DEBUG_WINDOW);
 
-	window->priv->status = EOG_WINDOW_STATUS_INIT;
+	if(window->priv->status != EOG_WINDOW_STATUS_INIT){
+	  window->priv->status = EOG_WINDOW_STATUS_INIT;
+	} else {
+	  if (window->priv->file_list != NULL) {
+	    g_slist_foreach (window->priv->file_list, (GFunc) g_object_unref, NULL);
+	    g_slist_free (window->priv->file_list);
+	  }
+	  if(window->priv->store != NULL){
+	    g_signal_handlers_disconnect_by_func (window->priv->store,
+						  eog_window_list_store_image_added,
+						  window);
+	    g_signal_handlers_disconnect_by_func (window->priv->store,
+						  eog_window_list_store_image_removed,
+						  window);
+	    g_object_unref (window->priv->store);
+	    window->priv->store = NULL;
+	  }
+	}
 
 	g_slist_foreach (file_list, (GFunc) g_object_ref, NULL);
 	window->priv->file_list = file_list;
@@ -5237,6 +5316,14 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 
 	eog_job_scheduler_add_job (job);
 	g_object_unref (job);
+}
+
+GtkWidget *
+eog_window_get_boxtool (EogWindow *window)
+{
+  g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+  return window->priv->boxtool;
 }
 
 /**

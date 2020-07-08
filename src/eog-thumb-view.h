@@ -82,6 +82,14 @@ void        eog_thumb_view_set_current_image	    (EogThumbView *thumbview,
 void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *thumbview,
 						     GtkMenu      *menu);
 
+void        eog_thumb_view_resize_thumbnails        (EogThumbView *thumbview,
+						     EogListStoreZoomThumbnails zoom,
+						     GtkAllocation *alloc_view);
+
+void        eog_thumb_view_display_text                 (EogThumbView *thumbview,
+							 gboolean display,
+							 gboolean set_ellipsize);
+
 G_END_DECLS
 
 #endif /* EOG_THUMB_VIEW_H */

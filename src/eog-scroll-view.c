@@ -110,6 +110,7 @@ struct _EogScrollViewPrivate {
 	/* actual image */
 	EogImage *image;
 	guint image_changed_id;
+	guint image_updated_id;
 	guint frame_changed_id;
 	GdkPixbuf *pixbuf;
 	cairo_surface_t *surface;
@@ -191,9 +192,7 @@ static void view_on_drag_data_get_cb (GtkWidget *widget,
                                       GtkSelectionData *data, guint info,
                                       guint time, gpointer user_data);
 static void _set_zoom_mode_internal (EogScrollView *view, EogZoomMode mode);
-static gboolean eog_scroll_view_get_image_coords (EogScrollView *view, gint *x,
-                                                  gint *y, gint *width,
-                                                  gint *height);
+
 static gboolean _eog_gdk_rgba_equal0 (const GdkRGBA *a, const GdkRGBA *b);
 
 
@@ -251,6 +250,11 @@ free_image_resources (EogScrollView *view)
 	if (priv->image_changed_id > 0) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_id);
 		priv->image_changed_id = 0;
+	}
+
+	if (priv->image_updated_id > 0) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_updated_id);
+		priv->image_updated_id = 0;
 	}
 
 	if (priv->frame_changed_id > 0) {
@@ -1695,6 +1699,12 @@ image_changed_cb (EogImage *img, gpointer data)
 	                         EOG_ZOOM_MODE_SHRINK_TO_FIT);
 }
 
+static void
+image_updated_cb (EogImage *img, gpointer data)
+{
+	update_pixbuf (EOG_SCROLL_VIEW (data), eog_image_get_pixbuf (img));
+}
+
 /*===================================
 	 public API
   ---------------------------------*/
@@ -1995,6 +2005,10 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
 		                                           (GCallback) image_changed_cb, view);
+		
+		priv->image_updated_id = g_signal_connect (image, "updated",
+		                                           (GCallback) image_updated_cb, view);
+
 		if (eog_image_is_animation (image) == TRUE ) {
 			eog_image_start_animation (image);
 			priv->frame_changed_id = g_signal_connect (image, "next-frame",
@@ -2980,7 +2994,7 @@ eog_scroll_view_get_zoom_mode (EogScrollView *view)
 	return view->priv->zoom_mode;
 }
 
-static gboolean
+gboolean
 eog_scroll_view_get_image_coords (EogScrollView *view, gint *x, gint *y,
                                   gint *width, gint *height)
 {
@@ -3063,4 +3077,40 @@ eog_scroll_view_event_is_over_image (EogScrollView *view, const GdkEvent *ev)
 		return FALSE;
 
 	return TRUE;
+}
+
+
+void
+eog_scroll_view_set_visible_arrows_revealer (EogScrollView *view, gboolean visible)
+{
+        g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        gtk_widget_set_visible (GTK_WIDGET(priv->left_revealer), visible);
+        gtk_widget_set_visible (GTK_WIDGET(priv->right_revealer), visible);
+	
+	return;
+}
+
+void
+eog_scroll_view_set_visible_rotations_revealer (EogScrollView *view, gboolean visible)
+{
+        g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        gtk_widget_set_visible (GTK_WIDGET(priv->bottom_revealer), visible);
+	
+	return;
+}
+
+gboolean
+eog_scroll_view_get_visible_rotations_revealer (EogScrollView *view)
+{
+        g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
+
+	EogScrollViewPrivate *priv = view->priv;
+
+        return gtk_widget_get_visible (GTK_WIDGET(priv->bottom_revealer));
 }

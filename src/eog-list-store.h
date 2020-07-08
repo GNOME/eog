@@ -46,13 +46,12 @@ typedef struct _EogListStorePrivate EogListStorePrivate;
 #define EOG_IS_LIST_STORE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_LIST_STORE))
 #define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStoreClass))
 
-#define EOG_LIST_STORE_THUMB_SIZE 90
-
 typedef enum {
 	EOG_LIST_STORE_THUMBNAIL = 0,
 	EOG_LIST_STORE_THUMB_SET,
 	EOG_LIST_STORE_EOG_IMAGE,
 	EOG_LIST_STORE_EOG_JOB,
+	EOG_LIST_STORE_EOG_NAME,
 	EOG_LIST_STORE_NUM_COLUMNS
 } EogListStoreColumn;
 
@@ -107,6 +106,13 @@ void            eog_list_store_thumbnail_unset       (EogListStore *store,
 
 void            eog_list_store_thumbnail_refresh     (EogListStore *store,
 						      GtkTreeIter *iter);
+gboolean        eog_list_store_get_monitoring        (/* EogListStore *store */void);
+
+void            eog_list_store_set_monitoring        (gboolean is_monitoring);
+
+void            eog_list_store_set_monitoring_with_files        (EogListStore *store,
+								 gboolean is_monitoring,
+								 GSList *files);
 
 G_END_DECLS
 

@@ -76,6 +76,7 @@ struct _EogThumbViewPrivate {
 	gint end_thumb;   /* the last visible thumbnail  */
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
 	GtkCellRenderer *pixbuf_cell;
+	GtkCellRenderer *text_cell;
 	gint visible_range_changed_id;
 
 	GtkOrientation orientation;
@@ -117,7 +118,7 @@ eog_thumb_view_constructed (GObject *object)
 					thumbview->priv->pixbuf_cell,
 					"pixbuf", EOG_LIST_STORE_THUMBNAIL,
 					NULL);
-
+	
 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumbview),
 					  GTK_SELECTION_MULTIPLE);
 
@@ -244,6 +245,10 @@ eog_thumb_view_clear_range (EogThumbView *thumbview,
 	gint thumb = start_thumb;
 	gboolean result;
 
+	/* if it is the first range we return */
+	if (start_thumb < 0)
+	     return;  
+
 	g_assert (start_thumb <= end_thumb);
 
 	path = gtk_tree_path_new_from_indices (start_thumb, -1);
@@ -293,8 +298,10 @@ eog_thumb_view_update_visible_range (EogThumbView *thumbview,
 		return;
 	}
 
-	if (old_start_thumb < start_thumb)
-		eog_thumb_view_clear_range (thumbview, old_start_thumb, MIN (start_thumb - 1, old_end_thumb));
+	if (old_start_thumb < start_thumb){
+	  gint offset = start_thumb - old_start_thumb;
+	        eog_thumb_view_clear_range (thumbview, old_start_thumb - offset, MIN ( (start_thumb - 1) - offset, old_end_thumb));
+	}
 
 	if (old_end_thumb > end_thumb)
 		eog_thumb_view_clear_range (thumbview, MAX (end_thumb + 1, old_start_thumb), old_end_thumb);
@@ -640,6 +647,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv->visible_range_changed_id = 0;
 	thumbview->priv->image_add_id = 0;
 	thumbview->priv->image_removed_id = 0;
+	thumbview->priv->text_cell = NULL;
 }
 
 /**
@@ -692,6 +700,7 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 {
 	EogThumbViewPrivate *priv = view->priv;
 
+	priv->end_thumb--;
 	priv->n_images--;
 	eog_thumb_view_update_columns (view);
 }
@@ -1053,5 +1062,87 @@ eog_thumb_view_set_thumbnail_popup (EogThumbView *thumbview,
 
 	g_signal_connect (G_OBJECT (thumbview), "button_press_event",
 			  G_CALLBACK (thumbview_on_button_press_event_cb), NULL);
+
+}
+
+void
+eog_thumb_view_resize_thumbnails (EogThumbView *thumbview,
+				  EogListStoreZoomThumbnails zoom,
+				  GtkAllocation *alloc_widget)
+{
+	g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
+
+	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview)));
+	if(!eog_list_store_zoom_thumbnails (store, zoom))
+	  return;
+
+	GtkAllocation alloc_view;
+	if (!alloc_widget)
+	  gtk_widget_get_allocation (GTK_WIDGET(thumbview), &alloc_view);
+	else
+	  alloc_view = *alloc_widget;
+
+	gint val_zoom = eog_list_store_get_zoom_value (store);
+
+	val_zoom = alloc_view.width/ val_zoom;
+	gtk_icon_view_set_columns(GTK_ICON_VIEW(thumbview), val_zoom);
+
+	val_zoom = alloc_view.width / val_zoom;
+	gtk_cell_renderer_set_fixed_size (thumbview->priv->pixbuf_cell, val_zoom, val_zoom);
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	gint thumb = thumbview->priv->start_thumb;
+	gboolean result;
+
+
+	path = gtk_tree_path_new_from_indices (thumbview->priv->start_thumb, -1);
+	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
+	     result && thumb <= thumbview->priv->end_thumb;
+	     result = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter), thumb++) {
+		eog_list_store_thumbnail_refresh (store, &iter);
+	}
+	gtk_tree_path_free (path);
+	//	g_warning("%s : Alloc(%d, %d)(%d, %d) NbCols(%d)", __func__, alloc_view.x, alloc_view.y, alloc_view.width, alloc_view.height, (alloc_view.width - 6 + 4) / val_zoom);
+	return;
+}
+
+
+void
+eog_thumb_view_display_text (EogThumbView *thumbview,
+			     gboolean display,
+			     gboolean set_ellipsize)
+{
+  g_return_if_fail (EOG_IS_THUMB_VIEW (thumbview));
+
+  if (!thumbview->priv->text_cell) {
+	thumbview->priv->text_cell = gtk_cell_renderer_text_new ();
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (thumbview),
+				    thumbview->priv->text_cell,
+				    FALSE);
+  }
+
+  if (!display) {
+    g_object_set (thumbview->priv->text_cell, "visible", display, NULL);
+  } else {
+  
+    if (set_ellipsize)
+      g_object_set (thumbview->priv->text_cell,
+		    "ellipsize", PANGO_ELLIPSIZE_END,
+		    "width", 0,
+		    "yalign", 0.5,
+		    "xalign", 0.5,
+		    NULL);
+    
+    gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (thumbview),
+				    thumbview->priv->text_cell,
+				    "text", EOG_LIST_STORE_EOG_NAME,
+				    NULL);
+    
+  g_object_set (thumbview->priv->pixbuf_cell,
+		"width", -1,
+		NULL);
+  g_object_set (thumbview->priv->text_cell, "visible", display, NULL);
+  }
+  /* g_object_set(thumbview, "activate-on-single-click", TRUE, "margin", 0, "item-padding", 0, NULL); */
 
 }

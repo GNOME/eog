@@ -36,7 +36,7 @@
 #include "eog-thumbnail.h"
 #include "eog-list-store.h"
 #include "eog-debug.h"
-
+#include "zoom.h"
 #define EOG_THUMB_ERROR eog_thumb_error_quark ()
 
 static GnomeDesktopThumbnailFactory *factory = NULL;
@@ -121,7 +121,7 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
 
-	perc = CLAMP (128.0/(MAX (width, height)), 0, 1);
+	perc = CLAMP (/*128.0*/256.0/(MAX (width, height)), 0, 1);
 
 	thumb = gdk_pixbuf_scale_simple (pixbuf,
 					 width*perc,
@@ -157,7 +157,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	data = g_slice_new0 (EogThumbData);
 
 	data->uri_str    = g_file_get_uri (file);
-	data->thumb_path = gnome_desktop_thumbnail_path_for_uri (data->uri_str, GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
+	data->thumb_path = gnome_desktop_thumbnail_path_for_uri (data->uri_str, GNOME_DESKTOP_THUMBNAIL_SIZE_LARGE);
 
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
@@ -292,7 +292,7 @@ eog_thumbnail_stretch_frame_image (GdkPixbuf *frame_image,
 						8,
 						dest_width,
 						dest_height);
-
+		
 		/* Clear pixbuf to fully opaque white */
 		gdk_pixbuf_fill (result_pixbuf, 0xffffffff);
         }
@@ -430,24 +430,56 @@ eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 	width = gdk_pixbuf_get_width (thumbnail);
 	height = gdk_pixbuf_get_height (thumbnail);
 
-	if (width > dimension || height > dimension) {
+	if (width == dimension || height == dimension){
+	  return gdk_pixbuf_copy (thumbnail);
+	}
+
+	//We zoom in thumbnails which are smaller than dimension
+	/* if (width > dimension || height > dimension) { */
 		GdkPixbuf *result_pixbuf;
 		gfloat factor;
 
-		if (width > height) {
-			factor = (gfloat) dimension / (gfloat) width;
-		} else {
-			factor = (gfloat) dimension / (gfloat) height;
+		/* if (width > height) { */
+		/* 	factor = (gfloat) dimension / (gfloat) width; */
+		/* } else { */
+		/* 	factor = (gfloat) dimension / (gfloat) height; */
+		/* } */
+		/* g_warning("%s : size(%d, %d) with factor(%f)", __func__, width, height, factor); */
+		/* width  = MAX (width  * factor, 1); */
+		/* height = MAX (height * factor, 1); */
+		dimension += 11;
+		result_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
+					        TRUE, 8,
+						91, 91);
+
+		gdk_pixbuf_fill (result_pixbuf, 0xffffffff);
+		
+		if (height < dimension){
+		  factor = (gfloat) dimension / (gfloat) height;
+		  width  = MAX (width  * factor, 1);
+		  height =  MAX (height * factor, 1);
+		} else if (width < dimension) {
+		  factor = (gfloat) dimension / (gfloat) width;
+		  width  = MAX (width  * factor, 1);
+		  height =  MAX (height * factor, 1);
 		}
+		
+	        GdkPixbuf *scaled_pixbuf = gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
 
-		width  = MAX (width  * factor, 1);
-		height = MAX (height * factor, 1);
+		gint center_x = width / 2;
+		gint center_y = height / 2;
 
-		result_pixbuf = gdk_pixbuf_scale_simple (thumbnail, width, height, GDK_INTERP_HYPER);
+		gint coord_x = center_x - 45 < 0 ? 0 : center_x - 45;
+		gint coord_y = center_y - 45 < 0 ? 0 : center_y - 45;
+
+		gint width_area = width < 101 ? width : 91;
+		gint height_area = height < 101 ? height : 91;
+
+		gdk_pixbuf_copy_area(scaled_pixbuf, coord_x, coord_y, width_area, height_area, result_pixbuf, 0, 0);
 
 		return result_pixbuf;
-	}
-	return gdk_pixbuf_copy (thumbnail);
+	/* } */
+	/* return gdk_pixbuf_copy (thumbnail); */
 }
 
 /**
@@ -529,7 +561,7 @@ void
 eog_thumbnail_init (void)
 {
 	if (factory == NULL) {
-		factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
+		factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_LARGE);
 	}
 
 	if (frame == NULL) {

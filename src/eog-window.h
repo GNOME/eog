@@ -65,6 +65,12 @@ typedef enum {
 	EOG_WINDOW_GALLERY_POS_RIGHT
 } EogWindowGalleryPos;
 
+typedef enum {
+  	EOG_WINDOW_THUMB_SIZE_NORMAL = 90,
+  	EOG_WINDOW_THUMB_SIZE_MIDDLE = 173,
+  	EOG_WINDOW_THUMB_SIZE_LARGE = 256
+} EogWindowThumbSize;
+
 //TODO
 typedef enum {
 	EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
@@ -134,6 +140,8 @@ void          eog_window_show_about_dialog (EogWindow    *window);
 void          eog_window_show_preferences_dialog (EogWindow *window);
 
 void          eog_window_close          (EogWindow *window);
+
+GtkWidget    *eog_window_get_boxtool (EogWindow *window);
 
 G_END_DECLS
 

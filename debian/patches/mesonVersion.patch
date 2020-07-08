@@ -1,0 +1,57 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ eog (3.33.3-1) unstable; urgency=medium
+ .
+   * Non-maintainer upload.
+   * Add patch to activate and deactivate monitoring
+Author: krifa75 <yahiaoui.fakhri@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-07-30
+
+Index: eog-3.33.3/meson.build
+===================================================================
+--- eog-3.33.3.orig/meson.build
++++ eog-3.33.3/meson.build
+@@ -3,7 +3,7 @@ project(
+   version: '3.33.4',
+   license: 'GPL2+',
+   default_options: 'buildtype=debugoptimized',
+-  meson_version: '>= 0.50.0',
++  meson_version: '>= 0.49.0',
+ )
+ 
+ eog_version = meson.project_version()
+@@ -89,7 +89,7 @@ endif
+ 
+ add_project_arguments(common_flags + compiler_flags, language: 'c')
+ 
+-glib_req_version = '>= 2.53.4'
++glib_req_version = '>= 2.50.3'
+ peas_req_version = '>= 0.7.4'
+ 
+ gio_dep = dependency('gio-2.0', version: glib_req_version)
+@@ -182,7 +182,7 @@ config_h.set('HAVE_INTROSPECTION', enabl
+ # RSVG (optional for scaling svg image)
+ enable_librsvg = get_option('librsvg')
+ if enable_librsvg
+-  common_deps += dependency('librsvg-2.0', version: '>= 2.44.0')
++  common_deps += dependency('librsvg-2.0', version: '>= 2.40.16')
+ endif
+ config_h.set('HAVE_RSVG', enable_librsvg)
+ 
