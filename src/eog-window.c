@@ -225,7 +225,7 @@ static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    EogWindow  *window);
 static void eog_window_sort_action_selected (GSimpleAction *action, GVariant *state, gpointer user_data);
 static gboolean eog_window_update_thumbnails_after_sort (EogWindow  *window);
-static gboolean sort_order_setting_exists ();
+static gboolean sort_order_setting_exists (void);
 
 static GQuark
 eog_window_error_quark (void)
@@ -4493,28 +4493,28 @@ eog_window_construct_ui (EogWindow *window)
 	eog_window_set_drag_dest (window);
 
 	// Apply preferred sort algorithm.
-	gint preferred_sort_algorithm = 0;
+	gint preferred_sort_algorithm = eog_get_sort_algorithm ();
 
 	if (priv->flags & EOG_STARTUP_SORT_ALGORITHM) {
 		// Use startup flag if there is one. The order would have been
 		// set already in main.c.
-		preferred_sort_algorithm = eog_get_sort_algorithm ();
 	}
 	else if (sort_order_setting_exists ()) {
-		// Then use the preference.
+		// Use the saved preference.
 		preferred_sort_algorithm = g_settings_get_int (priv->ui_settings, EOG_CONF_UI_SORT_ALGORITHM);
 		eog_set_sort_algorithm (preferred_sort_algorithm);
 	}
 	else {
 		// Neither startup flag or preference exists.
-		g_warning ("Could not find sort order setting in schema. Defaulting to A-Z.\n");
+		g_warning ("Could not find sort order setting in schema. Defaulting to %i.", preferred_sort_algorithm);
 	}
 
 	// Check/uncheck the boxes for the sort actions.
 	for (gint i = 0; i < sort_algorithm_ids_len; ++i) {
 		GAction *action = g_action_map_lookup_action (G_ACTION_MAP (window),
 							      sort_algorithm_ids[i]);
-		g_simple_action_set_state (action, g_variant_new_boolean (i == preferred_sort_algorithm));
+		g_simple_action_set_state (G_SIMPLE_ACTION (action),
+					   g_variant_new_boolean (i == preferred_sort_algorithm));
 	}
 }
 
@@ -5667,17 +5667,17 @@ eog_window_sort_action_selected (GSimpleAction *selected_action,
 	for (int i = 0; i < sort_algorithm_ids_len; ++i) {
 		GAction *action =
 			g_action_map_lookup_action (G_ACTION_MAP (window), sort_algorithm_ids[i]);
-		if (action == selected_action) {
+		if (G_SIMPLE_ACTION (action) == selected_action) {
 			// Apply the selected sort order.
 			eog_set_sort_algorithm (i);
 
 			// Resort the current image list.
-			eog_thumb_view_resort (window->priv->thumbview);
+			eog_thumb_view_resort (EOG_THUMB_VIEW (window->priv->thumbview));
 
 			// Update the thumbnails in the gallery. This must be
 			// done *after* the list is re-ordered, so use a timer.
 			g_timeout_add (EOG_REFRESH_THUMBNAILS_AFTER_SORT_TIMEOUT,
-				       eog_window_update_thumbnails_after_sort,
+				       (GSourceFunc) eog_window_update_thumbnails_after_sort,
 				       window);
 
 			// Store the preference.
@@ -5687,7 +5687,7 @@ eog_window_sort_action_selected (GSimpleAction *selected_action,
 		}
 		else {
 			// Uncheck the box for the unselected action.
-			g_simple_action_set_state (action, g_variant_new_boolean(FALSE));
+			g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean(FALSE));
 		}
 	}
 }
@@ -5703,7 +5703,7 @@ eog_window_update_thumbnails_after_sort (EogWindow  *window)
 }
 
 static gboolean
-sort_order_setting_exists ()
+sort_order_setting_exists (void)
 {
 	GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
 	if (source) {
