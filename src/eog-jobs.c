@@ -35,6 +35,7 @@ G_DEFINE_TYPE (EogJobLoad,      eog_job_load,      EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobModel,     eog_job_model,     EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobSave,      eog_job_save,      EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobSaveAs,    eog_job_save_as,   EOG_TYPE_JOB_SAVE);
+G_DEFINE_TYPE (EogJobRename,    eog_job_rename,    EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobThumbnail, eog_job_thumbnail, EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobTransform, eog_job_transform, EOG_TYPE_JOB);
 
@@ -78,6 +79,10 @@ static void     eog_job_save_as_class_init   (EogJobSaveAsClass    *class);
 static void     eog_job_save_as_init         (EogJobSaveAs         *job);
 static void     eog_job_save_as_dispose      (GObject              *object);
 
+static void     eog_job_rename_class_init    (EogJobRenameClass    *class);
+static void     eog_job_rename_init          (EogJobRename         *job);
+static void     eog_job_rename_dispose       (GObject              *object);
+
 static void     eog_job_thumbnail_class_init (EogJobThumbnailClass *class);
 static void     eog_job_thumbnail_init       (EogJobThumbnail      *job);
 static void     eog_job_thumbnail_dispose    (GObject              *object);
@@ -93,6 +98,7 @@ static void     eog_job_load_run             (EogJob               *job);
 static void     eog_job_model_run            (EogJob               *job);
 static void     eog_job_save_run             (EogJob               *job);
 static void     eog_job_save_as_run          (EogJob               *job);
+static void     eog_job_rename_run           (EogJob               *job);
 static void     eog_job_thumbnail_run        (EogJob               *job);
 static void     eog_job_transform_run        (EogJob               *job);
 
@@ -1269,6 +1275,117 @@ eog_job_save_as_new (GList           *images,
 
 	return EOG_JOB (job);
 }
+
+/* ------------------------------- EogJobRename -------------------------------- */
+static void
+eog_job_rename_class_init (EogJobRenameClass *class)
+{
+	GObjectClass *g_object_class = (GObjectClass *) class;
+	EogJobClass  *eog_job_class  = (EogJobClass *)  class;
+
+	g_object_class->dispose = eog_job_rename_dispose;
+	eog_job_class->run      = eog_job_rename_run;
+}
+
+static
+void eog_job_rename_init (EogJobRename *job)
+{
+	job->image = NULL;
+	job->name  = NULL;
+}
+
+static
+void eog_job_rename_dispose (GObject *object)
+{
+	EogJobRename *job;
+
+	g_return_if_fail (EOG_IS_JOB_RENAME (object));
+
+	job = EOG_JOB_RENAME (object);
+
+	if (job->image != NULL)
+        	job->image = NULL;
+
+	if (job->name != NULL) {
+		g_free (job->name);
+		job->name = NULL;
+	}
+
+	/* call parent dispose */
+	G_OBJECT_CLASS (eog_job_rename_parent_class)->dispose (object);
+}
+
+static void
+eog_job_rename_run (EogJob *job)
+{
+	EogJobRename *rename_job;
+
+	/* initialization */
+	g_return_if_fail (EOG_IS_JOB_RENAME (job));
+
+	/* clean previous errors */
+	if (job->error) {
+		g_error_free (job->error);
+		job->error = NULL;
+	}
+
+	/* check if the current job was previously cancelled */
+	if (eog_job_is_cancelled (job))
+		return;
+
+	rename_job = EOG_JOB_RENAME (job);
+
+	eog_image_rename (rename_job->image,
+			  rename_job->name,
+			  &job->error);
+
+	/* --- enter critical section --- */
+	g_mutex_lock (job->mutex);
+
+	/* job finished */
+	job->finished = TRUE;
+
+	/* --- leave critical section --- */
+	g_mutex_unlock (job->mutex);
+
+	/* notify job finalization */
+	g_idle_add ((GSourceFunc) notify_finished, job);
+
+}
+
+/**
+ * eog_job_rename_new:
+ * @image: (element-type EogImage) (transfer full): a #EogImage
+ * @name : (element-type gchar*) (transfer full): a #gchar*
+ *
+ * Creates a new #EogJob for image renaming.
+ *
+ * Returns: A #EogJob.
+ */
+
+EogJob *
+eog_job_rename_new (EogImage    *image,
+                    const gchar *name)
+{
+	EogJobRename *job;
+
+	job = g_object_new (EOG_TYPE_JOB_RENAME, NULL);
+
+	if (image)
+		EOG_JOB_RENAME(job)->image = image;
+
+	if (name)
+		job->name = g_strdup (name);
+
+	/* show info for debugging */
+	eog_debug_message (DEBUG_JOBS,
+			   "%s (%p) job was CREATED",
+			   EOG_GET_TYPE_NAME (job),
+			   job);
+
+	return EOG_JOB (job);
+}
+
 
 /* ------------------------------- EogJobThumbnail -------------------------------- */
 static void

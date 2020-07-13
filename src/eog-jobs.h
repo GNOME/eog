@@ -80,6 +80,13 @@ G_BEGIN_DECLS
 #define EOG_IS_JOB_SAVE_AS_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_JOB_SAVE_AS))
 #define EOG_JOB_SAVE_AS_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_JOB_SAVE_AS, EogJobSaveAsClass))
 
+#define EOG_TYPE_JOB_RENAME               (eog_job_rename_get_type ())
+#define EOG_JOB_RENAME(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_JOB_RENAME, EogJobRename))
+#define EOG_JOB_RENAME_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_JOB_RENAME, EogJobRenameClass))
+#define EOG_IS_JOB_RENAME(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_JOB_RENAME))
+#define EOG_IS_JOB_RENAME_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_JOB_RENAME))
+#define EOG_JOB_RENAME_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_JOB_RENAME, EogJobRenameClass))
+
 #define EOG_TYPE_JOB_THUMBNAIL            (eog_job_thumbnail_get_type ())
 #define EOG_JOB_THUMBNAIL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_JOB_THUMBNAIL, EogJobThumbnail))
 #define EOG_JOB_THUMBNAIL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_JOB_THUMBNAIL, EogJobThumbnailClass))
@@ -121,6 +128,9 @@ typedef struct _EogJobSaveClass      EogJobSaveClass;
 
 typedef struct _EogJobSaveAs         EogJobSaveAs;
 typedef struct _EogJobSaveAsClass    EogJobSaveAsClass;
+
+typedef struct _EogJobRename         EogJobRename;
+typedef struct _EogJobRenameClass    EogJobRenameClass;
 
 typedef struct _EogJobThumbnail      EogJobThumbnail;
 typedef struct _EogJobThumbnailClass EogJobThumbnailClass;
@@ -222,6 +232,19 @@ struct _EogJobSaveAsClass
 	EogJobSaveClass  parent;
 };
 
+struct _EogJobRename
+{
+	EogJob    parent;
+
+	EogImage *image;
+	gchar    *name;
+};
+
+struct _EogJobRenameClass
+{
+	EogJobSaveClass  parent;
+};
+
 struct _EogJobThumbnail
 {
 	EogJob           parent;
@@ -285,6 +308,10 @@ GType    eog_job_save_as_get_type   (void) G_GNUC_CONST;
 EogJob  *eog_job_save_as_new        (GList           *images,
 				     EogURIConverter *converter,
 				     GFile           *file);
+/* EogJobRename */
+GType    eog_job_rename_get_type    (void) G_GNUC_CONST;
+EogJob  *eog_job_rename_new         (EogImage    *image,
+				     const gchar *name);
 
 /* EogJobThumbnail */
 GType    eog_job_thumbnail_get_type (void) G_GNUC_CONST;

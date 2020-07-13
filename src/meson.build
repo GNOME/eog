@@ -39,6 +39,7 @@ headers = enum_headers + files(
   'eog-transform.h',
   'eog-uri-converter.h',
   'eog-window-activatable.h',
+  'eog-rename-dialog.h'
 )
 
 sources = files(
@@ -81,6 +82,7 @@ sources = files(
   'eog-window.c',
   'eog-zoom-entry.c',
   'zoom.c',
+  'eog-rename-dialog.c'
 )
 
 if enable_libexif

@@ -65,6 +65,7 @@ typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
 	EOG_IMAGE_ERROR_NOT_LOADED,
 	EOG_IMAGE_ERROR_NOT_SAVED,
+	EOG_IMAGE_ERROR_NOT_RENAMED,
 	EOG_IMAGE_ERROR_VFS,
 	EOG_IMAGE_ERROR_FILE_EXISTS,
 	EOG_IMAGE_ERROR_TMP_FILE_FAILED,
@@ -145,6 +146,10 @@ gboolean          eog_image_save_as_by_info          (EogImage   *img,
 gboolean          eog_image_save_by_info             (EogImage   *img,
 					              EogImageSaveInfo *source,
 					              GError    **error);
+
+void              eog_image_rename                   (EogImage   *img,
+                                                      const gchar *new_name,
+                                                      GError    **error);
 
 GdkPixbuf*        eog_image_get_pixbuf               (EogImage   *img);
 

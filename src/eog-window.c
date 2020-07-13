@@ -57,6 +57,7 @@
 #include "eog-window-activatable.h"
 #include "eog-metadata-sidebar.h"
 #include "eog-zoom-entry.h"
+#include "eog-rename-dialog.h"
 
 #include "eog-enum-types.h"
 
@@ -153,6 +154,7 @@ struct _EogWindowPrivate {
 	EogJob              *save_job;
 	GFile               *last_save_as_folder;
 	EogJob              *copy_job;
+	EogJob              *rename_job;
 
         guint                image_info_message_cid;
         guint                tip_message_cid;
@@ -182,6 +184,7 @@ static void eog_window_action_toggle_fullscreen (GSimpleAction *action, GVariant
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_window_action_save (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_action_save_as (GSimpleAction *action, GVariant *variant, gpointer user_data);
+static void eog_window_action_rename (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_action_toggle_slideshow (GSimpleAction *action, GVariant *state, gpointer user_data);
 static void eog_window_action_pause_slideshow (GSimpleAction *action, GVariant *variant, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
@@ -202,6 +205,7 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 						 gpointer      user_data);
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar *visible_filename);
 static gboolean eog_window_save_images (EogWindow *window, GList *images);
+static gboolean eog_window_rename_images (EogWindow *window, EogImage *images, const gchar *name);
 static void eog_window_finish_saving (EogWindow *window);
 static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    gint        response_id,
@@ -632,6 +636,7 @@ _eog_window_enable_image_actions (EogWindow *window, gboolean enable)
 		"save",
 		"open-with",
 		"save-as",
+		"rename",
 		"open-folder",
 		"print",
 		"properties",
@@ -2745,6 +2750,52 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 }
 
 static void
+eog_job_rename_cb (EogJobRename *job, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	g_signal_handlers_disconnect_by_func (job,
+					      eog_job_rename_cb,
+					      window);
+
+	if (window->priv->rename_job) {
+		g_object_unref (window->priv->rename_job);
+		window->priv->rename_job = NULL;
+	}
+
+	/* check if job contains any error */
+	if (EOG_JOB (job)->error == NULL) {
+		update_status_bar (window);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->image));
+
+	} else {
+		GtkWidget *message_area;
+		message_area = eog_image_save_error_message_area_new (
+					eog_image_get_caption (job->image),
+					EOG_JOB (job)->error);
+
+		g_signal_connect (message_area,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+
+		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+		gtk_window_set_title (GTK_WINDOW (window),
+				      eog_image_get_caption (job->image));
+
+		eog_window_set_message_area (window, message_area);
+
+		gtk_info_bar_set_default_response (GTK_INFO_BAR (message_area),
+						   GTK_RESPONSE_CANCEL);
+
+		gtk_widget_show (message_area);
+
+		update_status_bar (window);
+	}
+}
+
+static void
 eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
@@ -2971,6 +3022,66 @@ eog_window_action_save_as (GSimpleAction *action,
 			  window);
 
 	eog_job_scheduler_add_job (priv->save_job);
+}
+
+static gboolean
+eog_window_rename_images (EogWindow   *window,
+                          EogImage    *image,
+                          const gchar *name)
+{
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (window->priv->rename_job != NULL)
+		return FALSE;
+
+	priv->rename_job = eog_job_rename_new (image, name);
+
+	g_signal_connect (priv->rename_job,
+			  "finished",
+			  G_CALLBACK (eog_job_rename_cb),
+			  window);
+
+	return TRUE;
+}
+
+static void
+eog_window_action_rename (GSimpleAction *action,
+                          GVariant      *variant,
+                          gpointer      user_data)
+{
+
+	EogWindowPrivate *priv;
+	EogWindow        *window;
+	EogImage         *image;
+	GtkWidget        *dialog;
+
+	window = EOG_WINDOW (user_data);
+	priv   = window->priv;
+
+	image = priv->image;
+
+	dialog = eog_rename_dialog_new (GTK_WINDOW (window), eog_image_get_caption (image));
+
+	gtk_widget_show_all (dialog);
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_OK) {
+		gtk_widget_destroy (dialog);
+		return;
+	}
+
+	const gchar *new_name = eog_rename_dialog_get_new_name (dialog);
+
+	if (window->priv->rename_job != NULL) {
+		return;
+	}
+
+	if (eog_window_rename_images (window, image, new_name)) {
+		eog_job_scheduler_add_job (priv->rename_job);
+	}
+
+	gtk_widget_destroy (dialog);
 }
 
 static void
@@ -3948,6 +4059,7 @@ static const GActionEntry window_actions[] = {
 	{ "open-folder",   eog_window_action_open_containing_folder },
 	{ "save",          eog_window_action_save },
 	{ "save-as",       eog_window_action_save_as },
+	{ "rename",        eog_window_action_rename },
 	{ "close",         eog_window_action_close_window },
 	{ "print",         eog_window_action_print },
 	{ "properties",    eog_window_action_properties },
