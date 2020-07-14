@@ -43,8 +43,10 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
+#ifdef HAVE_LIBPORTAL
 #include <libportal/portal.h>
 #include <libportal/portal-gtk3.h>
+#endif
 
 void
 eog_util_show_help (const gchar *section, GtkWindow *parent)
@@ -508,6 +510,7 @@ eog_util_show_file_in_filemanager (GFile *file, GtkWindow *toplevel)
 
 /* Portal */
 
+#ifdef HAVE_LIBPORTAL
 gboolean
 eog_util_is_running_inside_flatpak (void)
 {
@@ -547,3 +550,4 @@ eog_util_open_file_with_flatpak_portal (GFile *file, GtkWindow *window)
 			     NULL);
 	xdp_parent_free (parent);
 }
+#endif

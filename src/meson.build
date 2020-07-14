@@ -128,7 +128,6 @@ deps = common_deps + [
   gio_unix_dep,
   gnome_desktop_dep,
   libpeas_gtk_dep,
-  libportal_dep,
   m_dep,
   zlib_dep,
 ]
