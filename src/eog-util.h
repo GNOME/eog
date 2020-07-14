@@ -76,6 +76,9 @@ gboolean eog_util_is_running_inside_flatpak  (void);
 G_GNUC_INTERNAL
 void     eog_util_open_file_with_flatpak_portal (GFile *file,
                                                  GtkWindow *window);
+
+void     eog_util_set_wallpaper_with_portal     (GFile *file,
+                                                 GtkWindow *window);
 #endif
 
 G_END_DECLS
