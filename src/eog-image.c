@@ -2054,6 +2054,44 @@ eog_image_get_collate_key (EogImage *img)
 	return priv->collate_key;
 }
 
+guint64
+eog_image_get_time_modified (EogImage *img)
+{
+	EogImagePrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	priv = img->priv;
+
+	if (priv->file == NULL) return NULL;
+	GFileInfo *fi;
+	guint64 modified;
+
+	fi = g_file_query_info(priv->file, G_FILE_ATTRIBUTE_TIME_MODIFIED, 0, 0, 0);
+	modified = g_file_info_get_attribute_uint64 (fi, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+	g_object_unref(fi);
+	return modified;
+}
+
+guint64
+eog_image_get_filesize (EogImage *img)
+{
+	EogImagePrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	priv = img->priv;
+
+	if (priv->file == NULL) return NULL;
+	GFileInfo *fi;
+	guint64 fsize;
+
+	fi = g_file_query_info(priv->file, G_FILE_ATTRIBUTE_STANDARD_SIZE, 0, 0, 0);
+	fsize = g_file_info_get_attribute_uint64 (fi, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+	g_object_unref(fi);
+	return fsize;
+}
+
 void
 eog_image_cancel_load (EogImage *img)
 {

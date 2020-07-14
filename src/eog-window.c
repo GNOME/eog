@@ -57,6 +57,7 @@
 #include "eog-window-activatable.h"
 #include "eog-metadata-sidebar.h"
 #include "eog-zoom-entry.h"
+#include "eog-sort-order.h"
 
 #include "eog-enum-types.h"
 
@@ -92,6 +93,8 @@
 
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
 
+#define EOG_REFRESH_THUMBNAILS_AFTER_SORT_TIMEOUT 100
+
 #define is_rtl (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
 
 typedef enum {
@@ -113,6 +116,16 @@ enum {
 };
 
 static gint signals[SIGNAL_LAST];
+
+const static gchar* sort_algorithm_ids[] = {
+	"sort-a-z",
+	"sort-z-a",
+	"sort-last-modified",
+	"sort-first-modified",
+	"sort-smallest-to-largest",
+	"sort-largest-to-smallest"};
+
+const static gint sort_algorithm_ids_len = 6;
 
 struct _EogWindowPrivate {
 	GSettings           *fullscreen_settings;
@@ -206,6 +219,9 @@ static void eog_window_finish_saving (EogWindow *window);
 static void eog_window_error_message_area_response (GtkInfoBar *message_area,
 						    gint        response_id,
 						    EogWindow  *window);
+static void eog_window_sort_action_selected (GSimpleAction *action, GVariant *state, gpointer user_data);
+static gboolean eog_window_update_thumbnails_after_sort (EogWindow  *window);
+static gboolean sort_order_setting_exists (void);
 
 static GQuark
 eog_window_error_quark (void)
@@ -3984,6 +4000,14 @@ static const GActionEntry window_actions[] = {
 	{ "view-fullscreen", NULL, NULL, "false", eog_window_action_toggle_fullscreen },
 	{ "pause-slideshow", NULL, NULL, "false", eog_window_action_pause_slideshow },
 	{ "toggle-zoom-fit", NULL, NULL, "true",  eog_window_action_toggle_zoom_fit },
+
+	/* Sort actions. */
+	{ "sort-a-z",                 NULL, NULL, "true",  eog_window_sort_action_selected },
+	{ "sort-z-a",                 NULL, NULL, "false", eog_window_sort_action_selected },
+	{ "sort-last-modified",       NULL, NULL, "false", eog_window_sort_action_selected },
+	{ "sort-first-modified",      NULL, NULL, "false", eog_window_sort_action_selected },
+	{ "sort-smallest-to-largest", NULL, NULL, "false", eog_window_sort_action_selected },
+	{ "sort-largest-to-smallest", NULL, NULL, "false", eog_window_sort_action_selected },
 };
 
 static void
@@ -4429,6 +4453,31 @@ eog_window_construct_ui (EogWindow *window)
 	}
 
 	eog_window_set_drag_dest (window);
+
+	// Apply preferred sort algorithm.
+	gint preferred_sort_algorithm = eog_get_sort_algorithm ();
+
+	if (priv->flags & EOG_STARTUP_SORT_ALGORITHM) {
+		// Use startup flag if there is one. The order would have been
+		// set already in main.c.
+	}
+	else if (sort_order_setting_exists ()) {
+		// Use the saved preference.
+		preferred_sort_algorithm = g_settings_get_int (priv->ui_settings, EOG_CONF_UI_SORT_ALGORITHM);
+		eog_set_sort_algorithm (preferred_sort_algorithm);
+	}
+	else {
+		// Neither startup flag or preference exists.
+		g_warning ("Could not find sort order setting in schema. Defaulting to %i.", preferred_sort_algorithm);
+	}
+
+	// Check/uncheck the boxes for the sort actions.
+	for (gint i = 0; i < sort_algorithm_ids_len; ++i) {
+		GAction *action = g_action_map_lookup_action (G_ACTION_MAP (window),
+							      sort_algorithm_ids[i]);
+		g_simple_action_set_state (G_SIMPLE_ACTION (action),
+					   g_variant_new_boolean (i == preferred_sort_algorithm));
+	}
 }
 
 static void
@@ -5549,4 +5598,72 @@ eog_window_close (EogWindow *window)
 	if (!eog_window_unsaved_images_confirm (window)) {
 		gtk_widget_destroy (GTK_WIDGET (window));
 	}
+}
+
+static void
+eog_window_sort_action_selected (GSimpleAction *selected_action,
+				 GVariant      *state,
+				 gpointer       user_data)
+{
+	EogWindow *window;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	window = EOG_WINDOW (user_data);
+
+	// Check the box for the selected action.
+	g_simple_action_set_state (selected_action, g_variant_new_boolean(TRUE));
+
+	for (int i = 0; i < sort_algorithm_ids_len; ++i) {
+		GAction *action =
+			g_action_map_lookup_action (G_ACTION_MAP (window), sort_algorithm_ids[i]);
+		if (G_SIMPLE_ACTION (action) == selected_action) {
+			// Apply the selected sort order.
+			eog_set_sort_algorithm (i);
+
+			// Resort the current image list.
+			eog_thumb_view_resort (EOG_THUMB_VIEW (window->priv->thumbview));
+
+			// Update the thumbnails in the gallery. This must be
+			// done *after* the list is re-ordered, so use a timer.
+			g_timeout_add (EOG_REFRESH_THUMBNAILS_AFTER_SORT_TIMEOUT,
+				       (GSourceFunc) eog_window_update_thumbnails_after_sort,
+				       window);
+
+			// Store the preference.
+			if (sort_order_setting_exists ()) {
+				g_settings_set_int (window->priv->ui_settings, EOG_CONF_UI_SORT_ALGORITHM, i);
+			}
+		}
+		else {
+			// Uncheck the box for the unselected action.
+			g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean(FALSE));
+		}
+	}
+}
+
+static gboolean
+eog_window_update_thumbnails_after_sort (EogWindow  *window)
+{
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
+				      EOG_THUMB_VIEW_SELECT_CURRENT);
+
+	// Only run this once.
+	return FALSE;
+}
+
+static gboolean
+sort_order_setting_exists (void)
+{
+	GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
+	if (source) {
+		GSettingsSchema *schema = g_settings_schema_source_lookup (source, EOG_CONF_UI, FALSE);
+		if (schema) {
+			return g_settings_schema_has_key (schema, EOG_CONF_UI_SORT_ALGORITHM);
+		}
+	}
+
+	return FALSE;
 }

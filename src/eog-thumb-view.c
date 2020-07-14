@@ -1055,3 +1055,18 @@ eog_thumb_view_set_thumbnail_popup (EogThumbView *thumbview,
 			  G_CALLBACK (thumbview_on_button_press_event_cb), NULL);
 
 }
+
+
+/**
+ * eog_thumb_view_resort:
+ * @thumbview: An #EogThumbView.
+ *
+ * Re-sort the image list in @thumbview.
+ *
+ **/
+void
+eog_thumb_view_resort (EogThumbView *thumbview)
+{
+	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (thumbview)));
+	eog_list_store_resort (store);
+}

@@ -164,6 +164,10 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
+guint64           eog_image_get_time_modified        (EogImage   *img);
+
+guint64           eog_image_get_filesize             (EogImage   *img);
+
 #ifdef HAVE_EXIF
 ExifData*      eog_image_get_exif_info            (EogImage   *img);
 #endif

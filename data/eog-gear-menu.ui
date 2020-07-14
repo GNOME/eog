@@ -62,6 +62,35 @@
       </submenu>
     </section>
     <section>
+      <submenu>
+        <attribute name="label" translatable="yes">Sort Order</attribute>
+        <item>
+          <attribute name="label" translatable="yes">A-Z</attribute>
+          <attribute name="action">win.sort-a-z</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Z-A</attribute>
+          <attribute name="action">win.sort-z-a</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Modified Time Ascending</attribute>
+          <attribute name="action">win.sort-last-modified</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Modified Time Descending</attribute>
+          <attribute name="action">win.sort-first-modified</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">File Size Ascending</attribute>
+          <attribute name="action">win.sort-smallest-to-largest</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">File Size Descending</attribute>
+          <attribute name="action">win.sort-largest-to-smallest</attribute>
+        </item>
+      </submenu>
+    </section>
+    <section>
       <item>
         <attribute name="action">app.preferences</attribute>
         <attribute name="label" translatable="yes">Prefere_nces</attribute>
