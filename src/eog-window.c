@@ -1106,14 +1106,17 @@ eog_window_action_open_with (GSimpleAction *action,
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 	window = EOG_WINDOW (user_data);
 
+#ifdef HAVE_LIBPORTAL
 	if (eog_util_is_running_inside_flatpak ()) {
 		GFile *file = eog_image_get_file (window->priv->image);
 
 		eog_util_open_file_with_flatpak_portal (file, GTK_WINDOW (window));
 		g_object_unref (file);
-	} else {
-		eog_window_open_file_chooser_dialog (window);
+
+		return;
 	}
+#endif
+	eog_window_open_file_chooser_dialog (window);
 }
 
 static void
