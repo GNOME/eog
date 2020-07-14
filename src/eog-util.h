@@ -76,6 +76,9 @@ G_GNUC_INTERNAL
 void     eog_util_open_file_with_flatpak_portal (GFile *file,
                                                  GtkWindow *window);
 
+void     eog_util_set_wallpaper_with_portal     (GFile *file,
+						 GtkWindow *window);
+
 G_END_DECLS
 
 #endif /* __EOG_UTIL_H__ */

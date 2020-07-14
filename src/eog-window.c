@@ -71,6 +71,9 @@
 #include <libpeas/peas-extension-set.h>
 #include <libpeas/peas-activatable.h>
 
+#include <libportal/portal.h>
+#include <libportal/portal-gtk3.h>
+
 #if defined(HAVE_LCMS) && defined(GDK_WINDOWING_X11)
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -3115,8 +3118,8 @@ eog_window_action_wallpaper (GSimpleAction *action,
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	EogImage *image;
-	GFile *file;
-	char *filename = NULL;
+	g_autoptr(GFile) file = NULL;
+	g_autofree gchar *filename = NULL;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3168,11 +3171,14 @@ eog_window_action_wallpaper (GSimpleAction *action,
 		return;
 	}
 
-	g_object_unref (file);
+	if (eog_util_is_running_inside_flatpak ()) {
+		eog_util_set_wallpaper_with_portal (file, GTK_WINDOW (window));
+
+		return;
+	}
 
 	eog_window_set_wallpaper (window, filename, NULL);
 
-	g_free (filename);
 }
 
 static gboolean

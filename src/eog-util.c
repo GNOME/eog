@@ -547,3 +547,33 @@ eog_util_open_file_with_flatpak_portal (GFile *file, GtkWindow *window)
 			     NULL);
 	xdp_parent_free (parent);
 }
+
+static void
+set_wallpaper_with_portal_cb (GObject *source, GAsyncResult *result, gpointer user_data) {
+        XdpPortal *portal = XDP_PORTAL (source);
+        g_autoptr(GError) error = NULL;
+
+        if (!xdp_portal_set_wallpaper_finish (portal, result, &error))
+        {
+                g_warning ("Failed to set wallpaper via portal: %s", error->message);
+        }
+}
+
+void
+eog_util_set_wallpaper_with_portal (GFile *file, GtkWindow *window) {
+        g_autoptr(XdpPortal) portal = NULL;
+        g_autofree gchar *uri = NULL;
+        XdpParent *parent = NULL;
+
+        portal = xdp_portal_new ();
+        parent = xdp_parent_new_gtk (window);
+        uri = g_file_get_uri (file);
+
+        xdp_portal_set_wallpaper (portal,
+                                  parent,
+                                  uri,
+                                  XDP_WALLPAPER_FLAG_PREVIEW,
+                                  NULL,
+                                  set_wallpaper_with_portal_cb,
+                                  window);
+}
