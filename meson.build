@@ -109,7 +109,6 @@ gio_dep = dependency('gio-2.0', version: glib_req_version)
 gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 2.91.2')
 libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
-libportal_dep = dependency('libportal', version: '>= 0.3')
 
 m_dep = cc.find_library('m')
 
@@ -162,6 +161,17 @@ if enable_xmp
   common_deps += dependency('exempi-2.0', version: '>= 1.99.5')
 endif
 config_h.set('HAVE_EXEMPI', enable_xmp)
+
+# xdg-desktop-portal support with libportal (optional)
+enable_libportal = get_option('libportal')
+if enable_libportal
+  libportal_dep = dependency('libportal', version: '>= 0.3', required: false)
+  assert(libportal_dep.found() and cc.has_header('libportal/portal.h', dependencies: libportal_dep),
+         'xdg-desktop-portal support requested but library not found. Please use -Dlibportal=false')
+
+  common_deps += libportal_dep
+endif
+config_h.set('HAVE_LIBPORTAL', enable_libportal)
 
 # Jpeg (semi-optional)
 enable_libjpeg = get_option('libjpeg')
@@ -248,4 +258,5 @@ output += '  XMP support ................:  ' + enable_xmp.to_string() + '\n'
 output += '  JPEG support ...............:  ' + enable_libjpeg.to_string() + '\n'
 output += '  Colour management support ..:  ' + enable_cms.to_string() + '\n'
 output += '  GObject Introspection.......:  ' + enable_introspection.to_string() + '\n'
+output += '  xdg-desktop-portal support..:  ' + enable_libportal.to_string() + '\n'
 message(output)
