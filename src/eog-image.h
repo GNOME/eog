@@ -99,6 +99,8 @@ struct _EogImageClass {
 
 	void (* changed) 	   (EogImage *img);
 
+  	void (* updated) 	   (EogImage *img);
+
 	void (* size_prepared)     (EogImage *img,
 				    int       width,
 				    int       height);
@@ -159,6 +161,8 @@ goffset           eog_image_get_bytes                (EogImage   *img);
 gboolean          eog_image_is_modified              (EogImage   *img);
 
 void              eog_image_modified                 (EogImage   *img);
+
+void              eog_image_updated                  (EogImage   *img);
 
 const gchar*      eog_image_get_caption              (EogImage   *img);
 
