@@ -1653,7 +1653,7 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 }
 
 static void
-file_open_dialog_response_cb (GtkWidget *chooser,
+file_open_dialog_response_cb (GtkNativeDialog *chooser,
 			      gint       response_id,
 			      EogWindow  *ev_window)
 {
@@ -1672,7 +1672,7 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 		g_slist_free (uris);
 	}
 
-	gtk_widget_destroy (chooser);
+	gtk_native_dialog_destroy (chooser);
 }
 
 static void
@@ -2248,7 +2248,7 @@ eog_window_action_file_open (GSimpleAction *action,
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	EogImage *current;
-	GtkWidget *dlg;
+	GtkFileChooserNative *dlg;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -2256,8 +2256,12 @@ eog_window_action_file_open (GSimpleAction *action,
 
 	priv = window->priv;
 
-	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
-	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
+	dlg = gtk_file_chooser_native_new (_("Open Image"),
+                                           GTK_WINDOW (window),
+					   GTK_FILE_CHOOSER_ACTION_OPEN,
+					   _("_Open"),
+					   _("_Cancel"));
+	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (dlg), TRUE);
 
 	current = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
@@ -2291,7 +2295,7 @@ eog_window_action_file_open (GSimpleAction *action,
 			  G_CALLBACK (file_open_dialog_response_cb),
 			  window);
 
-	gtk_widget_show_all (dlg);
+	gtk_native_dialog_show (GTK_NATIVE_DIALOG (dlg));
 }
 
 static void
