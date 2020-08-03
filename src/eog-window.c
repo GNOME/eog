@@ -610,6 +610,7 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 	static const gchar *window_actions[] = {
 		"open",
 		"close",
+		"close-all",
 		"preferences",
 		"manual",
 		"about",
@@ -2462,6 +2463,16 @@ eog_window_action_close_window (GSimpleAction *action,
 }
 
 static void
+eog_window_action_close_all_windows (GSimpleAction *action,
+				     GVariant      *variant,
+				     gpointer       user_data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_application_close_all_windows (EOG_APP);
+}
+
+static void
 eog_window_action_preferences (GSimpleAction *action,
 			       GVariant      *variant,
 			       gpointer       user_data)
@@ -3957,6 +3968,7 @@ static const GActionEntry window_actions[] = {
 	{ "save",          eog_window_action_save },
 	{ "save-as",       eog_window_action_save_as },
 	{ "close",         eog_window_action_close_window },
+	{ "close-all",     eog_window_action_close_all_windows },
 	{ "print",         eog_window_action_print },
 	{ "properties",    eog_window_action_properties },
 	{ "set-wallpaper", eog_window_action_wallpaper },

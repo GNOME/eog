@@ -206,6 +206,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.save",		"<Ctrl>s", NULL ,
 		"win.save-as",		"<Ctrl><shift>s", NULL,
 		"win.close",		"<Ctrl>w", NULL,
+		"win.close-all",	"<Ctrl>q", NULL,
 		"win.print",		"<Ctrl>p", NULL,
 		"win.properties",	"<Alt>Return", NULL,
 		"win.set-wallpaper",	"<Ctrl>F8", NULL,
@@ -726,6 +727,18 @@ eog_application_open_uris (EogApplication  *application,
 
  	return eog_application_open_file_list (application, file_list, timestamp,
 						    flags, error);
+}
+
+gboolean
+eog_application_close_all_windows (EogApplication *application)
+{
+	GList *windows;
+
+	windows = gtk_application_get_windows (GTK_APPLICATION (application));
+
+	g_list_foreach (windows, (GFunc) eog_window_close, NULL);
+
+	return TRUE;
 }
 
 static void
