@@ -84,6 +84,8 @@ gboolean          eog_application_open_uris           (EogApplication *applicati
 						       EogStartupFlags flags,
 						       GError        **error);
 
+gboolean          eog_application_close_all_windows   (EogApplication *application);
+
 G_END_DECLS
 
 #endif /* __EOG_APPLICATION_H__ */
