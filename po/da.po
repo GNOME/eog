@@ -13,16 +13,18 @@
 # Joe Hansen <joedalton2@yahoo.dk>, 2017.
 #
 # Konventioner:
-# collection -> samling
-# dither -> (avanceret) farvereducering
-# Vær opmærksom på at "check" kan stå for "tern"!
+#
+#   collection -> samling
+#   dither -> (avanceret) farvereducering
+#   Vær opmærksom på at "check" kan stå for "tern"!
+#
 # Husk at tilføje dig i credit-listen (besked id "translator-credits")
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-01-29 21:34+0000\n"
+"POT-Creation-Date: 2020-06-20 14:56+0000\n"
 "PO-Revision-Date: 2020-02-26 18:57+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -31,10 +33,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Language: da_DK\n"
-"X-Source-Language: C\n"
-"X-Project-Style: gnome\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
@@ -284,7 +282,7 @@ msgstr "_Erstat mellemrum med understregninger"
 
 #: data/eog-multiple-save-as-dialog.ui:324
 msgid "Options"
-msgstr "Indstillinger"
+msgstr "Valgmuligheder"
 
 #: data/eog-multiple-save-as-dialog.ui:361
 msgid "Rename from:"
@@ -366,7 +364,7 @@ msgstr "Til_pas billeder til skærmen"
 msgid "Sequence"
 msgstr "Sekvens"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Tid mellem billeder:"
@@ -399,7 +397,7 @@ msgstr "Gå til det første billede i galleriet"
 msgid "_First Image"
 msgstr "_Første billede"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2352
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Gå til det forrige billede i galleriet"
 
@@ -407,7 +405,7 @@ msgstr "Gå til det forrige billede i galleriet"
 msgid "_Previous Image"
 msgstr "_Forrige billede"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2340
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Gå til det næste billede i galleriet"
 
@@ -447,7 +445,7 @@ msgstr "Tilpas billedet til vinduet"
 msgid "_Best Fit"
 msgstr "_Bedste tilpasning"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2367
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotér billedet 90 grader til venstre"
 
@@ -455,7 +453,7 @@ msgstr "Rotér billedet 90 grader til venstre"
 msgid "Rotate Counter_clockwise"
 msgstr "Rotér _mod uret"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2378
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotér billedet 90 grader til højre"
 
@@ -471,7 +469,6 @@ msgstr "Skifter synligheden af billedgalleriruden i det aktuelle vindue"
 msgid "_Image Gallery"
 msgstr "_Billedgalleri"
 
-# Nogen grund til at tro at pause/paus ikke er en normal afstikkende imperativ?
 #: data/fullscreen-toolbar.ui:218
 msgid "Pause or resume the slideshow"
 msgstr "Paus eller genoptag præsentationen"
@@ -512,7 +509,7 @@ msgstr "Udskriv det nuværende billede"
 #: data/help-overlay.ui:47
 msgctxt "shortcut window"
 msgid "Close the current window"
-msgstr "Luk den nuværende vindue"
+msgstr "Luk det nuværende vindue"
 
 #: data/help-overlay.ui:54
 msgctxt "shortcut window"
@@ -579,118 +576,119 @@ msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Gennemse billeder"
 
-#: data/help-overlay.ui:156 data/help-overlay.ui:163 data/help-overlay.ui:171
-msgctxt "shortcut window"
-msgid "Go to the previous image in the folder"
-msgstr "Gå til det forrige billede i mappen"
-
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Gå til det næste billede i mappen"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
+#: data/help-overlay.ui:198
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Gå til det forrige billede i mappen"
+
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Gå til det første billede i mappen"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Gå til det sidste billede i mappen"
 
-#: data/help-overlay.ui:199
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Gå til et tilfældigt billede i mappen"
 
-#: data/help-overlay.ui:206
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Vis/skjul billedgalleriet"
 
-#: data/help-overlay.ui:214
+#: data/help-overlay.ui:250
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotation"
 
-#: data/help-overlay.ui:218 data/help-overlay.ui:233
+#: data/help-overlay.ui:254 data/help-overlay.ui:269
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Rotér med uret"
 
-#: data/help-overlay.ui:225 data/help-overlay.ui:240
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Rotér mod uret"
 
-#: data/help-overlay.ui:248
+#: data/help-overlay.ui:284
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Fuldskærm"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:289
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Vis/forlad fuldskærm"
 
-#: data/help-overlay.ui:260
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Start/stop præsentation"
 
-#: data/help-overlay.ui:267
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Sæt præsentationen på pause"
 
-# Almindelig?
-#: data/help-overlay.ui:275
+#: data/help-overlay.ui:311
 msgctxt "shortcut window"
 msgid "Common"
-msgstr "Fælles"
+msgstr "Almindelige"
 
-#: data/help-overlay.ui:280
+#: data/help-overlay.ui:316
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "Kopiér til udklipsholderen"
 
-#: data/help-overlay.ui:287
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "Fortryd"
 
-#: data/help-overlay.ui:294
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "Flyt til papirkurven"
 
-#: data/help-overlay.ui:301
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "Slet billedet permanent"
 
-#: data/help-overlay.ui:309
+#: data/help-overlay.ui:345
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "Rulning"
 
-#: data/help-overlay.ui:314
+#: data/help-overlay.ui:350
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "Rul til venstre i et stort billede"
 
-#: data/help-overlay.ui:321
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "Rul til højre i et stort billede"
 
-#: data/help-overlay.ui:328
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "Rul op i et stort billede"
 
-#: data/help-overlay.ui:335
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "Rul ned i et stort billede"
@@ -1207,27 +1205,27 @@ msgstr "Transformation af ikke indlæst billede."
 msgid "Transformation failed."
 msgstr "Transformationen mislykkedes."
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1081
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke understøttet for dette filformat."
 
-#: src/eog-image.c:1215
+#: src/eog-image.c:1222
 #, c-format
 msgid "Image loading failed."
 msgstr "Indlæsning af billede mislykkedes."
 
-#: src/eog-image.c:1797 src/eog-image.c:1917
+#: src/eog-image.c:1804 src/eog-image.c:1924
 #, c-format
 msgid "No image loaded."
 msgstr "Intet billede indlæst."
 
-#: src/eog-image.c:1805 src/eog-image.c:1926
+#: src/eog-image.c:1812 src/eog-image.c:1933
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har ikke de nødvendige rettigheder til at gemme filen."
 
-#: src/eog-image.c:1815 src/eog-image.c:1937
+#: src/eog-image.c:1822 src/eog-image.c:1944
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oprettelse af midlertidig fil mislykkedes."
@@ -1421,7 +1419,6 @@ msgstr "Forhåndsvisning"
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Vis den mappe, som indeholder denne fil, i filhåndteringen"
 
-# "as is" -> "som original" (beskrivelse i gedits dokumentation)
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "som original"
@@ -1441,10 +1438,9 @@ msgstr "som original"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-# Jeg kunne forestille mig to forskellige ting denne streng kan bruges til. Det kan henvise til en dato. "Taken on Jun 26, 2007", eller til kameraet billedet er taget på "Taken on Phillips T3000 super Zoom". Oversættelsen "Taget på" dækker heldigvis begge disse tilfælde
 #: src/eog-thumb-view.c:543
 msgid "Taken on"
-msgstr "Taget på"
+msgstr "Taget"
 
 #: src/eog-uri-converter.c:989
 #, c-format
@@ -1728,24 +1724,3 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Kør “%s --help” for at se den fulde liste af tilgængelige "
 "kommandolinjetilvalg."
-
-#~ msgid "org.gnome.eog"
-#~ msgstr "org.gnome.eog"
-
-#~ msgid "view-fullscreen"
-#~ msgstr "view-fullscreen"
-
-#~ msgid "view-refresh"
-#~ msgstr "view-refresh"
-
-#~ msgid "_About"
-#~ msgstr "_Om"
-
-#~ msgid "_Quit"
-#~ msgstr "_Afslut"
-
-#~ msgid "eog"
-#~ msgstr "eog"
-
-#~ msgid "Question"
-#~ msgstr "Spørgsmål"
