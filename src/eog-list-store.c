@@ -39,6 +39,13 @@ struct _EogListStorePrivate {
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
+enum {
+	SIGNAL_DRAW_THUMBNAIL,
+	SIGNAL_LAST
+};
+
+static gint signals[SIGNAL_LAST];
+
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
 {
@@ -87,6 +94,15 @@ eog_list_store_class_init (EogListStoreClass *klass)
 
 	object_class->dispose = eog_list_store_dispose;
 	object_class->finalize = eog_list_store_finalize;
+
+	signals[SIGNAL_DRAW_THUMBNAIL] =
+		g_signal_new ("draw-thumbnail",
+			      EOG_TYPE_LIST_STORE,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogListStoreClass, draw_thumbnail),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 }
 
 /*
@@ -291,6 +307,8 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	}
 
 	g_object_unref (file);
+
+	g_signal_emit (store, signals[SIGNAL_DRAW_THUMBNAIL], 0);
 }
 
 static void

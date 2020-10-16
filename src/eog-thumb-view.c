@@ -82,6 +82,7 @@ struct _EogThumbViewPrivate {
 	gint n_images;
 	gulong image_add_id;
 	gulong image_removed_id;
+	gulong image_thumbnail_id;
 };
 
 G_DEFINE_TYPE_WITH_CODE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW,
@@ -174,6 +175,11 @@ eog_thumb_view_dispose (GObject *object)
 	if (model && priv->image_removed_id) {
 		g_signal_handler_disconnect (model, priv->image_removed_id);
 		priv->image_removed_id = 0;
+	}
+
+	if (model && priv->image_thumbnail_id) {
+		g_signal_handler_disconnect (model, priv->image_thumbnail_id);
+		priv->image_thumbnail_id = 0;
 	}
 
 	G_OBJECT_CLASS (eog_thumb_view_parent_class)->dispose (object);
@@ -640,6 +646,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	thumbview->priv->visible_range_changed_id = 0;
 	thumbview->priv->image_add_id = 0;
 	thumbview->priv->image_removed_id = 0;
+	thumbview->priv->image_thumbnail_id = 0;
 }
 
 /**
@@ -696,6 +703,29 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 	eog_thumb_view_update_columns (view);
 }
 
+static void
+eog_thumb_view_row_changed_cb (GtkTreeModel *model,
+			       GtkTreePath  *path,
+			       GtkTreeIter  *iter,
+			       gpointer      data)
+{
+
+	guint signal_id;
+	signal_id = GPOINTER_TO_UINT (data);
+	/* PREVENT GtkIconView "row-changed" handler to be reached, as it will
+	 * perform a full invalidate and relayout of all items, See bug:
+	 * https://bugzilla.gnome.org/show_bug.cgi?id=691448#c9 */
+	g_signal_stop_emission (model, signal_id, 0);
+}
+
+static void
+eog_thumb_view_draw_thumbnail_cb (EogListStore *store,
+				  EogThumbView *view)
+{
+        gtk_widget_queue_draw (GTK_WIDGET(view));
+	return;
+}
+
 /**
  * eog_thumb_view_set_model:
  * @thumbview: A #EogThumbView.
@@ -729,7 +759,17 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 			                             priv->image_removed_id);
 
 		}
+		if (priv->image_thumbnail_id != 0) {
+			g_signal_handler_disconnect (existing,
+			                             priv->image_thumbnail_id);
+
+		}
 	}
+
+	guint signal_id = g_signal_lookup ("row-changed", GTK_TYPE_TREE_MODEL);
+	g_signal_connect (GTK_TREE_MODEL (store), "row-changed",
+			  G_CALLBACK (eog_thumb_view_row_changed_cb),
+			  GUINT_TO_POINTER (signal_id));
 
 	priv->image_add_id = g_signal_connect (G_OBJECT (store), "row-inserted",
 	                            G_CALLBACK (eog_thumb_view_row_inserted_cb),
@@ -738,6 +778,10 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 	                             "row-deleted",
 	                             G_CALLBACK (eog_thumb_view_row_deleted_cb),
 	                             thumbview);
+	priv->image_thumbnail_id = g_signal_connect (G_OBJECT (store),
+	                             "draw-thumbnail",
+	                             G_CALLBACK (eog_thumb_view_draw_thumbnail_cb),
+				     thumbview);
 
 	thumbview->priv->start_thumb = thumbview->priv->end_thumb = 0;
 	thumbview->priv->n_images = eog_list_store_length (store);
