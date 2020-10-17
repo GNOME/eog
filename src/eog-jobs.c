@@ -894,16 +894,13 @@ void eog_job_save_dispose (GObject *object)
 
 	job = EOG_JOB_SAVE (object);
 
+	job->current_image = NULL;
+
 	/* free all public and private members */
 	if (job->images) {
 		g_list_foreach (job->images, (GFunc) g_object_unref, NULL);
 		g_list_free (job->images);
 		job->images = NULL;
-	}
-
-	if (job->current_image) {
-		g_object_unref (job->current_image);
-		job->current_image = NULL;
 	}
 
 	/* call parent dispose */
