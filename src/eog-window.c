@@ -4488,6 +4488,7 @@ eog_window_init (EogWindow *window)
 	priv->view_settings = g_settings_new (EOG_CONF_VIEW);
 	priv->lockdown_settings = g_settings_new (EOG_CONF_DESKTOP_LOCKDOWN_SCHEMA);
 
+	window->priv->file_list = NULL;
 	window->priv->store = NULL;
 	window->priv->image = NULL;
 
@@ -5272,6 +5273,14 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 	eog_debug (DEBUG_WINDOW);
 
 	window->priv->status = EOG_WINDOW_STATUS_INIT;
+
+	/* Free the list to avoid memory leak
+	 * when using flag EOG_STARTUP_SINGLE_WINDOW
+	 */
+	if (window->priv->file_list != NULL) {
+		g_slist_foreach (window->priv->file_list, (GFunc) g_object_unref, NULL);
+		g_slist_free (window->priv->file_list);
+	}
 
 	g_slist_foreach (file_list, (GFunc) g_object_ref, NULL);
 	window->priv->file_list = file_list;
