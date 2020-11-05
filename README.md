@@ -3,10 +3,10 @@ Eye of GNOME: an image viewing and cataloging program
 
 Perfect vision soup:
 
-	- 1 cauldron of snake broth
-	- 2 vampire ears
-	- 4 legs of tarantula
-	- 1 eye of gnome
+- 1 cauldron of snake broth
+- 2 vampire ears
+- 4 legs of tarantula
+- 1 eye of gnome
 
 
 Description
@@ -77,12 +77,12 @@ Authors
 
 Maintainer: Lucas Rocha (lucasr@gnome.org)
 
-Felix Riemann (friemann@svn.gnome.org)
-Claudio Saaevedra (csaavedra@igalia.com)
-Tim Gerla (tim+gnomebugs@gerla.net)
-Arik Devens (arik@gnome.org)
-Federico Mena-Quintero (federico@gnome.org)
-Jens Finke (jens@gnome.org)
-Lutz Müller (urc8@rz.uni-karlsruhe.de)
-Martin Baulig (martin@gnome.org)
-Michael Meeks (michael@ximian.com)
+- Felix Riemann (friemann@svn.gnome.org)
+- Claudio Saaevedra (csaavedra@igalia.com)
+- Tim Gerla (tim+gnomebugs@gerla.net)
+- Arik Devens (arik@gnome.org)
+- Federico Mena-Quintero (federico@gnome.org)
+- Jens Finke (jens@gnome.org)
+- Lutz Müller (urc8@rz.uni-karlsruhe.de)
+- Martin Baulig (martin@gnome.org)
+- Michael Meeks (michael@ximian.com)
