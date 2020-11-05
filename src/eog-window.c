@@ -488,7 +488,8 @@ update_image_pos (EogWindow *window)
 
 	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 
-	if (n_images > 0) {
+	/* priv->image may be NULL even if n_images > 0 */
+	if (n_images > 0 && priv->image) {
 		pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store),
 						       priv->image);
 	}
