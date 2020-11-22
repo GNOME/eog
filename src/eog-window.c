@@ -3156,10 +3156,7 @@ eog_window_action_wallpaper (GSimpleAction *action,
 	if (filename == NULL || !eog_util_file_is_persistent (file))
 	{
 		GList *files = NULL;
-		GAction *action;
 
-		action = g_action_map_lookup_action (G_ACTION_MAP (window),
-						      "set-wallpaper");
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
 		priv->copy_file_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
