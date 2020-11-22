@@ -3180,7 +3180,6 @@ eog_window_action_wallpaper (GSimpleAction *action,
 				  window);
 		eog_job_scheduler_add_job (priv->copy_job);
 
-		g_object_unref (file);
 		return;
 	}
 
