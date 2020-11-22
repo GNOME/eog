@@ -2418,7 +2418,7 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 					EOG_CONF_UI_DISABLE_CLOSE_CONFIRMATION);
 	disabled |= window->priv->save_disabled;
 
-	if (disabled | !priv->store) {
+	if (disabled || !priv->store) {
 		return FALSE;
 	}
 
