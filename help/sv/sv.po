@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog doc\n"
-"POT-Creation-Date: 2020-07-15 17:13+0000\n"
-"PO-Revision-Date: 2020-08-02 13:41+0200\n"
+"POT-Creation-Date: 2020-11-22 00:32+0000\n"
+"PO-Revision-Date: 2020-11-29 02:22+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -40,7 +40,7 @@ msgstr "Rapportera ett fel i <app>bildvisaren</app>."
 
 #. (itstool) path: credit/name
 #: C/bug-filing.page:11 C/commandline.page:12 C/copy-paste.page:14
-#: C/default.page:11 C/default.page:15 C/desktop-background.page:11
+#: C/default.page:12 C/default.page:16 C/desktop-background.page:11
 #: C/develop.page:10 C/documentation.page:9 C/edit.page:11
 #: C/flip-rotate.page:11 C/format-change.page:11 C/formats-save.page:11
 #: C/formats-view.page:12 C/index.page:13 C/introduction.page:11 C/open.page:11
@@ -55,7 +55,7 @@ msgstr "Tiffany Antopolski"
 
 #. (itstool) path: license/p
 #: C/bug-filing.page:15 C/commandline.page:20 C/copy-paste.page:22
-#: C/default.page:19 C/desktop-background.page:15 C/develop.page:15
+#: C/default.page:20 C/desktop-background.page:15 C/develop.page:15
 #: C/documentation.page:14 C/edit.page:19 C/flip-rotate.page:15
 #: C/format-change.page:19 C/formats-save.page:19 C/formats-view.page:16
 #: C/introduction.page:15 C/open.page:15 C/plugin-exif-digital.page:21
@@ -77,10 +77,10 @@ msgstr "Rapportera ett fel med bildvisaren"
 #. (itstool) path: page/p
 #: C/bug-filing.page:20
 msgid ""
-"The <gui>image viewer</gui> is maintained by a volunteer community. You are "
+"The <app>Image Viewer</app> is maintained by a volunteer community. You are "
 "welcome to participate."
 msgstr ""
-"<gui>Bildvisare</gui> underhålls av en frivillig gemenskap. Du är välkommen "
+"<app>Bildvisare</app> underhålls av en frivillig gemenskap. Du är välkommen "
 "att deltaga."
 
 #. (itstool) path: page/p
@@ -303,12 +303,12 @@ msgid "Make image viewer the default application for viewing pictures."
 msgstr "Gör bildvisaren till standardprogrammet för att visa bilder."
 
 #. (itstool) path: page/title
-#: C/default.page:24
+#: C/default.page:25
 msgid "Open pictures in the image viewer by default"
 msgstr "Öppna bilder i bildvisaren som standard"
 
 #. (itstool) path: page/p
-#: C/default.page:25
+#: C/default.page:26
 msgid ""
 "If you want to make the image viewer the default program that opens certain "
 "image file types:"
@@ -316,18 +316,15 @@ msgstr ""
 "Om du vill göra bildvisaren till standardprogrammet som öppnar vissa "
 "bildfilstyper:"
 
-# sebras: what is files app?
 #. (itstool) path: item/p
-#: C/default.page:30
+#: C/default.page:31
 msgid ""
-"In the <app>Files app</app>, right click the file and choose "
-"<gui>Properties</gui>."
+"In <app>Files</app>, right click the file and choose <gui>Properties</gui>."
 msgstr ""
-"I programmet <app>Filer</app>, högerklicka på filen och välj "
-"<gui>Egenskaper</gui>."
+"I <app>Filer</app>, högerklicka på filen och välj <gui>Egenskaper</gui>."
 
 #. (itstool) path: item/p
-#: C/default.page:34
+#: C/default.page:35
 msgid ""
 "Go to the <gui>Open With</gui> tab. A list of <gui>Recommended Applications</"
 "gui> will appear."
@@ -336,12 +333,12 @@ msgstr ""
 "program</gui> kommer att visas."
 
 #. (itstool) path: item/p
-#: C/default.page:38
+#: C/default.page:39
 msgid "Select the <gui>Image Viewer</gui> and click <gui>Set as default</gui>."
 msgstr "Välj <gui>Bildvisare</gui> och klicka på <gui>Ange som standard</gui>."
 
 #. (itstool) path: item/p
-#: C/default.page:40
+#: C/default.page:41
 msgid ""
 "If <app>Image Viewer</app> is not on the <gui>Recommended Applications</gui> "
 "list, click <gui>Show other applications</gui>. Select <gui>Image Viewer</"
@@ -352,12 +349,12 @@ msgstr ""
 "från listan som visas och klicka på <gui>Ange som standard</gui>."
 
 #. (itstool) path: item/p
-#: C/default.page:46
-msgid "Click <gui>Close</gui>."
-msgstr "Klicka på <gui>Stäng</gui>."
+#: C/default.page:47
+msgid "Close the dialog."
+msgstr "Stäng dialogrutan."
 
 #. (itstool) path: page/p
-#: C/default.page:50
+#: C/default.page:51
 msgid ""
 "In future, when you double-click a file of the same type, it will open up in "
 "the image viewer."
@@ -504,13 +501,13 @@ msgstr "Redigera en bild"
 #: C/edit.page:26
 msgid ""
 "The image viewer can only be used to view pictures; it can't edit them. For "
-"that, you must use a picture editing application, like the GIMP image "
-"editor. To open a picture for editing in a different application:"
+"that, you must use a picture editing application, like the <app>GIMP</app> "
+"image editor. To open a picture for editing in a different application:"
 msgstr ""
 "Bildvisaren kan endast användas för att visa bilder, den kan inte redigera "
 "dem. För att göra det måste du använda ett bildredigeringsprogram, så som "
-"bildredigeraren GIMP. För att öppna en bild för redigering i ett annat "
-"program:"
+"bildredigeraren <app>GIMP</app>. För att öppna en bild för redigering i ett "
+"annat program:"
 
 #. (itstool) path: item/p
 #: C/edit.page:31
@@ -534,7 +531,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/edit.page:42
 msgid ""
-"The <app>image viewer</app> will detect that the picture has been changed "
+"The <app>Image Viewer</app> will detect that the picture has been changed "
 "and will reload it."
 msgstr ""
 "<app>Bildvisare</app> kommer att upptäcka att bilden har ändrats och kommer "
@@ -3005,6 +3002,16 @@ msgstr ""
 "Du kan välja att zooma in så att bilden anpassas till fönstret, även om du "
 "ändrar storlek på det. Klicka på <gui style=\"menuitem\">Bästa anpassning</"
 "gui> i rullgardinsmenyn i rubrikraden för att göra detta."
+
+#~ msgid ""
+#~ "The <gui>image viewer</gui> is maintained by a volunteer community. You "
+#~ "are welcome to participate."
+#~ msgstr ""
+#~ "<gui>Bildvisare</gui> underhålls av en frivillig gemenskap. Du är "
+#~ "välkommen att deltaga."
+
+#~ msgid "Click <gui>Close</gui>."
+#~ msgstr "Klicka på <gui>Stäng</gui>."
 
 #~ msgid ""
 #~ "The converted pictures will be saved in the current folder by default. If "
