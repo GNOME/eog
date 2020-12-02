@@ -368,6 +368,8 @@ eog_list_store_append_image_from_file (EogListStore *store,
 	image = eog_image_new_file (file, caption);
 
 	eog_list_store_append_image (store, image);
+
+	g_object_unref (image);
 }
 
 static void
@@ -527,6 +529,7 @@ directory_visit (GFile *directory,
 		child = g_file_get_child (directory, name);
 		caption = g_file_info_get_display_name (children_info);
 		eog_list_store_append_image_from_file (store, child, caption);
+		g_object_unref(child);
 	}
 }
 
