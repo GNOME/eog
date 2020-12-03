@@ -418,6 +418,19 @@ eog_metadata_sidebar_set_property (GObject *object, guint property_id,
 	}
 
 }
+
+static void
+eog_metadata_sidebar_dispose (GObject *object)
+{
+	EogMetadataSidebarPrivate *priv;
+
+	priv = EOG_METADATA_SIDEBAR (object)->priv;
+
+	g_clear_object (&priv->image);
+
+	G_OBJECT_CLASS (eog_metadata_sidebar_parent_class)->dispose (object);
+}
+
 static void
 eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 {
@@ -426,7 +439,7 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 
 	g_obj_class->get_property = eog_metadata_sidebar_get_property;
 	g_obj_class->set_property = eog_metadata_sidebar_set_property;
-/*	g_obj_class->dispose = eog_metadata_sidebar_dispose;*/
+	g_obj_class->dispose = eog_metadata_sidebar_dispose;
 
 	g_object_class_install_property (
 		g_obj_class, PROP_PARENT_WINDOW,

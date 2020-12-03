@@ -368,6 +368,8 @@ eog_list_store_append_image_from_file (EogListStore *store,
 	image = eog_image_new_file (file, caption);
 
 	eog_list_store_append_image (store, image);
+
+	g_object_unref (image);
 }
 
 static void
@@ -417,12 +419,6 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	case G_FILE_MONITOR_EVENT_MOVED_OUT:
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
-			EogImage *image;
-
-			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
-					    EOG_LIST_STORE_EOG_IMAGE, &image,
-					    -1);
-
 			eog_list_store_remove (store, &iter);
 		}
 		break;
@@ -527,6 +523,7 @@ directory_visit (GFile *directory,
 		child = g_file_get_child (directory, name);
 		caption = g_file_info_get_display_name (children_info);
 		eog_list_store_append_image_from_file (store, child, caption);
+		g_object_unref(child);
 	}
 }
 
