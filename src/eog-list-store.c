@@ -419,12 +419,6 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	case G_FILE_MONITOR_EVENT_MOVED_OUT:
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
-			EogImage *image;
-
-			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
-					    EOG_LIST_STORE_EOG_IMAGE, &image,
-					    -1);
-
 			eog_list_store_remove (store, &iter);
 		}
 		break;
