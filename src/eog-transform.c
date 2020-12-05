@@ -132,8 +132,8 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	}
 
 	/* create the resulting pixbuf */
-	dest_width = abs (dest_bottom_right.x - dest_top_left.x + 1);
-	dest_height = abs (dest_bottom_right.y - dest_top_left.y + 1);
+	dest_width = (int) fabs (dest_bottom_right.x - dest_top_left.x + 1);
+	dest_height = (int) fabs (dest_bottom_right.y - dest_top_left.y + 1);
 
 	dest_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
 			       gdk_pixbuf_get_has_alpha (pixbuf),
