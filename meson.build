@@ -1,6 +1,6 @@
 project(
   'eog', 'c',
-  version: '3.38.1',
+  version: '40.alpha',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
   meson_version: '>= 0.50.0',
@@ -10,7 +10,7 @@ eog_version = meson.project_version()
 version_array = eog_version.split('.')
 eog_major_version = version_array[0].to_int()
 
-eog_api_version = '@0@.0'.format(eog_major_version)
+eog_api_version = '3.0'
 eog_api_name = '@0@-@1@'.format(meson.project_name(), eog_api_version)
 
 eog_gir_ns = 'Eog'
