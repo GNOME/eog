@@ -618,11 +618,6 @@ eog_image_get_file_info (EogImage *img,
 
 		if (mime_type)
 			*mime_type = NULL;
-
-		g_set_error (error,
-			     EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_VFS,
-			     "Error in getting image file info");
 	} else {
 		if (bytes)
 			*bytes = g_file_info_get_size (file_info);
