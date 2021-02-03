@@ -30,7 +30,7 @@
 #include <string.h>
 
 struct _EogListStorePrivate {
-	GList *monitors;          /* Monitors for the directories */
+	GHashTable *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image;    /* Loading image icon */
 	GdkPixbuf *missing_image; /* Missing image icon */
@@ -40,7 +40,7 @@ struct _EogListStorePrivate {
 G_DEFINE_TYPE_WITH_PRIVATE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
 static void
-foreach_monitors_free (gpointer data, gpointer user_data)
+foreach_monitors_free (gpointer data)
 {
 	g_file_monitor_cancel (G_FILE_MONITOR (data));
 }
@@ -50,12 +50,10 @@ eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
 
-	g_list_foreach (store->priv->monitors,
-			foreach_monitors_free, NULL);
-
-	g_list_free (store->priv->monitors);
-
-	store->priv->monitors = NULL;
+	if (store->priv->monitors != NULL) {
+		g_hash_table_unref (store->priv->monitors);
+		store->priv->monitors = NULL;
+	}
 
 	if(store->priv->busy_image != NULL) {
 		g_object_unref (store->priv->busy_image);
@@ -158,7 +156,7 @@ eog_list_store_init (EogListStore *self)
 
 	self->priv = eog_list_store_get_instance_private (self);
 
-	self->priv->monitors = NULL;
+	self->priv->monitors = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, foreach_monitors_free);
 	self->priv->initial_image = -1;
 
 	self->priv->busy_image = eog_list_store_get_icon ("image-loading");
@@ -330,6 +328,53 @@ eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
 	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
 }
 
+static void
+eog_list_store_remove_directory (EogListStore *store, gchar *directory)
+{
+	GList *refs = NULL;
+	GList *node;
+
+	GtkTreeIter iter;
+	EogImage *image;
+	GFile *file;
+
+	GFile *dir_file = g_file_new_for_uri (directory);
+
+	if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
+		return;
+
+	do {
+		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, EOG_LIST_STORE_EOG_IMAGE, &image, -1);
+		if (!image)
+			continue;
+
+		file = eog_image_get_file (image);
+		if (g_file_has_parent (file, dir_file)) {
+			GtkTreeRowReference  *rowref;
+			GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
+			rowref = gtk_tree_row_reference_new(GTK_TREE_MODEL (store), path);
+			refs = g_list_prepend (refs, rowref);
+			gtk_tree_path_free (path);
+		}
+		g_object_unref (file);
+		g_object_unref (image);
+	} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
+
+	for (node = refs;  node != NULL;  node = node->next) {
+		GtkTreePath *path = gtk_tree_row_reference_get_path((GtkTreeRowReference*)node->data);
+
+		if (path) {
+			if (gtk_tree_model_get_iter(GTK_TREE_MODEL(store), &iter, path))
+				eog_list_store_remove (store, &iter);
+			gtk_tree_path_free (path);
+		}
+	}
+
+	g_list_foreach(refs, (GFunc) gtk_tree_row_reference_free, NULL);
+	g_list_free(refs);
+	g_object_unref (dir_file);
+}
+
 /**
  * eog_list_store_append_image:
  * @store: An #EogListStore.
@@ -420,6 +465,18 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			eog_list_store_remove (store, &iter);
+		} else {
+			gchar *directory = g_file_get_uri (file);
+			if (g_hash_table_contains(store->priv->monitors, directory)) {
+				gint num_directories = g_hash_table_size (store->priv->monitors);
+				if (num_directories > 1)
+					eog_list_store_remove_directory (store, directory);
+				else {
+					gtk_list_store_clear (GTK_LIST_STORE (store));
+				}
+				g_hash_table_remove(store->priv->monitors, directory);
+			}
+			g_free (directory);
 		}
 		break;
 	case G_FILE_MONITOR_EVENT_MOVED_IN:
@@ -545,9 +602,7 @@ eog_list_store_append_directory (EogListStore *store,
 		g_signal_connect (file_monitor, "changed",
 				  G_CALLBACK (file_monitor_changed_cb), store);
 
-		/* prepend seems more efficient to me, we don't need this list
-		   to be sorted */
-		store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
+		g_hash_table_insert(store->priv->monitors, g_file_get_uri (file), file_monitor);
 	}
 
 	file_enumerator = g_file_enumerate_children (file,

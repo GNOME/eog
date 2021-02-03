@@ -5137,6 +5137,8 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 							  image, TRUE);
 			g_object_unref (image);
 		}
+	} else if (!n_images) {
+		eog_window_clear_load_job (window);
 	}
 	
 	update_image_pos (window);
