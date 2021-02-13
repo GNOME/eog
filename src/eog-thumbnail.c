@@ -506,6 +506,13 @@ eog_thumbnail_load (EogImage *image, GError **error)
 			/* generate a thumbnail from the file */
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from file",data->uri_str);
 			thumb = gnome_desktop_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+			if (thumb == NULL) {
+				pixbuf = gdk_pixbuf_new_from_file (g_file_get_path (file), NULL);
+				if (pixbuf) {
+					thumb = create_thumbnail_from_pixbuf (data, pixbuf, NULL);
+					g_object_unref (pixbuf);
+				}
+			}
 		}
 
 		if (thumb != NULL) {

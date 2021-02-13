@@ -888,6 +888,69 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 	return (*width || *height);
 }
 
+static GdkPixbufLoader *
+eog_image_new_pixbuf_loader (EogImage 	*img,
+			     gboolean   *is_svg,
+			     gchar 	*mime_type,
+			     GError 	**error)
+{
+	EogImagePrivate *priv = img->priv;
+	GdkPixbufLoader *loader = NULL;
+#ifdef HAVE_RSVG
+	if (priv->svg != NULL) {
+		g_object_unref (priv->svg);
+		priv->svg = NULL;
+	}
+
+	if (!strcmp (mime_type, "image/svg+xml")
+		    || !strcmp (mime_type, "image/svg+xml-compressed")
+	    ) {
+		/* Keep the object for rendering */
+		priv->svg = rsvg_handle_new ();
+		rsvg_handle_set_base_gfile (priv->svg, priv->file);
+
+		/* Use 96dpi when rendering SVG documents with units
+		 * different then pixels. This value is specified in
+		 * the CSS standard on which SVG depends. */
+		rsvg_handle_set_dpi_x_y (priv->svg, 96.0, 96.0);
+		*is_svg = TRUE;
+	}
+#endif
+
+	if (!(*is_svg)) {
+		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
+
+		if (error && *error) {
+			g_error_free (*error);
+			*error = NULL;
+
+			loader = gdk_pixbuf_loader_new ();
+		}
+
+		g_signal_connect_object (G_OBJECT (loader),
+				"size-prepared",
+				G_CALLBACK (eog_image_size_prepared),
+				img,
+				0);
+	}
+	return loader;
+}
+
+static gboolean
+eog_image_update_stream (EogImage	   *img,
+			 gchar   	   *old_mime_type,
+			 gchar             *new_mimetype,
+			 GFileInputStream  *input_stream)
+{
+	gboolean success = FALSE;
+
+	if (new_mimetype != NULL && strcmp (old_mime_type, new_mimetype) != 0) {
+		success = g_seekable_seek (G_SEEKABLE (input_stream),
+					   0, G_SEEK_SET, NULL, NULL);
+	}
+	return success;
+}
+
 static gboolean
 eog_image_real_load (EogImage     *img,
 		     EogImageData  data2read,
@@ -961,47 +1024,8 @@ eog_image_real_load (EogImage     *img,
 
 	buffer = g_new0 (guchar, EOG_IMAGE_READ_BUFFER_SIZE);
 
-	if (read_image_data || read_only_dimension) {
-#ifdef HAVE_RSVG
-		if (priv->svg != NULL) {
-			g_object_unref (priv->svg);
-			priv->svg = NULL;
-		}
-
-		if (!strcmp (mime_type, "image/svg+xml")
-		    || !strcmp (mime_type, "image/svg+xml-compressed")
-		) {
-			/* Keep the object for rendering */
-			priv->svg = rsvg_handle_new ();
-			rsvg_handle_set_base_gfile (priv->svg, priv->file);
-
-			/* Use 96dpi when rendering SVG documents with units
-			 * different then pixels. This value is specified in
-			 * the CSS standard on which SVG depends. */
-			rsvg_handle_set_dpi_x_y (priv->svg, 96.0, 96.0);
-
-			use_rsvg = TRUE;
-		}
-#endif
-
-		if (!use_rsvg) {
-			loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
-
-			if (error && *error) {
-				g_error_free (*error);
-				*error = NULL;
-
-				loader = gdk_pixbuf_loader_new ();
-			}
-
-			g_signal_connect_object (G_OBJECT (loader),
-					 "size-prepared",
-					 G_CALLBACK (eog_image_size_prepared),
-					 img,
-					 0);
-		}
-	}
-	g_free (mime_type);
+	if (read_image_data || read_only_dimension)
+		loader = eog_image_new_pixbuf_loader (img, &use_rsvg, mime_type, error);
 
 	while (!priv->cancel_loading) {
 #ifdef HAVE_RSVG
@@ -1014,12 +1038,30 @@ eog_image_real_load (EogImage     *img,
 				/* The entire file is read by now */
 				bytes_read_total = priv->bytes;
 			} else {
-				failed = TRUE;
+				g_error_free (*error);
+				*error = NULL;
+
+				use_rsvg = FALSE;
+				g_object_unref (priv->svg);
+				priv->svg = NULL;
+
+				g_object_unref (input_stream);
+				input_stream = g_file_read (priv->file, NULL, error);
+				if (input_stream != NULL && *error == NULL) {
+					if (loader != NULL)
+						g_object_unref (loader);
+
+					/* We cannot call eog_image_new_pixbuf_loader
+					* since we don't have a buffer to guess
+					* the mime type. */
+					loader = gdk_pixbuf_loader_new ();
+					continue;
+				} else
+					failed = TRUE;
 			}
 			break;
 		} else {
 #endif
-
 			/* FIXME: make this async */
 			bytes_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
 							  buffer,
@@ -1042,6 +1084,22 @@ eog_image_real_load (EogImage     *img,
 
 			if ((read_image_data || read_only_dimension)) {
 				if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
+					gboolean uncertain;
+					gchar *new_mimetype = g_content_type_guess (NULL,
+										    buffer,
+										    EOG_IMAGE_READ_BUFFER_SIZE,
+										    &uncertain);
+
+					if (!uncertain &&
+					    eog_image_update_stream (img, mime_type, new_mimetype, input_stream)) {
+						g_error_free (*error);
+						*error = NULL;
+						g_free (mime_type);
+						mime_type = g_strdup (new_mimetype);
+						loader = eog_image_new_pixbuf_loader (img, &use_rsvg, mime_type, error);
+						g_free (new_mimetype);
+						continue;
+					}
 					failed = TRUE;
 					break;
 				}
@@ -1126,6 +1184,7 @@ eog_image_real_load (EogImage     *img,
 		}
 	}
 
+	g_free (mime_type);
 	g_free (buffer);
 
 	g_object_unref (G_OBJECT (input_stream));
