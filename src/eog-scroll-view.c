@@ -210,7 +210,6 @@ create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 	cairo_surface_t *surface;
 	cairo_t *cr;
 	gint w, h;
-	gboolean size_invalid = FALSE;
 
 	w = gdk_pixbuf_get_width (pixbuf);
 	h = gdk_pixbuf_get_height (pixbuf);
@@ -219,23 +218,14 @@ create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 		g_warning ("Image dimensions too large to process");
 		w = 50;
 		h = 50;
-		size_invalid = TRUE;
+
+		surface = gdk_window_create_similar_image_surface (
+				gtk_widget_get_window (view->priv->display),
+				CAIRO_FORMAT_ARGB32, w, h, 1.0);
+	} else {
+		surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, 1.0,
+				gtk_widget_get_window (view->priv->display));
 	}
-
-	surface = gdk_window_create_similar_surface (gtk_widget_get_window (view->priv->display),
-	                                             CAIRO_CONTENT_COLOR | CAIRO_CONTENT_ALPHA,
-	                                             w, h);
-
-	if (size_invalid) {
-		return surface;
-	}
-
-	cairo_surface_set_device_scale (surface, 1.0, 1.0);
-
-	cr = cairo_create (surface);
-	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
-	cairo_paint (cr);
-	cairo_destroy (cr);
 
 	return surface;
 }
