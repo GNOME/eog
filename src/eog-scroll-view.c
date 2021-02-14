@@ -208,7 +208,6 @@ static cairo_surface_t *
 create_surface_from_pixbuf (EogScrollView *view, GdkPixbuf *pixbuf)
 {
 	cairo_surface_t *surface;
-	cairo_t *cr;
 	gint w, h;
 
 	w = gdk_pixbuf_get_width (pixbuf);
