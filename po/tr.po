@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-07-29 22:23+0000\n"
+"POT-Creation-Date: 2020-11-22 00:32+0000\n"
 "PO-Revision-Date: 2020-07-30 01:13+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -60,8 +60,8 @@ msgid ""
 msgstr ""
 "Ayrıca Eye of GNOME, resimleri tam ekran slayt gösterisi kipinde "
 "görüntülemeye ve herhangi bir resmi masaüstü duvar kağıdı olarak ayarlamaya "
-"da olanak tanır. Resimlerinizi uygun dikey ya da yatay yönelimde kendiliğinden "
-"döndürmek için fotoğraf makinesi etiketlerini okur."
+"da olanak tanır. Resimlerinizi uygun dikey ya da yatay yönelimde "
+"kendiliğinden döndürmek için fotoğraf makinesi etiketlerini okur."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -175,7 +175,7 @@ msgstr "Açıklık Değeri:"
 
 #: data/eog-image-properties-dialog.ui:337
 msgid "Exposure Time:"
-msgstr "Pozlandırma Süresi:"
+msgstr "Pozlama Süresi:"
 
 #: data/eog-image-properties-dialog.ui:353
 msgid "Focal Length:"
@@ -237,8 +237,8 @@ msgstr "Farklı Kaydet"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3262 src/eog-window.c:3265
-#: src/eog-window.c:3497
+#: src/eog-file-chooser.c:472 src/eog-window.c:3275 src/eog-window.c:3278
+#: src/eog-window.c:3510
 msgid "_Cancel"
 msgstr "_İptal"
 
@@ -741,8 +741,8 @@ msgstr "Saat"
 msgid "Focal Length"
 msgstr "Odak Uzaklığı"
 
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
-#: src/eog-window.c:5518
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
+#: src/eog-window.c:5541
 msgid "Image Viewer"
 msgstr "Resim Görüntüleyici"
 
@@ -830,8 +830,8 @@ msgid ""
 "0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
 "a 100% zoom increment."
 msgstr ""
-"Fare kaydırma tekerleğini yakınlaştırmada kullanırken uygulanacak çarpan. "
-"Bu değer her kaydırma eylemin kullanılacak adımı belirler. Örneğin, 0.05 her "
+"Fare kaydırma tekerleğini yakınlaştırmada kullanırken uygulanacak çarpan. Bu "
+"değer her kaydırma eylemin kullanılacak adımı belirler. Örneğin, 0.05 her "
 "kaydırma eyleminde %5 yakınlaştırma ile sonuçlanır ve 1.00 %100 "
 "yakınlaştırma ile sonuçlanır."
 
@@ -892,8 +892,8 @@ msgid ""
 "the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 "0’dan büyük değer, sonraki görüntülemeden önce resmin ekranda kalacağı "
-"süreyi saniye olarak belirler. Sıfır değeri kendiliğinden göz atmayı "
-"devre dışı bırakır."
+"süreyi saniye olarak belirler. Sıfır değeri kendiliğinden göz atmayı devre "
+"dışı bırakır."
 
 #: data/org.gnome.eog.gschema.xml.in:75
 msgid "Show/Hide the window statusbar."
@@ -999,7 +999,7 @@ msgstr "Birlikte _Aç…"
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3500
+#: data/popup-menus.ui:34 src/eog-window.c:3513
 msgid "Move to _Trash"
 msgstr "Çöpe _Taşı"
 
@@ -1077,7 +1077,7 @@ msgstr "Kaydetmek istediğiniz resimleri s_eçin:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Eğer kaydetmezseniz, yaptığınız değişikliklerin tümü kaybolacak."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:928
+#: src/eog-error-message-area.c:128 src/eog-window.c:930
 msgid "_Reload"
 msgstr "_Yeniden Yükle"
 
@@ -1458,18 +1458,18 @@ msgstr " (geçersiz Unikod)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:544
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i piksel  %s    %i%%"
 
-#: src/eog-window.c:930 src/eog-window.c:2652
+#: src/eog-window.c:932 src/eog-window.c:2666
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Gizle"
 
-#: src/eog-window.c:938
+#: src/eog-window.c:940
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1482,22 +1482,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1193
+#: src/eog-window.c:1195
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "“%s” resmi kaydediliyor (%u/%u)"
 
-#: src/eog-window.c:1617
+#: src/eog-window.c:1619
 #, c-format
 msgid "Opening image “%s”"
 msgstr "“%s” resmi açılıyor"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2003
+#: src/eog-window.c:2005
 msgid "Viewing a slideshow"
 msgstr "Slayt gösterisi görüntüleniyor"
 
-#: src/eog-window.c:2222
+#: src/eog-window.c:2226
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1506,15 +1506,15 @@ msgstr ""
 "Dosya yazdırırken hata:\n"
 "%s"
 
-#: src/eog-window.c:2601 src/eog-window.c:2616
+#: src/eog-window.c:2615 src/eog-window.c:2630
 msgid "Error launching System Settings: "
 msgstr "Sistem Ayarları başlatılırken Hata: "
 
-#: src/eog-window.c:2650
+#: src/eog-window.c:2664
 msgid "_Open Background Preferences"
 msgstr "_Arka Plan Tercihlerini Aç"
 
-#: src/eog-window.c:2664
+#: src/eog-window.c:2678
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
@@ -1523,11 +1523,11 @@ msgstr ""
 "“%s” resmi Masaüstü Arka Planı olarak ayarlandı. Görünümünü değiştirmek "
 "ister misiniz?"
 
-#: src/eog-window.c:3155
+#: src/eog-window.c:3169
 msgid "Saving image locally…"
 msgstr "Resim yerel olarak kaydediliyor…"
 
-#: src/eog-window.c:3238
+#: src/eog-window.c:3251
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1536,7 +1536,7 @@ msgstr ""
 "“%s” dosyasını kalıcı olarak silmek\n"
 "istediğinizden emin misiniz?"
 
-#: src/eog-window.c:3241
+#: src/eog-window.c:3254
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1548,41 +1548,41 @@ msgstr[0] ""
 "Seçili %d resmi kalıcı olarak kaldırmak\n"
 "istediğinizden emin misiniz?"
 
-#: src/eog-window.c:3263 src/eog-window.c:3508
+#: src/eog-window.c:3276 src/eog-window.c:3521
 msgid "_Delete"
 msgstr "_Sil"
 
-#: src/eog-window.c:3266 src/eog-window.c:3510
+#: src/eog-window.c:3279 src/eog-window.c:3523
 msgid "_Yes"
 msgstr "_Evet"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3270 src/eog-window.c:3502
+#: src/eog-window.c:3283 src/eog-window.c:3515
 msgid "Do _not ask again during this session"
 msgstr "_Bu oturum boyunca yeniden sorma"
 
-#: src/eog-window.c:3314
+#: src/eog-window.c:3327
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Resim dosyası alınamadı"
 
-#: src/eog-window.c:3330
+#: src/eog-window.c:3343
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Resim dosyası bilgisi alınamadı"
 
-#: src/eog-window.c:3346 src/eog-window.c:3569
+#: src/eog-window.c:3359 src/eog-window.c:3582
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Dosya silinemedi"
 
 #. set dialog error message
-#: src/eog-window.c:3391 src/eog-window.c:3665
+#: src/eog-window.c:3404 src/eog-window.c:3678
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s resmini silerken hata oluştu"
 
-#: src/eog-window.c:3470
+#: src/eog-window.c:3483
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1591,7 +1591,7 @@ msgstr ""
 "“%s” dosyasını çöpe taşımak\n"
 "istediğinize emin misiniz?"
 
-#: src/eog-window.c:3473
+#: src/eog-window.c:3486
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1600,7 +1600,7 @@ msgstr ""
 "“%s” için çöp kutusu bulunamadı. Bu resmi kalıcı olarak silmek istiyor "
 "musunuz?"
 
-#: src/eog-window.c:3478
+#: src/eog-window.c:3491
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1612,7 +1612,7 @@ msgstr[0] ""
 "%d seçili resmi çöpe taşımak istediğinize\n"
 "emin misiniz?"
 
-#: src/eog-window.c:3483
+#: src/eog-window.c:3496
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1620,28 +1620,28 @@ msgstr ""
 "Seçtiğiniz bazı resimler çöp kutusuna taşınamıyor ve kalıcı olarak "
 "silinecek. Bunu yapmak istediğinize emin misiniz?"
 
-#: src/eog-window.c:3547 src/eog-window.c:3561
+#: src/eog-window.c:3560 src/eog-window.c:3574
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Çöpe erişilemedi."
 
-#: src/eog-window.c:4209
+#: src/eog-window.c:4223
 msgid "Shrink or enlarge the current image"
 msgstr "Geçerli resmi daralt ya da genişlet"
 
-#: src/eog-window.c:4268
+#: src/eog-window.c:4282
 msgid "Show the current image in fullscreen mode"
 msgstr "Geçerli resmi tam ekran kipinde göster"
 
-#: src/eog-window.c:4339
+#: src/eog-window.c:4353
 msgid "Properties"
 msgstr "Özellikler"
 
-#: src/eog-window.c:5521
+#: src/eog-window.c:5544
 msgid "The GNOME image viewer."
 msgstr "GNOME resim görüntüleyici."
 
-#: src/eog-window.c:5524
+#: src/eog-window.c:5547
 msgid "translator-credits"
 msgstr ""
 "Barış Çiçek <baris@teamforce.name.tr>\n"
@@ -1656,7 +1656,7 @@ msgstr "%%%d"
 
 #: src/main.c:56
 msgid "GNOME Image Viewer"
-msgstr "GNOME Resim Görüntüleyicisi"
+msgstr "GNOME Resim Görüntüleyici"
 
 #: src/main.c:63
 msgid "Open in fullscreen mode"
@@ -1678,8 +1678,7 @@ msgstr "Var olan oluşumu yeniden kullanmak yerine yeni oluşum başlat"
 msgid ""
 "Open in a single window, if multiple windows are open the first one is used"
 msgstr ""
-"Tekil pencerede aç, eğer birden çok pencere açıksa ilk pencere "
-"kullanılır"
+"Tekil pencerede aç, eğer birden çok pencere açıksa ilk pencere kullanılır"
 
 #: src/main.c:69
 msgid "Show the application’s version"
