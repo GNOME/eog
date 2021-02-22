@@ -28,7 +28,6 @@ sources = [
   'preferences.page',
   'print.page',
   'rename-multiple.page',
-  'shortcuts.page',
   'slideshow.page',
   'translate.page',
   'view.page',
