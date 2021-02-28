@@ -19,7 +19,6 @@ sources = [
   'plugin-exif-digital.page',
   'plugin-fullscreen-background.page',
   'plugin-fullscreen-double-click.page',
-  'plugin-picasa.page',
   'plugin-python-console.page',
   'plugin-send-by-mail.page',
   'plugin-slideshow-shuffle.page',
