@@ -247,7 +247,7 @@ eog_thumb_view_clear_range (EogThumbView *thumbview,
 	gint thumb = start_thumb;
 	gboolean result;
 
-	g_assert (start_thumb <= end_thumb);
+	g_return_if_fail (start_thumb <= end_thumb);
 
 	path = gtk_tree_path_new_from_indices (start_thumb, -1);
 	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
@@ -269,7 +269,7 @@ eog_thumb_view_add_range (EogThumbView *thumbview,
 	gint thumb = start_thumb;
 	gboolean result;
 
-	g_assert (start_thumb <= end_thumb);
+	g_return_if_fail (start_thumb <= end_thumb);
 
 	path = gtk_tree_path_new_from_indices (start_thumb, -1);
 	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
