@@ -82,6 +82,8 @@ struct _EogThumbViewPrivate {
 	gint n_images;
 	gulong image_add_id;
 	gulong image_removed_id;
+
+	gboolean indices_changed;
 };
 
 G_DEFINE_TYPE_WITH_CODE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW,
@@ -137,6 +139,7 @@ eog_thumb_view_constructed (GObject *object)
 	thumbview->priv->start_thumb = 0;
 	thumbview->priv->end_thumb = 0;
 	thumbview->priv->menu = NULL;
+	thumbview->priv->indices_changed = FALSE;
 
 	g_signal_connect (G_OBJECT (thumbview), "parent-set",
 			  G_CALLBACK (thumbview_on_parent_set_cb), NULL);
@@ -288,7 +291,8 @@ eog_thumb_view_update_visible_range (EogThumbView *thumbview,
 	old_start_thumb= priv->start_thumb;
 	old_end_thumb = priv->end_thumb;
 
-	if (start_thumb == old_start_thumb &&
+	if (!priv->indices_changed &&
+	    start_thumb == old_start_thumb &&
 	    end_thumb == old_end_thumb) {
 		return;
 	}
@@ -303,6 +307,7 @@ eog_thumb_view_update_visible_range (EogThumbView *thumbview,
 
 	priv->start_thumb = start_thumb;
 	priv->end_thumb = end_thumb;
+	priv->indices_changed = FALSE;
 }
 
 static gboolean
@@ -681,6 +686,7 @@ eog_thumb_view_row_inserted_cb (GtkTreeModel    *tree_model,
 {
 	EogThumbViewPrivate *priv = view->priv;
 
+	priv->indices_changed = TRUE;
 	priv->n_images++;
 	eog_thumb_view_update_columns (view);
 }
@@ -692,7 +698,7 @@ eog_thumb_view_row_deleted_cb (GtkTreeModel    *tree_model,
 {
 	EogThumbViewPrivate *priv = view->priv;
 
-	priv->end_thumb--;
+	priv->indices_changed = TRUE;
 	priv->n_images--;
 	eog_thumb_view_update_columns (view);
 }
