@@ -461,6 +461,8 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		}
 		g_object_unref (file_info);
 		break;
+	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
+	case G_FILE_MONITOR_EVENT_UNMOUNTED:
 	case G_FILE_MONITOR_EVENT_MOVED_OUT:
 	case G_FILE_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store_file (store, file, &iter)) {
@@ -544,8 +546,6 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		g_object_unref (file_info);
 		break;
 	case G_FILE_MONITOR_EVENT_CHANGED:
-	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
-	case G_FILE_MONITOR_EVENT_UNMOUNTED:
 	case G_FILE_MONITOR_EVENT_MOVED:
 		break;
 	}
