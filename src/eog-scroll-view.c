@@ -2730,6 +2730,9 @@ view_on_drag_begin_cb (GtkWidget        *widget,
 	view = EOG_SCROLL_VIEW (user_data);
 	image = view->priv->image;
 
+	if (!image)
+		return;
+
 	thumbnail = eog_image_get_thumbnail (image);
 
 	if  (thumbnail) {
@@ -2756,6 +2759,9 @@ view_on_drag_data_get_cb (GtkWidget        *widget,
 	view = EOG_SCROLL_VIEW (user_data);
 
 	image = view->priv->image;
+
+	if (!image)
+		return;
 
 	file = eog_image_get_file (image);
 	uris[0] = g_file_get_uri (file);
