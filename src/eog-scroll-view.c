@@ -1343,8 +1343,19 @@ display_draw (GtkWidget *widget, cairo_t *cr, gpointer data)
 		                       background_color->green,
 		                       background_color->blue,
 		                       background_color->alpha);
-	else
-		cairo_set_source (cr, gdk_window_get_background_pattern (gtk_widget_get_window (priv->display)));
+	else {
+		GtkStyleContext *context;
+		GdkRGBA *pattern_rgba;
+		GtkStateFlags state;
+
+		context = gtk_widget_get_style_context (priv->display);
+		state = gtk_style_context_get_state (context);
+
+		gtk_style_context_get (context, state, GTK_STYLE_PROPERTY_BACKGROUND_COLOR, &pattern_rgba, NULL);
+		gdk_cairo_set_source_rgba (cr, pattern_rgba);
+
+		gdk_rgba_free (pattern_rgba);
+	}
 	cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_fill (cr);
 
