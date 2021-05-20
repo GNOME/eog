@@ -57,8 +57,8 @@ struct _EogImagePrivate {
 	gchar            *file_type;
 
 	/* Holds EXIF raw data */
-	guint             exif_chunk_len;
 	guchar           *exif_chunk;
+	guint             exif_chunk_len;
 
 #if 0
 	/* Holds IPTC raw data */
