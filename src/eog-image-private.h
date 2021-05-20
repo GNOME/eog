@@ -71,6 +71,8 @@ struct _EogImagePrivate {
 
 	gboolean          autorotate;
 	gint              orientation;
+
+	guint             anim_source;
 #ifdef HAVE_EXIF
 	ExifData         *exif;
 #endif

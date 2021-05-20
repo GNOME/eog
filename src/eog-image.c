@@ -101,6 +101,11 @@ eog_image_free_mem_private (EogImage *image)
 	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
 		eog_image_cancel_load (image);
 	} else {
+		if (priv->anim_source != 0) {
+			g_source_remove (priv->anim_source);
+			priv->anim_source = 0;
+		}
+
 		if (priv->anim_iter != NULL) {
 			g_object_unref (priv->anim_iter);
 			priv->anim_iter = NULL;
@@ -315,6 +320,7 @@ eog_image_init (EogImage *img)
 	img->priv->trans = NULL;
 	img->priv->trans_autorotate = NULL;
 	img->priv->data_ref_count = 0;
+	img->priv->anim_source = 0;
 #ifdef HAVE_EXIF
 	img->priv->orientation = 0;
 	img->priv->autorotate = FALSE;
@@ -2426,10 +2432,13 @@ private_timeout (gpointer data)
 	    !g_source_is_destroyed (g_main_current_source ()) &&
 	    priv->is_playing) {
 		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
-			g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
-	 		return FALSE;
- 	}
+		priv->anim_source = g_timeout_add (
+			gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter),
+			private_timeout, img);
+		return FALSE;
+	}
 	priv->is_playing = FALSE;
+	priv->anim_source = 0;
 	return FALSE; /* stop playing */
 }
 
@@ -2457,7 +2466,9 @@ eog_image_start_animation (EogImage *img)
 	priv->is_playing = TRUE;
 	g_mutex_unlock (&priv->status_mutex);
 
- 	g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter), private_timeout, img);
+	priv->anim_source =
+		g_timeout_add (gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter),
+		               private_timeout, img);
 
 	return TRUE;
 }
