@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2019-10-12 15:28+0000\n"
-"PO-Revision-Date: 2019-11-13 21:57+0300\n"
-"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
+"POT-Creation-Date: 2020-07-02 15:09+0000\n"
+"PO-Revision-Date: 2021-06-29 11:12+0300\n"
+"Last-Translator: Alexey Rubtsov <rushills@gmail.com>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -29,13 +29,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Просмотр и вращение изображений"
 
@@ -62,81 +62,69 @@ msgstr ""
 "рабочего стола. Eye of GNOME считывает теги с камеры для автоматического "
 "поворота изображения в правильную ландшафтную или портретную ориентацию."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:311 src/eog-window.c:5568
-msgid "Image Viewer"
-msgstr "Просмотр изображений"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Изображение;Слайд-шоу;Графика;"
-
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
 msgstr "_Открыть…"
 
 #: data/eog-gear-menu.ui:10
-msgid "Op_en With"
-msgstr "Открыть _с помощью"
+msgid "Op_en With…"
+msgstr "Открыть _с помощью…"
 
-#: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
+#: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
 #: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
 msgid "_Save"
 msgstr "Со_хранить"
 
-#: data/eog-gear-menu.ui:21 data/popup-menus.ui:17
+#: data/eog-gear-menu.ui:20 data/popup-menus.ui:16
 #: src/eog-error-message-area.c:133
 msgid "Save _As…"
 msgstr "Сохранить _как…"
 
-#: data/eog-gear-menu.ui:27 data/popup-menus.ui:23
+#: data/eog-gear-menu.ui:26 data/popup-menus.ui:22
 msgid "_Print…"
 msgstr "_Печать…"
 
-#: data/eog-gear-menu.ui:31 data/popup-menus.ui:45
+#: data/eog-gear-menu.ui:30 data/popup-menus.ui:44
 msgid "Set as Wa_llpaper"
 msgstr "Сделать _фоном рабочего стола"
 
-#: data/eog-gear-menu.ui:37
+#: data/eog-gear-menu.ui:36
 msgid "Image Prope_rties"
 msgstr "Свойства _изображения"
 
-#: data/eog-gear-menu.ui:43
+#: data/eog-gear-menu.ui:42
 msgid "Sli_deshow"
 msgstr "С_лайд-шоу"
 
-#: data/eog-gear-menu.ui:50
+#: data/eog-gear-menu.ui:49
 msgid "Sho_w"
 msgstr "_Показать"
 
-#: data/eog-gear-menu.ui:52
+#: data/eog-gear-menu.ui:51
 msgid "S_ide Pane"
 msgstr "Б_оковая панель"
 
-#: data/eog-gear-menu.ui:56
+#: data/eog-gear-menu.ui:55
 msgid "Image _Gallery"
 msgstr "_Галерея изображений"
 
-#: data/eog-gear-menu.ui:60
+#: data/eog-gear-menu.ui:59
 msgid "S_tatus Bar"
 msgstr "_Строка состояния"
 
-#: data/eog-gear-menu.ui:68
+#: data/eog-gear-menu.ui:67
 msgid "Prefere_nces"
 msgstr "П_араметры"
 
-#: data/eog-gear-menu.ui:72
+#: data/eog-gear-menu.ui:71
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбинации клавиш"
 
-#: data/eog-gear-menu.ui:76 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_Справка"
 
-#: data/eog-gear-menu.ui:80
+#: data/eog-gear-menu.ui:79
 msgid "_About Image Viewer"
 msgstr "_О приложении"
 
@@ -248,8 +236,8 @@ msgstr "Сохранить как"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3283 src/eog-window.c:3286
-#: src/eog-window.c:3539
+#: src/eog-file-chooser.c:472 src/eog-window.c:3254 src/eog-window.c:3257
+#: src/eog-window.c:3489
 msgid "_Cancel"
 msgstr "О_тмена"
 
@@ -374,7 +362,7 @@ msgstr "Увеличивать изображения до размера _эк�
 msgid "Sequence"
 msgstr "Последовательность"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Пауза между изображениями:"
@@ -407,7 +395,7 @@ msgstr "Перейти к первому изображению в галере�
 msgid "_First Image"
 msgstr "П_ервое изображение"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2342
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Перейти к предыдущему изображению в галерее"
 
@@ -415,7 +403,7 @@ msgstr "Перейти к предыдущему изображению в га�
 msgid "_Previous Image"
 msgstr "_Предыдущее изображение"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2330
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Перейти к следующему изображению в галерее"
 
@@ -455,7 +443,7 @@ msgstr "Подогнать размер изображения под разме
 msgid "_Best Fit"
 msgstr "Наилучшая подгонка"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2357
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Повернуть изображение на 90 градусов против часовой стрелки"
 
@@ -463,7 +451,7 @@ msgstr "Повернуть изображение на 90 градусов пр�
 msgid "Rotate Counter_clockwise"
 msgstr "Повернуть против часовой _стрелки"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2368
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Повернуть изображение на 90 градусов по часовой стрелке"
 
@@ -546,102 +534,164 @@ msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Открыть справку приложения"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Показать/скрыть меню приложения"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Комбинации клавиш"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Увеличить"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Уменьшить"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Реальный размер"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Наиболее подходящий размер"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Просмотр изображений"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
-msgctxt "shortcut window"
-msgid "Go to the previous image in the folder"
-msgstr "Перейти к предыдущему изображению в папке"
-
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Перейти к следующему изображению в папке"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
+#: data/help-overlay.ui:198
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Перейти к предыдущему изображению в папке"
+
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Перейти к первому изображению в папке"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Перейти к последнему изображению в папке"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Перейти к случайному изображению в папке"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Показать/скрыть галерею изображений"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:250
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Вращение"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:254 data/help-overlay.ui:269
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Повернуть по часовой стрелке"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Повернуть против часовой стрелки"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:284
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:289
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Войти/Покинуть полноэкранный режим"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Запустить/Остановить слайд-шоу"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Приостановить слайд-шоу"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:968
+#: data/help-overlay.ui:311
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Общие"
+
+#: data/help-overlay.ui:316
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Копировать в буфер"
+
+#: data/help-overlay.ui:323
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Отменить"
+
+#: data/help-overlay.ui:330
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Переместить в корзину"
+
+#: data/help-overlay.ui:337
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Удалить изображение навсегда"
+
+#: data/help-overlay.ui:345
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Прокрутка"
+
+#: data/help-overlay.ui:350
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Прокрутка влево в большом изображении"
+
+#: data/help-overlay.ui:357
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Прокрутка вправо в большом изображении"
+
+#: data/help-overlay.ui:364
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Прокрутка вверх на большом изображении"
+
+#: data/help-overlay.ui:371
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Прокрутите вниз в большом изображении"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Размер"
 
@@ -688,6 +738,19 @@ msgstr "Время"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "Фокусное расстояние"
+
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
+#: src/eog-window.c:5510
+msgid "Image Viewer"
+msgstr "Просмотр изображений"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr "Изображение;Слайд-шоу;Графика;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -932,26 +995,26 @@ msgstr ""
 "расположении можно узнать из файла .eog-plugin."
 
 #: data/popup-menus.ui:6
-msgid "Open _with"
-msgstr "Открыть _с помощью"
+msgid "Open _With…"
+msgstr "Открыть _с помощью…"
 
-#: data/popup-menus.ui:29
+#: data/popup-menus.ui:28
 msgid "_Copy"
 msgstr "_Копировать"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3542
+#: data/popup-menus.ui:34 src/eog-window.c:3492
 msgid "Move to _Trash"
 msgstr "Переместить в _корзину"
 
-#: data/popup-menus.ui:41
+#: data/popup-menus.ui:40
 msgid "Prope_rties"
 msgstr "С_войства"
 
-#: data/popup-menus.ui:49
+#: data/popup-menus.ui:48
 msgid "Show Containing _Folder"
 msgstr "Показать содержащую папку"
 
-#: data/popup-menus.ui:57
+#: data/popup-menus.ui:56
 msgid "_Best fit"
 msgstr "_Наиболее подходящий размер"
 
@@ -1024,7 +1087,7 @@ msgstr "Выберите изображения для сохранения:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Если вы не сохраните, все изменения будут безвозвратно утеряны."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:932
+#: src/eog-error-message-area.c:128 src/eog-window.c:928
 msgid "_Reload"
 msgstr "_Перезагрузить"
 
@@ -1152,27 +1215,27 @@ msgstr "Преобразование незагруженного изображ
 msgid "Transformation failed."
 msgstr "Не удалось выполнить преобразование."
 
-#: src/eog-image.c:1075
+#: src/eog-image.c:1081
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF не поддерживается для этого формата файлов."
 
-#: src/eog-image.c:1225
+#: src/eog-image.c:1222
 #, c-format
 msgid "Image loading failed."
 msgstr "Не удалось загрузить изображение."
 
-#: src/eog-image.c:1806 src/eog-image.c:1926
+#: src/eog-image.c:1804 src/eog-image.c:1924
 #, c-format
 msgid "No image loaded."
 msgstr "Изображение не загружено."
 
-#: src/eog-image.c:1814 src/eog-image.c:1935
+#: src/eog-image.c:1812 src/eog-image.c:1933
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Недостаточно прав для сохранения файла."
 
-#: src/eog-image.c:1824 src/eog-image.c:1946
+#: src/eog-image.c:1822 src/eog-image.c:1944
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Не удалось создать временный файл."
@@ -1281,87 +1344,87 @@ msgstr[2] "%lu секунд"
 msgid "Image Settings"
 msgstr "Параметры изображения"
 
-#: src/eog-print-image-setup.c:896
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Изображение"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "Изображение, для которого будут настроены свойства печати"
 
-#: src/eog-print-image-setup.c:903
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Параметры страницы"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Информация о странице, на которой будет напечатано изображение"
 
-#: src/eog-print-image-setup.c:930
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Положение"
 
-#: src/eog-print-image-setup.c:934
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "С_лева:"
 
-#: src/eog-print-image-setup.c:936
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "С_права:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "С_верху:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "С_низу:"
 
-#: src/eog-print-image-setup.c:941
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "_Центрировать:"
 
-#: src/eog-print-image-setup.c:946
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Нет"
 
-#: src/eog-print-image-setup.c:948
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "Горизонтально"
 
-#: src/eog-print-image-setup.c:950
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "Вертикально"
 
-#: src/eog-print-image-setup.c:952
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "Горизонтально и вертикально"
 
-#: src/eog-print-image-setup.c:971
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
 msgstr "_Ширина:"
 
-#: src/eog-print-image-setup.c:973
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "_Высота:"
 
-#: src/eog-print-image-setup.c:976
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "_Масштаб:"
 
-#: src/eog-print-image-setup.c:987
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "_Единица:"
 
-#: src/eog-print-image-setup.c:992
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Миллиметры"
 
-#: src/eog-print-image-setup.c:994
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Дюймы"
 
-#: src/eog-print-image-setup.c:1023
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Просмотр печати"
 
@@ -1397,11 +1460,11 @@ msgstr "Снято"
 msgid "At least two file names are equal."
 msgstr "Как минимум два имени файла совпадают."
 
-#: src/eog-util.c:68
+#: src/eog-util.c:70
 msgid "Could not display help for Image Viewer"
 msgstr "Не удалось открыть справку для приложения просмотра изображений"
 
-#: src/eog-util.c:116
+#: src/eog-util.c:118
 msgid " (invalid Unicode)"
 msgstr " (некорректные символы Юникод)"
 
@@ -1411,7 +1474,7 @@ msgstr " (некорректные символы Юникод)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:547
+#: src/eog-window.c:543
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1419,43 +1482,41 @@ msgstr[0] "%i × %i пиксел  %s    %i%%"
 msgstr[1] "%i × %i пиксела  %s    %i%%"
 msgstr[2] "%i × %i пикселов  %s    %i%%"
 
-#: src/eog-window.c:934 src/eog-window.c:2677
+#: src/eog-window.c:930 src/eog-window.c:2649
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "С_крыть"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:944
+#: src/eog-window.c:938
 #, c-format
 msgid ""
-"The image “%s” has been modified by an external application.\n"
-"Would you like to reload it?"
+"The image “%s” has been modified by an external application. Would you like "
+"to reload it?"
 msgstr ""
-"Изображение «%s» было изменено внешним приложением.\n"
-"Хотите перезагрузить его?"
+"Изображение «%s» было изменено внешним приложением. Не хотите ли вы "
+"перезагрузить его?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1218
+#: src/eog-window.c:1190
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Сохранение изображения «%s» (%u/%u)"
 
-#: src/eog-window.c:1642
+#: src/eog-window.c:1614
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Открытие изображения «%s»"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2028
+#: src/eog-window.c:2000
 msgid "Viewing a slideshow"
 msgstr "Просмотр слайд-шоу"
 
-#: src/eog-window.c:2247
+#: src/eog-window.c:2219
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1464,30 +1525,28 @@ msgstr ""
 "Ошибка при печати файла:\n"
 "%s"
 
-#: src/eog-window.c:2626 src/eog-window.c:2641
+#: src/eog-window.c:2598 src/eog-window.c:2613
 msgid "Error launching System Settings: "
 msgstr "Ошибка запуска параметров системы: "
 
-#: src/eog-window.c:2675
+#: src/eog-window.c:2647
 msgid "_Open Background Preferences"
 msgstr "О_ткрыть параметры фона"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:2691
+#: src/eog-window.c:2661
 #, c-format
 msgid ""
-"The image “%s” has been set as Desktop Background.\n"
-"Would you like to modify its appearance?"
+"The image “%s” has been set as Desktop Background. Would you like to modify "
+"its appearance?"
 msgstr ""
-"Изображение «%s» установлено в качестве фона рабочего стола.\n"
-"Изменить его внешний вид?"
+"Изображение «%s» было установлено в качестве фона рабочего стола. Вы хотите "
+"изменить его внешний вид?"
 
-#: src/eog-window.c:3181
+#: src/eog-window.c:3152
 msgid "Saving image locally…"
 msgstr "Сохранение изображения на диск…"
 
-#: src/eog-window.c:3259
+#: src/eog-window.c:3230
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1496,7 +1555,7 @@ msgstr ""
 "Действительно безвозвратно удалить\n"
 "«%s»?"
 
-#: src/eog-window.c:3262
+#: src/eog-window.c:3233
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1514,41 +1573,41 @@ msgstr[2] ""
 "Действительно безвозвратно удалить\n"
 "%d выбранных изображений?"
 
-#: src/eog-window.c:3284 src/eog-window.c:3550
+#: src/eog-window.c:3255 src/eog-window.c:3500
 msgid "_Delete"
 msgstr "_Удалить"
 
-#: src/eog-window.c:3287 src/eog-window.c:3552
+#: src/eog-window.c:3258 src/eog-window.c:3502
 msgid "_Yes"
 msgstr "_Да"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3291 src/eog-window.c:3544
+#: src/eog-window.c:3262 src/eog-window.c:3494
 msgid "Do _not ask again during this session"
 msgstr "_Не спрашивать больше во время этого сеанса"
 
-#: src/eog-window.c:3335
+#: src/eog-window.c:3306
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Не удалось получить файл изображения"
 
-#: src/eog-window.c:3351
+#: src/eog-window.c:3322
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Не удалось получить информацию о файле изображения"
 
-#: src/eog-window.c:3367 src/eog-window.c:3611
+#: src/eog-window.c:3338 src/eog-window.c:3561
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Не удалось удалить файл"
 
 #. set dialog error message
-#: src/eog-window.c:3417 src/eog-window.c:3711
+#: src/eog-window.c:3383 src/eog-window.c:3657
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Ошибка при удалении изображения %s"
 
-#: src/eog-window.c:3512
+#: src/eog-window.c:3462
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1557,14 +1616,14 @@ msgstr ""
 "Действительно хотите переместить\n"
 "«%s» в корзину?"
 
-#: src/eog-window.c:3515
+#: src/eog-window.c:3465
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "Не удалось найти корзину для «%s». Удалить изображение навсегда?"
 
-#: src/eog-window.c:3520
+#: src/eog-window.c:3470
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1582,7 +1641,7 @@ msgstr[2] ""
 "Действительно хотите переместить\n"
 "%d выбранных изображений в корзину?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3475
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1590,28 +1649,28 @@ msgstr ""
 "Не удалось переместить некоторые выделенные изображения в корзину, они будут "
 "удалены навсегда. Продолжить?"
 
-#: src/eog-window.c:3589 src/eog-window.c:3603
+#: src/eog-window.c:3539 src/eog-window.c:3553
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Нет доступа к корзине."
 
-#: src/eog-window.c:4270
+#: src/eog-window.c:4201
 msgid "Shrink or enlarge the current image"
 msgstr "Уменьшить или увеличить текущее изображение"
 
-#: src/eog-window.c:4329
+#: src/eog-window.c:4260
 msgid "Show the current image in fullscreen mode"
 msgstr "Показать текущее изображение в полноэкранном режиме"
 
-#: src/eog-window.c:4406
+#: src/eog-window.c:4331
 msgid "Properties"
 msgstr "Свойства"
 
-#: src/eog-window.c:5571
+#: src/eog-window.c:5513
 msgid "The GNOME image viewer."
 msgstr "Программа для просмотра изображений в GNOME."
 
-#: src/eog-window.c:5574
+#: src/eog-window.c:5516
 msgid "translator-credits"
 msgstr ""
 "Yuri Myasoedov <ymyasoedov@yandex.ru>, 2012-2017.\n"
