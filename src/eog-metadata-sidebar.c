@@ -34,7 +34,7 @@
 
 #include "eog-image.h"
 #include "eog-metadata-sidebar.h"
-#include "eog-properties-dialog.h"
+#include "eog-details-dialog.h"
 #include "eog-scroll-view.h"
 #include "eog-util.h"
 #include "eog-window.h"
@@ -51,7 +51,7 @@
 #endif
 
 /* There's no exempi support in the sidebar yet */
-#if defined(HAVE_EXIF) /*|| defined(HAVE_EXEMPI) */
+#if defined(HAVE_EXIF) || defined(HAVE_EXEMPI)
 #define HAVE_METADATA
 #endif
 
@@ -85,14 +85,19 @@ struct _EogMetadataSidebarPrivate {
 #else
 	GtkWidget *metadata_grid;
 #endif
+
+#ifdef HAVE_METADATA
+	GtkWidget *show_details_button;
+	GtkWidget *details_dialog;
+#endif
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(EogMetadataSidebar, eog_metadata_sidebar, GTK_TYPE_SCROLLED_WINDOW)
 
 static void
 parent_file_display_name_query_info_cb (GObject *source_object,
-                                        GAsyncResult *res,
-                                        gpointer user_data)
+					GAsyncResult *res,
+					gpointer user_data)
 {
 	EogMetadataSidebar *sidebar = EOG_METADATA_SIDEBAR (user_data);
 	GFile *parent_file = G_FILE (source_object);
@@ -189,12 +194,15 @@ static void
 eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 {
 	EogMetadataSidebarPrivate *priv = sidebar->priv;
+	EogImage *image = priv->image;
+	gboolean has_metadata = FALSE;
+
 #ifdef HAVE_EXIF
-	EogImage *img = priv->image;
 	ExifData *exif_data = NULL;
 
-	if (img) {
-		exif_data = eog_image_get_exif_info (img);
+	if (image) {
+		exif_data = eog_image_get_exif_info (image);
+		has_metadata |= (exif_data != NULL);
 	}
 
 	eog_exif_util_set_label_text (GTK_LABEL (priv->aperture_label),
@@ -225,6 +233,18 @@ eog_metadata_sidebar_update_metadata_section (EogMetadataSidebar *sidebar)
 	/* exif_data_unref can handle NULL-values */
 	exif_data_unref(exif_data);
 #endif /* HAVE_EXIF */
+
+#ifdef HAVE_EXEMPI
+	if (image) {
+		has_metadata |= eog_image_has_xmp_info (image);
+	}
+#endif
+
+	gtk_widget_set_visible (priv->show_details_button, has_metadata);
+
+	if (priv->details_dialog != NULL) {
+		eog_details_dialog_update (EOG_DETAILS_DIALOG (priv->details_dialog), priv->image);
+	}
 }
 #endif /* HAVE_METADATA */
 
@@ -317,6 +337,22 @@ _folder_label_clicked_cb (GtkLabel *label, const gchar *uri, gpointer user_data)
 	eog_util_show_file_in_filemanager (file, window);
 
 	g_object_unref (file);
+}
+
+static void
+eog_metadata_sidebar_show_details_cb (GtkButton *button, EogMetadataSidebar *sidebar)
+{
+	EogMetadataSidebarPrivate *priv = EOG_METADATA_SIDEBAR(sidebar)->priv;
+
+	g_return_if_fail (priv->parent_window != NULL);
+	
+	if (priv->details_dialog == NULL) {
+		priv->details_dialog = eog_details_dialog_new (GTK_WINDOW (priv->parent_window));
+
+		eog_details_dialog_update (EOG_DETAILS_DIALOG (priv->details_dialog), priv->image);
+	}
+
+	gtk_widget_show (priv->details_dialog);
 }
 
 static void
@@ -498,6 +534,15 @@ eog_metadata_sidebar_class_init (EogMetadataSidebarClass *klass)
 						      EogMetadataSidebar,
 						      metadata_grid);
 #endif /* HAVE_EXIF */
+
+#ifdef HAVE_METADATA
+	gtk_widget_class_bind_template_child_private (widget_class,
+						      EogMetadataSidebar,
+						      show_details_button);
+
+	gtk_widget_class_bind_template_callback(widget_class,
+						eog_metadata_sidebar_show_details_cb);
+#endif /* HAVE_METADATA */
 }
 
 
