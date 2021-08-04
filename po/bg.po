@@ -3,6 +3,7 @@
 # Copyright (C) 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
 # Copyright (C) 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
 # Copyright (C) 2015, 2016 Free Software Foundation, Inc.
+# Copyright (C) 2021 Alexander Shopov <ash@kambanaria.org>.
 # Borislav Aleksandrov <B.Aleksandrov@cnsys.bg>, 2002.
 # Vladimir Petkov <kaladan@gmail.com>, 2004, 2005, 2006, 2007.
 # Rostislav Raykov <zbrox@i-space.org>, 2004, 2006.
@@ -12,17 +13,16 @@
 # Ivaylo Valkov <ivaylo@e-valkov.org>, 2010, 2011, 2014.
 # Alexander Shopov <ash@kambanaria.org>, 2005, 2006, 2007, 2008, 2009.
 # Alexander Shopov <ash@kambanaria.org>, 2010, 2011, 2012, 2013, 2015.
-# Alexander Shopov <ash@kambanaria.org>, 2016.
+# Alexander Shopov <ash@kambanaria.org>, 2016, 2021.
 # Lyubomir Vasilev <lyubomirv@abv.bg>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-10 07:35+0000\n"
-"PO-Revision-Date: 2017-09-10 12:13+0300\n"
-"Last-Translator: Lyubomir Vasilev <lyubomirv@abv.bg>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
+"POT-Creation-Date: 2021-07-17 20:12+0000\n"
+"PO-Revision-Date: 2021-08-04 13:45+0300\n"
+"Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -30,31 +30,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/eog-app-menu.ui:7
-msgid "Prefere_nces"
-msgstr "_Настройки"
-
-#: data/eog-app-menu.ui:13
-msgid "_Keyboard Shortcuts"
-msgstr "_Клавишни комбинации"
-
-#: data/eog-app-menu.ui:17 data/eog-preferences-dialog.ui:21
-msgid "_Help"
-msgstr "Помо_щ"
-
-#: data/eog-app-menu.ui:21
-msgid "_About"
-msgstr "_Относно"
-
-#: data/eog-app-menu.ui:25
-msgid "_Quit"
-msgstr "_Спиране на програмата"
-
 #: data/eog.appdata.xml.in:6
 msgid "Eye of GNOME"
 msgstr "Окото на GNOME"
 
-#: data/eog.appdata.xml.in:7 data/eog.desktop.in.in:4
+#: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Преглед и завъртане на изображения"
 
@@ -80,75 +60,75 @@ msgstr ""
 "изображенията от цифровите фотоапарати се използват за завъртане в "
 "подходящата посока — вертикална или хоризонтална."
 
-#: data/eog.desktop.in.in:3 src/eog-application.c:312 src/eog-window.c:5508
-msgid "Image Viewer"
-msgstr "Преглед на изображения"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: data/eog.desktop.in.in:9
-msgid "eog"
-msgstr "eog"
-
-#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
-#. TRANSLATORS: Search terms to find this application.
-#. Do NOT translate or localize the semicolons!
-#. The list MUST also end with a semicolon!
-#: data/eog.desktop.in.in:24
-msgid "Picture;Slideshow;Graphics;"
-msgstr ""
-"изображение;снимка;графика;картина;разглеждане;прожекция;picture;slideshow;"
-"graphics;"
-
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
 msgstr "_Отваряне…"
 
 #: data/eog-gear-menu.ui:10
-msgid "Open _With"
-msgstr "Отваряне _с"
+msgid "Op_en With…"
+msgstr "Отваряне _с…"
 
-#: data/eog-gear-menu.ui:17 data/popup-menus.ui:13
+#: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
 #: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
 msgid "_Save"
 msgstr "З_апазване"
 
-#: data/eog-gear-menu.ui:21 data/popup-menus.ui:17
+#: data/eog-gear-menu.ui:20 data/popup-menus.ui:16
 #: src/eog-error-message-area.c:133
 msgid "Save _As…"
 msgstr "Запазване _като…"
 
-#: data/eog-gear-menu.ui:27 data/popup-menus.ui:23
+#: data/eog-gear-menu.ui:26 data/popup-menus.ui:22
 msgid "_Print…"
 msgstr "_Печат…"
 
-#: data/eog-gear-menu.ui:31 data/popup-menus.ui:45
+#: data/eog-gear-menu.ui:30 data/popup-menus.ui:44
 msgid "Set as Wa_llpaper"
 msgstr "Задаване като _фон"
 
-#: data/eog-gear-menu.ui:37
+#: data/eog-gear-menu.ui:36
+msgid "Image Prope_rties"
+msgstr "_Данни за изображението"
+
+#: data/eog-gear-menu.ui:42
 msgid "Sli_deshow"
 msgstr "Про_жекция"
 
-#: data/eog-gear-menu.ui:41
+#: data/eog-gear-menu.ui:49
+msgid "Sho_w"
+msgstr "_Показване"
+
+#: data/eog-gear-menu.ui:51
 msgid "S_ide Pane"
 msgstr "_Страничен панел"
 
-#: data/eog-gear-menu.ui:45
+#: data/eog-gear-menu.ui:55
 msgid "Image _Gallery"
 msgstr "_Галерия"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:59
 msgid "S_tatus Bar"
 msgstr "Лента за _състоянието"
 
-#: data/eog-gear-menu.ui:55 data/popup-menus.ui:41
-msgid "Prope_rties"
-msgstr "Под_робности"
+#: data/eog-gear-menu.ui:67
+msgid "Prefere_nces"
+msgstr "_Настройки"
+
+#: data/eog-gear-menu.ui:71
+msgid "_Keyboard Shortcuts"
+msgstr "_Клавишни комбинации"
+
+#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+msgid "_Help"
+msgstr "Помо_щ"
+
+#: data/eog-gear-menu.ui:79
+msgid "_About Image Viewer"
+msgstr "_Относно „Преглед на изображения“"
 
 #: data/eog-image-properties-dialog.ui:17
 msgid "Image Properties"
-msgstr "Настройки на изображението"
+msgstr "Данни за изображението"
 
 #: data/eog-image-properties-dialog.ui:31
 msgid "Previous"
@@ -254,8 +234,8 @@ msgstr "Запазване като"
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
 #: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3223 src/eog-window.c:3226
-#: src/eog-window.c:3479
+#: src/eog-file-chooser.c:472 src/eog-window.c:3273 src/eog-window.c:3276
+#: src/eog-window.c:3508
 msgid "_Cancel"
 msgstr "_Отказ"
 
@@ -380,7 +360,7 @@ msgstr "Раз_ширяване на изображенията за напас�
 msgid "Sequence"
 msgstr "Последователност"
 
-#. I18N: This sentence will be displayed above a horizonzal scale to select a number of seconds in eog's preferences dialog.
+#. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
 #: data/eog-preferences-dialog.ui:441
 msgid "_Time between images:"
 msgstr "_Време за смяна на изображенията:"
@@ -398,7 +378,6 @@ msgid "Plugins"
 msgstr "Приставки"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
-#: data/fullscreen-toolbar.ui:113 data/fullscreen-toolbar.ui:128
 msgid "Shrink the image"
 msgstr "Смаляване на изображението"
 
@@ -414,7 +393,7 @@ msgstr "Към първото изображение в галерията"
 msgid "_First Image"
 msgstr "Пър_во изображение"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2359
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2361
 msgid "Go to the previous image of the gallery"
 msgstr "Към предишното изображение в галерията"
 
@@ -422,7 +401,7 @@ msgstr "Към предишното изображение в галерията
 msgid "_Previous Image"
 msgstr "_Предишно изображение"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2347
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2349
 msgid "Go to the next image of the gallery"
 msgstr "Към следващото изображение в галерията"
 
@@ -446,15 +425,23 @@ msgstr "_Увеличаване"
 msgid "Zoom _Out"
 msgstr "На_маляване"
 
+#: data/fullscreen-toolbar.ui:113
+msgid "Show the image at its normal size"
+msgstr "Показване на изображенията с нормален размер"
+
 #: data/fullscreen-toolbar.ui:115
 msgid "_Normal Size"
 msgstr "Но_рмален размер"
+
+#: data/fullscreen-toolbar.ui:128
+msgid "Fit the image to the window"
+msgstr "Напасване на изображението към прозореца"
 
 #: data/fullscreen-toolbar.ui:130 data/fullscreen-toolbar.ui:220
 msgid "_Best Fit"
 msgstr "Най-_добро вместване"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2374
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2376
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Завъртане на изображението 90° наляво"
 
@@ -462,7 +449,7 @@ msgstr "Завъртане на изображението 90° наляво"
 msgid "Rotate Counter_clockwise"
 msgstr "Завъртане на_ляво"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2385
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Завъртане на изображението 90° надясно"
 
@@ -532,115 +519,177 @@ msgstr "Задаване на изображението като фон на р
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show/Hide the sidebar"
-msgstr "Показване/скриване на страничния панел."
+msgid "Show image properties dialog"
+msgstr "Прозорец за свойствата на изображението"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "Прозорец за свойствата на изображението"
+msgid "Show/Hide the sidebar"
+msgstr "Показване/скриване на страничния панел."
 
 #: data/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Open the application manual"
 msgstr "Отваряне на ръководството"
 
-#: data/help-overlay.ui:90
+#: data/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Show/Hide the application menu"
+msgstr "Показване/скриване на менюто на програмата"
+
+#: data/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Клавишни комбинации"
+
+#: data/help-overlay.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Мащабиране"
 
-#: data/help-overlay.ui:94 data/help-overlay.ui:109
+#: data/help-overlay.ui:108 data/help-overlay.ui:123
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "Увеличаване"
 
-#: data/help-overlay.ui:101 data/help-overlay.ui:116
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "Намаляване"
 
-#: data/help-overlay.ui:123
+#: data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "Истински размер"
 
-#: data/help-overlay.ui:130
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "Най-добро вместване"
 
-#: data/help-overlay.ui:138
+#: data/help-overlay.ui:152
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "Преглед на изображения"
 
-#: data/help-overlay.ui:142 data/help-overlay.ui:149 data/help-overlay.ui:157
-msgctxt "shortcut window"
-msgid "Go to the previous image in the folder"
-msgstr "Към на предишното изображение в папката"
-
-#: data/help-overlay.ui:164
+#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
+#: data/help-overlay.ui:214
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "Към следващото изображение в папката"
 
-#: data/help-overlay.ui:171
+#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
+#: data/help-overlay.ui:198
+msgctxt "shortcut window"
+msgid "Go to the previous image in the folder"
+msgstr "Към предишното изображение в папката"
+
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "Към първото изображение в папката"
 
-#: data/help-overlay.ui:178
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "Към последното изображение в папката"
 
-#: data/help-overlay.ui:185
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "Към случайно изображение в папката"
 
-#: data/help-overlay.ui:192
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Показване/скриване на галерията"
 
-#: data/help-overlay.ui:200
+#: data/help-overlay.ui:250
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Завъртане"
 
-#: data/help-overlay.ui:204 data/help-overlay.ui:219
+#: data/help-overlay.ui:254 data/help-overlay.ui:269
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Завъртане надясно"
 
-#: data/help-overlay.ui:211 data/help-overlay.ui:226
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Завъртане наляво"
 
-#: data/help-overlay.ui:234
+#: data/help-overlay.ui:284
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "На цял екран"
 
-#: data/help-overlay.ui:239
+#: data/help-overlay.ui:289
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Режим на цял екран"
 
-#: data/help-overlay.ui:246
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Режим на прожекция"
 
-#: data/help-overlay.ui:253
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Пауза на прожекцията"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:969
+#: data/help-overlay.ui:311
+msgctxt "shortcut window"
+msgid "Common"
+msgstr "Общи"
+
+#: data/help-overlay.ui:316
+msgctxt "shortcut window"
+msgid "Copy to clipboard"
+msgstr "Копиране в буфера за обмен"
+
+#: data/help-overlay.ui:323
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Отмяна"
+
+#: data/help-overlay.ui:330
+msgctxt "shortcut window"
+msgid "Move to Trash"
+msgstr "Преместване в кошчето"
+
+#: data/help-overlay.ui:337
+msgctxt "shortcut window"
+msgid "Delete image permanently"
+msgstr "Окончателно изтриване на изображението"
+
+#: data/help-overlay.ui:345
+msgctxt "shortcut window"
+msgid "Scrolling"
+msgstr "Придвижване"
+
+#: data/help-overlay.ui:350
+msgctxt "shortcut window"
+msgid "Scroll left in a large image"
+msgstr "Придвижване наляво при голямо изображение"
+
+#: data/help-overlay.ui:357
+msgctxt "shortcut window"
+msgid "Scroll right in a large image"
+msgstr "Придвижване надясно при голямо изображение"
+
+#: data/help-overlay.ui:364
+msgctxt "shortcut window"
+msgid "Scroll up in a large image"
+msgstr "Придвижване нагоре при голямо изображение"
+
+#: data/help-overlay.ui:371
+msgctxt "shortcut window"
+msgid "Scroll down in a large image"
+msgstr "Придвижване надолу при голямо изображение"
+
+#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
 msgid "Size"
 msgstr "Размер"
 
@@ -688,6 +737,21 @@ msgstr "Време"
 msgid "Focal Length"
 msgstr "Фок. разст.:"
 
+#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
+#: src/eog-window.c:5541
+msgid "Image Viewer"
+msgstr "Преглед на изображения"
+
+#. Extra keywords that can be used to search for eog in GNOME Shell and Unity
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
+#: data/org.gnome.eog.desktop.in.in:24
+msgid "Picture;Slideshow;Graphics;"
+msgstr ""
+"изображение;снимка;графика;картина;разглеждане;прожекция;picture;slideshow;"
+"graphics;"
+
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
 msgstr "Автоматично завъртане"
@@ -718,7 +782,7 @@ msgid ""
 "Whether the image should be interpolated on zoom-out. This leads to better "
 "quality but is somewhat slower than non-interpolated images."
 msgstr ""
-"Дали изображението да бъде интерполирано при увеличение или не. Това води до "
+"Дали изображението да бъде интерполирано при смаляване или не. Това води до "
 "по-добро качество и по-бавно показване."
 
 #: data/org.gnome.eog.gschema.xml.in:26
@@ -744,8 +808,8 @@ msgid ""
 "determines the color value used."
 msgstr ""
 "Определя как ще бъде показвана прозрачността. Валидните стойности са "
-"„CHECK_PATTERN“, „COLOR“ и „NONE“. Ако е избрано „COLOR“, тогава ключът "
-"trans-color определя използвания цвят."
+"„CHECK_PATTERN“ (шахматна дъска), „COLOR“ (цвят) и „NONE“ (без). Ако е "
+"избрано „COLOR“, тогава ключът „trans-color“ определя използвания цвят."
 
 #: data/org.gnome.eog.gschema.xml.in:36
 msgid "Scroll wheel zoom"
@@ -816,8 +880,8 @@ msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Ако тук е ЛЪЖА, малките изображения няма да бъдат разтягани, за да напаснат "
-"на големината на екрана."
+"Ако е ЛЪЖА, малките изображения няма да бъдат разтягани, за да напаснат на "
+"големината на екрана."
 
 #: data/org.gnome.eog.gschema.xml.in:68
 msgid "Delay in seconds until showing the next image"
@@ -875,8 +939,8 @@ msgid ""
 "trash and would be deleted instead."
 msgstr ""
 "Ако е истина, програмата няма да пита за потвърждение при преместване на "
-"изображенията в кошчето. Когато поради някаква причина изображенията не "
-"могат да бъдат преместени в кошчето, а ще бъдат изтрити, все пак ще се иска "
+"изображенията в кошчето. Когато поради някаква причина изображенията не може "
+"да бъдат преместени в кошчето, а ще бъдат изтрити, все пак ще се иска "
 "потвърждение."
 
 #: data/org.gnome.eog.gschema.xml.in:108
@@ -913,10 +977,10 @@ msgid ""
 "on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
 "be embedded on the “Metadata” page."
 msgstr ""
-"Ако е истина, допълнителните подробни за изображението ще бъдат преместени в "
-"собствен прозорец. Така програмата ще се ползва по-лесно на малки екрани "
-"(напр. при ултра преносими компютри). Ако е лъжа, данните се показват в "
-"страницата „Допълнителни данни“."
+"Ако е истина, допълнителните подробни данни за изображението ще бъдат "
+"преместени в собствен прозорец. Така програмата ще се ползва по-лесно на "
+"малки екрани (напр. при ултра преносими компютри). Ако е лъжа, данните се "
+"показват в страницата „Допълнителни данни“."
 
 #: data/org.gnome.eog.gschema.xml.in:120
 msgid "Active plugins"
@@ -933,34 +997,32 @@ msgstr ""
 "plugin."
 
 #: data/popup-menus.ui:6
-msgid "Open _with"
-msgstr "Отваряне _с"
+msgid "Open _With…"
+msgstr "Отваряне _с…"
 
-#: data/popup-menus.ui:29
+#: data/popup-menus.ui:28
 msgid "_Copy"
 msgstr "_Копиране"
 
-#: data/popup-menus.ui:35 src/eog-window.c:3482
+#: data/popup-menus.ui:34 src/eog-window.c:3511
 msgid "Move to _Trash"
 msgstr "Преместване в _кошчето"
 
-#: data/popup-menus.ui:49
+#: data/popup-menus.ui:40
+msgid "Prope_rties"
+msgstr "Под_робности"
+
+#: data/popup-menus.ui:48
 msgid "Show Containing _Folder"
 msgstr "Показване на съдържащата _папка"
 
-#: data/popup-menus.ui:57
+#: data/popup-menus.ui:56
 msgid "_Best fit"
 msgstr "Най-_добро вместване"
 
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:5
 msgid "Fullscreen with double-click"
 msgstr "Цял екран с двойно натискане с мишката"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/fullscreen/fullscreen.plugin.desktop.in:8
-msgid "view-fullscreen"
-msgstr "view-fullscreen"
 
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
@@ -971,15 +1033,15 @@ msgstr "Активиране на режим на цял екран чрез д�
 msgid "Reload Image"
 msgstr "Презареждане на изображението"
 
-#. TRANSLATORS: Do NOT translate or transliterate this text!
-#. This is an icon file name
-#: plugins/reload/reload.plugin.desktop.in:8
-msgid "view-refresh"
-msgstr "view-refresh"
-
 #: plugins/reload/reload.plugin.desktop.in:9
 msgid "Reload current image"
 msgstr "Презареждане на текущото изображение"
+
+#. A strftime-formatted string, to display the date the image was taken.
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
+#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+msgid "%a, %d %B %Y  %X"
+msgstr "%A, %е %B %Y %X"
 
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
@@ -993,20 +1055,16 @@ msgstr "Показване на датата на изображението в 
 msgid "Close _without Saving"
 msgstr "Затваряне _без запазване"
 
-#: src/eog-close-confirmation-dialog.c:212
-msgid "Question"
-msgstr "Въпрос"
-
-#: src/eog-close-confirmation-dialog.c:391
+#: src/eog-close-confirmation-dialog.c:383
 msgid "If you don’t save, your changes will be lost."
 msgstr "Ако не запазите промените, те ще бъдат изгубени."
 
-#: src/eog-close-confirmation-dialog.c:437
+#: src/eog-close-confirmation-dialog.c:404
 #, c-format
 msgid "Save changes to image “%s” before closing?"
 msgstr "Запазване на промените в „%s“ преди затваряне?"
 
-#: src/eog-close-confirmation-dialog.c:652
+#: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -1018,16 +1076,16 @@ msgstr[1] ""
 "Има %d изображения с незапазени промени. Да се запазят ли промените преди "
 "затваряне?"
 
-#: src/eog-close-confirmation-dialog.c:669
+#: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
 msgstr "И_зберете изображенията, които искате да се запазят:"
 
 #. Secondary label
-#: src/eog-close-confirmation-dialog.c:688
+#: src/eog-close-confirmation-dialog.c:603
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ако не запазите промените, те ще бъдат изгубени."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:881
+#: src/eog-error-message-area.c:128 src/eog-window.c:930
 msgid "_Reload"
 msgstr "_Презареждане"
 
@@ -1060,7 +1118,7 @@ msgid ""
 "page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"Има много страници в това изображение. В момента се показва само първата.\n"
+"Това изображение съдържа много страници. В момента се показва само първата.\n"
 "Искате ли да го отворите с прегледа на документи, за да виждате всички?"
 
 #: src/eog-error-message-area.c:355
@@ -1071,11 +1129,6 @@ msgid ""
 msgstr ""
 "Това изображение съдържа много страници. В момента се показва само първата.\n"
 "Може да инсталирате прегледа на документи, за да виждате всички."
-
-#. A strftime-formatted string, to display the date the image was taken.
-#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
-msgid "%a, %d %B %Y  %X"
-msgstr "%A, %е %B %Y %X"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1124,7 +1177,7 @@ msgstr "Поддържаните формати изображения"
 
 #. Pixel size of image: width x height in pixel
 #: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:515
+#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:522
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "пиксел"
@@ -1146,31 +1199,38 @@ msgstr "Запазване на изображение"
 msgid "Open Folder"
 msgstr "Отваряне на папка"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:572
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Преобразуване на незаредено изображение."
 
-#: src/eog-image.c:594
+#: src/eog-image.c:600
+#, c-format
 msgid "Transformation failed."
 msgstr "Неуспешно преобразуване."
 
-#: src/eog-image.c:1074
+#: src/eog-image.c:1140
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "За този файлов формат не се поддържа EXIF."
 
-#: src/eog-image.c:1221
+#: src/eog-image.c:1282
+#, c-format
 msgid "Image loading failed."
-msgstr "Неуспех при зареждане на изображението."
+msgstr "Неуспешно зареждане на изображението."
 
-#: src/eog-image.c:1802 src/eog-image.c:1922
+#: src/eog-image.c:1864 src/eog-image.c:1984
+#, c-format
 msgid "No image loaded."
 msgstr "Няма заредено изображение."
 
-#: src/eog-image.c:1810 src/eog-image.c:1931
+#: src/eog-image.c:1872 src/eog-image.c:1993
+#, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Нямате необходимите права, за да запазите файла."
 
-#: src/eog-image.c:1820 src/eog-image.c:1942
+#: src/eog-image.c:1882 src/eog-image.c:2004
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "Създаването на временния файл е неуспешно."
 
@@ -1180,6 +1240,7 @@ msgid "Couldn’t create temporary file for saving: %s"
 msgstr "Не може да бъде създаден временен файл за запазване: „%s“"
 
 #: src/eog-image-jpeg.c:393
+#, c-format
 msgid "Couldn’t allocate memory for loading JPEG file"
 msgstr "Недостатъчна свободна памет за зареждане на файла във формат JPEG"
 
@@ -1274,94 +1335,94 @@ msgstr[1] "%lu секунди"
 msgid "Image Settings"
 msgstr "Настройки"
 
-#: src/eog-print-image-setup.c:897
+#: src/eog-print-image-setup.c:1160
 msgid "Image"
 msgstr "Изображение"
 
-#: src/eog-print-image-setup.c:898
+#: src/eog-print-image-setup.c:1161
 msgid "The image whose printing properties will be set up"
 msgstr "Изображението, за което ще бъдат задавани настройки за печат"
 
-#: src/eog-print-image-setup.c:904
+#: src/eog-print-image-setup.c:1167
 msgid "Page Setup"
 msgstr "Настройки на страницата"
 
-#: src/eog-print-image-setup.c:905
+#: src/eog-print-image-setup.c:1168
 msgid "The information for the page where the image will be printed"
 msgstr "Информация за страницата, където ще се печата изображението"
 
-#: src/eog-print-image-setup.c:931
+#: src/eog-print-image-setup.c:1194
 msgid "Position"
 msgstr "Позиция"
 
-#: src/eog-print-image-setup.c:935
+#: src/eog-print-image-setup.c:1198
 msgid "_Left:"
 msgstr "_Ляво:"
 
-#: src/eog-print-image-setup.c:937
+#: src/eog-print-image-setup.c:1200
 msgid "_Right:"
 msgstr "_Дясно:"
 
-#: src/eog-print-image-setup.c:938
+#: src/eog-print-image-setup.c:1201
 msgid "_Top:"
 msgstr "_Горе:"
 
-#: src/eog-print-image-setup.c:939
+#: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
 msgstr "Дол_у:"
 
-#: src/eog-print-image-setup.c:942
+#: src/eog-print-image-setup.c:1205
 msgid "C_enter:"
 msgstr "_Центриране:"
 
-#: src/eog-print-image-setup.c:947
+#: src/eog-print-image-setup.c:1210
 msgid "None"
 msgstr "Никакво"
 
-#: src/eog-print-image-setup.c:949
+#: src/eog-print-image-setup.c:1212
 msgid "Horizontal"
 msgstr "Хоризонтално"
 
-#: src/eog-print-image-setup.c:951
+#: src/eog-print-image-setup.c:1214
 msgid "Vertical"
 msgstr "Вертикално"
 
-#: src/eog-print-image-setup.c:953
+#: src/eog-print-image-setup.c:1216
 msgid "Both"
 msgstr "По двете оси"
 
-#: src/eog-print-image-setup.c:972
+#: src/eog-print-image-setup.c:1235
 msgid "_Width:"
-msgstr "_Ширина:"
+msgstr "_Широчина:"
 
-#: src/eog-print-image-setup.c:974
+#: src/eog-print-image-setup.c:1237
 msgid "_Height:"
 msgstr "_Височина:"
 
-#: src/eog-print-image-setup.c:977
+#: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
 msgstr "Ма_щабиране:"
 
-#: src/eog-print-image-setup.c:988
+#: src/eog-print-image-setup.c:1251
 msgid "_Unit:"
 msgstr "_Единица:"
 
-#: src/eog-print-image-setup.c:993
+#: src/eog-print-image-setup.c:1256
 msgid "Millimeters"
 msgstr "Милиметри"
 
-#: src/eog-print-image-setup.c:995
+#: src/eog-print-image-setup.c:1258
 msgid "Inches"
 msgstr "Инчове"
 
-#: src/eog-print-image-setup.c:1024
+#: src/eog-print-image-setup.c:1287
 msgid "Preview"
 msgstr "Мостра"
 
 #: src/eog-properties-dialog.c:776
 msgid "Show the folder which contains this file in the file manager"
 msgstr ""
-"Показване на папката, в която се намира този файл във файловия мениджър"
+"Показване на папката, в която се намира този файл, във файловия мениджър"
 
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
@@ -1382,21 +1443,22 @@ msgstr "както е"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: src/eog-thumb-view.c:543
+#: src/eog-thumb-view.c:550
 msgid "Taken on"
 msgstr "Заснето на"
 
 #: src/eog-uri-converter.c:989
+#, c-format
 msgid "At least two file names are equal."
 msgstr "Поне два файла имат еднакви имена."
 
-#: src/eog-util.c:68
+#: src/eog-util.c:72
 msgid "Could not display help for Image Viewer"
 msgstr ""
 "Ръководството на програмата за преглед на изображения не може да бъде "
 "показано"
 
-#: src/eog-util.c:116
+#: src/eog-util.c:120
 msgid " (invalid Unicode)"
 msgstr " (невалиден Уникод)"
 
@@ -1406,50 +1468,48 @@ msgstr " (невалиден Уникод)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:544
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i пиксел, %s — %i%%"
 msgstr[1] "%i × %i пиксела, %s — %i%%"
 
-#: src/eog-window.c:883 src/eog-window.c:2617
+#: src/eog-window.c:932 src/eog-window.c:2668
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Скриване"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:893
+#: src/eog-window.c:940
 #, c-format
 msgid ""
-"The image “%s” has been modified by an external application.\n"
-"Would you like to reload it?"
+"The image “%s” has been modified by an external application. Would you like "
+"to reload it?"
 msgstr ""
-"Изображението „%s“ е променено от друга програма.\n"
-"Искате ли да то да бъде заредено отново?"
+"Изображението „%s“ е променено от друга програма. Искате ли да то да бъде "
+"заредено отново?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1156
+#: src/eog-window.c:1195
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Запазване на изображението „%s“ (%u/%u)"
 
-#: src/eog-window.c:1581
+#: src/eog-window.c:1619
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Отваряне на изображението „%s“"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:1964
+#: src/eog-window.c:2005
 msgid "Viewing a slideshow"
 msgstr "Режим на прожекция"
 
-#: src/eog-window.c:2183
+#: src/eog-window.c:2226
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1458,30 +1518,27 @@ msgstr ""
 "Грешка при печата на файла:\n"
 "%s"
 
-#: src/eog-window.c:2566 src/eog-window.c:2581
+#: src/eog-window.c:2617 src/eog-window.c:2632
 msgid "Error launching System Settings: "
 msgstr "Грешка при стартиране на системните настройки: "
 
-#: src/eog-window.c:2615
+#: src/eog-window.c:2666
 msgid "_Open Background Preferences"
 msgstr "_Настройки на фона"
 
-#. The newline character is currently necessary due to a problem
-#. * with the automatic line break.
-#: src/eog-window.c:2631
+#: src/eog-window.c:2680
 #, c-format
 msgid ""
-"The image “%s” has been set as Desktop Background.\n"
-"Would you like to modify its appearance?"
+"The image “%s” has been set as Desktop Background. Would you like to modify "
+"its appearance?"
 msgstr ""
-"Изображението „%s“ се използва за фон на плота.\n"
-"Искате ли да го редактирате?"
+"Изображението „%s“ се използва за фон на плота. Искате ли да го редактирате?"
 
-#: src/eog-window.c:3121
+#: src/eog-window.c:3168
 msgid "Saving image locally…"
 msgstr "Запазване на изображението локално…"
 
-#: src/eog-window.c:3199
+#: src/eog-window.c:3249
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1490,7 +1547,7 @@ msgstr ""
 "Сигурни ли сте, че искате окончателно\n"
 "да премахнете „%s“?"
 
-#: src/eog-window.c:3202
+#: src/eog-window.c:3252
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1505,38 +1562,41 @@ msgstr[1] ""
 "Сигурни ли сте, че искате окончателно\n"
 "да премахнете избраните %d изображения?"
 
-#: src/eog-window.c:3224 src/eog-window.c:3490
+#: src/eog-window.c:3274 src/eog-window.c:3519
 msgid "_Delete"
 msgstr "_Изтриване"
 
-#: src/eog-window.c:3227 src/eog-window.c:3492
+#: src/eog-window.c:3277 src/eog-window.c:3521
 msgid "_Yes"
 msgstr "_Да"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3231 src/eog-window.c:3484
+#: src/eog-window.c:3281 src/eog-window.c:3513
 msgid "Do _not ask again during this session"
 msgstr "_Без повторно запитване през тази сесия"
 
-#: src/eog-window.c:3275
+#: src/eog-window.c:3325
+#, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Неуспешно получаване на файла"
 
-#: src/eog-window.c:3291
+#: src/eog-window.c:3341
+#, c-format
 msgid "Couldn’t retrieve image file information"
-msgstr "Неуспешно получаване на информация за файла"
+msgstr "Неуспешно получаване на данните за файла"
 
-#: src/eog-window.c:3307 src/eog-window.c:3551
+#: src/eog-window.c:3357 src/eog-window.c:3580
+#, c-format
 msgid "Couldn’t delete file"
 msgstr "Файлът не може да бъде изтрит"
 
 #. set dialog error message
-#: src/eog-window.c:3357 src/eog-window.c:3651
+#: src/eog-window.c:3402 src/eog-window.c:3676
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Грешка при изтриването на изображението %s"
 
-#: src/eog-window.c:3452
+#: src/eog-window.c:3481
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1545,7 +1605,7 @@ msgstr ""
 "Сигурни ли сте, че искате да преместите\n"
 "„%s“ в кошчето?"
 
-#: src/eog-window.c:3455
+#: src/eog-window.c:3484
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1554,7 +1614,7 @@ msgstr ""
 "Не може да бъде открито кошче, където „%s“ да бъде преместено. Искате ли да "
 "премахнете това изображение завинаги?"
 
-#: src/eog-window.c:3460
+#: src/eog-window.c:3489
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1569,50 +1629,58 @@ msgstr[1] ""
 "Сигурни ли сте, че искате да преместите\n"
 "избраните %d изображения в кошчето?"
 
-#: src/eog-window.c:3465
+#: src/eog-window.c:3494
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
-"Някои от избраните изображения не могат да бъдат преместени в кошчето и ще "
+"Някои от избраните изображения не може да бъдат преместени в кошчето и ще "
 "бъдат премахнати завинаги. Искате ли да продължите?"
 
-#: src/eog-window.c:3529 src/eog-window.c:3543
+#: src/eog-window.c:3558 src/eog-window.c:3572
+#, c-format
 msgid "Couldn’t access trash."
 msgstr "Няма достъп до кошчето."
 
-#: src/eog-window.c:4210
+#: src/eog-window.c:4221
 msgid "Shrink or enlarge the current image"
 msgstr "Смаляване/уголемяване на изображението"
 
-#: src/eog-window.c:4269
+#: src/eog-window.c:4280
 msgid "Show the current image in fullscreen mode"
 msgstr "Показване на текущото изображение на цял екран"
 
-#: src/eog-window.c:4346
+#: src/eog-window.c:4351
 msgid "Properties"
 msgstr "Подробности"
 
-#: src/eog-window.c:5511
+#: src/eog-window.c:5544
 msgid "The GNOME image viewer."
 msgstr "Програма за преглед на изображения."
 
-#: src/eog-window.c:5514
+#: src/eog-window.c:5547
 msgid "translator-credits"
 msgstr ""
-"Ясен Праматаров <yasen@lindeas.com>\n"
-"Владимир „Kaladan“ Петков <kaladan@gmail.com>\n"
-"Красимир „bfaf“ Чонов <mk2616@abv.bg>\n"
-"Александър Шопов <ash@kambanaria.org>\n"
-"Ивайло Вълков <ivaylo@e-valkov.org>\n"
-"Любомир Василев <lyubomirv@abv.bg>\n"
+"Ясен Праматаров &lt;<a href='mailto:yasen@lindeas.com'>yasen@lindeas.com</"
+"a>&gt;\n"
+"Владимир „Kaladan“ Петков &lt;<a href='mailto:kaladan@gmail."
+"com'>kaladan@gmail.com</a>&gt;\n"
+"Красимир „bfaf“ Чонов &lt;<a href='mailto:mk2616@abv.bg'>mk2616@abv.bg</"
+"a>&gt;\n"
+"Александър Шопов &lt;<a href='mailto:ash@kambanaria.org'>ash@kambanaria.org</"
+"a>&gt;\n"
+"Ивайло Вълков &lt;<a href='mailto:ivaylo@e-valkov.org'>ivaylo@e-valkov.org</"
+"a>&gt;\n"
+"Любомир Василев &lt;<a href='mailto:lyubomirv@abv.bg'>lyubomirv@abv.bg</"
+"a>&gt;\n"
 "Борислав Александров\n"
 "\n"
+"\n"
 "Проектът за превод на GNOME има нужда от подкрепа.\n"
-"Научете повече за нас на <a href=\"http://gnome.cult.bg\">http://gnome.cult."
-"bg</a>\n"
-"Докладвайте за грешки на <a href=\"http://gnome.cult.bg/bugs\">http://gnome."
-"cult.bg/bugs</a>"
+"Научете повече за нас на <a href='https://fsa-bg.org/project/gtp'>уеб сайта</"
+"a> ни.\n"
+"Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/"
+"newticket'>съответния раздел</a>."
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
