@@ -908,8 +908,8 @@ eog_image_new_pixbuf_loader (EogImage 	*img,
 		priv->svg = NULL;
 	}
 
-	if (!strcmp (mime_type, "image/svg+xml")
-		    || !strcmp (mime_type, "image/svg+xml-compressed")
+	if (!g_strcmp0 (mime_type, "image/svg+xml")
+		    || !g_strcmp0 (mime_type, "image/svg+xml-compressed")
 	    ) {
 		/* Keep the object for rendering */
 		priv->svg = rsvg_handle_new ();
@@ -924,11 +924,12 @@ eog_image_new_pixbuf_loader (EogImage 	*img,
 #endif
 
 	if (!(*is_svg)) {
-		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
+		if (G_LIKELY (mime_type))
+			loader = gdk_pixbuf_loader_new_with_mime_type (mime_type,
+								       error);
 
-		if (error && *error) {
-			g_error_free (*error);
-			*error = NULL;
+		if (loader == NULL) {
+			g_clear_error (error);
 
 			loader = gdk_pixbuf_loader_new ();
 		}
@@ -1123,7 +1124,7 @@ eog_image_real_load (EogImage     *img,
 			if (eog_job_is_cancelled (job)) {
 				eog_image_cancel_load (img);
 				continue;
-			} else {
+			} else if (priv->bytes > 0.0) {
 				float progress = (float) bytes_read_total / (float) priv->bytes;
 				eog_job_set_progress (job, progress);
 			}
