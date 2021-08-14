@@ -405,9 +405,9 @@ eog_window_get_display_profile (GtkWidget *window)
 	if (GDK_IS_X11_SCREEN (screen)) {
 		dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
-		if (gdk_screen_get_number (screen) > 0)
+		if (gdk_x11_screen_get_screen_number (screen) > 0)
 			atom_name = g_strdup_printf ("_ICC_PROFILE_%d",
-			                             gdk_screen_get_number (screen));
+			                             gdk_x11_screen_get_screen_number (screen));
 		else
 			atom_name = g_strdup ("_ICC_PROFILE");
 
