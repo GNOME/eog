@@ -27,6 +27,7 @@
 #include "eog-list-store.h"
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
+#include "eog-util.h"
 
 #ifdef HAVE_EXIF
 #include "eog-exif-util.h"
@@ -519,15 +520,11 @@ thumbview_get_tooltip_string (EogImage *image)
 
 	if (width > -1 && height > -1) {
 		tooltip_string = g_markup_printf_escaped ("<b><big>%s</big></b>\n"
-							  "%i x %i %s\n"
+							  "%s\n"
 							  "%s\n"
 							  "%s",
 							  eog_image_get_caption (image),
-							  width,
-							  height,
-							  ngettext ("pixel",
-								    "pixels",
-								    height),
+							  eog_util_create_width_height_string(width, height),
 							  bytes,
 							  type_str);
 	} else {

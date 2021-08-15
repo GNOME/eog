@@ -343,8 +343,7 @@ eog_remote_presenter_update (EogRemotePresenter *remote_presenter,
 
         eog_image_get_size (image, &width, &height);
 
-        size_str = g_strdup_printf ("%d × %d %s", width, height,
-                                    ngettext ("pixel", "pixels", width * height));
+        size_str = eog_util_create_width_height_string(width, height);
 
         gtk_label_set_text (GTK_LABEL (remote_presenter->priv->size_label), size_str);
 

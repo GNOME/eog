@@ -146,9 +146,7 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	}
 
 	eog_image_get_size (img, &width, &height);
-	str = g_strdup_printf (ngettext("%i × %i pixel",
-					"%i × %i pixels", height),
-			       width, height);
+	str = eog_util_create_width_height_string(width, height);
 	gtk_label_set_text (GTK_LABEL (priv->size_label), str);
 	g_free (str);
 
