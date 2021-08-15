@@ -339,6 +339,7 @@ _folder_label_clicked_cb (GtkLabel *label, const gchar *uri, gpointer user_data)
 	g_object_unref (file);
 }
 
+#ifdef HAVE_METADATA
 static void
 eog_metadata_sidebar_show_details_cb (GtkButton *button, EogMetadataSidebar *sidebar)
 {
@@ -354,6 +355,7 @@ eog_metadata_sidebar_show_details_cb (GtkButton *button, EogMetadataSidebar *sid
 
 	gtk_widget_show (priv->details_dialog);
 }
+#endif /* HAVE_METADATA */
 
 static void
 eog_metadata_sidebar_set_parent_window (EogMetadataSidebar *sidebar,

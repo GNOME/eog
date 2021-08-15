@@ -2185,6 +2185,28 @@ eog_image_get_xmp_info (EogImage *img)
 
  	return data;
 }
+
+/**
+ * eog_image_has_xmp_info:
+ * @img: a #EogImage
+ *
+ * Returns: whether @img has XMP info
+ **/
+gboolean
+eog_image_has_xmp_info (EogImage *img)
+{
+ 	gboolean has_xmp_info;
+
+ 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	EogImagePrivate *priv = img->priv;
+
+	g_mutex_lock (&priv->status_mutex);
+ 	has_xmp_info = (priv->xmp != NULL);
+	g_mutex_unlock (&priv->status_mutex);
+
+ 	return has_xmp_info;
+}
 #endif
 
 /**
