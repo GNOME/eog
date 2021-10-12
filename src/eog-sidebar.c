@@ -31,6 +31,7 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+#include <glib/gi18n.h>
 
 #include "eog-sidebar.h"
 
@@ -417,6 +418,8 @@ eog_sidebar_init (EogSidebar *eog_sidebar)
 	g_signal_connect (close_button, "clicked",
 			  G_CALLBACK (eog_sidebar_close_clicked_cb),
 			  eog_sidebar);
+	/* TODO: i18n */
+	gtk_widget_set_tooltip_text (close_button, "Hide sidebar");
 
 	image = gtk_image_new_from_icon_name ("window-close-symbolic",
 					      GTK_ICON_SIZE_MENU);
