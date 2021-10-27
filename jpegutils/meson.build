@@ -12,7 +12,7 @@ libjpegutils = static_library(
 )
 
 libjpegutils_dep = declare_dependency(
-  include_directories: include_directories('.'),
+  include_directories: '.',
   dependencies: libjpeg_dep,
   link_with: libjpegutils,
 )
