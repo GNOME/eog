@@ -111,15 +111,15 @@ enum = 'eog-enum-types'
 sources += gnome.mkenums(
   enum,
   sources: headers,
-  c_template: enum + '.c.template',
-  h_template: enum + '.h.template',
+  c_template: f'@enum@.c.template',
+  h_template: f'@enum@.h.template',
 )
 
 marshal = 'eog-marshal'
 
 sources += gnome.genmarshal(
   marshal,
-  sources: marshal + '.list',
+  sources: f'@marshal@.list',
   prefix: 'eog_marshal',
   internal: true,
 )
@@ -140,7 +140,7 @@ cflags = [
 ]
 
 symbol_map = meson.current_source_dir() / 'symbol.map'
-ldflags = cc.get_supported_link_arguments('-Wl,--version-script,' + symbol_map)
+ldflags = cc.get_supported_link_arguments(f'-Wl,--version-script,@symbol_map@')
 
 if enable_introspection
   deps += gir_dep
@@ -216,7 +216,7 @@ if enable_introspection
     namespace: eog_gir_ns,
     includes: 'Gtk-3.0',
     install: true,
-    install_dir_gir: eog_pkgdatadir / 'gir-' + eog_gir_version,
-    install_dir_typelib: eog_pkglibdir / 'girepository-' + eog_gir_version,
+    install_dir_gir: eog_pkgdatadir / f'gir-@eog_gir_version@',
+    install_dir_typelib: eog_pkglibdir / f'girepository-@eog_gir_version@',
   )
 endif

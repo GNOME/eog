@@ -29,7 +29,7 @@ version_xml = configure_file(
 
 gnome.gtkdoc(
   eog_name,
-  main_xml: eog_name + '-docs.xml',
+  main_xml: f'@eog_name@-docs.xml',
   src_dir: src_inc,
   ignore_headers: private_headers,
   dependencies: libeog_dep,

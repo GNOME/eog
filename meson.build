@@ -3,7 +3,7 @@ project(
   version: '42.alpha',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.53.0',
+  meson_version: '>= 0.58.0',
 )
 
 eog_name = meson.project_name()
@@ -12,7 +12,7 @@ version_array = eog_version.split('.')
 eog_major_version = version_array[0].to_int()
 
 eog_api_version = '3.0'
-eog_api_name = '@0@-@1@'.format(eog_name, eog_api_version)
+eog_api_name = f'@eog_name@-@eog_api_version@'
 
 eog_gir_ns = 'Eog'
 eog_gir_version = '1.0'
@@ -46,7 +46,7 @@ config_h = configuration_data()
 if get_option('profile') != 'default'
   profile = 'Devel'
   name_suffix = ' (Nightly)'
-  application_id = 'org.gnome.eog.' + profile
+  application_id = f'org.gnome.eog.@profile@'
 else
   profile = ''
   name_suffix = ''

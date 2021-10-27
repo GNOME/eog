@@ -37,7 +37,7 @@ foreach test_name: test_names
 
   configure_file(
     input: 'template.test.in',
-    output: test_name + '.test',
+    output: f'@test_name@.test',
     configuration: tests_conf,
     install: true,
     install_dir: tests_metadir,
