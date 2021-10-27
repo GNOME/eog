@@ -43,7 +43,7 @@ media = [
 ]
 
 gnome.yelp(
-  meson.project_name(),
+  eog_name,
   sources: sources,
   media: media,
 )

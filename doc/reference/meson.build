@@ -28,8 +28,8 @@ version_xml = configure_file(
 )
 
 gnome.gtkdoc(
-  meson.project_name(),
-  main_xml: meson.project_name() + '-docs.xml',
+  eog_name,
+  main_xml: eog_name + '-docs.xml',
   src_dir: src_inc,
   ignore_headers: private_headers,
   dependencies: libeog_dep,

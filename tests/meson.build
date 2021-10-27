@@ -1,5 +1,5 @@
 tests_execdir = eog_pkglibexecdir / 'installed-tests'
-tests_metadir = eog_datadir / 'installed-tests' / meson.project_name()
+tests_metadir = eog_datadir / 'installed-tests' / eog_name
 
 tests_data = files(
   'actions.feature',

@@ -39,7 +39,7 @@ i18n.merge_file(
 configure_file(
   input: 'org.gnome.eog.gschema.xml.in',
   output: '@BASENAME@',
-  configuration: {'GETTEXT_PACKAGE': meson.project_name()},
+  configuration: {'GETTEXT_PACKAGE': eog_name},
   install: true,
   install_dir: gio_schemasdir,
 )

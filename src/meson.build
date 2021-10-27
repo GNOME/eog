@@ -94,7 +94,7 @@ endif
 
 install_headers(
   headers,
-  subdir: eog_api_name / meson.project_name(),
+  subdir: eog_api_name / eog_name,
 )
 
 sources += gnome.compile_resources(
@@ -133,7 +133,7 @@ deps = common_deps + [
 ]
 
 cflags = [
-  '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
+  '-DG_LOG_DOMAIN="@0@"'.format(eog_name.to_upper()),
   '-DEOG_DATA_DIR="@0@"'.format(eog_prefix / eog_pkgdatadir),
   '-DEOG_PLUGIN_DIR="@0@"'.format(eog_prefix / eog_pluginsdir),
   '-DLIBDIR="@0@"'.format(eog_prefix / eog_libdir),
@@ -155,7 +155,7 @@ if enable_x11
 endif
 
 libeog = shared_library(
-  meson.project_name(),
+  eog_name,
   sources: sources,
   include_directories: top_inc,
   dependencies: deps,
@@ -177,20 +177,20 @@ pkg.generate(
   version: eog_version,
   name: 'Eye of GNOME',
   description: 'The GNOME Image Viewer',
-  filebase: meson.project_name(),
+  filebase: eog_name,
   subdirs: eog_api_name,
   requires: 'gtk+-3.0',
   variables: [
     'exec_prefix=${prefix}',
     # the equivalent of eog_pluginsdir but using ${libdir} for variable replacement
-    'pluginsdir=' + ('${libdir}' / meson.project_name() / 'plugins'),
+    'pluginsdir=' + ('${libdir}' / eog_name / 'plugins'),
   ],
 )
 
 deps = [libeog_dep]
 
 cflags = [
-  '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
+  '-DG_LOG_DOMAIN="@0@"'.format(eog_name.to_upper()),
   '-DEOG_LOCALE_DIR="@0@"'.format(eog_prefix / eog_localedir),
 ]
 
@@ -199,7 +199,7 @@ if enable_introspection
 endif
 
 eog = executable(
-  meson.project_name(),
+  eog_name,
   'main.c',
   include_directories: top_inc,
   dependencies: deps,
