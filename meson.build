@@ -3,7 +3,7 @@ project(
   version: '42.alpha',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.53.0',
 )
 
 eog_version = meson.project_version()
@@ -253,14 +253,17 @@ meson.add_install_script(
   gio_schemasdir,
 )
 
-output = 'Configure summary:\n\n'
-output += '  Source code location .......:  ' + source_root + '\n'
-output += '  Compiler ...................:  ' + cc.get_id() + '\n'
-output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
-output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'
-output += '  XMP support ................:  ' + enable_xmp.to_string() + '\n'
-output += '  JPEG support ...............:  ' + enable_libjpeg.to_string() + '\n'
-output += '  Colour management support ..:  ' + enable_cms.to_string() + '\n'
-output += '  GObject Introspection.......:  ' + enable_introspection.to_string() + '\n'
-output += '  xdg-desktop-portal support..:  ' + enable_libportal.to_string() + '\n'
-message(output)
+summary({
+  'Source code location': source_root,
+  'Compiler': cc.get_id(),
+  'Extra compiler warnings': compiler_flags,
+}, section: 'Build')
+
+summary({
+  'EXIF support': enable_libexif,
+  'XMP support': enable_xmp,
+  'JPEG support': enable_libjpeg,
+  'Colour management support': enable_cms,
+  'GObject introspection': enable_introspection,
+  'xdg-desktop-portal support': enable_libportal,
+}, section: 'Features')
