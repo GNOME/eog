@@ -31,7 +31,7 @@ test_names = [
 
 foreach test_name: test_names
   tests_conf = {
-    'TESTS_PATH': tests_execdir,
+    'TESTS_PATH': eog_prefix / tests_execdir,
     'TEST_NAME': test_name,
   }
 

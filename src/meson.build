@@ -134,9 +134,9 @@ deps = common_deps + [
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_DATA_DIR="@0@"'.format(eog_pkgdatadir),
-  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_pluginsdir),
-  '-DLIBDIR="@0@"'.format(eog_libdir),
+  '-DEOG_DATA_DIR="@0@"'.format(eog_prefix / eog_pkgdatadir),
+  '-DEOG_PLUGIN_DIR="@0@"'.format(eog_prefix / eog_pluginsdir),
+  '-DLIBDIR="@0@"'.format(eog_prefix / eog_libdir),
 ]
 
 symbol_map = meson.current_source_dir() / 'symbol.map'
@@ -191,7 +191,7 @@ deps = [libeog_dep]
 
 cflags = [
   '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name().to_upper()),
-  '-DEOG_LOCALE_DIR="@0@"'.format(eog_localedir),
+  '-DEOG_LOCALE_DIR="@0@"'.format(eog_prefix / eog_localedir),
 ]
 
 if enable_introspection
@@ -205,7 +205,7 @@ eog = executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
-  install_rpath: eog_pkglibdir,
+  install_rpath: eog_prefix / eog_pkglibdir,
 )
 
 if enable_introspection

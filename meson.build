@@ -17,13 +17,13 @@ eog_gir_ns = 'Eog'
 eog_gir_version = '1.0'
 
 eog_prefix = get_option('prefix')
-eog_datadir = eog_prefix / get_option('datadir')
-eog_libdir = eog_prefix / get_option('libdir')
-eog_localedir = eog_prefix / get_option('localedir')
+eog_datadir = get_option('datadir')
+eog_libdir = get_option('libdir')
+eog_localedir = get_option('localedir')
 
 eog_pkgdatadir = eog_datadir / meson.project_name()
 eog_pkglibdir = eog_libdir / meson.project_name()
-eog_pkglibexecdir = eog_prefix / get_option('libexecdir') / meson.project_name()
+eog_pkglibexecdir = get_option('libexecdir') / meson.project_name()
 
 eog_pluginsdir = eog_pkglibdir / 'plugins'
 
@@ -126,7 +126,7 @@ common_deps = [
 
 gio_schemasdir = gio_dep.get_pkgconfig_variable(
   'schemasdir',
-  define_variable: ['datadir', eog_datadir],
+  define_variable: ['datadir', eog_prefix / eog_datadir],
   default: eog_datadir / 'glib-2.0/schemas',
 )
 
@@ -249,7 +249,7 @@ configure_file(
 
 meson.add_install_script(
   'meson_post_install.py',
-  eog_datadir,
+  eog_prefix / eog_datadir,
   gio_schemasdir,
 )
 
