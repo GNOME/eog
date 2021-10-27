@@ -125,10 +125,10 @@ common_deps = [
   dependency('libpeas-1.0', version: peas_req_version),
 ]
 
-gio_schemasdir = gio_dep.get_pkgconfig_variable(
+gio_schemasdir = gio_dep.get_variable(
   'schemasdir',
-  define_variable: ['datadir', eog_prefix / eog_datadir],
-  default: eog_datadir / 'glib-2.0/schemas',
+  pkgconfig_define: ['datadir', eog_prefix / eog_datadir],
+  default_value: eog_datadir / 'glib-2.0/schemas',
 )
 
 # ZLIB support (required)
@@ -218,7 +218,7 @@ config_h.set('HAVE_RSVG', enable_librsvg)
 # libX11 (required for TotemScrSaver and Color Profiling)
 gdk_dep = dependency('gdk-3.0', required: false)
 
-enable_x11 = enable_cms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
+enable_x11 = enable_cms or (gdk_dep.found() and gdk_dep.get_variable('targets').contains('x11'))
 if enable_x11
   x11_dep = dependency('x11')
 endif
