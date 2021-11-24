@@ -23,7 +23,6 @@ desktop_in = configure_file(
 )
 
 i18n.merge_file(
-  desktop,
   type: 'desktop',
   input: desktop_in,
   output: desktop,
@@ -35,7 +34,6 @@ i18n.merge_file(
 appdata = 'eog.appdata.xml'
 
 i18n.merge_file(
-  appdata,
   input: appdata + '.in',
   output: appdata,
   po_dir: po_dir,
