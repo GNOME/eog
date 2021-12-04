@@ -1789,7 +1789,7 @@ check_if_file_is_writable (GFile *file)
 	GFile           *file_to_check;
 	GFileInfo	*file_info;
 	GError		*error = NULL;
-	gboolean	 is_writable;
+	gboolean	 is_writable, has_writable;
 
 	g_return_val_if_fail (G_IS_FILE (file), FALSE);
 
@@ -1823,9 +1823,16 @@ check_if_file_is_writable (GFile *file)
 		return FALSE;
 	}
 
-	/* check if file can be writed */
-	is_writable = g_file_info_get_attribute_boolean (file_info,
-							 G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	/* check if file can be written */
+	has_writable = g_file_info_has_attribute (file_info,
+					          G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	if (has_writable) {
+		is_writable = g_file_info_get_attribute_boolean (file_info,
+								 G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+	} else {
+		/* try writing the file when the writable attribute is absent */
+		is_writable = TRUE;
+	}
 
 	/* free objects */
 	g_object_unref (file_info);
