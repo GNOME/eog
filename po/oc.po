@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2021-06-12 22:49+0000\n"
-"PO-Revision-Date: 2021-05-13 17:10+0200\n"
+"POT-Creation-Date: 2021-12-04 17:57+0000\n"
+"PO-Revision-Date: 2021-12-16 12:35+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -19,12 +19,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Project-Style: gnome\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:310 src/eog-window.c:5541
+msgid "Image Viewer"
+msgstr "Visionador d'imatges"
 
 # Utilisation de l'infinitif sus les infobulles del Bureau
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
@@ -33,25 +34,25 @@ msgstr "Percórrer e pivotar los imatges"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"Eye of GNOME es lo visionador d'imatges oficial del burèu GNOME. S'intègra a "
-"l'aspècte visual GTK+ de GNOME e pren en carga fòrça formats d'imatge per "
-"afichar d'imatges isolats o gropats dins de colleccions."
+"Visualizador d’imatges es lo visionador d'imatges oficial del burèu GNOME. "
+"S'intègra a l'aspècte visual GTK+ de GNOME e pren en carga fòrça formats "
+"d'imatge per afichar d'imatges isolats o gropats dins de colleccions."
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"Eye of GNOME permet tanben d'afichar los imatges dins un mòde diaporama en "
-"ecran complet o de definir un imatge coma fons d'ecran. Sap legir las "
-"balisas dels aparelhs fòto per pivotar automaticament los imatges dins la "
-"bona orientacion (retrach o païsatge)."
+"Visualizador d’imatges permet tanben d'afichar los imatges dins un mòde "
+"diaporama en ecran complet o de definir un imatge coma fons d'ecran. Sap "
+"legir las balisas dels aparelhs fòto per pivotar automaticament los imatges "
+"dins la bona orientacion (retrach o païsatge)."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -135,88 +136,88 @@ msgstr "Seguent"
 msgid "Name:"
 msgstr "Nom :"
 
-#: data/eog-image-properties-dialog.ui:131
+#: data/eog-image-properties-dialog.ui:132
 msgid "Width:"
 msgstr "Largor :"
 
-#: data/eog-image-properties-dialog.ui:146
+#: data/eog-image-properties-dialog.ui:148
 msgid "Height:"
 msgstr "_Nautor :"
 
-#: data/eog-image-properties-dialog.ui:161
+#: data/eog-image-properties-dialog.ui:164
 msgid "Type:"
 msgstr "Tipe :"
 
-#: data/eog-image-properties-dialog.ui:176
+#: data/eog-image-properties-dialog.ui:180
 msgid "Bytes:"
 msgstr "Octets :"
 
-#: data/eog-image-properties-dialog.ui:191
+#: data/eog-image-properties-dialog.ui:196
 msgid "Folder:"
 msgstr "Dorsièr :"
 
-#: data/eog-image-properties-dialog.ui:288
+#: data/eog-image-properties-dialog.ui:294
 msgid "General"
 msgstr "General"
 
-#: data/eog-image-properties-dialog.ui:321
+#: data/eog-image-properties-dialog.ui:327
 msgid "Aperture Value:"
 msgstr "Valor de dobertura :"
 
-#: data/eog-image-properties-dialog.ui:337
+#: data/eog-image-properties-dialog.ui:344
 msgid "Exposure Time:"
 msgstr "Durada d'exposicion :"
 
-#: data/eog-image-properties-dialog.ui:353
+#: data/eog-image-properties-dialog.ui:361
 msgid "Focal Length:"
 msgstr "Distància focala :"
 
-#: data/eog-image-properties-dialog.ui:369
+#: data/eog-image-properties-dialog.ui:378
 msgid "Flash:"
 msgstr "Flash :"
 
-#: data/eog-image-properties-dialog.ui:385
+#: data/eog-image-properties-dialog.ui:395
 msgid "ISO Speed Rating:"
 msgstr "Sensibilitat ISO :"
 
-#: data/eog-image-properties-dialog.ui:401
+#: data/eog-image-properties-dialog.ui:412
 msgid "Metering Mode:"
 msgstr "Mòde de mesura :"
 
-#: data/eog-image-properties-dialog.ui:417
+#: data/eog-image-properties-dialog.ui:429
 msgid "Camera Model:"
 msgstr "Modèl d'aparelh de fotografiar :"
 
-#: data/eog-image-properties-dialog.ui:434
+#: data/eog-image-properties-dialog.ui:447
 msgid "Date/Time:"
 msgstr "Data e ora :"
 
-#: data/eog-image-properties-dialog.ui:464
+#: data/eog-image-properties-dialog.ui:478
 msgid "Description:"
 msgstr "Descripcion :"
 
-#: data/eog-image-properties-dialog.ui:480
+#: data/eog-image-properties-dialog.ui:495
 msgid "Location:"
 msgstr "Emplaçament :"
 
-#: data/eog-image-properties-dialog.ui:496
+#: data/eog-image-properties-dialog.ui:512
 msgid "Keywords:"
 msgstr "Mots claus :"
 
-#: data/eog-image-properties-dialog.ui:512
+#: data/eog-image-properties-dialog.ui:529
 msgid "Author:"
 msgstr "Autor :"
 
-#: data/eog-image-properties-dialog.ui:528
+#: data/eog-image-properties-dialog.ui:546
 msgid "Copyright:"
 msgstr "Dreits d'autor :"
 
-#: data/eog-image-properties-dialog.ui:807
-#: data/eog-image-properties-dialog.ui:856
+#: data/eog-image-properties-dialog.ui:826
+#: data/eog-image-properties-dialog.ui:875
 msgid "Details"
 msgstr "Detalhs"
 
-#: data/eog-image-properties-dialog.ui:832
+#: data/eog-image-properties-dialog.ui:851
 msgid "Metadata"
 msgstr "Metadonadas"
 
@@ -313,60 +314,61 @@ msgstr "Rèireplan"
 msgid "As custom color:"
 msgstr "Color personalizada :"
 
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "Color de rèireplan"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "Partidas transparentas"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "Coma un _damièr"
 
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "Coma c_olor personalizada :"
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "Color de las zònas transparentas"
 
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "Coma _fons"
 
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "Afichatge Imatge"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
 msgstr "Zoom de l'imatge"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "Es_pandir los imatges per emplenar l'ecran"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "Sequéncia"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "_Relambi entre los imatges :"
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "Sequéncia en boc_la"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "Diaporama"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "Empeutons"
 
@@ -386,7 +388,7 @@ msgstr "Anar al primièr imatge de la colleccion"
 msgid "_First Image"
 msgstr "_Primièr imatge"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2361
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Anar a l'imatge precedent de la colleccion"
 
@@ -394,7 +396,7 @@ msgstr "Anar a l'imatge precedent de la colleccion"
 msgid "_Previous Image"
 msgstr "Imatge _precedent"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2349
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Anar a l'imatge seguent de la colleccion"
 
@@ -434,7 +436,7 @@ msgstr "Adaptar l'imatge a la fenèstra"
 msgid "_Best Fit"
 msgstr "Talha _ideala"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2376
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Pivotar l'imatge de 90 grases a esquèrra"
 
@@ -442,7 +444,7 @@ msgstr "Pivotar l'imatge de 90 grases a esquèrra"
 msgid "Rotate Counter_clockwise"
 msgstr "Rotacion _antiorària"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Pivotar l'imatge de 90 grases a dreita"
 
@@ -689,54 +691,49 @@ msgstr "Desfilament enbàs dins un imatge grand"
 msgid "Size"
 msgstr "Talha"
 
-#: data/metadata-sidebar.ui:46
+#: data/metadata-sidebar.ui:47
 msgid "Type"
 msgstr "Tipe"
 
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:65
 msgid "File Size"
 msgstr "Talha de fichièr"
 
-#: data/metadata-sidebar.ui:82
+#: data/metadata-sidebar.ui:85
 msgid "Folder"
 msgstr "Dorsièr"
 
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:103
 msgid "Aperture"
 msgstr "Dobertura"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:121
 msgid "Exposure"
 msgstr "Durada d'exposicion"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:139
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:158
 msgid "Metering"
 msgstr "Mòde de mesura"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:177 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Aparelh de fotografiar"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:196
 msgid "Date"
 msgstr "Data"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:214
 msgid "Time"
 msgstr "Ora"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:391
 msgid "Focal Length"
 msgstr "Distància focala"
-
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
-#: src/eog-window.c:5541
-msgid "Image Viewer"
-msgstr "Visionador d'imatges"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -1217,27 +1214,27 @@ msgstr "Transformacion impossibla se l'imatge es pas cargat."
 msgid "Transformation failed."
 msgstr "Transformacion impossibla."
 
-#: src/eog-image.c:1140
+#: src/eog-image.c:1141
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF es pas gerit dins aqueste format de fichièr."
 
-#: src/eog-image.c:1282
+#: src/eog-image.c:1283
 #, c-format
 msgid "Image loading failed."
 msgstr "Impossible de cargar l'imatge."
 
-#: src/eog-image.c:1864 src/eog-image.c:1984
+#: src/eog-image.c:1872 src/eog-image.c:1992
 #, c-format
 msgid "No image loaded."
 msgstr "Pas cap d'imatge de cargat."
 
-#: src/eog-image.c:1872 src/eog-image.c:1993
+#: src/eog-image.c:1880 src/eog-image.c:2001
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Avètz pas las permissions necessàrias per enregistrar lo fichièr."
 
-#: src/eog-image.c:1882 src/eog-image.c:2004
+#: src/eog-image.c:1890 src/eog-image.c:2012
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Impossible de crear un fichièr temporari."
@@ -1435,6 +1432,10 @@ msgstr ""
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "coma"
+
+#: src/eog-sidebar.c:421
+msgid "Hide sidebar"
+msgstr "Amagar lo panèl lateral"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1721,6 +1722,9 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Executatz « %s --help » per veire la lista completa de las opcions "
 "disponiblas en linha de comanda."
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "Eye of GNOME"
 
 #~ msgid "_About"
 #~ msgstr "_A prepaus"
