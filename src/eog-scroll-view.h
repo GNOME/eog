@@ -18,13 +18,13 @@ typedef struct _EogScrollViewPrivate EogScrollViewPrivate;
 
 
 struct _EogScrollView {
-	GtkGrid  base_instance;
+	GtkOverlay base_instance;
 
 	EogScrollViewPrivate *priv;
 };
 
 struct _EogScrollViewClass {
-	GtkGridClass parent_class;
+	GtkOverlayClass parent_class;
 
 	void (* zoom_changed) (EogScrollView *view, double zoom);
 	void (* rotation_changed) (EogScrollView *view, double degrees);
@@ -83,7 +83,7 @@ void     eog_scroll_view_set_antialiasing_in (EogScrollView *view, gboolean stat
 void     eog_scroll_view_set_antialiasing_out (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_transparency_color (EogScrollView *view, GdkRGBA *color);
 void     eog_scroll_view_set_transparency (EogScrollView *view, EogTransparencyStyle style);
-gboolean eog_scroll_view_scrollbars_visible (EogScrollView *view);
+gboolean eog_scroll_view_is_image_movable (EogScrollView *view);
 void	 eog_scroll_view_set_popup (EogScrollView *view, GtkMenu *menu);
 void	 eog_scroll_view_set_background_color (EogScrollView *view,
 					       const GdkRGBA *color);
@@ -106,5 +106,3 @@ gboolean eog_scroll_view_event_is_over_image	(EogScrollView *view,
 G_END_DECLS
 
 #endif /* _EOG_SCROLL_VIEW_H_ */
-
-

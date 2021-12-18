@@ -129,6 +129,7 @@ struct _EogWindowPrivate {
         GtkWidget           *box;
         GtkWidget           *layout;
         GtkWidget           *cbox;
+        GtkWidget           *scrollViewContainer;
         GtkWidget           *view;
         GtkWidget           *sidebar;
         GtkWidget           *thumbview;
@@ -4345,7 +4346,9 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (eog_window_view_previous_image_cb),
 			  window);
 
-	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->view);
+	priv->scrollViewContainer = gtk_scrolled_window_new(NULL, NULL);
+	gtk_container_add (GTK_CONTAINER(priv->scrollViewContainer), priv->view);
+	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->scrollViewContainer);
 
 	eog_sidebar_add_page (EOG_SIDEBAR (priv->sidebar),
 			      _("Properties"),
@@ -4790,7 +4793,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	case GDK_KEY_Page_Up:
 		if ((event->state & modifiers) == 0) {
-			if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+			if (!eog_scroll_view_is_image_movable (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 				if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 					/* If the iconview is not visible skip to the
 					 * previous image manually as it won't handle
@@ -4804,7 +4807,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	case GDK_KEY_Page_Down:
 		if ((event->state & modifiers) == 0) {
-			if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+			if (!eog_scroll_view_is_image_movable (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 				if (!gtk_widget_get_visible (EOG_WINDOW (widget)->priv->nav)) {
 					/* If the iconview is not visible skip to the
 					 * next image manually as it won't handle
@@ -5140,7 +5143,7 @@ eog_window_list_store_image_removed (GtkTreeModel *tree_model,
 	} else if (!n_images) {
 		eog_window_clear_load_job (window);
 	}
-	
+
 	update_image_pos (window);
 	update_action_groups_state (window);
 }
