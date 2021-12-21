@@ -165,11 +165,15 @@ config_h.set('HAVE_EXEMPI', enable_xmp)
 # xdg-desktop-portal support with libportal (optional)
 enable_libportal = get_option('libportal')
 if enable_libportal
-  libportal_dep = dependency('libportal', version: '>= 0.3', required: false)
+  libportal_dep = dependency('libportal', version: '>= 0.5', required: false)
   assert(libportal_dep.found() and cc.has_header('libportal/portal.h', dependencies: libportal_dep),
          'xdg-desktop-portal support requested but library not found. Please use -Dlibportal=false')
 
-  common_deps += libportal_dep
+  libportal_gtk3_dep = dependency('libportal-gtk3', version: '>= 0.5', required: false)
+  assert(libportal_gtk3_dep.found() and cc.has_header('libportal-gtk3/portal-gtk3.h', dependencies: libportal_gtk3_dep),
+         'xdg-desktop-portal support requested but library not found. Please use -Dlibportal=false')
+
+  common_deps += [libportal_dep, libportal_gtk3_dep]
 endif
 config_h.set('HAVE_LIBPORTAL', enable_libportal)
 
