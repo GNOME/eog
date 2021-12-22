@@ -6,13 +6,13 @@
 # Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>, 2004, 2005, 2006.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011, 2012, 2014.
 # Andika Triwidada <andika@gmail.com>, 2010-2015.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2021-05-02 06:16+0000\n"
-"PO-Revision-Date: 2020-07-10 19:18+0700\n"
+"POT-Creation-Date: 2021-12-04 17:57+0000\n"
+"PO-Revision-Date: 2021-12-22 10:31+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -20,11 +20,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:310 src/eog-window.c:5541
+msgid "Image Viewer"
+msgstr "Penampil Gambar"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -32,22 +33,22 @@ msgstr "Ramban dan putar gambar"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"Eye of GNOME adalah penampil gambar resmi bagi destop GNOME. Ini padu dengan "
-"tampilan dan rasa GTK+ dari GNOME, dan mendukung banyak format gambar untuk "
-"melihat gambar tunggal atau gambar-gambar dalam suatu koleksi."
+"Penampil Gambar adalah penampil gambar resmi bagi destop GNOME. Ini padu "
+"dengan tampilan dan rasa GTK+ dari GNOME, dan mendukung banyak format gambar "
+"untuk melihat gambar tunggal atau gambar-gambar dalam suatu koleksi."
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"Eye of GNOME juga memungkinkan menilik gambar dalam mode salindia layar "
+"Penampil Gambar juga memungkinkan menilik gambar dalam mode salindia layar "
 "penuh atau menata suatu gambar sebagai gambar latar destop. Dia membaca tag "
 "kamera untuk secara otomatis memutar gambar Anda dalam orientasi potret atau "
 "lansekap yang benar."
@@ -134,88 +135,88 @@ msgstr "Selanjutnya"
 msgid "Name:"
 msgstr "Nama:"
 
-#: data/eog-image-properties-dialog.ui:131
+#: data/eog-image-properties-dialog.ui:132
 msgid "Width:"
 msgstr "Lebar:"
 
-#: data/eog-image-properties-dialog.ui:146
+#: data/eog-image-properties-dialog.ui:148
 msgid "Height:"
 msgstr "Tinggi:"
 
-#: data/eog-image-properties-dialog.ui:161
+#: data/eog-image-properties-dialog.ui:164
 msgid "Type:"
 msgstr "Jenis:"
 
-#: data/eog-image-properties-dialog.ui:176
+#: data/eog-image-properties-dialog.ui:180
 msgid "Bytes:"
 msgstr "Bita:"
 
-#: data/eog-image-properties-dialog.ui:191
+#: data/eog-image-properties-dialog.ui:196
 msgid "Folder:"
 msgstr "Folder:"
 
-#: data/eog-image-properties-dialog.ui:288
+#: data/eog-image-properties-dialog.ui:294
 msgid "General"
 msgstr "Umum"
 
-#: data/eog-image-properties-dialog.ui:321
+#: data/eog-image-properties-dialog.ui:327
 msgid "Aperture Value:"
 msgstr "Nilai Bukaan Lensa:"
 
-#: data/eog-image-properties-dialog.ui:337
+#: data/eog-image-properties-dialog.ui:344
 msgid "Exposure Time:"
 msgstr "Waktu Pencahayaan:"
 
-#: data/eog-image-properties-dialog.ui:353
+#: data/eog-image-properties-dialog.ui:361
 msgid "Focal Length:"
 msgstr "Panjang Fokus:"
 
-#: data/eog-image-properties-dialog.ui:369
+#: data/eog-image-properties-dialog.ui:378
 msgid "Flash:"
 msgstr "Lampu Kilat:"
 
-#: data/eog-image-properties-dialog.ui:385
+#: data/eog-image-properties-dialog.ui:395
 msgid "ISO Speed Rating:"
 msgstr "Rating Kecepatan ISO:"
 
-#: data/eog-image-properties-dialog.ui:401
+#: data/eog-image-properties-dialog.ui:412
 msgid "Metering Mode:"
 msgstr "Mode Pengukuran:"
 
-#: data/eog-image-properties-dialog.ui:417
+#: data/eog-image-properties-dialog.ui:429
 msgid "Camera Model:"
 msgstr "Model Kamera:"
 
-#: data/eog-image-properties-dialog.ui:434
+#: data/eog-image-properties-dialog.ui:447
 msgid "Date/Time:"
 msgstr "Tanggal/Waktu:"
 
-#: data/eog-image-properties-dialog.ui:464
+#: data/eog-image-properties-dialog.ui:478
 msgid "Description:"
 msgstr "Deskripsi:"
 
-#: data/eog-image-properties-dialog.ui:480
+#: data/eog-image-properties-dialog.ui:495
 msgid "Location:"
 msgstr "Lokasi:"
 
-#: data/eog-image-properties-dialog.ui:496
+#: data/eog-image-properties-dialog.ui:512
 msgid "Keywords:"
 msgstr "Kata Kunci:"
 
-#: data/eog-image-properties-dialog.ui:512
+#: data/eog-image-properties-dialog.ui:529
 msgid "Author:"
 msgstr "Penulis:"
 
-#: data/eog-image-properties-dialog.ui:528
+#: data/eog-image-properties-dialog.ui:546
 msgid "Copyright:"
 msgstr "Hak Cipta:"
 
-#: data/eog-image-properties-dialog.ui:807
-#: data/eog-image-properties-dialog.ui:856
+#: data/eog-image-properties-dialog.ui:826
+#: data/eog-image-properties-dialog.ui:875
 msgid "Details"
 msgstr "Rincian"
 
-#: data/eog-image-properties-dialog.ui:832
+#: data/eog-image-properties-dialog.ui:851
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -319,64 +320,65 @@ msgstr "Pilih warna:"
 
 # Salah satu opsi untuk menangani bagian transparan gambar yang dibuka.
 # Dengan memilih opsi ini, maka bagian transparan gambar akan diisi oleh warna yang sama dengan jendela aplikasi, seolah-olah gambar menyatu dengan aplikasi.
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "Warna Latar Belakang"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "Bagian Transparan"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "Sebagai _pola kotak-kotak"
 
 # Opsi yang muncul pada dialog Preferensi EOG.
 # Di samping kanan opsi ini, ada kotak untuk memilih warna.
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "Pilih _warna:"
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "Warna untuk Wilayah Transparan"
 
 # Salah satu opsi untuk menangani bagian transparan gambar yang dibuka.
 # Dengan memilih opsi ini, maka bagian transparan gambar akan diisi oleh warna yang sama dengan jendela aplikasi, seolah-olah gambar menyatu dengan aplikasi.
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "Latar _belakang aplikasi"
 
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "Tampilan Gambar"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
 msgstr "Perbesaran Gambar"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "_Perbesar gambar hingga sesuai dengan layar"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "Sekuens"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "Wak_tu antar gambar:"
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "U_langi sekuens"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "Pertunjukan salindia"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "Pengaya"
 
@@ -396,7 +398,7 @@ msgstr "Menuju gambar pertama dalam galeri"
 msgid "_First Image"
 msgstr "Gambar _Pertama"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2361
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
 msgid "Go to the previous image of the gallery"
 msgstr "Menuju gambar sebelumnya dalam galeri"
 
@@ -404,7 +406,7 @@ msgstr "Menuju gambar sebelumnya dalam galeri"
 msgid "_Previous Image"
 msgstr "Gambar _Sebelumnya"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2349
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
 msgid "Go to the next image of the gallery"
 msgstr "Menuju gambar selanjutnya dalam galeri"
 
@@ -444,7 +446,7 @@ msgstr "Menyesuaikan gambar dengan jendela aplikasi"
 msgid "_Best Fit"
 msgstr "Sesuai Jende_la"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2376
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Memutar gambar 90 derajat ke kiri"
 
@@ -452,7 +454,7 @@ msgstr "Memutar gambar 90 derajat ke kiri"
 msgid "Rotate Counter_clockwise"
 msgstr "Putar Ber_lawanan Jarum Jam"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Memutar gambar 90 derajat ke kanan"
 
@@ -697,54 +699,49 @@ msgstr "Gulir ke bawah dalam gambar besar"
 msgid "Size"
 msgstr "Ukuran"
 
-#: data/metadata-sidebar.ui:46
+#: data/metadata-sidebar.ui:47
 msgid "Type"
 msgstr "Tipe"
 
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:65
 msgid "File Size"
 msgstr "Ukuran Berkas"
 
-#: data/metadata-sidebar.ui:82
+#: data/metadata-sidebar.ui:85
 msgid "Folder"
 msgstr "Folder"
 
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:103
 msgid "Aperture"
 msgstr "Bukaan Lensa"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:121
 msgid "Exposure"
 msgstr "Eksposur"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:139
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:158
 msgid "Metering"
 msgstr "Pengukuran"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:177 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Kamera"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:196
 msgid "Date"
 msgstr "Tanggal"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:214
 msgid "Time"
 msgstr "Waktu"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:391
 msgid "Focal Length"
 msgstr "Panjang Fokus"
-
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
-#: src/eog-window.c:5541
-msgid "Image Viewer"
-msgstr "Penampil Gambar"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -1204,37 +1201,37 @@ msgstr "Simpan Gambar"
 msgid "Open Folder"
 msgstr "Buka Folder"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:572
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformasi pada gambar yang belum dimuat."
 
-#: src/eog-image.c:594
+#: src/eog-image.c:600
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformasi gagal."
 
-#: src/eog-image.c:1134
+#: src/eog-image.c:1141
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF tidak didukung pada format berkas ini."
 
-#: src/eog-image.c:1276
+#: src/eog-image.c:1283
 #, c-format
 msgid "Image loading failed."
 msgstr "Gagal memuat gambar."
 
-#: src/eog-image.c:1858 src/eog-image.c:1978
+#: src/eog-image.c:1872 src/eog-image.c:1992
 #, c-format
 msgid "No image loaded."
 msgstr "Tak ada gambar yang dimuat."
 
-#: src/eog-image.c:1866 src/eog-image.c:1987
+#: src/eog-image.c:1880 src/eog-image.c:2001
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Anda tak memiliki hak yang diperlukan untuk menyimpan berkas."
 
-#: src/eog-image.c:1876 src/eog-image.c:1998
+#: src/eog-image.c:1890 src/eog-image.c:2012
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Gagal membuat berkas temporer."
@@ -1431,6 +1428,10 @@ msgstr "Tampilkan folder yang memuat berkas ini pada manajer berkas"
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "apa adanya"
+
+#: src/eog-sidebar.c:421
+msgid "Hide sidebar"
+msgstr "Sembunyikan bilah sisi"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1659,7 +1660,7 @@ msgstr ""
 "Mohammad DAMT <mdamt@bisnisweb.com>, 2003, 2004, 2005.\n"
 "Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011.\n"
 "Andika Triwidada <andika@gmail.com>, 2010-2014, 2016.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2021."
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
@@ -1708,6 +1709,9 @@ msgstr "[BERKAS…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Jalankan “%s --help” untuk daftar lengkap opsi yang tersedia."
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "Eye of GNOME"
 
 #~ msgid "org.gnome.eog"
 #~ msgstr "org.gnome.eog"
