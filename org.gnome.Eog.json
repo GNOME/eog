@@ -48,16 +48,17 @@
         {
             "name" : "libportal",
             "config-opts" : [
-                "--libdir=/app/lib",
-                "--buildtype=debugoptimized"
+                "--buildtype=debugoptimized",
+                "-Dbackends=gtk3",
+                "-Dintrospection=false",
+                "-Ddocs=false"
             ],
             "buildsystem" : "meson",
-            "builddir" : true,
             "sources" : [
                 {
                     "type" : "git",
                     "url" : "https://github.com/flatpak/libportal.git",
-                    "tag" : "0.4"
+                    "tag" : "0.5"
                 }
             ]
         },

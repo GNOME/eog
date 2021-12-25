@@ -45,7 +45,7 @@
 #include <glib/gi18n.h>
 #ifdef HAVE_LIBPORTAL
 #include <libportal/portal.h>
-#include <libportal/portal-gtk3.h>
+#include <libportal-gtk3/portal-gtk3.h>
 #endif
 
 void
