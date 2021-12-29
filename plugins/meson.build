@@ -17,11 +17,14 @@ foreach plugin: plugins
     install_dir: eog_pluginsdir,
   )
 
+
   # FIXME: Remove `args` parameter when gettext acquires plugin support.
   #        http://lists.gnu.org/archive/html/bug-gettext/2017-06/msg00001.html
+  # NOTE:  We need to keep the .desktop suffix on the source file to be able
+  #        to extract translatable strings. .plugin is not recognized.
   i18n.merge_file(
-    input: f'@plugin@/@plugin@.plugin.in',
-    output: '@BASENAME@',
+    input: f'@plugin@/@plugin@.plugin.desktop.in',
+    output: f'@plugin@.plugin',
     po_dir: po_dir,
     type: 'desktop',
     args: ['--keyword=Name', '--keyword=Description'],
