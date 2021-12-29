@@ -121,7 +121,7 @@ common_deps = [
   gio_dep,
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
   dependency('glib-2.0', version: glib_req_version),
-  dependency('gtk+-3.0', version: '>= 3.22.0'),
+  dependency('gtk+-3.0', version: '>= 3.24.15'),
   dependency('libpeas-1.0', version: peas_req_version),
 ]
 
