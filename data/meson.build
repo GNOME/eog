@@ -14,28 +14,22 @@ resource_data = files(
   'popup-menus.ui',
 )
 
-desktop = 'org.gnome.eog.desktop'
-
-desktop_in = configure_file(
-  input: desktop + '.in.in',
-  output: '@BASENAME@',
-  configuration: {'VERSION': eog_version, 'icon': application_id },
-)
-
 i18n.merge_file(
-  type: 'desktop',
-  input: desktop_in,
-  output: desktop,
+  input: configure_file(
+    input: 'org.gnome.eog.desktop.in.in',
+    output: '@BASENAME@',
+    configuration: {'VERSION': eog_version, 'icon': application_id},
+  ),
+  output: '@BASENAME@',
   po_dir: po_dir,
+  type: 'desktop',
   install: true,
   install_dir: eog_datadir / 'applications',
 )
 
-appdata = 'eog.appdata.xml'
-
 i18n.merge_file(
-  input: appdata + '.in',
-  output: appdata,
+  input: 'eog.appdata.xml.in',
+  output: '@BASENAME@',
   po_dir: po_dir,
   install: true,
   install_dir: eog_datadir / 'metainfo',
@@ -45,7 +39,7 @@ i18n.merge_file(
 configure_file(
   input: 'org.gnome.eog.gschema.xml.in',
   output: '@BASENAME@',
-  configuration: {'GETTEXT_PACKAGE': meson.project_name()},
+  configuration: {'GETTEXT_PACKAGE': eog_name},
   install: true,
   install_dir: gio_schemasdir,
 )

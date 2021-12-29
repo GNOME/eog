@@ -3,27 +3,28 @@ project(
   version: '42.alpha',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.58.0',
 )
 
+eog_name = meson.project_name()
 eog_version = meson.project_version()
 version_array = eog_version.split('.')
 eog_major_version = version_array[0].to_int()
 
 eog_api_version = '3.0'
-eog_api_name = '@0@-@1@'.format(meson.project_name(), eog_api_version)
+eog_api_name = f'@eog_name@-@eog_api_version@'
 
 eog_gir_ns = 'Eog'
 eog_gir_version = '1.0'
 
 eog_prefix = get_option('prefix')
-eog_datadir = eog_prefix / get_option('datadir')
-eog_libdir = eog_prefix / get_option('libdir')
-eog_localedir = eog_prefix / get_option('localedir')
+eog_datadir = get_option('datadir')
+eog_libdir = get_option('libdir')
+eog_localedir = get_option('localedir')
 
-eog_pkgdatadir = eog_datadir / meson.project_name()
-eog_pkglibdir = eog_libdir / meson.project_name()
-eog_pkglibexecdir = eog_prefix / get_option('libexecdir') / meson.project_name()
+eog_pkgdatadir = eog_datadir / eog_name
+eog_pkglibdir = eog_libdir / eog_name
+eog_pkglibexecdir = get_option('libexecdir') / eog_name
 
 eog_pluginsdir = eog_pkglibdir / 'plugins'
 
@@ -45,7 +46,7 @@ config_h = configuration_data()
 if get_option('profile') != 'default'
   profile = 'Devel'
   name_suffix = ' (Nightly)'
-  application_id = 'org.gnome.eog.' + profile
+  application_id = f'org.gnome.eog.@profile@'
 else
   profile = ''
   name_suffix = ''
@@ -58,10 +59,10 @@ set_defines = [
   ['APPLICATION_ID', application_id],
   ['PROFILE', profile],
   # package
-  ['PACKAGE', meson.project_name()],
+  ['PACKAGE', eog_name],
   ['VERSION', eog_version],
   # i18n
-  ['GETTEXT_PACKAGE', meson.project_name()],
+  ['GETTEXT_PACKAGE', eog_name],
 ]
 
 foreach define: set_defines
@@ -124,10 +125,10 @@ common_deps = [
   dependency('libpeas-1.0', version: peas_req_version),
 ]
 
-gio_schemasdir = gio_dep.get_pkgconfig_variable(
+gio_schemasdir = gio_dep.get_variable(
   'schemasdir',
-  define_variable: ['datadir', eog_datadir],
-  default: eog_datadir / 'glib-2.0/schemas',
+  pkgconfig_define: ['datadir', eog_prefix / eog_datadir],
+  default_value: eog_datadir / 'glib-2.0/schemas',
 )
 
 # ZLIB support (required)
@@ -217,7 +218,7 @@ config_h.set('HAVE_RSVG', enable_librsvg)
 # libX11 (required for TotemScrSaver and Color Profiling)
 gdk_dep = dependency('gdk-3.0', required: false)
 
-enable_x11 = enable_cms or (gdk_dep.found() and gdk_dep.get_pkgconfig_variable('targets').contains('x11'))
+enable_x11 = enable_cms or (gdk_dep.found() and gdk_dep.get_variable('targets').contains('x11'))
 if enable_x11
   x11_dep = dependency('x11')
 endif
@@ -247,20 +248,22 @@ configure_file(
   configuration: config_h,
 )
 
-meson.add_install_script(
-  'meson_post_install.py',
-  eog_datadir,
-  gio_schemasdir,
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
 )
 
-output = 'Configure summary:\n\n'
-output += '  Source code location .......:  ' + source_root + '\n'
-output += '  Compiler ...................:  ' + cc.get_id() + '\n'
-output += '  Extra Compiler Warnings ....:  ' + ' '.join(compiler_flags) + '\n'
-output += '  EXIF support ...............:  ' + enable_libexif.to_string() + '\n'
-output += '  XMP support ................:  ' + enable_xmp.to_string() + '\n'
-output += '  JPEG support ...............:  ' + enable_libjpeg.to_string() + '\n'
-output += '  Colour management support ..:  ' + enable_cms.to_string() + '\n'
-output += '  GObject Introspection.......:  ' + enable_introspection.to_string() + '\n'
-output += '  xdg-desktop-portal support..:  ' + enable_libportal.to_string() + '\n'
-message(output)
+summary({
+  'Source code location': source_root,
+  'Compiler': cc.get_id(),
+  'Extra compiler warnings': compiler_flags,
+}, section: 'Build')
+
+summary({
+  'EXIF support': enable_libexif,
+  'XMP support': enable_xmp,
+  'JPEG support': enable_libjpeg,
+  'Colour management support': enable_cms,
+  'GObject introspection': enable_introspection,
+  'xdg-desktop-portal support': enable_libportal,
+}, section: 'Features')

@@ -1,5 +1,5 @@
 tests_execdir = eog_pkglibexecdir / 'installed-tests'
-tests_metadir = eog_datadir / 'installed-tests' / meson.project_name()
+tests_metadir = eog_datadir / 'installed-tests' / eog_name
 
 tests_data = files(
   'actions.feature',
@@ -31,13 +31,13 @@ test_names = [
 
 foreach test_name: test_names
   tests_conf = {
-    'TESTS_PATH': tests_execdir,
+    'TESTS_PATH': eog_prefix / tests_execdir,
     'TEST_NAME': test_name,
   }
 
   configure_file(
     input: 'template.test.in',
-    output: test_name + '.test',
+    output: f'@test_name@.test',
     configuration: tests_conf,
     install: true,
     install_dir: tests_metadir,
