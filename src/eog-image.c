@@ -192,8 +192,6 @@ eog_image_dispose (GObject *object)
 		priv->file_type = NULL;
 	}
 
-	g_mutex_clear (&priv->status_mutex);
-
 	if (priv->trans) {
 		g_object_unref (priv->trans);
 		priv->trans = NULL;
