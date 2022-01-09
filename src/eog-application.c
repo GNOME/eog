@@ -49,6 +49,8 @@
 #include <exempi/xmp.h>
 #endif
 
+#define is_rtl (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+
 static void eog_application_load_accelerators (void);
 static void eog_application_save_accelerators (void);
 
@@ -194,7 +196,7 @@ eog_application_init_app_menu (EogApplication *application)
 static void
 eog_application_init_accelerators (GtkApplication *application)
 {
-	/* Based on a simular construct in Evince (src/ev-application.c).
+	/* Based on a similar construct in Evince (src/ev-application.c).
 	 * Setting multiple accelerators at once for an action
 	 * is not very straight forward in a static way.
 	 *
@@ -212,8 +214,6 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.set-wallpaper",	"<Ctrl>F8", NULL,
 		"win.manual",		"F1", NULL,
 
-		"win.go-previous",	"BackSpace", NULL,
-		/* "win.go-next",	NULL,*/
 		"win.go-first",		"<Alt>Home", "Home", NULL,
 		"win.go-last",		"<Alt>End", "End", NULL,
 		"win.go-random",	"<Ctrl>m", NULL,
@@ -225,9 +225,14 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.undo",		"<Ctrl>z", NULL,
 		"win.zoom-in",		"<Ctrl>equal", "<Ctrl>KP_Add",
 					"<Ctrl>plus", NULL,
+		"win.zoom-in-smooth",		"equal", "KP_Add",
+					"plus", NULL,
 		"win.zoom-out",		"<Ctrl>minus",
 					"<Ctrl>KP_Subtract", NULL,
-		"win.zoom-normal",	"<Ctrl>0", "<Ctrl>KP_0", NULL,
+		"win.zoom-out-smooth",		"minus",
+					"KP_Subtract", NULL,
+		"win.zoom-normal",	"<Ctrl>0", "<Ctrl>KP_0",
+					"1", "KP_1", NULL,
 
 		"win.view-gallery",	"<Ctrl>F9", NULL,
 		"win.view-sidebar",	"F9", NULL,
@@ -245,6 +250,25 @@ eog_application_init_accelerators (GtkApplication *application)
 	for (it = accelmap; it[0]; it += g_strv_length ((gchar **)it) + 1) {
 		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
 						       it[0], &it[1]);
+	}
+
+	static const gchar * const accels_left[] = {
+		"Left", "<Alt>Left", NULL
+	};
+	static const gchar * const accels_right[] = {
+		"Right", "<Alt>Right", NULL
+	};
+
+	if (is_rtl) {
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+					       "win.go-previous", accels_right);
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+					       "win.go-next", accels_left);
+	} else {
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+					       "win.go-previous", accels_left);
+		gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+					       "win.go-next", accels_right);
 	}
 }
 

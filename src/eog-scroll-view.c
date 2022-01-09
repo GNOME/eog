@@ -781,6 +781,9 @@ set_zoom_fit (EogScrollView *view)
 	priv->xofs = 0;
 	priv->yofs = 0;
 
+	/* we make use of the new values here */
+	update_adjustment_values (view);
+
 	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
 }
 
@@ -789,141 +792,6 @@ set_zoom_fit (EogScrollView *view)
    internal signal callbacks
 
   ---------------------------------*/
-
-/* Key press event handler for the image view */
-static gboolean
-display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
-{
-	EogScrollView *view;
-	EogScrollViewPrivate *priv;
-	GtkAllocation allocation;
-	gboolean do_zoom;
-	double zoom;
-	gboolean do_scroll;
-	int xofs, yofs;
-	GdkModifierType modifiers;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-
-	do_zoom = FALSE;
-	do_scroll = FALSE;
-	xofs = yofs = 0;
-	zoom = 1.0;
-
-	gtk_widget_get_allocation (GTK_WIDGET (priv->display), &allocation);
-
-	modifiers = gtk_accelerator_get_default_mod_mask ();
-
-	switch (event->keyval) {
-	case GDK_KEY_Up:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			do_scroll = TRUE;
-			xofs = 0;
-			yofs = -SCROLL_STEP_SIZE;
-		}
-		break;
-
-	case GDK_KEY_Page_Up:
-		if ((event->state & GDK_MOD1_MASK) != 0) {
-			do_scroll = TRUE;
-			if (event->state & GDK_CONTROL_MASK) {
-				xofs = -(allocation.width * 3) / 4;
-				yofs = 0;
-			} else {
-				xofs = 0;
-				yofs = -(allocation.height * 3) / 4;
-			}
-		}
-		break;
-
-	case GDK_KEY_Down:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			do_scroll = TRUE;
-			xofs = 0;
-			yofs = SCROLL_STEP_SIZE;
-		}
-		break;
-
-	case GDK_KEY_Page_Down:
-		if ((event->state & GDK_MOD1_MASK) != 0) {
-			do_scroll = TRUE;
-			if (event->state & GDK_CONTROL_MASK) {
-				xofs = (allocation.width * 3) / 4;
-				yofs = 0;
-			} else {
-				xofs = 0;
-				yofs = (allocation.height * 3) / 4;
-			}
-		}
-		break;
-
-	case GDK_KEY_Left:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			do_scroll = TRUE;
-			xofs = -SCROLL_STEP_SIZE;
-			yofs = 0;
-		}
-		break;
-
-	case GDK_KEY_Right:
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			do_scroll = TRUE;
-			xofs = SCROLL_STEP_SIZE;
-			yofs = 0;
-		}
-		break;
-
-	case GDK_KEY_plus:
-	case GDK_KEY_equal:
-	case GDK_KEY_KP_Add:
-		if (!(event->state & modifiers)) {
-			do_zoom = TRUE;
-			zoom = priv->zoom * priv->zoom_multiplier;
-		}
-		break;
-
-	case GDK_KEY_minus:
-	case GDK_KEY_KP_Subtract:
-		if (!(event->state & modifiers)) {
-			do_zoom = TRUE;
-			zoom = priv->zoom / priv->zoom_multiplier;
-		}
-		break;
-
-	case GDK_KEY_1:
-		if (!(event->state & modifiers)) {
-			do_zoom = TRUE;
-			zoom = 1.0;
-		}
-		break;
-
-	default:
-		return FALSE;
-	}
-
-	if (do_zoom) {
-		GdkSeat *seat;
-		GdkDevice *device;
-		gint x, y;
-
-		seat = gdk_display_get_default_seat (gtk_widget_get_display (widget));
-		device = gdk_seat_get_pointer (seat);
-
-		gdk_window_get_device_position (gtk_widget_get_window (widget), device,
-		                                &x, &y, NULL);
-		set_zoom (view, zoom, TRUE, x, y);
-	}
-
-	if (do_scroll)
-		scroll_by (view, xofs, yofs);
-
-	if(!do_scroll && !do_zoom)
-		return FALSE;
-
-	return TRUE;
-}
-
 
 /* Button press event handler for the image view */
 static gboolean
@@ -2094,8 +1962,7 @@ eog_scroll_view_init (EogScrollView *view)
 	                       | GDK_POINTER_MOTION_MASK
 	                       | GDK_POINTER_MOTION_HINT_MASK
 	                       | GDK_TOUCH_MASK
-	                       | GDK_SCROLL_MASK
-	                       | GDK_KEY_PRESS_MASK);
+	                       | GDK_SCROLL_MASK);
 	g_signal_connect (G_OBJECT (priv->display), "configure_event",
 	                  G_CALLBACK (display_size_change), view);
 	g_signal_connect (G_OBJECT (priv->display), "draw",
@@ -2116,9 +1983,6 @@ eog_scroll_view_init (EogScrollView *view)
 	                  G_CALLBACK (eog_scroll_view_focus_in_event), NULL);
 	g_signal_connect (G_OBJECT (priv->display), "focus_out_event",
 	                  G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
-
-	g_signal_connect (G_OBJECT (view), "key_press_event",
-	                  G_CALLBACK (display_key_press_event), view);
 
 	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
 	                     target_table, G_N_ELEMENTS (target_table),

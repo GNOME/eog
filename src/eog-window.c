@@ -129,7 +129,7 @@ struct _EogWindowPrivate {
         GtkWidget           *box;
         GtkWidget           *layout;
         GtkWidget           *cbox;
-        GtkWidget           *scrollViewContainer;
+        GtkWidget           *scroll_view_container;
         GtkWidget           *view;
         GtkWidget           *sidebar;
         GtkWidget           *thumbview;
@@ -648,7 +648,9 @@ _eog_window_enable_image_actions (EogWindow *window, gboolean enable)
 		"delete",
 		"copy",
 		"zoom-in",
+		"zoom-in-smooth",
 		"zoom-out",
+		"zoom-out-smooth",
 		"zoom-normal",
 		NULL
 	};
@@ -1015,9 +1017,7 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 		eog_window_set_message_area (window, info_bar);
 	}
 
-	if (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
-		slideshow_set_timeout (window);
-	}
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -1634,6 +1634,8 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	EogWindow *window;
 	GAction *action_zoom_in;
 	GAction *action_zoom_out;
+	GAction *action_zoom_in_smooth;
+	GAction *action_zoom_out_smooth;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -1644,14 +1646,24 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	action_zoom_in =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
 					     "zoom-in");
+	action_zoom_in_smooth =
+		g_action_map_lookup_action (G_ACTION_MAP (window),
+					     "zoom-in-smooth");
 
 	action_zoom_out =
 		g_action_map_lookup_action (G_ACTION_MAP (window),
 					     "zoom-out");
+	action_zoom_out_smooth =
+		g_action_map_lookup_action (G_ACTION_MAP (window),
+					     "zoom-out-smooth");
 
 	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_in),
 			!eog_scroll_view_get_zoom_is_max (EOG_SCROLL_VIEW (window->priv->view)));
+	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_in_smooth),
+			!eog_scroll_view_get_zoom_is_max (EOG_SCROLL_VIEW (window->priv->view)));
 	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_out),
+			!eog_scroll_view_get_zoom_is_min (EOG_SCROLL_VIEW (window->priv->view)));
+	g_simple_action_set_enabled (G_SIMPLE_ACTION (action_zoom_out_smooth),
 			!eog_scroll_view_get_zoom_is_min (EOG_SCROLL_VIEW (window->priv->view)));
 }
 
@@ -3786,6 +3798,24 @@ eog_window_action_zoom_in (GSimpleAction *action,
 }
 
 static void
+eog_window_action_zoom_in_smooth (GSimpleAction *action,
+                                  GVariant      *parameter,
+                                  gpointer       user_data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	if (priv->view) {
+		eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (priv->view), TRUE);
+	}
+}
+
+static void
 eog_window_action_zoom_out (GSimpleAction *action,
                            GVariant      *parameter,
                            gpointer       user_data)
@@ -3800,6 +3830,24 @@ eog_window_action_zoom_out (GSimpleAction *action,
 
 	if (priv->view) {
 		eog_scroll_view_zoom_out (EOG_SCROLL_VIEW (priv->view), FALSE);
+	}
+}
+
+static void
+eog_window_action_zoom_out_smooth (GSimpleAction *action,
+                                   GVariant      *parameter,
+                                   gpointer       user_data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	if (priv->view) {
+		eog_scroll_view_zoom_out (EOG_SCROLL_VIEW (priv->view), TRUE);
 	}
 }
 
@@ -3849,16 +3897,18 @@ eog_window_action_go_prev (GSimpleAction *action,
                            GVariant      *parameter,
                            gpointer       user_data)
 {
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_debug (DEBUG_WINDOW);
 
-	priv = EOG_WINDOW (user_data)->priv;
+	window = EOG_WINDOW (user_data);
 
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_LEFT);
+
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -3866,16 +3916,18 @@ eog_window_action_go_next (GSimpleAction *action,
                            GVariant      *parameter,
                            gpointer       user_data)
 {
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_debug (DEBUG_WINDOW);
 
-	priv = EOG_WINDOW (user_data)->priv;
+	window = EOG_WINDOW (user_data);
 
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_RIGHT);
+
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -3883,16 +3935,18 @@ eog_window_action_go_first (GSimpleAction *action,
                             GVariant      *parameter,
                             gpointer       user_data)
 {
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_debug (DEBUG_WINDOW);
 
-	priv = EOG_WINDOW (user_data)->priv;
+	window = EOG_WINDOW (user_data);
 
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_FIRST);
+
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -3900,16 +3954,18 @@ eog_window_action_go_last (GSimpleAction *action,
                            GVariant      *parameter,
                            gpointer       user_data)
 {
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_debug (DEBUG_WINDOW);
 
-	priv = EOG_WINDOW (user_data)->priv;
+	window = EOG_WINDOW (user_data);
 
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_LAST);
+
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -3917,16 +3973,18 @@ eog_window_action_go_random (GSimpleAction *action,
                              GVariant      *parameter,
                              gpointer       user_data)
 {
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	eog_debug (DEBUG_WINDOW);
 
-	priv = EOG_WINDOW (user_data)->priv;
+	window = EOG_WINDOW (user_data);
 
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview),
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
 				      EOG_THUMB_VIEW_SELECT_RANDOM);
+
+	slideshow_set_timeout (window);
 }
 
 static void
@@ -3992,7 +4050,9 @@ static const GActionEntry window_actions[] = {
 	{ "copy",            eog_window_action_copy_image },
 	{ "undo",            eog_window_action_undo },
 	{ "zoom-in",         eog_window_action_zoom_in },
+	{ "zoom-in-smooth",  eog_window_action_zoom_in_smooth },
 	{ "zoom-out",        eog_window_action_zoom_out },
+	{ "zoom-out-smooth", eog_window_action_zoom_out_smooth },
 	{ "zoom-normal",     eog_window_action_zoom_normal },
 	{ "zoom-set",        eog_window_action_set_zoom, "d" },
 
@@ -4346,9 +4406,9 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (eog_window_view_previous_image_cb),
 			  window);
 
-	priv->scrollViewContainer = gtk_scrolled_window_new(NULL, NULL);
-	gtk_container_add (GTK_CONTAINER(priv->scrollViewContainer), priv->view);
-	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->scrollViewContainer);
+	priv->scroll_view_container = gtk_scrolled_window_new(NULL, NULL);
+	gtk_container_add (GTK_CONTAINER(priv->scroll_view_container), priv->view);
+	gtk_container_add (GTK_CONTAINER(priv->overlay), priv->scroll_view_container);
 
 	eog_sidebar_add_page (EOG_SIDEBAR (priv->sidebar),
 			      _("Properties"),
@@ -4699,16 +4759,9 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 static gint
 eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
-	static gpointer grand_parent_class = NULL;
-
 	gint result = FALSE;
 	gboolean handle_selection = FALSE;
 	GdkModifierType modifiers;
-
-	if (grand_parent_class == NULL)
-	{
-		grand_parent_class = g_type_class_peek_parent (eog_window_parent_class);
-	}
 
 	/* handle focus widget key events */
 	if (!handle_selection) {
@@ -4720,17 +4773,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		handle_selection = gtk_window_activate_key (GTK_WINDOW (widget), event);
 	}
 
-	/* This part is disabled for now as it overrides the arrow key handlers
-	 * below which are still needed in RTL scenarios */
-#if 0
-	/* Chain up, invokes binding set on window */
-	if (!handle_selection) {
-		handle_selection = GTK_WIDGET_CLASS (grand_parent_class)->key_press_event (widget, event);
-	}
-#endif
-
-	/* If the workaround already handled the key event return early */
-	if(handle_selection)
+	if (handle_selection)
 		return TRUE;
 
 	modifiers = gtk_accelerator_get_default_mod_mask ();
@@ -4742,20 +4785,6 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			handle_selection = TRUE;
 			break;
 		}
-	case GDK_KEY_Return:
-		/* Image properties dialog case */
-		if ((event->state & modifiers) == GDK_MOD1_MASK) {
-			result = FALSE;
-			break;
-		}
-
-		if ((event->state & modifiers) == GDK_SHIFT_MASK) {
-			eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
-		} else {
-			eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
-		}
-		result = TRUE;
-		break;
 #endif
 	case GDK_KEY_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
@@ -4764,32 +4793,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), TRUE);
 		} else {
 			eog_window_action_close_window (NULL, NULL, EOG_WINDOW (widget));
-			return TRUE;
 		}
-		break;
-	case GDK_KEY_Left:
-	/* case GDK_KEY_Up: */
-		if ((event->state & modifiers) == 0) {
-			/* Left and Up move to previous image */
-			if (is_rtl) { /* move to next in RTL mode */
-				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
-			} else {
-				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
-			}
-			result = TRUE;
-		}
-		break;
-	case GDK_KEY_Right:
-	/* case GDK_KEY_Down: */
-		if ((event->state & modifiers) == 0) {
-			/* Right and Down move to next image */
-			if (is_rtl) { /* move to previous in RTL mode */
-				eog_window_action_go_prev (NULL, NULL, EOG_WINDOW (widget));
-			} else {
-				eog_window_action_go_next (NULL, NULL, EOG_WINDOW (widget));
-			}
-			result = TRUE;
-		}
+		return TRUE;
 		break;
 	case GDK_KEY_Page_Up:
 		if ((event->state & modifiers) == 0) {
@@ -4821,27 +4826,22 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	}
 
-	/* Update slideshow timeout */
-	if (result && (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW)) {
-		slideshow_set_timeout (EOG_WINDOW (widget));
-	}
-
-	if (handle_selection == TRUE && result == FALSE) {
+	if (handle_selection && !result) {
 		gtk_widget_grab_focus (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview));
 
 		result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview),
 					   (GdkEvent *) event);
 	}
 
-	/* If we still haven't handled the event, give the scrollview a chance to do it.  */
-	if (result == FALSE &&
-		gtk_widget_get_realized (GTK_WIDGET (EOG_WINDOW (widget)->priv->view))) {
-			result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->view),
+	/* If we still haven't handled the event, give the scrolled window a chance to do it.  */
+	if (!result &&
+		gtk_widget_get_realized (GTK_WIDGET (EOG_WINDOW (widget)->priv->scroll_view_container))) {
+			result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->scroll_view_container),
 						   (GdkEvent *) event);
 	}
 
-	if (result == FALSE && GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) {
-		result = (* GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) (widget, event);
+	if (!result && GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) {
+		result = GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event (widget, event);
 	}
 
 	return result;
