@@ -173,7 +173,7 @@ struct _EogWindowPrivate {
 	PeasExtensionSet    *extensions;
 
 #ifdef HAVE_LCMS
-        cmsHPROFILE         *display_profile;
+        cmsHPROFILE          display_profile;
 #endif
 };
 
@@ -386,7 +386,7 @@ eog_window_can_save_changed_cb (GSettings   *settings,
 }
 
 #if defined(HAVE_LCMS) && defined(GDK_WINDOWING_X11)
-static cmsHPROFILE *
+static cmsHPROFILE
 eog_window_get_display_profile (GtkWidget *window)
 {
 	GdkScreen *screen;
@@ -398,7 +398,7 @@ eog_window_get_display_profile (GtkWidget *window)
 	gulong length;
 	guchar *str;
 	int result;
-	cmsHPROFILE *profile = NULL;
+	cmsHPROFILE profile = NULL;
 	char *atom_name;
 
 	screen = gtk_widget_get_screen (window);
