@@ -234,6 +234,7 @@ subdir('plugins')
 subdir('help')
 
 if get_option('gtk_doc')
+  assert(enable_introspection, 'documentation generation support requested but introspection is disabled. Please use -Dgtk_doc=false.')
   subdir('doc/reference')
 endif
 
