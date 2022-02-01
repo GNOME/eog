@@ -1,39 +1,32 @@
-private_headers = [
-  'eog-application-service.h',
-  'eog-close-confirmation-dialog.h',
-  'eog-enum-types.h',
-  'eog-image-private.h',
-  'eog-image-jpeg.h',
-  'eog-marshal.h',
-  'eog-metadata-details.h',
-  'eog-metadata-reader.h',
-  'eog-metadata-reader-jpg.h',
-  'eog-metadata-reader-png.h',
-  'eog-metadata-sidebar.h',
-  'eog-module.h',
-  'eog-plugin-engine.h',
-  'eog-preferences-dialog.h',
-  'eog-print-image-setup.h',
-  'eog-print-preview.h',
-]
+toml_conf = {
+  'license': ','.join(meson.project_license()),
+  'version': eog_version,
+}
 
-if not enable_libexif
-  private_headers += 'eog-exif-util.h'
-endif
-
-version_xml = configure_file(
-  input: 'version.xml.in',
+toml = configure_file(
+  input: f'@eog_name@.toml.in',
   output: '@BASENAME@',
-  configuration: {'VERSION': eog_version},
+  configuration: toml_conf,
 )
 
-gnome.gtkdoc(
-  eog_name,
-  main_xml: f'@eog_name@-docs.xml',
-  src_dir: src_inc,
-  ignore_headers: private_headers,
-  dependencies: libeog_dep,
-  scan_args: '--rebuild-types',
-  content_files: version_xml,
+custom_target(
+  f'@eog_name@-doc',
+  input: [
+    toml,
+    eog_gir,
+  ],
+  output: eog_name,
+  command: [
+    find_program('gi-docgen'),
+    'generate',
+    '--quiet',
+    '--no-namespace-dir',
+    '--config=@INPUT0@',
+    '--output-dir=@OUTPUT@',
+    '--content-dir=@0@'.format(meson.current_source_dir()),
+    '@INPUT1@',
+  ],
+  build_by_default: true,
   install: true,
+  install_dir: gnome.gtkdoc_html_dir(''),
 )

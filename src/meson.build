@@ -209,7 +209,7 @@ eog = executable(
 )
 
 if enable_introspection
-  gnome.generate_gir(
+  eog_gir = gnome.generate_gir(
     libeog,
     sources: sources + headers,
     nsversion: eog_api_version,
