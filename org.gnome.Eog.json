@@ -108,6 +108,11 @@
         },
         {
             "name" : "eog-plugins",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dplugin_map=false",
+                "-Dplugin_postasa=false"
+            ],
             "sources" : [
                 {
                     "type" : "git",
