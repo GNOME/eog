@@ -108,10 +108,16 @@
         },
         {
             "name" : "eog-plugins",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dplugin_map=false",
+                "-Dplugin_postasa=false"
+            ],
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/eog-plugins.git"
+                    "url" : "https://gitlab.gnome.org/GNOME/eog-plugins.git",
+                    "branch" : "wip/port-to-meson"
                 }
             ]
         }
