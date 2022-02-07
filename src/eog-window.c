@@ -125,6 +125,7 @@ struct _EogWindowPrivate {
 	EogWindowMode        mode;
 	EogWindowStatus      status;
 
+        GtkWidget           *headerbar;
         GtkWidget           *overlay;
         GtkWidget           *box;
         GtkWidget           *layout;
@@ -177,7 +178,7 @@ struct _EogWindowPrivate {
 #endif
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (EogWindow, eog_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE (EogWindow, eog_window, HDY_TYPE_APPLICATION_WINDOW);
 
 static void eog_window_action_toggle_fullscreen (GSimpleAction *action, GVariant *state, gpointer user_data);
 static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
@@ -1981,6 +1982,8 @@ update_ui_visibility (EogWindow *window)
 	g_assert (action != NULL);
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (visible));
 	gtk_widget_set_visible (priv->sidebar, visible);
+
+  gtk_widget_set_visible (priv->headerbar, !fullscreen_mode);
 
 	if (priv->fullscreen_popup != NULL) {
 		gtk_widget_hide (priv->fullscreen_popup);
@@ -4206,12 +4209,12 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
 	gtk_widget_show (priv->box);
 
-	headerbar = gtk_header_bar_new ();
-	gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (headerbar), TRUE);
-	gtk_header_bar_set_title (GTK_HEADER_BAR (headerbar),
+	priv->headerbar = hdy_header_bar_new ();
+	hdy_header_bar_set_show_close_button (HDY_HEADER_BAR (priv->headerbar), TRUE);
+	hdy_header_bar_set_title (HDY_HEADER_BAR (priv->headerbar),
 				  g_get_application_name ());
-	gtk_window_set_titlebar (GTK_WINDOW (window), headerbar);
-	gtk_widget_show (headerbar);
+	gtk_box_pack_start (GTK_BOX (priv->box), priv->headerbar, FALSE, FALSE, 0);
+	gtk_widget_show (priv->headerbar);
 
 #if 0
 	zoom_button = gtk_toggle_button_new ();
@@ -4223,7 +4226,7 @@ eog_window_construct_ui (EogWindow *window)
 	g_signal_connect (zoom_button, "toggled",
 			  G_CALLBACK (eog_window_zoom_button_toggled_cb),
 			  window);
-	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar), zoom_button);
+	hdy_header_bar_pack_start (HDY_HEADER_BAR (priv->headerbar), zoom_button);
 	/* disable zoom button if no image is loaded */
 	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP(window),
 							    "zoom-normal"),
@@ -4234,7 +4237,7 @@ eog_window_construct_ui (EogWindow *window)
 	priv->zoom_revealer = gtk_revealer_new ();
 	gtk_revealer_set_transition_type (GTK_REVEALER (priv->zoom_revealer),
 					  GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT);
-	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar),
+	hdy_header_bar_pack_start (HDY_HEADER_BAR (priv->headerbar),
 				   priv->zoom_revealer);
 	gtk_widget_show (priv->zoom_revealer);
 
@@ -4265,7 +4268,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button),
 					G_MENU_MODEL (builder_object));
 
-	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), menu_button);
+	hdy_header_bar_pack_end (HDY_HEADER_BAR (priv->headerbar), menu_button);
 	gtk_widget_show (menu_button);
 
 	action = G_ACTION (g_property_action_new ("toggle-gear-menu",
@@ -4279,7 +4282,7 @@ eog_window_construct_ui (EogWindow *window)
 					"win.view-fullscreen");
 	gtk_widget_set_tooltip_text(fullscreen_button,
 				    _("Show the current image in fullscreen mode"));
-	gtk_header_bar_pack_end (GTK_HEADER_BAR (headerbar), fullscreen_button);
+	hdy_header_bar_pack_end (HDY_HEADER_BAR (priv->headerbar), fullscreen_button);
 	gtk_widget_show (fullscreen_button);
 
 	priv->gear_menu_builder = builder;
@@ -4398,7 +4401,7 @@ eog_window_construct_ui (EogWindow *window)
 	zoom_entry = eog_zoom_entry_new (EOG_SCROLL_VIEW (priv->view),
 	                                 G_MENU (gtk_builder_get_object (builder,
 	                                                                 "zoom-menu")));
-	gtk_header_bar_pack_start (GTK_HEADER_BAR (headerbar), zoom_entry);
+	hdy_header_bar_pack_start (HDY_HEADER_BAR (priv->headerbar), zoom_entry);
 
 	priv->thumbview = g_object_ref (eog_thumb_view_new ());
 

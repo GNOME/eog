@@ -35,6 +35,7 @@
 #include <glib-object.h>
 #include <gio/gmenu.h>
 #include <gtk/gtk.h>
+#include <handy.h>
 
 G_BEGIN_DECLS
 
@@ -84,13 +85,13 @@ typedef enum {
 } EogStartupFlags;
 
 struct _EogWindow {
-	GtkApplicationWindow win;
+	HdyApplicationWindow win;
 
 	EogWindowPrivate *priv;
 };
 
 struct _EogWindowClass {
-	GtkApplicationWindowClass parent_class;
+	HdyApplicationWindowClass parent_class;
 
 	void (* prepared) (EogWindow *window);
 };

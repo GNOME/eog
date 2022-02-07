@@ -44,6 +44,7 @@
 #include <glib/gstdio.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <handy.h>
 
 #ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -278,6 +279,7 @@ eog_application_startup (GApplication *application)
 	g_application_set_resource_base_path (application, "/org/gnome/eog");
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
+  hdy_init ();
 #ifdef HAVE_EXEMPI
 	xmp_init();
 #endif
