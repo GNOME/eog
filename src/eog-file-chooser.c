@@ -20,6 +20,7 @@
 
 #include "eog-file-chooser.h"
 #include "eog-pixbuf-util.h"
+#include "eog-util.h"
 
 #include <stdlib.h>
 
@@ -254,7 +255,6 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 {
 	EogFileChooserPrivate *priv;
 	int bytes;
-	int pixels;
 	const char *bytes_str;
 	const char *width;
 	const char *height;
@@ -284,9 +284,7 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 		height = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Image::Height");
 
 		if ((width != NULL) && (height != NULL)) {
-			pixels = atoi (height);
-			/* Pixel size of image: width x height in pixel */
-			dim_str = g_strdup_printf ("%s x %s %s", width, height, ngettext ("pixel", "pixels", pixels));
+			dim_str = eog_util_create_width_height_string(atoi (width), atoi (height));
 		}
 
 #if 0

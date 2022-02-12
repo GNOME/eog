@@ -210,6 +210,7 @@ eog_application_init_accelerators (GtkApplication *application)
 		"win.close-all",	"<Ctrl>q", NULL,
 		"win.print",		"<Ctrl>p", NULL,
 		"win.properties",	"<Alt>Return", NULL,
+		"win.show-remote",	"<Ctrl><Shift>p", NULL,
 		"win.set-wallpaper",	"<Ctrl>F8", NULL,
 		"win.manual",		"F1", NULL,
 

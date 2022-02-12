@@ -2160,12 +2160,12 @@ eog_image_get_exif_info (EogImage *img)
 }
 #endif
 
+#ifdef HAVE_EXEMPI
 /**
  * eog_image_get_xmp_info:
  * @img: a #EogImage
  *
- * Gets the XMP info for @img or NULL if compiled without
- * libexempi support.
+ * Gets the XMP info for @img.
  *
  * Returns: (transfer full): the xmp data
  **/
@@ -2173,21 +2173,41 @@ gpointer
 eog_image_get_xmp_info (EogImage *img)
 {
  	gpointer data = NULL;
+	EogImagePrivate *priv;
 
  	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
-#ifdef HAVE_EXEMPI
-	EogImagePrivate *priv;
  	priv = img->priv;
 
 	g_mutex_lock (&priv->status_mutex);
  	data = (gpointer) xmp_copy (priv->xmp);
 	g_mutex_unlock (&priv->status_mutex);
-#endif
 
  	return data;
 }
 
+/**
+ * eog_image_has_xmp_info:
+ * @img: a #EogImage
+ *
+ * Returns: whether @img has XMP info
+ **/
+gboolean
+eog_image_has_xmp_info (EogImage *img)
+{
+ 	gboolean has_xmp_info;
+
+ 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	EogImagePrivate *priv = img->priv;
+
+	g_mutex_lock (&priv->status_mutex);
+ 	has_xmp_info = (priv->xmp != NULL);
+	g_mutex_unlock (&priv->status_mutex);
+
+ 	return has_xmp_info;
+}
+#endif
 
 /**
  * eog_image_get_file:

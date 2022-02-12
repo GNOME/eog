@@ -69,6 +69,9 @@ G_GNUC_INTERNAL
 void     eog_util_show_file_in_filemanager   (GFile *file,
                                               GtkWindow *toplevel);
 
+G_GNUC_INTERNAL
+gchar *eog_util_create_width_height_string (gint width, gint height);
+
 #ifdef HAVE_LIBPORTAL
 G_GNUC_INTERNAL
 gboolean eog_util_is_running_inside_flatpak  (void);

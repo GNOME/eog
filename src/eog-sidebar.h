@@ -71,6 +71,10 @@ void       eog_sidebar_remove_page  (EogSidebar  *eog_sidebar,
 void       eog_sidebar_set_page     (EogSidebar  *eog_sidebar,
 				     GtkWidget   *main_widget);
 
+gint       eog_sidebar_get_page_nr  (EogSidebar  *eog_sidebar);
+void       eog_sidebar_set_page_nr  (EogSidebar  *eog_sidebar,
+		                     gint         index);
+
 gint       eog_sidebar_get_n_pages  (EogSidebar  *eog_sidebar);
 
 gboolean   eog_sidebar_is_empty     (EogSidebar  *eog_sidebar);

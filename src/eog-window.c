@@ -40,7 +40,7 @@
 #include "eog-sidebar.h"
 #include "eog-statusbar.h"
 #include "eog-preferences-dialog.h"
-#include "eog-properties-dialog.h"
+#include "eog-remote-presenter.h"
 #include "eog-print.h"
 #include "eog-error-message-area.h"
 #include "eog-application.h"
@@ -137,7 +137,7 @@ struct _EogWindowPrivate {
         GtkWidget           *statusbar;
         GtkWidget           *nav;
 	GtkWidget           *message_area;
-	GtkWidget           *properties_dlg;
+	GtkWidget           *remote_presenter;
 
 	GtkBuilder          *gear_menu_builder;
 
@@ -617,6 +617,7 @@ _eog_window_enable_window_actions (EogWindow *window, gboolean enable)
 		"preferences",
 		"manual",
 		"about",
+		"show-remote",
 		"view-gallery",
 		"view-sidebar",
 		"view-statusbar",
@@ -879,8 +880,8 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 	if (thumb != NULL) {
 		gtk_window_set_icon (GTK_WINDOW (window), thumb);
 
-		if (window->priv->properties_dlg != NULL) {
-			eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
+		if (window->priv->remote_presenter != NULL) {
+			eog_remote_presenter_update (EOG_REMOTE_PRESENTER (priv->remote_presenter),
 						      image);
 		}
 
@@ -2516,6 +2517,35 @@ eog_window_action_about (GSimpleAction *action,
 }
 
 static void
+eog_window_action_toggle_properties (GSimpleAction *action,
+				     GVariant      *variant,
+				     gpointer       user_data)
+{
+	static gint PROPERTIES_PAGE = 0;
+
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	gboolean was_visible;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (priv->mode != EOG_WINDOW_MODE_NORMAL &&
+            priv->mode != EOG_WINDOW_MODE_FULLSCREEN) return;
+
+	was_visible = gtk_widget_get_visible (priv->sidebar) &&
+	              eog_sidebar_get_page_nr (EOG_SIDEBAR (priv->sidebar)) == PROPERTIES_PAGE;
+
+	if  (!was_visible) {
+		eog_sidebar_set_page_nr (EOG_SIDEBAR (priv->sidebar), PROPERTIES_PAGE);
+	}
+	gtk_widget_set_visible (priv->sidebar, !was_visible);
+	g_settings_set_boolean (priv->ui_settings, EOG_CONF_UI_SIDEBAR, !was_visible);
+}
+
+static void
 eog_window_action_show_hide_bar (GSimpleAction *action,
 				 GVariant      *state,
 				 gpointer       user_data)
@@ -3029,16 +3059,15 @@ eog_window_action_print (GSimpleAction *action,
 }
 
 /**
- * eog_window_get_properties_dialog:
+ * eog_window_get_remote_presenter:
  * @window: a #EogWindow
  *
- * Gets the @window property dialog. The widget will be built on the first call to this function.
+ * Gets the remote presenter dialog. The widget will be built on the first call to this function.
  *
  * Returns: (transfer none): a #GtkWidget.
  */
-
 GtkWidget*
-eog_window_get_properties_dialog (EogWindow *window)
+eog_window_get_remote_presenter (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 
@@ -3046,34 +3075,30 @@ eog_window_get_properties_dialog (EogWindow *window)
 
 	priv = window->priv;
 
-	if (priv->properties_dlg == NULL) {
-		priv->properties_dlg =
-			eog_properties_dialog_new (GTK_WINDOW (window),
-						   EOG_THUMB_VIEW (priv->thumbview),
-						   "win.go-next",
-						   "win.go-previous");
+	if (priv->remote_presenter == NULL) {
+		priv->remote_presenter =
+			eog_remote_presenter_new (GTK_WINDOW (window),
+						  EOG_THUMB_VIEW (priv->thumbview),
+						  "win.go-next",
+						  "win.go-previous");
 
-		eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
-					      priv->image);
-		g_settings_bind (priv->ui_settings,
-				 EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE,
-				 priv->properties_dlg, "netbook-mode",
-				 G_SETTINGS_BIND_GET);
+		eog_remote_presenter_update (EOG_REMOTE_PRESENTER (priv->remote_presenter),
+					     priv->image);
 	}
 
-	return priv->properties_dlg;
+	return priv->remote_presenter;
 }
 
 static void
-eog_window_action_properties (GSimpleAction *action,
-			      GVariant      *variant,
-			      gpointer       user_data)
+eog_window_action_show_remote (GSimpleAction *action,
+			       GVariant      *variant,
+			       gpointer       user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	GtkWidget *dialog;
+	GtkWidget *remote_presenter;
 
-	dialog = eog_window_get_properties_dialog (window);
-	gtk_widget_show (dialog);
+	remote_presenter = eog_window_get_remote_presenter (window);
+	gtk_widget_show (remote_presenter);
 }
 
 static void
@@ -3974,7 +3999,8 @@ static const GActionEntry window_actions[] = {
 	{ "close",         eog_window_action_close_window },
 	{ "close-all",     eog_window_action_close_all_windows },
 	{ "print",         eog_window_action_print },
-	{ "properties",    eog_window_action_properties },
+	{ "properties",    eog_window_action_toggle_properties },
+	{ "show-remote",   eog_window_action_show_remote },
 	{ "set-wallpaper", eog_window_action_wallpaper },
 	{ "preferences",   eog_window_action_preferences },
 	{ "manual",        eog_window_action_help },

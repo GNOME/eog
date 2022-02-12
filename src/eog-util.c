@@ -508,6 +508,15 @@ eog_util_show_file_in_filemanager (GFile *file, GtkWindow *toplevel)
 		_eog_util_show_file_in_filemanager_fallback (file, toplevel);
 }
 
+gchar *
+eog_util_create_width_height_string (gint width, gint height)
+{
+	return g_strdup_printf (
+		ngettext("%i × %i pixel", "%i × %i pixels", width * height),
+		width, height);
+}
+
+
 /* Portal */
 
 #ifdef HAVE_LIBPORTAL

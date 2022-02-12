@@ -168,7 +168,11 @@ const gchar      *eog_image_get_collate_key          (EogImage   *img);
 ExifData*      eog_image_get_exif_info            (EogImage   *img);
 #endif
 
+#ifdef HAVE_EXEMPI
+gboolean          eog_image_has_xmp_info             (EogImage   *img);
+
 gpointer          eog_image_get_xmp_info             (EogImage   *img);
+#endif
 
 GFile*            eog_image_get_file                 (EogImage   *img);
 
