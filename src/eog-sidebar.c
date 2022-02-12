@@ -133,6 +133,23 @@ eog_sidebar_set_page (EogSidebar   *eog_sidebar,
 	g_object_notify (G_OBJECT (eog_sidebar), "current-page");
 }
 
+gint
+eog_sidebar_get_page_nr (EogSidebar *eog_sidebar)
+{
+	GtkNotebook *notebook = GTK_NOTEBOOK (eog_sidebar->priv->notebook);
+
+	return gtk_notebook_get_current_page (notebook);
+}
+
+void
+eog_sidebar_set_page_nr (EogSidebar   *eog_sidebar,
+		         gint          index)
+{
+	GtkNotebook *notebook = GTK_NOTEBOOK (eog_sidebar->priv->notebook);
+
+	gtk_notebook_set_current_page (notebook, index);
+}
+
 static GtkWidget *
 eog_sidebar_get_current_page (EogSidebar *sidebar)
 {
