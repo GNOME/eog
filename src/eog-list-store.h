@@ -64,6 +64,8 @@ struct _EogListStore {
 struct _EogListStoreClass {
         GtkListStoreClass parent_class;
 
+	void (* draw_thumbnail) 	   (EogListStore *store);
+
 	/* Padding for future expansion */
 	void (* _eog_reserved1) (void);
 	void (* _eog_reserved2) (void);
