@@ -4221,7 +4221,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	GtkWidget *popup_menu;
 	GtkWidget *hpaned;
-	GtkWidget *headerbar;
 	GtkWidget *zoom_entry;
 	GtkWidget *menu_button;
 	GtkWidget *menu_image;
