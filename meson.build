@@ -122,6 +122,7 @@ common_deps = [
   dependency('gdk-pixbuf-2.0', version: '>= 2.36.5'),
   dependency('glib-2.0', version: glib_req_version),
   dependency('gtk+-3.0', version: '>= 3.24.15'),
+  dependency('libhandy-1', version: '>= 1.5.0'),
   dependency('libpeas-1.0', version: peas_req_version),
 ]
 

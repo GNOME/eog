@@ -179,7 +179,7 @@ pkg.generate(
   description: 'The GNOME Image Viewer',
   filebase: eog_name,
   subdirs: eog_api_name,
-  requires: 'gtk+-3.0',
+  requires: ['gtk+-3.0', 'libhandy-1'],
   variables: [
     'exec_prefix=${prefix}',
     # the equivalent of eog_pluginsdir but using ${libdir} for variable replacement

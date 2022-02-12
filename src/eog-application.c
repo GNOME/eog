@@ -44,6 +44,7 @@
 #include <glib/gstdio.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <handy.h>
 
 #ifdef HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -272,12 +273,13 @@ eog_application_startup (GApplication *application)
 	EogApplication *app = EOG_APPLICATION (application);
 	GError *error = NULL;
 	GFile *css_file;
-	GtkSettings *settings;
 	GtkCssProvider *provider;
+  HdyStyleManager *style_manager;
 
 	g_application_set_resource_base_path (application, "/org/gnome/eog");
 	G_APPLICATION_CLASS (eog_application_parent_class)->startup (application);
 
+  hdy_init ();
 #ifdef HAVE_EXEMPI
 	xmp_init();
 #endif
@@ -309,10 +311,9 @@ eog_application_startup (GApplication *application)
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Image Viewer"));
 
-	settings = gtk_settings_get_default ();
-	g_object_set (G_OBJECT (settings),
-	              "gtk-application-prefer-dark-theme", TRUE,
-	              NULL);
+	style_manager = hdy_style_manager_get_default ();
+	hdy_style_manager_set_color_scheme (style_manager,
+	                                    HDY_COLOR_SCHEME_PREFER_DARK);
 
 	eog_application_init_app_menu (app);
 	eog_application_init_accelerators (GTK_APPLICATION (app));
