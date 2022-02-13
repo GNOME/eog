@@ -6,13 +6,13 @@
 # Julen Ruiz Aizpuru <julenx@gmail.com>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012, 2013, 2014, 2015, 2016, 2017.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2020.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2020, 2022.
 #
 msgid ""
 msgstr "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2021-12-04 17:57+0000\n"
-"PO-Revision-Date: 2021-12-24 10:00+0100\n"
+"POT-Creation-Date: 2022-02-12 18:09+0000\n"
+"PO-Revision-Date: 2022-02-13 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -22,7 +22,7 @@ msgstr "Project-Id-Version: eog master\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:310 src/eog-window.c:5541
+#: src/eog-application.c:313 src/eog-window.c:5573
 msgid "Image Viewer"
 msgstr "Irudi-ikustailea"
 
@@ -54,7 +54,7 @@ msgid "Op_en With…"
 msgstr "I_reki honekin…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
 msgid "_Save"
 msgstr "_Gorde"
 
@@ -79,138 +79,49 @@ msgstr "Irudiaren _propietateak"
 msgid "Sli_deshow"
 msgstr "_Diapositiba-aurkezpena"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "Erakutsi aurkez_lea"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "Erak_utsi"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "_Alboko panela"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "_Irudi-bilduma"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "_Egoera-barra"
 
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "_Hobespenak"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "Irudi-ikustaileari _buruz"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "Irudiaren propietateak"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "Aurrekoa"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "Hurrengoa"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "Izena:"
-
-#: data/eog-image-properties-dialog.ui:132
-msgid "Width:"
-msgstr "Zabalera:"
-
-#: data/eog-image-properties-dialog.ui:148
-msgid "Height:"
-msgstr "Altuera:"
-
-#: data/eog-image-properties-dialog.ui:164
-msgid "Type:"
-msgstr "Mota:"
-
-#: data/eog-image-properties-dialog.ui:180
-msgid "Bytes:"
-msgstr "Byteak:"
-
-#: data/eog-image-properties-dialog.ui:196
-msgid "Folder:"
-msgstr "Karpeta:"
-
-#: data/eog-image-properties-dialog.ui:294
-msgid "General"
-msgstr "Orokorra"
-
-#: data/eog-image-properties-dialog.ui:327
-msgid "Aperture Value:"
-msgstr "Irekiduraren balioa:"
-
-#: data/eog-image-properties-dialog.ui:344
-msgid "Exposure Time:"
-msgstr "Esposizio-denbora:"
-
-#: data/eog-image-properties-dialog.ui:361
-msgid "Focal Length:"
-msgstr "Foku-luzera:"
-
-#: data/eog-image-properties-dialog.ui:378
-msgid "Flash:"
-msgstr "Flasha:"
-
-#: data/eog-image-properties-dialog.ui:395
-msgid "ISO Speed Rating:"
-msgstr "ISO abiaduraren emaria:"
-
-#: data/eog-image-properties-dialog.ui:412
-msgid "Metering Mode:"
-msgstr "Neurtze modua:"
-
-#: data/eog-image-properties-dialog.ui:429
-msgid "Camera Model:"
-msgstr "Kamera-eredua:"
-
-#: data/eog-image-properties-dialog.ui:447
-msgid "Date/Time:"
-msgstr "Data/Ordua:"
-
-#: data/eog-image-properties-dialog.ui:478
-msgid "Description:"
-msgstr "Azalpena:"
-
-#: data/eog-image-properties-dialog.ui:495
-msgid "Location:"
-msgstr "Kokalekua:"
-
-#: data/eog-image-properties-dialog.ui:512
-msgid "Keywords:"
-msgstr "Gako-hitzak:"
-
-#: data/eog-image-properties-dialog.ui:529
-msgid "Author:"
-msgstr "Egilea:"
-
-#: data/eog-image-properties-dialog.ui:546
-msgid "Copyright:"
-msgstr "Copyright-a:"
-
-#: data/eog-image-properties-dialog.ui:826
-#: data/eog-image-properties-dialog.ui:875
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "Xehetasunak"
 
-#: data/eog-image-properties-dialog.ui:851
-msgid "Metadata"
-msgstr "Metadatuak"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "Ez dago erabilgarri"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
@@ -218,9 +129,9 @@ msgstr "Gorde honela"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3273 src/eog-window.c:3276
-#: src/eog-window.c:3508
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
+#: src/eog-file-chooser.c:470 src/eog-window.c:3302 src/eog-window.c:3305
+#: src/eog-window.c:3537
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -363,11 +274,40 @@ msgstr "Diapositiba-aurkezpena"
 msgid "Plugins"
 msgstr "Pluginak"
 
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "Mota"
+
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "Izena"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "Tamaina"
+
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "Byteak"
+
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "Karpeta"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Erakutsi fitxategia daukan karpeta fitxategi-kudeatzailean"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "Aurkezlea"
+
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "Txikiagotu irudia"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "Handiagotu irudia"
 
@@ -379,7 +319,7 @@ msgstr "Joan bildumaren aurreneko irudira"
 msgid "_First Image"
 msgstr "_Aurreneko irudia"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
 msgid "Go to the previous image of the gallery"
 msgstr "Joan bildumaren aurreko irudira"
 
@@ -387,7 +327,7 @@ msgstr "Joan bildumaren aurreko irudira"
 msgid "_Previous Image"
 msgstr "_Aurreko irudia"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
 msgid "Go to the next image of the gallery"
 msgstr "Joan bildumaren hurrengo irudira"
 
@@ -427,7 +367,7 @@ msgstr "Doitu irudia leihora"
 msgid "_Best Fit"
 msgstr "_Egokiena"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Biratu irudia 90 gradu ezkerrera"
 
@@ -435,7 +375,7 @@ msgstr "Biratu irudia 90 gradu ezkerrera"
 msgid "Rotate Counter_clockwise"
 msgstr "Biratu e_zkerrera"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Biratu irudia 90 gradu eskuinera"
 
@@ -505,8 +445,8 @@ msgstr "Ezarri irudia mahaigaineko atzeko plano gisa"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "Erakutsi irudiaren propietateen elkarrizketa-koadroa"
+msgid "Show image properties in sidebar"
+msgstr "Erakutsi irudiaren propietateak alboko barran"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -587,141 +527,138 @@ msgstr "Joan karpetaren hurrengo ausazko irudira"
 
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "Erakutsi aurkezlea kontrol bereiztuekin"
+
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Erakutsi/ezkutatu irudi-bilduma"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:257
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Biraketa"
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Biratu erlojuaren noranzkoan"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Biratu erlojuaren noranzkoaren aurka"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:291
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Pantaila osoa"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Sartu/Irten pantaila osotik"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Abiatu/Gelditu diapositiba-aurkezpena"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Pausatu diapositiba-aurkezpena"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:318
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "Arrunta"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "Kopiatu arbelean"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "Desegin"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "Bota zakarrontzira"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "Ezabatu irudia betiko"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:352
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "Korritzea"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "Korritu ezkerrean irudi handietan"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "Korritu eskuinean irudi handietan"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "Korritu goian irudi handietan"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "Korritu behean irudi handietan"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "Tamaina"
-
-#: data/metadata-sidebar.ui:47
-msgid "Type"
-msgstr "Mota"
-
-#: data/metadata-sidebar.ui:65
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "Fitxategiaren tamaina"
 
-#: data/metadata-sidebar.ui:85
-msgid "Folder"
-msgstr "Karpeta"
-
-#: data/metadata-sidebar.ui:103
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "Irekiera"
 
-#: data/metadata-sidebar.ui:121
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "Esposizioa"
 
-#: data/metadata-sidebar.ui:139
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ISOa"
 
-#: data/metadata-sidebar.ui:158
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "Neurketa"
 
-#: data/metadata-sidebar.ui:177 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Kamera"
 
-#: data/metadata-sidebar.ui:196
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "Data"
 
-#: data/metadata-sidebar.ui:214
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "Ordua"
 
-#: data/metadata-sidebar.ui:391
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "Fokuaren luzera"
+
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "Erakutsi xehetasunak"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -902,24 +839,11 @@ msgid ""
 "will show the current working directory."
 msgstr "Aktibatzen bada, eta irudirik ez badago kargatuta leiho aktiboan, fitxategi-aukeratzaileak erabiltzailearen argazkien karpeta bistaratuko du erabiltzailearen direktorioen XDG berezia erabiliz. Desaktibatzen bada, edo argazkien karpeta ez bada konfiguratu, uneko laneko direktorioa erakutsiko du."
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr "Propietateen elkarrizketa-koadroan metadatuen zerrendak bere orrialde propioa eduki behar duen edo ez."
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-msgstr "Aktibatzen bada, propietateen elkarrizketa-koadroko metadatuen zerrenda xehea elkarrizketa-koadroko dagokion orrialdera eramango da. Honek elkarrizketa-koadroa askoz ere erabilgarriagoa egingo du pantaila txikidun ordenagailuetan, adib. 'sareko ordenagailu' edo netbook-etan. Desaktibatzen bada, trepeta “Metadatuak” orrialdean kapsulatuko dira."
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "Plugin aktiboak"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active "
 "plugins. See the .eog-plugin file for obtaining the “Location” of a given "
@@ -934,7 +858,7 @@ msgstr "Ireki _honekin…"
 msgid "_Copy"
 msgstr "_Kopiatu"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3511
+#: data/popup-menus.ui:34 src/eog-window.c:3540
 msgid "Move to _Trash"
 msgstr "Bota _zakarrontzira"
 
@@ -1011,7 +935,7 @@ msgstr "_Hautatu gordetzea nahi dituzun irudiak:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ez baduzu gordetzen, aldaketa guztiak galduko dira."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:930
+#: src/eog-error-message-area.c:128 src/eog-window.c:933
 msgid "_Reload"
 msgstr "Bir_kargatu"
 
@@ -1069,89 +993,81 @@ msgstr "%.1f (foku-lentea)"
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm filma)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "Fitxategi-formatua ezezaguna da edo ez dago onartuta"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr "Irudi-ikustaileak ezin izan du fitxategi-formatu idazgarria zehaztu fitxategi-izenean oinarrituz."
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Saiatu bestelako luzapen batekin, adib. '.png' edo '.jpg'."
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "Fitxategi denak"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "Onartutako irudi-fitxategiak"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:522
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "pixel"
-msgstr[1] "pixel"
-
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
 msgid "_Open"
 msgstr "_Ireki"
 
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:457
 msgid "Open Image"
 msgstr "Ireki irudia"
 
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:465
 msgid "Save Image"
 msgstr "Gorde irudia"
 
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:473
 msgid "Open Folder"
 msgstr "Ireki karpeta"
 
-#: src/eog-image.c:572
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Deskargatutako irudia eraldatzea."
 
-#: src/eog-image.c:600
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "Huts egin du eraldatzean."
 
-#: src/eog-image.c:1141
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Fitxategi-formatu honek ez du EXIF onartzen."
 
-#: src/eog-image.c:1283
+#: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
 msgstr "Huts egin du irudia kargatzean."
 
-#: src/eog-image.c:1872 src/eog-image.c:1992
+#: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
 msgid "No image loaded."
 msgstr "Ez da irudirik kargatu."
 
-#: src/eog-image.c:1880 src/eog-image.c:2001
+#: src/eog-image.c:1878 src/eog-image.c:1999
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Ez duzu behar adina baimenik fitxategia gordetzeko."
 
-#: src/eog-image.c:1890 src/eog-image.c:2012
+#: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Huts egin du aldi baterako fitxategia sortzean."
@@ -1226,22 +1142,15 @@ msgstr "Mendebaldea"
 msgid "South"
 msgstr "Hegoaldea"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "%i × %i pixel"
-msgstr[1] "%i × %i pixel"
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%a, %Y %B %d"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1341,15 +1250,11 @@ msgstr "Hazbeteak"
 msgid "Preview"
 msgstr "Aurrebista"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Erakutsi fitxategia daukan karpeta fitxategi-kudeatzailean"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "honelaxe"
 
-#: src/eog-sidebar.c:421
+#: src/eog-sidebar.c:438
 msgid "Hide sidebar"
 msgstr "Ezkutatu alboko barra"
 
@@ -1368,7 +1273,7 @@ msgstr "Ezkutatu alboko barra"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: src/eog-thumb-view.c:550
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "Kapturatua:"
 
@@ -1385,25 +1290,32 @@ msgstr "Ezin da bistaratu irudi-ikustailearen laguntza"
 msgid " (invalid Unicode)"
 msgstr " (Unicode baliogabea)"
 
+#: src/eog-util.c:515
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i pixel"
+msgstr[1] "%i × %i pixel"
+
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
 #. * - image width
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:544
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pixel  %s    %% %i"
 msgstr[1] "%i × %i pixel  %s    %% %i"
 
-#: src/eog-window.c:932 src/eog-window.c:2668
+#: src/eog-window.c:935 src/eog-window.c:2702
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Ezkutatu"
 
-#: src/eog-window.c:940
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1415,22 +1327,22 @@ msgstr "“%s” irudia kanpoko aplikazio batekin aldatu da. Birgarkatu nahi duz
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1195
+#: src/eog-window.c:1198
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "“%s” irudia gordetzen (%u/%u)"
 
-#: src/eog-window.c:1619
+#: src/eog-window.c:1622
 #, c-format
 msgid "Opening image “%s”"
 msgstr "“%s” irudia irekitzen"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2005
+#: src/eog-window.c:2010
 msgid "Viewing a slideshow"
 msgstr "Diapositiba-erakusketa moduan ikustea"
 
-#: src/eog-window.c:2226
+#: src/eog-window.c:2231
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1438,26 +1350,26 @@ msgid ""
 msgstr "Errorea fitxategia inprimatzean:\n"
 "%s"
 
-#: src/eog-window.c:2617 src/eog-window.c:2632
+#: src/eog-window.c:2651 src/eog-window.c:2666
 msgid "Error launching System Settings: "
 msgstr "Errorea sistemako ezarpenak abiaraztean: "
 
-#: src/eog-window.c:2666
+#: src/eog-window.c:2700
 msgid "_Open Background Preferences"
 msgstr "_Ireki atzeko planoaren hobespenak"
 
-#: src/eog-window.c:2680
+#: src/eog-window.c:2714
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
 "its appearance?"
 msgstr "“%s” irudia mahaigaineko atzeko planoko irudi gisa ezarri da. Bere itxura aldatu nahi duzu?"
 
-#: src/eog-window.c:3168
+#: src/eog-window.c:3197
 msgid "Saving image locally…"
 msgstr "Irudia lokalean gordetzen…"
 
-#: src/eog-window.c:3249
+#: src/eog-window.c:3278
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1465,7 +1377,7 @@ msgid ""
 msgstr "Ziur zaude “%s”\n"
 "betirako ezabatzea nahi duzula?"
 
-#: src/eog-window.c:3252
+#: src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1478,41 +1390,41 @@ msgstr[0] "Ziur zaude hautatutako irudia\n"
 msgstr[1] "Ziur zaude hautatutako %d irudi\n"
 "betirako ezabatzea nahi dituzula?"
 
-#: src/eog-window.c:3274 src/eog-window.c:3519
+#: src/eog-window.c:3303 src/eog-window.c:3548
 msgid "_Delete"
 msgstr "Ez_abatu"
 
-#: src/eog-window.c:3277 src/eog-window.c:3521
+#: src/eog-window.c:3306 src/eog-window.c:3550
 msgid "_Yes"
 msgstr "_Bai"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3281 src/eog-window.c:3513
+#: src/eog-window.c:3310 src/eog-window.c:3542
 msgid "Do _not ask again during this session"
 msgstr "_Ez galdetu berriro saio honetan"
 
-#: src/eog-window.c:3325
+#: src/eog-window.c:3354
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Ezin izan da irudiaren fitxategia berreskuratu"
 
-#: src/eog-window.c:3341
+#: src/eog-window.c:3370
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Ezin izan da irudiaren fitxategiaren informazioa berreskuratu"
 
-#: src/eog-window.c:3357 src/eog-window.c:3580
+#: src/eog-window.c:3386 src/eog-window.c:3609
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Ezin izan da fitxategia ezabatu"
 
 #. set dialog error message
-#: src/eog-window.c:3402 src/eog-window.c:3676
+#: src/eog-window.c:3431 src/eog-window.c:3705
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errorea %s irudia ezabatzean"
 
-#: src/eog-window.c:3481
+#: src/eog-window.c:3510
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1520,14 +1432,14 @@ msgid ""
 msgstr "Ziur zaude “%s”\n"
 "zakarrontzira botatzea nahi duzula?"
 
-#: src/eog-window.c:3484
+#: src/eog-window.c:3513
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "Ezin izan da “%s”(r)en zakarrontzia aurkitu. Nahi duzu irudi hau betirako kentzea?"
 
-#: src/eog-window.c:3489
+#: src/eog-window.c:3518
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1540,34 +1452,34 @@ msgstr[0] "Ziur zaude hautatutako irudia\n"
 msgstr[1] "Ziur zaude hautatutako %d irudi\n"
 "zakarrontzira botatzea nahi dituzula?"
 
-#: src/eog-window.c:3494
+#: src/eog-window.c:3523
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "Hautatutako irudi batzuk ezin dira zakarrontzira bota, eta betirako ezabatuko dira. Aurrera jarraitzea nahi duzu?"
 
-#: src/eog-window.c:3558 src/eog-window.c:3572
+#: src/eog-window.c:3587 src/eog-window.c:3601
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Ezin izan da zakarrontzirik erabili."
 
-#: src/eog-window.c:4221
+#: src/eog-window.c:4251
 msgid "Shrink or enlarge the current image"
 msgstr "Txikiagotu edo handiagotu uneko irudia"
 
-#: src/eog-window.c:4280
+#: src/eog-window.c:4310
 msgid "Show the current image in fullscreen mode"
 msgstr "Erakutsi uneko irudia pantaila osoko moduan"
 
-#: src/eog-window.c:4351
+#: src/eog-window.c:4383
 msgid "Properties"
 msgstr "Propietateak"
 
-#: src/eog-window.c:5544
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "GNOMEren irudi-ikustailea."
 
-#: src/eog-window.c:5547
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr "translator-credits"
 
@@ -1616,6 +1528,96 @@ msgstr "[FITXATEGIA…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
+
+#~ msgid "Image Properties"
+#~ msgstr "Irudiaren propietateak"
+
+#~ msgid "Previous"
+#~ msgstr "Aurrekoa"
+
+#~ msgid "Next"
+#~ msgstr "Hurrengoa"
+
+#~ msgid "Width:"
+#~ msgstr "Zabalera:"
+
+#~ msgid "Height:"
+#~ msgstr "Altuera:"
+
+#~ msgid "Type:"
+#~ msgstr "Mota:"
+
+#~ msgid "Folder:"
+#~ msgstr "Karpeta:"
+
+#~ msgid "General"
+#~ msgstr "Orokorra"
+
+#~ msgid "Aperture Value:"
+#~ msgstr "Irekiduraren balioa:"
+
+#~ msgid "Exposure Time:"
+#~ msgstr "Esposizio-denbora:"
+
+#~ msgid "Focal Length:"
+#~ msgstr "Foku-luzera:"
+
+#~ msgid "Flash:"
+#~ msgstr "Flasha:"
+
+#~ msgid "ISO Speed Rating:"
+#~ msgstr "ISO abiaduraren emaria:"
+
+#~ msgid "Metering Mode:"
+#~ msgstr "Neurtze modua:"
+
+#~ msgid "Camera Model:"
+#~ msgstr "Kamera-eredua:"
+
+#~ msgid "Date/Time:"
+#~ msgstr "Data/Ordua:"
+
+#~ msgid "Description:"
+#~ msgstr "Azalpena:"
+
+#~ msgid "Location:"
+#~ msgstr "Kokalekua:"
+
+#~ msgid "Keywords:"
+#~ msgstr "Gako-hitzak:"
+
+#~ msgid "Author:"
+#~ msgstr "Egilea:"
+
+#~ msgid "Copyright:"
+#~ msgstr "Copyright-a:"
+
+#~ msgid "Metadata"
+#~ msgstr "Metadatuak"
+
+#~ msgid ""
+#~ "Whether the metadata list in the properties dialog should have its own "
+#~ "page."
+#~ msgstr ""
+#~ "Propietateen elkarrizketa-koadroan metadatuen zerrendak bere orrialde "
+#~ "propioa eduki behar duen edo ez."
+
+#~ msgid ""
+#~ "If activated, the detailed metadata list in the properties dialog will be "
+#~ "moved to its own page in the dialog. This should make the dialog more "
+#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#~ "widget will be embedded on the “Metadata” page."
+#~ msgstr ""
+#~ "Aktibatzen bada, propietateen elkarrizketa-koadroko metadatuen zerrenda "
+#~ "xehea elkarrizketa-koadroko dagokion orrialdera eramango da. Honek "
+#~ "elkarrizketa-koadroa askoz ere erabilgarriagoa egingo du pantaila "
+#~ "txikidun ordenagailuetan, adib. 'sareko ordenagailu' edo netbook-etan. "
+#~ "Desaktibatzen bada, trepeta “Metadatuak” orrialdean kapsulatuko dira."
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixel"
 
 #~ msgid "Eye of GNOME"
 #~ msgstr "GNOMEren begia"
