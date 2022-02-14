@@ -4,25 +4,25 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Gil 'Dolfin' Osher <dolfin@rpg.org.il>, 2002,2003.
 # Gil Osher <dolfin@rpg.org.il>, 2004.
-# Yosef Or Boczko <yoseforb@gmail.com>, 2013-2021.
+# Yosef Or Boczko <yoseforb@gmail.com>, 2013-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2021-12-04 17:57+0000\n"
-"PO-Revision-Date: 2021-12-29 18:16+0200\n"
+"POT-Creation-Date: 2022-02-12 18:09+0000\n"
+"PO-Revision-Date: 2022-02-14 17:12+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
-"Language-Team: Hebrew <yoseforb@gmail.com>\n"
+"Language-Team: Hebrew <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 40.0\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n>2||n==0) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n>2||n==0) ? 1 : 2;\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:310 src/eog-window.c:5541
+#: src/eog-application.c:313 src/eog-window.c:5573
 msgid "Image Viewer"
 msgstr "מציג תמונות"
 
@@ -31,10 +31,6 @@ msgid "Browse and rotate images"
 msgstr "צפייה וסיבוב של תמונות"
 
 #: data/eog.appdata.xml.in:9
-#| msgid ""
-#| "The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-#| "integrates with the GTK+ look and feel of GNOME, and supports many image "
-#| "formats for viewing single images or images in a collection."
 msgid ""
 "Image Viewer is the official image viewer for the GNOME desktop. It "
 "integrates with the GTK look and feel of GNOME, and supports many image "
@@ -45,11 +41,6 @@ msgstr ""
 "באוספי תמונות."
 
 #: data/eog.appdata.xml.in:14
-#| msgid ""
-#| "The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-#| "mode or set an image as the desktop wallpaper. It reads the camera tags "
-#| "to automatically rotate your images in the correct portrait or landscape "
-#| "orientation."
 msgid ""
 "Image Viewer also allows to view the images in a fullscreen slideshow mode "
 "or set an image as the desktop wallpaper. It reads the camera tags to "
@@ -69,7 +60,7 @@ msgid "Op_en With…"
 msgstr "פתיחה _באמצעות…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
 msgid "_Save"
 msgstr "_שמירה"
 
@@ -94,138 +85,49 @@ msgstr "_מאפייני תמונה"
 msgid "Sli_deshow"
 msgstr "_מצגת"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "הצגת _מגיש"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "_הצגה"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "סרגל _צד"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "_גלריית תמונות"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "_שורת המצב"
 
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "ה_עדפות"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
 msgstr "_צירופי מקשים"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "ע_זרה"
 
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "על _אודות מציג התמונות"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "מאפייני תמונה"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "הקודם"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "הבא"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "שם:"
-
-#: data/eog-image-properties-dialog.ui:132
-msgid "Width:"
-msgstr "רוחב:"
-
-#: data/eog-image-properties-dialog.ui:148
-msgid "Height:"
-msgstr "גובה:"
-
-#: data/eog-image-properties-dialog.ui:164
-msgid "Type:"
-msgstr "סוג:"
-
-#: data/eog-image-properties-dialog.ui:180
-msgid "Bytes:"
-msgstr "בתים:"
-
-#: data/eog-image-properties-dialog.ui:196
-msgid "Folder:"
-msgstr "תיקייה:"
-
-#: data/eog-image-properties-dialog.ui:294
-msgid "General"
-msgstr "כללי"
-
-#: data/eog-image-properties-dialog.ui:327
-msgid "Aperture Value:"
-msgstr "ערך הצמצם:"
-
-#: data/eog-image-properties-dialog.ui:344
-msgid "Exposure Time:"
-msgstr "זמן חשיפה:"
-
-#: data/eog-image-properties-dialog.ui:361
-msgid "Focal Length:"
-msgstr "אורך מוקד:"
-
-#: data/eog-image-properties-dialog.ui:378
-msgid "Flash:"
-msgstr "מבזק:"
-
-#: data/eog-image-properties-dialog.ui:395
-msgid "ISO Speed Rating:"
-msgstr "דרוג מהירות ISO:"
-
-#: data/eog-image-properties-dialog.ui:412
-msgid "Metering Mode:"
-msgstr "שיטת מדידה:"
-
-#: data/eog-image-properties-dialog.ui:429
-msgid "Camera Model:"
-msgstr "דגם המצלמה:"
-
-#: data/eog-image-properties-dialog.ui:447
-msgid "Date/Time:"
-msgstr "תאריך/שעה:"
-
-#: data/eog-image-properties-dialog.ui:478
-msgid "Description:"
-msgstr "תאור:"
-
-#: data/eog-image-properties-dialog.ui:495
-msgid "Location:"
-msgstr "מיקום:"
-
-#: data/eog-image-properties-dialog.ui:512
-msgid "Keywords:"
-msgstr "מילות מפתח:"
-
-#: data/eog-image-properties-dialog.ui:529
-msgid "Author:"
-msgstr "יוצר:"
-
-#: data/eog-image-properties-dialog.ui:546
-msgid "Copyright:"
-msgstr "זכויות יוצרים:"
-
-#: data/eog-image-properties-dialog.ui:826
-#: data/eog-image-properties-dialog.ui:875
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "פרטים"
 
-#: data/eog-image-properties-dialog.ui:851
-msgid "Metadata"
-msgstr "נתוני על"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "לא זמין"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
@@ -233,9 +135,9 @@ msgstr "שמירה בשם"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3273 src/eog-window.c:3276
-#: src/eog-window.c:3508
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
+#: src/eog-file-chooser.c:470 src/eog-window.c:3302 src/eog-window.c:3305
+#: src/eog-window.c:3537
 msgid "_Cancel"
 msgstr "_ביטול"
 
@@ -378,11 +280,42 @@ msgstr "מצגת"
 msgid "Plugins"
 msgstr "תוספים"
 
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "סוג"
+
+#: data/eog-remote-presenter.ui:124
+#| msgid "Name:"
+msgid "Name"
+msgstr "שם"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "גודל"
+
+#: data/eog-remote-presenter.ui:158
+#| msgid "Bytes:"
+msgid "Bytes"
+msgstr "בתים"
+
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "תיקייה"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "הצגת התיקייה המכילה קובץ זה במנהל הקבצים"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "מגיש"
+
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "הקטנת התמונה"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "הגדלת התמונה"
 
@@ -394,7 +327,7 @@ msgstr "מעבר לתמונה הראשונה באוסף"
 msgid "_First Image"
 msgstr "_תמונה ראשונה"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
 msgid "Go to the previous image of the gallery"
 msgstr "מעבר לתמונה הקודמת באוסף"
 
@@ -402,7 +335,7 @@ msgstr "מעבר לתמונה הקודמת באוסף"
 msgid "_Previous Image"
 msgstr "התמונה ה_קודמת"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
 msgid "Go to the next image of the gallery"
 msgstr "מעבר לתמונה הבאה באוסף"
 
@@ -442,7 +375,7 @@ msgstr "התאמת התמונה לחלון"
 msgid "_Best Fit"
 msgstr "הה_תאמה הטובה ביותר"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
 msgid "Rotate the image 90 degrees to the left"
 msgstr "סיבוב התמונה 90 מעלות שמאלה"
 
@@ -450,7 +383,7 @@ msgstr "סיבוב התמונה 90 מעלות שמאלה"
 msgid "Rotate Counter_clockwise"
 msgstr "סיבוב _נגד כיוון השעון"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
 msgid "Rotate the image 90 degrees to the right"
 msgstr "סיבוב התמונה 90 מעלות ימינה"
 
@@ -519,9 +452,11 @@ msgid "Set the image as desktop background"
 msgstr "הגדרת התמונה כרקע שולחן העבודה"
 
 #: data/help-overlay.ui:68
+#| msgctxt "shortcut window"
+#| msgid "Show image properties dialog"
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "הצגת דו־שיח מאפייני תמונה"
+msgid "Show image properties in sidebar"
+msgstr "הצגת מאפייני תמונה בסרגל צדי"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -602,141 +537,139 @@ msgstr "מעבור לתמונה אקראית בתיקייה"
 
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "הצגת מגיש עם פקדים נפרדים"
+
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "הצגה/הסתרת גלריית התמונות"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:257
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "סיבוב "
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "סיבוב עם כיוון השעון"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "סיבוב נגד כיוון השעון"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:291
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "מסך מלא"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "כניסה/יציאה ממסך מלא"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "התחלה/השהיית מצגת"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "השהיית מצגת"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:318
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "נפוץ"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "העתקה ללוח הגזירים"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "ביטול"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "העבר לאשפה"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "מחיקת תמונה לצמיתות"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:352
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "גלילה"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "גלילה שמאלה בתמונה גדולה"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "גלילה ימינה בתמונה גדולה"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "גלילה מעלה בתמונה גדולה"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "גלילה מטה בתמונה גדולה"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "גודל"
-
-#: data/metadata-sidebar.ui:47
-msgid "Type"
-msgstr "סוג"
-
-#: data/metadata-sidebar.ui:65
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "גודל הקובץ"
 
-#: data/metadata-sidebar.ui:85
-msgid "Folder"
-msgstr "תיקייה"
-
-#: data/metadata-sidebar.ui:103
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "הצמצם"
 
-#: data/metadata-sidebar.ui:121
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "חשיפה"
 
-#: data/metadata-sidebar.ui:139
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:158
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "מדידה"
 
-#: data/metadata-sidebar.ui:177 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "מצלמה"
 
-#: data/metadata-sidebar.ui:196
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "תאריך"
 
-#: data/metadata-sidebar.ui:214
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "שעה"
 
-#: data/metadata-sidebar.ui:391
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "אורך מוקד"
+
+#: data/metadata-sidebar.ui:435
+#| msgid "Details"
+msgid "Show Details"
+msgstr "הצגת פרטים"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -952,29 +885,11 @@ msgstr ""
 "directories. If deactivated or the pictures folder has not been set up, it "
 "will show the current working directory."
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr ""
-"Whether the metadata list in the properties dialog should have its own page."
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-msgstr ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "Active plugins"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active "
 "plugins. See the .eog-plugin file for obtaining the “Location” of a given "
@@ -992,7 +907,7 @@ msgstr "פתיחה ב_אמצעות…"
 msgid "_Copy"
 msgstr "ה_עתקה"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3511
+#: data/popup-menus.ui:34 src/eog-window.c:3540
 msgid "Move to _Trash"
 msgstr "הע_ברה לאשפה"
 
@@ -1073,7 +988,7 @@ msgstr "נא ל_בחור את התמונות שברצונך לשמור:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "אם לא תבוצע שמירה, כל השינויים שלך יאבדו."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:930
+#: src/eog-error-message-area.c:128 src/eog-window.c:933
 msgid "_Reload"
 msgstr "_רענון"
 
@@ -1133,91 +1048,82 @@ msgstr "‏%.1f (עדשה)"
 msgid "%.1f (35mm film)"
 msgstr "‏%.1f (סרט 35 מ״מ)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "מבנה הקובץ אינ מוכר או שאינו נתמך"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr "מציג התמונות לא זיהה מבנה קובץ הניתן לכתיבה שנתמך על בסיס שם הקובץ."
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "נא לנסות סיומת קובץ שונה לדוגמה: png. או jpg."
 
 #  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "כל הקבצים"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "קובצי התמונה הנתמכים"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:522
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "פיקסל"
-msgstr[1] "פיקסלים"
-msgstr[2] "פיקסלים"
-
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
 msgid "_Open"
 msgstr "_פתיחה"
 
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:457
 msgid "Open Image"
 msgstr "פתיחת תמונה"
 
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:465
 msgid "Save Image"
 msgstr "שמירת תמונה"
 
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:473
 msgid "Open Folder"
 msgstr "פתיחת תיקיה"
 
-#: src/eog-image.c:572
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "התמרה על תמונה לא טעונה."
 
-#: src/eog-image.c:600
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "התמרה נכשלה."
 
-#: src/eog-image.c:1141
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF לא נתמך עבור תצורת קובץ זה."
 
-#: src/eog-image.c:1283
+#: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
 msgstr "טעינת התמונה נכשלה."
 
-#: src/eog-image.c:1872 src/eog-image.c:1992
+#: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
 msgid "No image loaded."
 msgstr "לא נטענו תמונות."
 
-#: src/eog-image.c:1880 src/eog-image.c:2001
+#: src/eog-image.c:1878 src/eog-image.c:1999
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "אין לך את ההרשאות הנחוצות לשמירת הקובץ."
 
-#: src/eog-image.c:1890 src/eog-image.c:2012
+#: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "יצירת קובץ זמני נכשלה."
@@ -1292,23 +1198,15 @@ msgstr "מערב"
 msgid "South"
 msgstr "דרום"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "פיקסל %i על %i"
-msgstr[1] "‏%i על %i פיקסלים "
-msgstr[2] "‏%i על %i פיקסלים "
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "לא ידוע"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%a, %d ב%B %Y"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1409,17 +1307,11 @@ msgstr "אינצ׳ים"
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "הצגת התיקייה המכילה קובץ זה במנהל הקבצים"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "אותו דבר"
 
-#: src/eog-sidebar.c:421
-#| msgctxt "shortcut window"
-#| msgid "Show/Hide the sidebar"
+#: src/eog-sidebar.c:438
 msgid "Hide sidebar"
 msgstr "הסתרת הסרגל הצדי"
 
@@ -1438,7 +1330,7 @@ msgstr "הסתרת הסרגל הצדי"
 msgid "%d / %d"
 msgstr "‏%d / %d‏"
 
-#: src/eog-thumb-view.c:550
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "צולם ב"
 
@@ -1455,13 +1347,21 @@ msgstr "לא ניתן להציג עזרה עבור מציג התמונות"
 msgid " (invalid Unicode)"
 msgstr " (יוניקוד לא תקני)"
 
+#: src/eog-util.c:515
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "פיקסל %i על %i"
+msgstr[1] "‏%i על %i פיקסלים "
+msgstr[2] "‏%i על %i פיקסלים "
+
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
 #. * - image width
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:544
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
@@ -1469,12 +1369,12 @@ msgstr[0] "פיקסל %i על %i  %s    %i%%"
 msgstr[1] "%i על %i פיקסלים  %s    %i%%"
 msgstr[2] "%i על %i פיקסלים  %s    %i%%"
 
-#: src/eog-window.c:932 src/eog-window.c:2668
+#: src/eog-window.c:935 src/eog-window.c:2702
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "ה_סתרה"
 
-#: src/eog-window.c:940
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1488,22 +1388,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1195
+#: src/eog-window.c:1198
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "התמונה „%s” נשמרת (%u/%u)"
 
-#: src/eog-window.c:1619
+#: src/eog-window.c:1622
 #, c-format
 msgid "Opening image “%s”"
 msgstr "התמונה „%s” נטענת"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2005
+#: src/eog-window.c:2010
 msgid "Viewing a slideshow"
 msgstr "צפייה במצגת"
 
-#: src/eog-window.c:2226
+#: src/eog-window.c:2231
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1512,26 +1412,26 @@ msgstr ""
 "שגיאה בהדפסת קובץ:\n"
 "%s"
 
-#: src/eog-window.c:2617 src/eog-window.c:2632
+#: src/eog-window.c:2651 src/eog-window.c:2666
 msgid "Error launching System Settings: "
 msgstr "טעינת הגדרות המערכת הובילה לשגיאה:"
 
-#: src/eog-window.c:2666
+#: src/eog-window.c:2700
 msgid "_Open Background Preferences"
 msgstr "_פתיחת העדפות הרקע"
 
-#: src/eog-window.c:2680
+#: src/eog-window.c:2714
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
 "its appearance?"
 msgstr "התמונה „%s” הוגדרה כרקע שולחן העבודה. האם ברצונך לשנות את המראה שלה?"
 
-#: src/eog-window.c:3168
+#: src/eog-window.c:3197
 msgid "Saving image locally…"
 msgstr "התמונה נשמרת באופן מקומי…"
 
-#: src/eog-window.c:3249
+#: src/eog-window.c:3278
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1540,7 +1440,7 @@ msgstr ""
 "האם ברצונך להסיר את\n"
 "‏„‎%s” לצמיתות?"
 
-#: src/eog-window.c:3252
+#: src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1558,41 +1458,41 @@ msgstr[2] ""
 "האם להסיר את %d התמונות\n"
 "הנבחרות לצמיתות?"
 
-#: src/eog-window.c:3274 src/eog-window.c:3519
+#: src/eog-window.c:3303 src/eog-window.c:3548
 msgid "_Delete"
 msgstr "מ_חיקה"
 
-#: src/eog-window.c:3277 src/eog-window.c:3521
+#: src/eog-window.c:3306 src/eog-window.c:3550
 msgid "_Yes"
 msgstr "_כן"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3281 src/eog-window.c:3513
+#: src/eog-window.c:3310 src/eog-window.c:3542
 msgid "Do _not ask again during this session"
 msgstr "_לא לשאול שוב במהלך הפעלה זו"
 
-#: src/eog-window.c:3325
+#: src/eog-window.c:3354
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "לא ניתן לקבל את קובץ התמונה"
 
-#: src/eog-window.c:3341
+#: src/eog-window.c:3370
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "לא ניתן לקבל את פרטי קובץ התמונה"
 
-#: src/eog-window.c:3357 src/eog-window.c:3580
+#: src/eog-window.c:3386 src/eog-window.c:3609
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "לא ניתן למחוק את הקובץ"
 
 #. set dialog error message
-#: src/eog-window.c:3402 src/eog-window.c:3676
+#: src/eog-window.c:3431 src/eog-window.c:3705
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "שגיאה במחיקת התמונה %s"
 
-#: src/eog-window.c:3481
+#: src/eog-window.c:3510
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1601,14 +1501,14 @@ msgstr ""
 "האם אכן ברצונך להעביר את\n"
 "‏„%s” לאשפה?"
 
-#: src/eog-window.c:3484
+#: src/eog-window.c:3513
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "לא ניתן למצוא אשפה עבור „%s”. האם ברצונך להסיר תמונה זו לצמיתות?"
 
-#: src/eog-window.c:3489
+#: src/eog-window.c:3518
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1620,7 +1520,7 @@ msgstr[0] "האם אכן ברצונך להעביר את התמונה הנבחר�
 msgstr[1] "האם אכן ברצונך להעביר את %d התמונות הנבחרות לאשפה?"
 msgstr[2] "האם אכן ברצונך להעביר את %d התמונות הנבחרות לאשפה?"
 
-#: src/eog-window.c:3494
+#: src/eog-window.c:3523
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1628,28 +1528,28 @@ msgstr ""
 "לא ניתן להעביר כמה מהקבצים הנבחרים אל האשפה והם ימחקו לצמיתות. האם ברצונך "
 "להמשיך?"
 
-#: src/eog-window.c:3558 src/eog-window.c:3572
+#: src/eog-window.c:3587 src/eog-window.c:3601
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "לא ניתן לגשת לאשפה."
 
-#: src/eog-window.c:4221
+#: src/eog-window.c:4251
 msgid "Shrink or enlarge the current image"
 msgstr "הקטנה או הגדלת התמונה הנוכחית"
 
-#: src/eog-window.c:4280
+#: src/eog-window.c:4310
 msgid "Show the current image in fullscreen mode"
 msgstr "הצגת התמונה הנוכחית במסך מלא"
 
-#: src/eog-window.c:4351
+#: src/eog-window.c:4383
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: src/eog-window.c:5544
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "מציג התמונות של GNOME"
 
-#: src/eog-window.c:5547
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr ""
 "גיל אושר\n"
@@ -1705,6 +1605,96 @@ msgstr "[FILE…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Run “%s --help” to see a full list of available command line options."
+
+#~ msgid "Image Properties"
+#~ msgstr "מאפייני תמונה"
+
+#~ msgid "Previous"
+#~ msgstr "הקודם"
+
+#~ msgid "Next"
+#~ msgstr "הבא"
+
+#~ msgid "Width:"
+#~ msgstr "רוחב:"
+
+#~ msgid "Height:"
+#~ msgstr "גובה:"
+
+#~ msgid "Type:"
+#~ msgstr "סוג:"
+
+#~ msgid "Folder:"
+#~ msgstr "תיקייה:"
+
+#~ msgid "General"
+#~ msgstr "כללי"
+
+#~ msgid "Aperture Value:"
+#~ msgstr "ערך הצמצם:"
+
+#~ msgid "Exposure Time:"
+#~ msgstr "זמן חשיפה:"
+
+#~ msgid "Focal Length:"
+#~ msgstr "אורך מוקד:"
+
+#~ msgid "Flash:"
+#~ msgstr "מבזק:"
+
+#~ msgid "ISO Speed Rating:"
+#~ msgstr "דרוג מהירות ISO:"
+
+#~ msgid "Metering Mode:"
+#~ msgstr "שיטת מדידה:"
+
+#~ msgid "Camera Model:"
+#~ msgstr "דגם המצלמה:"
+
+#~ msgid "Date/Time:"
+#~ msgstr "תאריך/שעה:"
+
+#~ msgid "Description:"
+#~ msgstr "תאור:"
+
+#~ msgid "Location:"
+#~ msgstr "מיקום:"
+
+#~ msgid "Keywords:"
+#~ msgstr "מילות מפתח:"
+
+#~ msgid "Author:"
+#~ msgstr "יוצר:"
+
+#~ msgid "Copyright:"
+#~ msgstr "זכויות יוצרים:"
+
+#~ msgid "Metadata"
+#~ msgstr "נתוני על"
+
+#~ msgid ""
+#~ "Whether the metadata list in the properties dialog should have its own "
+#~ "page."
+#~ msgstr ""
+#~ "Whether the metadata list in the properties dialog should have its own "
+#~ "page."
+
+#~ msgid ""
+#~ "If activated, the detailed metadata list in the properties dialog will be "
+#~ "moved to its own page in the dialog. This should make the dialog more "
+#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#~ "widget will be embedded on the “Metadata” page."
+#~ msgstr ""
+#~ "If activated, the detailed metadata list in the properties dialog will be "
+#~ "moved to its own page in the dialog. This should make the dialog more "
+#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#~ "widget will be embedded on the “Metadata” page."
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "פיקסל"
+#~ msgstr[1] "פיקסלים"
+#~ msgstr[2] "פיקסלים"
 
 #~ msgid "Eye of GNOME"
 #~ msgstr "העין של GNOME"
