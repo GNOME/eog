@@ -8,14 +8,14 @@
 # Mahyar Moghimi <mahyar.moqimi@gmail.com>, 2010.
 # Mohammad Javad Badiee <m.j.badiee@gmail.com>, 2010.
 # Arash Mousavi <mousavi.arash@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2018, 2019, 2020.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2018-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-07-02 15:09+0000\n"
-"PO-Revision-Date: 2020-08-25 15:47+0000\n"
+"POT-Creation-Date: 2022-02-12 18:09+0000\n"
+"PO-Revision-Date: 2022-02-21 17:50+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -24,11 +24,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "چشم گنوم"
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:313 src/eog-window.c:5573
+msgid "Image Viewer"
+msgstr "نمایشگر تصویر"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -36,24 +37,22 @@ msgstr "مرور و چرخاندن تصویر"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image formats "
-"for viewing single images or images in a collection."
+"Image Viewer is the official image viewer for the GNOME desktop. It integrates "
+"with the GTK look and feel of GNOME, and supports many image formats for viewing "
+"single images or images in a collection."
 msgstr ""
-"«چشم گنوم» نمایشگر رسمی میزکار گنوم است. با +GTK یکپارچه شده است که حس و حال گنوم "
-"رو می‌دهد و تعداد زیادی از قالب‌های تصویر را برای نمایش تصاویر واحد یا مجموعه‌ای از "
-"تصاویر را پشتیبانی می‌کند."
+"نمایشگر تصویر، نمایشگر تصویر رسمی میزکار گنوم است. با ظاهر و حس GTK گنوم یکپارچه "
+"شده و قالب‌های تصویری بسیاری را برای دیدن تصویرهای تکی یا مجموعه‌ای پشتیبانی می‌کند."
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow mode or "
-"set an image as the desktop wallpaper. It reads the camera tags to automatically "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode or set "
+"an image as the desktop wallpaper. It reads the camera tags to automatically "
 "rotate your images in the correct portrait or landscape orientation."
 msgstr ""
-"همچنین «چشم گنوم» به شما امکان می‌دهد که تصاویر را در حالت تمام‌صفحه و نمایشی "
-"ببینید یا آنها را به عنوان پس‌زمینه تصویر خود انتخاب کنید. برچسب‌های دوربین را "
-"می‌خواند تا به‌طور خودکار عکس را بچرخاند تا در حالت صحیحی از منظره‌ای یا عمودی قرار "
-"بگیرد."
+"همچنین نمایشگر تصویر می‌گذارد تصاویر را در حالت نمایش تمام‌صفحه دیده یا به عنوان "
+"کاغذدیواری میزکار تنظیمشان کنید. این برنامه برای چرخاندن خودکار تصویرهایتان در جهت "
+"درست افقی یا عمودی، برچسب‌های دوربین را می‌خواند."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -64,13 +63,13 @@ msgid "Op_en With…"
 msgstr "گشودن _با…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
 msgid "_Save"
 msgstr "_ذخیره"
 
 #: data/eog-gear-menu.ui:20 data/popup-menus.ui:16 src/eog-error-message-area.c:133
 msgid "Save _As…"
-msgstr "ذخیره _به نام…"
+msgstr "ذخیره _به شکل…"
 
 #: data/eog-gear-menu.ui:26 data/popup-menus.ui:22
 msgid "_Print…"
@@ -78,7 +77,7 @@ msgstr "_چاپ…"
 
 #: data/eog-gear-menu.ui:30 data/popup-menus.ui:44
 msgid "Set as Wa_llpaper"
-msgstr "تنظیم به‌عنوان کاغذ دیواری"
+msgstr "تنظیم به‌عنوان کاغذدیواری"
 
 #: data/eog-gear-menu.ui:36
 msgid "Image Prope_rties"
@@ -88,146 +87,58 @@ msgstr "ویژگی‌های _تصویر"
 msgid "Sli_deshow"
 msgstr "نمایش ا_سلایدی"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "نمایش _ارائه‌دهنده"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "نما_یش"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "_قاب کناری"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "_گالری تصویر"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "نوار _وضعیت"
 
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "ترجی_حات"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
 msgstr "_میانبرهای صفحه‌کلید"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_راهنما"
 
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "_درباره‌ٔ نمایشگر تصویر"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "ویژگی‌های تصویر"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "پیشین"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "بعدی"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "نام:"
-
-#: data/eog-image-properties-dialog.ui:131
-msgid "Width:"
-msgstr "عرض:"
-
-#: data/eog-image-properties-dialog.ui:146
-msgid "Height:"
-msgstr "ارتفاع:"
-
-#: data/eog-image-properties-dialog.ui:161
-msgid "Type:"
-msgstr "گونه:"
-
-#: data/eog-image-properties-dialog.ui:176
-msgid "Bytes:"
-msgstr "بایت:"
-
-#: data/eog-image-properties-dialog.ui:191
-msgid "Folder:"
-msgstr "شاخه:"
-
-#: data/eog-image-properties-dialog.ui:288
-msgid "General"
-msgstr "عمومی"
-
-#: data/eog-image-properties-dialog.ui:321
-msgid "Aperture Value:"
-msgstr "اندازهٔ دیافراگم:"
-
-#: data/eog-image-properties-dialog.ui:337
-msgid "Exposure Time:"
-msgstr "زمان نوردهی:"
-
-#: data/eog-image-properties-dialog.ui:353
-msgid "Focal Length:"
-msgstr "طول کانونی:"
-
-#: data/eog-image-properties-dialog.ui:369
-msgid "Flash:"
-msgstr "فلاش:"
-
-#: data/eog-image-properties-dialog.ui:385
-msgid "ISO Speed Rating:"
-msgstr "درجه سرعت ایزو:"
-
-#: data/eog-image-properties-dialog.ui:401
-msgid "Metering Mode:"
-msgstr "حالت اندازه‌گیری:"
-
-#: data/eog-image-properties-dialog.ui:417
-msgid "Camera Model:"
-msgstr "مدل دوربین:"
-
-#: data/eog-image-properties-dialog.ui:434
-msgid "Date/Time:"
-msgstr "تاریخ/زمان:"
-
-#: data/eog-image-properties-dialog.ui:464
-msgid "Description:"
-msgstr "شرح:"
-
-#: data/eog-image-properties-dialog.ui:480
-msgid "Location:"
-msgstr "مکان:"
-
-#: data/eog-image-properties-dialog.ui:496
-msgid "Keywords:"
-msgstr "کلمات کلیدی:"
-
-#: data/eog-image-properties-dialog.ui:512
-msgid "Author:"
-msgstr "مؤلف:"
-
-#: data/eog-image-properties-dialog.ui:528
-msgid "Copyright:"
-msgstr "حق رونوشت:"
-
-#: data/eog-image-properties-dialog.ui:807 data/eog-image-properties-dialog.ui:856
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "جزییات"
 
-#: data/eog-image-properties-dialog.ui:832
-msgid "Metadata"
-msgstr "فراداده"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "موجود نیست"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
 msgstr "ذخیره به نام"
 
 #: data/eog-multiple-save-as-dialog.ui:32 src/eog-close-confirmation-dialog.c:172
-#: src/eog-error-message-area.c:123 src/eog-file-chooser.c:456
-#: src/eog-file-chooser.c:464 src/eog-file-chooser.c:472 src/eog-window.c:3254
-#: src/eog-window.c:3257 src/eog-window.c:3489
+#: src/eog-error-message-area.c:123 src/eog-file-chooser.c:454
+#: src/eog-file-chooser.c:462 src/eog-file-chooser.c:470 src/eog-window.c:3302
+#: src/eog-window.c:3305 src/eog-window.c:3537
 msgid "_Cancel"
 msgstr "_لغو"
 
@@ -311,68 +222,98 @@ msgstr "پس‌زمینه"
 msgid "As custom color:"
 msgstr "به عنوان رنگ سفارشی:"
 
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "رنگ پس‌زمینه"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "قسمت‌های شفاف"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "به شکل ش_طرنجی"
 
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "به عنوان _رنگ سفارشی:"
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "رنگ نواحی شفاف"
 
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "به عنوان _پس‌زمینه"
 
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "نمایش تصویر"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
 msgstr "بزرگ‌نمایی تصویر"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "تصویر‌ها _کشیده شوند تا با صفحه‌نمایش جور شوند"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "دنباله"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "_زمان بین عکس‌ها:"
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "_تکرار دنباله"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "نمایش اسلایدی"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "افزونه‌ها"
+
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "نوع"
+
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "نام"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "اندازه"
+
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "بایت"
+
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "شاخه"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "نمایش شاخه‌ای که محتوی این پرونده است در مدیر پرونده"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "ارائه‌دهنده"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "جمع‌شدن تصویر"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "بزرگ کردن تصویر"
 
@@ -384,7 +325,7 @@ msgstr "رفتن به نخستین تصویر گالری"
 msgid "_First Image"
 msgstr "_اولین تصویر"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
 msgid "Go to the previous image of the gallery"
 msgstr "رفتن به تصویر قبلی گالری"
 
@@ -392,7 +333,7 @@ msgstr "رفتن به تصویر قبلی گالری"
 msgid "_Previous Image"
 msgstr "تصویر _قبلی"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
 msgid "Go to the next image of the gallery"
 msgstr "رفتن به تصویر بعدی گالری"
 
@@ -432,7 +373,7 @@ msgstr "جور کردن اندازهٔ تصویر با اندازهٔ پنجره
 msgid "_Best Fit"
 msgstr "_بهترین اندازه"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
 msgid "Rotate the image 90 degrees to the left"
 msgstr "چرخاندن ۹۰ درجه تصویر به سمت چپ"
 
@@ -440,7 +381,7 @@ msgstr "چرخاندن ۹۰ درجه تصویر به سمت چپ"
 msgid "Rotate Counter_clockwise"
 msgstr "چرخاندن _پادساعتگرد"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
 msgid "Rotate the image 90 degrees to the right"
 msgstr "چرخاندن ۹۰ درجه تصویر به سمت راست"
 
@@ -510,8 +451,8 @@ msgstr "تنظیم تصویر به عنوان پس‌زمینهٔ میز‌کا�
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "نمایش محاورهٔ مشخصات تصویر"
+msgid "Show image properties in sidebar"
+msgstr "نمایش ویژگی‌های تصویر در نوار کناری"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -592,146 +533,138 @@ msgstr "رفتن به تصویری شانسی در شاخه"
 
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "نمایش ارائه‌دهنده با واپایش‌های جداگانه"
+
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "نمایش/نهفتن گالری تصویر"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:257
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "چرخش"
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "چرخاندن ساعتگرد"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "چرخاندن پادساعتگرد"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:291
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "تمام‌صفحه"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "ورود/خروج از حالت تمام‌صفحه"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "شروع/پایان نمایش اسلایدی"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "مکث نمایش اسلایدی"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:318
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "معمول"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "رونوشت در حافظه"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "برگردان"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "انداختن در زباله‌دان"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "حذف همیشگی تصویر"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:352
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "لغزش"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "لغزش به چپ در یک تصویر بزرگ"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "لغزش به راست در یک تصویر بزرگ"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "لغزش به بالا در یک تصویر بزرگ"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "لغزش به پایین در یک تصویر بزرگ"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "اندازه"
-
-#: data/metadata-sidebar.ui:46
-msgid "Type"
-msgstr "نوع"
-
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "اندازه پرونده"
 
-#: data/metadata-sidebar.ui:82
-msgid "Folder"
-msgstr "شاخه"
-
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "دیافراگم"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "نوردهی"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ایزو"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "اندازه‌گیری"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "دوربین"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "تاریخ"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "زمان"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "طول کانونی"
 
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
-#: src/eog-window.c:5510
-msgid "Image Viewer"
-msgstr "نمایشگر تصویر"
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "نمایش جزییات"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -763,8 +696,8 @@ msgstr "درون‌یابی تصویر"
 
 #: data/org.gnome.eog.gschema.xml.in:22
 msgid ""
-"Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non-interpolated images."
+"Whether the image should be interpolated on zoom-out. This leads to better quality "
+"but is somewhat slower than non-interpolated images."
 msgstr ""
 "این ‌که آیا تصویر در حالت زوم درون‌یابی بشود یا نه. این کار باعث نمایش بهتر تصاویر "
 "می‌شود اما تا حدی از تصاویر درون یابی نشده آهسته‌تر خواهد بود."
@@ -792,8 +725,8 @@ msgid ""
 "value used."
 msgstr ""
 "تعیین می‌کند شفافیت چطور مشخص شود. مقادیر معتبر عبارت‌اند از CHECK_PATTERN، COLOR و "
-"NONE . اگر COLOR انتخاب شده باشد، کلید trans_color مقدار رنگ مورد استفاده را "
-"تعیین می‌کند."
+"NONE . اگر COLOR انتخاب شده باشد، کلید trans_color مقدار رنگ مورد استفاده را تعیین "
+"می‌کند."
 
 #: data/org.gnome.eog.gschema.xml.in:36
 msgid "Scroll wheel zoom"
@@ -814,9 +747,9 @@ msgid ""
 "results in a 5% zoom increment for each scroll event and 1.00 result in a 100% "
 "zoom increment."
 msgstr ""
-"ضریبی که باید زمان استفاده از بزرگ‌نمایی با چرخ لغزش موشی اعمال شود. این مقدار "
-"مشخص می‌کنم که پلهٔ هر رویداد بزرگ‌نمایی چقدر باشد. مثلا برای ۰٫۰۵ باعث ۵٪ بزرگ‌نمایی "
-"برای هر رویداد بزرگ‌نمایی می‌شود و ۱٫۰۰ باعث ۱۰۰٪ بزرگ‌نمایی می‌شود."
+"ضریبی که باید زمان استفاده از بزرگ‌نمایی با چرخ لغزش موشی اعمال شود. این مقدار مشخص "
+"می‌کنم که پلهٔ هر رویداد بزرگ‌نمایی چقدر باشد. مثلا برای ۰٫۰۵ باعث ۵٪ بزرگ‌نمایی برای "
+"هر رویداد بزرگ‌نمایی می‌شود و ۱٫۰۰ باعث ۱۰۰٪ بزرگ‌نمایی می‌شود."
 
 #: data/org.gnome.eog.gschema.xml.in:46
 msgid "Transparency color"
@@ -837,12 +770,11 @@ msgstr "استفاده از یک رنگ پس‌زمینهٔ سفارشی"
 #: data/org.gnome.eog.gschema.xml.in:52
 msgid ""
 "If this is active, the color set by the background-color key will be used to fill "
-"the area behind the image. If it is not set, the current GTK+ theme will "
-"determine the fill color."
+"the area behind the image. If it is not set, the current GTK+ theme will determine "
+"the fill color."
 msgstr ""
-"اگر این فعال باشد، رنگی که بوسیلهٔ رنگ پس‌زمینه تعریف شده است برای پر کردن پشت "
-"تصویر استفاده خواهد شد. اگر تنظیم نشده باشد، تم جاری +GTK رنگ پر‌کننده را مشخص "
-"خواهد کرد."
+"اگر این فعال باشد، رنگی که بوسیلهٔ رنگ پس‌زمینه تعریف شده است برای پر کردن پشت تصویر "
+"استفاده خواهد شد. اگر تنظیم نشده باشد، تم جاری +GTK رنگ پر‌کننده را مشخص خواهد کرد."
 
 #: data/org.gnome.eog.gschema.xml.in:58
 msgid "Loop through the image sequence"
@@ -861,8 +793,7 @@ msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the screen "
 "initially."
 msgstr ""
-"اگر FALSE تنظیم شود در ابتدا تصاویر کوچک تا جایی که هم اندازهٔ صفحه شوند کش "
-"نمی‌آیند."
+"اگر FALSE تنظیم شود در ابتدا تصاویر کوچک تا جایی که هم اندازهٔ صفحه شوند کش نمی‌آیند."
 
 #: data/org.gnome.eog.gschema.xml.in:68
 msgid "Delay in seconds until showing the next image"
@@ -938,31 +869,16 @@ msgid ""
 "deactivated or the pictures folder has not been set up, it will show the current "
 "working directory."
 msgstr ""
-"اگر به‌کار انداخته شود و هیچ تصویری در پنجرهٔ فعال بار نشده باشد، انتخابگر پرونده "
-"با استفاده از فهرست‌های کاربری ویژهٔ میزکارهای آزاد شاخهٔ تصویر‌های کاربر را نشان "
-"خواهد داد. اگر از کارافتاده باشد یا شاخهٔ تصویر‌ها تنظیم نشده باشد، شاخه کاری جاری "
-"را نمایش خواهد داد."
+"اگر به‌کار انداخته شود و هیچ تصویری در پنجرهٔ فعال بار نشده باشد، انتخابگر پرونده با "
+"استفاده از فهرست‌های کاربری ویژهٔ میزکارهای آزاد شاخهٔ تصویر‌های کاربر را نشان خواهد "
+"داد. اگر از کارافتاده باشد یا شاخهٔ تصویر‌ها تنظیم نشده باشد، شاخه کاری جاری را "
+"نمایش خواهد داد."
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid "Whether the metadata list in the properties dialog should have its own page."
-msgstr "اینکه فهرست فراداده در جعبه محاوره ویژگی‌ها باید صفحهٔ خودش را داشته باشد."
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be moved "
-"to its own page in the dialog. This should make the dialog more usable on smaller "
-"screens, e.g. as used by netbooks. If disabled, the widget will be embedded on "
-"the “Metadata” page."
-msgstr ""
-"اگر فعال شود، فهرست جزئیات فرادادهٔ در محاورهٔ ویژگی‌ها به صفحهٔ خود در محاوره منتقل "
-"خواهد شد. این کار محاوره را در صفحه‌ نمایش‌های کوچکتر قابل‌استفاده‌تر خواهد کرد، مثلا "
-"در نِت‌بوک‌ها. اگر غیر فعال باشد ویجت روی صفحهٔ «Metadata» جاسازی خواهد شد."
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "فعال کردن افزونه‌ها"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active plugins. "
 "See the .eog-plugin file for obtaining the “Location” of a given plugin."
@@ -978,7 +894,7 @@ msgstr "گشودن _با…"
 msgid "_Copy"
 msgstr "_رونوشت"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3492
+#: data/popup-menus.ui:34 src/eog-window.c:3540
 msgid "Move to _Trash"
 msgstr "انداختن در _زباله‌دان"
 
@@ -1040,8 +956,7 @@ msgstr "آیا مایلید قبل از بستن، تغییرات «%s» را ذ
 #: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
-msgid_plural ""
-"There are %d images with unsaved changes. Save changes before closing?"
+msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] ""
 "%Id نوشتار با تغییرات ذخیره نشده موجود است. تغییرات پیش از بستن ذخیره شوند؟"
 msgstr[1] ""
@@ -1056,7 +971,7 @@ msgstr "_تصاویری را که قصد ذخیرهٔ آن را دارید ان�
 msgid "If you don’t save, all your changes will be lost."
 msgstr "اگر ذخیره نکنید، تمام تغییرات برای همیشه از دست خواهد رفت."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:928
+#: src/eog-error-message-area.c:128 src/eog-window.c:933
 msgid "_Reload"
 msgstr "_‌بازخوانی"
 
@@ -1114,11 +1029,11 @@ msgstr "‏%I.1f (لنز)"
 msgid "%.1f (35mm film)"
 msgstr "%.1f (فیلم ۳۵ میلی‌متری)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "قالب پرونده ناشناخته یا پشتیبانی نشده است"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on the "
 "filename."
@@ -1126,79 +1041,71 @@ msgstr ""
 "نمایشگر تصویر نتوانست براساس نام پرونده، قالب قابل نوشتن پشتیبانی شده‌ای را تعیین "
 "کند."
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "لطفا از پسوند دیگری مانند .png یا .jpg استفاده کنید."
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "همه پرونده‌ها"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "قالب پرونده‌های پشتیبانی شده"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:515
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "نقطه"
-msgstr[1] "نقطه"
-
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
 msgid "_Open"
 msgstr "_باز کردن"
 
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:457
 msgid "Open Image"
 msgstr "بازکردن تصویر"
 
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:465
 msgid "Save Image"
 msgstr "ذخیرهٔ تصویر"
 
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:473
 msgid "Open Folder"
 msgstr "باز کردن شاخه"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "تبدیل بر روی تصویر بار نشده."
 
-#: src/eog-image.c:594
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "تبدیل شکست خورد."
 
-#: src/eog-image.c:1081
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "‏EXIF برای این قالب پرونده پشتیبانی نمی‌شود."
 
-#: src/eog-image.c:1222
+#: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
 msgstr "بار کردن تصویر شکست خورد."
 
-#: src/eog-image.c:1804 src/eog-image.c:1924
+#: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
 msgid "No image loaded."
 msgstr "تصویری بار نشده است."
 
-#: src/eog-image.c:1812 src/eog-image.c:1933
+#: src/eog-image.c:1878 src/eog-image.c:1999
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "شما اجازه لازم برای ذخیره پرونده را ندارد."
 
-#: src/eog-image.c:1822 src/eog-image.c:1944
+#: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "شکست در ایجاد پروندهٔ موقت."
@@ -1273,22 +1180,15 @@ msgstr "غرب"
 msgid "South"
 msgstr "جنوب"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "%Ii × %Ii نقطه"
-msgstr[1] "%Ii × %Ii نقطه"
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "ناشناخته"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%a, %Od %OB %OY"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1388,13 +1288,13 @@ msgstr "اینچ"
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "نمایش شاخه‌ای که محتوی این پرونده است در مدیر پرونده"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "همین طور که هست"
+
+#: src/eog-sidebar.c:438
+msgid "Hide sidebar"
+msgstr "نهفتن نوار کناری"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1411,7 +1311,7 @@ msgstr "همین طور که هست"
 msgid "%d / %d"
 msgstr "%Id / %Id"
 
-#: src/eog-thumb-view.c:543
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "گرفته شده در"
 
@@ -1420,13 +1320,20 @@ msgstr "گرفته شده در"
 msgid "At least two file names are equal."
 msgstr "دست کم دو پرونده همنام هستند."
 
-#: src/eog-util.c:70
+#: src/eog-util.c:72
 msgid "Could not display help for Image Viewer"
 msgstr "نمایش راهنمای نمایشگر تصویر ممکن نبود"
 
-#: src/eog-util.c:118
+#: src/eog-util.c:120
 msgid " (invalid Unicode)"
 msgstr " (یونی‌کد نامعتبر)"
+
+#: src/eog-util.c:515
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%Ii × %Ii نقطه"
+msgstr[1] "%Ii × %Ii نقطه"
 
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
@@ -1434,19 +1341,19 @@ msgstr " (یونی‌کد نامعتبر)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%Ii × %Ii نقطه  %s    %Ii٪"
 msgstr[1] "%Ii × %Ii نقطه  %s    ٪%Ii"
 
-#: src/eog-window.c:930 src/eog-window.c:2649
+#: src/eog-window.c:935 src/eog-window.c:2702
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_نهفتن"
 
-#: src/eog-window.c:938
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like to "
@@ -1458,22 +1365,22 @@ msgstr "تصویر «%s» با برنامه‌ای خارجی تغییر یاف�
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1190
+#: src/eog-window.c:1198
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "در حال ذخیرهٔ تصویر «%s» (%u/%u)"
 
-#: src/eog-window.c:1614
+#: src/eog-window.c:1622
 #, c-format
 msgid "Opening image “%s”"
 msgstr "در حال بازکردن تصویر «%s»"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2000
+#: src/eog-window.c:2010
 msgid "Viewing a slideshow"
 msgstr "در پخش یک نمایش اسلایدی"
 
-#: src/eog-window.c:2219
+#: src/eog-window.c:2231
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1482,26 +1389,26 @@ msgstr ""
 "خطا در چاپ پرونده:\n"
 " %s"
 
-#: src/eog-window.c:2598 src/eog-window.c:2613
+#: src/eog-window.c:2651 src/eog-window.c:2666
 msgid "Error launching System Settings: "
 msgstr "خطا در اجرای تنظیمات سیستم: "
 
-#: src/eog-window.c:2647
+#: src/eog-window.c:2700
 msgid "_Open Background Preferences"
 msgstr "_باز کردن ترجیحات پس‌زمینه"
 
-#: src/eog-window.c:2661
+#: src/eog-window.c:2714
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify its "
 "appearance?"
 msgstr "تصویر «%s» به عنوان پس‌زمینهٔ میزکار تنظیم شد. می‌خواهید ظاهرش را تغییر دهید؟"
 
-#: src/eog-window.c:3152
+#: src/eog-window.c:3197
 msgid "Saving image locally…"
 msgstr "در حال ذخیرهٔ محلی تصویر…"
 
-#: src/eog-window.c:3230
+#: src/eog-window.c:3278
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1510,7 +1417,7 @@ msgstr ""
 "آیا واقعاً می‌خواهید «%s» را برای همیشه\n"
 "در زباله‌دان بیندازید؟"
 
-#: src/eog-window.c:3233
+#: src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1525,41 +1432,41 @@ msgstr[1] ""
 "آیا واقعاً می‌خواهید %Id تصویر انتخاب شده\n"
 "را برای همیشه در زباله‌دان بیندازید؟"
 
-#: src/eog-window.c:3255 src/eog-window.c:3500
+#: src/eog-window.c:3303 src/eog-window.c:3548
 msgid "_Delete"
 msgstr "_حذف"
 
-#: src/eog-window.c:3258 src/eog-window.c:3502
+#: src/eog-window.c:3306 src/eog-window.c:3550
 msgid "_Yes"
 msgstr "_بله"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3262 src/eog-window.c:3494
+#: src/eog-window.c:3310 src/eog-window.c:3542
 msgid "Do _not ask again during this session"
 msgstr "در طول این جلسه دیگر _نپرس"
 
-#: src/eog-window.c:3306
+#: src/eog-window.c:3354
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "بازآوری تصویر امکان‌پذیر نبود"
 
-#: src/eog-window.c:3322
+#: src/eog-window.c:3370
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "امکان بازآوری اطلاعات پروندهٔ تصویری امکان‌پذیر نبود"
 
-#: src/eog-window.c:3338 src/eog-window.c:3561
+#: src/eog-window.c:3386 src/eog-window.c:3609
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "پرونده پاک نشد"
 
 #. set dialog error message
-#: src/eog-window.c:3383 src/eog-window.c:3657
+#: src/eog-window.c:3431 src/eog-window.c:3705
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "خطا در حذف تصویر %s"
 
-#: src/eog-window.c:3462
+#: src/eog-window.c:3510
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1568,14 +1475,13 @@ msgstr ""
 "آیا واقعاً می‌خواهید «%s» را\n"
 "در زباله‌دان بیندازید؟"
 
-#: src/eog-window.c:3465
+#: src/eog-window.c:3513
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image permanently?"
-msgstr ""
-"زباله‌دانی برای «%s» یافت نشد. آیا می‌خواهید این تصویر را برای همیشه پاک کنید؟"
+msgstr "زباله‌دانی برای «%s» یافت نشد. آیا می‌خواهید این تصویر را برای همیشه پاک کنید؟"
 
-#: src/eog-window.c:3470
+#: src/eog-window.c:3518
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1590,36 +1496,36 @@ msgstr[1] ""
 "آیا واقعاً می‌خواهید %Id تصویر انتخاب شده\n"
 "را در زباله‌دان بیندازید؟"
 
-#: src/eog-window.c:3475
+#: src/eog-window.c:3523
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
-"بعضی از تصویر‌ها گزیده شده را نمی‌توان به زباله‌دان منتقل کرد و برای همیشه پاک "
-"خواهند شد. واقعا می‌خواهید ادامه دهید؟"
+"بعضی از تصویر‌ها گزیده شده را نمی‌توان به زباله‌دان منتقل کرد و برای همیشه پاک خواهند "
+"شد. واقعا می‌خواهید ادامه دهید؟"
 
-#: src/eog-window.c:3539 src/eog-window.c:3553
+#: src/eog-window.c:3587 src/eog-window.c:3601
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "دسترسی به زباله‌دان مقدور نیست."
 
-#: src/eog-window.c:4201
+#: src/eog-window.c:4251
 msgid "Shrink or enlarge the current image"
 msgstr "کوچک کردن یا بزرگ کردن تصویر فعلی"
 
-#: src/eog-window.c:4260
+#: src/eog-window.c:4310
 msgid "Show the current image in fullscreen mode"
 msgstr "نمایش تصویر جاری در حالت تمام‌صفحه"
 
-#: src/eog-window.c:4331
+#: src/eog-window.c:4383
 msgid "Properties"
 msgstr "ویژگی‌ها"
 
-#: src/eog-window.c:5513
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "برنامهٔ نمایش‌گر تصاویر گنوم."
 
-#: src/eog-window.c:5516
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr ""
 "آرش موسوی <mousavi.arash@gmail.com>\n"
@@ -1674,6 +1580,95 @@ msgstr "[FILE…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "فرمان «%s --help» را برای رویت لیست کامل گزینه‌های خط فرمان اجرا کنید."
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "چشم گنوم"
+
+#~ msgid "Image Properties"
+#~ msgstr "ویژگی‌های تصویر"
+
+#~ msgid "Previous"
+#~ msgstr "پیشین"
+
+#~ msgid "Next"
+#~ msgstr "بعدی"
+
+#~ msgid "Width:"
+#~ msgstr "عرض:"
+
+#~ msgid "Height:"
+#~ msgstr "ارتفاع:"
+
+#~ msgid "Type:"
+#~ msgstr "گونه:"
+
+#~ msgid "Folder:"
+#~ msgstr "شاخه:"
+
+#~ msgid "General"
+#~ msgstr "عمومی"
+
+#~ msgid "Aperture Value:"
+#~ msgstr "اندازهٔ دیافراگم:"
+
+#~ msgid "Exposure Time:"
+#~ msgstr "زمان نوردهی:"
+
+#~ msgid "Focal Length:"
+#~ msgstr "طول کانونی:"
+
+#~ msgid "Flash:"
+#~ msgstr "فلاش:"
+
+#~ msgid "ISO Speed Rating:"
+#~ msgstr "درجه سرعت ایزو:"
+
+#~ msgid "Metering Mode:"
+#~ msgstr "حالت اندازه‌گیری:"
+
+#~ msgid "Camera Model:"
+#~ msgstr "مدل دوربین:"
+
+#~ msgid "Date/Time:"
+#~ msgstr "تاریخ/زمان:"
+
+#~ msgid "Description:"
+#~ msgstr "شرح:"
+
+#~ msgid "Location:"
+#~ msgstr "مکان:"
+
+#~ msgid "Keywords:"
+#~ msgstr "کلمات کلیدی:"
+
+#~ msgid "Author:"
+#~ msgstr "مؤلف:"
+
+#~ msgid "Copyright:"
+#~ msgstr "حق رونوشت:"
+
+#~ msgid "Metadata"
+#~ msgstr "فراداده"
+
+#~ msgid ""
+#~ "Whether the metadata list in the properties dialog should have its own page."
+#~ msgstr "اینکه فهرست فراداده در جعبه محاوره ویژگی‌ها باید صفحهٔ خودش را داشته باشد."
+
+#~ msgid ""
+#~ "If activated, the detailed metadata list in the properties dialog will be moved "
+#~ "to its own page in the dialog. This should make the dialog more usable on "
+#~ "smaller screens, e.g. as used by netbooks. If disabled, the widget will be "
+#~ "embedded on the “Metadata” page."
+#~ msgstr ""
+#~ "اگر فعال شود، فهرست جزئیات فرادادهٔ در محاورهٔ ویژگی‌ها به صفحهٔ خود در محاوره "
+#~ "منتقل خواهد شد. این کار محاوره را در صفحه‌ نمایش‌های کوچکتر قابل‌استفاده‌تر خواهد "
+#~ "کرد، مثلا در نِت‌بوک‌ها. اگر غیر فعال باشد ویجت روی صفحهٔ «Metadata» جاسازی خواهد "
+#~ "شد."
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "نقطه"
+#~ msgstr[1] "نقطه"
 
 #~ msgid "_About"
 #~ msgstr "_درباره"
@@ -1743,9 +1738,9 @@ msgstr "فرمان «%s --help» را برای رویت لیست کامل گزی
 #~ "for editing images (when the \"Edit Image\" toolbar button is clicked). Set to "
 #~ "the empty string to disable this feature."
 #~ msgstr ""
-#~ "نام رومیزی فایل (که شامل «.desktop» هم میشود) برنامه کاربردی برای ویرایش "
-#~ "تصاویر استفاده میشود (وقتی کلید «ویرایش تصویر» کلیک شود). برای از کار انداختن "
-#~ "این ویژگی آن را روی یک رشته‌ی خالی تنظیم کنید."
+#~ "نام رومیزی فایل (که شامل «.desktop» هم میشود) برنامه کاربردی برای ویرایش تصاویر "
+#~ "استفاده میشود (وقتی کلید «ویرایش تصویر» کلیک شود). برای از کار انداختن این "
+#~ "ویژگی آن را روی یک رشته‌ی خالی تنظیم کنید."
 
 #~ msgid "Use \"%s\" to open the selected image"
 #~ msgstr "استفاده از «%s» برای باز کردن تصویر انتخاب شده"
@@ -1937,14 +1932,13 @@ msgstr "فرمان «%s --help» را برای رویت لیست کامل گزی
 #~ "داده یا مجدداً توزیع کنید.\n"
 
 #~ msgid ""
-#~ "This program is distributed in the hope that it will be useful, but WITHOUT "
-#~ "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
-#~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
-#~ "details.\n"
+#~ "This program is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A "
+#~ "PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 #~ msgstr ""
-#~ "این برنامه به این امید توزیع می‌شود که سودمند باشد ولی هیچ‌گونه ضمانتی ندارد؛ "
-#~ "حتی این ضمانت که قابل فروش باشد یا برای منظور بخصوصی مناسب باشد. برای جزئیات "
-#~ "بیشتر متن مجوز عمومی همگانی گنو را ببینید.\n"
+#~ "این برنامه به این امید توزیع می‌شود که سودمند باشد ولی هیچ‌گونه ضمانتی ندارد؛ حتی "
+#~ "این ضمانت که قابل فروش باشد یا برای منظور بخصوصی مناسب باشد. برای جزئیات بیشتر "
+#~ "متن مجوز عمومی همگانی گنو را ببینید.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along with "
@@ -1952,8 +1946,8 @@ msgstr "فرمان «%s --help» را برای رویت لیست کامل گزی
 #~ "Place - Suite 330, Boston, MA 02111-1307, USA."
 #~ msgstr ""
 #~ "شما باید یک نسخه از مجوز عمومی همگانی گنو را با این برنامه دریافت کرده باشید؛ "
-#~ "در غیر این صورت نامه‌ای به این نشانی بفرستید: Free Software Foundation, Inc., "
-#~ "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+#~ "در غیر این صورت نامه‌ای به این نشانی بفرستید: Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
 
 #~ msgid "Collection"
 #~ msgstr "مجموعه"
@@ -2036,9 +2030,6 @@ msgstr "فرمان «%s --help» را برای رویت لیست کامل گزی
 
 #~ msgid "Second"
 #~ msgstr "ثانیه"
-
-#~ msgid "Option not available."
-#~ msgstr "گزینه موجود نیست."
 
 #~ msgid ""
 #~ "To use this function you need the libexif library. Please install libexif "
