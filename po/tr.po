@@ -15,13 +15,13 @@
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016.
 # Çağatay Yiğit Şahin <cyigitsahin@outlook.com>, 2017.
 # Sabri Ünal <libreajans@gmail.com>, 2020, 2021.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2021.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2021-02-21 17:01+0000\n"
+"POT-Creation-Date: 2022-02-12 18:09+0000\n"
 "PO-Revision-Date: 2021-02-23 21:39+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -33,9 +33,10 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "GNOME’un Gözü"
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:313 src/eog-window.c:5573
+msgid "Image Viewer"
+msgstr "Resim Görüntüleyici"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -43,24 +44,24 @@ msgstr "Resimleri tara ve çevir"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"Eye of GNOME, GNOME masaüstünün resmî resim görüntüleyicisidir. GNOME’un GTK"
-"+ görselliğiyle aynı hissi verir ve tek tek ya da koleksiyon olarak resim "
+"Resim Görüntüleyici, GNOME masaüstünün resmî resim görüntüleyicisidir. GTK görünümü"
+"ve GNOME hissinibirleştirir. Tek tek ya da koleksiyon olarak resim "
 "görüntülemede birçok görüntü biçimini destekler."
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"Ayrıca Eye of GNOME, resimleri tam ekran slayt gösterisi kipinde "
-"görüntülemeye ve herhangi bir resmi masaüstü duvar kağıdı olarak ayarlamaya "
-"da olanak tanır. Resimlerinizi uygun dikey ya da yatay yönelimde "
+"Ayrıca Resim Görüntüleyici, resimleri tam ekran slayt gösterisi kipinde "
+"görüntülemeyi ve herhangi bir resmi masaüstü duvar kağıdı olarak ayarlamayı "
+"sağlar. Resimlerinizi uygun dikey ya da yatay yönelimde "
 "kendiliğinden döndürmek için fotoğraf makinesi etiketlerini okur."
 
 #: data/eog-gear-menu.ui:6
@@ -72,7 +73,7 @@ msgid "Op_en With…"
 msgstr "Birlikte A_ç…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
 msgid "_Save"
 msgstr "Kay_det"
 
@@ -97,138 +98,49 @@ msgstr "Resim Özelli_kleri"
 msgid "Sli_deshow"
 msgstr "Slayt G_österisi"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "_Sunucuyu Göster"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "Gö_ster"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "Kenar Panel_i"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "Resim _Galerisi"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "_Durum Çubuğu"
 
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "Ter_cihler"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_Yardım"
 
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "Resim Görüntüleyici _Hakkında"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "Resim Özellikleri"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "Önceki"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "Sonraki"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "Ad:"
-
-#: data/eog-image-properties-dialog.ui:131
-msgid "Width:"
-msgstr "Genişlik:"
-
-#: data/eog-image-properties-dialog.ui:146
-msgid "Height:"
-msgstr "Yükseklik:"
-
-#: data/eog-image-properties-dialog.ui:161
-msgid "Type:"
-msgstr "Tür:"
-
-#: data/eog-image-properties-dialog.ui:176
-msgid "Bytes:"
-msgstr "Bayt:"
-
-#: data/eog-image-properties-dialog.ui:191
-msgid "Folder:"
-msgstr "Klasör:"
-
-#: data/eog-image-properties-dialog.ui:288
-msgid "General"
-msgstr "Genel"
-
-#: data/eog-image-properties-dialog.ui:321
-msgid "Aperture Value:"
-msgstr "Açıklık Değeri:"
-
-#: data/eog-image-properties-dialog.ui:337
-msgid "Exposure Time:"
-msgstr "Pozlama Süresi:"
-
-#: data/eog-image-properties-dialog.ui:353
-msgid "Focal Length:"
-msgstr "Odak Uzaklığı:"
-
-#: data/eog-image-properties-dialog.ui:369
-msgid "Flash:"
-msgstr "Flaş:"
-
-#: data/eog-image-properties-dialog.ui:385
-msgid "ISO Speed Rating:"
-msgstr "ISO Hız Derecesi:"
-
-#: data/eog-image-properties-dialog.ui:401
-msgid "Metering Mode:"
-msgstr "Ölçme Kipi:"
-
-#: data/eog-image-properties-dialog.ui:417
-msgid "Camera Model:"
-msgstr "Fotoğraf Makinesi Modeli:"
-
-#: data/eog-image-properties-dialog.ui:434
-msgid "Date/Time:"
-msgstr "Tarih/Zaman:"
-
-#: data/eog-image-properties-dialog.ui:464
-msgid "Description:"
-msgstr "Tanım:"
-
-#: data/eog-image-properties-dialog.ui:480
-msgid "Location:"
-msgstr "Konum:"
-
-#: data/eog-image-properties-dialog.ui:496
-msgid "Keywords:"
-msgstr "Anahtar Sözcükler:"
-
-#: data/eog-image-properties-dialog.ui:512
-msgid "Author:"
-msgstr "Yazar:"
-
-#: data/eog-image-properties-dialog.ui:528
-msgid "Copyright:"
-msgstr "Telif Hakkı:"
-
-#: data/eog-image-properties-dialog.ui:807
-#: data/eog-image-properties-dialog.ui:856
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: data/eog-image-properties-dialog.ui:832
-msgid "Metadata"
-msgstr "Üstveri"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "Yok"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
@@ -236,9 +148,9 @@ msgstr "Farklı Kaydet"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3273 src/eog-window.c:3276
-#: src/eog-window.c:3508
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
+#: src/eog-file-chooser.c:470 src/eog-window.c:3302 src/eog-window.c:3305
+#: src/eog-window.c:3537
 msgid "_Cancel"
 msgstr "_İptal"
 
@@ -323,68 +235,98 @@ msgstr "Arka plan"
 msgid "As custom color:"
 msgstr "Özel renk olarak:"
 
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "Arka Plan Rengi"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "Saydam Kısımlar"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "Satranç tahtası _deseni olarak"
 
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "Özel _renk olarak:"
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "Saydam Alanlar için Renk"
 
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "Arka plan _olarak"
 
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "Resim Görünümü"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
 msgstr "Resim Odaklaması"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "Resimleri ekrana uyması için _genişlet"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "Sıra"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "Resimler arasındaki s_üre:"
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "Döngü _sırası"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "Slayt Gösterisi"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "Eklentiler"
+
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "Tür"
+
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "Ad"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "Boyut"
+
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "Bayt"
+
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "Klasör"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Bu dosyanın bulunduğu klasörü dosya yöneticisinde göster"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "Sunucu"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "Resmi daralt"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "Resmi genişlet"
 
@@ -396,7 +338,7 @@ msgstr "Galerideki ilk resme git"
 msgid "_First Image"
 msgstr "_İlk Resim"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2361
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
 msgid "Go to the previous image of the gallery"
 msgstr "Galerideki bir önceki resme git"
 
@@ -404,7 +346,7 @@ msgstr "Galerideki bir önceki resme git"
 msgid "_Previous Image"
 msgstr "Ö_nceki Resim"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2349
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
 msgid "Go to the next image of the gallery"
 msgstr "Galerideki bir sonraki resme git"
 
@@ -444,7 +386,7 @@ msgstr "Resmi pencereye uydur"
 msgid "_Best Fit"
 msgstr "_Sığdır"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2376
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Resmi 90 derece sola çevir"
 
@@ -452,7 +394,7 @@ msgstr "Resmi 90 derece sola çevir"
 msgid "Rotate Counter_clockwise"
 msgstr "Saa_t Yönünün Tersine Döndür"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Resmi 90 derece sağa çevir"
 
@@ -523,8 +465,8 @@ msgstr "Resmi masaüstü arka planı olarak ayarla"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "Resim özellikleri iletişim penceresini göster"
+msgid "Show image properties in sidebar"
+msgstr "Resim özelliklerini kenar çubuğunda göster"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -605,146 +547,138 @@ msgstr "Klasördeki rasgele bir resme git"
 
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "Sunucuyu ayrı denetimlerle göster"
+
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Resim galerisini Göster/Gizle"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:257
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Döndürme"
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Saat yönünde döndür"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Saat yönünün tersine döndür"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:291
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Tam ekran"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Tam ekranı Aç/Kapat"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Slayt gösterisini Başlat/Durdur"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Slayt gösterisini duraklat"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:318
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "Genel"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "Panoya kopyala"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "Geri al"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "Çöpe Taşı"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "Resmi kalıcı olarak sil"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:352
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "Kaydırma"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "Geniş resimde sola kaydır"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "Geniş resimde sağa kaydır"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "Geniş resimde yukarı kaydır"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "Geniş resimde aşağı kaydır"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "Boyut"
-
-#: data/metadata-sidebar.ui:46
-msgid "Type"
-msgstr "Tür"
-
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "Dosya Boyutu"
 
-#: data/metadata-sidebar.ui:82
-msgid "Folder"
-msgstr "Klasör"
-
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "Diyafram Açıklığı"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "Pozlama"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "Ölçüm"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Fotoğraf Makinesi"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "Tarih"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "Saat"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "Odak Uzaklığı"
 
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
-#: src/eog-window.c:5541
-msgid "Image Viewer"
-msgstr "Resim Görüntüleyici"
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "Ayrıntıları Göster"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -960,29 +894,11 @@ msgstr ""
 "değilse ya da resimler klasörü atanmamış ise, geçerli çalışma dizinini "
 "gösterecek."
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr ""
-"Özellikler penceresindeki üstveri listesinin kendine ait sayfasının olması."
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-msgstr ""
-"Eğer etkinse, özellikler penceresindeki ayrıntılı üstveri listesi pencerede "
-"kendine ait sayfaya taşınacak. Bu, pencereyi küçük ekranlarda -örneğin "
-"netbook’larda kullanılanlar gibi- daha kullanışlı yapar. Eğer devre dışıysa, "
-"parça “Üstveri” sayfasında gömülü olacak."
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "Etkin eklentiler"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active "
 "plugins. See the .eog-plugin file for obtaining the “Location” of a given "
@@ -999,7 +915,7 @@ msgstr "Birlikte _Aç…"
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3511
+#: data/popup-menus.ui:34 src/eog-window.c:3540
 msgid "Move to _Trash"
 msgstr "Çöpe _Taşı"
 
@@ -1077,7 +993,7 @@ msgstr "Kaydetmek istediğiniz resimleri s_eçin:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Eğer kaydetmezseniz, yaptığınız değişikliklerin tümü kaybolacak."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:930
+#: src/eog-error-message-area.c:128 src/eog-window.c:933
 msgid "_Reload"
 msgstr "_Yeniden Yükle"
 
@@ -1140,11 +1056,11 @@ msgstr "%.1f (lens)"
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm film)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "Dosya biçimi bilinmiyor ya da desteklenmiyor"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
@@ -1152,79 +1068,72 @@ msgstr ""
 "Resim görüntüleyici, dosya adına bakarak desteklenen yazılabilir dosya "
 "biçimi belirleyemedi."
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Lütfen .png ya da .jpg gibi başka dosya uzantısı deneyin."
 
 #  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "Tüm dosyalar"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "Desteklenen resim dosyaları"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:517
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "piksel"
-
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
 msgid "_Open"
 msgstr "_Aç"
 
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:457
 msgid "Open Image"
 msgstr "Resim Aç"
 
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:465
 msgid "Save Image"
 msgstr "Resmi Kaydet"
 
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:473
 msgid "Open Folder"
 msgstr "Klasör Aç"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Yüklenmemiş resim üzerinde dönüşüm."
 
-#: src/eog-image.c:594
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "Dönüşüm başarısız oldu."
 
-#: src/eog-image.c:1134
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Bu dosya biçiminde EXIF desteklenmiyor."
 
-#: src/eog-image.c:1276
+#: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
 msgstr "Resim yüklemesi başarısız oldu."
 
-#: src/eog-image.c:1858 src/eog-image.c:1978
+#: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
 msgid "No image loaded."
 msgstr "Resim yüklenmedi."
 
-#: src/eog-image.c:1866 src/eog-image.c:1987
+#: src/eog-image.c:1878 src/eog-image.c:1999
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Dosyayı kaydetmek için gerekli izniniz yok."
 
-#: src/eog-image.c:1876 src/eog-image.c:1998
+#: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Geçici dosya oluşturması başarısız."
@@ -1299,21 +1208,15 @@ msgstr "Batı"
 msgid "South"
 msgstr "Güney"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "%i × %i piksel"
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "Bilinmeyen"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1412,13 +1315,13 @@ msgstr "İnç"
 msgid "Preview"
 msgstr "Ön İzleme"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Bu dosyanın bulunduğu klasörü dosya yöneticisinde göster"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "olduğu gibi"
+
+#: src/eog-sidebar.c:438
+msgid "Hide sidebar"
+msgstr "Kenar çubuğunu gizle"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1435,7 +1338,7 @@ msgstr "olduğu gibi"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: src/eog-thumb-view.c:545
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "Çekildiği zaman"
 
@@ -1452,24 +1355,30 @@ msgstr "Resim Görüntüleyici için yardım görüntülenemedi"
 msgid " (invalid Unicode)"
 msgstr " (geçersiz Unikod)"
 
+#: src/eog-util.c:515
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i piksel"
+
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
 #. * - image width
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:544
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i piksel  %s    %i%%"
 
-#: src/eog-window.c:932 src/eog-window.c:2668
+#: src/eog-window.c:935 src/eog-window.c:2702
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Gizle"
 
-#: src/eog-window.c:940
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1482,22 +1391,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1195
+#: src/eog-window.c:1198
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "“%s” resmi kaydediliyor (%u/%u)"
 
-#: src/eog-window.c:1619
+#: src/eog-window.c:1622
 #, c-format
 msgid "Opening image “%s”"
 msgstr "“%s” resmi açılıyor"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2005
+#: src/eog-window.c:2010
 msgid "Viewing a slideshow"
 msgstr "Slayt gösterisi görüntüleniyor"
 
-#: src/eog-window.c:2226
+#: src/eog-window.c:2231
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1506,15 +1415,15 @@ msgstr ""
 "Dosya yazdırırken hata:\n"
 "%s"
 
-#: src/eog-window.c:2617 src/eog-window.c:2632
+#: src/eog-window.c:2651 src/eog-window.c:2666
 msgid "Error launching System Settings: "
 msgstr "Sistem Ayarları başlatılırken Hata: "
 
-#: src/eog-window.c:2666
+#: src/eog-window.c:2700
 msgid "_Open Background Preferences"
 msgstr "_Arka Plan Tercihlerini Aç"
 
-#: src/eog-window.c:2680
+#: src/eog-window.c:2714
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
@@ -1523,11 +1432,11 @@ msgstr ""
 "“%s” resmi Masaüstü Arka Planı olarak ayarlandı. Görünümünü değiştirmek "
 "ister misiniz?"
 
-#: src/eog-window.c:3168
+#: src/eog-window.c:3197
 msgid "Saving image locally…"
 msgstr "Resim yerel olarak kaydediliyor…"
 
-#: src/eog-window.c:3249
+#: src/eog-window.c:3278
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1536,7 +1445,7 @@ msgstr ""
 "“%s” dosyasını kalıcı olarak silmek\n"
 "istediğinizden emin misiniz?"
 
-#: src/eog-window.c:3252
+#: src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1548,41 +1457,41 @@ msgstr[0] ""
 "Seçili %d resmi kalıcı olarak kaldırmak\n"
 "istediğinizden emin misiniz?"
 
-#: src/eog-window.c:3274 src/eog-window.c:3519
+#: src/eog-window.c:3303 src/eog-window.c:3548
 msgid "_Delete"
 msgstr "_Sil"
 
-#: src/eog-window.c:3277 src/eog-window.c:3521
+#: src/eog-window.c:3306 src/eog-window.c:3550
 msgid "_Yes"
 msgstr "_Evet"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3281 src/eog-window.c:3513
+#: src/eog-window.c:3310 src/eog-window.c:3542
 msgid "Do _not ask again during this session"
 msgstr "_Bu oturum boyunca yeniden sorma"
 
-#: src/eog-window.c:3325
+#: src/eog-window.c:3354
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Resim dosyası alınamadı"
 
-#: src/eog-window.c:3341
+#: src/eog-window.c:3370
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Resim dosyası bilgisi alınamadı"
 
-#: src/eog-window.c:3357 src/eog-window.c:3580
+#: src/eog-window.c:3386 src/eog-window.c:3609
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Dosya silinemedi"
 
 #. set dialog error message
-#: src/eog-window.c:3402 src/eog-window.c:3676
+#: src/eog-window.c:3431 src/eog-window.c:3705
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s resmini silerken hata oluştu"
 
-#: src/eog-window.c:3481
+#: src/eog-window.c:3510
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1591,7 +1500,7 @@ msgstr ""
 "“%s” dosyasını çöpe taşımak\n"
 "istediğinize emin misiniz?"
 
-#: src/eog-window.c:3484
+#: src/eog-window.c:3513
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1600,7 +1509,7 @@ msgstr ""
 "“%s” için çöp kutusu bulunamadı. Bu resmi kalıcı olarak silmek istiyor "
 "musunuz?"
 
-#: src/eog-window.c:3489
+#: src/eog-window.c:3518
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1612,7 +1521,7 @@ msgstr[0] ""
 "%d seçili resmi çöpe taşımak istediğinize\n"
 "emin misiniz?"
 
-#: src/eog-window.c:3494
+#: src/eog-window.c:3523
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1620,32 +1529,33 @@ msgstr ""
 "Seçtiğiniz bazı resimler çöp kutusuna taşınamıyor ve kalıcı olarak "
 "silinecek. Bunu yapmak istediğinize emin misiniz?"
 
-#: src/eog-window.c:3558 src/eog-window.c:3572
+#: src/eog-window.c:3587 src/eog-window.c:3601
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Çöpe erişilemedi."
 
-#: src/eog-window.c:4221
+#: src/eog-window.c:4251
 msgid "Shrink or enlarge the current image"
 msgstr "Geçerli resmi daralt ya da genişlet"
 
-#: src/eog-window.c:4280
+#: src/eog-window.c:4310
 msgid "Show the current image in fullscreen mode"
 msgstr "Geçerli resmi tam ekran kipinde göster"
 
-#: src/eog-window.c:4351
+#: src/eog-window.c:4383
 msgid "Properties"
 msgstr "Özellikler"
 
-#: src/eog-window.c:5544
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "GNOME resim görüntüleyici."
 
-#: src/eog-window.c:5547
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr ""
 "Barış Çiçek <baris@teamforce.name.tr>\n"
-"Muhammet Kara <muhammetk@gmail.com>"
+"Muhammet Kara <muhammetk@gmail.com>\n"
+"Emin Tufan Çetin <etcetin@gmail.com>"
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
@@ -1694,6 +1604,97 @@ msgstr "[DOSYA…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için “%s --help” komutunu çalıştır."
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "GNOME’un Gözü"
+
+#~ msgid "Image Properties"
+#~ msgstr "Resim Özellikleri"
+
+#~ msgid "Previous"
+#~ msgstr "Önceki"
+
+#~ msgid "Next"
+#~ msgstr "Sonraki"
+
+#~ msgid "Width:"
+#~ msgstr "Genişlik:"
+
+#~ msgid "Height:"
+#~ msgstr "Yükseklik:"
+
+#~ msgid "Type:"
+#~ msgstr "Tür:"
+
+#~ msgid "Folder:"
+#~ msgstr "Klasör:"
+
+#~ msgid "General"
+#~ msgstr "Genel"
+
+#~ msgid "Aperture Value:"
+#~ msgstr "Açıklık Değeri:"
+
+#~ msgid "Exposure Time:"
+#~ msgstr "Pozlama Süresi:"
+
+#~ msgid "Focal Length:"
+#~ msgstr "Odak Uzaklığı:"
+
+#~ msgid "Flash:"
+#~ msgstr "Flaş:"
+
+#~ msgid "ISO Speed Rating:"
+#~ msgstr "ISO Hız Derecesi:"
+
+#~ msgid "Metering Mode:"
+#~ msgstr "Ölçme Kipi:"
+
+#~ msgid "Camera Model:"
+#~ msgstr "Fotoğraf Makinesi Modeli:"
+
+#~ msgid "Date/Time:"
+#~ msgstr "Tarih/Zaman:"
+
+#~ msgid "Description:"
+#~ msgstr "Tanım:"
+
+#~ msgid "Location:"
+#~ msgstr "Konum:"
+
+#~ msgid "Keywords:"
+#~ msgstr "Anahtar Sözcükler:"
+
+#~ msgid "Author:"
+#~ msgstr "Yazar:"
+
+#~ msgid "Copyright:"
+#~ msgstr "Telif Hakkı:"
+
+#~ msgid "Metadata"
+#~ msgstr "Üstveri"
+
+#~ msgid ""
+#~ "Whether the metadata list in the properties dialog should have its own "
+#~ "page."
+#~ msgstr ""
+#~ "Özellikler penceresindeki üstveri listesinin kendine ait sayfasının "
+#~ "olması."
+
+#~ msgid ""
+#~ "If activated, the detailed metadata list in the properties dialog will be "
+#~ "moved to its own page in the dialog. This should make the dialog more "
+#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#~ "widget will be embedded on the “Metadata” page."
+#~ msgstr ""
+#~ "Eğer etkinse, özellikler penceresindeki ayrıntılı üstveri listesi "
+#~ "pencerede kendine ait sayfaya taşınacak. Bu, pencereyi küçük ekranlarda -"
+#~ "örneğin netbook’larda kullanılanlar gibi- daha kullanışlı yapar. Eğer "
+#~ "devre dışıysa, parça “Üstveri” sayfasında gömülü olacak."
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "piksel"
 
 #~ msgid "org.gnome.eog"
 #~ msgstr "org.gnome.eog"
