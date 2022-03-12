@@ -1,5 +1,5 @@
 # eog ja.po.
-# Copyright (C) 1999-2017, 2019-2020 Free Software Foundation, Inc.
+# Copyright (C) 1999-2017, 2019-2020, 2022 Free Software Foundation, Inc.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 1999-2002, 2010-2012.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2002-2009.
 # KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>, 2003.
@@ -11,14 +11,14 @@
 # Hideki Yamane <henrich@debian.org>, 2011.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2017.
 # Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
-# sicklylife <translation@sicklylife.jp>, 2019-2020.
+# sicklylife <translation@sicklylife.jp>, 2019-2020, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
 "POT-Creation-Date: 2020-07-02 15:09+0000\n"
-"PO-Revision-Date: 2020-08-23 23:30+0900\n"
+"PO-Revision-Date: 2022-03-12 19:30+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -37,22 +37,22 @@ msgstr "画像の閲覧や向きの調整をします"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"Eye of GNOME は GNOME デスクトップの公式画像ビューアーです。GTK+ により見た目"
+"“画像ビューアー”は GNOME デスクトップの公式画像ビューアーです。GTK により見た目"
 "と操作性で GNOME と統合しています。多くの画像形式をサポートしており、単一の画"
 "像に加え画像コレクションの鑑賞にも適しています。"
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"Eye of GNOME では、フルスクリーンでスライドショーを楽しんだり、画像をデスク"
+"“画像ビューアー”では、フルスクリーンでスライドショーを楽しんだり、画像をデスク"
 "トップの壁紙にしたりできます。カメラのタグを自動的に読み込んで画像の縦横の方"
 "向を正しく表示します。"
 
@@ -89,6 +89,10 @@ msgstr "画像のプロパティ(_R)"
 #: data/eog-gear-menu.ui:42
 msgid "Sli_deshow"
 msgstr "スライドショー(_D)"
+
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "プレゼンターを表示(_T)"
 
 #: data/eog-gear-menu.ui:49
 msgid "Sho_w"
@@ -218,6 +222,10 @@ msgstr "著作権:"
 #: data/eog-image-properties-dialog.ui:856
 msgid "Details"
 msgstr "詳細"
+
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "利用できません"
 
 #: data/eog-image-properties-dialog.ui:832
 msgid "Metadata"
@@ -515,6 +523,11 @@ msgstr "画像をデスクトップの背景に設定する"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
+msgid "Show image properties in sidebar"
+msgstr "画像のプロパティダをサイドバーに表示する"
+
+#: data/help-overlay.ui:68
+msgctxt "shortcut window"
 msgid "Show image properties dialog"
 msgstr "画像のプロパティダイアログを表示する"
 
@@ -689,6 +702,18 @@ msgstr "大きな画像を下にスクロールする"
 msgid "Size"
 msgstr "サイズ"
 
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "名前"
+
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "バイト"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "プレゼンター"
+
 #: data/metadata-sidebar.ui:46
 msgid "Type"
 msgstr "種類"
@@ -732,6 +757,10 @@ msgstr "時刻"
 #: data/metadata-sidebar.ui:380
 msgid "Focal Length"
 msgstr "焦点距離"
+
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "詳細を表示"
 
 #: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:309
 #: src/eog-window.c:5510
@@ -1419,6 +1448,10 @@ msgstr "このファイルを含むフォルダーをファイルマネージャ
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "変更しない"
+
+#: src/eog-sidebar.c:438
+msgid "Hide sidebar"
+msgstr "サイドバーを隠します"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
