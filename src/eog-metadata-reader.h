@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _EOG_METADATA_READER_H_
-#define _EOG_METADATA_READER_H_
+#pragma once
 
 #include <glib-object.h>
 #ifdef HAVE_EXIF
@@ -101,5 +100,3 @@ cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *sel
 #endif
 
 G_END_DECLS
-
-#endif /* _EOG_METADATA_READER_H_ */

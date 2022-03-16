@@ -20,8 +20,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_DETAILS_DIALOG_H__
-#define __EOG_DETAILS_DIALOG_H__
+#pragma once
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -69,4 +68,3 @@ void	    eog_details_dialog_update  	(EogDetailsDialog     *details_dialog,
 G_END_DECLS
 
 #endif /* defined(HAVE_EXIF) || defined(HAVE_EXEMPI) */
-#endif /* __EOG_DETAILS_DIALOG_H__ */

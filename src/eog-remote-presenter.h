@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_REMOTE_PRESENTER_H__
-#define __EOG_REMOTE_PRESENTER_H__
+#pragma once
 
 #include "eog-image.h"
 #include "eog-thumb-view.h"
@@ -62,5 +61,3 @@ GtkWidget  *eog_remote_presenter_new		(GtkWindow               *parent,
 void	    eog_remote_presenter_update  	(EogRemotePresenter     *prop,
                                                  EogImage                *image);
 G_END_DECLS
-
-#endif /* __EOG_REMOTE_PRESENTER_H__ */

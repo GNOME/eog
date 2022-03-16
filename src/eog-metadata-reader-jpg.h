@@ -21,8 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _EOG_METADATA_READER_JPG_H_
-#define _EOG_METADATA_READER_JPG_H_
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -51,5 +50,3 @@ G_GNUC_INTERNAL
 GType		      eog_metadata_reader_jpg_get_type	(void) G_GNUC_CONST;
 
 G_END_DECLS
-
-#endif /* _EOG_METADATA_READER_JPG_H_ */

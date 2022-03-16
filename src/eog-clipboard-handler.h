@@ -21,8 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_CLIPBOARD_HANDLER_H__
-#define __EOG_CLIPBOARD_HANDLER_H__
+#pragma once
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -60,4 +59,3 @@ void eog_clipboard_handler_copy_to_clipboard (EogClipboardHandler *handler,
 					      GtkClipboard *clipboard);
 
 G_END_DECLS
-#endif /* __EOG_CLIPBOARD_HANDLER_H__ */

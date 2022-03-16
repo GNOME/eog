@@ -23,8 +23,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_CLOSE_CONFIRMATION_DIALOG_H__
-#define __EOG_CLOSE_CONFIRMATION_DIALOG_H__
+#pragma once
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -92,6 +91,4 @@ GList		*eog_close_confirmation_dialog_get_selected_images	(EogCloseConfirmationD
 
 G_GNUC_INTERNAL
 void		 eog_close_confirmation_dialog_set_sensitive		(EogCloseConfirmationDialog *dlg, gboolean value);
-
-#endif /* __EOG_CLOSE_CONFIRMATION_DIALOG_H__ */
 

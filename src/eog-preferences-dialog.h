@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_PREFERENCES_DIALOG_H__
-#define __EOG_PREFERENCES_DIALOG_H__
+#pragma once
 
 #include "eog-image.h"
 #include "eog-thumb-view.h"
@@ -59,5 +58,3 @@ G_GNUC_INTERNAL
 GtkWidget  *eog_preferences_dialog_get_instance	  (GtkWindow   *parent);
 
 G_END_DECLS
-
-#endif /* __EOG_PREFERENCES_DIALOG_H__ */

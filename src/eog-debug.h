@@ -25,8 +25,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_DEBUG_H__
-#define __EOG_DEBUG_H__
+#pragma once
 
 #include <glib.h>
 
@@ -73,5 +72,3 @@ void   eog_debug_message     (EogDebug    section,
 			      gint               line,
 			      const gchar       *function,
 			      const gchar       *format, ...) G_GNUC_PRINTF(5, 6);
-
-#endif /* __EOG_DEBUG_H__ */

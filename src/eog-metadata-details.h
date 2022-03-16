@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_METADATA_DETAILS__
-#define __EOG_METADATA_DETAILS__
+#pragma once
 
 
 
@@ -74,5 +73,3 @@ void                eog_metadata_details_xmp_update  (EogMetadataDetails *view,
 #endif
 
 G_END_DECLS
-
-#endif /* __EOG_METADATA_DETAILS__ */

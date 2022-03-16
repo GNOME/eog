@@ -1,5 +1,4 @@
-#ifndef _EOG_IMAGE_JPEG_H_
-#define _EOG_IMAGE_JPEG_H_
+#pragma once
 
 #ifdef HAVE_JPEG
 
@@ -18,5 +17,3 @@ gboolean eog_image_jpeg_save_file (EogImage *image, const char *file,
 				   EogImageSaveInfo *source, EogImageSaveInfo *target,
 				   GError **error);
 #endif
-
-#endif /* _EOG_IMAGE_JPEG_H_ */

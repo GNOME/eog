@@ -22,17 +22,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_APPLICATION_INTERNAL_H__
-#define __EOG_APPLICATION_INTERNAL_H__
-
 #include <glib.h>
 #include <glib-object.h>
+#pragma once
 
 #include <libpeas/peas-extension-set.h>
 
 #include "eog-application.h"
 #include "eog-plugin-engine.h"
-#include "eog-window.h"
 
 G_BEGIN_DECLS
 
@@ -52,5 +49,3 @@ void              eog_application_screensaver_enable  (EogApplication *applicati
 void              eog_application_screensaver_disable (EogApplication *application);
 
 G_END_DECLS
-
-#endif /* __EOG_APPLICATION_INTERNAL_H__ */

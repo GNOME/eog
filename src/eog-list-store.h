@@ -21,8 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef EOG_LIST_STORE_H
-#define EOG_LIST_STORE_H
+#pragma once
 
 #include <gtk/gtk.h>
 #include <glib-object.h>
@@ -111,5 +110,3 @@ void            eog_list_store_thumbnail_refresh     (EogListStore *store,
 						      GtkTreeIter *iter);
 
 G_END_DECLS
-
-#endif

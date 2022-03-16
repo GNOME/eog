@@ -1,5 +1,4 @@
-#ifndef _EOG_PIXBUF_UTIL_H_
-#define _EOG_PIXBUF_UTIL_H_
+#pragma once
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gio/gio.h>
@@ -15,6 +14,3 @@ GdkPixbufFormat* eog_pixbuf_get_format (GFile *file);
 
 G_GNUC_INTERNAL
 char*            eog_pixbuf_get_common_suffix (GdkPixbufFormat *format);
-
-#endif /* _EOG_PIXBUF_UTIL_H_ */
-

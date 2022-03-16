@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_UTIL_H__
-#define __EOG_UTIL_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -85,5 +84,3 @@ void     eog_util_set_wallpaper_with_portal     (GFile *file,
 #endif
 
 G_END_DECLS
-
-#endif /* __EOG_UTIL_H__ */

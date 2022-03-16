@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_PRINT_H__
-#define __EOG_PRINT_H__
+#pragma once
 
 #include "eog-image.h"
 #include <gtk/gtk.h>
@@ -45,5 +44,3 @@ G_GNUC_INTERNAL
 void                  eog_print_set_print_settings (GtkPrintSettings *print_settings);
 
 G_END_DECLS
-
-#endif /* __EOG_PRINT_H__ */

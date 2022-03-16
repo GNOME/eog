@@ -1,5 +1,4 @@
-#ifndef _EOG_IMAGE_SAVE_INFO_H_
-#define _EOG_IMAGE_SAVE_INFO_H_
+#pragma once
 
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -53,5 +52,3 @@ EogImageSaveInfo *eog_image_save_info_new_from_file    (GFile           *file,
 							GdkPixbufFormat *format);
 
 G_END_DECLS
-
-#endif /* _EOG_IMAGE_SAVE_INFO_H_ */
