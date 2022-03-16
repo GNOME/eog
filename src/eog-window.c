@@ -1337,7 +1337,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 		GFile *img_file;
 		GList *img_files = NULL;
 
-		app_info = g_desktop_app_info_new ("evince.desktop");
+		app_info = g_desktop_app_info_new ("org.gnome.Evince.desktop");
 
 		if (app_info) {
 			img_file = eog_image_get_file (window->priv->image);
