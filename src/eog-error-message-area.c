@@ -326,7 +326,7 @@ _check_evince_availability(gpointer data)
 	gboolean result = FALSE;
 	GDesktopAppInfo *app_info;
 
-	app_info = g_desktop_app_info_new ("evince.desktop");
+	app_info = g_desktop_app_info_new ("org.gnome.Evince.desktop");
 	if (app_info) {
 		result = TRUE;
 		g_object_unref (app_info);
