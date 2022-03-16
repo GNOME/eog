@@ -2706,6 +2706,7 @@ eog_window_set_wallpaper (EogWindow *window, const gchar *filename, const gchar 
 	uri = g_filename_to_uri (filename, NULL, NULL);
 	settings = g_settings_new (EOG_CONF_DESKTOP_WALLPAPER_SCHEMA);
 	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER, uri);
+	g_settings_set_string (settings, EOG_CONF_DESKTOP_WALLPAPER_DARK, uri);
 	g_object_unref (settings);
 	g_free (uri);
 

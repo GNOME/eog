@@ -114,7 +114,7 @@ libpeas_gtk_dep = dependency('libpeas-gtk-1.0', version: peas_req_version)
 m_dep = cc.find_library('m')
 
 # runtime dependencies
-dependency('gsettings-desktop-schemas', version: '>= 2.91.92')
+dependency('gsettings-desktop-schemas', version: '>= 42.beta')
 dependency('shared-mime-info', version: '>= 0.20')
 
 common_deps = [
