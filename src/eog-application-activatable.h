@@ -32,23 +32,7 @@
 G_BEGIN_DECLS
 
 #define EOG_TYPE_APPLICATION_ACTIVATABLE (eog_application_activatable_get_type ())
-#define EOG_APPLICATION_ACTIVATABLE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-                                          EOG_TYPE_APPLICATION_ACTIVATABLE, \
-                                          EogApplicationActivatable))
-#define EOG_APPLICATION_ACTIVATABLE_IFACE(obj) \
-                                          (G_TYPE_CHECK_CLASS_CAST ((obj), \
-                                           EOG_TYPE_APPLICATION_ACTIVATABLE, \
-                                           EogApplicationActivatableInterface))
-#define EOG_IS_APPLICATION_ACTIVATABLE(obj) \
-                                          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
-                                           EOG_TYPE_APPLICATION_ACTIVATABLE))
-#define EOG_APPLICATION_ACTIVATABLE_GET_IFACE(obj) \
-                                        (G_TYPE_INSTANCE_GET_INTERFACE ((obj), \
-                                         EOG_TYPE_APPLICATION_ACTIVATABLE, \
-                                         EogApplicationActivatableInterface))
-
-typedef struct _EogApplicationActivatable		EogApplicationActivatable;
-typedef struct _EogApplicationActivatableInterface	EogApplicationActivatableInterface;
+G_DECLARE_INTERFACE (EogApplicationActivatable, eog_application_activatable, EOG, APPLICATION_ACTIVATABLE, GObject);
 
 struct _EogApplicationActivatableInterface
 {
@@ -59,8 +43,6 @@ struct _EogApplicationActivatableInterface
     void	(*activate)	(EogApplicationActivatable *activatable);
     void	(*deactivate)	(EogApplicationActivatable *activatable);
 };
-
-GType	eog_application_activatable_get_type     (void) G_GNUC_CONST;
 
 void	eog_application_activatable_activate     (EogApplicationActivatable *activatable);
 void	eog_application_activatable_deactivate   (EogApplicationActivatable *activatable);
