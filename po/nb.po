@@ -1,15 +1,15 @@
 # Norwegian bokmål translation of eog.
 # Copyright (C) 1999-2004, 2005 Free Software Foundation, Inc.
 #
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2020.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2022.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 3.38.x\n"
+"Project-Id-Version: eog 4.2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-09-25 14:54+0000\n"
-"PO-Revision-Date: 2020-12-04 16:03+0100\n"
+"POT-Creation-Date: 2022-02-12 18:09+0000\n"
+"PO-Revision-Date: 2022-03-17 15:00+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -18,9 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "Eye of GNOME"
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:313 src/eog-window.c:5573
+msgid "Image Viewer"
+msgstr "Bildevisning"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -28,25 +29,18 @@ msgstr "Bla gjennom og roter bilder"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
-msgstr ""
-"Eye of GNOME er det offisielle programmet for bildevisning for GNOME "
-"skrivebordet. Det er integrert med GTK+ utseende og oppførsel for GNOME og "
-"støtter mange bildeformater for isning av enkeltbilder og samlinger."
+msgstr "Bildevisning er det offisielle programmet for bildevisning for GNOME skrivebordet. Det er integrert med GTK+ utseende og oppførsel for GNOME og støtter mange bildeformater for isning av enkeltbilder og samlinger."
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
-msgstr ""
-"Eye of GNOME lar deg også se på bilder i som en lysbildefremvisning i "
-"fullskjerm modus eller du kan sette et bilde som bakgrunn på skrivebordet. "
-"Det leser kameramerkelapper for å rotere bildene automatisk som portrett- "
-"eller landskapsorientering."
+msgstr "Bildevisning lar deg også se på bilder i som en lysbildefremvisning i fullskjerm modus eller du kan sette et bilde som bakgrunn på skrivebordet. Det leser kameramerkelapper for å rotere bildene automatisk som portrett- eller landskapsorientering."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -57,7 +51,7 @@ msgid "Op_en With…"
 msgstr "Åpne m_ed …"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
 msgid "_Save"
 msgstr "_Lagre"
 
@@ -82,138 +76,49 @@ msgstr "Egenskape_r for bilde"
 msgid "Sli_deshow"
 msgstr "Lysbil_devisning"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "Vis presenta_tør"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "_Vis"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "S_idelinje"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "Bilde_galleri"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "S_tatuslinje"
 
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "_Brukervalg"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
 msgstr "_Tastatursnarveier"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "_Om Bildevisning"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "Egenskaper for bilde"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "Forrige"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "Neste"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "Navn:"
-
-#: data/eog-image-properties-dialog.ui:131
-msgid "Width:"
-msgstr "Bredde:"
-
-#: data/eog-image-properties-dialog.ui:146
-msgid "Height:"
-msgstr "Høyde:"
-
-#: data/eog-image-properties-dialog.ui:161
-msgid "Type:"
-msgstr "Type:"
-
-#: data/eog-image-properties-dialog.ui:176
-msgid "Bytes:"
-msgstr "Bytes:"
-
-#: data/eog-image-properties-dialog.ui:191
-msgid "Folder:"
-msgstr "Mappe:"
-
-#: data/eog-image-properties-dialog.ui:288
-msgid "General"
-msgstr "Generelt"
-
-#: data/eog-image-properties-dialog.ui:321
-msgid "Aperture Value:"
-msgstr "Blenderåpning:"
-
-#: data/eog-image-properties-dialog.ui:337
-msgid "Exposure Time:"
-msgstr "Eksponeringstid:"
-
-#: data/eog-image-properties-dialog.ui:353
-msgid "Focal Length:"
-msgstr "Brennvidde:"
-
-#: data/eog-image-properties-dialog.ui:369
-msgid "Flash:"
-msgstr "Blitz:"
-
-#: data/eog-image-properties-dialog.ui:385
-msgid "ISO Speed Rating:"
-msgstr "ISO-verdi:"
-
-#: data/eog-image-properties-dialog.ui:401
-msgid "Metering Mode:"
-msgstr "Lysmålingsmodus:"
-
-#: data/eog-image-properties-dialog.ui:417
-msgid "Camera Model:"
-msgstr "Kameramodell:"
-
-#: data/eog-image-properties-dialog.ui:434
-msgid "Date/Time:"
-msgstr "Dato/klokkeslett:"
-
-#: data/eog-image-properties-dialog.ui:464
-msgid "Description:"
-msgstr "Beskrivelse:"
-
-#: data/eog-image-properties-dialog.ui:480
-msgid "Location:"
-msgstr "Plassering:"
-
-#: data/eog-image-properties-dialog.ui:496
-msgid "Keywords:"
-msgstr "Nøkkelord:"
-
-#: data/eog-image-properties-dialog.ui:512
-msgid "Author:"
-msgstr "Forfatter:"
-
-#: data/eog-image-properties-dialog.ui:528
-msgid "Copyright:"
-msgstr "Opphavsrett:"
-
-#: data/eog-image-properties-dialog.ui:807
-#: data/eog-image-properties-dialog.ui:856
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "Detaljer"
 
-#: data/eog-image-properties-dialog.ui:832
-msgid "Metadata"
-msgstr "Metadata"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "Ikke tilgjengelig"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
@@ -221,9 +126,9 @@ msgstr "Lagre som"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3275 src/eog-window.c:3278
-#: src/eog-window.c:3510
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
+#: src/eog-file-chooser.c:470 src/eog-window.c:3302 src/eog-window.c:3305
+#: src/eog-window.c:3537
 msgid "_Cancel"
 msgstr "A_vbryt"
 
@@ -308,68 +213,98 @@ msgstr "Bakgrunn"
 msgid "As custom color:"
 msgstr "Som egendefinert farge:"
 
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "Bakgrunnsfarge"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "Gjennomsiktige deler"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "Som _rutemønster"
 
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "Som tilpasset f_arge:"
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "Farge for gjennomsiktige områder"
 
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "Som _bakgrunn"
 
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "Bildevisning"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
 msgstr "Zoom i bilde"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "_Utvid bilder til å passe skjermen"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "Sekvens"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "_Tid mellom bilder:"
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "_Løkkesekvens"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "Lysbildevisning"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "Tillegg"
+
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "Type"
+
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "Navn"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "Størrelse"
+
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "Bytes"
+
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "Mappe"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "Vis mappen som inneholder denne filen i filhåndterer"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "Presentatør"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "Krymp bildet"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "Forstørr bildet"
 
@@ -381,7 +316,7 @@ msgstr "Gå til første bilde i samlingen"
 msgid "_First Image"
 msgstr "_Første bilde"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
 msgid "Go to the previous image of the gallery"
 msgstr "Gå til forrige bilde i samlingen"
 
@@ -389,7 +324,7 @@ msgstr "Gå til forrige bilde i samlingen"
 msgid "_Previous Image"
 msgstr "F_orrige bilde"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
 msgid "Go to the next image of the gallery"
 msgstr "Gå til neste bilde i samlingen"
 
@@ -429,7 +364,7 @@ msgstr "Tilpass bildet til vinduet"
 msgid "_Best Fit"
 msgstr "_Beste tilpasning"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Roter bildet 90 grader til venstre"
 
@@ -437,7 +372,7 @@ msgstr "Roter bildet 90 grader til venstre"
 msgid "Rotate Counter_clockwise"
 msgstr "Roter mot k_lokken"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Roter bildet 90 grader til høyre"
 
@@ -507,8 +442,8 @@ msgstr "Sett bildet som bakgrunn på skrivebordet"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "Vis dialog for egenskaper for bildet"
+msgid "Show image properties in sidebar"
+msgstr "Vis bildeegenskaper i sidelinjen"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -589,146 +524,138 @@ msgstr "Gå til et tilfeldig bilde i mappen"
 
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "Vis presentatør med separate kontroller"
+
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "Vis/skjul bildegalleriet"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:257
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "Rotering"
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:261 data/help-overlay.ui:276
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "Roter med klokken"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "Roter mot klokken"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:291
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Fullskjerm"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:296
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "Start/stopp fullskjerm"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "Start/stopp lysbildevisning"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "Sett lysbildevisning på pause"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:318
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "Vanlig"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:323
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "Kopier til utklippstavlen"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "Angre"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "Flytt til papirkurv"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "Slett bildet permanent"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:352
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "Rulling"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:357
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "Rull til venstre i et stort bilde"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "Rull til høyre i et stort bilde"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "Rull opp i et stort bilde"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "Rull ned i et stort bilde"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "Størrelse"
-
-#: data/metadata-sidebar.ui:46
-msgid "Type"
-msgstr "Type"
-
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "Filstørrelse"
 
-#: data/metadata-sidebar.ui:82
-msgid "Folder"
-msgstr "Mappe"
-
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "Blenderåpning"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "Eksponeringstid"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "Lysmålingsmodus"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
 msgstr "Kamera"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "Dato"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "Klokkeslett"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "Brennvidde"
 
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
-#: src/eog-window.c:5532
-msgid "Image Viewer"
-msgstr "Bildevisning"
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "Vis detaljer"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
@@ -941,28 +868,11 @@ msgstr ""
 "den deaktiveres eller bildemappen ikke er satt opp vil den vise nåværende "
 "arbeidskatalog."
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr "Om metadatalisten i egenskaper-dialogen skal ha sin egen side."
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-msgstr ""
-"Hvis aktivert vil den detaljerte metadatalisten i egenskaper-dialogen "
-"flyttes til sin egen side i dialogen. Dette bør gjøre bruk av dialogen mer "
-"brukervennlig på mindre skjermer, f.eks nettbrett. Hvis den deaktiveres vil "
-"komponenten vises på «Metadata»-siden."
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "Aktive tillegg"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active "
 "plugins. See the .eog-plugin file for obtaining the “Location” of a given "
@@ -979,7 +889,7 @@ msgstr "Åpne _med …"
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3513
+#: data/popup-menus.ui:34 src/eog-window.c:3540
 msgid "Move to _Trash"
 msgstr "Flytt til _papirkurv"
 
@@ -1060,7 +970,7 @@ msgstr "V_elg bildene du vil lagre:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Hvis du ikke lagrer vil alle endringene dine gå tapt."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:929
+#: src/eog-error-message-area.c:128 src/eog-window.c:933
 msgid "_Reload"
 msgstr "_Last på nytt"
 
@@ -1122,11 +1032,11 @@ msgstr "%.1f (linse)"
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm film)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "Filformatet er ukjent eller ikke støttet"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
@@ -1134,79 +1044,71 @@ msgstr ""
 "Bildevisning kunne ikke bestemme et støttet skrivbart filformat basert på "
 "filnavnet."
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Vennligst prøv en annen filtype som .png eller .jpg."
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "Alle filer"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "Støttede bildefiler"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:517
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "piksel"
-msgstr[1] "piksler"
-
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
 msgid "_Open"
 msgstr "_Åpne"
 
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:457
 msgid "Open Image"
 msgstr "Åpne bilde"
 
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:465
 msgid "Save Image"
 msgstr "Lagre bilde"
 
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:473
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformasjon på bilde som ikke er lastet."
 
-#: src/eog-image.c:594
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "Transformasjon feilet."
 
-#: src/eog-image.c:1081
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke støttet for dette filformatet."
 
-#: src/eog-image.c:1222
+#: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
 msgstr "Lasting av bilde feilet."
 
-#: src/eog-image.c:1804 src/eog-image.c:1924
+#: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
 msgid "No image loaded."
 msgstr "Ingen bilder lastet."
 
-#: src/eog-image.c:1812 src/eog-image.c:1933
+#: src/eog-image.c:1878 src/eog-image.c:1999
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Du har ikke tilstrekkelige rettigheter til å lagre filen."
 
-#: src/eog-image.c:1822 src/eog-image.c:1944
+#: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Oppretting av midlertidig fil feilet."
@@ -1281,22 +1183,15 @@ msgstr "Vest"
 msgid "South"
 msgstr "Sør"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "%i × %i piksel"
-msgstr[1] "%i × %i piksler"
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1396,13 +1291,13 @@ msgstr "Tommer"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "Vis mappen som inneholder denne filen i filhåndterer"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "som det er"
+
+#: src/eog-sidebar.c:438
+msgid "Hide sidebar"
+msgstr "Skjul sidelinjen"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1419,7 +1314,7 @@ msgstr "som det er"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: src/eog-thumb-view.c:545
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "Tatt"
 
@@ -1436,52 +1331,60 @@ msgstr "Kunne ikke vise hjelp for bildevisning"
 msgid " (invalid Unicode)"
 msgstr " (ugyldig Unicode)"
 
+#: src/eog-util.c:515
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i piksel"
+msgstr[1] "%i × %i piksler"
+
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
 #. * - image width
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:546
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i piksel  %s   %i%%"
 msgstr[1] "%i x %i piksler  %s   %i%%"
 
-#: src/eog-window.c:931 src/eog-window.c:2665
+#: src/eog-window.c:935 src/eog-window.c:2702
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Skj_ul"
 
-#: src/eog-window.c:939
+#: src/eog-window.c:943
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
 "to reload it?"
-msgstr "Bilde «%s» er endret av et eksternt program. Vil du laste bildet på nytt?"
+msgstr ""
+"Bilde «%s» er endret av et eksternt program. Vil du laste bildet på nytt?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1194
+#: src/eog-window.c:1198
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Lagrer bilde «%s» (%u/%u)"
 
-#: src/eog-window.c:1618
+#: src/eog-window.c:1622
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Åpner bilde «%s»"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2004
+#: src/eog-window.c:2010
 msgid "Viewing a slideshow"
 msgstr "Viser en presentasjon"
 
-#: src/eog-window.c:2225
+#: src/eog-window.c:2231
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1490,26 +1393,28 @@ msgstr ""
 "Feil under utskrift av fil:\n"
 "%s"
 
-#: src/eog-window.c:2614 src/eog-window.c:2629
+#: src/eog-window.c:2651 src/eog-window.c:2666
 msgid "Error launching System Settings: "
 msgstr "Feil under oppstart av systeminnstillinger: "
 
-#: src/eog-window.c:2663
+#: src/eog-window.c:2700
 msgid "_Open Background Preferences"
 msgstr "_Åpne brukervalg for bakgrunn"
 
-#: src/eog-window.c:2677
+#: src/eog-window.c:2714
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
 "its appearance?"
-msgstr "Bilde «%s» er satt som skrivebordsbakgrunn. Vil du forandre utseende på bildet?"
+msgstr ""
+"Bilde «%s» er satt som skrivebordsbakgrunn. Vil du forandre utseende på "
+"bildet?"
 
-#: src/eog-window.c:3168
+#: src/eog-window.c:3197
 msgid "Saving image locally…"
 msgstr "Lagrer bildet lokalt …"
 
-#: src/eog-window.c:3251
+#: src/eog-window.c:3278
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1518,7 +1423,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "fjerne «%s» permanent?"
 
-#: src/eog-window.c:3254
+#: src/eog-window.c:3281
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1533,41 +1438,41 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "fjerne %d valgte bilder permanent?"
 
-#: src/eog-window.c:3276 src/eog-window.c:3521
+#: src/eog-window.c:3303 src/eog-window.c:3548
 msgid "_Delete"
 msgstr "_Slett"
 
-#: src/eog-window.c:3279 src/eog-window.c:3523
+#: src/eog-window.c:3306 src/eog-window.c:3550
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3283 src/eog-window.c:3515
+#: src/eog-window.c:3310 src/eog-window.c:3542
 msgid "Do _not ask again during this session"
 msgstr "Ikke spør i_gjen under denne økten"
 
-#: src/eog-window.c:3327
+#: src/eog-window.c:3354
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Kunne ikke hente bildefil"
 
-#: src/eog-window.c:3343
+#: src/eog-window.c:3370
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Kunne ikke hente informasjon om bildefil"
 
-#: src/eog-window.c:3359 src/eog-window.c:3582
+#: src/eog-window.c:3386 src/eog-window.c:3609
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Kunne ikke slette fil"
 
 #. set dialog error message
-#: src/eog-window.c:3404 src/eog-window.c:3678
+#: src/eog-window.c:3431 src/eog-window.c:3705
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
 
-#: src/eog-window.c:3483
+#: src/eog-window.c:3510
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1576,7 +1481,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "flytte «%s» til papirkurven?"
 
-#: src/eog-window.c:3486
+#: src/eog-window.c:3513
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1585,7 +1490,7 @@ msgstr ""
 "Fant ikke papirkurv for «%s». Er du sikker på at du vil fjerne dette bildet "
 "permanent?"
 
-#: src/eog-window.c:3491
+#: src/eog-window.c:3518
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1600,7 +1505,7 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "flytte %d valgte bilder til papirkurven?"
 
-#: src/eog-window.c:3496
+#: src/eog-window.c:3523
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1608,28 +1513,28 @@ msgstr ""
 "Noen av de valgte bildene kan ikke flyttes til papirkurven og vil bli "
 "fjernet permanent. Er du sikker på at du vil fortsette?"
 
-#: src/eog-window.c:3560 src/eog-window.c:3574
+#: src/eog-window.c:3587 src/eog-window.c:3601
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: src/eog-window.c:4223
+#: src/eog-window.c:4251
 msgid "Shrink or enlarge the current image"
 msgstr "Krymp eller forstørr dette bildet"
 
-#: src/eog-window.c:4282
+#: src/eog-window.c:4310
 msgid "Show the current image in fullscreen mode"
 msgstr "Vis det aktive bildet i fullskjerm-modus"
 
-#: src/eog-window.c:4353
+#: src/eog-window.c:4383
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: src/eog-window.c:5535
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "Bildevisning for GNOME."
 
-#: src/eog-window.c:5538
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr ""
 "Kjartan Maraas <kmaraas@gnome.org>\n"
