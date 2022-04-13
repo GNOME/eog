@@ -325,6 +325,9 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 	GFileInfo *file_info;
 	GdkPixbuf *pixbuf = NULL;
 	gboolean have_preview = FALSE;
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+	GError *error = NULL;
+#endif
 
 	priv = EOG_FILE_CHOOSER (file_chooser)->priv;
 
@@ -371,9 +374,19 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 							priv->thumb_factory,
 							uri, mtime);
 
-				if (G_LIKELY (can_thumbnail && !has_failed))
+				if (G_LIKELY (can_thumbnail && !has_failed)) {
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+					pixbuf = gnome_desktop_thumbnail_factory_generate_thumbnail (
+							priv->thumb_factory, uri, mime_type, NULL, &error);
+					if (error) {
+						g_warning ("Failed to generate thumbnail: %s", error->message);
+						g_clear_error (&error);
+					}
+#else
 					pixbuf = gnome_desktop_thumbnail_factory_generate_thumbnail (
 							priv->thumb_factory, uri, mime_type);
+#endif
+				}
 
 				g_free (mime_type);
 			}

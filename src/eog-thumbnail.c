@@ -76,15 +76,6 @@ set_vfs_error (GError **error, GError *ioerror)
 		     "%s", ioerror ? ioerror->message : "VFS error making a thumbnail");
 }
 
-static void
-set_thumb_error (GError **error, int error_id, const char *string)
-{
-	g_set_error (error,
-		     EOG_THUMB_ERROR,
-		     error_id,
-		     "%s", string);
-}
-
 static GdkPixbuf*
 get_valid_thumbnail (EogThumbData *data, GError **error)
 {
@@ -468,6 +459,9 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	GFile *file;
 	EogThumbData *data;
 	GdkPixbuf *pixbuf = NULL;
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+	GError *local_error = NULL;
+#endif
 
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
@@ -482,7 +476,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	if (!data->can_read ||
 	    (data->failed_thumb_exists && gnome_desktop_thumbnail_factory_has_valid_failed_thumbnail (factory, data->uri_str, data->mtime))) {
 		eog_debug_message (DEBUG_THUMBNAIL, "%s: bad permissions or valid failed thumbnail present",data->uri_str);
-		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
+		g_set_error_literal (error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		return NULL;
 	}
 
@@ -505,18 +499,41 @@ eog_thumbnail_load (EogImage *image, GError **error)
 		} else {
 			/* generate a thumbnail from the file */
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from file",data->uri_str);
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+			thumb = gnome_desktop_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type, NULL, &local_error);
+			if (local_error) {
+				g_set_error (error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Generating thumbnail failed: %s", local_error->message);
+				g_clear_error (&local_error);
+			}
+#else
 			thumb = gnome_desktop_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+			if (!thumb)
+				g_set_error (*error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Generating thumbnail failed: %s", local_error->message);
+#endif
 		}
 
 		if (thumb != NULL) {
 			/* Save the new thumbnail */
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+			gnome_desktop_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime, NULL, &local_error);
+			if (local_error) {
+				g_set_error (error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Saving thumbnail failed: %s", local_error->message);
+				g_clear_error (&local_error);
+			} else {
+				eog_debug_message (DEBUG_THUMBNAIL, "%s: normal thumbnail saved",data->uri_str);
+			}
+#else
 			gnome_desktop_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: normal thumbnail saved",data->uri_str);
+#endif
 		} else {
 			/* Save a failed thumbnail, to stop further thumbnail attempts */
+#if defined(GNOME_DESKTOP_PLATFORM_VERSION) && GNOME_DESKTOP_PLATFORM_VERSION >= 43
+			gnome_desktop_thumbnail_factory_create_failed_thumbnail (factory, data->uri_str, data->mtime, NULL, NULL);
+#else
 			gnome_desktop_thumbnail_factory_create_failed_thumbnail (factory, data->uri_str, data->mtime);
+#endif
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: failed thumbnail saved",data->uri_str);
-			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		}
 	}
 
