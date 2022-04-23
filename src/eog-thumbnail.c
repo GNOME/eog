@@ -508,7 +508,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 #else
 			thumb = gnome_desktop_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
 			if (!thumb)
-				g_set_error (*error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Generating thumbnail failed: %s", local_error->message);
+				g_set_error_literal (error, EOG_THUMB_ERROR, EOG_THUMB_ERROR_GENERIC, "Generating thumbnail failed");
 #endif
 		}
 
