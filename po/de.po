@@ -25,20 +25,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2022-02-25 07:06+0000\n"
-"PO-Revision-Date: 2022-03-03 15:11+0100\n"
-"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"POT-Creation-Date: 2022-05-07 13:46+0000\n"
+"PO-Revision-Date: 2022-05-23 22:52+0200\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:337 src/eog-window.c:5572
+#: src/eog-application.c:337 src/eog-window.c:5573
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
 
@@ -77,7 +77,7 @@ msgid "Op_en With…"
 msgstr "Öffnen _mit …"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:476
 msgid "_Save"
 msgstr "_Speichern"
 
@@ -102,9 +102,10 @@ msgstr "_Bildeigenschaften"
 msgid "Sli_deshow"
 msgstr "_Diaschau"
 
+# ist ein Zusatzfenster mit Infos und Pfeilen zum Vor/Zurückblättern durch Medien
 #: data/eog-gear-menu.ui:46
 msgid "Show Presen_ter"
-msgstr ""
+msgstr "_Info-Fenster anzeigen"
 
 #: data/eog-gear-menu.ui:53
 msgid "Sho_w"
@@ -152,9 +153,9 @@ msgstr "Speichern unter"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3314 src/eog-window.c:3317
-#: src/eog-window.c:3549
+#: src/eog-file-chooser.c:467 src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:483 src/eog-window.c:3315 src/eog-window.c:3318
+#: src/eog-window.c:3550
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -322,9 +323,10 @@ msgstr "Ordner"
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Den Ordner, der diese Datei enthält, in der Dateiverwaltung anzeigen"
 
+# ist ein Zusatzfenster mit Infos und Pfeilen zum Vor/Zurückblättern durch Medien
 #: data/eog-remote-presenter.ui:217
 msgid "Presenter"
-msgstr ""
+msgstr "Info-Fenster"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
@@ -552,7 +554,7 @@ msgstr "Zu einem zufälligen Bild im Ordner gehen"
 #: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Show presenter with separate controls"
-msgstr ""
+msgstr "Info-Fenster mit eigenen Steuerelementen anzeigen"
 
 #: data/help-overlay.ui:249
 msgctxt "shortcut window"
@@ -929,7 +931,7 @@ msgstr "Öffnen _mit …"
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3552
+#: data/popup-menus.ui:34 src/eog-window.c:3553
 msgid "Move to _Trash"
 msgstr "In den _Papierkorb verschieben"
 
@@ -1105,19 +1107,19 @@ msgstr "Alle Dateien"
 msgid "Supported image files"
 msgstr "Unterstützte Bilddateien"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:468 src/eog-file-chooser.c:484
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:470
 msgid "Open Image"
 msgstr "Bild öffnen"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:478
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:486
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
@@ -1394,7 +1396,7 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i Pixel  %s    %i%%"
 msgstr[1] "%i x %i Pixel  %s    %i%%"
 
-#: src/eog-window.c:937 src/eog-window.c:2714
+#: src/eog-window.c:937 src/eog-window.c:2715
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Verbergen"
@@ -1441,11 +1443,11 @@ msgstr ""
 msgid "Error launching System Settings: "
 msgstr "Fehler beim Aufruf der Systemeinstellungen: "
 
-#: src/eog-window.c:2712
+#: src/eog-window.c:2713
 msgid "_Open Background Preferences"
 msgstr "Hintergrundeinstellungen ö_ffnen"
 
-#: src/eog-window.c:2726
+#: src/eog-window.c:2727
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
@@ -1454,11 +1456,11 @@ msgstr ""
 "Das Bild »%s« wurde als Hintergrundbild festgelegt. Möchten Sie sein "
 "Erscheinungsbild verändern?"
 
-#: src/eog-window.c:3209
+#: src/eog-window.c:3210
 msgid "Saving image locally…"
 msgstr "Bild wird lokal gespeichert …"
 
-#: src/eog-window.c:3290
+#: src/eog-window.c:3291
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1467,7 +1469,7 @@ msgstr ""
 "Soll »%s«\n"
 "wirklich dauerhaft gelöscht werden?"
 
-#: src/eog-window.c:3293
+#: src/eog-window.c:3294
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1482,41 +1484,41 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich unwiderruflich gelöscht werden?"
 
-#: src/eog-window.c:3315 src/eog-window.c:3560
+#: src/eog-window.c:3316 src/eog-window.c:3561
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: src/eog-window.c:3318 src/eog-window.c:3562
+#: src/eog-window.c:3319 src/eog-window.c:3563
 msgid "_Yes"
 msgstr "_Ja"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3322 src/eog-window.c:3554
+#: src/eog-window.c:3323 src/eog-window.c:3555
 msgid "Do _not ask again during this session"
 msgstr "Während der laufenden Sitzung _nicht erneut fragen"
 
-#: src/eog-window.c:3366
+#: src/eog-window.c:3367
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Bilddatei konnte nicht geholt werden"
 
-#: src/eog-window.c:3382
+#: src/eog-window.c:3383
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Dateiinformationen konnten nicht geholt werden"
 
-#: src/eog-window.c:3398 src/eog-window.c:3621
+#: src/eog-window.c:3399 src/eog-window.c:3622
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Datei konnte nicht gelöscht werden"
 
 #. set dialog error message
-#: src/eog-window.c:3443 src/eog-window.c:3717
+#: src/eog-window.c:3444 src/eog-window.c:3718
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fehler beim Löschen von Bild %s"
 
-#: src/eog-window.c:3522
+#: src/eog-window.c:3523
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1525,7 +1527,7 @@ msgstr ""
 "Soll »%s« wirklich\n"
 "in den Papierkorb verschoben werden?"
 
-#: src/eog-window.c:3525
+#: src/eog-window.c:3526
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
@@ -1534,7 +1536,7 @@ msgstr ""
 "Es konnte kein Papierkorb für »%s« gefunden werden. Wollen Sie das Bild "
 "unwiderruflich löschen?"
 
-#: src/eog-window.c:3530
+#: src/eog-window.c:3531
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1549,7 +1551,7 @@ msgstr[1] ""
 "Sollen die %d ausgewählten Bilder\n"
 "wirklich in den Papierkorb verschoben werden?"
 
-#: src/eog-window.c:3535
+#: src/eog-window.c:3536
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1558,28 +1560,28 @@ msgstr ""
 "werden und werden daher unwiderruflich gelöscht. Sind Sie sicher, dass Sie "
 "fortfahren wollen?"
 
-#: src/eog-window.c:3599 src/eog-window.c:3613
+#: src/eog-window.c:3600 src/eog-window.c:3614
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Auf den Papierkorb konnte nicht zugegriffen werden."
 
-#: src/eog-window.c:4310
+#: src/eog-window.c:4311
 msgid "Shrink or enlarge the current image"
 msgstr "Aktuelles Bild verkleinern oder vergrößern"
 
-#: src/eog-window.c:4369
+#: src/eog-window.c:4370
 msgid "Show the current image in fullscreen mode"
 msgstr "Das momentane Bild im Vollbildmodus anzeigen"
 
-#: src/eog-window.c:4442
+#: src/eog-window.c:4443
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: src/eog-window.c:5575
+#: src/eog-window.c:5576
 msgid "The GNOME image viewer."
 msgstr "Der GNOME-Bildbetrachter."
 
-#: src/eog-window.c:5578
+#: src/eog-window.c:5579
 msgid "translator-credits"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
