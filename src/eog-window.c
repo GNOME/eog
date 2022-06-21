@@ -996,6 +996,7 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
 
 	hdy_header_bar_set_title (HDY_HEADER_BAR (priv->headerbar), eog_image_get_caption (image));
+	gtk_window_set_title (GTK_WINDOW (window), eog_image_get_caption (image));
 
 	update_status_bar (window);
 
@@ -1423,6 +1424,8 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
 		gtk_window_set_icon (GTK_WINDOW (window), NULL);
 		hdy_header_bar_set_title (HDY_HEADER_BAR (priv->headerbar),
+					  eog_image_get_caption (job->image));
+		gtk_window_set_title (GTK_WINDOW (window),
 				      eog_image_get_caption (job->image));
 
 		eog_window_set_message_area (window, message_area);
@@ -1561,6 +1564,8 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	if (eog_list_store_length (EOG_LIST_STORE (priv->store)) == 0) {
 		hdy_header_bar_set_title (HDY_HEADER_BAR (priv->headerbar),
+					  g_get_application_name());
+		gtk_window_set_title (GTK_WINDOW (window),
 				      g_get_application_name());
 		gtk_statusbar_remove_all (GTK_STATUSBAR (priv->statusbar),
 					  priv->image_info_message_cid);
@@ -2354,6 +2359,8 @@ eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 
 		gtk_window_set_icon (GTK_WINDOW (window), NULL);
 		hdy_header_bar_set_title (HDY_HEADER_BAR (window->priv->headerbar),
+					  eog_image_get_caption (job->current_image));
+		gtk_window_set_title (GTK_WINDOW (window),
 				      eog_image_get_caption (job->current_image));
 
 		eog_window_set_message_area (window, message_area);
@@ -2778,6 +2785,8 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 	if (EOG_JOB (job)->error == NULL) {
 		update_status_bar (window);
 		hdy_header_bar_set_title (HDY_HEADER_BAR (window->priv->headerbar),
+					  eog_image_get_caption (job->current_image));
+		gtk_window_set_title (GTK_WINDOW (window),
 				      eog_image_get_caption (job->current_image));
 
 		g_simple_action_set_enabled (G_SIMPLE_ACTION (action_save), FALSE);
@@ -2795,6 +2804,8 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 
 		gtk_window_set_icon (GTK_WINDOW (window), NULL);
 		hdy_header_bar_set_title (HDY_HEADER_BAR (window->priv->headerbar),
+					  eog_image_get_caption (job->current_image));
+		gtk_window_set_title (GTK_WINDOW (window),
 				      eog_image_get_caption (job->current_image));
 
 		eog_window_set_message_area (window, message_area);
@@ -4299,6 +4310,7 @@ eog_window_construct_ui (EogWindow *window)
 	hdy_header_bar_set_show_close_button (HDY_HEADER_BAR (priv->headerbar), TRUE);
 	hdy_header_bar_set_title (HDY_HEADER_BAR (priv->headerbar),
 				  g_get_application_name ());
+	gtk_window_set_title (GTK_WINDOW (window), g_get_application_name ());
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->headerbar, FALSE, FALSE, 0);
 	gtk_widget_show (priv->headerbar);
 
