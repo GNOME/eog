@@ -11,8 +11,8 @@
 msgid ""
 msgstr "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2022-02-12 18:09+0000\n"
-"PO-Revision-Date: 2022-02-13 10:00+0100\n"
+"POT-Creation-Date: 2022-05-07 13:46+0000\n"
+"PO-Revision-Date: 2022-06-25 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -22,7 +22,7 @@ msgstr "Project-Id-Version: eog master\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:313 src/eog-window.c:5573
+#: src/eog-application.c:337 src/eog-window.c:5573
 msgid "Image Viewer"
 msgstr "Irudi-ikustailea"
 
@@ -43,7 +43,7 @@ msgid ""
 "or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
-msgstr "Irudi-ikustailea irudien diapositiba-aurkezpena pantaila osoko moduan ikustea edo irudi bat atzeko planoaren irudi gisa ezartzea baimentzen du. Kameraren etiketak irakurtzen ditu zure irudiak orientazio bertikal edo horizontal zuzenean automatikoki biratzeko."
+msgstr "Irudi-ikustailearen bidez, irudien aurkezpena pantaila osoko moduan ikusi daiteke edo irudi bat atzeko planoaren irudi gisa ezarri daiteke. Kameraren etiketak irakurtzen ditu zure irudiak orientazio bertikal edo horizontal zuzenean automatikoki biratzeko."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -54,7 +54,7 @@ msgid "Op_en With…"
 msgstr "I_reki honekin…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:476
 msgid "_Save"
 msgstr "_Gorde"
 
@@ -77,7 +77,7 @@ msgstr "Irudiaren _propietateak"
 
 #: data/eog-gear-menu.ui:42
 msgid "Sli_deshow"
-msgstr "_Diapositiba-aurkezpena"
+msgstr "_Aurkezpena"
 
 #: data/eog-gear-menu.ui:46
 msgid "Show Presen_ter"
@@ -93,7 +93,7 @@ msgstr "_Alboko panela"
 
 #: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
-msgstr "_Irudi-bilduma"
+msgstr "_Irudi bilduma"
 
 #: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
@@ -129,9 +129,9 @@ msgstr "Gorde honela"
 
 #: data/eog-multiple-save-as-dialog.ui:32
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3302 src/eog-window.c:3305
-#: src/eog-window.c:3537
+#: src/eog-file-chooser.c:467 src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:483 src/eog-window.c:3315 src/eog-window.c:3318
+#: src/eog-window.c:3550
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -268,7 +268,7 @@ msgstr "_Sekuentzia-begizta"
 
 #: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
-msgstr "Diapositiba-aurkezpena"
+msgstr "Aurkezpena"
 
 #: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
@@ -319,7 +319,7 @@ msgstr "Joan bildumaren aurreneko irudira"
 msgid "_First Image"
 msgstr "_Aurreneko irudia"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2247
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2111
 msgid "Go to the previous image of the gallery"
 msgstr "Joan bildumaren aurreko irudira"
 
@@ -327,7 +327,7 @@ msgstr "Joan bildumaren aurreko irudira"
 msgid "_Previous Image"
 msgstr "_Aurreko irudia"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2235
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2099
 msgid "Go to the next image of the gallery"
 msgstr "Joan bildumaren hurrengo irudira"
 
@@ -367,7 +367,7 @@ msgstr "Doitu irudia leihora"
 msgid "_Best Fit"
 msgstr "_Egokiena"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2262
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2126
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Biratu irudia 90 gradu ezkerrera"
 
@@ -375,7 +375,7 @@ msgstr "Biratu irudia 90 gradu ezkerrera"
 msgid "Rotate Counter_clockwise"
 msgstr "Biratu e_zkerrera"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2273
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2137
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Biratu irudia 90 gradu eskuinera"
 
@@ -385,15 +385,15 @@ msgstr "Biratu e_skuinera"
 
 #: data/fullscreen-toolbar.ui:193
 msgid "Changes the visibility of the image gallery pane in the current window"
-msgstr "Aldatu irudi-bildumaren panelaren ikusgaitasuna uneko leihoan"
+msgstr "Aldatu irudi bildumaren panelaren ikusgaitasuna uneko leihoan"
 
 #: data/fullscreen-toolbar.ui:195
 msgid "_Image Gallery"
-msgstr "_Irudi-bilduma"
+msgstr "_Irudi bilduma"
 
 #: data/fullscreen-toolbar.ui:218
 msgid "Pause or resume the slideshow"
-msgstr "Pausatu edo jarraitu diapositiba-aurkezpena"
+msgstr "Pausatu edo jarraitu aurkezpena"
 
 #: data/fullscreen-toolbar.ui:233
 msgid "_Leave Fullscreen"
@@ -563,12 +563,12 @@ msgstr "Sartu/Irten pantaila osotik"
 #: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
-msgstr "Abiatu/Gelditu diapositiba-aurkezpena"
+msgstr "Abiatu/Gelditu aurkezpena"
 
 #: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Pause slideshow"
-msgstr "Pausatu diapositiba-aurkezpena"
+msgstr "Pausatu aurkezpena"
 
 #: data/help-overlay.ui:318
 msgctxt "shortcut window"
@@ -666,7 +666,7 @@ msgstr "Erakutsi xehetasunak"
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:24
 msgid "Picture;Slideshow;Graphics;"
-msgstr "Argazkia;diapositiba-aurkezpena;Grafikoak;"
+msgstr "Argazkia;aurkezpena;Grafikoak;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -858,7 +858,7 @@ msgstr "Ireki _honekin…"
 msgid "_Copy"
 msgstr "_Kopiatu"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3540
+#: data/popup-menus.ui:34 src/eog-window.c:3553
 msgid "Move to _Trash"
 msgstr "Bota _zakarrontzira"
 
@@ -935,7 +935,7 @@ msgstr "_Hautatu gordetzea nahi dituzun irudiak:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ez baduzu gordetzen, aldaketa guztiak galduko dira."
 
-#: src/eog-error-message-area.c:128 src/eog-window.c:933
+#: src/eog-error-message-area.c:128 src/eog-window.c:935
 msgid "_Reload"
 msgstr "Bir_kargatu"
 
@@ -1015,25 +1015,25 @@ msgstr "%s (*.%s)"
 
 #: src/eog-file-chooser.c:213
 msgid "All files"
-msgstr "Fitxategi denak"
+msgstr "Fitxategi guztiak"
 
 #: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "Onartutako irudi-fitxategiak"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:468 src/eog-file-chooser.c:484
 msgid "_Open"
 msgstr "_Ireki"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:470
 msgid "Open Image"
 msgstr "Ireki irudia"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:478
 msgid "Save Image"
 msgstr "Gorde irudia"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:486
 msgid "Open Folder"
 msgstr "Ireki karpeta"
 
@@ -1252,7 +1252,7 @@ msgstr "Aurrebista"
 
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
-msgstr "honelaxe"
+msgstr "bere horretan"
 
 #: src/eog-sidebar.c:438
 msgid "Hide sidebar"
@@ -1310,12 +1310,12 @@ msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i pixel  %s    %% %i"
 msgstr[1] "%i × %i pixel  %s    %% %i"
 
-#: src/eog-window.c:935 src/eog-window.c:2702
+#: src/eog-window.c:937 src/eog-window.c:2715
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Ezkutatu"
 
-#: src/eog-window.c:943
+#: src/eog-window.c:945
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1338,11 +1338,11 @@ msgid "Opening image “%s”"
 msgstr "“%s” irudia irekitzen"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2010
+#: src/eog-window.c:2022
 msgid "Viewing a slideshow"
-msgstr "Diapositiba-erakusketa moduan ikustea"
+msgstr "Aurkezpen moduan ikustea"
 
-#: src/eog-window.c:2231
+#: src/eog-window.c:2243
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1350,26 +1350,26 @@ msgid ""
 msgstr "Errorea fitxategia inprimatzean:\n"
 "%s"
 
-#: src/eog-window.c:2651 src/eog-window.c:2666
+#: src/eog-window.c:2663 src/eog-window.c:2678
 msgid "Error launching System Settings: "
 msgstr "Errorea sistemako ezarpenak abiaraztean: "
 
-#: src/eog-window.c:2700
+#: src/eog-window.c:2713
 msgid "_Open Background Preferences"
 msgstr "_Ireki atzeko planoaren hobespenak"
 
-#: src/eog-window.c:2714
+#: src/eog-window.c:2727
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
 "its appearance?"
 msgstr "“%s” irudia mahaigaineko atzeko planoko irudi gisa ezarri da. Bere itxura aldatu nahi duzu?"
 
-#: src/eog-window.c:3197
+#: src/eog-window.c:3210
 msgid "Saving image locally…"
 msgstr "Irudia lokalean gordetzen…"
 
-#: src/eog-window.c:3278
+#: src/eog-window.c:3291
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1377,7 +1377,7 @@ msgid ""
 msgstr "Ziur zaude “%s”\n"
 "betirako ezabatzea nahi duzula?"
 
-#: src/eog-window.c:3281
+#: src/eog-window.c:3294
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1390,41 +1390,41 @@ msgstr[0] "Ziur zaude hautatutako irudia\n"
 msgstr[1] "Ziur zaude hautatutako %d irudi\n"
 "betirako ezabatzea nahi dituzula?"
 
-#: src/eog-window.c:3303 src/eog-window.c:3548
+#: src/eog-window.c:3316 src/eog-window.c:3561
 msgid "_Delete"
 msgstr "Ez_abatu"
 
-#: src/eog-window.c:3306 src/eog-window.c:3550
+#: src/eog-window.c:3319 src/eog-window.c:3563
 msgid "_Yes"
 msgstr "_Bai"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3310 src/eog-window.c:3542
+#: src/eog-window.c:3323 src/eog-window.c:3555
 msgid "Do _not ask again during this session"
 msgstr "_Ez galdetu berriro saio honetan"
 
-#: src/eog-window.c:3354
+#: src/eog-window.c:3367
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Ezin izan da irudiaren fitxategia berreskuratu"
 
-#: src/eog-window.c:3370
+#: src/eog-window.c:3383
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Ezin izan da irudiaren fitxategiaren informazioa berreskuratu"
 
-#: src/eog-window.c:3386 src/eog-window.c:3609
+#: src/eog-window.c:3399 src/eog-window.c:3622
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Ezin izan da fitxategia ezabatu"
 
 #. set dialog error message
-#: src/eog-window.c:3431 src/eog-window.c:3705
+#: src/eog-window.c:3444 src/eog-window.c:3718
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errorea %s irudia ezabatzean"
 
-#: src/eog-window.c:3510
+#: src/eog-window.c:3523
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1432,14 +1432,14 @@ msgid ""
 msgstr "Ziur zaude “%s”\n"
 "zakarrontzira botatzea nahi duzula?"
 
-#: src/eog-window.c:3513
+#: src/eog-window.c:3526
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "Ezin izan da “%s”(r)en zakarrontzia aurkitu. Nahi duzu irudi hau betirako kentzea?"
 
-#: src/eog-window.c:3518
+#: src/eog-window.c:3531
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1452,26 +1452,26 @@ msgstr[0] "Ziur zaude hautatutako irudia\n"
 msgstr[1] "Ziur zaude hautatutako %d irudi\n"
 "zakarrontzira botatzea nahi dituzula?"
 
-#: src/eog-window.c:3523
+#: src/eog-window.c:3536
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "Hautatutako irudi batzuk ezin dira zakarrontzira bota, eta betirako ezabatuko dira. Aurrera jarraitzea nahi duzu?"
 
-#: src/eog-window.c:3587 src/eog-window.c:3601
+#: src/eog-window.c:3600 src/eog-window.c:3614
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Ezin izan da zakarrontzirik erabili."
 
-#: src/eog-window.c:4251
+#: src/eog-window.c:4311
 msgid "Shrink or enlarge the current image"
 msgstr "Txikiagotu edo handiagotu uneko irudia"
 
-#: src/eog-window.c:4310
+#: src/eog-window.c:4370
 msgid "Show the current image in fullscreen mode"
 msgstr "Erakutsi uneko irudia pantaila osoko moduan"
 
-#: src/eog-window.c:4383
+#: src/eog-window.c:4443
 msgid "Properties"
 msgstr "Propietateak"
 
