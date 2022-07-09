@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_FULLSCREEN_PLUGIN_H__
-#define __EOG_FULLSCREEN_PLUGIN_H__
+#pragma once
 
 #include <glib.h>
 #include <glib-object.h>
@@ -77,5 +76,3 @@ GType	eog_fullscreen_plugin_get_type		(void) G_GNUC_CONST;
 G_MODULE_EXPORT void peas_register_types (PeasObjectModule *module);
 
 G_END_DECLS
-
-#endif /* __EOG_FULLSCREEN_PLUGIN_H__ */
