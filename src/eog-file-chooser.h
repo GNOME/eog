@@ -14,8 +14,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _EOG_FILE_CHOOSER_H_
-#define _EOG_FILE_CHOOSER_H_
+#pragma once
 
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -55,5 +54,3 @@ GdkPixbufFormat	*eog_file_chooser_get_format	(EogFileChooser *chooser);
 
 
 G_END_DECLS
-
-#endif /* _EOG_FILE_CHOOSER_H_ */

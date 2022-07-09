@@ -23,8 +23,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_SIDEBAR_H__
-#define __EOG_SIDEBAR_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -80,7 +79,4 @@ gint       eog_sidebar_get_n_pages  (EogSidebar  *eog_sidebar);
 gboolean   eog_sidebar_is_empty     (EogSidebar  *eog_sidebar);
 
 G_END_DECLS
-
-#endif /* __EOG_SIDEBAR_H__ */
-
 

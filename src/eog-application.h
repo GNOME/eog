@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_APPLICATION_H__
-#define __EOG_APPLICATION_H__
+#pragma once
 
 
 #include <glib.h>
@@ -58,7 +57,6 @@ struct _EogApplicationClass {
 };
 
 GType	          eog_application_get_type	      (void) G_GNUC_CONST;
-
 EogApplication   *eog_application_get_instance        (void);
 
 gboolean          eog_application_open_window         (EogApplication   *application,
@@ -87,5 +85,3 @@ gboolean          eog_application_open_uris           (EogApplication *applicati
 gboolean          eog_application_close_all_windows   (EogApplication *application);
 
 G_END_DECLS
-
-#endif /* __EOG_APPLICATION_H__ */

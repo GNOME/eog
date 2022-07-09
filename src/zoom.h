@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ZOOM_H
-#define ZOOM_H
+#pragma once
 
 #include <glib.h>
 
@@ -34,5 +33,3 @@ G_GNUC_INTERNAL
 double zoom_fit_scale (guint dest_width, guint dest_height,
 		       guint src_width, guint src_height,
 		       gboolean upscale_smaller);
-
-#endif

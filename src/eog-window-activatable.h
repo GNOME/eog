@@ -24,8 +24,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_WINDOW_ACTIVATABLE_H__
-#define __EOG_WINDOW_ACTIVATABLE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -48,4 +47,3 @@ void	eog_window_activatable_activate	    (EogWindowActivatable *activatable);
 void	eog_window_activatable_deactivate   (EogWindowActivatable *activatable);
 
 G_END_DECLS
-#endif /* __EOG_WINDOW_ACTIVATABLE_H__ */

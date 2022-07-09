@@ -1,5 +1,4 @@
-#ifndef _EOG_URI_CONVERTER_H_
-#define _EOG_URI_CONVERTER_H_
+#pragma once
 
 #include <glib-object.h>
 #include "eog-image.h"
@@ -95,5 +94,3 @@ G_GNUC_INTERNAL
 void                eog_uri_converter_print_list (EogURIConverter *conv);
 
 G_END_DECLS
-
-#endif /* _EOG_URI_CONVERTER_H_ */

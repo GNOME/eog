@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_PLUGIN_ENGINE_H__
-#define __EOG_PLUGIN_ENGINE_H__
+#pragma once
 
 #include <libpeas/peas-engine.h>
 #include <glib.h>
@@ -58,5 +57,3 @@ G_GNUC_INTERNAL
 EogPluginEngine* eog_plugin_engine_new (void);
 
 G_END_DECLS
-
-#endif  /* __EOG_PLUGIN_ENGINE_H__ */

@@ -1,5 +1,4 @@
-#ifndef _EOG_SAVE_AS_DIALOG_HELPER_H_
-#define _EOG_SAVE_AS_DIALOG_HELPER_H_
+#pragma once
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
@@ -16,5 +15,3 @@ EogURIConverter* eog_save_as_dialog_get_converter (GtkWidget *dlg);
 
 
 G_END_DECLS
-
-#endif /* _EOG_SAVE_DIALOG_HELPER_H_ */

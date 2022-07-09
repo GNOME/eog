@@ -1,5 +1,4 @@
-#ifndef _EOG_TRANSFORM_H_
-#define _EOG_TRANSFORM_H_
+#pragma once
 
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -69,7 +68,4 @@ EogTransformType eog_transform_get_transform_type (EogTransform *trans);
 gboolean         eog_transform_get_affine (EogTransform *trans, cairo_matrix_t *affine);
 
 G_END_DECLS
-
-#endif /* _EOG_TRANSFORM_H_ */
-
 

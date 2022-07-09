@@ -24,8 +24,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_EXIF_UTIL_H__
-#define __EOG_EXIF_UTIL_H__
+#pragma once
 
 #include <glib.h>
 #include <glib-object.h>
@@ -59,5 +58,3 @@ ExifData    *eog_exif_data_copy                  (ExifData *data);
 void         eog_exif_data_free                  (ExifData *data);
 
 G_END_DECLS
-
-#endif /* __EOG_EXIF_UTIL_H__ */

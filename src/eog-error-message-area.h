@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_ERROR_MESSAGE_AREA__
-#define __EOG_ERROR_MESSAGE_AREA__
+#pragma once
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -60,5 +59,3 @@ GtkWidget   *eog_no_images_error_message_area_new    (GFile *file);
 
 G_GNUC_INTERNAL
 GtkWidget   *eog_multipage_error_message_area_new    (void);
-
-#endif /* __EOG_ERROR_MESSAGE_AREA__ */

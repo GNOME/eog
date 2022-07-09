@@ -23,8 +23,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_SESSION_H__
-#define __EOG_SESSION_H__
+#pragma once
 
 #include "eog-application.h"
 
@@ -42,5 +41,3 @@ G_GNUC_INTERNAL
 gboolean 	eog_session_load 		(void);
 
 G_END_DECLS
-
-#endif /* __EOG_SESSION_H__ */

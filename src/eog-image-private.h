@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_IMAGE_PRIVATE_H__
-#define __EOG_IMAGE_PRIVATE_H__
+#pragma once
 
 #include "eog-image.h"
 
@@ -100,5 +99,3 @@ struct _EogImagePrivate {
 };
 
 G_END_DECLS
-
-#endif /* __EOG_IMAGE_PRIVATE_H__ */

@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_IMAGE_H__
-#define __EOG_IMAGE_H__
+#pragma once
 
 #include "eog-jobs.h"
 #include "eog-window.h"
@@ -224,5 +223,3 @@ gboolean          eog_image_is_file_writable         (EogImage *img);
 gboolean          eog_image_is_multipaged            (EogImage *img);
 
 G_END_DECLS
-
-#endif /* __EOG_IMAGE_H__ */

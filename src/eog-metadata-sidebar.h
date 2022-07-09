@@ -21,8 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef EOG_METADATA_SIDEBAR_H
-#define EOG_METADATA_SIDEBAR_H
+#pragma once
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -59,5 +58,3 @@ G_GNUC_INTERNAL
 GtkWidget* eog_metadata_sidebar_new (EogWindow *window);
 
 G_END_DECLS
-
-#endif /* EOG_METADATA_SIDEBAR_H */

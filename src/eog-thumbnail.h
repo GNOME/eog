@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _EOG_THUMBNAIL_H_
-#define _EOG_THUMBNAIL_H_
+#pragma once
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-image.h"
@@ -44,5 +43,3 @@ GdkPixbuf*    eog_thumbnail_load        (EogImage *image,
 #define EOG_THUMBNAIL_ORIGINAL_HEIGHT "eog-thumbnail-orig-height"
 
 G_END_DECLS
-
-#endif /* _EOG_THUMBNAIL_H_ */
