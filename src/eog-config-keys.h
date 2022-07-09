@@ -23,8 +23,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_CONFIG_KEYS_H__
-#define __EOG_CONFIG_KEYS_H__
+#pragma once
 
 #define EOG_CONF_DOMAIN				"org.gnome.eog"
 #define EOG_CONF_FULLSCREEN			EOG_CONF_DOMAIN".fullscreen"
@@ -66,5 +65,3 @@
 #define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"filechooser-xdg-fallback"
 
 #define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "active-plugins"
-
-#endif /* __EOG_CONFIG_KEYS_H__ */

@@ -22,8 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_JOB_SCHEDULER_H__
-#define __EOG_JOB_SCHEDULER_H__
+#pragma once
 
 #include "eog-jobs.h"
 
@@ -45,5 +44,3 @@ void eog_job_scheduler_add_job_with_priority (EogJob         *job,
 					      EogJobPriority  priority);
 
 G_END_DECLS
-
-#endif /* __EOG_JOB_SCHEDULER_H__ */

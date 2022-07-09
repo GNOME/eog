@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __EOG_ENUMS__
-#define __EOG_ENUMS__
+#pragma once
 
 typedef enum {
 	EOG_IMAGE_DATA_IMAGE     = 1 << 0,
@@ -34,4 +33,3 @@ typedef enum {
 			     EOG_IMAGE_DATA_EXIF |      \
 			     EOG_IMAGE_DATA_XMP)
 
-#endif
