@@ -36,12 +36,7 @@
 G_BEGIN_DECLS
 
 #define EOG_TYPE_METADATA_READER	      (eog_metadata_reader_get_type ())
-#define EOG_METADATA_READER(o)		      (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_METADATA_READER, EogMetadataReader))
-#define EOG_IS_METADATA_READER(o)	      (G_TYPE_CHECK_INSTANCE_TYPE ((o), EOG_TYPE_METADATA_READER))
-#define EOG_METADATA_READER_GET_INTERFACE(o)  (G_TYPE_INSTANCE_GET_INTERFACE ((o), EOG_TYPE_METADATA_READER, EogMetadataReaderInterface))
-
-typedef struct _EogMetadataReader EogMetadataReader;
-typedef struct _EogMetadataReaderInterface EogMetadataReaderInterface;
+G_DECLARE_INTERFACE (EogMetadataReader, eog_metadata_reader, EOG, METADATA_READER, GObject);
 
 struct _EogMetadataReaderInterface {
 	GTypeInterface parent;
@@ -69,42 +64,39 @@ typedef enum {
 } EogMetadataFileType;
 
 G_GNUC_INTERNAL
-GType                eog_metadata_reader_get_type	(void) G_GNUC_CONST;
-
-G_GNUC_INTERNAL
 EogMetadataReader*   eog_metadata_reader_new 		(EogMetadataFileType type);
 
 G_GNUC_INTERNAL
-void                 eog_metadata_reader_consume	(EogMetadataReader *emr,
-							 const guchar *buf,
-							 guint len);
+void                 eog_metadata_reader_consume	(EogMetadataReader *self,
+							 const guchar      *buf,
+							 guint              len);
 
 G_GNUC_INTERNAL
-gboolean             eog_metadata_reader_finished	(EogMetadataReader *emr);
+gboolean             eog_metadata_reader_finished	(EogMetadataReader *self);
 
 G_GNUC_INTERNAL
-void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr,
-							 guchar **data,
-							 guint *len);
+void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader  *self,
+							 guchar            **data,
+							 guint              *len);
 
 #ifdef HAVE_EXIF
 G_GNUC_INTERNAL
-ExifData*         eog_metadata_reader_get_exif_data	(EogMetadataReader *emr);
+ExifData*         eog_metadata_reader_get_exif_data	(EogMetadataReader *self);
 #endif
 
 #ifdef HAVE_EXEMPI
 G_GNUC_INTERNAL
-XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *emr);
+XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *self);
 #endif
 
 #if 0
-gpointer             eog_metadata_reader_get_iptc_chunk	(EogMetadataReader *emr);
-IptcData*            eog_metadata_reader_get_iptc_data	(EogMetadataReader *emr);
+gpointer             eog_metadata_reader_get_iptc_chunk	(EogMetadataReader *self);
+IptcData*            eog_metadata_reader_get_iptc_data	(EogMetadataReader *self);
 #endif
 
 #ifdef HAVE_LCMS
 G_GNUC_INTERNAL
-cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *emr);
+cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *self);
 #endif
 
 G_END_DECLS
