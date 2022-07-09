@@ -36,6 +36,7 @@
 G_BEGIN_DECLS
 
 #define EOG_TYPE_METADATA_READER	      (eog_metadata_reader_get_type ())
+G_GNUC_INTERNAL
 G_DECLARE_INTERFACE (EogMetadataReader, eog_metadata_reader, EOG, METADATA_READER, GObject);
 
 struct _EogMetadataReaderInterface {
