@@ -1,16 +1,9 @@
-# Copyright (C) 2022 The Abkhazian language development fund named after Bagrat Shinkuba
-# This file is distributed under the same license as the eog package.
-# Нанба Наала <naala-nanba@rambler.ru>, 2022.
-#
-
 msgid ""
 msgstr ""
-"Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
 "POT-Creation-Date: 2022-07-17 09:37+0000\n"
-"PO-Revision-Date: 2022-07-22 16:00+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
-"Language-Team: Abkhazian <LL@li.org>\n"
+"Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +216,7 @@ msgstr ""
 
 #: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
-msgstr ""
+msgstr "Ахацтә _дәы аԥшра аҭаны"
 
 #: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
@@ -285,7 +278,7 @@ msgstr ""
 
 #: data/eog-remote-presenter.ui:158
 msgid "Bytes"
-msgstr ""
+msgstr "Абаитқәа"
 
 #: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
 msgid "Folder"
@@ -622,7 +615,7 @@ msgstr ""
 
 #: data/metadata-sidebar.ui:110
 msgid "Aperture"
-msgstr ""
+msgstr "Апертура"
 
 #: data/metadata-sidebar.ui:128
 msgid "Exposure"
@@ -646,7 +639,7 @@ msgstr "Аамҭарба"
 
 #: data/metadata-sidebar.ui:221
 msgid "Time"
-msgstr ""
+msgstr "Аамҭа"
 
 #: data/metadata-sidebar.ui:398
 msgid "Focal Length"
@@ -891,7 +884,7 @@ msgstr ""
 #: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
 #: src/eog-exif-util.c:193 src/eog-exif-util.c:195
 msgid "%a, %d %B %Y  %X"
-msgstr ""
+msgstr "%A, %d %b. %Y  %X"
 
 #: plugins/statusbar-date/statusbar-date.plugin.desktop.in:5
 msgid "Date in statusbar"
@@ -1001,13 +994,15 @@ msgstr ""
 msgid "Please try a different file extension like .png or .jpg."
 msgstr ""
 
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #: src/eog-file-chooser.c:161
+#, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #: src/eog-file-chooser.c:213
 msgid "All files"
-msgstr ""
+msgstr "Афаилқәа зегьы"
 
 #: src/eog-file-chooser.c:218
 msgid "Supported image files"
@@ -1124,7 +1119,7 @@ msgstr ""
 
 #: src/eog-metadata-details.c:437
 msgid "East"
-msgstr ""
+msgstr "Амрагыларатәи"
 
 #: src/eog-metadata-details.c:440
 msgid "West"
@@ -1140,9 +1135,10 @@ msgstr ""
 
 #: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
-msgstr ""
+msgstr "%A, %d %b. %Y"
 
 #: src/eog-metadata-sidebar.c:229
+#, c-format
 msgid "%X"
 msgstr "%X"
 
@@ -1187,7 +1183,7 @@ msgstr ""
 
 #: src/eog-print-image-setup.c:1201
 msgid "_Top:"
-msgstr ""
+msgstr "_Хыхьтәи:"
 
 #: src/eog-print-image-setup.c:1202
 msgid "_Bottom:"
@@ -1207,7 +1203,7 @@ msgstr ""
 
 #: src/eog-print-image-setup.c:1214
 msgid "Vertical"
-msgstr ""
+msgstr "Гәҵәыла"
 
 #: src/eog-print-image-setup.c:1216
 msgid "Both"
@@ -1219,7 +1215,7 @@ msgstr ""
 
 #: src/eog-print-image-setup.c:1237
 msgid "_Height:"
-msgstr ""
+msgstr "_Аҳаракыра:"
 
 #: src/eog-print-image-setup.c:1240
 msgid "_Scaling:"
@@ -1249,7 +1245,18 @@ msgstr ""
 msgid "Hide sidebar"
 msgstr ""
 
+#. Translators: This string is displayed in the statusbar.
+#. * The first token is the image number, the second is total image
+#. * count.
+#. *
+#. * Translate to "%Id" if you want to use localized digits, or
+#. * translate to "%d" otherwise.
+#. *
+#. * Note that translating this doesn't guarantee that you get localized
+#. * digits. That needs support from your system and locale definition
+#. * too.
 #: src/eog-statusbar.c:118
+#, c-format
 msgid "%d / %d"
 msgstr "%d / %d"
 
@@ -1271,12 +1278,20 @@ msgid " (invalid Unicode)"
 msgstr ""
 
 #: src/eog-util.c:515
+#, c-format
 msgid "%i × %i pixel"
 msgid_plural "%i × %i pixels"
 msgstr[0] "%i × %i пиксельк"
 msgstr[1] "%i × %i пиксельк"
 
+#. Translators: This is the string displayed in the statusbar
+#. * The tokens are from left to right:
+#. * - image width
+#. * - image height
+#. * - image size in bytes
+#. * - zoom in percent
 #: src/eog-window.c:546
+#, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i пиксельк  %s    %i%%"
@@ -1362,7 +1377,7 @@ msgstr[1] ""
 msgid "_Delete"
 msgstr ""
 
-#: src/eog-window.c:3319+src/eog-window.c:3563
+#: src/eog-window.c:3330 src/eog-window.c:3574
 msgid "_Yes"
 msgstr "_Ааи"
 
@@ -1444,11 +1459,14 @@ msgstr ""
 msgid "The GNOME image viewer."
 msgstr ""
 
-#: src/eog-window.c:5579
+#: src/eog-window.c:5591
 msgid "translator-credits"
 msgstr "Нанба Наала <naala-nanba@rambler.ru>, 2022"
 
+#. L10N: This is a percentage value used for the image zoom.
+#. * This should be translated similar to the statusbar zoom value.
 #: src/eog-zoom-entry.c:81
+#, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
@@ -1490,3 +1508,4 @@ msgstr ""
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
+"Инашәыгӡа «%s --help», адҵатә цәаҳәа алшарақәа зегьы рыхьӡынҵа аарԥшразы."
