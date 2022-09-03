@@ -1,6 +1,6 @@
 project(
   'eog', 'c',
-  version: '43.rc',
+  version: '43.0',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
   meson_version: '>= 0.58.0',
