@@ -19,7 +19,7 @@ i18n.merge_file(
   input: configure_file(
     input: 'org.gnome.eog.desktop.in.in',
     output: '@BASENAME@',
-    configuration: {'VERSION': eog_version, 'icon': application_id},
+    configuration: {'icon': application_id},
   ),
   output: '@BASENAME@',
   po_dir: po_dir,
