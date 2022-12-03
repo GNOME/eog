@@ -65,7 +65,9 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gdk/gdkkeysyms.h>
+#ifndef __APPLE__
 #include <gio/gdesktopappinfo.h>
+#endif
 #include <gtk/gtk.h>
 
 #include <libpeas/peas-extension-set.h>
@@ -1337,6 +1339,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 		break;
 	case EOG_ERROR_MESSAGE_AREA_RESPONSE_OPEN_WITH_EVINCE:
 	{
+#ifndef __APPLE__
 		GDesktopAppInfo *app_info;
 		GFile *img_file;
 		GList *img_files = NULL;
@@ -1353,6 +1356,7 @@ eog_window_error_message_area_response (GtkInfoBar       *message_area,
 							       img_files);
 			g_list_free_full (img_files, g_object_unref);
 		}
+#endif
 	}
 		break;
 	}
