@@ -34,7 +34,9 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#ifndef __APPLE__
 #include <gio/gdesktopappinfo.h>
+#endif
 
 /* gboolean <-> gpointer conversion macros taken from gedit */
 #ifndef GBOOLEAN_TO_POINTER
@@ -324,6 +326,7 @@ static gpointer
 _check_evince_availability(gpointer data)
 {
 	gboolean result = FALSE;
+#ifndef __APPLE__
 	GDesktopAppInfo *app_info;
 
 	app_info = g_desktop_app_info_new ("org.gnome.Evince.desktop");
@@ -331,6 +334,7 @@ _check_evince_availability(gpointer data)
 		result = TRUE;
 		g_object_unref (app_info);
 	}
+#endif
 	return GBOOLEAN_TO_POINTER(result);
 }
 
