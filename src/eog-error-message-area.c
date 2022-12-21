@@ -221,7 +221,7 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 	error_message = g_strdup_printf (_("Could not load image “%s”."),
 					 pango_escaped_caption);
 
-	message_details = eog_util_make_valid_utf8 (error->message);
+	message_details = g_utf8_make_valid (error->message, -1);
 
 	message_area = create_error_message_area (error_message,
 						  message_details,
@@ -263,7 +263,7 @@ eog_image_save_error_message_area_new (const gchar  *caption,
 	error_message = g_strdup_printf (_("Could not save image “%s”."),
 					 pango_escaped_caption);
 
-	message_details = eog_util_make_valid_utf8 (error->message);
+	message_details = g_utf8_make_valid (error->message, -1);
 
 	message_area = create_error_message_area (error_message,
 						  message_details,
