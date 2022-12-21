@@ -33,9 +33,6 @@ void     eog_util_show_help                  (const gchar *section,
 					      GtkWindow   *parent);
 
 G_GNUC_INTERNAL
-gchar   *eog_util_make_valid_utf8            (const gchar *name);
-
-G_GNUC_INTERNAL
 GSList  *eog_util_parse_uri_string_list_to_file_list (const gchar *uri_list);
 
 G_GNUC_INTERNAL
