@@ -215,7 +215,7 @@ eog_exif_util_set_label_text (GtkLabel *label,
 		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
 			label_text = eog_exif_util_format_date (buf_ptr);
 		else
-			label_text = eog_util_make_valid_utf8 (buf_ptr);
+			label_text = g_utf8_make_valid (buf_ptr, -1);
 	}
 
 	gtk_label_set_text (label, label_text);
