@@ -53,9 +53,23 @@ foreach_monitors_free (gpointer data)
 }
 
 static void
+eog_list_store_remove_thumbnail_job (EogListStore *store, GtkTreeIter *iter);
+
+static gboolean
+foreach_model_cancel_job (GtkTreeModel *model, GtkTreePath *path,
+			  GtkTreeIter *iter, gpointer data)
+{
+	eog_list_store_remove_thumbnail_job (EOG_LIST_STORE (model), iter);
+	return FALSE;
+}
+
+static void
 eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
+
+	gtk_tree_model_foreach (GTK_TREE_MODEL (store),
+				foreach_model_cancel_job, NULL);
 
 	if (store->priv->monitors != NULL) {
 		g_hash_table_unref (store->priv->monitors);
