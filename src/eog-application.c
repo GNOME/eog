@@ -586,9 +586,9 @@ eog_application_get_file_window (EogApplication *application, GFile *file)
 	for (l = windows; l != NULL; l = l->next) {
 		if (EOG_IS_WINDOW (l->data)) {
 			EogWindow *window = EOG_WINDOW (l->data);
+			EogImage *image = eog_window_get_image (window);
 
-			if (!eog_window_is_empty (window)) {
-				EogImage *image = eog_window_get_image (window);
+			if (image) {
 				GFile *window_file;
 
 				window_file = eog_image_get_file (image);

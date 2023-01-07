@@ -154,10 +154,12 @@ notify_finished (EogJob *job)
 			   EOG_GET_TYPE_NAME (job),
 			   job);
 
-	/* notify job finalization */
-	g_signal_emit (job,
-		       job_signals[FINISHED],
-		       0);
+	/* notify job finalization if not cancelled */
+	if (!eog_job_is_cancelled (job))
+		g_signal_emit (job,
+			       job_signals[FINISHED],
+			       0);
+
 	return FALSE;
 }
 

@@ -2335,8 +2335,7 @@ eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
 					      window);
 
 	/* clean the last save job */
-	g_object_unref (window->priv->save_job);
-	window->priv->save_job = NULL;
+	g_clear_object (&window->priv->save_job);
 
 	/* recover save action from actions group */
 	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
@@ -2778,8 +2777,7 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 					      window);
 
 	/* clean the last save job */
-	g_object_unref (window->priv->save_job);
-	window->priv->save_job = NULL;
+	g_clear_object (&window->priv->save_job);
 
 	/* recover save action from actions group */
 	action_save = g_action_map_lookup_action (G_ACTION_MAP (window),
