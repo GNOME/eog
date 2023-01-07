@@ -335,13 +335,13 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 		}
 	}
 
-	utf_attribute = eog_util_make_valid_utf8 (attribute);
+	utf_attribute = g_utf8_make_valid (attribute, -1);
 
 	gtk_tree_store_set (store, &iter, MODEL_COLUMN_ATTRIBUTE, utf_attribute, -1);
 	g_free (utf_attribute);
 
 	if (value != NULL) {
-		utf_value = eog_util_make_valid_utf8 (value);
+		utf_value = g_utf8_make_valid (value, -1);
 		gtk_tree_store_set (store, &iter, MODEL_COLUMN_VALUE, utf_value, -1);
 		g_free (utf_value);
 	}
