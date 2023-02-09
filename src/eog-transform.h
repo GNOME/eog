@@ -58,9 +58,6 @@ gboolean      eog_transform_is_identity (EogTransform *trans);
 EogTransform* eog_transform_identity_new (void);
 EogTransform* eog_transform_rotate_new (int degree);
 EogTransform* eog_transform_flip_new   (EogTransformType type /* only EOG_TRANSFORM_FLIP_* are valid */);
-#if 0
-EogTransform* eog_transform_scale_new  (double sx, double sy);
-#endif
 EogTransform* eog_transform_new (EogTransformType trans);
 
 EogTransformType eog_transform_get_transform_type (EogTransform *trans);
