@@ -286,20 +286,6 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 		if ((width != NULL) && (height != NULL)) {
 			dim_str = eog_util_create_width_height_string(atoi (width), atoi (height));
 		}
-
-#if 0
-		/* Not sure, if this is really useful, therefore its commented out for now. */
-
-		/* try to read creator of the thumbnail */
-		creator = gdk_pixbuf_get_option (pixbuf, "tEXt::Software");
-
-		/* stupid workaround to display nicer string if the
-		 * thumbnail is created through the gnome libraries.
-		 */
-		if (g_ascii_strcasecmp (creator, "Gnome::ThumbnailFactory") == 0) {
-			creator = "GNOME Libs";
-		}
-#endif
 	}
 
 	set_preview_label (priv->size_label, size_str);
