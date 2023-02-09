@@ -4316,48 +4316,6 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->headerbar, FALSE, FALSE, 0);
 	gtk_widget_show (priv->headerbar);
 
-#if 0
-	zoom_button = gtk_toggle_button_new ();
-	zoom_image = gtk_image_new_from_icon_name ("zoom-in-symbolic",
-						   GTK_ICON_SIZE_BUTTON);
-	gtk_button_set_image (GTK_BUTTON (zoom_button), zoom_image);
-	gtk_widget_set_tooltip_text (zoom_button,
-				     _("Shrink or enlarge the current image"));
-	g_signal_connect (zoom_button, "toggled",
-			  G_CALLBACK (eog_window_zoom_button_toggled_cb),
-			  window);
-	hdy_header_bar_pack_start (HDY_HEADER_BAR (priv->headerbar), zoom_button);
-	/* disable zoom button if no image is loaded */
-	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP(window),
-							    "zoom-normal"),
-				"enabled", zoom_button, "sensitive",
-				G_BINDING_DEFAULT);
-	gtk_widget_show (zoom_button);
-
-	priv->zoom_revealer = gtk_revealer_new ();
-	gtk_revealer_set_transition_type (GTK_REVEALER (priv->zoom_revealer),
-					  GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT);
-	hdy_header_bar_pack_start (HDY_HEADER_BAR (priv->headerbar),
-				   priv->zoom_revealer);
-	gtk_widget_show (priv->zoom_revealer);
-
-	priv->zoom_scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL,
-						     0.3, 3.0, 0.1);
-	gtk_scale_set_draw_value (GTK_SCALE (priv->zoom_scale), FALSE);
-	/* Add a stop mark at 100% */
-	gtk_scale_add_mark (GTK_SCALE (priv->zoom_scale),
-			    1.0, GTK_POS_BOTTOM, NULL);
-	/* TODO: the scale by itself does not take any width, so we manually
-	 * set it here. Decide on the optimal value. */
-	gtk_widget_set_size_request (priv->zoom_scale, 200, -1);
-	g_signal_connect (priv->zoom_scale, "value-changed",
-			  G_CALLBACK (eog_window_zoom_scale_value_changed_cb),
-			  window);
-	gtk_container_add (GTK_CONTAINER (priv->zoom_revealer),
-			   priv->zoom_scale);
-	gtk_widget_show (priv->zoom_scale);
-#endif
-
 	menu_button = gtk_menu_button_new ();
 	menu_image = gtk_image_new_from_icon_name ("open-menu-symbolic",
 						   GTK_ICON_SIZE_BUTTON);
@@ -4822,13 +4780,6 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	modifiers = gtk_accelerator_get_default_mod_mask ();
 
 	switch (event->keyval) {
-#if 0
-	case GDK_KEY_space:
-		if ((event->state & modifiers) == GDK_CONTROL_MASK) {
-			handle_selection = TRUE;
-			break;
-		}
-#endif
 	case GDK_KEY_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
