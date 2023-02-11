@@ -757,36 +757,6 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 			str = append_counter (str, token->data.counter++, conv);
 			break;
 		}
-#if 0
-		case EOG_UC_COMMENT:
-			str = g_string_append_printf ();
-			str = "comment";
-			break;
-		case EOG_UC_DATE:
-			str = "date";
-			break;
-		case EOG_UC_TIME:
-			str = "time";
-			break;
-		case EOG_UC_DAY:
-			str = "day";
-			break;
-		case EOG_UC_MONTH:
-			str = "month";
-			break;
-		case EOG_UC_YEAR:
-			str = "year";
-			break;
-		case EOG_UC_HOUR:
-			str = "hour";
-			break;
-		case EOG_UC_MINUTE:
-			str = "minute";
-			break;
-		case EOG_UC_SECOND:
-			str = "second";
-			break;
-#endif
 		default:
 		/* skip all others */
 
@@ -853,35 +823,6 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 							n_digits ,counter);
 
 			}
-#if 0                   /* ignore the rest for now */
-			else if (c == 'c') {
-				type = EOG_UC_COMMENT;
-			}
-			else if (c == 'd') {
-				type = EOG_UC_DATE;
-			}
-			else if (c == 't') {
-				type = EOG_UC_TIME;
-			}
-			else if (c == 'a') {
-				type = EOG_UC_DAY;
-			}
-			else if (c == 'm') {
-				type = EOG_UC_MONTH;
-			}
-			else if (c == 'y') {
-				type = EOG_UC_YEAR;
-			}
-			else if (c == 'h') {
-				type = EOG_UC_HOUR;
-			}
-			else if (c == 'i') {
-				type = EOG_UC_MINUTE;
-			}
-			else if (c == 's') {
-				type = EOG_UC_SECOND;
-			}
-#endif
 			token_next = FALSE;
 		}
 		else if (c == '%') {

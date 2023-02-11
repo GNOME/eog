@@ -89,11 +89,6 @@ G_GNUC_INTERNAL
 XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *self);
 #endif
 
-#if 0
-gpointer             eog_metadata_reader_get_iptc_chunk	(EogMetadataReader *self);
-IptcData*            eog_metadata_reader_get_iptc_data	(EogMetadataReader *self);
-#endif
-
 #ifdef HAVE_LCMS
 G_GNUC_INTERNAL
 cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *self);

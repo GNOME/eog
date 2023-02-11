@@ -730,9 +730,6 @@ set_zoom (EogScrollView *view, double zoom,
 		priv->drag_ofs_x = priv->xofs;
 		priv->drag_ofs_y = priv->yofs;
 	}
-#if 0
-	g_print ("xofs: %i  yofs: %i\n", priv->xofs, priv->yofs);
-#endif
 	if (zoom <= priv->min_zoom)
 		priv->zoom = priv->min_zoom;
 	else
