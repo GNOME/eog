@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2023-01-25 16:13+0000\n"
-"PO-Revision-Date: 2023-01-27 23:05+0300\n"
+"POT-Creation-Date: 2023-02-11 11:53+0000\n"
+"PO-Revision-Date: 2023-02-20 03:47+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -35,7 +35,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:338 src/eog-window.c:5587
+#: src/eog-application.c:338 src/eog-window.c:5538
 msgid "Image Viewer"
 msgstr "Resim Görüntüleyici"
 
@@ -74,7 +74,7 @@ msgid "Op_en With…"
 msgstr "Birlikte A_ç…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:476
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "Kay_det"
 
@@ -197,8 +197,8 @@ msgstr "Dosya Adı Ön İzleme"
 
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:467 src/eog-file-chooser.c:475
-#: src/eog-file-chooser.c:483 src/eog-window.c:3328 src/eog-window.c:3331
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3328 src/eog-window.c:3331
 #: src/eog-window.c:3563
 msgid "_Cancel"
 msgstr "_İptal"
@@ -339,7 +339,7 @@ msgstr "Galerideki ilk resme git"
 msgid "_First Image"
 msgstr "_İlk Resim"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2111
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2108
 msgid "Go to the previous image of the gallery"
 msgstr "Galerideki bir önceki resme git"
 
@@ -347,7 +347,7 @@ msgstr "Galerideki bir önceki resme git"
 msgid "_Previous Image"
 msgstr "Ö_nceki Resim"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2099
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2096
 msgid "Go to the next image of the gallery"
 msgstr "Galerideki bir sonraki resme git"
 
@@ -387,7 +387,7 @@ msgstr "Resmi pencereye uydur"
 msgid "_Best Fit"
 msgstr "_Sığdır"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2126
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2123
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Resmi 90 derece sola çevir"
 
@@ -395,7 +395,7 @@ msgstr "Resmi 90 derece sola çevir"
 msgid "Rotate Counter_clockwise"
 msgstr "Saa_t Yönünün Tersine Döndür"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2137
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2134
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Resmi 90 derece sağa çevir"
 
@@ -1093,19 +1093,19 @@ msgstr "Tüm dosyalar"
 msgid "Supported image files"
 msgstr "Desteklenen resim dosyaları"
 
-#: src/eog-file-chooser.c:468 src/eog-file-chooser.c:484
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "_Aç"
 
-#: src/eog-file-chooser.c:470
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "Resim Aç"
 
-#: src/eog-file-chooser.c:478
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "Resmi Kaydet"
 
-#: src/eog-file-chooser.c:486
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "Klasör Aç"
 
@@ -1127,7 +1127,7 @@ msgstr "Bu dosya biçiminde EXIF desteklenmiyor."
 #: src/eog-image.c:1281
 #, c-format
 msgid "Image loading failed."
-msgstr "Resim yüklemesi başarısız oldu."
+msgstr "Resim yüklenemedi."
 
 #: src/eog-image.c:1870 src/eog-image.c:1990
 #, c-format
@@ -1142,7 +1142,7 @@ msgstr "Dosyayı kaydetmek için gerekli izniniz yok."
 #: src/eog-image.c:1888 src/eog-image.c:2010
 #, c-format
 msgid "Temporary file creation failed."
-msgstr "Geçici dosya oluşturması başarısız."
+msgstr "Geçici dosya oluşturulamadı."
 
 #: src/eog-image-jpeg.c:374
 #, c-format
@@ -1348,7 +1348,7 @@ msgstr "%d / %d"
 msgid "Taken on"
 msgstr "Çekildiği zaman"
 
-#: src/eog-uri-converter.c:989
+#: src/eog-uri-converter.c:930
 #, c-format
 msgid "At least two file names are equal."
 msgstr "En az iki dosya adı eşit."
@@ -1536,23 +1536,19 @@ msgstr ""
 msgid "Couldn’t access trash."
 msgstr "Çöpe erişilemedi."
 
-#: src/eog-window.c:4325
-msgid "Shrink or enlarge the current image"
-msgstr "Geçerli resmi daralt ya da genişlet"
-
-#: src/eog-window.c:4384
+#: src/eog-window.c:4342
 msgid "Show the current image in fullscreen mode"
 msgstr "Geçerli resmi tam ekran kipinde göster"
 
-#: src/eog-window.c:4457
+#: src/eog-window.c:4415
 msgid "Properties"
 msgstr "Özellikler"
 
-#: src/eog-window.c:5590
+#: src/eog-window.c:5541
 msgid "The GNOME image viewer."
 msgstr "GNOME resim görüntüleyici."
 
-#: src/eog-window.c:5593
+#: src/eog-window.c:5544
 msgid "translator-credits"
 msgstr ""
 "Barış Çiçek <baris@teamforce.name.tr>\n"
@@ -1606,3 +1602,6 @@ msgstr "[DOSYA…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için “%s --help” komutunu çalıştır."
+
+#~ msgid "Shrink or enlarge the current image"
+#~ msgstr "Geçerli resmi daralt ya da genişlet"
