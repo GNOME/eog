@@ -1224,6 +1224,7 @@ eog_image_real_load (EogImage     *img,
 			priv->image = gdk_pixbuf_animation_get_static_image (priv->anim);
 			priv->anim = NULL;
 		} else {
+			g_object_ref (priv->anim);
 			priv->anim_iter = gdk_pixbuf_animation_get_iter (priv->anim,NULL);
 			priv->image = gdk_pixbuf_animation_iter_get_pixbuf (priv->anim_iter);
 		}
