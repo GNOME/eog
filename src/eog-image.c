@@ -2489,7 +2489,6 @@ eog_image_start_animation (EogImage *img)
 		return FALSE;
 
 	g_mutex_lock (&priv->status_mutex);
-	g_object_ref (priv->anim_iter);
 	priv->is_playing = TRUE;
 	g_mutex_unlock (&priv->status_mutex);
 
