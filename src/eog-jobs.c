@@ -559,6 +559,7 @@ static void
 eog_job_load_run (EogJob *job)
 {
 	EogJobLoad *job_load;
+	gboolean result;
 
 	/* initialization */
 	g_return_if_fail (EOG_IS_JOB_LOAD (job));
@@ -572,14 +573,21 @@ eog_job_load_run (EogJob *job)
 	}
 
 	/* load image from file */
-	eog_image_load (job_load->image,
-			job_load->data,
-			job,
-			&job->error);
+	result = eog_image_load (job_load->image,
+				 job_load->data,
+				 job,
+				 &job->error);
 
 	/* check if the current job was previously cancelled */
-	if (eog_job_is_cancelled (job))
+	if (eog_job_is_cancelled (job)) {
+		if (result) {
+			/* If the load finished successfully we need to make
+			 * the image drop the loaded data again. See #288. */
+			eog_image_data_ref (job_load->image);
+			eog_image_data_unref (job_load->image);
+		}
 		return;
+	}
 
 	/* --- enter critical section --- */
 	g_mutex_lock (job->mutex);
