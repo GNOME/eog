@@ -343,6 +343,9 @@ eog_window_set_gallery_mode (EogWindow           *window,
 	if (priv->mode != EOG_WINDOW_MODE_UNKNOWN) {
 		update_action_groups_state (window);
 	}
+
+	g_object_unref (priv->nav);
+	g_object_unref (hpaned);
 }
 
 static void
