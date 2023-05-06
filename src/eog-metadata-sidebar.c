@@ -464,6 +464,8 @@ eog_metadata_sidebar_dispose (GObject *object)
 
 	g_clear_object (&priv->image);
 
+	g_clear_object (&priv->parent_window);
+
 	G_OBJECT_CLASS (eog_metadata_sidebar_parent_class)->dispose (object);
 }
 
