@@ -4629,17 +4629,30 @@ eog_window_init (EogWindow *window)
 	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_IMAGE_GALLERY,
 				 G_CALLBACK (eog_window_ui_settings_changed_cb),
 				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
 				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
 
 	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
 				 G_CALLBACK (eog_window_ui_settings_changed_cb),
 				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
 				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
 
 	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
 				 G_CALLBACK (eog_window_ui_settings_changed_cb),
 				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
 				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
+
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
