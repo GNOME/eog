@@ -103,7 +103,7 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-glib_req_version = '>= 2.53.4'
+glib_req_version = '>= 2.73.2'
 peas_req_version = '>= 0.7.4'
 
 gio_dep = dependency('gio-2.0', version: glib_req_version)
