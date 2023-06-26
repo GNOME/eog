@@ -343,6 +343,9 @@ eog_window_set_gallery_mode (EogWindow           *window,
 	if (priv->mode != EOG_WINDOW_MODE_UNKNOWN) {
 		update_action_groups_state (window);
 	}
+
+	g_object_unref (priv->nav);
+	g_object_unref (hpaned);
 }
 
 static void
@@ -4623,17 +4626,33 @@ eog_window_init (EogWindow *window)
 	 * not trigger the state changed handler since the state is updated directly
 	 * via the "state" property. Requesting a state change via these callbacks,
 	 * however, works. */
-	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_IMAGE_GALLERY,
-					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery"));
+	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_IMAGE_GALLERY,
+				 G_CALLBACK (eog_window_ui_settings_changed_cb),
+				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-gallery"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
+				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
 
-	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
-					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar"));
+	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_SIDEBAR,
+				 G_CALLBACK (eog_window_ui_settings_changed_cb),
+				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-sidebar"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
+				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
 
-	g_signal_connect (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
-					  G_CALLBACK (eog_window_ui_settings_changed_cb),
-					  g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"));
+	g_signal_connect_object (priv->ui_settings, "changed::"EOG_CONF_UI_STATUSBAR,
+				 G_CALLBACK (eog_window_ui_settings_changed_cb),
+				 g_action_map_lookup_action (G_ACTION_MAP (window), "view-statusbar"),
+#if GLIB_CHECK_VERSION(2, 74, 0)
+				 G_CONNECT_DEFAULT);
+#else
+				 (GConnectFlags) 0);
+#endif
+
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window),
 	                                     "current-image");
