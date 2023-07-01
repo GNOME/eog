@@ -2458,11 +2458,13 @@ private_timeout (gpointer data)
 	if (eog_image_is_animation (img) &&
 	    !g_source_is_destroyed (g_main_current_source ()) &&
 	    priv->is_playing) {
-		while (eog_image_iter_advance (img) != TRUE) {}; /* cpu-sucking ? */
-		priv->anim_source = g_timeout_add (
-			gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter),
-			private_timeout, img);
-		return FALSE;
+		if (eog_image_iter_advance (img) &&
+		    gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter) != -1) {
+			priv->anim_source = g_timeout_add (
+				gdk_pixbuf_animation_iter_get_delay_time (priv->anim_iter),
+				private_timeout, img);
+			return FALSE;
+		}
 	}
 	priv->is_playing = FALSE;
 	priv->anim_source = 0;
