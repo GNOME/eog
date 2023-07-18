@@ -90,7 +90,7 @@
 #define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
 #define EOG_RECENT_FILES_GROUP  "Graphics"
-#define EOG_RECENT_FILES_APP_NAME "Image Viewer"
+#define EOG_RECENT_FILES_APP_NAME "Eye of GNOME"
 
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
 
@@ -5541,10 +5541,10 @@ eog_window_show_about_dialog (EogWindow *window)
 	};
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "program-name", _("Image Viewer"),
+			       "program-name", _("Eye of GNOME"),
 			       "version", VERSION,
 			       "copyright", "Copyright \xc2\xa9 2000-2010 Free Software Foundation, Inc.",
-			       "comments",_("The GNOME image viewer."),
+			       "comments",_("Image viewer for GNOME"),
 			       "authors", authors,
 			       "documenters", documenters,
 			       "translator-credits", _("translator-credits"),

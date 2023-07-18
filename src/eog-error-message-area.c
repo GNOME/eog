@@ -352,12 +352,12 @@ eog_multipage_error_message_area_new(void)
 	{
 		buttons = EOG_ERROR_MESSAGE_AREA_OPEN_WITH_EVINCE_BUTTON;
 		info_message = N_("This image contains multiple pages. "
-				  "Image Viewer displays only the first page.\n"
+				  "Eye of GNOME displays only the first page.\n"
 				  "Do you want to open the image with the Document Viewer to see all pages?");
 	} else {
 		buttons = EOG_ERROR_MESSAGE_AREA_NO_BUTTONS;
 		info_message = N_("This image contains multiple pages. "
-				  "Image Viewer displays only the first page.\n"
+				  "Eye of GNOME displays only the first page.\n"
 				  "You may want to install the Document Viewer to see all pages.");
 	}
 

@@ -13,7 +13,7 @@ def open_about_dialog(context):
     context.execute_steps(u"""
         * Click "About" in GApplication menu
     """)
-    context.about_dialog = context.app.dialog(translate('About Image Viewer'))
+    context.about_dialog = context.app.dialog(translate('About Eye of GNOME'))
 
 
 @step(u'Open and close About dialog')
@@ -29,8 +29,8 @@ def website_link_to_wiki_is_displayed(context):
 
 @then(u'GPL 2.0 link is displayed')
 def gpl_license_link_is_displayed(context):
-    assert context.about_dialog.child(translate("Image Viewer")).showing, "App name is not displayed"
-    assert context.about_dialog.child(translate("The GNOME image viewer.")).showing, "App description is not displayed"
+    assert context.about_dialog.child(translate("Eye of GNOME")).showing, "App name is not displayed"
+    assert context.about_dialog.child(translate("Image viewer for GNOME")).showing, "App description is not displayed"
     assert context.about_dialog.child(translate("Website")).showing, "Website link is not displayed"
     assert context.about_dialog.child(roleName='radio button', name=translate("About")).checked, "About tab is not selected"
     assert not context.about_dialog.child(roleName='radio button', name=translate("Credits")).checked, "Credits tab is selected"
