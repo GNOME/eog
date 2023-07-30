@@ -69,7 +69,7 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 						 0,
 						 GTK_MESSAGE_ERROR,
 						 GTK_BUTTONS_OK,
-						 _("Could not display help for Image Viewer"));
+						 _("Could not display help for Eye of GNOME"));
 
 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
 							  "%s", error->message);

@@ -178,7 +178,7 @@ pkg.generate(
   libraries: libeog,
   version: eog_version,
   name: 'Eye of GNOME',
-  description: 'The GNOME Image Viewer',
+  description: 'Image viewer for GNOME',
   filebase: eog_name,
   subdirs: eog_api_name,
   requires: ['gtk+-3.0', 'libhandy-1'],

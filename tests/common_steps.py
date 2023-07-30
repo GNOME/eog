@@ -274,16 +274,16 @@ def translate(string):
 # GApplication menu steps
 @step(u'Open GApplication menu')
 def get_gmenu(context):
-    GnomeShell().getApplicationMenuButton('Image Viewer').click()
+    GnomeShell().getApplicationMenuButton('Eye of GNOME').click()
 
 
 @step(u'Close GApplication menu')
 def close_gmenu(context):
-    GnomeShell().getApplicationMenuButton('Image Viewer').click()
+    GnomeShell().getApplicationMenuButton('Eye of GNOME').click()
     doDelay(2)
 
 
 @step(u'Click "{name}" in GApplication menu')
 def click_menu(context, name):
-    GnomeShell().clickApplicationMenuItem('Image Viewer', translate(name))
+    GnomeShell().clickApplicationMenuItem('Eye of GNOME', translate(name))
     doDelay(2)

@@ -335,7 +335,7 @@ eog_application_startup (GApplication *application)
                                            EOG_DATA_DIR G_DIR_SEPARATOR_S "icons");
 
 	gtk_window_set_default_icon_name ("eog");
-	g_set_application_name (_("Image Viewer"));
+	g_set_application_name (_("Eye of GNOME"));
 
 	style_manager = hdy_style_manager_get_default ();
 	hdy_style_manager_set_color_scheme (style_manager,
