@@ -13,47 +13,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2023-02-11 11:53+0000\n"
-"PO-Revision-Date: 2023-02-21 00:23+0100\n"
+"POT-Creation-Date: 2023-07-30 19:03+0000\n"
+"PO-Revision-Date: 2023-07-30 22:08+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:338 src/eog-window.c:5538
-msgid "Image Viewer"
-msgstr "Képmegjelenítő"
+#: src/eog-application.c:338 src/eog-window.c:5544 src/main.c:56
+msgid "Eye of GNOME"
+msgstr "GNOME szeme"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Képek böngészése és forgatása"
 
 #: data/eog.appdata.xml.in:9
+#| msgid ""
+#| "Image Viewer is the official image viewer for the GNOME desktop. It "
+#| "integrates with the GTK look and feel of GNOME, and supports many image "
+#| "formats for viewing single images or images in a collection."
 msgid ""
-"Image Viewer is the official image viewer for the GNOME desktop. It "
+"Eye of GNOME is an image viewer designed for the GNOME desktop. It "
 "integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"A Képmegjelenítő a GNOME asztali környezet hivatalos képmegjelenítője. "
+"A GNOME szeme a GNOME asztali környezethez tervezett képmegjelenítő. "
 "Integrálódik a GNOME GTK+ megjelenésével, és számos képformátumot támogat "
 "egyedi képek vagy gyűjtemények képeinek megjelenítéséhez."
 
 #: data/eog.appdata.xml.in:14
+#| msgid ""
+#| "Image Viewer also allows to view the images in a fullscreen slideshow "
+#| "mode or set an image as the desktop wallpaper. It reads the camera tags "
+#| "to automatically rotate your images in the correct portrait or landscape "
+#| "orientation."
 msgid ""
-"Image Viewer also allows to view the images in a fullscreen slideshow mode "
-"or set an image as the desktop wallpaper. It reads the camera tags to "
-"automatically rotate your images in the correct portrait or landscape "
-"orientation."
+"It also allows to view the images in a fullscreen slideshow mode or set an "
+"image as the desktop wallpaper. It reads the camera tags to automatically "
+"rotate your images in the correct portrait or landscape orientation."
 msgstr ""
-"A Képmegjelenítő lehetővé teszi a képek megjelenítését teljes képernyős "
-"diavetítés módban, vagy asztali háttérkép beállítását. Beolvassa a "
-"fényképezőgép-címkéket a képek automatikus forgatásához a megfelelő álló "
-"vagy fekvő tájolásba."
+"Lehetővé teszi a képek megjelenítését teljes képernyős diavetítés módban,"
+" vagy asztali háttérkép beállítását. Beolvassa a fényképezőgép-címkéket a"
+" képek automatikus forgatásához a megfelelő álló vagy fekvő tájolásba."
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -122,8 +129,8 @@ msgid "_Help"
 msgstr "_Súgó"
 
 #: data/eog-gear-menu.ui:83
-msgid "_About Image Viewer"
-msgstr "A Képmegjelenítő _névjegye"
+msgid "_About Eye of GNOME"
+msgstr "A GNOME szeme _névjegye"
 
 #: data/eog-details-dialog.ui:9
 msgid "Details"
@@ -188,8 +195,8 @@ msgstr "Fájlnév előnézete"
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
 #: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
-#: src/eog-file-chooser.c:469 src/eog-window.c:3328 src/eog-window.c:3331
-#: src/eog-window.c:3563
+#: src/eog-file-chooser.c:469 src/eog-window.c:3331 src/eog-window.c:3334
+#: src/eog-window.c:3566
 msgid "_Cancel"
 msgstr "Mé_gse"
 
@@ -474,7 +481,6 @@ msgid "Show/Hide the application menu"
 msgstr "Az alkalmazásmenü megjelenítése vagy elrejtése"
 
 #: data/help-overlay.ui:96
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Show preferences"
 msgstr "Beállítások megjelenítése"
@@ -865,7 +871,7 @@ msgid ""
 "the trash. It will still ask if any of the files cannot be moved to the "
 "trash and would be deleted instead."
 msgstr ""
-"Ha be van kapcsolva, az EOG nem kér megerősítést a képek Kukába "
+"Ha be van kapcsolva, a GNOME szeme nem kér megerősítést a képek Kukába "
 "mozgatásakor. Továbbra is rákérdez, ha a fájlok valamelyike nem helyezhető "
 "át, és helyette törlésre kerülne."
 
@@ -911,7 +917,7 @@ msgstr "Megnyitás e_zzel…"
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3566
+#: data/popup-menus.ui:34 src/eog-window.c:3569
 msgid "Move to _Trash"
 msgstr "Áthelyezés a _Kukába"
 
@@ -992,7 +998,7 @@ msgstr "_Válassza ki a mentendő képeket:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ha nem ment, az összes változtatása elvész."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:937
+#: src/eog-error-message-area.c:130 src/eog-window.c:940
 msgid "_Reload"
 msgstr "Újr_atöltés"
 
@@ -1020,23 +1026,31 @@ msgid "The given locations contain no images."
 msgstr "Az adott helyek nem tartalmaznak képeket."
 
 #: src/eog-error-message-area.c:354
+#| msgid ""
+#| "This image contains multiple pages. Image Viewer displays only the first "
+#| "page.\n"
+#| "Do you want to open the image with the Document Viewer to see all pages?"
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt "
+"Ez a kép több oldalt tartalmaz. A GNOME szeme csak az első oldalt "
 "jeleníti meg.\n"
 "Szeretné a képet a Dokumentummegjelenítővel megnyitni az összes oldal "
 "megtekintéséhez?"
 
 #: src/eog-error-message-area.c:359
+#| msgid ""
+#| "This image contains multiple pages. Image Viewer displays only the first "
+#| "page.\n"
+#| "You may want to install the Document Viewer to see all pages."
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"Ez a kép több oldalt tartalmaz. A Képmegjelenítő csak az első oldalt "
+"Ez a kép több oldalt tartalmaz. A GNOME szeme csak az első oldalt "
 "jeleníti meg.\n"
 "Érdemes lenne a Dokumentummegjelenítőt telepíteni az összes oldal "
 "megtekintéséhez."
@@ -1061,12 +1075,13 @@ msgid "File format is unknown or unsupported"
 msgstr "A fájlformátum ismeretlen vagy nem támogatott"
 
 #: src/eog-file-chooser.c:125
+#| msgid ""
+#| "Image Viewer could not determine a supported writable file format based "
+#| "on the filename."
 msgid ""
-"Image Viewer could not determine a supported writable file format based on "
-"the filename."
+"Could not determine a supported writable file format based on the filename."
 msgstr ""
-"A Képmegjelenítő a fájlnév alapján nem tudott támogatott írható "
-"fájlformátumot meghatározni."
+"Nem sikerült meghatározni támogatott írható fájlformátumot a fájlnév alapján."
 
 #: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
@@ -1117,22 +1132,22 @@ msgstr "Az átalakítás meghiúsult."
 msgid "EXIF not supported for this file format."
 msgstr "Az EXIF nem támogatott ehhez a fájlformátumhoz."
 
-#: src/eog-image.c:1281
+#: src/eog-image.c:1282
 #, c-format
 msgid "Image loading failed."
 msgstr "A kép betöltése meghiúsult."
 
-#: src/eog-image.c:1870 src/eog-image.c:1990
+#: src/eog-image.c:1871 src/eog-image.c:1991
 #, c-format
 msgid "No image loaded."
 msgstr "Nincs kép betöltve."
 
-#: src/eog-image.c:1878 src/eog-image.c:1999
+#: src/eog-image.c:1879 src/eog-image.c:2000
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Nincs jogosultsága a fájl mentésére."
 
-#: src/eog-image.c:1888 src/eog-image.c:2010
+#: src/eog-image.c:1889 src/eog-image.c:2011
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Átmeneti fájl létrehozása sikertelen."
@@ -1348,8 +1363,9 @@ msgid "At least two file names are equal."
 msgstr "Legalább két fájlnév azonos."
 
 #: src/eog-util.c:72
-msgid "Could not display help for Image Viewer"
-msgstr "Nem sikerült megjeleníteni a Képmegjelenítő súgóját"
+#| msgid "Could not display help for Image Viewer"
+msgid "Could not display help for Eye of GNOME"
+msgstr "Nem sikerült megjeleníteni a GNOME szeme súgóját"
 
 #: src/eog-util.c:474
 #, c-format
@@ -1364,19 +1380,19 @@ msgstr[1] "%i × %i képpont"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:548
+#: src/eog-window.c:551
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i képpont,  %s    %i%%"
 msgstr[1] "%i × %i képpont,  %s    %i%%"
 
-#: src/eog-window.c:939 src/eog-window.c:2725
+#: src/eog-window.c:942 src/eog-window.c:2728
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Elrejtés"
 
-#: src/eog-window.c:947
+#: src/eog-window.c:950
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1389,22 +1405,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1201
+#: src/eog-window.c:1204
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "„%s” kép mentése (%u/%u)"
 
-#: src/eog-window.c:1631
+#: src/eog-window.c:1634
 #, c-format
 msgid "Opening image “%s”"
 msgstr "„%s” kép betöltése"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2031
+#: src/eog-window.c:2034
 msgid "Viewing a slideshow"
 msgstr "Diavetítés megtekintése"
 
-#: src/eog-window.c:2252
+#: src/eog-window.c:2255
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1413,15 +1429,15 @@ msgstr ""
 "Hiba a fájl nyomtatása közben:\n"
 "%s"
 
-#: src/eog-window.c:2673 src/eog-window.c:2688
+#: src/eog-window.c:2676 src/eog-window.c:2691
 msgid "Error launching System Settings: "
 msgstr "Hiba a Rendszerbeállítások indításakor: "
 
-#: src/eog-window.c:2723
+#: src/eog-window.c:2726
 msgid "_Open Background Preferences"
 msgstr "_Háttérbeállítások megnyitása"
 
-#: src/eog-window.c:2737
+#: src/eog-window.c:2740
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
@@ -1430,11 +1446,11 @@ msgstr ""
 "A(z) „%s” kép az asztal háttereként lett beállítva. Kívánja módosítani a "
 "megjelenését?"
 
-#: src/eog-window.c:3223
+#: src/eog-window.c:3226
 msgid "Saving image locally…"
 msgstr "Kép mentése helyileg…"
 
-#: src/eog-window.c:3304
+#: src/eog-window.c:3307
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1443,7 +1459,7 @@ msgstr ""
 "Biztosan véglegesen törölni akarja\n"
 "a következőt: „%s”?"
 
-#: src/eog-window.c:3307
+#: src/eog-window.c:3310
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1458,41 +1474,41 @@ msgstr[1] ""
 "Biztosan véglegesen törölni akarja\n"
 "a kijelölt %d képet?"
 
-#: src/eog-window.c:3329 src/eog-window.c:3574
+#: src/eog-window.c:3332 src/eog-window.c:3577
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: src/eog-window.c:3332 src/eog-window.c:3576
+#: src/eog-window.c:3335 src/eog-window.c:3579
 msgid "_Yes"
 msgstr "_Igen"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3336 src/eog-window.c:3568
+#: src/eog-window.c:3339 src/eog-window.c:3571
 msgid "Do _not ask again during this session"
 msgstr "_Ne kérdezze újra ebben a munkamenetben"
 
-#: src/eog-window.c:3380
+#: src/eog-window.c:3383
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "A képfájl nem kérhető le"
 
-#: src/eog-window.c:3396
+#: src/eog-window.c:3399
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "A képfájl információi nem kérhetők le"
 
-#: src/eog-window.c:3412 src/eog-window.c:3635
+#: src/eog-window.c:3415 src/eog-window.c:3638
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "A fájl nem törölhető"
 
 #. set dialog error message
-#: src/eog-window.c:3457 src/eog-window.c:3731
+#: src/eog-window.c:3460 src/eog-window.c:3734
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Hiba a(z) %s kép törlése közben"
 
-#: src/eog-window.c:3536
+#: src/eog-window.c:3539
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1501,14 +1517,14 @@ msgstr ""
 "Biztosan át akarja helyezni a(z)\n"
 "„%s” képet a Kukába?"
 
-#: src/eog-window.c:3539
+#: src/eog-window.c:3542
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "Nem található %s kukája. Véglegesen el kívánja távolítani ezt a képet?"
 
-#: src/eog-window.c:3544
+#: src/eog-window.c:3547
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1523,7 +1539,7 @@ msgstr[1] ""
 "Biztos át akarja helyezni a\n"
 "kijelölt %d képet a Kukába?"
 
-#: src/eog-window.c:3549
+#: src/eog-window.c:3552
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1531,24 +1547,25 @@ msgstr ""
 "Néhány kiválasztott kép nem helyezhető át a Kukába és véglegesen törlésre "
 "kerül. Biztosan folytatja?"
 
-#: src/eog-window.c:3613 src/eog-window.c:3627
+#: src/eog-window.c:3616 src/eog-window.c:3630
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "A Kuka nem érhető el."
 
-#: src/eog-window.c:4342
+#: src/eog-window.c:4345
 msgid "Show the current image in fullscreen mode"
 msgstr "Kép megjelenítése teljes képernyős módban"
 
-#: src/eog-window.c:4415
+#: src/eog-window.c:4418
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: src/eog-window.c:5541
-msgid "The GNOME image viewer."
-msgstr "A GNOME képmegjelenítője."
+#: src/eog-window.c:5547
+#| msgid "Image Viewer"
+msgid "Image viewer for GNOME"
+msgstr "Képmegjelenítő a GNOME-hoz"
 
-#: src/eog-window.c:5544
+#: src/eog-window.c:5550
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik at gnome dot hu>\n"
@@ -1564,10 +1581,6 @@ msgstr ""
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
-
-#: src/main.c:56
-msgid "GNOME Image Viewer"
-msgstr "GNOME képmegjelenítő"
 
 #: src/main.c:63
 msgid "Open in fullscreen mode"
