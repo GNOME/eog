@@ -425,8 +425,7 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
  			  G_CALLBACK (on_image_changed),
  			  store);
 
-	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
-	gtk_list_store_set (GTK_LIST_STORE (store), &iter,
+	gtk_list_store_insert_with_values (GTK_LIST_STORE (store), &iter, -1,
 			    EOG_LIST_STORE_EOG_IMAGE, image,
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
 			    EOG_LIST_STORE_THUMB_SET, FALSE,
