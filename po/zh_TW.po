@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.1.92\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2020-09-25 14:54+0000\n"
-"PO-Revision-Date: 2020-10-12 21:04+0800\n"
+"POT-Creation-Date: 2023-08-05 13:26+0000\n"
+"PO-Revision-Date: 2024-02-11 23:01+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -22,11 +22,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: data/eog.appdata.xml.in:6
-msgid "Eye of GNOME"
-msgstr "GNOME 之眼"
+# src/preferences-dialog.glade.h:32
+#: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
+#: src/eog-application.c:338 src/eog-window.c:5544
+msgid "Image Viewer"
+msgstr "影像檢視器"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -34,22 +36,22 @@ msgstr "瀏覽及更改影像的方向"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"The Eye of GNOME is the official image viewer for the GNOME desktop. It "
-"integrates with the GTK+ look and feel of GNOME, and supports many image "
+"Image Viewer is the official image viewer for the GNOME desktop. It "
+"integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"《GNOME 之眼》是 GNOME 桌面的官方影像檢視器。它整合了 GNOME 的 GTK+ 外觀與感"
+"《影像檢視器》是 GNOME 桌面的官方影像檢視器。它整合了 GNOME 的 GTK 外觀與感"
 "覺，並支援許多影像格式，適合檢視單張影像或收藏圖集中的影像。"
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"The Eye of GNOME also allows to view the images in a fullscreen slideshow "
-"mode or set an image as the desktop wallpaper. It reads the camera tags to "
+"Image Viewer also allows to view the images in a fullscreen slideshow mode "
+"or set an image as the desktop wallpaper. It reads the camera tags to "
 "automatically rotate your images in the correct portrait or landscape "
 "orientation."
 msgstr ""
-"《GNOME 之眼》也允許以全螢幕投影片模式檢視影像或是將影像設定為桌面的桌布。它"
-"會讀取數位相機的標籤自動將您的影像旋轉到正確的直式或橫式方向。"
+"《影像檢視器》也允許以全螢幕投影片模式檢視影像，或是將影像設定為桌面的桌布。"
+"它會讀取數位相機的標記，並自動將您的影像旋轉到正確的直式或橫式方向。"
 
 # src/window.c:181
 #: data/eog-gear-menu.ui:6
@@ -58,15 +60,15 @@ msgstr "開啟(_O)…"
 
 #: data/eog-gear-menu.ui:10
 msgid "Op_en With…"
-msgstr "開啟方式(_E)…"
+msgstr "開啟使用(_E)…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:465
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "儲存(_S)"
 
 #: data/eog-gear-menu.ui:20 data/popup-menus.ui:16
-#: src/eog-error-message-area.c:133
+#: src/eog-error-message-area.c:135
 msgid "Save _As…"
 msgstr "儲存為(_A)…"
 
@@ -86,218 +88,120 @@ msgstr "影像屬性(_R)"
 msgid "Sli_deshow"
 msgstr "投影片(_D)"
 
-#: data/eog-gear-menu.ui:49
+#: data/eog-gear-menu.ui:46
+msgid "Show Presen_ter"
+msgstr "顯示簡圖呈現器(_T)"
+
+#: data/eog-gear-menu.ui:53
 msgid "Sho_w"
 msgstr "顯示(_W)"
 
-#: data/eog-gear-menu.ui:51
+#: data/eog-gear-menu.ui:55
 msgid "S_ide Pane"
 msgstr "側邊窗格(_P)"
 
-#: data/eog-gear-menu.ui:55
+#: data/eog-gear-menu.ui:59
 msgid "Image _Gallery"
 msgstr "影像集(_G)"
 
-#: data/eog-gear-menu.ui:59
+#: data/eog-gear-menu.ui:63
 msgid "S_tatus Bar"
 msgstr "狀態列(_T)"
 
 # src/preferences.c:219
-#: data/eog-gear-menu.ui:67
+#: data/eog-gear-menu.ui:71
 msgid "Prefere_nces"
 msgstr "偏好設定(_N)"
 
-#: data/eog-gear-menu.ui:71
+#: data/eog-gear-menu.ui:75
 msgid "_Keyboard Shortcuts"
-msgstr "鍵盤捷徑鍵(_K)"
+msgstr "鍵盤快捷鍵(_K)"
 
-#: data/eog-gear-menu.ui:75 data/eog-preferences-dialog.ui:21
+#: data/eog-gear-menu.ui:79 data/eog-preferences-dialog.ui:21
 msgid "_Help"
 msgstr "求助(_H)"
 
 # src/preferences-dialog.glade.h:32
-#: data/eog-gear-menu.ui:79
+#: data/eog-gear-menu.ui:83
 msgid "_About Image Viewer"
 msgstr "關於《影像檢視器》(_A)"
 
-#: data/eog-image-properties-dialog.ui:17
-msgid "Image Properties"
-msgstr "影像屬性"
-
-#: data/eog-image-properties-dialog.ui:31
-msgid "Previous"
-msgstr "上一幅"
-
-#: data/eog-image-properties-dialog.ui:43
-msgid "Next"
-msgstr "下一幅"
-
-#: data/eog-image-properties-dialog.ui:115
-msgid "Name:"
-msgstr "名稱："
-
-# src/preferences-dialog.glade.h:32
-#: data/eog-image-properties-dialog.ui:131
-msgid "Width:"
-msgstr "寬度："
-
-#: data/eog-image-properties-dialog.ui:146
-msgid "Height:"
-msgstr "高度："
-
-#: data/eog-image-properties-dialog.ui:161
-msgid "Type:"
-msgstr "類型："
-
 # src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:176
-msgid "Bytes:"
-msgstr "位元組："
-
-# src/tb-image.c:33
-# src/window.c:181
-#: data/eog-image-properties-dialog.ui:191
-msgid "Folder:"
-msgstr "資料夾："
-
-#: data/eog-image-properties-dialog.ui:288
-msgid "General"
-msgstr "一般"
-
-#: data/eog-image-properties-dialog.ui:321
-msgid "Aperture Value:"
-msgstr "光圈值："
-
-#: data/eog-image-properties-dialog.ui:337
-msgid "Exposure Time:"
-msgstr "曝光時間："
-
-#: data/eog-image-properties-dialog.ui:353
-msgid "Focal Length:"
-msgstr "焦距："
-
-#: data/eog-image-properties-dialog.ui:369
-msgid "Flash:"
-msgstr "閃光燈："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:385
-msgid "ISO Speed Rating:"
-msgstr "ISO 速率："
-
-#: data/eog-image-properties-dialog.ui:401
-msgid "Metering Mode:"
-msgstr "測光模式："
-
-#: data/eog-image-properties-dialog.ui:417
-msgid "Camera Model:"
-msgstr "相機型號："
-
-#: data/eog-image-properties-dialog.ui:434
-msgid "Date/Time:"
-msgstr "日期/時刻："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:464
-msgid "Description:"
-msgstr "描述："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:480
-msgid "Location:"
-msgstr "位置："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:496
-msgid "Keywords:"
-msgstr "關鍵字："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:512
-msgid "Author:"
-msgstr "作者："
-
-#: data/eog-image-properties-dialog.ui:528
-msgid "Copyright:"
-msgstr "著作權："
-
-# src/preferences-dialog.glade.h:7
-#: data/eog-image-properties-dialog.ui:807
-#: data/eog-image-properties-dialog.ui:856
+#: data/eog-details-dialog.ui:9
 msgid "Details"
 msgstr "詳細資料"
 
-#: data/eog-image-properties-dialog.ui:832
-msgid "Metadata"
-msgstr "中介資料"
+#: data/eog-details-dialog.ui:46
+msgid "Not Available"
+msgstr "不可用"
 
 #: data/eog-multiple-save-as-dialog.ui:16
 msgid "Save As"
-msgstr "另存新檔"
+msgstr "另存為"
 
-#: data/eog-multiple-save-as-dialog.ui:32
-#: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:123
-#: src/eog-file-chooser.c:456 src/eog-file-chooser.c:464
-#: src/eog-file-chooser.c:472 src/eog-window.c:3275 src/eog-window.c:3278
-#: src/eog-window.c:3510
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: data/eog-multiple-save-as-dialog.ui:46
-#: src/eog-close-confirmation-dialog.c:184
-msgid "Save _As"
-msgstr "儲存為(_A)"
-
-#: data/eog-multiple-save-as-dialog.ui:102
+#: data/eog-multiple-save-as-dialog.ui:56
 msgid "<b>%f:</b> original filename"
 msgstr "<b>%f</b>：原始檔案名稱"
 
-#: data/eog-multiple-save-as-dialog.ui:120
+#: data/eog-multiple-save-as-dialog.ui:74
 msgid "<b>%n:</b> counter"
 msgstr "<b>%n</b>：計數"
 
-#: data/eog-multiple-save-as-dialog.ui:146
+#: data/eog-multiple-save-as-dialog.ui:100
 msgid "_Filename format:"
 msgstr "檔案名稱格式(_F)："
 
 # src/tb-image.c:33
 # src/window.c:181
-#: data/eog-multiple-save-as-dialog.ui:162
+#: data/eog-multiple-save-as-dialog.ui:116
 msgid "_Destination folder:"
 msgstr "目的地資料夾(_D)："
 
-#: data/eog-multiple-save-as-dialog.ui:179
+#: data/eog-multiple-save-as-dialog.ui:133
 msgid "Choose a folder"
 msgstr "選擇一個資料夾"
 
-#: data/eog-multiple-save-as-dialog.ui:226
+#: data/eog-multiple-save-as-dialog.ui:178
 msgid "File Path Specifications"
 msgstr "檔案路徑規則"
 
-#: data/eog-multiple-save-as-dialog.ui:268
+#: data/eog-multiple-save-as-dialog.ui:216
 msgid "_Start counter at:"
 msgstr "開始計數於(_S)："
 
-#: data/eog-multiple-save-as-dialog.ui:301
+#: data/eog-multiple-save-as-dialog.ui:249
 msgid "_Replace spaces with underscores"
 msgstr "以底線替代空格(_R)"
 
 # src/preferences-dialog.glade.h:7
-#: data/eog-multiple-save-as-dialog.ui:324
+#: data/eog-multiple-save-as-dialog.ui:270
 msgid "Options"
 msgstr "選項"
 
-#: data/eog-multiple-save-as-dialog.ui:361
+#: data/eog-multiple-save-as-dialog.ui:303
 msgid "Rename from:"
 msgstr "重新命名從："
 
-#: data/eog-multiple-save-as-dialog.ui:375
+#: data/eog-multiple-save-as-dialog.ui:317
 msgid "To:"
 msgstr "到："
 
-#: data/eog-multiple-save-as-dialog.ui:424
+#: data/eog-multiple-save-as-dialog.ui:364
 msgid "File Name Preview"
 msgstr "檔案名稱預覽"
+
+#: data/eog-multiple-save-as-dialog.ui:388
+#: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3331 src/eog-window.c:3334
+#: src/eog-window.c:3566
+msgid "_Cancel"
+msgstr "取消(_C)"
+
+#: data/eog-multiple-save-as-dialog.ui:397
+#: src/eog-close-confirmation-dialog.c:184
+msgid "Save _As"
+msgstr "另存為(_A)"
 
 # src/preferences.c:219
 #: data/eog-preferences-dialog.ui:15
@@ -330,69 +234,102 @@ msgstr "背景"
 msgid "As custom color:"
 msgstr "使用自訂顏色："
 
-#: data/eog-preferences-dialog.ui:192 data/org.gnome.eog.gschema.xml.in:16
+#: data/eog-preferences-dialog.ui:192 data/eog-preferences-dialog.ui:196
+#: data/org.gnome.eog.gschema.xml.in:16
 msgid "Background Color"
 msgstr "背景顏色"
 
-#: data/eog-preferences-dialog.ui:228
+#: data/eog-preferences-dialog.ui:233
 msgid "Transparent Parts"
 msgstr "透明部分"
 
-#: data/eog-preferences-dialog.ui:252
+#: data/eog-preferences-dialog.ui:257
 msgid "As check _pattern"
 msgstr "以方格表示(_P)"
 
-#: data/eog-preferences-dialog.ui:273
+#: data/eog-preferences-dialog.ui:278
 msgid "As custom c_olor:"
 msgstr "以自選顏色表示(_O)："
 
-#: data/eog-preferences-dialog.ui:293
+#: data/eog-preferences-dialog.ui:298 data/eog-preferences-dialog.ui:302
 msgid "Color for Transparent Areas"
 msgstr "表示透明區域的顏色"
 
-#: data/eog-preferences-dialog.ui:311
+#: data/eog-preferences-dialog.ui:321
 msgid "As _background"
 msgstr "以背景表示(_B)"
 
 # src/preferences-dialog.glade.h:32
-#: data/eog-preferences-dialog.ui:347
+#: data/eog-preferences-dialog.ui:357
 msgid "Image View"
 msgstr "影像顯示"
 
-#: data/eog-preferences-dialog.ui:371
+#: data/eog-preferences-dialog.ui:381
 msgid "Image Zoom"
-msgstr "影像縮放"
+msgstr "影像遠近"
 
-#: data/eog-preferences-dialog.ui:389
+#: data/eog-preferences-dialog.ui:399
 msgid "E_xpand images to fit screen"
 msgstr "放大至適合螢幕的大小(_X)"
 
-#: data/eog-preferences-dialog.ui:409
+#: data/eog-preferences-dialog.ui:419
 msgid "Sequence"
 msgstr "播放順序"
 
 #. I18N: This sentence will be displayed above a horizontal scale to select a number of seconds in eog's preferences dialog.
-#: data/eog-preferences-dialog.ui:441
+#: data/eog-preferences-dialog.ui:451
 msgid "_Time between images:"
 msgstr "兩張影像之間的時間(_T)："
 
-#: data/eog-preferences-dialog.ui:482
+#: data/eog-preferences-dialog.ui:493
 msgid "_Loop sequence"
 msgstr "循環順序(_L)"
 
-#: data/eog-preferences-dialog.ui:520
+#: data/eog-preferences-dialog.ui:531
 msgid "Slideshow"
 msgstr "投影片"
 
-#: data/eog-preferences-dialog.ui:554
+#: data/eog-preferences-dialog.ui:565
 msgid "Plugins"
 msgstr "外掛程式"
+
+#: data/eog-remote-presenter.ui:107 data/metadata-sidebar.ui:54
+msgid "Type"
+msgstr "類型"
+
+#: data/eog-remote-presenter.ui:124
+msgid "Name"
+msgstr "名稱"
+
+#: data/eog-remote-presenter.ui:141 data/metadata-sidebar.ui:36
+#: src/eog-print-image-setup.c:1232
+msgid "Size"
+msgstr "大小"
+
+# src/preferences-dialog.glade.h:7
+#: data/eog-remote-presenter.ui:158
+msgid "Bytes"
+msgstr "位元組"
+
+# src/tb-image.c:33
+# src/window.c:181
+#: data/eog-remote-presenter.ui:175 data/metadata-sidebar.ui:92
+msgid "Folder"
+msgstr "資料夾"
+
+#: data/eog-remote-presenter.ui:194
+msgid "Show the folder which contains this file in the file manager"
+msgstr "在檔案管理員中顯示包含這個檔案的資料夾"
+
+#: data/eog-remote-presenter.ui:217
+msgid "Presenter"
+msgstr "簡圖呈現器"
 
 #: data/eog-zoom-entry.ui:23 data/fullscreen-toolbar.ui:98
 msgid "Shrink the image"
 msgstr "縮小該影像"
 
-#: data/eog-zoom-entry.ui:59 data/fullscreen-toolbar.ui:83
+#: data/eog-zoom-entry.ui:63 data/fullscreen-toolbar.ui:83
 msgid "Enlarge the image"
 msgstr "放大該影像"
 
@@ -403,24 +340,24 @@ msgstr "移至影像集的第一張影像"
 # src/window.c:704
 #: data/fullscreen-toolbar.ui:15
 msgid "_First Image"
-msgstr "第一幅影像(_F)"
+msgstr "第一張影像(_F)"
 
-#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2372
+#: data/fullscreen-toolbar.ui:28 src/eog-scroll-view.c:2108
 msgid "Go to the previous image of the gallery"
 msgstr "移至影像集的上一張影像"
 
 #: data/fullscreen-toolbar.ui:30
 msgid "_Previous Image"
-msgstr "上一幅影像(_P)"
+msgstr "上一張影像(_P)"
 
-#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2360
+#: data/fullscreen-toolbar.ui:43 src/eog-scroll-view.c:2096
 msgid "Go to the next image of the gallery"
 msgstr "移至影像集的下一張影像"
 
 # src/window.c:704
 #: data/fullscreen-toolbar.ui:45
 msgid "_Next Image"
-msgstr "下一幅影像(_N)"
+msgstr "下一張影像(_N)"
 
 #: data/fullscreen-toolbar.ui:58
 msgid "Go to the last image of the gallery"
@@ -429,7 +366,7 @@ msgstr "移至影像集的最後一張影像"
 # src/window.c:704
 #: data/fullscreen-toolbar.ui:60
 msgid "_Last Image"
-msgstr "最後一幅影像(_L)"
+msgstr "最後一張影像(_L)"
 
 # src/window.c:221
 #: data/fullscreen-toolbar.ui:85
@@ -458,7 +395,7 @@ msgstr "圖片符合視窗尺寸"
 msgid "_Best Fit"
 msgstr "最適大小(_B)"
 
-#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2387
+#: data/fullscreen-toolbar.ui:153 src/eog-scroll-view.c:2123
 msgid "Rotate the image 90 degrees to the left"
 msgstr "向左 90 度旋轉該影像"
 
@@ -466,7 +403,7 @@ msgstr "向左 90 度旋轉該影像"
 msgid "Rotate Counter_clockwise"
 msgstr "逆時針方向旋轉(_C)"
 
-#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2398
+#: data/fullscreen-toolbar.ui:168 src/eog-scroll-view.c:2134
 msgid "Rotate the image 90 degrees to the right"
 msgstr "向右 90 度旋轉該影像"
 
@@ -538,8 +475,8 @@ msgstr "將影像設定為桌面背景"
 
 #: data/help-overlay.ui:68
 msgctxt "shortcut window"
-msgid "Show image properties dialog"
-msgstr "顯示影像屬性對話盒"
+msgid "Show image properties in sidebar"
+msgstr "在側邊欄中顯示影像屬性"
 
 #: data/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -556,221 +493,217 @@ msgctxt "shortcut window"
 msgid "Show/Hide the application menu"
 msgstr "顯示/隱藏應用程式選單"
 
+# src/preferences.c:219
 #: data/help-overlay.ui:96
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
-msgstr "鍵盤捷徑鍵"
+msgid "Show preferences"
+msgstr "顯示偏好設定"
 
-#: data/help-overlay.ui:104
+#: data/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "鍵盤快捷鍵"
+
+#: data/help-overlay.ui:111
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "縮放"
 
-#: data/help-overlay.ui:108 data/help-overlay.ui:123
+#: data/help-overlay.ui:115 data/help-overlay.ui:130
 msgctxt "shortcut window"
 msgid "Zoom in"
 msgstr "拉近"
 
-#: data/help-overlay.ui:115 data/help-overlay.ui:130
+#: data/help-overlay.ui:122 data/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Zoom out"
 msgstr "拉遠"
 
-#: data/help-overlay.ui:137
+#: data/help-overlay.ui:144
 msgctxt "shortcut window"
 msgid "Actual size"
 msgstr "實際大小"
 
-#: data/help-overlay.ui:144
+#: data/help-overlay.ui:151
 msgctxt "shortcut window"
 msgid "Best fit"
 msgstr "最適大小"
 
-#: data/help-overlay.ui:152
+#: data/help-overlay.ui:159
 msgctxt "shortcut window"
 msgid "Browsing Images"
 msgstr "瀏覽影像"
 
-#: data/help-overlay.ui:157 data/help-overlay.ui:165 data/help-overlay.ui:206
-#: data/help-overlay.ui:214
+#: data/help-overlay.ui:164 data/help-overlay.ui:172 data/help-overlay.ui:213
+#: data/help-overlay.ui:221
 msgctxt "shortcut window"
 msgid "Go to the next image in the folder"
 msgstr "移至資料夾的下一張影像"
 
-#: data/help-overlay.ui:173 data/help-overlay.ui:181 data/help-overlay.ui:190
-#: data/help-overlay.ui:198
+#: data/help-overlay.ui:180 data/help-overlay.ui:188 data/help-overlay.ui:197
+#: data/help-overlay.ui:205
 msgctxt "shortcut window"
 msgid "Go to the previous image in the folder"
 msgstr "移至資料夾的上一張影像"
 
-#: data/help-overlay.ui:221
+#: data/help-overlay.ui:228
 msgctxt "shortcut window"
 msgid "Go to the first image in the folder"
 msgstr "移至資料夾的第一張影像"
 
-#: data/help-overlay.ui:228
+#: data/help-overlay.ui:235
 msgctxt "shortcut window"
 msgid "Go to the last image in the folder"
 msgstr "移至資料夾的最後一張影像"
 
-#: data/help-overlay.ui:235
+#: data/help-overlay.ui:242
 msgctxt "shortcut window"
 msgid "Go to a random image in the folder"
 msgstr "移至資料夾的隨機影像"
 
-#: data/help-overlay.ui:242
+#: data/help-overlay.ui:249
+msgctxt "shortcut window"
+msgid "Show presenter with separate controls"
+msgstr "顯示附帶獨立控制項的簡圖呈現器"
+
+#: data/help-overlay.ui:256
 msgctxt "shortcut window"
 msgid "Show/Hide the image gallery"
 msgstr "顯示/隱藏影像集"
 
-#: data/help-overlay.ui:250
+#: data/help-overlay.ui:264
 msgctxt "shortcut window"
 msgid "Rotation"
 msgstr "旋轉"
 
-#: data/help-overlay.ui:254 data/help-overlay.ui:269
+#: data/help-overlay.ui:268 data/help-overlay.ui:283
 msgctxt "shortcut window"
 msgid "Rotate clockwise"
 msgstr "順時針方向旋轉"
 
-#: data/help-overlay.ui:261 data/help-overlay.ui:276
+#: data/help-overlay.ui:275 data/help-overlay.ui:290
 msgctxt "shortcut window"
 msgid "Rotate counterclockwise"
 msgstr "逆時針方向旋轉"
 
-#: data/help-overlay.ui:284
+#: data/help-overlay.ui:298
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: data/help-overlay.ui:289
+#: data/help-overlay.ui:303
 msgctxt "shortcut window"
 msgid "Enter/Leave fullscreen"
 msgstr "進入/離開全螢幕"
 
-#: data/help-overlay.ui:296
+#: data/help-overlay.ui:310
 msgctxt "shortcut window"
 msgid "Start/Stop slideshow"
 msgstr "開始/停止投影片播放"
 
-#: data/help-overlay.ui:303
+#: data/help-overlay.ui:317
 msgctxt "shortcut window"
 msgid "Pause slideshow"
 msgstr "暫停播放投影片"
 
-#: data/help-overlay.ui:311
+#: data/help-overlay.ui:325
 msgctxt "shortcut window"
 msgid "Common"
 msgstr "一般"
 
-#: data/help-overlay.ui:316
+#: data/help-overlay.ui:330
 msgctxt "shortcut window"
 msgid "Copy to clipboard"
 msgstr "複製到剪貼簿"
 
-#: data/help-overlay.ui:323
+#: data/help-overlay.ui:337
 msgctxt "shortcut window"
 msgid "Undo"
 msgstr "復原"
 
-#: data/help-overlay.ui:330
+#: data/help-overlay.ui:344
 msgctxt "shortcut window"
 msgid "Move to Trash"
 msgstr "移至垃圾桶"
 
-#: data/help-overlay.ui:337
+#: data/help-overlay.ui:351
 msgctxt "shortcut window"
 msgid "Delete image permanently"
 msgstr "永久刪除影像"
 
-#: data/help-overlay.ui:345
+#: data/help-overlay.ui:359
 msgctxt "shortcut window"
 msgid "Scrolling"
 msgstr "捲動"
 
-#: data/help-overlay.ui:350
+#: data/help-overlay.ui:364
 msgctxt "shortcut window"
 msgid "Scroll left in a large image"
 msgstr "大型影像向左捲動"
 
-#: data/help-overlay.ui:357
+#: data/help-overlay.ui:371
 msgctxt "shortcut window"
 msgid "Scroll right in a large image"
 msgstr "大型影像向右捲動"
 
-#: data/help-overlay.ui:364
+#: data/help-overlay.ui:378
 msgctxt "shortcut window"
 msgid "Scroll up in a large image"
 msgstr "大型影像向上捲動"
 
-#: data/help-overlay.ui:371
+#: data/help-overlay.ui:385
 msgctxt "shortcut window"
 msgid "Scroll down in a large image"
 msgstr "大型影像向下捲動"
 
-#: data/metadata-sidebar.ui:29 src/eog-print-image-setup.c:1232
-msgid "Size"
-msgstr "大小"
-
-#: data/metadata-sidebar.ui:46
-msgid "Type"
-msgstr "類型"
-
-#: data/metadata-sidebar.ui:63
+#: data/metadata-sidebar.ui:72
 msgid "File Size"
 msgstr "檔案容量"
 
-# src/tb-image.c:33
-# src/window.c:181
-#: data/metadata-sidebar.ui:82
-msgid "Folder"
-msgstr "資料夾"
-
-#: data/metadata-sidebar.ui:99
+#: data/metadata-sidebar.ui:110
 msgid "Aperture"
 msgstr "光圈值"
 
-#: data/metadata-sidebar.ui:116
+#: data/metadata-sidebar.ui:128
 msgid "Exposure"
 msgstr "曝光"
 
-#: data/metadata-sidebar.ui:133
+#: data/metadata-sidebar.ui:146
 msgid "ISO"
 msgstr "ISO"
 
-#: data/metadata-sidebar.ui:151
+#: data/metadata-sidebar.ui:165
 msgid "Metering"
 msgstr "測光模式"
 
-#: data/metadata-sidebar.ui:169 src/eog-metadata-details.c:65
+#: data/metadata-sidebar.ui:184 src/eog-metadata-details.c:65
 msgid "Camera"
-msgstr "照相機"
+msgstr "相機"
 
-#: data/metadata-sidebar.ui:187
+#: data/metadata-sidebar.ui:203
 msgid "Date"
 msgstr "日期"
 
-#: data/metadata-sidebar.ui:204
+#: data/metadata-sidebar.ui:221
 msgid "Time"
 msgstr "時刻"
 
-#: data/metadata-sidebar.ui:380
+#: data/metadata-sidebar.ui:398
 msgid "Focal Length"
 msgstr "焦距"
 
-# src/preferences-dialog.glade.h:32
-#: data/org.gnome.eog.desktop.in.in:3 src/eog-application.c:310
-#: src/eog-window.c:5532
-msgid "Image Viewer"
-msgstr "影像檢視器"
+# src/preferences-dialog.glade.h:7
+#: data/metadata-sidebar.ui:435
+msgid "Show Details"
+msgstr "顯示詳細資料"
 
 #. Extra keywords that can be used to search for eog in GNOME Shell and Unity
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
-#: data/org.gnome.eog.desktop.in.in:24
+#: data/org.gnome.eog.desktop.in.in:20
 msgid "Picture;Slideshow;Graphics;"
-msgstr "Picture;Slideshow;Graphics;相片;投影片;影像;"
+msgstr "Picture;Slideshow;Graphics;相片;投影片;影像;圖片;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -964,27 +897,11 @@ msgstr ""
 "如果在使用中而目前的視窗沒有載入影像，檔案選擇程式會顯示使用 XDG 特殊使用者目"
 "錄的相片資料夾。如果沒有使用或相片資料夾尚未設定，就會顯示目前的工作目錄。"
 
-#: data/org.gnome.eog.gschema.xml.in:113
-msgid ""
-"Whether the metadata list in the properties dialog should have its own page."
-msgstr "屬性對話盒中的中介資料列表是否要自成一個頁面。"
-
-#: data/org.gnome.eog.gschema.xml.in:114
-msgid ""
-"If activated, the detailed metadata list in the properties dialog will be "
-"moved to its own page in the dialog. This should make the dialog more usable "
-"on smaller screens, e.g. as used by netbooks. If disabled, the widget will "
-"be embedded on the “Metadata” page."
-msgstr ""
-"如果在使用中，在屬性對話盒中的詳細中介資料列表會移至對話盒中自己的頁面。這樣"
-"會讓對話盒在小型螢幕上更易於使用，例如用於輕省筆電。如果停用則此元件會內嵌於"
-"「中介資料」頁面。"
-
-#: data/org.gnome.eog.gschema.xml.in:120
+#: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
 msgstr "使用的外掛程式"
 
-#: data/org.gnome.eog.gschema.xml.in:121
+#: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
 "List of active plugins. It doesn’t contain the “Location” of the active "
 "plugins. See the .eog-plugin file for obtaining the “Location” of a given "
@@ -995,13 +912,13 @@ msgstr ""
 
 #: data/popup-menus.ui:6
 msgid "Open _With…"
-msgstr "開啟方式(_W)…"
+msgstr "開啟使用(_W)…"
 
 #: data/popup-menus.ui:28
 msgid "_Copy"
 msgstr "複製(_C)"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3513
+#: data/popup-menus.ui:34 src/eog-window.c:3569
 msgid "Move to _Trash"
 msgstr "移至垃圾桶(_T)"
 
@@ -1019,11 +936,11 @@ msgstr "最適大小(_B)"
 
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:5
 msgid "Fullscreen with double-click"
-msgstr "雙擊全螢幕模式"
+msgstr "連點兩下全螢幕模式"
 
 #: plugins/fullscreen/fullscreen.plugin.desktop.in:9
 msgid "Activate fullscreen mode with double-click"
-msgstr "雙擊時使用全螢幕模式"
+msgstr "連點兩下時使用全螢幕模式"
 
 # src/window.c:704
 #: plugins/reload/eog-reload-plugin.c:185
@@ -1079,36 +996,36 @@ msgid "If you don’t save, all your changes will be lost."
 msgstr "如果不儲存，您所有的變更將會消失。"
 
 # src/window.c:704
-#: src/eog-error-message-area.c:128 src/eog-window.c:929
+#: src/eog-error-message-area.c:130 src/eog-window.c:940
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
-#: src/eog-error-message-area.c:137
+#: src/eog-error-message-area.c:139
 msgid "Open with _Document Viewer"
-msgstr "以文件檢視器開啟(_D)"
+msgstr "以《文件檢視器》開啟(_D)"
 
 # src/util.c:47
-#: src/eog-error-message-area.c:219
+#: src/eog-error-message-area.c:221
 #, c-format
 msgid "Could not load image “%s”."
 msgstr "無法載入影像「%s」。"
 
 # src/util.c:47
-#: src/eog-error-message-area.c:261
+#: src/eog-error-message-area.c:263
 #, c-format
 msgid "Could not save image “%s”."
 msgstr "無法儲存影像「%s」。"
 
-#: src/eog-error-message-area.c:304
+#: src/eog-error-message-area.c:306
 #, c-format
 msgid "No images found in “%s”."
 msgstr "在「%s」中找不到影像。"
 
-#: src/eog-error-message-area.c:311
+#: src/eog-error-message-area.c:313
 msgid "The given locations contain no images."
 msgstr "提供的位置並未包含影像。"
 
-#: src/eog-error-message-area.c:350
+#: src/eog-error-message-area.c:354
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1117,7 +1034,7 @@ msgstr ""
 "這個影像包含多個頁面。影像檢視器只能顯示第一頁。\n"
 "您想要開啟文件檢視器來檢視所有的頁面嗎？"
 
-#: src/eog-error-message-area.c:355
+#: src/eog-error-message-area.c:359
 msgid ""
 "This image contains multiple pages. Image Viewer displays only the first "
 "page.\n"
@@ -1139,95 +1056,88 @@ msgstr "%.1f (鏡片)"
 #: src/eog-exif-util.c:295
 #, c-format
 msgid "%.1f (35mm film)"
-msgstr "%.1f (35mm 軟片)"
+msgstr "%.1f (35mm 底片)"
 
-#: src/eog-file-chooser.c:119
+#: src/eog-file-chooser.c:120
 msgid "File format is unknown or unsupported"
 msgstr "檔案格式未知或不支援"
 
-#: src/eog-file-chooser.c:124
+#: src/eog-file-chooser.c:125
 msgid ""
 "Image Viewer could not determine a supported writable file format based on "
 "the filename."
 msgstr "影像檢視器無法依據此檔案名稱來判斷是否為可寫入的檔案格式。"
 
-#: src/eog-file-chooser.c:125
+#: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "請嘗試不同的延伸檔名如 .png 或 .jpg。"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:160
+#: src/eog-file-chooser.c:161
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: src/eog-file-chooser.c:212
+#: src/eog-file-chooser.c:213
 msgid "All files"
 msgstr "所有檔案"
 
-#: src/eog-file-chooser.c:217
+#: src/eog-file-chooser.c:218
 msgid "Supported image files"
 msgstr "支援的影像檔案"
 
-#. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:289 src/eog-properties-dialog.c:165
-#: src/eog-properties-dialog.c:167 src/eog-thumb-view.c:517
-msgid "pixel"
-msgid_plural "pixels"
-msgstr[0] "像素"
-
 # src/window.c:181
-#: src/eog-file-chooser.c:457 src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "開啟(_O)"
 
 # src/window.c:704
-#: src/eog-file-chooser.c:459
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "開啟影像"
 
 # src/window.c:704
-#: src/eog-file-chooser.c:467
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "儲存影像"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: src/eog-file-chooser.c:475
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "開啟資料夾"
 
-#: src/eog-image.c:566
+#: src/eog-image.c:570
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "改變未載入的影像。"
 
-#: src/eog-image.c:594
+#: src/eog-image.c:598
 #, c-format
 msgid "Transformation failed."
 msgstr "轉換失敗。"
 
-#: src/eog-image.c:1081
+#: src/eog-image.c:1139
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "本檔案格式不支 EXIF。"
 
-#: src/eog-image.c:1222
+#: src/eog-image.c:1282
 #, c-format
 msgid "Image loading failed."
 msgstr "載入影像失敗。"
 
-#: src/eog-image.c:1804 src/eog-image.c:1924
+#: src/eog-image.c:1871 src/eog-image.c:1991
 #, c-format
 msgid "No image loaded."
 msgstr "沒有載入影像。"
 
-#: src/eog-image.c:1812 src/eog-image.c:1933
+#: src/eog-image.c:1879 src/eog-image.c:2000
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
-msgstr "您沒有儲存檔案所需的權限。"
+msgstr "您沒有儲存檔案所需的權能。"
 
-#: src/eog-image.c:1822 src/eog-image.c:1944
+#: src/eog-image.c:1889 src/eog-image.c:2011
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "建立暫存檔失敗。"
@@ -1257,7 +1167,7 @@ msgstr "GPS 資料"
 
 #: src/eog-metadata-details.c:69
 msgid "Maker Note"
-msgstr "拍攝者附記"
+msgstr "拍攝者備註"
 
 # src/preferences-dialog.glade.h:26
 #: src/eog-metadata-details.c:70
@@ -1283,7 +1193,7 @@ msgstr "XMP 其他"
 
 #: src/eog-metadata-details.c:251
 msgid "Tag"
-msgstr "標籤"
+msgstr "標記"
 
 #: src/eog-metadata-details.c:258
 msgid "Value"
@@ -1305,21 +1215,15 @@ msgstr "西"
 msgid "South"
 msgstr "南"
 
-#: src/eog-metadata-sidebar.c:144
-#, c-format
-msgid "%i × %i pixel"
-msgid_plural "%i × %i pixels"
-msgstr[0] "%i × %i 像素"
-
-#: src/eog-metadata-sidebar.c:155 src/eog-properties-dialog.c:182
+#: src/eog-metadata-sidebar.c:158 src/eog-remote-presenter.c:357
 msgid "Unknown"
 msgstr "不明"
 
-#: src/eog-metadata-sidebar.c:219
+#: src/eog-metadata-sidebar.c:225
 msgid "%a, %d %B %Y"
 msgstr "%Y年%m月%d日%A"
 
-#: src/eog-metadata-sidebar.c:223
+#: src/eog-metadata-sidebar.c:229
 #, c-format
 msgid "%X"
 msgstr "%X"
@@ -1423,13 +1327,13 @@ msgstr "英吋"
 msgid "Preview"
 msgstr "預覽"
 
-#: src/eog-properties-dialog.c:776
-msgid "Show the folder which contains this file in the file manager"
-msgstr "在檔案管理員中顯示包含這個檔案的資料夾"
-
 #: src/eog-save-as-dialog-helper.c:162
 msgid "as is"
 msgstr "原來格式"
+
+#: src/eog-sidebar.c:438
+msgid "Hide sidebar"
+msgstr "隱藏側邊欄"
 
 #. Translators: This string is displayed in the statusbar.
 #. * The first token is the image number, the second is total image
@@ -1446,11 +1350,11 @@ msgstr "原來格式"
 msgid "%d / %d"
 msgstr "%d / %d"
 
-#: src/eog-thumb-view.c:545
+#: src/eog-thumb-view.c:553
 msgid "Taken on"
 msgstr "拍攝日"
 
-#: src/eog-uri-converter.c:989
+#: src/eog-uri-converter.c:930
 #, c-format
 msgid "At least two file names are equal."
 msgstr "最少有兩個檔案的名稱相同。"
@@ -1459,9 +1363,11 @@ msgstr "最少有兩個檔案的名稱相同。"
 msgid "Could not display help for Image Viewer"
 msgstr "無法顯示影像檢視器的說明文件"
 
-#: src/eog-util.c:120
-msgid " (invalid Unicode)"
-msgstr " (無效的 Unicode)"
+#: src/eog-util.c:474
+#, c-format
+msgid "%i × %i pixel"
+msgid_plural "%i × %i pixels"
+msgstr[0] "%i × %i 像素"
 
 #. Translators: This is the string displayed in the statusbar
 #. * The tokens are from left to right:
@@ -1469,18 +1375,18 @@ msgstr " (無效的 Unicode)"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:543
+#: src/eog-window.c:551
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i 像素  %s    %i%%"
 
-#: src/eog-window.c:931 src/eog-window.c:2665
+#: src/eog-window.c:942 src/eog-window.c:2728
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "隱藏(_D)"
 
-#: src/eog-window.c:939
+#: src/eog-window.c:950
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1493,23 +1399,23 @@ msgstr "影像「%s」已被外部應用程式修改。您是否想要重新載�
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1194
+#: src/eog-window.c:1204
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "儲存影像「%s」(%u/%u)"
 
 # src/window.c:704
-#: src/eog-window.c:1618
+#: src/eog-window.c:1634
 #, c-format
 msgid "Opening image “%s”"
 msgstr "正在開啟影像「%s」"
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2004
+#: src/eog-window.c:2034
 msgid "Viewing a slideshow"
 msgstr "以幻燈片檢視"
 
-#: src/eog-window.c:2225
+#: src/eog-window.c:2255
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1518,26 +1424,26 @@ msgstr ""
 "列印檔案時發生錯誤：\n"
 "%s"
 
-#: src/eog-window.c:2614 src/eog-window.c:2629
+#: src/eog-window.c:2676 src/eog-window.c:2691
 msgid "Error launching System Settings: "
 msgstr "錯誤的執行系統設定值："
 
-#: src/eog-window.c:2663
+#: src/eog-window.c:2726
 msgid "_Open Background Preferences"
 msgstr "開啟背景偏好設定(_O)"
 
-#: src/eog-window.c:2677
+#: src/eog-window.c:2740
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
 "its appearance?"
 msgstr "影像「%s」已被設為「桌面背景」。您是否想要修改它的外觀？"
 
-#: src/eog-window.c:3168
+#: src/eog-window.c:3226
 msgid "Saving image locally…"
 msgstr "將影像儲存到本地端…"
 
-#: src/eog-window.c:3251
+#: src/eog-window.c:3307
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1546,7 +1452,7 @@ msgstr ""
 "確定要將「%s」\n"
 "永久移除嗎？"
 
-#: src/eog-window.c:3254
+#: src/eog-window.c:3310
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1559,41 +1465,41 @@ msgstr[0] ""
 "永久移除嗎？"
 
 # src/window.c:704
-#: src/eog-window.c:3276 src/eog-window.c:3521
+#: src/eog-window.c:3332 src/eog-window.c:3577
 msgid "_Delete"
 msgstr "刪除(_D)"
 
-#: src/eog-window.c:3279 src/eog-window.c:3523
+#: src/eog-window.c:3335 src/eog-window.c:3579
 msgid "_Yes"
 msgstr "是(_Y)"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3283 src/eog-window.c:3515
+#: src/eog-window.c:3339 src/eog-window.c:3571
 msgid "Do _not ask again during this session"
 msgstr "在這個作業階段中不要再詢問(_N)"
 
-#: src/eog-window.c:3327
+#: src/eog-window.c:3383
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "無法取回影像檔案"
 
-#: src/eog-window.c:3343
+#: src/eog-window.c:3399
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "無法取回影像檔案資訊"
 
-#: src/eog-window.c:3359 src/eog-window.c:3582
+#: src/eog-window.c:3415 src/eog-window.c:3638
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "無法刪除檔案"
 
 #. set dialog error message
-#: src/eog-window.c:3404 src/eog-window.c:3678
+#: src/eog-window.c:3460 src/eog-window.c:3734
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "當刪除影像 %s 時發生錯誤"
 
-#: src/eog-window.c:3483
+#: src/eog-window.c:3539
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1602,14 +1508,14 @@ msgstr ""
 "確定要將\n"
 "「%s」移至垃圾桶嗎？"
 
-#: src/eog-window.c:3486
+#: src/eog-window.c:3542
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "找不到「%s」的垃圾桶。是否要永久移除這個影像？"
 
-#: src/eog-window.c:3491
+#: src/eog-window.c:3547
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1621,46 +1527,43 @@ msgstr[0] ""
 "確定要將選取的 %d 張影像\n"
 "永久移至垃圾桶嗎？"
 
-#: src/eog-window.c:3496
+#: src/eog-window.c:3552
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr "有部分被選取的影像不能移至垃圾桶，因而將被直接刪除。您確定要繼續嗎？"
 
-#: src/eog-window.c:3560 src/eog-window.c:3574
+#: src/eog-window.c:3616 src/eog-window.c:3630
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "無法存取垃圾桶。"
 
-#: src/eog-window.c:4223
-msgid "Shrink or enlarge the current image"
-msgstr "縮小或放大目前影像"
-
-#: src/eog-window.c:4282
+#: src/eog-window.c:4345
 msgid "Show the current image in fullscreen mode"
 msgstr "以全螢幕模式顯示目前的影像"
 
-#: src/eog-window.c:4353
+#: src/eog-window.c:4418
 msgid "Properties"
 msgstr "屬性"
 
 # src/window.c:166
-#: src/eog-window.c:5535
+#: src/eog-window.c:5547
 msgid "The GNOME image viewer."
 msgstr "GNOME 影像檢視器。"
 
-#: src/eog-window.c:5538
+#: src/eog-window.c:5550
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
 "以下地址，GNOME 翻譯團隊會盡快回覆您：\n"
 "zh-l10n@lists.linux.org.tw\n"
 "\n"
-"Woodman Tuen <wmtuen@gmail.com>, 2005-07\n"
-"Ching-Hung Lin <2billlin@yahoo.com.tw>, 2004\n"
-"Lawrence Leung <hksarhong@yahoo.com>, 2004\n"
-"Abel Cheung <abel@oaka.org>, 2001-2003\n"
-"Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000"
+"Woodman Tuen <wmtuen@gmail.com>, 2005-07.\n"
+"Ching-Hung Lin <2billlin@yahoo.com.tw>, 2004.\n"
+"Lawrence Leung <hksarhong@yahoo.com>, 2004.\n"
+"Abel Cheung <abel@oaka.org>, 2001-2003.\n"
+"Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000.\n"
+"Cheng-Chia Tseng <zerngjia@gmail.com>, 2024."
 
 #. L10N: This is a percentage value used for the image zoom.
 #. * This should be translated similar to the statusbar zoom value.
@@ -1710,6 +1613,108 @@ msgstr "[檔案…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
+
+#~ msgid "Eye of GNOME"
+#~ msgstr "GNOME 之眼"
+
+#~ msgid "Image Properties"
+#~ msgstr "影像屬性"
+
+#~ msgid "Previous"
+#~ msgstr "上一幅"
+
+#~ msgid "Next"
+#~ msgstr "下一幅"
+
+# src/preferences-dialog.glade.h:32
+#~ msgid "Width:"
+#~ msgstr "寬度："
+
+#~ msgid "Height:"
+#~ msgstr "高度："
+
+#~ msgid "Type:"
+#~ msgstr "類型："
+
+# src/tb-image.c:33
+# src/window.c:181
+#~ msgid "Folder:"
+#~ msgstr "資料夾："
+
+#~ msgid "General"
+#~ msgstr "一般"
+
+#~ msgid "Aperture Value:"
+#~ msgstr "光圈值："
+
+#~ msgid "Exposure Time:"
+#~ msgstr "曝光時間："
+
+#~ msgid "Focal Length:"
+#~ msgstr "焦距："
+
+#~ msgid "Flash:"
+#~ msgstr "閃光燈："
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "ISO Speed Rating:"
+#~ msgstr "ISO 速率："
+
+#~ msgid "Metering Mode:"
+#~ msgstr "測光模式："
+
+#~ msgid "Camera Model:"
+#~ msgstr "相機型號："
+
+#~ msgid "Date/Time:"
+#~ msgstr "日期/時刻："
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "Description:"
+#~ msgstr "描述："
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "Location:"
+#~ msgstr "位置："
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "Keywords:"
+#~ msgstr "關鍵字："
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "Author:"
+#~ msgstr "作者："
+
+#~ msgid "Copyright:"
+#~ msgstr "著作權："
+
+#~ msgid "Metadata"
+#~ msgstr "中介資料"
+
+#~ msgid ""
+#~ "Whether the metadata list in the properties dialog should have its own "
+#~ "page."
+#~ msgstr "屬性對話盒中的中介資料列表是否要自成一個頁面。"
+
+#~ msgid ""
+#~ "If activated, the detailed metadata list in the properties dialog will be "
+#~ "moved to its own page in the dialog. This should make the dialog more "
+#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
+#~ "widget will be embedded on the “Metadata” page."
+#~ msgstr ""
+#~ "如果在使用中，在屬性對話盒中的詳細中介資料列表會移至對話盒中自己的頁面。這"
+#~ "樣會讓對話盒在小型螢幕上更易於使用，例如用於輕省筆電。如果停用則此元件會內"
+#~ "嵌於「中介資料」頁面。"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "像素"
+
+#~ msgid " (invalid Unicode)"
+#~ msgstr " (無效的 Unicode)"
+
+#~ msgid "Shrink or enlarge the current image"
+#~ msgstr "縮小或放大目前影像"
 
 #~ msgid "org.gnome.eog"
 #~ msgstr "org.gnome.eog"
@@ -1788,9 +1793,6 @@ msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
 
 #~ msgid "Set the image as desktop background"
 #~ msgstr "將圖片設定為桌面背景"
-
-#~ msgid "Show/Hide the sidebar"
-#~ msgstr "顯示/隱藏側邊欄"
 
 #~ msgid "Show image properties dialog"
 #~ msgstr "顯示圖片屬性對話盒"
