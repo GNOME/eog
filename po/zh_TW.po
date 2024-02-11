@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 3.1.92\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2023-08-05 13:26+0000\n"
-"PO-Revision-Date: 2024-02-11 23:01+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
+"POT-Creation-Date: 2024-02-11 15:04+0000\n"
+"PO-Revision-Date: 2024-02-12 01:24+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -24,11 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.4.2\n"
 
-# src/preferences-dialog.glade.h:32
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:338 src/eog-window.c:5544
-msgid "Image Viewer"
-msgstr "影像檢視器"
+#: src/eog-application.c:338 src/eog-window.c:5544 src/main.c:56
+msgid "Eye of GNOME"
+msgstr "GNOME 之眼"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
@@ -36,22 +35,21 @@ msgstr "瀏覽及更改影像的方向"
 
 #: data/eog.appdata.xml.in:9
 msgid ""
-"Image Viewer is the official image viewer for the GNOME desktop. It "
+"Eye of GNOME is an image viewer designed for the GNOME desktop. It "
 "integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"《影像檢視器》是 GNOME 桌面的官方影像檢視器。它整合了 GNOME 的 GTK 外觀與感"
+"《GNOME 之眼》是為 GNOME 桌面設計的影像檢視器。它整合了 GNOME 的 GTK 外觀與感"
 "覺，並支援許多影像格式，適合檢視單張影像或收藏圖集中的影像。"
 
 #: data/eog.appdata.xml.in:14
 msgid ""
-"Image Viewer also allows to view the images in a fullscreen slideshow mode "
-"or set an image as the desktop wallpaper. It reads the camera tags to "
-"automatically rotate your images in the correct portrait or landscape "
-"orientation."
+"It also allows to view the images in a fullscreen slideshow mode or set an "
+"image as the desktop wallpaper. It reads the camera tags to automatically "
+"rotate your images in the correct portrait or landscape orientation."
 msgstr ""
-"《影像檢視器》也允許以全螢幕投影片模式檢視影像，或是將影像設定為桌面的桌布。"
-"它會讀取數位相機的標記，並自動將您的影像旋轉到正確的直式或橫式方向。"
+"它也允許全螢幕投影片模式檢視影像，或是將影像設定為桌面的桌布。它會讀取數位相"
+"機的標記，並自動將您的影像旋轉到正確的直式或橫式方向。"
 
 # src/window.c:181
 #: data/eog-gear-menu.ui:6
@@ -121,10 +119,9 @@ msgstr "鍵盤快捷鍵(_K)"
 msgid "_Help"
 msgstr "求助(_H)"
 
-# src/preferences-dialog.glade.h:32
 #: data/eog-gear-menu.ui:83
-msgid "_About Image Viewer"
-msgstr "關於《影像檢視器》(_A)"
+msgid "_About Eye of GNOME"
+msgstr "關於《GNOME 之眼》(_A)"
 
 # src/preferences-dialog.glade.h:7
 #: data/eog-details-dialog.ui:9
@@ -1027,21 +1024,21 @@ msgstr "提供的位置並未包含影像。"
 
 #: src/eog-error-message-area.c:354
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"這個影像包含多個頁面。影像檢視器只能顯示第一頁。\n"
-"您想要開啟文件檢視器來檢視所有的頁面嗎？"
+"這張影像包含多張頁面。《GNOME 之眼》只能顯示第一頁。\n"
+"您想要開啟《文件檢視器》來檢視所有頁面嗎？"
 
 #: src/eog-error-message-area.c:359
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"這個影像包含多個頁面。影像檢視器只能顯示第一頁。\n"
-"您可以安裝文件檢視器來檢視所有的頁面。"
+"這張影像包含多張頁面。《GNOME 之眼》只能顯示第一頁。\n"
+"您可以安裝《文件檢視器》來檢視所有頁面。"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
@@ -1064,9 +1061,8 @@ msgstr "檔案格式未知或不支援"
 
 #: src/eog-file-chooser.c:125
 msgid ""
-"Image Viewer could not determine a supported writable file format based on "
-"the filename."
-msgstr "影像檢視器無法依據此檔案名稱來判斷是否為可寫入的檔案格式。"
+"Could not determine a supported writable file format based on the filename."
+msgstr "無法依據此檔案名稱，來判斷是否為支援的可寫入檔案格式。"
 
 #: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
@@ -1360,8 +1356,8 @@ msgid "At least two file names are equal."
 msgstr "最少有兩個檔案的名稱相同。"
 
 #: src/eog-util.c:72
-msgid "Could not display help for Image Viewer"
-msgstr "無法顯示影像檢視器的說明文件"
+msgid "Could not display help for Eye of GNOME"
+msgstr "無法顯示《GNOME 之眼》的求助說明文件"
 
 #: src/eog-util.c:474
 #, c-format
@@ -1546,10 +1542,10 @@ msgstr "以全螢幕模式顯示目前的影像"
 msgid "Properties"
 msgstr "屬性"
 
-# src/window.c:166
+# src/preferences-dialog.glade.h:32
 #: src/eog-window.c:5547
-msgid "The GNOME image viewer."
-msgstr "GNOME 影像檢視器。"
+msgid "Image viewer for GNOME"
+msgstr "GNOME 的影像檢視器"
 
 #: src/eog-window.c:5550
 msgid "translator-credits"
@@ -1571,13 +1567,6 @@ msgstr ""
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
-
-# src/window.c:162
-# src/window.c:573
-# src/window.c:812
-#: src/main.c:56
-msgid "GNOME Image Viewer"
-msgstr "GNOME 影像檢視器"
 
 #: src/main.c:63
 msgid "Open in fullscreen mode"
@@ -1614,8 +1603,19 @@ msgstr "[檔案…]"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」可列出命令列中可用的完整選項。"
 
-#~ msgid "Eye of GNOME"
-#~ msgstr "GNOME 之眼"
+# src/preferences-dialog.glade.h:32
+#~ msgid "_About Image Viewer"
+#~ msgstr "關於《影像檢視器》(_A)"
+
+# src/window.c:166
+#~ msgid "The GNOME image viewer."
+#~ msgstr "GNOME 影像檢視器。"
+
+# src/window.c:162
+# src/window.c:573
+# src/window.c:812
+#~ msgid "GNOME Image Viewer"
+#~ msgstr "GNOME 影像檢視器"
 
 #~ msgid "Image Properties"
 #~ msgstr "影像屬性"
