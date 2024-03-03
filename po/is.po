@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Samúel Jón Gunnarsson <sammi@techattack.nu>, 2003.
-# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2019, 2021, 2022, 2023.
+# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2019, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues\n"
-"POT-Creation-Date: 2023-02-11 11:53+0000\n"
-"PO-Revision-Date: 2023-06-18 09:05+0000\n"
+"POT-Creation-Date: 2023-08-05 13:25+0000\n"
+"PO-Revision-Date: 2024-03-03 14:55+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -15,33 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 
 #: data/eog.appdata.xml.in:6 data/org.gnome.eog.desktop.in.in:3
-#: src/eog-application.c:338 src/eog-window.c:5538
-msgid "Image Viewer"
-msgstr "Myndarýnir"
+#: src/eog-application.c:338 src/eog-window.c:5544 src/main.c:56
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME myndarýnir"
 
 #: data/eog.appdata.xml.in:7 data/org.gnome.eog.desktop.in.in:4
 msgid "Browse and rotate images"
 msgstr "Skoða og snúa myndum"
 
 #: data/eog.appdata.xml.in:9
+#| msgid ""
+#| "Image Viewer is the official image viewer for the GNOME desktop. It "
+#| "integrates with the GTK look and feel of GNOME, and supports many image "
+#| "formats for viewing single images or images in a collection."
 msgid ""
-"Image Viewer is the official image viewer for the GNOME desktop. It "
+"Eye of GNOME is an image viewer designed for the GNOME desktop. It "
 "integrates with the GTK look and feel of GNOME, and supports many image "
 "formats for viewing single images or images in a collection."
 msgstr ""
-"Myndarýnirinn er hinn opinberi myndaskoðari fyrir GNOME skjáborðið. Hann er "
-"samhæfður útliti og virkni GTK+ viðmótsins í GNOME og styður mörg "
-"myndskráasnið, hvort sem er til skoðunar á stökum myndum eða myndasöfnum."
+"Eye of GNOME myndarýnirinn er hinn opinberi myndaskoðari fyrir GNOME "
+"skjáborðið. Hann er samhæfður útliti og virkni GTK-viðmótsins í GNOME og "
+"styður mörg myndskráasnið, hvort sem er til skoðunar á stökum myndum eða "
+"myndasöfnum."
 
 #: data/eog.appdata.xml.in:14
+#| msgid ""
+#| "Image Viewer also allows to view the images in a fullscreen slideshow "
+#| "mode or set an image as the desktop wallpaper. It reads the camera tags "
+#| "to automatically rotate your images in the correct portrait or landscape "
+#| "orientation."
 msgid ""
-"Image Viewer also allows to view the images in a fullscreen slideshow mode "
-"or set an image as the desktop wallpaper. It reads the camera tags to "
-"automatically rotate your images in the correct portrait or landscape "
-"orientation."
+"It also allows to view the images in a fullscreen slideshow mode or set an "
+"image as the desktop wallpaper. It reads the camera tags to automatically "
+"rotate your images in the correct portrait or landscape orientation."
 msgstr ""
 "Myndarýnirinn gerir einnig kleift að skoða myndir sem skyggnusýningu á öllum "
 "skjánum eða að setja mynd sem bakgrunn skjáborðs. Ennfremur les hann merki "
@@ -115,8 +124,9 @@ msgid "_Help"
 msgstr "_Hjálp"
 
 #: data/eog-gear-menu.ui:83
-msgid "_About Image Viewer"
-msgstr "_Um myndarýninn"
+#| msgid "Eye of GNOME"
+msgid "_About Eye of GNOME"
+msgstr "Um Eye of _GNOME myndarýninn"
 
 #: data/eog-details-dialog.ui:9
 msgid "Details"
@@ -181,8 +191,8 @@ msgstr "Forskoðun skráarheitis"
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
 #: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
-#: src/eog-file-chooser.c:469 src/eog-window.c:3328 src/eog-window.c:3331
-#: src/eog-window.c:3563
+#: src/eog-file-chooser.c:469 src/eog-window.c:3331 src/eog-window.c:3334
+#: src/eog-window.c:3566
 msgid "_Cancel"
 msgstr "_Hætta við"
 
@@ -467,7 +477,6 @@ msgid "Show/Hide the application menu"
 msgstr "Birta/Fela aðgerðavalmynd forrits"
 
 #: data/help-overlay.ui:96
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Show preferences"
 msgstr "Birta kjörstillingar"
@@ -906,7 +915,7 @@ msgstr "Opna _með…"
 msgid "_Copy"
 msgstr "_Afrita"
 
-#: data/popup-menus.ui:34 src/eog-window.c:3566
+#: data/popup-menus.ui:34 src/eog-window.c:3569
 msgid "Move to _Trash"
 msgstr "_Henda í ruslið"
 
@@ -985,7 +994,7 @@ msgstr "V_eldu myndirnar sem þú vilt vista:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Ef þú vistar ekki munu allar breytingar glatast."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:937
+#: src/eog-error-message-area.c:130 src/eog-window.c:940
 msgid "_Reload"
 msgstr "Endu_rhlaða"
 
@@ -1013,23 +1022,31 @@ msgid "The given locations contain no images."
 msgstr "Gefin staðsetning innihélt engar myndir."
 
 #: src/eog-error-message-area.c:354
+#| msgid ""
+#| "This image contains multiple pages. Image Viewer displays only the first "
+#| "page.\n"
+#| "Do you want to open the image with the Document Viewer to see all pages?"
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"Þessi mynd inniheldur fleiri en eina síðu. Myndarýnirinn birtir einungis "
-"fyrstu síðuna.\n"
+"Þessi mynd inniheldur fleiri en eina síðu. Myndarýnirinn birtir einungis"
+" fyrstu síðuna.\n"
 "Viltu opna myndina í Skjalaskoðaranum til að sjá allar síðurnar?"
 
 #: src/eog-error-message-area.c:359
+#| msgid ""
+#| "This image contains multiple pages. Image Viewer displays only the first "
+#| "page.\n"
+#| "You may want to install the Document Viewer to see all pages."
 msgid ""
-"This image contains multiple pages. Image Viewer displays only the first "
+"This image contains multiple pages. Eye of GNOME displays only the first "
 "page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"Þessi mynd inniheldur fleiri en eina síðu. Myndarýnirinn birtir einungis "
-"fyrstu síðuna.\n"
+"Þessi mynd inniheldur fleiri en eina síðu. Myndarýnirinn birtir einungis"
+" fyrstu síðuna.\n"
 "Þú gætir viljað setja upp Skjalaskoðarann til að sjá allar síðurnar."
 
 #. TRANSLATORS: This is the actual focal length used when
@@ -1052,10 +1069,13 @@ msgid "File format is unknown or unsupported"
 msgstr "Myndskráarsnið er óþekkt eða ekki stutt"
 
 #: src/eog-file-chooser.c:125
+#| msgid ""
+#| "Image Viewer could not determine a supported writable file format based "
+#| "on the filename."
 msgid ""
-"Image Viewer could not determine a supported writable file format based on "
-"the filename."
-msgstr "Myndarýnir gat ekki ákvarðað skráasnið út frá heiti myndskrár."
+"Could not determine a supported writable file format based on the filename."
+msgstr ""
+"Myndarýnir gat ekki ákvarðað skrifanlegt skráasnið út frá heiti myndskrár."
 
 #: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
@@ -1107,22 +1127,22 @@ msgstr "Umbreyting mistókst."
 msgid "EXIF not supported for this file format."
 msgstr "Þetta skráasnið styður ekki EXIF."
 
-#: src/eog-image.c:1281
+#: src/eog-image.c:1282
 #, c-format
 msgid "Image loading failed."
 msgstr "Ekki tókst að hlaða myndinni."
 
-#: src/eog-image.c:1870 src/eog-image.c:1990
+#: src/eog-image.c:1871 src/eog-image.c:1991
 #, c-format
 msgid "No image loaded."
 msgstr "Engar innhlaðnar myndir."
 
-#: src/eog-image.c:1878 src/eog-image.c:1999
+#: src/eog-image.c:1879 src/eog-image.c:2000
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Þú hefur ekki næg réttindi til að vista skrána."
 
-#: src/eog-image.c:1888 src/eog-image.c:2010
+#: src/eog-image.c:1889 src/eog-image.c:2011
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Gerð bráðabirgðaskrár mistókst."
@@ -1338,7 +1358,8 @@ msgid "At least two file names are equal."
 msgstr "Að minnsta kosti tvö skráaheiti eru eins."
 
 #: src/eog-util.c:72
-msgid "Could not display help for Image Viewer"
+#| msgid "Could not display help for Image Viewer"
+msgid "Could not display help for Eye of GNOME"
 msgstr "Ekki tókst að sýna hjálp fyrir forritið"
 
 #  Pixel size of image: width x height in pixel
@@ -1356,19 +1377,19 @@ msgstr[1] "%i × %i mynddílar"
 #. * - image height
 #. * - image size in bytes
 #. * - zoom in percent
-#: src/eog-window.c:548
+#: src/eog-window.c:551
 #, c-format
 msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i × %i mynddíll  %s    %i%%"
 msgstr[1] "%i × %i mynddílar  %s    %i%%"
 
-#: src/eog-window.c:939 src/eog-window.c:2725
+#: src/eog-window.c:942 src/eog-window.c:2728
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Fela"
 
-#: src/eog-window.c:947
+#: src/eog-window.c:950
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1381,22 +1402,22 @@ msgstr ""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: src/eog-window.c:1201
+#: src/eog-window.c:1204
 #, c-format
 msgid "Saving image “%s” (%u/%u)"
 msgstr "Vista myndina '%s' (%u/%u)"
 
-#: src/eog-window.c:1631
+#: src/eog-window.c:1634
 #, c-format
 msgid "Opening image “%s”"
 msgstr "Opna mynd \"%s\""
 
 #. L10N: This the reason why the screensaver is inhibited.
-#: src/eog-window.c:2031
+#: src/eog-window.c:2034
 msgid "Viewing a slideshow"
 msgstr "Skoðun skyggnusýninga"
 
-#: src/eog-window.c:2252
+#: src/eog-window.c:2255
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -1405,15 +1426,15 @@ msgstr ""
 "Villa við að prenta skrána:\n"
 "%s"
 
-#: src/eog-window.c:2673 src/eog-window.c:2688
+#: src/eog-window.c:2676 src/eog-window.c:2691
 msgid "Error launching System Settings: "
 msgstr "Villa við að ræsa kerfisstillingar: "
 
-#: src/eog-window.c:2723
+#: src/eog-window.c:2726
 msgid "_Open Background Preferences"
 msgstr "_Opna kjörstillingar fyrir bakgrunn"
 
-#: src/eog-window.c:2737
+#: src/eog-window.c:2740
 #, c-format
 msgid ""
 "The image “%s” has been set as Desktop Background. Would you like to modify "
@@ -1422,11 +1443,11 @@ msgstr ""
 "Myndin \"%s\" hefur verið sett sem bakgrunnur skjáborðsins. Viltu breyta "
 "framsetningu hennar?"
 
-#: src/eog-window.c:3223
+#: src/eog-window.c:3226
 msgid "Saving image locally…"
 msgstr "Vista mynd á tölvunni..."
 
-#: src/eog-window.c:3304
+#: src/eog-window.c:3307
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1435,7 +1456,7 @@ msgstr ""
 "Ertu viss um að þú viljir fjarlægja\n"
 "\"%s\" endanlega?"
 
-#: src/eog-window.c:3307
+#: src/eog-window.c:3310
 #, c-format
 msgid ""
 "Are you sure you want to remove\n"
@@ -1450,41 +1471,41 @@ msgstr[1] ""
 "Ertu viss um að þú viljir fjarlægja\n"
 "endanlega %d valdar myndir?"
 
-#: src/eog-window.c:3329 src/eog-window.c:3574
+#: src/eog-window.c:3332 src/eog-window.c:3577
 msgid "_Delete"
 msgstr "_Eyða"
 
-#: src/eog-window.c:3332 src/eog-window.c:3576
+#: src/eog-window.c:3335 src/eog-window.c:3579
 msgid "_Yes"
 msgstr "_Já"
 
 #. add 'dont ask again' button
-#: src/eog-window.c:3336 src/eog-window.c:3568
+#: src/eog-window.c:3339 src/eog-window.c:3571
 msgid "Do _not ask again during this session"
 msgstr "Ekki spyrja aftur í þessari setu"
 
-#: src/eog-window.c:3380
+#: src/eog-window.c:3383
 #, c-format
 msgid "Couldn’t retrieve image file"
 msgstr "Ekki tókst að ná í myndskrá"
 
-#: src/eog-window.c:3396
+#: src/eog-window.c:3399
 #, c-format
 msgid "Couldn’t retrieve image file information"
 msgstr "Ekki tókst að ná í upplýsingar úr myndskrá"
 
-#: src/eog-window.c:3412 src/eog-window.c:3635
+#: src/eog-window.c:3415 src/eog-window.c:3638
 #, c-format
 msgid "Couldn’t delete file"
 msgstr "Gat ekki eytt skrá"
 
 #. set dialog error message
-#: src/eog-window.c:3457 src/eog-window.c:3731
+#: src/eog-window.c:3460 src/eog-window.c:3734
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Villa við að eyða mynd %s"
 
-#: src/eog-window.c:3536
+#: src/eog-window.c:3539
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1493,14 +1514,14 @@ msgstr ""
 "Ert þú viss um að þú viljir flytja\n"
 "\"%s\" í ruslið?"
 
-#: src/eog-window.c:3539
+#: src/eog-window.c:3542
 #, c-format
 msgid ""
 "A trash for “%s” couldn’t be found. Do you want to remove this image "
 "permanently?"
 msgstr "Ruslmappa fyrir \"%s\" fannst ekki. Viltu eyða þessari mynd varanlega?"
 
-#: src/eog-window.c:3544
+#: src/eog-window.c:3547
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -1515,7 +1536,7 @@ msgstr[1] ""
 "Ert þú viss um að þú viljir flytja\n"
 "%d valdar mynd í ruslið?"
 
-#: src/eog-window.c:3549
+#: src/eog-window.c:3552
 msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -1523,24 +1544,25 @@ msgstr ""
 "Sumt af myndunum er ekki hægt að setja í ruslið og verður því endanlega "
 "eytt. Ertu viss um að þú viljir halda áfram?"
 
-#: src/eog-window.c:3613 src/eog-window.c:3627
+#: src/eog-window.c:3616 src/eog-window.c:3630
 #, c-format
 msgid "Couldn’t access trash."
 msgstr "Fékk ekki aðgang að ruslinu."
 
-#: src/eog-window.c:4342
+#: src/eog-window.c:4345
 msgid "Show the current image in fullscreen mode"
 msgstr "Láta þessa mynd fylla allan skjáinn"
 
-#: src/eog-window.c:4415
+#: src/eog-window.c:4418
 msgid "Properties"
 msgstr "Eiginleikar"
 
-#: src/eog-window.c:5541
-msgid "The GNOME image viewer."
-msgstr "GNOME myndaskoðarinn."
+#: src/eog-window.c:5547
+#| msgid "EOG Image viewer factory"
+msgid "Image viewer for GNOME"
+msgstr "Myndskoðari fyrir GNOME"
 
-#: src/eog-window.c:5544
+#: src/eog-window.c:5550
 msgid "translator-credits"
 msgstr "Sveinn í Felli, sv1@fellsnet.is, 2015"
 
@@ -1550,10 +1572,6 @@ msgstr "Sveinn í Felli, sv1@fellsnet.is, 2015"
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
-
-#: src/main.c:56
-msgid "GNOME Image Viewer"
-msgstr "GNOME myndarýnir"
 
 #: src/main.c:63
 msgid "Open in fullscreen mode"
@@ -1592,6 +1610,18 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Keyrðu '%s --help' til að sjá lista með öllum mögulegum valkostum "
 "skipanalínunnar."
+
+#~ msgid "Image Viewer"
+#~ msgstr "Myndarýnir"
+
+#~ msgid "_About Image Viewer"
+#~ msgstr "_Um myndarýninn"
+
+#~ msgid "The GNOME image viewer."
+#~ msgstr "GNOME myndaskoðarinn."
+
+#~ msgid "GNOME Image Viewer"
+#~ msgstr "GNOME myndarýnir"
 
 #~ msgid " (invalid Unicode)"
 #~ msgstr " (ógilt Unicode)"
@@ -1687,9 +1717,6 @@ msgstr ""
 #~ msgid_plural "pixels"
 #~ msgstr[0] "mynddíll"
 #~ msgstr[1] "mynddílar"
-
-#~ msgid "Eye of GNOME"
-#~ msgstr "Eye of GNOME myndarýnir"
 
 #~ msgid "_About"
 #~ msgstr "_Um hugbúnaðinn"
@@ -1884,9 +1911,6 @@ msgstr ""
 
 #~ msgid "Progress of Image Loading"
 #~ msgstr "Staða á hleðslu myndar"
-
-#~ msgid "EOG Image viewer factory"
-#~ msgstr "Verksmiðja EOG myndarýnis"
 
 #~ msgid "Embeddable EOG Image"
 #~ msgstr "Innfelld EOG mynd"
