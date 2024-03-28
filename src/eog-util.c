@@ -475,6 +475,24 @@ eog_util_create_width_height_string (gint width, gint height)
 		width, height);
 }
 
+const char*
+eog_util_get_content_type_with_fallback (GFileInfo *file_info)
+{
+	g_return_val_if_fail (file_info != NULL, NULL);
+
+	if (g_file_info_has_attribute (file_info,
+			       	       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
+		return g_file_info_get_content_type (file_info);
+	else if (g_file_info_has_attribute (file_info,
+					    G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE))
+		return g_file_info_get_attribute_string (file_info,
+							 G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+	else
+		g_warn_if_reached ();
+
+	return NULL;
+}
+
 
 /* Portal */
 

@@ -68,6 +68,9 @@ void     eog_util_show_file_in_filemanager   (GFile *file,
 G_GNUC_INTERNAL
 gchar *eog_util_create_width_height_string (gint width, gint height);
 
+G_GNUC_INTERNAL
+const     char *eog_util_get_content_type_with_fallback	(GFileInfo *file_info);
+
 #ifdef HAVE_LIBPORTAL
 G_GNUC_INTERNAL
 gboolean eog_util_is_running_inside_flatpak  (void);
