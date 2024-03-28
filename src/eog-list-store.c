@@ -26,6 +26,7 @@
 #include "eog-image.h"
 #include "eog-job-scheduler.h"
 #include "eog-jobs.h"
+#include "eog-util.h"
 
 #include <string.h>
 
@@ -464,12 +465,13 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
 		file_info = g_file_query_info (file,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 					       0, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = g_file_info_get_content_type (file_info);
+		mimetype = eog_util_get_content_type_with_fallback (file_info);
 
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
@@ -517,12 +519,13 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		if (!is_file_in_list_store_file (store, file, NULL)) {
 			file_info = g_file_query_info (file,
 						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+						       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 						       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 						       0, NULL, NULL);
 			if (file_info == NULL) {
 				break;
 			}
-			mimetype = g_file_info_get_content_type (file_info);
+			mimetype = eog_util_get_content_type_with_fallback (file_info);
 
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				const gchar *caption;
@@ -535,12 +538,13 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		break;
 	case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
 		file_info = g_file_query_info (file,
-					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
 					       0, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = g_file_info_get_content_type (file_info);
+		mimetype = eog_util_get_content_type_with_fallback (file_info);
 		if (is_file_in_list_store_file (store, file, &iter) &&
 		    eog_image_is_supported_mime_type (mimetype)) {
 			eog_list_store_thumbnail_refresh (store, &iter);
@@ -550,12 +554,13 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	case G_FILE_MONITOR_EVENT_RENAMED:
 		file_info = g_file_query_info (other_file,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 					       0, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = g_file_info_get_content_type (file_info);
+		mimetype = eog_util_get_content_type_with_fallback (file_info);
 
 		if (is_file_in_list_store_file (store, other_file, &iter)) {
 			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
@@ -596,7 +601,7 @@ directory_visit (GFile *directory,
 	gboolean load_uri = FALSE;
 	const char *mime_type, *name;
 
-	mime_type = g_file_info_get_content_type (children_info);
+	mime_type = eog_util_get_content_type_with_fallback (children_info);
 	name = g_file_info_get_name (children_info);
 
         if (!g_str_has_prefix (name, ".")) {
@@ -638,6 +643,7 @@ eog_list_store_append_directory (EogListStore *store,
 
 	file_enumerator = g_file_enumerate_children (file,
 						     G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+						     G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 						     G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
 						     G_FILE_ATTRIBUTE_STANDARD_NAME,
 						     0, NULL, NULL);
@@ -690,6 +696,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		file_info = g_file_query_info (file,
 					       G_FILE_ATTRIBUTE_STANDARD_TYPE","
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 					       0, NULL, NULL);
 		if (file_info == NULL) {
@@ -703,7 +710,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		if (G_UNLIKELY (file_type == G_FILE_TYPE_UNKNOWN)) {
 			const gchar *ctype;
 
-			ctype = g_file_info_get_content_type (file_info);
+			ctype = eog_util_get_content_type_with_fallback (file_info);
 
 			/* If the content type is supported adjust file_type */
 			if (eog_image_is_supported_mime_type (ctype))

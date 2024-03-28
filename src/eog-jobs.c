@@ -26,6 +26,7 @@
 #include "eog-jobs.h"
 #include "eog-thumbnail.h"
 #include "eog-pixbuf-util.h"
+#include "eog-util.h"
 
 #include <gio/gio.h>
 
@@ -739,7 +740,9 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 			GError *error = NULL;
 
 			file_info = g_file_query_info (file,
-						       G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+						       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
 						       0, NULL, &error);
 			if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_MOUNTED)) {
 				GMountOperation *operation;
@@ -767,7 +770,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 				if (G_UNLIKELY (type == G_FILE_TYPE_UNKNOWN)) {
 					const gchar *ctype;
 
-					ctype = g_file_info_get_content_type (file_info);
+					ctype = eog_util_get_content_type_with_fallback (file_info);
 
 					/* If the content type is supported
 					   adjust the file_type */

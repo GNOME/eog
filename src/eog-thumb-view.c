@@ -499,7 +499,8 @@ thumbview_get_tooltip_string (EogImage *image)
 
 	file = eog_image_get_file (image);
 	file_info = g_file_query_info (file,
-				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
 				       0, NULL, NULL);
 	g_object_unref (file);
 	if (file_info == NULL) {
@@ -507,7 +508,7 @@ thumbview_get_tooltip_string (EogImage *image)
 		return NULL;
 	}
 
-	mime_str = g_file_info_get_content_type (file_info);
+	mime_str = eog_util_get_content_type_with_fallback (file_info);
 
 	if (G_UNLIKELY (mime_str == NULL)) {
 		g_free (bytes);
