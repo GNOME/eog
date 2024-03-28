@@ -843,7 +843,8 @@ add_file_to_recent_files (GFile *file)
 		return FALSE;
 
 	file_info = g_file_query_info (file,
-	                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+	                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
 	                               0, NULL, NULL);
 	if (file_info == NULL)
 		return FALSE;
@@ -851,7 +852,7 @@ add_file_to_recent_files (GFile *file)
 	recent_data = g_slice_new (GtkRecentData);
 	recent_data->display_name = NULL;
 	recent_data->description = NULL;
-	recent_data->mime_type = (gchar *) g_file_info_get_content_type (file_info);
+	recent_data->mime_type = (gchar *) eog_util_get_content_type_with_fallback (file_info);
 	recent_data->app_name = EOG_RECENT_FILES_APP_NAME;
 	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
 	recent_data->groups = groups;
@@ -1088,9 +1089,12 @@ eog_window_open_file_chooser_dialog (EogWindow *window)
 	const gchar *mime_type = NULL;
 
 	file = eog_image_get_file (window->priv->image);
-	file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, 0, NULL, NULL);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
+				       0, NULL, NULL);
 	mime_type = g_content_type_get_mime_type (
-			g_file_info_get_content_type (file_info));
+			eog_util_get_content_type_with_fallback (file_info));
 	g_object_unref (file_info);
 
 	dialog = gtk_app_chooser_dialog_new_for_content_type (GTK_WINDOW (window),
