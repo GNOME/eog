@@ -9,5 +9,5 @@ baseURLs = [
     [ 'GLib', 'https://docs.gtk.org/glib/' ],
     [ 'GObject', 'https://docs.gtk.org/gobject/' ],
     [ 'Gtk', 'https://docs.gtk.org/gtk3/' ],
-    [ 'Libpeas', 'https://developer-old.gnome.org/libpeas/stable/' ],
+    [ 'Libpeas', 'https://gitlab.gnome.org/GNOME/libpeas/' ],
 ]
