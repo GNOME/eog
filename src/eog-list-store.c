@@ -462,6 +462,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 	EogImage *image;
 
 	switch (event) {
+	case G_FILE_MONITOR_EVENT_MOVED_IN:
 	case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
 		file_info = g_file_query_info (file,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
@@ -514,7 +515,6 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			g_free (directory);
 		}
 		break;
-	case G_FILE_MONITOR_EVENT_MOVED_IN:
 	case G_FILE_MONITOR_EVENT_CREATED:
 		if (!is_file_in_list_store_file (store, file, NULL)) {
 			file_info = g_file_query_info (file,
