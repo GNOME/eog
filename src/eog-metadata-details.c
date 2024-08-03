@@ -194,6 +194,13 @@ static ExifTagCategory exif_tag_category_map[] = {
 #define MODEL_COLUMN_ATTRIBUTE 0
 #define MODEL_COLUMN_VALUE     1
 
+enum {
+	SIGNAL_COPY_VALUE_TO_CLIPBOARD,
+	SIGNAL_LAST
+};
+
+static gint signals[SIGNAL_LAST];
+
 struct _EogMetadataDetailsPrivate {
 	GtkTreeModel *model;
 
@@ -206,6 +213,25 @@ static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const
 static void eog_metadata_details_reset (EogMetadataDetails *details);
 
 G_DEFINE_TYPE_WITH_PRIVATE (EogMetadataDetails, eog_metadata_details, GTK_TYPE_TREE_VIEW)
+
+static void
+eog_metadata_details_copy_value_to_clipboard (EogMetadataDetails *details)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (details));
+	GtkTreeIter iter;
+
+	if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
+		gchar *value = NULL;
+
+		gtk_tree_model_get (details->priv->model, &iter,
+				    MODEL_COLUMN_VALUE, &value, -1);
+		if (value) {
+			GtkClipboard *clipboard = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+			gtk_clipboard_set_text (clipboard, value, -1);
+			g_free (value);
+		}
+	}
+}
 
 static void
 eog_metadata_details_dispose (GObject *object)
@@ -270,8 +296,23 @@ static void
 eog_metadata_details_class_init (EogMetadataDetailsClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
+	GtkBindingSet *binding_set;
 
 	object_class->dispose = eog_metadata_details_dispose;
+
+	signals[SIGNAL_COPY_VALUE_TO_CLIPBOARD] =
+		g_signal_new_class_handler ("copy-value-to-clipboard",
+					    EOG_TYPE_METADATA_DETAILS,
+					    G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+					    G_CALLBACK (eog_metadata_details_copy_value_to_clipboard),
+					    NULL, NULL,
+					    g_cclosure_marshal_VOID__VOID,
+					    G_TYPE_NONE, 0);
+
+
+	binding_set = gtk_binding_set_by_class (klass);
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_c, GDK_CONTROL_MASK,
+				      "copy-value-to-clipboard", 0);
 }
 
 #ifdef HAVE_EXIF
