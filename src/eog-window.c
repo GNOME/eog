@@ -1560,7 +1560,8 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 			  G_CALLBACK (eog_job_progress_cb),
 			  window);
 
-	eog_job_scheduler_add_job (priv->transform_job);
+	eog_job_scheduler_add_job_with_priority (priv->transform_job,
+						 EOG_JOB_PRIORITY_MEDIUM);
 }
 
 static void
@@ -1631,7 +1632,8 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 			  G_CALLBACK (eog_job_progress_cb),
 			  window);
 
-	eog_job_scheduler_add_job (priv->load_job);
+	eog_job_scheduler_add_job_with_priority (priv->load_job,
+						 EOG_JOB_PRIORITY_MEDIUM);
 
 	str_image = eog_image_get_uri_for_display (image);
 
