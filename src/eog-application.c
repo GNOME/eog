@@ -334,6 +334,7 @@ eog_application_startup (GApplication *application)
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
                                            EOG_DATA_DIR G_DIR_SEPARATOR_S "icons");
 
+	g_set_prgname (APPLICATION_ID);
 	gtk_window_set_default_icon_name (APPLICATION_ID);
 	g_set_application_name (_("Eye of GNOME"));
 
