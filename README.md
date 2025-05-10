@@ -19,13 +19,11 @@ Requirements
 ------------
 
 This package requires the following modules to be installed: glib,
-GTK+, gconf, gnome-desktop, gio, gdk-pixbuf, gnome-icon-theme, 
-shared-mime-info, and libart.
+GTK, dconf, gnome-desktop, gio, gdk-pixbuf, shared-mime-info.
 
-You can get these packages from your favourite GNOME FTP mirror or at
-http://download.gnome.org/sources or from other sources where GNOME
-packages are distributed. shared-mime-info can be downloaded
-from the freedesktop.org website.
+You can get these packages from https://download.gnome.org/sources/eog/
+or from other sources where GNOME packages are distributed.
+shared-mime-info can be downloaded from the freedesktop.org website.
 
 
 Optional Libraries
@@ -33,29 +31,29 @@ Optional Libraries
 
 'Eye of GNOME' supports the reading of EXIF information stored in
 images by digital cameras. To get this working, you need the optional
-libexif library. It is available at http://libexif.sourceforge.net.
+libexif library. It is available at https://libexif.github.io/.
 If you also want to preserve your EXIF data on save make sure you have
 libjpeg installed, including the development files.
 
 In order to make 'Eye of GNOME' work as a single instance application you'll
 need D-Bus installed in your system. You can get it from
-http://www.freedesktop.org/wiki/Software/dbus .
+https://www.freedesktop.org/wiki/Software/dbus/ .
 
 Other optional dependencies include Little cms for color management
 and Exempi for XMP metadata reading.
+
 
 Availability
 ------------
 
 The bleeding-edge version of this package is always available from the GNOME
 GIT repository (instructions at https://gitlab.gnome.org/GNOME/eog).
-Released versions are available at http://download.gnome.org/sources/eog.
+Released versions are available at https://download.gnome.org/sources/eog.
 
 Webpage
 -------
 
-You can find screenshots and the latest news about 'Eye of GNOME' in
-https://wiki.gnome.org/Apps/EyeOfGnome.
+https://gitlab.gnome.org/GNOME/eog/
 
 
 Reporting bugs
