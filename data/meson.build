@@ -29,7 +29,7 @@ i18n.merge_file(
 )
 
 i18n.merge_file(
-  input: 'eog.appdata.xml.in',
+  input: 'org.gnome.eog.metainfo.xml.in',
   output: '@BASENAME@',
   po_dir: po_dir,
   install: true,
