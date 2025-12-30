@@ -768,14 +768,16 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 				/* Workaround for gvfs backends that
 				   don't set the GFileType. */
 				if (G_UNLIKELY (type == G_FILE_TYPE_UNKNOWN)) {
-					const gchar *ctype;
+					gchar *mime_type;
 
-					ctype = eog_util_get_content_type_with_fallback (file_info);
+					mime_type = eog_util_get_mime_type_with_fallback (file_info);
 
-					/* If the content type is supported
+					/* If the mime type is supported
 					   adjust the file_type */
-					if (eog_image_is_supported_mime_type (ctype))
+					if (eog_image_is_supported_mime_type (mime_type))
 						type = G_FILE_TYPE_REGULAR;
+
+					g_free (mime_type);
 				}
 
 				g_object_unref (file_info);

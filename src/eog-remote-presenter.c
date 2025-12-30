@@ -327,7 +327,7 @@ eog_remote_presenter_update (EogRemotePresenter *remote_presenter,
         gchar *size_str;
         GFile *file, *parent_file;
         GFileInfo *file_info;
-        const char *mime_str;
+        const char *content_type;
         char *type_str;
         gint width, height;
         goffset bytes;
@@ -357,8 +357,8 @@ eog_remote_presenter_update (EogRemotePresenter *remote_presenter,
         if (file_info == NULL) {
                 type_str = g_strdup (_("Unknown"));
         } else {
-                mime_str = eog_util_get_content_type_with_fallback (file_info);
-                type_str = g_content_type_get_description (mime_str);
+                content_type = eog_util_get_content_type_with_fallback (file_info);
+                type_str = g_content_type_get_description (content_type);
                 g_object_unref (file_info);
         }
 

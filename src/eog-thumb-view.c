@@ -487,7 +487,7 @@ thumbview_get_tooltip_string (EogImage *image)
 	gint width, height;
 	GFile *file;
 	GFileInfo *file_info;
-	const char *mime_str;
+	const char *content_type;
 	gchar *tooltip_string;
 #ifdef HAVE_EXIF
 	ExifData *exif_data;
@@ -508,15 +508,15 @@ thumbview_get_tooltip_string (EogImage *image)
 		return NULL;
 	}
 
-	mime_str = eog_util_get_content_type_with_fallback (file_info);
+	content_type = eog_util_get_content_type_with_fallback (file_info);
 
-	if (G_UNLIKELY (mime_str == NULL)) {
+	if (G_UNLIKELY (content_type == NULL)) {
 		g_free (bytes);
 		g_object_unref (image);
 		return NULL;
 	}
 
-	type_str = g_content_type_get_description (mime_str);
+	type_str = g_content_type_get_description (content_type);
 	g_object_unref (file_info);
 
 	if (width > -1 && height > -1) {

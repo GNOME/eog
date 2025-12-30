@@ -852,7 +852,7 @@ add_file_to_recent_files (GFile *file)
 	recent_data = g_slice_new (GtkRecentData);
 	recent_data->display_name = NULL;
 	recent_data->description = NULL;
-	recent_data->mime_type = (gchar *) eog_util_get_content_type_with_fallback (file_info);
+	recent_data->mime_type = eog_util_get_mime_type_with_fallback (file_info);
 	recent_data->app_name = EOG_RECENT_FILES_APP_NAME;
 	recent_data->app_exec = g_strdup ("eog %u");
 	recent_data->groups = groups;
@@ -863,6 +863,7 @@ add_file_to_recent_files (GFile *file)
 	                             recent_data);
 
 	g_free (recent_data->app_exec);
+	g_free (recent_data->mime_type);
 	g_free (text_uri);
 	g_object_unref (file_info);
 
@@ -1086,28 +1087,27 @@ eog_window_open_file_chooser_dialog (EogWindow *window)
 	GtkWidget *dialog;
 	GFileInfo *file_info;
 	GFile *file;
-	const gchar *mime_type = NULL;
+	const gchar *content_type;
 
 	file = eog_image_get_file (window->priv->image);
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
 				       0, NULL, NULL);
-	mime_type = g_content_type_get_mime_type (
-			eog_util_get_content_type_with_fallback (file_info));
-	g_object_unref (file_info);
+	content_type = eog_util_get_content_type_with_fallback (file_info);
 
 	dialog = gtk_app_chooser_dialog_new_for_content_type (GTK_WINDOW (window),
 							      GTK_DIALOG_MODAL |
 							      GTK_DIALOG_DESTROY_WITH_PARENT |
 							      GTK_DIALOG_USE_HEADER_BAR,
-							      mime_type);
+							      content_type);
 	gtk_widget_show (dialog);
 
 	g_signal_connect_object (dialog, "response",
 				 G_CALLBACK (app_chooser_dialog_response_cb),
 				 window, 0);
 
+	g_object_unref (file_info);
 	g_object_unref (file);
 }
 

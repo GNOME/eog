@@ -456,7 +456,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			 GFileMonitorEvent event,
 			 EogListStore *store)
 {
-	const char *mimetype;
+	char *mimetype;
 	GFileInfo *file_info;
 	GtkTreeIter iter;
 	EogImage *image;
@@ -472,7 +472,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = eog_util_get_content_type_with_fallback (file_info);
+		mimetype = eog_util_get_mime_type_with_fallback (file_info);
 
 		if (is_file_in_list_store_file (store, file, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
@@ -493,6 +493,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 				eog_list_store_append_image_from_file (store, file, caption);
 			}
 		}
+		g_free (mimetype);
 		g_object_unref (file_info);
 		break;
 	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
@@ -525,7 +526,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			if (file_info == NULL) {
 				break;
 			}
-			mimetype = eog_util_get_content_type_with_fallback (file_info);
+			mimetype = eog_util_get_mime_type_with_fallback (file_info);
 
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				const gchar *caption;
@@ -533,6 +534,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 				caption = g_file_info_get_display_name (file_info);
 				eog_list_store_append_image_from_file (store, file, caption);
 			}
+			g_free (mimetype);
 			g_object_unref (file_info);
 		}
 		break;
@@ -544,11 +546,12 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = eog_util_get_content_type_with_fallback (file_info);
+		mimetype = eog_util_get_mime_type_with_fallback (file_info);
 		if (is_file_in_list_store_file (store, file, &iter) &&
 		    eog_image_is_supported_mime_type (mimetype)) {
 			eog_list_store_thumbnail_refresh (store, &iter);
 		}
+		g_free (mimetype);
 		g_object_unref (file_info);
 		break;
 	case G_FILE_MONITOR_EVENT_RENAMED:
@@ -560,7 +563,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		if (file_info == NULL) {
 			break;
 		}
-		mimetype = eog_util_get_content_type_with_fallback (file_info);
+		mimetype = eog_util_get_mime_type_with_fallback (file_info);
 
 		if (is_file_in_list_store_file (store, other_file, &iter)) {
 			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
@@ -579,6 +582,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			eog_list_store_remove (store, &iter);
 		}
 
+		g_free (mimetype);
 		g_object_unref (file_info);
 		break;
 	case G_FILE_MONITOR_EVENT_CHANGED:
@@ -599,9 +603,10 @@ directory_visit (GFile *directory,
 {
 	GFile *child;
 	gboolean load_uri = FALSE;
-	const char *mime_type, *name;
+	const char *name;
+	char *mime_type;
 
-	mime_type = eog_util_get_content_type_with_fallback (children_info);
+	mime_type = eog_util_get_mime_type_with_fallback (children_info);
 	name = g_file_info_get_name (children_info);
 
         if (!g_str_has_prefix (name, ".")) {
@@ -609,6 +614,7 @@ directory_visit (GFile *directory,
 			load_uri = TRUE;
 		}
 	}
+	g_free (mime_type);
 
 	if (load_uri) {
 		const gchar *caption;

@@ -158,10 +158,10 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	if (file_info == NULL) {
 		str = g_strdup (_("Unknown"));
 	} else {
-		const gchar *mime_str;
+		const gchar *content_type;
 
-		mime_str = eog_util_get_content_type_with_fallback (file_info);
-		str = g_content_type_get_description (mime_str);
+		content_type = eog_util_get_content_type_with_fallback (file_info);
+		str = g_content_type_get_description (content_type);
 		g_object_unref (file_info);
 	}
 	gtk_label_set_text (GTK_LABEL (priv->type_label), str);
