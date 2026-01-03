@@ -628,7 +628,7 @@ eog_image_get_file_info (EogImage *img,
 			*bytes = g_file_info_get_size (file_info);
 
 		if (mime_type) {
-			*mime_type = g_strdup (eog_util_get_content_type_with_fallback (file_info));
+			*mime_type = eog_util_get_mime_type_with_fallback (file_info);
 		}
 		g_object_unref (file_info);
 	}

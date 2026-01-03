@@ -493,6 +493,19 @@ eog_util_get_content_type_with_fallback (GFileInfo *file_info)
 	return NULL;
 }
 
+char*
+eog_util_get_mime_type_with_fallback (GFileInfo *file_info)
+{
+	g_return_val_if_fail (file_info != NULL, NULL);
+
+	const char* content_type = eog_util_get_content_type_with_fallback (file_info);
+	if (content_type != NULL) {
+		return g_content_type_get_mime_type (content_type);
+	}
+
+	return NULL;
+}
+
 
 /* Portal */
 

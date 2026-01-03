@@ -347,8 +347,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 		} else if (g_file_info_get_size (file_info) <= 100000) {
 			/* read files smaller than 100kb directly */
 
-			gchar *mime_type = g_content_type_get_mime_type (
-						eog_util_get_content_type_with_fallback (file_info));
+			gchar *mime_type = eog_util_get_mime_type_with_fallback (file_info);
 
 
 			if (G_LIKELY (mime_type)) {

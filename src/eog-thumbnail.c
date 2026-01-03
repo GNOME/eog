@@ -169,7 +169,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 		/* if available, copy data */
 		data->mtime = g_file_info_get_attribute_uint64 (file_info,
 								G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		data->mime_type = g_strdup (eog_util_get_content_type_with_fallback (file_info));
+		data->mime_type = eog_util_get_mime_type_with_fallback (file_info);
 
 		data->failed_thumb_exists = g_file_info_get_attribute_boolean (file_info,
 									       G_FILE_ATTRIBUTE_THUMBNAILING_FAILED);
