@@ -1373,6 +1373,14 @@ eog_image_load (EogImage *img, EogImageData data2read, EogJob *job, GError **err
 	}
 
 	if (success) {
+#ifdef HAVE_LCMS
+		/* This converts an immutable pixbuf (as returned by glycin-based
+		 * loaders) to a mutable one here to avoid the conversion later
+		 * when applying the ICC profile where it may race with
+		 * thumbnail generation. See eog#334 and gdk-pixbuf#277. */
+		if (data2read & EOG_IMAGE_DATA_IMAGE && G_LIKELY(priv->image))
+			gdk_pixbuf_get_pixels (priv->image);
+#endif
 		priv->status = EOG_IMAGE_STATUS_LOADED;
 	} else {
 		priv->status = EOG_IMAGE_STATUS_FAILED;
