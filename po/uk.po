@@ -4,13 +4,13 @@
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2004-2010.
 # wanderlust <wanderlust@ukr.net>, 2009.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2013, 2014, 2015, 2016, 2017.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
-"POT-Creation-Date: 2025-08-17 13:24+0000\n"
-"PO-Revision-Date: 2025-08-17 17:38+0300\n"
+"POT-Creation-Date: 2026-01-03 20:17+0000\n"
+"PO-Revision-Date: 2026-01-04 22:05+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -31,7 +31,7 @@ msgid "Op_en With…"
 msgstr "Від_крити за допомогою…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -154,8 +154,8 @@ msgstr "Перегляд назви файла"
 
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3337 src/eog-window.c:3340
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3337 src/eog-window.c:3340
 #: src/eog-window.c:3572
 msgid "_Cancel"
 msgstr "_Скасувати"
@@ -656,8 +656,9 @@ msgstr "Перегляд та обертання зображень"
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:19
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Малюнок;Слайд;Графіки;"
+#| msgid "Picture;Slideshow;Graphics;"
+msgid "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
+msgstr "Малюнок;Слайд;Графіки;Фото;Фотографія;Зображення;Переглядач;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -903,7 +904,6 @@ msgstr ""
 "мітки камери для автоматичного обертання зображення в правильній орієнтації."
 
 #: data/org.gnome.eog.metainfo.xml.in:78
-#| msgid "Eye of GNOME"
 msgid "The Eye of GNOME Team"
 msgstr "Команда «Ока GNOME»"
 
@@ -993,7 +993,7 @@ msgstr "В_иберіть зображення, які треба зберегт
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Якщо ви не збережете, усі зміни буде втрачено."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:941
+#: src/eog-error-message-area.c:130 src/eog-window.c:942
 msgid "_Reload"
 msgstr "_Перезавантажити"
 
@@ -1083,19 +1083,19 @@ msgstr "Всі файли"
 msgid "Supported image files"
 msgstr "Підтримувані файли зображень"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "Відкрити зображення"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "Відкрити теку"
 
@@ -1119,17 +1119,17 @@ msgstr "Для цього формату файлів EXIF не підтриму
 msgid "Image loading failed."
 msgstr "Помилка завантаження зображення."
 
-#: src/eog-image.c:1873 src/eog-image.c:1993
+#: src/eog-image.c:1881 src/eog-image.c:2001
 #, c-format
 msgid "No image loaded."
 msgstr "Зображення не завантажено."
 
-#: src/eog-image.c:1881 src/eog-image.c:2002
+#: src/eog-image.c:1889 src/eog-image.c:2010
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "У вас немає прав потрібних для збереження файла."
 
-#: src/eog-image.c:1891 src/eog-image.c:2013
+#: src/eog-image.c:1899 src/eog-image.c:2021
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Помилка при створенні тимчасового файлу."
@@ -1371,12 +1371,12 @@ msgstr[0] "%i × %i точку  %s    %i%%"
 msgstr[1] "%i × %i точки  %s    %i%%"
 msgstr[2] "%i × %i точок  %s    %i%%"
 
-#: src/eog-window.c:943 src/eog-window.c:2734
+#: src/eog-window.c:944 src/eog-window.c:2734
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Сховати"
 
-#: src/eog-window.c:951
+#: src/eog-window.c:952
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
