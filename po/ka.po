@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the eog package.
 # Zuka Akhvlediani <korvin@soft.ge>
 # Alexander Didebulidze <didebuli@in.tum.de>, 2006.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023-2025.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
-"POT-Creation-Date: 2025-08-24 11:34+0000\n"
-"PO-Revision-Date: 2025-08-24 13:51+0200\n"
+"POT-Creation-Date: 2026-01-03 20:17+0000\n"
+"PO-Revision-Date: 2026-01-04 04:40+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <gnome@inet.ge>\n"
 "Language: ka\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -29,7 +29,7 @@ msgid "Op_en With…"
 msgstr "გა_ხსნის პროგრამის არჩევა…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "შ_ეინახე"
 
@@ -152,8 +152,8 @@ msgstr "ფაილის სახელის წინასწარ ნა
 
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3337 src/eog-window.c:3340
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3337 src/eog-window.c:3340
 #: src/eog-window.c:3572
 msgid "_Cancel"
 msgstr "_გაუქმება"
@@ -654,8 +654,9 @@ msgstr "გამოსახულების დათვალიერე�
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:19
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Picture;Slideshow;Graphics;"
+#| msgid "Picture;Slideshow;Graphics;"
+msgid "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
+msgstr "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -955,7 +956,7 @@ msgstr "მონიშნეთ, რომელი გამოსახულ
 msgid "If you don’t save, all your changes will be lost."
 msgstr "თუ არ შეინახავთ, ცვლილებები სამუდამოდ დაიკარგება."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:941
+#: src/eog-error-message-area.c:130 src/eog-window.c:942
 msgid "_Reload"
 msgstr "თავიდან ჩატვირთვა"
 
@@ -1038,19 +1039,19 @@ msgstr "ყველა ფაილი"
 msgid "Supported image files"
 msgstr "გამოსახულების მხარდაჭერილი ფაილები"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "_გახსნა"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "გამოსახულების გახსნა"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "გამოსახულების შენახვა"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "გახსენი საქაღალდე"
 
@@ -1074,17 +1075,17 @@ msgstr "EXIF-ი ვერ კიტხულობს მოცემული 
 msgid "Image loading failed."
 msgstr "გამოსახულების ჩატვირთვის შეცდომა."
 
-#: src/eog-image.c:1873 src/eog-image.c:1993
+#: src/eog-image.c:1881 src/eog-image.c:2001
 #, c-format
 msgid "No image loaded."
 msgstr "გამოსახულება ჩატვირთული არაა."
 
-#: src/eog-image.c:1881 src/eog-image.c:2002
+#: src/eog-image.c:1889 src/eog-image.c:2010
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "თქვენ არ გაგაჩნიათ საკმარისი უფლებები ფაილის ჩასაწერად."
 
-#: src/eog-image.c:1891 src/eog-image.c:2013
+#: src/eog-image.c:1899 src/eog-image.c:2021
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "ვერ ვქმნი დროებით ფაილს."
@@ -1320,12 +1321,12 @@ msgid "%i × %i pixel  %s    %i%%"
 msgid_plural "%i × %i pixels  %s    %i%%"
 msgstr[0] "%i x %i პიქსელი  %s    %i%%"
 
-#: src/eog-window.c:943 src/eog-window.c:2734
+#: src/eog-window.c:944 src/eog-window.c:2734
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "დამალვა"
 
-#: src/eog-window.c:951
+#: src/eog-window.c:952
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
