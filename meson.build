@@ -103,8 +103,8 @@ endif
 
 add_project_arguments(common_flags + compiler_flags, language: 'c')
 
-glib_req_version = '>= 2.73.2'
-peas_req_version = '>= 0.7.4'
+glib_req_version = '>= 2.86'
+peas_req_version = '>= 1.38'
 
 gio_dep = dependency('gio-2.0', version: glib_req_version)
 gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
@@ -205,7 +205,7 @@ config_h.set('HAVE_LIBJPEG', enable_libjpeg)
 # introspection support
 enable_introspection = get_option('introspection')
 if enable_introspection
-  gir_dep = dependency('gobject-introspection-1.0', version: '>= 0.6.7')
+  gir_dep = dependency('girepository-2.0', version: glib_req_version)
 endif
 config_h.set('HAVE_INTROSPECTION', enable_introspection)
 
