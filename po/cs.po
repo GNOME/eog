@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
-"POT-Creation-Date: 2025-08-17 23:57+0000\n"
-"PO-Revision-Date: 2025-08-19 01:00+0200\n"
+"POT-Creation-Date: 2026-01-09 18:34+0000\n"
+"PO-Revision-Date: 2026-02-09 18:18+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -40,7 +40,7 @@ msgid "Op_en With…"
 msgstr "Ot_evřít pomocí…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "_Uložit"
 
@@ -163,8 +163,8 @@ msgstr "Náhled názvu souboru"
 
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3337 src/eog-window.c:3340
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3337 src/eog-window.c:3340
 #: src/eog-window.c:3572
 msgid "_Cancel"
 msgstr "_Zrušit"
@@ -665,8 +665,10 @@ msgstr "Procházení a otáčení obrázků"
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:19
-msgid "Picture;Slideshow;Graphics;"
-msgstr "obrázek;fotka;promítání snímků;prezentace snímků;grafika;"
+msgid "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
+msgstr ""
+"obrázek;promítání snímků;prezentace "
+"snímků;grafika;fotka;fotografie;prohlížeč;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -908,7 +910,7 @@ msgstr ""
 "fotoaparátem a automaticky podle nich mění otočení obrázku na šířku nebo na "
 "výšku."
 
-#: data/org.gnome.eog.metainfo.xml.in:78
+#: data/org.gnome.eog.metainfo.xml.in:79
 msgid "The Eye of GNOME Team"
 msgstr "Tým Eye of GNOME"
 
@@ -998,7 +1000,7 @@ msgstr "_Vyberte obrázky, které chcete uložit:"
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Bez uložení budou všechny vaše změny ztraceny."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:941
+#: src/eog-error-message-area.c:130 src/eog-window.c:942
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
@@ -1088,19 +1090,19 @@ msgstr "Všechny soubory"
 msgid "Supported image files"
 msgstr "Podporované formáty obrázků"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "Otevřít obrázek"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "Otevřít složku"
 
@@ -1124,17 +1126,17 @@ msgstr "EXIF není pro tento formát souboru podporován."
 msgid "Image loading failed."
 msgstr "Nahrávání obrázku selhalo."
 
-#: src/eog-image.c:1873 src/eog-image.c:1993
+#: src/eog-image.c:1881 src/eog-image.c:2001
 #, c-format
 msgid "No image loaded."
 msgstr "Nenačten žádný obrázek."
 
-#: src/eog-image.c:1881 src/eog-image.c:2002
+#: src/eog-image.c:1889 src/eog-image.c:2010
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Nemáte oprávnění potřebná k uložení souboru."
 
-#: src/eog-image.c:1891 src/eog-image.c:2013
+#: src/eog-image.c:1899 src/eog-image.c:2021
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Vytvoření dočasného souboru selhala."
@@ -1376,12 +1378,12 @@ msgstr[0] "%i × %i bod  %s    %i%%"
 msgstr[1] "%i × %i body  %s    %i%%"
 msgstr[2] "%i × %i bodů  %s    %i%%"
 
-#: src/eog-window.c:943 src/eog-window.c:2734
+#: src/eog-window.c:944 src/eog-window.c:2734
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "_Skrýt"
 
-#: src/eog-window.c:951
+#: src/eog-window.c:952
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
