@@ -6,14 +6,14 @@
 # Слободан Д. Средојевић <slobo@akrep.be>
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2017.
 # Милош Поповић <gpopac@gmail.com>, 2011—2015.
-# Марко М. Костић <marko.m.kostic@gmail.com>, 2016.
+# Марко Костић <marko.m.kostic@gmail.com>, 2016-2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
-"POT-Creation-Date: 2025-10-10 16:56+0000\n"
-"PO-Revision-Date: 2025-11-08 08:36+0100\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"POT-Creation-Date: 2026-03-14 15:45+0000\n"
+"PO-Revision-Date: 2026-03-27 12:42+0100\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -33,7 +33,7 @@ msgid "Op_en With…"
 msgstr "Отвори _програмом…"
 
 #: data/eog-gear-menu.ui:16 data/popup-menus.ui:12
-#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:463
+#: src/eog-close-confirmation-dialog.c:178 src/eog-file-chooser.c:462
 msgid "_Save"
 msgstr "_Сачувај"
 
@@ -148,7 +148,7 @@ msgstr "Преименуј од:"
 
 #: data/eog-multiple-save-as-dialog.ui:317
 msgid "To:"
-msgstr "у:"
+msgstr "Ка:"
 
 #: data/eog-multiple-save-as-dialog.ui:364
 msgid "File Name Preview"
@@ -156,8 +156,8 @@ msgstr "Преглед назива датотеке"
 
 #: data/eog-multiple-save-as-dialog.ui:388
 #: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:462
-#: src/eog-file-chooser.c:470 src/eog-window.c:3337 src/eog-window.c:3340
+#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
+#: src/eog-file-chooser.c:469 src/eog-window.c:3337 src/eog-window.c:3340
 #: src/eog-window.c:3572
 msgid "_Cancel"
 msgstr "_Откажи"
@@ -658,8 +658,10 @@ msgstr "Прегледајте и окрените слике"
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:19
-msgid "Picture;Slideshow;Graphics;"
-msgstr "Picture;Slideshow;Graphics;слика;покретни приказ;графика;слајдшоу;"
+msgid "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
+msgstr ""
+"Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;слика;покретни "
+"приказ;графика;слајдшоу;фотографија;приказивач;слика;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
@@ -900,7 +902,11 @@ msgstr ""
 "постављање неке слике за позадину радне површи. Чита ознаке фото-апарата да "
 "би сам окренуо ваше слике на праву страну."
 
-#: data/org.gnome.eog.metainfo.xml.in:78
+#: data/org.gnome.eog.metainfo.xml.in:32
+msgid "The main window features a beautiful picture of a bird"
+msgstr "Главни прозор са сликом прелепе птице"
+
+#: data/org.gnome.eog.metainfo.xml.in:83
 msgid "The Eye of GNOME Team"
 msgstr "Тим Гномовог ока"
 
@@ -980,7 +986,7 @@ msgid_plural ""
 msgstr[0] "Постоји %d слика без сачуваних измена. Да их сачувам пре затварања?"
 msgstr[1] "Постоје %d слике без сачуваних измена. Да их сачувам пре затварања?"
 msgstr[2] "Постоји %d слика без сачуваних измена. Да их сачувам пре затварања?"
-msgstr[3] "Постоји слика без сачуваних измена. Да их сачувам пре затварања?"
+msgstr[3] "Постоји %d слика без сачуваних измена. Да их сачувам пре затварања?"
 
 #: src/eog-close-confirmation-dialog.c:584
 msgid "S_elect the images you want to save:"
@@ -991,7 +997,7 @@ msgstr "_Изаберите слике које желите да сачуват
 msgid "If you don’t save, all your changes will be lost."
 msgstr "Уколико не сачувате, све измене ће бити изгубљене."
 
-#: src/eog-error-message-area.c:130 src/eog-window.c:941
+#: src/eog-error-message-area.c:130 src/eog-window.c:942
 msgid "_Reload"
 msgstr "_Поново учитај"
 
@@ -1082,19 +1088,19 @@ msgstr "Све датотеке"
 msgid "Supported image files"
 msgstr "Подржане датотеке слика"
 
-#: src/eog-file-chooser.c:455 src/eog-file-chooser.c:471
+#: src/eog-file-chooser.c:454 src/eog-file-chooser.c:470
 msgid "_Open"
 msgstr "_Отвори"
 
-#: src/eog-file-chooser.c:457
+#: src/eog-file-chooser.c:456
 msgid "Open Image"
 msgstr "Отворите слику"
 
-#: src/eog-file-chooser.c:465
+#: src/eog-file-chooser.c:464
 msgid "Save Image"
 msgstr "Сачувајте слику"
 
-#: src/eog-file-chooser.c:473
+#: src/eog-file-chooser.c:472
 msgid "Open Folder"
 msgstr "Отворите фасциклу"
 
@@ -1118,17 +1124,17 @@ msgstr "ЕХИФ за овај облик датотеке није подржа
 msgid "Image loading failed."
 msgstr "Учитавање слике није успело."
 
-#: src/eog-image.c:1873 src/eog-image.c:1993
+#: src/eog-image.c:1881 src/eog-image.c:2001
 #, c-format
 msgid "No image loaded."
 msgstr "Слика није учитана."
 
-#: src/eog-image.c:1881 src/eog-image.c:2002
+#: src/eog-image.c:1889 src/eog-image.c:2010
 #, c-format
 msgid "You do not have the permissions necessary to save the file."
 msgstr "Немате потребна овлашћења да сачувате датотеку."
 
-#: src/eog-image.c:1891 src/eog-image.c:2013
+#: src/eog-image.c:1899 src/eog-image.c:2021
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Стварање привремене датотеке није успело."
@@ -1373,12 +1379,12 @@ msgstr[1] "%i × %i пиксела  %s    %i%%"
 msgstr[2] "%i × %i пиксела  %s    %i%%"
 msgstr[3] "%i × %i пиксел  %s    %i%%"
 
-#: src/eog-window.c:943 src/eog-window.c:2734
+#: src/eog-window.c:944 src/eog-window.c:2734
 msgctxt "MessageArea"
 msgid "Hi_de"
 msgstr "Сакри_ј"
 
-#: src/eog-window.c:951
+#: src/eog-window.c:952
 #, c-format
 msgid ""
 "The image “%s” has been modified by an external application. Would you like "
@@ -1463,8 +1469,8 @@ msgstr[2] ""
 "Да ли сте сигурни да желите трајно\n"
 "да уклоните %d изабраних слика?"
 msgstr[3] ""
-"Да ли сте сигурни да желите трајно\n"
-"да уклоните изабрану слику?"
+"Да ли сте сигурни да желите трајно\r\n"
+"да уклоните %d изабрану слику?"
 
 #: src/eog-window.c:3338 src/eog-window.c:3583
 msgid "_Delete"
@@ -1535,8 +1541,8 @@ msgstr[2] ""
 "Да ли заиста желите да преместите \n"
 "%d изабраних слика у смеће?"
 msgstr[3] ""
-"Да ли заиста желите да преместите \n"
-"слику у смеће?"
+"Да ли заиста желите да преместите \r\n"
+"%d изабрану слику у смеће?"
 
 #: src/eog-window.c:3558
 msgid ""
@@ -1570,7 +1576,7 @@ msgstr ""
 "Данило Шеган <danilo@gnome.org>\n"
 "Слободан Д. Средојевић <slobo@akrep.be>\n"
 "Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"Марко Костић <marko.m.kostic@gmail.com>\n"
 "\n"
 "https://гном.срб — превод Гнома на српски језик."
 
