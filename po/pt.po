@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/eog/issues/\n"
-"POT-Creation-Date: 2026-01-09 18:34+0000\n"
-"PO-Revision-Date: 2026-03-12 16:01+0000\n"
+"POT-Creation-Date: 2026-04-11 19:51+0000\n"
+"PO-Revision-Date: 2026-05-10 11:36+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/eog-gear-menu.ui:6
 msgid "_Open…"
@@ -38,8 +38,7 @@ msgstr "Abrir _com…"
 msgid "_Save"
 msgstr "_Guardar"
 
-#: data/eog-gear-menu.ui:20 data/popup-menus.ui:16
-#: src/eog-error-message-area.c:135
+#: data/eog-gear-menu.ui:20 data/popup-menus.ui:16 src/eog-error-message-area.c:135
 msgid "Save _As…"
 msgstr "Gu_ardar como…"
 
@@ -155,16 +154,14 @@ msgstr "Para:"
 msgid "File Name Preview"
 msgstr "Antevisão do nome do ficheiro"
 
-#: data/eog-multiple-save-as-dialog.ui:388
-#: src/eog-close-confirmation-dialog.c:172 src/eog-error-message-area.c:125
-#: src/eog-file-chooser.c:453 src/eog-file-chooser.c:461
-#: src/eog-file-chooser.c:469 src/eog-window.c:3337 src/eog-window.c:3340
-#: src/eog-window.c:3572
+#: data/eog-multiple-save-as-dialog.ui:388 src/eog-close-confirmation-dialog.c:172
+#: src/eog-error-message-area.c:125 src/eog-file-chooser.c:453
+#: src/eog-file-chooser.c:461 src/eog-file-chooser.c:469 src/eog-window.c:3337
+#: src/eog-window.c:3340 src/eog-window.c:3572
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: data/eog-multiple-save-as-dialog.ui:397
-#: src/eog-close-confirmation-dialog.c:184
+#: data/eog-multiple-save-as-dialog.ui:397 src/eog-close-confirmation-dialog.c:184
 msgid "Save _As"
 msgstr "Gu_ardar como"
 
@@ -660,30 +657,23 @@ msgstr "Navegar e rodar imagens"
 #. The list MUST also end with a semicolon!
 #: data/org.gnome.eog.desktop.in.in:19
 msgid "Picture;Slideshow;Graphics;Photo;Photography;Image;Viewer;"
-msgstr ""
-"Retrato;Apresentação;Diapositivo;Gráficos;Foto;Fotografia;Imagem;"
-"Visualizador;"
+msgstr "Retrato;Apresentação;Diapositivo;Gráficos;Foto;Fotografia;Imagem;Visualizador;"
 
 #: data/org.gnome.eog.gschema.xml.in:11
 msgid "Automatic orientation"
 msgstr "Orientação automática"
 
 #: data/org.gnome.eog.gschema.xml.in:12
-msgid ""
-"Whether the image should be rotated automatically based on EXIF orientation."
-msgstr ""
-"Se a imagem deve ou não ser automaticamente rodada baseada na orientação "
-"EXIF."
+msgid "Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "Se a imagem deve ou não ser automaticamente rodada baseada na orientação EXIF."
 
 #: data/org.gnome.eog.gschema.xml.in:17
 msgid ""
-"The color that is used to fill the area behind the image. If the use-"
-"background-color key is not set, the color is determined by the active GTK+ "
-"theme instead."
+"The color that is used to fill the area behind the image. If the use-background-"
+"color key is not set, the color is determined by the active GTK+ theme instead."
 msgstr ""
 "A cor que é utilizada para encher a área por trás da imagem. Se a chave use-"
-"background-color não estiver definida, a cor será determinada pelo tema GTK+ "
-"ativo."
+"background-color não estiver definida, a cor será determinada pelo tema GTK+ ativo."
 
 #: data/org.gnome.eog.gschema.xml.in:21
 msgid "Interpolate Image"
@@ -691,11 +681,11 @@ msgstr "Interpolar imagem"
 
 #: data/org.gnome.eog.gschema.xml.in:22
 msgid ""
-"Whether the image should be interpolated on zoom-out. This leads to better "
-"quality but is somewhat slower than non-interpolated images."
+"Whether the image should be interpolated on zoom-out. This leads to better quality "
+"but is somewhat slower than non-interpolated images."
 msgstr ""
-"Se a imagem deve ou não ser interpolada ao reduzir a ampliação. Isto "
-"assegura melhor qualidade mas é mais lento do que imagens não interpoladas."
+"Se a imagem deve ou não ser interpolada ao reduzir a ampliação. Isto assegura melhor "
+"qualidade mas é mais lento do que imagens não interpoladas."
 
 #: data/org.gnome.eog.gschema.xml.in:26
 msgid "Extrapolate Image"
@@ -703,8 +693,8 @@ msgstr "Extrapolar imagem"
 
 #: data/org.gnome.eog.gschema.xml.in:27
 msgid ""
-"Whether the image should be extrapolated on zoom-in. This leads to blurry "
-"quality and is somewhat slower than non-extrapolated images."
+"Whether the image should be extrapolated on zoom-in. This leads to blurry quality "
+"and is somewhat slower than non-extrapolated images."
 msgstr ""
 "Se a imagem deve ou não ser extrapolada ao ampliar. Isto causa uma qualidade "
 "desfocada e é mais lento do que imagens não extrapoladas."
@@ -715,13 +705,13 @@ msgstr "Indicador de transparência"
 
 #: data/org.gnome.eog.gschema.xml.in:32
 msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is chosen, then the trans-color key "
-"determines the color value used."
+"Determines how transparency should be indicated. Valid values are CHECK_PATTERN, "
+"COLOR and NONE. If COLOR is chosen, then the trans-color key determines the color "
+"value used."
 msgstr ""
 "Determina como deverá ser indicada a transparência. Valores válidos são "
-"CHECK_PATTERN, COLOR e NONE. Se for selecionada COLOR, então a chave trans-"
-"color determina o valor da cor utilizada."
+"CHECK_PATTERN, COLOR e NONE. Se for selecionada COLOR, então a chave trans-color "
+"determina o valor da cor utilizada."
 
 #: data/org.gnome.eog.gschema.xml.in:36
 msgid "Scroll wheel zoom"
@@ -737,15 +727,15 @@ msgstr "Multiplicador de ampliação"
 
 #: data/org.gnome.eog.gschema.xml.in:42
 msgid ""
-"The multiplier to be applied when using the mouse scroll wheel for zooming. "
-"This value defines the zooming step used for each scroll event. For example, "
-"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
-"a 100% zoom increment."
+"The multiplier to be applied when using the mouse scroll wheel for zooming. This "
+"value defines the zooming step used for each scroll event. For example, 0.05 results "
+"in a 5% zoom increment for each scroll event and 1.00 result in a 100% zoom "
+"increment."
 msgstr ""
-"O multiplicador a ser aplicado ao utilizar a roda do rato para ampliação. "
-"Este valor define o incremento utilizado para cada evento de rotação. Por "
-"exemplo, 0,05 resulta num incremento de 5% para cada evento de rolamento e "
-"1,00 resulta num incremento de 100%."
+"O multiplicador a ser aplicado ao utilizar a roda do rato para ampliação. Este valor "
+"define o incremento utilizado para cada evento de rotação. Por exemplo, 0,05 resulta "
+"num incremento de 5% para cada evento de rolamento e 1,00 resulta num incremento de "
+"100%."
 
 #: data/org.gnome.eog.gschema.xml.in:46
 msgid "Transparency color"
@@ -753,11 +743,11 @@ msgstr "Cor da transparência"
 
 #: data/org.gnome.eog.gschema.xml.in:47
 msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
+"If the transparency key has the value COLOR, then this key determines the color "
+"which is used for indicating transparency."
 msgstr ""
-"Se a chave de transparência tiver o valor COLOR, esta chave determina a cor "
-"que é utilizada para indicar transparência."
+"Se a chave de transparência tiver o valor COLOR, esta chave determina a cor que é "
+"utilizada para indicar transparência."
 
 #: data/org.gnome.eog.gschema.xml.in:51
 msgid "Use a custom background color"
@@ -765,13 +755,13 @@ msgstr "Utilizar uma cor de fundo personalizada"
 
 #: data/org.gnome.eog.gschema.xml.in:52
 msgid ""
-"If this is active, the color set by the background-color key will be used to "
-"fill the area behind the image. If it is not set, the current GTK+ theme "
-"will determine the fill color."
+"If this is active, the color set by the background-color key will be used to fill "
+"the area behind the image. If it is not set, the current GTK+ theme will determine "
+"the fill color."
 msgstr ""
-"Se ativo, a cor definida pela chave background-color será utilizada para "
-"encher a área por trás da imagem. Se não estiver definida, o tema atual do "
-"GTK+ irá determinar qual a cor de enchimento."
+"Se ativo, a cor definida pela chave background-color será utilizada para encher a "
+"área por trás da imagem. Se não estiver definida, o tema atual do GTK+ irá "
+"determinar qual a cor de enchimento."
 
 #: data/org.gnome.eog.gschema.xml.in:58
 msgid "Loop through the image sequence"
@@ -787,11 +777,11 @@ msgstr "Permitir inicialmente ampliação maior que 100%"
 
 #: data/org.gnome.eog.gschema.xml.in:64
 msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
+"If this is set to FALSE small images will not be stretched to fit into the screen "
+"initially."
 msgstr ""
-"Se definido como FALSO, as imagens pequenas não serão inicialmente esticadas "
-"para ocuparem o ecrã."
+"Se definido como FALSO, as imagens pequenas não serão inicialmente esticadas para "
+"ocuparem o ecrã."
 
 #: data/org.gnome.eog.gschema.xml.in:68
 msgid "Delay in seconds until showing the next image"
@@ -799,12 +789,11 @@ msgstr "Segundos de espera até mostrar a imagem seguinte"
 
 #: data/org.gnome.eog.gschema.xml.in:69
 msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
+"A value greater than 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
-"Um valor maior do que 0 determina os segundos que uma imagem permanece no "
-"ecrã até que a seguinte seja automaticamente mostrada. Zero desativa a "
-"navegação automática."
+"Um valor maior do que 0 determina os segundos que uma imagem permanece no ecrã até "
+"que a seguinte seja automaticamente mostrada. Zero desativa a navegação automática."
 
 #: data/org.gnome.eog.gschema.xml.in:75
 msgid "Show/Hide the window statusbar."
@@ -816,11 +805,10 @@ msgstr "Mostrar/Ocultar o painel de galeria de imagens."
 
 #: data/org.gnome.eog.gschema.xml.in:83
 msgid ""
-"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 "
-"for right."
+"Image gallery pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 for right."
 msgstr ""
-"Posição do painel de galeria de imagens. Definir como 0 para área inferior; "
-"1 para à esquerda; 2 para no topo; 3 para à direita."
+"Posição do painel de galeria de imagens. Definir como 0 para área inferior; 1 para à "
+"esquerda; 2 para no topo; 3 para à direita."
 
 #: data/org.gnome.eog.gschema.xml.in:87
 msgid "Whether the image gallery pane should be resizable."
@@ -844,33 +832,33 @@ msgstr "Mover as imagens para o lixo sem pedir confirmação"
 
 #: data/org.gnome.eog.gschema.xml.in:104
 msgid ""
-"If activated, Eye of GNOME won’t ask for confirmation when moving images to "
-"the trash. It will still ask if any of the files cannot be moved to the "
-"trash and would be deleted instead."
+"If activated, Eye of GNOME won’t ask for confirmation when moving images to the "
+"trash. It will still ask if any of the files cannot be moved to the trash and would "
+"be deleted instead."
 msgstr ""
-"Se ativo, o Olho do GNOME não pedirá confirmação ao mover imagens para o "
-"lixo. No entanto, ainda pedirá caso alguma das imagens não possa ser movida "
-"para o lixo e em alternativa tenha de ser apagada."
+"Se ativo, o Olho do GNOME não pedirá confirmação ao mover imagens para o lixo. No "
+"entanto, ainda pedirá caso alguma das imagens não possa ser movida para o lixo e em "
+"alternativa tenha de ser apagada."
 
 #: data/org.gnome.eog.gschema.xml.in:108
 msgid ""
-"Whether the file chooser should show the user’s pictures folder if no images "
-"are loaded."
+"Whether the file chooser should show the user’s pictures folder if no images are "
+"loaded."
 msgstr ""
-"Se o seletor de ficheiros deverá mostrar a pasta de imagens do utilizador se "
-"não estiverem lidas quaisquer imagens."
+"Se o seletor de ficheiros deverá mostrar a pasta de imagens do utilizador se não "
+"estiverem lidas quaisquer imagens."
 
 #: data/org.gnome.eog.gschema.xml.in:109
 msgid ""
-"If activated and no image is loaded in the active window, the file chooser "
-"will display the user’s pictures folder using the XDG special user "
-"directories. If deactivated or the pictures folder has not been set up, it "
-"will show the current working directory."
+"If activated and no image is loaded in the active window, the file chooser will "
+"display the user’s pictures folder using the XDG special user directories. If "
+"deactivated or the pictures folder has not been set up, it will show the current "
+"working directory."
 msgstr ""
-"Se ativo e não estiver nenhuma imagem lida na janela ativa, o seletor de "
-"ficheiros vai mostrar a pasta de imagens do utilizador recorrendo às pastas "
-"especiais de utilizador XDG. Se desativado ou a pasta de imagens não tiver "
-"sido configurada, mostrará a pasta atual de trabalho."
+"Se ativo e não estiver nenhuma imagem lida na janela ativa, o seletor de ficheiros "
+"vai mostrar a pasta de imagens do utilizador recorrendo às pastas especiais de "
+"utilizador XDG. Se desativado ou a pasta de imagens não tiver sido configurada, "
+"mostrará a pasta atual de trabalho."
 
 #: data/org.gnome.eog.gschema.xml.in:115
 msgid "Active plugins"
@@ -878,36 +866,38 @@ msgstr "Extensões ativas"
 
 #: data/org.gnome.eog.gschema.xml.in:116
 msgid ""
-"List of active plugins. It doesn’t contain the “Location” of the active "
-"plugins. See the .eog-plugin file for obtaining the “Location” of a given "
-"plugin."
+"List of active plugins. It doesn’t contain the “Location” of the active plugins. See "
+"the .eog-plugin file for obtaining the “Location” of a given plugin."
 msgstr ""
-"Lista de extensões ativas. Não contém a \"Localização\" dos extensões "
-"ativas. Consulte o ficheiro .eog-plugin para obter a \"Localização\" de uma "
-"extensão específica."
+"Lista de extensões ativas. Não contém a \"Localização\" dos extensões ativas. "
+"Consulte o ficheiro .eog-plugin para obter a \"Localização\" de uma extensão "
+"específica."
 
 #: data/org.gnome.eog.metainfo.xml.in:9
 msgid ""
-"Eye of GNOME is an image viewer designed for the GNOME desktop. It "
-"integrates with the GTK look and feel of GNOME, and supports many image "
-"formats for viewing single images or images in a collection."
+"Eye of GNOME is an image viewer designed for the GNOME desktop. It integrates with "
+"the GTK look and feel of GNOME, and supports many image formats for viewing single "
+"images or images in a collection."
 msgstr ""
-"O Olho do GNOME é o visualizador de imagens projetado para o ambiente de "
-"trabalho GNOME. Integra-se na aparência GTK do GNOME e suporta muitos "
-"formatos de imagem para visualizar imagens individuais ou numa coleção."
+"O Olho do GNOME é o visualizador de imagens projetado para o ambiente de trabalho "
+"GNOME. Integra-se na aparência GTK do GNOME e suporta muitos formatos de imagem para "
+"visualizar imagens individuais ou numa coleção."
 
 #: data/org.gnome.eog.metainfo.xml.in:14
 msgid ""
-"It also allows to view the images in a fullscreen slideshow mode or set an "
-"image as the desktop wallpaper. It reads the camera tags to automatically "
-"rotate your images in the correct portrait or landscape orientation."
+"It also allows to view the images in a fullscreen slideshow mode or set an image as "
+"the desktop wallpaper. It reads the camera tags to automatically rotate your images "
+"in the correct portrait or landscape orientation."
 msgstr ""
-"Também lhe permite ver imagens no modo de diapositivos em ecrã inteiro ou "
-"definir uma imagem como fundo do ambiente de trabalho. Lê as etiquetas da "
-"câmara para rodar automaticamente as imagens para a sua correta orientação "
-"vertical ou horizontal."
+"Também lhe permite ver imagens no modo de diapositivos em ecrã inteiro ou definir "
+"uma imagem como fundo do ambiente de trabalho. Lê as etiquetas da câmara para rodar "
+"automaticamente as imagens para a sua correta orientação vertical ou horizontal."
 
-#: data/org.gnome.eog.metainfo.xml.in:79
+#: data/org.gnome.eog.metainfo.xml.in:32
+msgid "The main window features a beautiful picture of a bird"
+msgstr "A janela principal apresenta uma bela imagem de um pássaro"
+
+#: data/org.gnome.eog.metainfo.xml.in:88
 msgid "The Eye of GNOME Team"
 msgstr "A equipa do Olho do GNOME"
 
@@ -943,8 +933,7 @@ msgstr "Ecrã inteiro com duplo clique"
 msgid "Activate fullscreen mode with double-click"
 msgstr "Ativar o modo de ecrã inteiro com um clique duplo"
 
-#: plugins/reload/eog-reload-plugin.c:185
-#: plugins/reload/reload.plugin.desktop.in:4
+#: plugins/reload/eog-reload-plugin.c:185 plugins/reload/reload.plugin.desktop.in:4
 msgid "Reload Image"
 msgstr "Recarregar imagem"
 
@@ -953,8 +942,8 @@ msgid "Reload current image"
 msgstr "Recarregar a imagem atual"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69
-#: src/eog-exif-util.c:193 src/eog-exif-util.c:195
+#: plugins/statusbar-date/eog-statusbar-date-plugin.c:69 src/eog-exif-util.c:193
+#: src/eog-exif-util.c:195
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
@@ -982,8 +971,7 @@ msgstr "Guardar as alterações à imagem \"%s\" antes de fechar?"
 #: src/eog-close-confirmation-dialog.c:564
 #, c-format
 msgid "There is %d image with unsaved changes. Save changes before closing?"
-msgid_plural ""
-"There are %d images with unsaved changes. Save changes before closing?"
+msgid_plural "There are %d images with unsaved changes. Save changes before closing?"
 msgstr[0] "Há %d imagem com alterações por guardar. Guardar antes de fechar?"
 msgstr[1] "Há %d imagens com alterações por guardar. Guardar antes de fechar?"
 
@@ -1025,23 +1013,18 @@ msgstr "As localizações indicadas não contêm imagens."
 
 #: src/eog-error-message-area.c:354
 msgid ""
-"This image contains multiple pages. Eye of GNOME displays only the first "
-"page.\n"
+"This image contains multiple pages. Eye of GNOME displays only the first page.\n"
 "Do you want to open the image with the Document Viewer to see all pages?"
 msgstr ""
-"Esta imagem contém várias páginas. O Olho do GNOME apenas mostra a "
-"primeira.\n"
-"Quer abrir a imagem com o Visualizador de Documentos para ver todas as "
-"páginas?"
+"Esta imagem contém várias páginas. O Olho do GNOME apenas mostra a primeira.\n"
+"Quer abrir a imagem com o Visualizador de Documentos para ver todas as páginas?"
 
 #: src/eog-error-message-area.c:359
 msgid ""
-"This image contains multiple pages. Eye of GNOME displays only the first "
-"page.\n"
+"This image contains multiple pages. Eye of GNOME displays only the first page.\n"
 "You may want to install the Document Viewer to see all pages."
 msgstr ""
-"Esta imagem contém várias páginas. O Olho do GNOME apenas mostra a "
-"primeira.\n"
+"Esta imagem contém várias páginas. O Olho do GNOME apenas mostra a primeira.\n"
 "Pode querer instalar o Visualizador de Documentos para ver todas as páginas."
 
 #. TRANSLATORS: This is the actual focal length used when
@@ -1064,11 +1047,10 @@ msgid "File format is unknown or unsupported"
 msgstr "Formato de ficheiro desconhecido ou não suportado"
 
 #: src/eog-file-chooser.c:125
-msgid ""
-"Could not determine a supported writable file format based on the filename."
+msgid "Could not determine a supported writable file format based on the filename."
 msgstr ""
-"Não foi possível determinar um formato de ficheiro gravável suportado com "
-"base no nome do ficheiro."
+"Não foi possível determinar um formato de ficheiro gravável suportado com base no "
+"nome do ficheiro."
 
 #: src/eog-file-chooser.c:126
 msgid "Please try a different file extension like .png or .jpg."
@@ -1381,10 +1363,9 @@ msgstr "Oc_ultar"
 #: src/eog-window.c:952
 #, c-format
 msgid ""
-"The image “%s” has been modified by an external application. Would you like "
-"to reload it?"
-msgstr ""
-"A imagem “%s” foi modificada por uma aplicação externa. Recarregar a imagem?"
+"The image “%s” has been modified by an external application. Would you like to "
+"reload it?"
+msgstr "A imagem “%s” foi modificada por uma aplicação externa. Recarregar a imagem?"
 
 #. Translators: This string is displayed in the statusbar
 #. * while saving images. The tokens are from left to right:
@@ -1426,11 +1407,11 @@ msgstr "_Abrir as preferências de fundo"
 #: src/eog-window.c:2746
 #, c-format
 msgid ""
-"The image “%s” has been set as Desktop Background. Would you like to modify "
-"its appearance?"
+"The image “%s” has been set as Desktop Background. Would you like to modify its "
+"appearance?"
 msgstr ""
-"A imagem “%s” foi definida como fundo do ambiente de trabalho. Modificar a "
-"sua aparência?"
+"A imagem “%s” foi definida como fundo do ambiente de trabalho. Modificar a sua "
+"aparência?"
 
 #: src/eog-window.c:3232
 msgid "Saving image locally…"
@@ -1506,8 +1487,7 @@ msgstr ""
 #: src/eog-window.c:3548
 #, c-format
 msgid ""
-"A trash for “%s” couldn’t be found. Do you want to remove this image "
-"permanently?"
+"A trash for “%s” couldn’t be found. Do you want to remove this image permanently?"
 msgstr ""
 "Não foi encontrada no lixo nenhuma imagem para “%s”. Remover esta imagem "
 "definitivamente?"
@@ -1532,8 +1512,8 @@ msgid ""
 "Some of the selected images can’t be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
 msgstr ""
-"Algumas das imagens selecionadas não podem ser movidas para o lixo e serão "
-"removidas permanentemente. Tem a certeza de que deseja prosseguir?"
+"Algumas das imagens selecionadas não podem ser movidas para o lixo e serão removidas "
+"permanentemente. Tem a certeza de que deseja prosseguir?"
 
 #: src/eog-window.c:3622 src/eog-window.c:3636
 #, c-format
@@ -1583,11 +1563,9 @@ msgid "Start a new instance instead of reusing an existing one"
 msgstr "Iniciar uma nova instância em vez de reutilizar uma existente"
 
 #: src/main.c:67
-msgid ""
-"Open in a single window, if multiple windows are open the first one is used"
+msgid "Open in a single window, if multiple windows are open the first one is used"
 msgstr ""
-"Abrir numa única janela, se forem abertas várias janelas, é utilizada a "
-"primeira"
+"Abrir numa única janela, se forem abertas várias janelas, é utilizada a primeira"
 
 #: src/main.c:69
 msgid "Show the application’s version"
@@ -1602,8 +1580,8 @@ msgstr "[FICHEIRO…]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Executar \"%s --help\" para ver uma lista de todas as opções de linha de "
-"comando disponíveis."
+"Executar \"%s --help\" para ver uma lista de todas as opções de linha de comando "
+"disponíveis."
 
 #~ msgid "Image Viewer"
 #~ msgstr "Visualizador de imagens"
@@ -1692,23 +1670,21 @@ msgstr ""
 #~ msgid "Metadata"
 #~ msgstr "Metadados"
 
-#~ msgid ""
-#~ "Whether the metadata list in the properties dialog should have its own "
-#~ "page."
+#~ msgid "Whether the metadata list in the properties dialog should have its own page."
 #~ msgstr ""
-#~ "Se a lista de metadados no diálogo de propriedades deverá ter a sua "
-#~ "própria página."
+#~ "Se a lista de metadados no diálogo de propriedades deverá ter a sua própria "
+#~ "página."
 
 #~ msgid ""
-#~ "If activated, the detailed metadata list in the properties dialog will be "
-#~ "moved to its own page in the dialog. This should make the dialog more "
-#~ "usable on smaller screens, e.g. as used by netbooks. If disabled, the "
-#~ "widget will be embedded on the “Metadata” page."
+#~ "If activated, the detailed metadata list in the properties dialog will be moved "
+#~ "to its own page in the dialog. This should make the dialog more usable on smaller "
+#~ "screens, e.g. as used by netbooks. If disabled, the widget will be embedded on "
+#~ "the “Metadata” page."
 #~ msgstr ""
-#~ "Se ativo, a lista detalhada de metadados no diálogo de propriedades será "
-#~ "movida para a sua própria página no diálogo. Isto tornará o diálogo mais "
-#~ "utilizável em ecrãs pequenos, por ex. netbooks. Se desativado, o widget "
-#~ "será embutido na página \"Metadados\"."
+#~ "Se ativo, a lista detalhada de metadados no diálogo de propriedades será movida "
+#~ "para a sua própria página no diálogo. Isto tornará o diálogo mais utilizável em "
+#~ "ecrãs pequenos, por ex. netbooks. Se desativado, o widget será embutido na página "
+#~ "\"Metadados\"."
 
 #~ msgid "pixel"
 #~ msgid_plural "pixels"
@@ -1777,14 +1753,13 @@ msgstr ""
 #~ msgstr "Aplicação externa a utilizar para editar imagens"
 
 #~ msgid ""
-#~ "The desktop file name (including the \".desktop\") of the application to "
-#~ "use for editing images (when the \"Edit Image\" toolbar button is "
-#~ "clicked). Set to the empty string to disable this feature."
+#~ "The desktop file name (including the \".desktop\") of the application to use for "
+#~ "editing images (when the \"Edit Image\" toolbar button is clicked). Set to the "
+#~ "empty string to disable this feature."
 #~ msgstr ""
-#~ "O ficheiro 'desktop' (incluíndo o \".desktop\") da aplicação a utilizar "
-#~ "para editar imagens (quando é clicado o botão da barra de ferramentas "
-#~ "\"Editar Imagem\"). Definir como expressão vazia para desativar esta "
-#~ "funcionalidade."
+#~ "O ficheiro 'desktop' (incluíndo o \".desktop\") da aplicação a utilizar para "
+#~ "editar imagens (quando é clicado o botão da barra de ferramentas \"Editar "
+#~ "Imagem\"). Definir como expressão vazia para desativar esta funcionalidade."
 
 #~ msgid "Use \"%s\" to open the selected image"
 #~ msgstr "Utilizar \"%s\" para abrir a imagem selecionada"
@@ -1963,36 +1938,33 @@ msgstr ""
 #~ msgstr "C_onfigurar o Plugin"
 
 #~ msgid ""
-#~ "This program is free software; you can redistribute it and/or modify it "
-#~ "under the terms of the GNU General Public License as published by the "
-#~ "Free Software Foundation; either version 2 of the License, or (at your "
-#~ "option) any later version.\n"
+#~ "This program is free software; you can redistribute it and/or modify it under the "
+#~ "terms of the GNU General Public License as published by the Free Software "
+#~ "Foundation; either version 2 of the License, or (at your option) any later "
+#~ "version.\n"
 #~ msgstr ""
-#~ "Esta aplicação é livre; pode redistribuí-la e/ou alterá-la sob as "
-#~ "condições da Licença Pública Genérica GNU tal como publicada pela Free "
-#~ "Software Foundation; ou a versão 2 da Licença ou (à sua escolha) qualquer "
-#~ "versão posterior.\n"
+#~ "Esta aplicação é livre; pode redistribuí-la e/ou alterá-la sob as condições da "
+#~ "Licença Pública Genérica GNU tal como publicada pela Free Software Foundation; ou "
+#~ "a versão 2 da Licença ou (à sua escolha) qualquer versão posterior.\n"
 
 #~ msgid ""
-#~ "This program is distributed in the hope that it will be useful, but "
-#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General "
-#~ "Public License for more details.\n"
+#~ "This program is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A "
+#~ "PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 #~ msgstr ""
-#~ "Esta aplicação é distribuída na expectativa de que seja útil, mas SEM "
-#~ "QUALQUER GARANTIA; sem mesmo a garantia implícita de COMERCIABILIDADE ou "
-#~ "ADEQUAÇÃO A UM DETERMINADO PROPÓSITO.  Consulte a Licença Pública "
-#~ "Genérica GNU para mais detalhes.\n"
+#~ "Esta aplicação é distribuída na expectativa de que seja útil, mas SEM QUALQUER "
+#~ "GARANTIA; sem mesmo a garantia implícita de COMERCIABILIDADE ou ADEQUAÇÃO A UM "
+#~ "DETERMINADO PROPÓSITO.  Consulte a Licença Pública Genérica GNU para mais "
+#~ "detalhes.\n"
 
 #~ msgid ""
-#~ "You should have received a copy of the GNU General Public License along "
-#~ "with this program; if not, write to the Free Software Foundation, Inc., "
-#~ "59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
+#~ "You should have received a copy of the GNU General Public License along with this "
+#~ "program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - "
+#~ "Suite 330, Boston, MA 02111-1307, USA."
 #~ msgstr ""
-#~ "Deverá ter recebido uma cópia da Licença Pública Genérica GNU juntamente "
-#~ "com esta aplicação; caso contrário, escreva para a Free Software "
-#~ "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA "
-#~ "(em inglês)."
+#~ "Deverá ter recebido uma cópia da Licença Pública Genérica GNU juntamente com esta "
+#~ "aplicação; caso contrário, escreva para a Free Software Foundation, Inc., 59 "
+#~ "Temple Place - Suite 330, Boston, MA 02111-1307, USA (em inglês)."
 
 #~ msgid "Collection"
 #~ msgstr "Catálogo"
@@ -2037,11 +2009,11 @@ msgstr ""
 #~ msgstr "Apenas imagens locais podem ser utilizadas como papel de parede"
 
 #~ msgid ""
-#~ "To be able to set this image as your wallpaper, please save it locally in "
-#~ "your computer"
+#~ "To be able to set this image as your wallpaper, please save it locally in your "
+#~ "computer"
 #~ msgstr ""
-#~ "Para que seja possível definir esta imagem como sendo o seu papel de "
-#~ "parede, grave-a localmente no seu computador"
+#~ "Para que seja possível definir esta imagem como sendo o seu papel de parede, "
+#~ "grave-a localmente no seu computador"
 
 #~ msgid "Page Set_up..."
 #~ msgstr "Config_uração da Página..."
@@ -2062,11 +2034,11 @@ msgstr ""
 #~ msgstr "Abrir imagens numa nova janela"
 
 #~ msgid ""
-#~ "Whether opening an image should create a new window instead of replacing "
-#~ "the image in the current window."
+#~ "Whether opening an image should create a new window instead of replacing the "
+#~ "image in the current window."
 #~ msgstr ""
-#~ "Se abrir uma imagem deverá criar uma nova janela em vez de substituir a "
-#~ "imagem na janela atual."
+#~ "Se abrir uma imagem deverá criar uma nova janela em vez de substituir a imagem na "
+#~ "janela atual."
 
 #~ msgid "    "
 #~ msgstr "    "
@@ -2123,11 +2095,11 @@ msgstr ""
 #~ msgstr "Segundo"
 
 #~ msgid ""
-#~ "To use this function you need the libexif library. Please install libexif "
-#~ "(http://libexif.sf.net) and recompile Eye of GNOME."
+#~ "To use this function you need the libexif library. Please install libexif (http://"
+#~ "libexif.sf.net) and recompile Eye of GNOME."
 #~ msgstr ""
-#~ "Para utilizar esta funcionalidade necessita da biblioteca libexif. "
-#~ "Instale a libexif (http://libexif.sf.net) e recompile o Eye of GNOME."
+#~ "Para utilizar esta funcionalidade necessita da biblioteca libexif. Instale a "
+#~ "libexif (http://libexif.sf.net) e recompile o Eye of GNOME."
 
 #~ msgid "Cancel saving ..."
 #~ msgstr "Cancelar a gravação ..."
@@ -2152,8 +2124,8 @@ msgstr ""
 
 #~ msgid "Please use an appropriate filename suffix or select a file format."
 #~ msgstr ""
-#~ "Utilize um sufixo apropriado no nome do ficheiro ou selecione um formato "
-#~ "de ficheiro."
+#~ "Utilize um sufixo apropriado no nome do ficheiro ou selecione um formato de "
+#~ "ficheiro."
 
 #~ msgid "Reason: %s"
 #~ msgstr "Motivo: %s"
@@ -2203,11 +2175,11 @@ msgstr ""
 #~ msgstr "Ro_dar 180°"
 
 #~ msgid ""
-#~ "If this is set to TRUE images will be switched after number of seconds "
-#~ "determined by the 'full_screen/seconds' key."
+#~ "If this is set to TRUE images will be switched after number of seconds determined "
+#~ "by the 'full_screen/seconds' key."
 #~ msgstr ""
-#~ "Se definido como TRUE, as imagens serão substituídas após o número de "
-#~ "segundos determinado pela chave 'full_screen/seconds'."
+#~ "Se definido como TRUE, as imagens serão substituídas após o número de segundos "
+#~ "determinado pela chave 'full_screen/seconds'."
 
 #~ msgid "_New Window"
 #~ msgstr "_Nova Janela"
@@ -2225,17 +2197,16 @@ msgstr ""
 #~ msgstr "Abrir múltiplas janelas individuais?"
 
 #~ msgid ""
-#~ "You are about to open %i windows simultaneously. Do you want to open them "
-#~ "in a collection instead?"
+#~ "You are about to open %i windows simultaneously. Do you want to open them in a "
+#~ "collection instead?"
 #~ msgid_plural ""
-#~ "You are about to open %i windows simultaneously. Do you want to open them "
-#~ "in a collection instead?"
+#~ "You are about to open %i windows simultaneously. Do you want to open them in a "
+#~ "collection instead?"
 #~ msgstr[0] ""
-#~ "Está prestes a abrir %i janela simultaneamente. Deseja antes abri-la num "
-#~ "catálogo?"
+#~ "Está prestes a abrir %i janela simultaneamente. Deseja antes abri-la num catálogo?"
 #~ msgstr[1] ""
-#~ "Está prestes a abrir %i janelas simultaneamente. Deseja antes abri-las "
-#~ "num catálogo?"
+#~ "Está prestes a abrir %i janelas simultaneamente. Deseja antes abri-las num "
+#~ "catálogo?"
 
 #~ msgid "Single Windows"
 #~ msgstr "Janelas Individuais"
