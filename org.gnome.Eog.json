@@ -47,6 +47,21 @@
             ]
         },
         {
+            "name" : "libhandy",
+            "config-opts" : [
+                "-Dexamples=false",
+                "-Dglade_catalog=disabled"
+            ],
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "tag" : "1.8.3",
+                    "url" : "https://gitlab.gnome.org/GNOME/libhandy.git"
+                }
+            ]
+        },
+        {
             "name" : "libportal",
             "config-opts" : [
                 "--buildtype=debugoptimized",
