@@ -43,9 +43,4 @@ struct _EogApplicationPrivate {
 	PeasExtensionSet *extensions;
 };
 
-
-void              eog_application_screensaver_enable  (EogApplication *application);
-
-void              eog_application_screensaver_disable (EogApplication *application);
-
 G_END_DECLS
