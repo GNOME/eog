@@ -49,10 +49,6 @@ G_GNUC_INTERNAL
 gchar  **eog_util_string_array_make_absolute (gchar **files);
 
 G_GNUC_INTERNAL
-gboolean eog_util_launch_desktop_file        (const gchar *filename,
-					      guint32      user_time);
-
-G_GNUC_INTERNAL
 const    gchar *eog_util_dot_dir             (void);
 
 G_GNUC_INTERNAL
