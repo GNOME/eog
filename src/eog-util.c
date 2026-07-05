@@ -323,7 +323,7 @@ static void migrate_config_folder (const gchar* new_dir)
 char *
 eog_util_filename_get_extension (const char * filename)
 {
-	char *begin, *begin2;
+	const char *begin, *begin2;
 
 	if (filename == NULL) {
 		return NULL;
