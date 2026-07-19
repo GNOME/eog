@@ -154,7 +154,7 @@ eog_metadata_sidebar_update_general_section (EogMetadataSidebar *sidebar)
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-				       0, NULL, NULL);
+				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	if (file_info == NULL) {
 		str = g_strdup (_("Unknown"));
 	} else {

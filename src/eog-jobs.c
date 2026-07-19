@@ -743,7 +743,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 						       G_FILE_ATTRIBUTE_STANDARD_TYPE","
 						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 						       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-						       0, NULL, &error);
+						       G_FILE_QUERY_INFO_NONE, NULL, &error);
 			if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_MOUNTED)) {
 				GMountOperation *operation;
 
@@ -754,7 +754,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 									 NULL))
 					file_info = g_file_query_info (file,
 								       G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-								       0, NULL, NULL);
+								       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
 				g_object_unref (operation);
 			}

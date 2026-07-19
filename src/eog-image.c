@@ -615,7 +615,7 @@ eog_image_get_file_info (EogImage *img,
 				       G_FILE_ATTRIBUTE_STANDARD_SIZE ","
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-				       0, NULL, error);
+				       G_FILE_QUERY_INFO_NONE, NULL, error);
 
 	if (file_info == NULL) {
 		if (bytes)

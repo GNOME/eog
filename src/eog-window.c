@@ -845,7 +845,7 @@ add_file_to_recent_files (GFile *file)
 	file_info = g_file_query_info (file,
 	                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-	                               0, NULL, NULL);
+	                               G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	if (file_info == NULL)
 		return FALSE;
 
@@ -1093,7 +1093,7 @@ eog_window_open_file_chooser_dialog (EogWindow *window)
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-				       0, NULL, NULL);
+				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	content_type = eog_util_get_content_type_with_fallback (file_info);
 
 	dialog = gtk_app_chooser_dialog_new_for_content_type (GTK_WINDOW (window),
@@ -3272,7 +3272,7 @@ eog_window_all_images_trasheable (GList *images)
 		file = eog_image_get_file (image);
 		file_info = g_file_query_info (file,
 					       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH,
-					       0, NULL, NULL);
+					       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 		can_trash = g_file_info_get_attribute_boolean (file_info,
 							       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH);
 
@@ -3394,7 +3394,7 @@ force_image_delete_real (EogImage  *image,
 	/* retrieve some image file information */
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE,
-				       0,
+				       G_FILE_QUERY_INFO_NONE,
 				       NULL,
 				       NULL);
 
@@ -3614,7 +3614,7 @@ move_to_trash_real (EogImage *image, GError **error)
 	file = eog_image_get_file (image);
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH,
-				       0, NULL, NULL);
+				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	if (file_info == NULL) {
 		g_set_error (error,
 			     EOG_WINDOW_ERROR,

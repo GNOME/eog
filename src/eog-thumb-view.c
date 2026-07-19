@@ -501,7 +501,7 @@ thumbview_get_tooltip_string (EogImage *image)
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-				       0, NULL, NULL);
+				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	g_object_unref (file);
 	if (file_info == NULL) {
 		g_free(bytes);

@@ -158,7 +158,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 				       G_FILE_ATTRIBUTE_THUMBNAIL_PATH ","
 				       G_FILE_ATTRIBUTE_THUMBNAILING_FAILED ","
 				       G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
-				       0, NULL, &ioerror);
+				       G_FILE_QUERY_INFO_NONE, NULL, &ioerror);
 	if (file_info == NULL)
 	{
 		set_vfs_error (error, ioerror);

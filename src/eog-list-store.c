@@ -468,7 +468,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-					       0, NULL, NULL);
+					       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
@@ -522,7 +522,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 						       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 						       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-						       0, NULL, NULL);
+						       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 			if (file_info == NULL) {
 				break;
 			}
@@ -542,7 +542,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 		file_info = g_file_query_info (file,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-					       0, NULL, NULL);
+					       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
@@ -559,7 +559,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-					       0, NULL, NULL);
+					       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 		if (file_info == NULL) {
 			break;
 		}
@@ -704,7 +704,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 					       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE","
 					       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-					       0, NULL, NULL);
+					       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 		if (file_info == NULL) {
 			continue;
 		}
@@ -735,7 +735,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 			file = g_file_get_parent (file);
 			file_info = g_file_query_info (file,
 						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
-						       0, NULL, NULL);
+						       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
 			/* If we can't get a file_info,
 			   file_type will stay as G_FILE_TYPE_REGULAR */

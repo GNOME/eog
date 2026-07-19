@@ -330,7 +330,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 				       G_FILE_ATTRIBUTE_STANDARD_SIZE ","
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
 				       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,
-				       0, NULL, NULL);
+				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	g_object_unref (file);
 
 	if ((file_info != NULL) && (priv->thumb_factory != NULL)
