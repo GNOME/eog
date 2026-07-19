@@ -5068,7 +5068,8 @@ eog_window_class_init (EogWindowClass *class)
 							     EOG_TYPE_STARTUP_FLAGS,
 					 		     0,
 					 		     G_PARAM_READWRITE |
-							     G_PARAM_CONSTRUCT_ONLY));
+							     G_PARAM_CONSTRUCT_ONLY |
+							     G_PARAM_STATIC_NAME));
 
 /**
  * EogWindow::prepared:
