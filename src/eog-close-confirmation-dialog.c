@@ -284,7 +284,8 @@ eog_close_confirmation_dialog_class_init (EogCloseConfirmationDialogClass *klass
 							       "Unsaved Images",
 							       "List of Unsaved Images",
 							       (G_PARAM_READWRITE |
-								G_PARAM_CONSTRUCT_ONLY)));
+								G_PARAM_CONSTRUCT_ONLY |
+								G_PARAM_STATIC_STRINGS)));
 }
 
 static GList *
