@@ -280,7 +280,7 @@ eog_close_confirmation_dialog_class_init (EogCloseConfirmationDialogClass *klass
 
 	g_object_class_install_property (gobject_class,
 					 PROP_UNSAVED_IMAGES,
-					 g_param_spec_pointer ("unsaved_images",
+					 g_param_spec_pointer ("unsaved-images",
 							       "Unsaved Images",
 							       "List of Unsaved Images",
 							       (G_PARAM_READWRITE |
@@ -335,7 +335,7 @@ eog_close_confirmation_dialog_new (GtkWindow *parent,
 	g_return_val_if_fail (unsaved_images != NULL, NULL);
 
 	dlg = GTK_WIDGET (g_object_new (EOG_TYPE_CLOSE_CONFIRMATION_DIALOG,
-					"unsaved_images", unsaved_images,
+					"unsaved-images", unsaved_images,
 					"message-type", GTK_MESSAGE_QUESTION,
 					NULL));
 	g_return_val_if_fail (dlg != NULL, NULL);
