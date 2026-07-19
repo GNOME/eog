@@ -232,9 +232,9 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_IMAGE,
 					 g_param_spec_object ("image",
 							      "Image to show in the preview",
-							      "",
+							      NULL,
 							      G_TYPE_OBJECT,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:image-x-align:
@@ -246,11 +246,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_IMAGE_X_ALIGN,
 					 g_param_spec_float ("image-x-align",
 							      "Horizontal alignment for the image",
-							      "",
+							      NULL,
 							      0,
 							      1,
 							      0.5,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:image-y-align:
@@ -262,11 +262,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_IMAGE_Y_ALIGN,
 					 g_param_spec_float ("image-y-align",
 							      "Vertical alignment for the image",
-							      "",
+							      NULL,
 							      0,
 							      1,
 							      0.5,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:image-scale:
@@ -278,11 +278,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_IMAGE_SCALE,
 					 g_param_spec_float ("image-scale",
 							     "The scale for the image",
-							      "",
+							      NULL,
 							      0,
 							      1,
 							      1,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:paper-width:
@@ -293,11 +293,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAPER_WIDTH,
 					 g_param_spec_float ("paper-width",
 							     "Real paper width in inches",
-							     "",
+							     NULL,
 							     0,
 							     100,
 							     8.5,
-							     G_PARAM_READWRITE));
+							     G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:paper-height:
@@ -308,11 +308,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAPER_HEIGHT,
 					 g_param_spec_float ("paper-height",
 							     "Real paper height in inches",
-							      "",
+							      NULL,
 							      0,
 							      200,
 							      11,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:page-left-margin:
@@ -323,11 +323,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAGE_LEFT_MARGIN,
 					 g_param_spec_float ("page-left-margin",
 							     "Left margin of the page in inches",
-							     "",
+							     NULL,
 							     0,
 							     100,
 							     0.25,
-							     G_PARAM_READWRITE));
+							     G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:page-right-margin:
@@ -338,11 +338,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAGE_RIGHT_MARGIN,
 					 g_param_spec_float ("page-right-margin",
 							     "Right margin of the page in inches",
-							      "",
+							      NULL,
 							      0,
 							      200,
 							      0.25,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 /**
  * EogPrintPreview:page-top-margin:
  *
@@ -352,11 +352,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAGE_TOP_MARGIN,
 					 g_param_spec_float ("page-top-margin",
 							     "Top margin of the page in inches",
-							     "",
-							      0,
-							      100,
-							      0.25,
-							      G_PARAM_READWRITE));
+							     NULL,
+							     0,
+							     100,
+							     0.25,
+							     G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview:page-bottom-margin:
@@ -367,11 +367,11 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
 					 PROP_PAGE_BOTTOM_MARGIN,
 					 g_param_spec_float ("page-bottom-margin",
 							     "Bottom margin of the page in inches",
-							      "",
+							      NULL,
 							      0,
 							      200,
 							      0.56,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK));
 
 /**
  * EogPrintPreview::image-moved:
