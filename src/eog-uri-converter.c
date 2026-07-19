@@ -124,13 +124,13 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
                 object_class,
                 PROP_CONVERT_SPACES,
                 g_param_spec_boolean ("convert-spaces", NULL, NULL,
-				      FALSE, G_PARAM_READWRITE));
+				      FALSE, G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
         g_object_class_install_property (
                 object_class,
                 PROP_SPACE_CHARACTER,
                 g_param_spec_char ("space-character", NULL, NULL,
-				   ' ', '~', '_', G_PARAM_READWRITE));
+				   ' ', '~', '_', G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
        g_object_class_install_property (
                 object_class,
@@ -139,7 +139,7 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
                                    0,
                                    G_MAXULONG,
                                    1,
-                                   G_PARAM_READWRITE));
+                                   G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
        g_object_class_install_property (
                 object_class,
@@ -148,7 +148,7 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
 				  1,
 				  G_MAXUINT,
 				  1,
-				  G_PARAM_READWRITE));
+				  G_PARAM_READWRITE | G_PARAM_STATIC_NAME));
 
 
        g_object_class_install_property (
@@ -158,7 +158,7 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
 				  1,
 				  G_MAXUINT,
 				  1,
-				  G_PARAM_WRITABLE));
+				  G_PARAM_WRITABLE | G_PARAM_STATIC_NAME));
 }
 
 GQuark
