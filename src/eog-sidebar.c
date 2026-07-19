@@ -212,7 +212,7 @@ eog_sidebar_class_init (EogSidebarClass *eog_sidebar_class)
 							      "Current page",
 							      "The currently visible page",
 							      GTK_TYPE_WIDGET,
-							      G_PARAM_READWRITE));
+							      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	signals[SIGNAL_PAGE_ADDED] =
 		g_signal_new ("page-added",
