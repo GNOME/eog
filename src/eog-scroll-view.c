@@ -79,11 +79,6 @@ typedef enum {
 	EOG_PAN_ACTION_PREV
 } EogPanAction;
 
-/* Drag 'n Drop */
-static GtkTargetEntry target_table[] = {
-        { "text/uri-list", 0, 0},
-};
-
 enum {
 	PROP_0,
 	PROP_ANTIALIAS_IN,
@@ -1982,9 +1977,10 @@ eog_scroll_view_init (EogScrollView *view)
 	                  G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
 
 	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
-	                     target_table, G_N_ELEMENTS (target_table),
+	                     NULL, 0,
 	                     GDK_ACTION_COPY | GDK_ACTION_MOVE |
 	                     GDK_ACTION_LINK | GDK_ACTION_ASK);
+	gtk_drag_source_add_uri_targets (priv->display);
 	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
 	                  G_CALLBACK (view_on_drag_data_get_cb), view);
 	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
