@@ -420,7 +420,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			eog_metadata_reader_png_get_next_block (priv,
 							    priv->cHRM_chunk,
 							    &i, buf, len,
-							    EMR_READ_ICCP);
+							    EMR_READ_CHRM);
 			break;
 		case EMR_READ_GAMA:
 			/* Extract the gAMA chunk containing the
@@ -440,7 +440,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			eog_metadata_reader_png_get_next_block (priv,
 							    priv->gAMA_chunk,
 							    &i, buf, len,
-							    EMR_READ_ICCP);
+							    EMR_READ_GAMA);
 			break;
 		default:
 			g_assert_not_reached ();
