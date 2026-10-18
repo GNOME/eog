@@ -263,7 +263,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			    priv->size > (22 + 54) && priv->xmp_chunk == NULL) {
 				priv->state = EMR_READ_XMP_ITXT;
 			} else if (memcmp (priv->chunk_name, "iCCP", 4) == 0 &&
-				   priv->icc_chunk == NULL) {
+				   priv->icc_chunk == NULL && priv->size >= 128) {
 				priv->state = EMR_READ_ICCP;
 			} else if (memcmp (priv->chunk_name, "sRGB", 4) == 0 &&
 				   priv->sRGB_chunk == NULL && priv->size == 1) {
@@ -520,7 +520,8 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 
 	priv = emr->priv;
 
-	if (priv->icc_chunk) {
+	/* An iCCP chunk needs to be at least 4 bytes long */
+	if (priv->icc_chunk && priv->icc_len >= 4) {
 		gpointer outbuf;
 		gsize offset = 0;
 		z_stream zstr;
@@ -532,11 +533,15 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		zstr.opaque = Z_NULL;
 
 		/* Skip the name of the ICC profile */
-		while (*((guchar*)priv->icc_chunk+offset) != '\0')
+		while (offset < priv->icc_len
+		       && *((guchar*)priv->icc_chunk+offset) != '\0')
 			offset++;
 		/* Ensure the compression method (deflate) */
-		if (*((guchar*)priv->icc_chunk+(++offset)) != '\0')
+		if (offset >= (priv->icc_len - 2)
+		    || *((guchar*)priv->icc_chunk+(++offset)) != '\0') {
+			eog_debug_message (DEBUG_IMAGE_DATA, "Nonconforming ICC chunk. Ignoring.");
 			return NULL;
+		 }
 		++offset; //offset now points to the start of the deflated data
 
 		/* Prepare the zlib data structure for decompression */
